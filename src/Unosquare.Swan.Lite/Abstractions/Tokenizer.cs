@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents a Tokenizer base class
     /// </summary>
-    public abstract class TokenizerBase
+    public abstract class Tokenizer
     {
         private const char PeriodChar = '.';
         private const char CommaChar = ',';
@@ -34,21 +34,21 @@
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TokenizerBase"/> class.
+        /// Initializes a new instance of the <see cref="Tokenizer"/> class.
         /// </summary>
         /// <param name="input">The input.</param>
-        protected TokenizerBase(string input)
+        protected Tokenizer(string input)
             : this(input, DefaultOperators)
         {
             // placeholder
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TokenizerBase" /> class.
+        /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="operators">The operators.</param>
-        protected TokenizerBase(string input, IEnumerable<Operator> operators)
+        protected Tokenizer(string input, IEnumerable<Operator> operators)
         {
             _operators.AddRange(operators);
             Tokenize(input);
@@ -86,7 +86,7 @@
         /// or
         /// Mismatched parenthesis
         /// </exception>
-        public IEnumerable<Token> ShuntingYard()
+        public virtual IEnumerable<Token> ShuntingYard()
         {
             var stack = new Stack<Token>();
 

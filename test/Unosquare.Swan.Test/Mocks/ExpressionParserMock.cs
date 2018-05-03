@@ -6,7 +6,7 @@
     using System.Linq.Expressions;
     using Abstractions;
 
-    class ExpressionParserMock : ExpressionParserBase
+    class ExpressionParserMock : ExpressionParser
     {
         private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =
             new Dictionary<string, Func<Expression[], Expression>>

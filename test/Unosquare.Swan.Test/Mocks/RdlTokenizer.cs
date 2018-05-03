@@ -4,7 +4,7 @@
     using System.Linq;
     using Abstractions;
 
-    public class RdlTokenizer : TokenizerBase
+    public class RdlTokenizer : Tokenizer
     {
         private const char OpenExpressionChar = '=';
 

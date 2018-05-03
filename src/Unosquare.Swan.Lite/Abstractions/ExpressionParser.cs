@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents a Expression Parser base class
     /// </summary>
-    public abstract class ExpressionParserBase
+    public abstract class ExpressionParser
     {
         /// <summary>
         /// Resolves the expression.
@@ -15,7 +15,7 @@
         /// <typeparam name="T">The type of expression result</typeparam>
         /// <param name="tokens">The tokens.</param>
         /// <returns>The representation of the expression parsed</returns>
-        public T ResolveExpression<T>(IEnumerable<Token> tokens)
+        public virtual T ResolveExpression<T>(IEnumerable<Token> tokens)
         {
             var conversion = Expression.Convert(Parse(tokens), typeof(T));
             return Expression.Lambda<Func<T>>(conversion).Compile()();
@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="tokens">The tokens.</param>
         /// <returns>The final expression</returns>
-        public Expression Parse(IEnumerable<Token> tokens)
+        public virtual Expression Parse(IEnumerable<Token> tokens)
         {
             var expressionStack = new Stack<Expression>();
 
