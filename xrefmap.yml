@@ -1257,6 +1257,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.Tokenizer.Tokenizer
   nameWithType: Tokenizer.Tokenizer
+- uid: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String,System.Int32)
+  name: EvaluateFunctionOrMember(String, Int32)
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String,System.Int32)
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String, System.Int32)
+  nameWithType: Tokenizer.EvaluateFunctionOrMember(String, Int32)
+- uid: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember*
+  name: EvaluateFunctionOrMember
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_
+  commentId: Overload:Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember
+  nameWithType: Tokenizer.EvaluateFunctionOrMember
 - uid: Unosquare.Swan.Abstractions.Tokenizer.ResolveFunctionOrMemberType(System.String)
   name: ResolveFunctionOrMemberType(String)
   href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ResolveFunctionOrMemberType_System_String_
