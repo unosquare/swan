@@ -78,6 +78,14 @@
         public abstract TokenType ResolveFunctionOrMemberType(string input);
 
         /// <summary>
+        /// Evaluates the function or member.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="position">The position.</param>
+        /// <returns><c>true</c> if the input is a valid function or variable, otherwise <c>false</c></returns>
+        public virtual bool EvaluateFunctionOrMember(string input, int position) => false;
+
+        /// <summary>
         /// Shuntings the yard.
         /// </summary>
         /// <returns>Enumerable of the token in in</returns>
@@ -162,7 +170,7 @@
                     continue;
                 }
 
-                if (char.IsLetter(input, i))
+                if (char.IsLetter(input, i) || EvaluateFunctionOrMember(input, i))
                 {
                     i = ExtractFunctionOrMember(input, i);
 
@@ -222,6 +230,7 @@
 
         private int ExtractFunctionOrMember(string input, int i) =>
             ExtractData(input, i, ResolveFunctionOrMemberType, x => x == OpenFuncChar ||
+                                                                    x == CloseFuncChar ||
                                                     x == CommaChar ||
                                                     char.IsWhiteSpace(x));
 
@@ -277,6 +286,39 @@
     }
 
     /// <summary>
+    /// Represents a Token structure
+    /// </summary>
+    public struct Token
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> struct.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        public Token(TokenType type, string value)
+        {
+            Type = type;
+            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
+        }
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        public TokenType Type { get; set; }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; }
+    }
+    
+    /// <summary>
     /// Enums the token types
     /// </summary>
     public enum TokenType
@@ -310,38 +352,5 @@
         /// The operator
         /// </summary>
         Operator
-    }
-
-    /// <summary>
-    /// Represents a Token structure
-    /// </summary>
-    public struct Token
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Token"/> struct.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        public Token(TokenType type, string value)
-        {
-            Type = type;
-            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
-        }
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        public TokenType Type { get; set; }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; }
     }
 }

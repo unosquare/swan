@@ -6,12 +6,11 @@
     using System.Linq.Expressions;
     using Abstractions;
 
-    class ExpressionParserMock : ExpressionParser
+    public class ExpressionParserMock : ExpressionParser
     {
         private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =
             new Dictionary<string, Func<Expression[], Expression>>
             {
-                {"rnd", x => Expression.Constant(new Random().Next())},
                 {
                     "max",
                     x => Expression.Call(null,
@@ -31,16 +30,7 @@
                 {"*", x => Expression.Multiply(x.First(), x.Last())},
                 {"/", x => Expression.Divide(x.First(), x.Last())},
                 {"<", x => Expression.LessThan(x.First(), x.Last())},
-                {">", x => Expression.GreaterThan(x.First(), x.Last())},
-                {"=", x => Expression.Equal(x.First(), x.Last())},
-                {"<=", x => Expression.LessThanOrEqual(x.First(), x.Last())},
-                {">=", x => Expression.GreaterThanOrEqual(x.First(), x.Last())},
-                {"<>", x => Expression.NotEqual(x.First(), x.Last())},
-                {"and", x => Expression.And(x.First(), x.Last())},
-                {"or", x => Expression.Or(x.First(), x.Last())},
-                {"xor", x => Expression.ExclusiveOr(x.First(), x.Last())},
-                {"andalso", x => Expression.AndAlso(x.First(), x.Last())},
-                {"orelse", x => Expression.OrElse(x.First(), x.Last())}
+                {">", x => Expression.GreaterThan(x.First(), x.Last())}
             };
 
         private readonly Dictionary<string, object> _variables;
