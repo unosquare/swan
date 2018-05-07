@@ -1331,6 +1331,12 @@ references:
   commentId: T:Unosquare.Swan.Abstractions.TokenType
   fullName: Unosquare.Swan.Abstractions.TokenType
   nameWithType: TokenType
+- uid: Unosquare.Swan.Abstractions.TokenType.Comma
+  name: Comma
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Comma
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Comma
+  fullName: Unosquare.Swan.Abstractions.TokenType.Comma
+  nameWithType: TokenType.Comma
 - uid: Unosquare.Swan.Abstractions.TokenType.Function
   name: Function
   href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Function
