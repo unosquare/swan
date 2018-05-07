@@ -25,6 +25,10 @@
                         Expression.Convert(x.First(), typeof(int)),
                         Expression.Convert(x.Last(), typeof(int)))
                 },
+                {
+                    "iif",
+                    x => Expression.Condition(x.First(), x.Skip(1).First(), x.Last())
+                },
                 {"+", x => Expression.Add(x.First(), x.Last())},
                 {"-", x => Expression.Subtract(x.First(), x.Last())},
                 {"*", x => Expression.Multiply(x.First(), x.Last())},

@@ -117,6 +117,11 @@
 
                         stack.Push(tok);
                         break;
+                    case TokenType.Comma:
+                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma && stack.Peek().Type != TokenType.Parenthesis))
+                            yield return stack.Pop();
+
+                        break;
                     case TokenType.Parenthesis:
                         if (tok.Value == OpenFuncStr)
                         {
@@ -162,7 +167,13 @@
 
             for (var i = startIndex; i < input.Length; i++)
             {
-                if (char.IsWhiteSpace(input, i) || input[i] == CommaChar) continue;
+                if (char.IsWhiteSpace(input, i)) continue;
+                
+                if (input[i] == CommaChar)
+                {
+                    Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
+                    continue;
+                }
 
                 if (input[i] == StringQuotedChar)
                 {
@@ -351,6 +362,11 @@
         /// <summary>
         /// The operator
         /// </summary>
-        Operator
+        Operator,
+
+        /// <summary>
+        /// The comma
+        /// </summary>
+        Comma
     }
 }

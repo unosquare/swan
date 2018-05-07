@@ -11,6 +11,8 @@
         [TestCase("=MAX(1, 2)", 2)]
         [TestCase("=max(1, 2)", 2)]
         [TestCase("=min(5, 2)", 2)]
+        [TestCase("=iif(5 < 10, 2, 1)", 2)]
+        [TestCase("=iif(5 > 10, 1, 1+1)", 2)]
         public void FunctionCallExpression_ReturnsValue(string input, int expected)
         {
             var result = ExpressionParserMock.ResolveExpression<int>(input);

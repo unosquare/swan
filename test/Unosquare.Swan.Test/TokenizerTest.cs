@@ -39,14 +39,14 @@
             new[] { "(", "1", "+", "1", ")", "*", "1" },
             new[] { TokenType.Parenthesis, TokenType.Number, TokenType.Operator, TokenType.Number, TokenType.Parenthesis, TokenType.Operator, TokenType.Number })]
         [TestCase("=First(1,1)", 
-            new[] { "first", "(", "1", "1", ")" },
-            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Number, TokenType.Number, TokenType.Parenthesis })]
+            new[] { "first", "(", "1", ",", "1", ")" },
+            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Number, TokenType.Comma, TokenType.Number, TokenType.Parenthesis })]
         [TestCase("=First(\"HOLA\",1)", 
-            new[] { "first", "(", "HOLA", "1", ")" },
-            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.String, TokenType.Number, TokenType.Parenthesis })]
+            new[] { "first", "(", "HOLA",  ",", "1", ")" },
+            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.String, TokenType.Comma, TokenType.Number, TokenType.Parenthesis })]
         [TestCase("=First(Second(\"HOLA\",1))", 
-            new[] { "first", "(", "second", "(", "HOLA", "1", ")", ")" },
-            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Function, TokenType.Parenthesis, TokenType.String, TokenType.Number, TokenType.Parenthesis, TokenType.Parenthesis })]
+            new[] { "first", "(", "second", "(", "HOLA", ",",  "1", ")", ")" },
+            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Function, TokenType.Parenthesis, TokenType.String, TokenType.Comma, TokenType.Number, TokenType.Parenthesis, TokenType.Parenthesis })]
         [TestCase("=Global!PageNumber", 
             new[] { "Global!PageNumber" },
             new[] { TokenType.Variable })]
@@ -54,11 +54,11 @@
             new[] { "[Global!PageNumber]" },
             new[] { TokenType.Variable })]
         [TestCase("=First(Global!PageNumber.Value,1)", 
-            new[] { "first", "(", "Global!PageNumber.Value", "1", ")" },
-            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Variable, TokenType.Number, TokenType.Parenthesis })]
+            new[] { "first", "(", "Global!PageNumber.Value", ",",  "1", ")" },
+            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Variable, TokenType.Comma, TokenType.Number, TokenType.Parenthesis })]
         [TestCase("=FormatDateTime(Parameters!DisplayDate.Value, DateFormat.ShortDate)", 
-            new[] { "formatdatetime", "(", "Parameters!DisplayDate.Value", "dateformat.shortdate", ")" },
-            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Variable, TokenType.Function, TokenType.Parenthesis })]
+            new[] { "formatdatetime", "(", "Parameters!DisplayDate.Value",  ",",  "dateformat.shortdate", ")" },
+            new[] { TokenType.Function, TokenType.Parenthesis, TokenType.Variable, TokenType.Comma, TokenType.Function, TokenType.Parenthesis })]
         public void TokenizeExpression_ReturnsListOfTokens(string input, string[] tokens, TokenType[] tokensType)
         {
             var result = new RdlTokenizer(input);
