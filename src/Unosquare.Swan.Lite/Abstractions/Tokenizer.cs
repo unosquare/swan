@@ -18,7 +18,8 @@
 
         private const string OpenFuncStr = "(";
 
-        private static readonly Operator[] DefaultOperators = {
+        private static readonly Operator[] DefaultOperators =
+        {
             new Operator {Name = "=", Precedence = 1},
             new Operator {Name = "!=", Precedence = 1},
             new Operator {Name = ">", Precedence = 2},
@@ -49,11 +50,53 @@
         /// <term>=</term>
         /// <description>1</description>
         /// </item>
-        /// </list>
-        ///
-        /// <list type="bullet">
         /// <item>
-        /// Operator = (Precedence 1)
+        /// <term>!=</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>+</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>&amp;</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>-</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>*</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>\</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>//</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>^</term>
+        /// <description>4</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -139,7 +182,8 @@
                         stack.Push(tok);
                         break;
                     case TokenType.Comma:
-                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma && stack.Peek().Type != TokenType.Parenthesis))
+                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma &&
+                                               stack.Peek().Type != TokenType.Parenthesis))
                             yield return stack.Pop();
 
                         break;
@@ -210,7 +254,8 @@
                 }
 
                 if (char.IsNumber(input, i) || (
-                        input[i] == NegativeChar && ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
+                        input[i] == NegativeChar &&
+                        ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
                 {
                     i = ExtractNumber(input, i);
                     continue;
@@ -263,11 +308,12 @@
         private int ExtractFunctionOrMember(string input, int i) =>
             ExtractData(input, i, ResolveFunctionOrMemberType, x => x == OpenFuncChar ||
                                                                     x == CloseFuncChar ||
-                                                    x == CommaChar ||
-                                                    char.IsWhiteSpace(x));
+                                                                    x == CommaChar ||
+                                                                    char.IsWhiteSpace(x));
 
         private int ExtractNumber(string input, int i) =>
-            ExtractData(input, i, x => TokenType.Number, x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
+            ExtractData(input, i, x => TokenType.Number,
+                x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
 
         private int ExtractString(string input, int i)
         {
