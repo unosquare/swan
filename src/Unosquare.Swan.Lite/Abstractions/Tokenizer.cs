@@ -19,22 +19,43 @@
         private const string OpenFuncStr = "(";
 
         private static readonly Operator[] DefaultOperators = {
-            new Operator {Name = ">", Precedence = 1},
-            new Operator {Name = "<", Precedence = 1},
             new Operator {Name = "=", Precedence = 1},
-            new Operator {Name = "+", Precedence = 1},
-            new Operator {Name = "&", Precedence = 1},
-            new Operator {Name = "-", Precedence = 1},
-            new Operator {Name = "*", Precedence = 2},
-            new Operator {Name = "/", Precedence = 2},
-            new Operator {Name = "\\", Precedence = 2},
-            new Operator {Name = "^", Precedence = 2},
+            new Operator {Name = "!=", Precedence = 1},
+            new Operator {Name = ">", Precedence = 2},
+            new Operator {Name = "<", Precedence = 2},
+            new Operator {Name = ">=", Precedence = 2},
+            new Operator {Name = "<=", Precedence = 2},
+            new Operator {Name = "+", Precedence = 3},
+            new Operator {Name = "&", Precedence = 3},
+            new Operator {Name = "-", Precedence = 3},
+            new Operator {Name = "*", Precedence = 4},
+            new Operator {Name = "/", Precedence = 4},
+            new Operator {Name = "\\", Precedence = 4},
+            new Operator {Name = "^", Precedence = 4},
         };
 
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer"/> class.
+        /// This constructor will use the following default operators:
+        ///
+        /// <list type="table">
+        ///     <listheader>
+        ///     <term>Operator</term>
+        ///     <description>Precendence</description>
+        ///     </listheader>
+        /// <item>
+        /// <term>=</term>
+        /// <description>1</description>
+        /// </item>
+        /// </list>
+        ///
+        /// <list type="bullet">
+        /// <item>
+        /// Operator = (Precedence 1)
+        /// </item>
+        /// </list>
         /// </summary>
         /// <param name="input">The input.</param>
         protected Tokenizer(string input)
@@ -168,7 +189,7 @@
             for (var i = startIndex; i < input.Length; i++)
             {
                 if (char.IsWhiteSpace(input, i)) continue;
-                
+
                 if (input[i] == CommaChar)
                 {
                     Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
@@ -328,7 +349,7 @@
         /// </value>
         public string Value { get; }
     }
-    
+
     /// <summary>
     /// Enums the token types
     /// </summary>
