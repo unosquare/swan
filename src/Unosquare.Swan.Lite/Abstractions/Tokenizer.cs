@@ -87,7 +87,7 @@
         /// <description>4</description>
         /// </item>
         /// <item>
-        /// <term>&#92;</term>
+        /// <term>(backslash)</term>
         /// <description>4</description>
         /// </item>
         /// <item>
