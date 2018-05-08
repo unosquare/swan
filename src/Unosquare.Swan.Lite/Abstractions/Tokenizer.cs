@@ -18,23 +18,6 @@
 
         private const string OpenFuncStr = "(";
 
-        private static readonly Operator[] DefaultOperators =
-        {
-            new Operator {Name = "=", Precedence = 1},
-            new Operator {Name = "!=", Precedence = 1},
-            new Operator {Name = ">", Precedence = 2},
-            new Operator {Name = "<", Precedence = 2},
-            new Operator {Name = ">=", Precedence = 2},
-            new Operator {Name = "<=", Precedence = 2},
-            new Operator {Name = "+", Precedence = 3},
-            new Operator {Name = "&", Precedence = 3},
-            new Operator {Name = "-", Precedence = 3},
-            new Operator {Name = "*", Precedence = 4},
-            new Operator {Name = "/", Precedence = 4},
-            new Operator {Name = "\\", Precedence = 4},
-            new Operator {Name = "^", Precedence = 4},
-        };
-
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
@@ -102,16 +85,16 @@
         /// </summary>
         /// <param name="input">The input.</param>
         protected Tokenizer(string input)
-            : this(input, DefaultOperators)
         {
-            // placeholder
+            _operators.AddRange(GetDefaultOperators());
+            Tokenize(input);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="operators">The operators.</param>
+        /// <param name="operators">The operators to use.</param>
         protected Tokenizer(string input, IEnumerable<Operator> operators)
         {
             _operators.AddRange(operators);
@@ -148,6 +131,27 @@
         /// <param name="position">The position.</param>
         /// <returns><c>true</c> if the input is a valid function or variable, otherwise <c>false</c></returns>
         public virtual bool EvaluateFunctionOrMember(string input, int position) => false;
+
+        /// <summary>
+        /// Gets the default operators.
+        /// </summary>
+        /// <returns>An array with the operators to use for the tokenizer.</returns>
+        public virtual Operator[] GetDefaultOperators() => new[] 
+        {
+            new Operator {Name = "=", Precedence = 1},
+            new Operator {Name = "!=", Precedence = 1},
+            new Operator {Name = ">", Precedence = 2},
+            new Operator {Name = "<", Precedence = 2},
+            new Operator {Name = ">=", Precedence = 2},
+            new Operator {Name = "<=", Precedence = 2},
+            new Operator {Name = "+", Precedence = 3},
+            new Operator {Name = "&", Precedence = 3},
+            new Operator {Name = "-", Precedence = 3},
+            new Operator {Name = "*", Precedence = 4},
+            new Operator {Name = "/", Precedence = 4},
+            new Operator {Name = "\\", Precedence = 4},
+            new Operator {Name = "^", Precedence = 4},
+        };
 
         /// <summary>
         /// Shuntings the yard.
