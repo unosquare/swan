@@ -5098,6 +5098,12 @@ references:
   commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)
   fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String, System.String, System.Threading.CancellationToken)
   nameWithType: ProcessRunner.GetProcessOutputAsync(String, String, CancellationToken)
+- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.Threading.CancellationToken)
+  name: GetProcessOutputAsync(String, CancellationToken)
+  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessOutputAsync(String, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync*
   name: GetProcessOutputAsync
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_
