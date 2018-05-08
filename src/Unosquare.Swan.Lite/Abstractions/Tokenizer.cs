@@ -87,11 +87,11 @@
         /// <description>4</description>
         /// </item>
         /// <item>
-        /// <term>\</term>
+        /// <term>&#92;</term>
         /// <description>4</description>
         /// </item>
         /// <item>
-        /// <term>//</term>
+        /// <term>/</term>
         /// <description>4</description>
         /// </item>
         /// <item>
