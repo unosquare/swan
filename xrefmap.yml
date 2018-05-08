@@ -1270,6 +1270,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember
   nameWithType: Tokenizer.EvaluateFunctionOrMember
+- uid: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  name: GetDefaultOperators()
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators
+  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators()
+  nameWithType: Tokenizer.GetDefaultOperators()
+- uid: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators*
+  name: GetDefaultOperators
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators_
+  commentId: Overload:Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  nameWithType: Tokenizer.GetDefaultOperators
 - uid: Unosquare.Swan.Abstractions.Tokenizer.ResolveFunctionOrMemberType(System.String)
   name: ResolveFunctionOrMemberType(String)
   href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ResolveFunctionOrMemberType_System_String_

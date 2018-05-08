@@ -182,7 +182,7 @@ This constructor will use the following default operators:</p>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.Operator.html">Operator</a>&gt;</td>
         <td><span class="parametername">operators</span></td>
-        <td><p>The operators.</p>
+        <td><p>The operators to use.</p>
 </td>
       </tr>
     </tbody>
@@ -265,6 +265,33 @@ This constructor will use the following default operators:</p>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><p><code>true</code> if the input is a valid function or variable, otherwise <code>false</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators" data-uid="Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators">GetDefaultOperators()</h4>
+  <div class="markdown level1 summary"><p>Gets the default operators.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Operator[] GetDefaultOperators()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Abstractions.Operator.html">Operator</a>[]</td>
+        <td><p>An array with the operators to use for the tokenizer.</p>
 </td>
       </tr>
     </tbody>
