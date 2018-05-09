@@ -18,36 +18,83 @@
 
         private const string OpenFuncStr = "(";
 
-        private static readonly Operator[] DefaultOperators = {
-            new Operator {Name = ">", Precedence = 1},
-            new Operator {Name = "<", Precedence = 1},
-            new Operator {Name = "=", Precedence = 1},
-            new Operator {Name = "+", Precedence = 1},
-            new Operator {Name = "&", Precedence = 1},
-            new Operator {Name = "-", Precedence = 1},
-            new Operator {Name = "*", Precedence = 2},
-            new Operator {Name = "/", Precedence = 2},
-            new Operator {Name = "\\", Precedence = 2},
-            new Operator {Name = "^", Precedence = 2},
-        };
-
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer"/> class.
+        /// This constructor will use the following default operators:
+        ///
+        /// <list type="table">
+        ///     <listheader>
+        ///     <term>Operator</term>
+        ///     <description>Precendence</description>
+        ///     </listheader>
+        /// <item>
+        /// <term>=</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>!=</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>+</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>&amp;</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>-</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>*</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>(backslash)</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>/</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>^</term>
+        /// <description>4</description>
+        /// </item>
+        /// </list>
         /// </summary>
         /// <param name="input">The input.</param>
         protected Tokenizer(string input)
-            : this(input, DefaultOperators)
         {
-            // placeholder
+            _operators.AddRange(GetDefaultOperators());
+            Tokenize(input);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="operators">The operators.</param>
+        /// <param name="operators">The operators to use.</param>
         protected Tokenizer(string input, IEnumerable<Operator> operators)
         {
             _operators.AddRange(operators);
@@ -86,6 +133,27 @@
         public virtual bool EvaluateFunctionOrMember(string input, int position) => false;
 
         /// <summary>
+        /// Gets the default operators.
+        /// </summary>
+        /// <returns>An array with the operators to use for the tokenizer.</returns>
+        public virtual Operator[] GetDefaultOperators() => new[] 
+        {
+            new Operator {Name = "=", Precedence = 1},
+            new Operator {Name = "!=", Precedence = 1},
+            new Operator {Name = ">", Precedence = 2},
+            new Operator {Name = "<", Precedence = 2},
+            new Operator {Name = ">=", Precedence = 2},
+            new Operator {Name = "<=", Precedence = 2},
+            new Operator {Name = "+", Precedence = 3},
+            new Operator {Name = "&", Precedence = 3},
+            new Operator {Name = "-", Precedence = 3},
+            new Operator {Name = "*", Precedence = 4},
+            new Operator {Name = "/", Precedence = 4},
+            new Operator {Name = "\\", Precedence = 4},
+            new Operator {Name = "^", Precedence = 4},
+        };
+
+        /// <summary>
         /// Shuntings the yard.
         /// </summary>
         /// <returns>Enumerable of the token in in</returns>
@@ -118,7 +186,8 @@
                         stack.Push(tok);
                         break;
                     case TokenType.Comma:
-                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma && stack.Peek().Type != TokenType.Parenthesis))
+                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma &&
+                                               stack.Peek().Type != TokenType.Parenthesis))
                             yield return stack.Pop();
 
                         break;
@@ -168,7 +237,7 @@
             for (var i = startIndex; i < input.Length; i++)
             {
                 if (char.IsWhiteSpace(input, i)) continue;
-                
+
                 if (input[i] == CommaChar)
                 {
                     Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
@@ -189,7 +258,8 @@
                 }
 
                 if (char.IsNumber(input, i) || (
-                        input[i] == NegativeChar && ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
+                        input[i] == NegativeChar &&
+                        ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
                 {
                     i = ExtractNumber(input, i);
                     continue;
@@ -242,11 +312,12 @@
         private int ExtractFunctionOrMember(string input, int i) =>
             ExtractData(input, i, ResolveFunctionOrMemberType, x => x == OpenFuncChar ||
                                                                     x == CloseFuncChar ||
-                                                    x == CommaChar ||
-                                                    char.IsWhiteSpace(x));
+                                                                    x == CommaChar ||
+                                                                    char.IsWhiteSpace(x));
 
         private int ExtractNumber(string input, int i) =>
-            ExtractData(input, i, x => TokenType.Number, x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
+            ExtractData(input, i, x => TokenType.Number,
+                x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
 
         private int ExtractString(string input, int i)
         {
@@ -328,7 +399,7 @@
         /// </value>
         public string Value { get; }
     }
-    
+
     /// <summary>
     /// Enums the token types
     /// </summary>
