@@ -66,25 +66,25 @@
             Assert.AreEqual(tokensType, result.Tokens.Select(x => x.Type));
         }
 
-        [TestCase("HOLA", new[] { "HOLA" })]
-        [TestCase("=\"HOLA\"", new[] { "HOLA" })]
-        [TestCase("=1+1", new[] { "1", "1", "+" })]
-        [TestCase("= 1 + 1", new[] { "1", "1", "+" })]
-        [TestCase("=1+1+1", new[] { "1", "1", "+", "1", "+" })]
-        [TestCase("=10 mod 10", new[] { "10", "10", "mod" })]
-        [TestCase("=10 >= 10", new[] { "10", "10", ">=" })]
-        [TestCase("=(1+1)*1", new[] { "1", "1", "+", "1", "*" })]
-        [TestCase("=First(1,1)", new[] { "1", "1", "first" })]
-        [TestCase("=First(\"HOLA\",1)", new[] { "HOLA", "1", "first" })]
-        [TestCase("=First(Second(\"HOLA\",1))", new[] { "HOLA", "1", "second", "first" })]
-        [TestCase("=Global!PageNumber", new[] { "Global!PageNumber" })]
-        [TestCase("=[Global!PageNumber]", new[] { "[Global!PageNumber]" })]
-        [TestCase("=First(Global!PageNumber.Value,1)", new[] { "Global!PageNumber.Value", "1", "first" })]
-        [TestCase("=FormatDateTime(Parameters!DisplayDate.Value, DateFormat.ShortDate)", new[] { "Parameters!DisplayDate.Value", "dateformat.shortdate", "formatdatetime" })]
-        public void ShuntingStack_ReturnsListOfTokens(string input, string[] tokens)
+        [TestCase("HOLA", new[] { "HOLA" }, true)]
+        [TestCase("=\"HOLA\"", new[] { "HOLA" }, true)]
+        [TestCase("=1+1", new[] { "1", "1", "+" }, true)]
+        [TestCase("= 1 + 1", new[] { "1", "1", "+" }, true)]
+        [TestCase("=1+1+1", new[] { "1", "1", "+", "1", "+" }, true)]
+        [TestCase("=10 mod 10", new[] { "10", "10", "mod" }, true)]
+        [TestCase("=10 >= 10", new[] { "10", "10", ">=" }, true)]
+        [TestCase("=(1+1)*1", new[] { "1", "1", "+", "1", "*" }, true)]
+        [TestCase("=First(1,1)", new[] { "1", "1", ")", "first" }, true)]
+        [TestCase("=First(\"HOLA\",1)", new[] { "HOLA", "1", "first" }, false)]
+        [TestCase("=First(Second(\"HOLA\",1))", new[] { "HOLA", "1", ")", "second", ")", "first" }, true)]
+        [TestCase("=Global!PageNumber", new[] { "Global!PageNumber" }, true)]
+        [TestCase("=[Global!PageNumber]", new[] { "[Global!PageNumber]" }, true)]
+        [TestCase("=First(Global!PageNumber.Value,1)", new[] { "Global!PageNumber.Value", "1", "first" }, false)]
+        [TestCase("=FormatDateTime(Parameters!DisplayDate.Value, DateFormat.ShortDate)", new[] { "Parameters!DisplayDate.Value", "dateformat.shortdate",")", "formatdatetime" }, true)]
+        public void ShuntingStack_ReturnsListOfTokens(string input, string[] tokens, bool includeStopper)
         {
             var result = new RdlTokenizer(input);
-            Assert.AreEqual(tokens, result.ShuntingYard().Select(x => x.Value));
+            Assert.AreEqual(tokens, result.ShuntingYard(includeStopper).Select(x => x.Value));
         }
     }
 }

@@ -156,13 +156,16 @@
         /// <summary>
         /// Shuntings the yard.
         /// </summary>
-        /// <returns>Enumerable of the token in in</returns>
-        /// <exception cref="Exception">
+        /// <param name="includeFunctionStopper">if set to <c>true</c> [include function stopper] (Token type <c>Wall</c>).</param>
+        /// <returns>
+        /// Enumerable of the token in in
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
         /// Wrong token
         /// or
         /// Mismatched parenthesis
         /// </exception>
-        public virtual IEnumerable<Token> ShuntingYard()
+        public virtual IEnumerable<Token> ShuntingYard(bool includeFunctionStopper = true)
         {
             var stack = new Stack<Token>();
 
@@ -204,7 +207,12 @@
                             stack.Pop();
 
                             if (stack.Any() && stack.Peek().Type == TokenType.Function)
+                            {
+                                if (includeFunctionStopper)
+                                    yield return new Token(TokenType.Wall, tok.Value);
+
                                 yield return stack.Pop();
+                            }
                         }
 
                         break;
@@ -438,6 +446,11 @@
         /// <summary>
         /// The comma
         /// </summary>
-        Comma
+        Comma,
+
+        /// <summary>
+        /// The wall, used to specified the end of argument list of the following function
+        /// </summary>
+        Wall,
     }
 }
