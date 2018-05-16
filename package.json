@@ -9,8 +9,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "ldapjs": "^1.0.2",
-    "maildev": "^1.0.0-rc3",
-    "nodemailer": "^4.6.4"
+    "maildev": "^1.0.0-rc3"
   },
   "devDependencies": {},
   "scripts": {
