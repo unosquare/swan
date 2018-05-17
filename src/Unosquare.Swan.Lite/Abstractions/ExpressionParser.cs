@@ -33,6 +33,9 @@
 
             foreach (var token in tokens)
             {
+                if (expressionStack.Any() == false)
+                    expressionStack.Add(new Stack<Expression>());
+
                 switch (token.Type)
                 {
                     case TokenType.Wall:
