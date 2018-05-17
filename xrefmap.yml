@@ -1257,6 +1257,32 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.Tokenizer.Tokenizer
   nameWithType: Tokenizer.Tokenizer
+- uid: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String,System.Int32)
+  name: EvaluateFunctionOrMember(String, Int32)
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String,System.Int32)
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String, System.Int32)
+  nameWithType: Tokenizer.EvaluateFunctionOrMember(String, Int32)
+- uid: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember*
+  name: EvaluateFunctionOrMember
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_
+  commentId: Overload:Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember
+  nameWithType: Tokenizer.EvaluateFunctionOrMember
+- uid: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  name: GetDefaultOperators()
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators
+  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators()
+  nameWithType: Tokenizer.GetDefaultOperators()
+- uid: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators*
+  name: GetDefaultOperators
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators_
+  commentId: Overload:Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators
+  nameWithType: Tokenizer.GetDefaultOperators
 - uid: Unosquare.Swan.Abstractions.Tokenizer.ResolveFunctionOrMemberType(System.String)
   name: ResolveFunctionOrMemberType(String)
   href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ResolveFunctionOrMemberType_System_String_
@@ -1270,12 +1296,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.Tokenizer.ResolveFunctionOrMemberType
   nameWithType: Tokenizer.ResolveFunctionOrMemberType
-- uid: Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard
-  name: ShuntingYard()
-  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard
-  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard
-  fullName: Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard()
-  nameWithType: Tokenizer.ShuntingYard()
+- uid: Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard(System.Boolean)
+  name: ShuntingYard(Boolean)
+  href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard_System_Boolean_
+  commentId: M:Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard(System.Boolean)
+  fullName: Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard(System.Boolean)
+  nameWithType: Tokenizer.ShuntingYard(Boolean)
 - uid: Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard*
   name: ShuntingYard
   href: api/Unosquare.Swan.Abstractions.Tokenizer.html#Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard_
@@ -1318,6 +1344,12 @@ references:
   commentId: T:Unosquare.Swan.Abstractions.TokenType
   fullName: Unosquare.Swan.Abstractions.TokenType
   nameWithType: TokenType
+- uid: Unosquare.Swan.Abstractions.TokenType.Comma
+  name: Comma
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Comma
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Comma
+  fullName: Unosquare.Swan.Abstractions.TokenType.Comma
+  nameWithType: TokenType.Comma
 - uid: Unosquare.Swan.Abstractions.TokenType.Function
   name: Function
   href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Function
@@ -1354,6 +1386,12 @@ references:
   commentId: F:Unosquare.Swan.Abstractions.TokenType.Variable
   fullName: Unosquare.Swan.Abstractions.TokenType.Variable
   nameWithType: TokenType.Variable
+- uid: Unosquare.Swan.Abstractions.TokenType.Wall
+  name: Wall
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Wall
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Wall
+  fullName: Unosquare.Swan.Abstractions.TokenType.Wall
+  nameWithType: TokenType.Wall
 - uid: Unosquare.Swan.AppWorkerState
   name: AppWorkerState
   href: api/Unosquare.Swan.AppWorkerState.html
@@ -5066,6 +5104,12 @@ references:
   commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)
   fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String, System.String, System.Threading.CancellationToken)
   nameWithType: ProcessRunner.GetProcessOutputAsync(String, String, CancellationToken)
+- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.Threading.CancellationToken)
+  name: GetProcessOutputAsync(String, CancellationToken)
+  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessOutputAsync(String, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync*
   name: GetProcessOutputAsync
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_
