@@ -197,6 +197,12 @@
                     case TokenType.Parenthesis:
                         if (tok.Value == OpenFuncStr)
                         {
+                            if (stack.Any() && stack.Peek().Type == TokenType.Function)
+                            {
+                                if (includeFunctionStopper)
+                                    yield return new Token(TokenType.Wall, tok.Value);
+                            }
+
                             stack.Push(tok);
                         }
                         else
@@ -208,9 +214,6 @@
 
                             if (stack.Any() && stack.Peek().Type == TokenType.Function)
                             {
-                                if (includeFunctionStopper)
-                                    yield return new Token(TokenType.Wall, tok.Value);
-
                                 yield return stack.Pop();
                             }
                         }
