@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SnmpClient
+    <title>Class MethodInfoCache
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SnmpClient
+    <meta name="title" content="Class MethodInfoCache
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.36.0.0">
     
@@ -77,18 +77,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.SnmpClient">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Reflection.MethodInfoCache">
   
   
-  <h1 id="Unosquare_Swan_Networking_SnmpClient" data-uid="Unosquare.Swan.Networking.SnmpClient" class="text-break">Class SnmpClient
+  <h1 id="Unosquare_Swan_Reflection_MethodInfoCache" data-uid="Unosquare.Swan.Reflection.MethodInfoCache" class="text-break">Class MethodInfoCache
   </h1>
-  <div class="markdown level0 summary"><p>Represents a little SNMP client based on <a href="http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm">http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm</a></p>
+  <div class="markdown level0 summary"><p>Represents a Method Info Cache</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">SnmpClient</span></div>
+    <div class="level1"><span class="xref">MethodInfoCache</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,23 +114,23 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.html">Unosquare.Swan.Networking</a></h6>
-  <h5 id="Unosquare_Swan_Networking_SnmpClient_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
+  <h5 id="Unosquare_Swan_Reflection_MethodInfoCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SnmpClient</code></pre>
+    <pre><code class="lang-csharp hljs">public static class MethodInfoCache</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_Discover_" data-uid="Unosquare.Swan.Networking.SnmpClient.Discover*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_Discover_System_Int32_" data-uid="Unosquare.Swan.Networking.SnmpClient.Discover(System.Int32)">Discover(Int32)</h4>
-  <div class="markdown level1 summary"><p>Discovers the specified SNMP time out.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Contains_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Contains*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Contains_System_String_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Contains(System.String)">Contains(String)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPEndPoint[] Discover(int snmpTimeOut = 6000)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool Contains(string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,9 +143,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">snmpTimeOut</span></td>
-        <td><p>The SNMP time out.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The type.</p>
 </td>
       </tr>
     </tbody>
@@ -160,22 +160,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPEndPoint</span>[]</td>
-        <td><p>An array of network endpoint as an IP address and a port number</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if [contains] [the specified type]; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_Get_" data-uid="Unosquare.Swan.Networking.SnmpClient.Get*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_Get_IPEndPoint_System_String_" data-uid="Unosquare.Swan.Networking.SnmpClient.Get(IPEndPoint,System.String)">Get(IPEndPoint, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the specified host.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_System_Type_System_String_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve(System.Type,System.String)">Retrieve(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] Get(IPEndPoint host, string mibstring)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve(Type type, string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -188,15 +188,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPEndPoint</span></td>
-        <td><span class="parametername">host</span></td>
-        <td><p>The host.</p>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">mibstring</span></td>
-        <td><p>The mibstring.</p>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
 </td>
       </tr>
     </tbody>
@@ -211,22 +211,40 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><p>A byte array containing the results of encoding the specified set of characters</p>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The cached MethodInfo</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>type
+or
+name</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_Get_" data-uid="Unosquare.Swan.Networking.SnmpClient.Get*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_Get_System_String_IPEndPoint_System_String_System_String_" data-uid="Unosquare.Swan.Networking.SnmpClient.Get(System.String,IPEndPoint,System.String,System.String)">Get(String, IPEndPoint, String, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the specified request.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_System_Type_System_String_System_String_System_Type___" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve(System.Type,System.String,System.String,System.Type[])">Retrieve(Type, String, String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Retrieves the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve(Type type, string name, string alias, params Type[] types)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -239,27 +257,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">request</span></td>
-        <td><p>The request.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPEndPoint</span></td>
-        <td><span class="parametername">host</span></td>
-        <td><p>The host.</p>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">community</span></td>
-        <td><p>The community.</p>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">mibstring</span></td>
-        <td><p>The mibstring.</p>
+        <td><span class="parametername">alias</span></td>
+        <td><p>The alias.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The types.</p>
 </td>
       </tr>
     </tbody>
@@ -274,22 +292,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><p>A byte array containing the results of encoding the specified set of characters</p>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The cached MethodInfo</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_GetPublicName_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetPublicName*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_GetPublicName_IPEndPoint_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetPublicName(IPEndPoint)">GetPublicName(IPEndPoint)</h4>
-  <div class="markdown level1 summary"><p>Gets the name of the public.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_System_Type_System_String_System_Type___" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve(System.Type,System.String,System.Type[])">Retrieve(Type, String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Retrieves the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetPublicName(IPEndPoint host)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve(Type type, string name, params Type[] types)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -302,9 +320,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPEndPoint</span></td>
-        <td><span class="parametername">host</span></td>
-        <td><p>The host.</p>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The types.</p>
 </td>
       </tr>
     </tbody>
@@ -319,23 +349,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>A string that contains the results of decoding the specified sequence 
-of bytes ref=GetString&quot;</p>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>An array of the properties stored for the specified type</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_GetString_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetString*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_GetString_IPEndPoint_System_String_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetString(IPEndPoint,System.String)">GetString(IPEndPoint, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the string.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve__1_System_String_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve``1(System.String)">Retrieve&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the specified name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetString(IPEndPoint host, string mibstring)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve&lt;T&gt;(string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -348,15 +377,9 @@ of bytes ref=GetString&quot;</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPEndPoint</span></td>
-        <td><span class="parametername">host</span></td>
-        <td><p>The host.</p>
-</td>
-      </tr>
-      <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">mibstring</span></td>
-        <td><p>The mibstring.</p>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
 </td>
       </tr>
     </tbody>
@@ -371,22 +394,40 @@ of bytes ref=GetString&quot;</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that contains the results of decoding the specified sequence of bytes</p>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The cached MethodInfo</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of type</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_SnmpClient_GetUptime_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetUptime*"></a>
-  <h4 id="Unosquare_Swan_Networking_SnmpClient_GetUptime_IPEndPoint_System_String_" data-uid="Unosquare.Swan.Networking.SnmpClient.GetUptime(IPEndPoint,System.String)">GetUptime(IPEndPoint, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the uptime.</p>
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve__1_System_String_System_String_System_Type___" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve``1(System.String,System.String,System.Type[])">Retrieve&lt;T&gt;(String, String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
+If the properties are not available, it calls the factory method to retrieve them
+and returns them as an array of PropertyInfo</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TimeSpan GetUptime(IPEndPoint host, string mibstring = &quot;1.3.6.1.2.1.1.3.0&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve&lt;T&gt;(string name, string alias, params Type[] types)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -399,15 +440,21 @@ of bytes ref=GetString&quot;</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPEndPoint</span></td>
-        <td><span class="parametername">host</span></td>
-        <td><p>The host.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">mibstring</span></td>
-        <td><p>The mibstring.</p>
+        <td><span class="parametername">alias</span></td>
+        <td><p>The alias.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The types.</p>
 </td>
       </tr>
     </tbody>
@@ -422,9 +469,114 @@ of bytes ref=GetString&quot;</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.TimeSpan</span></td>
-        <td><p>A time interval that represents a specified number of seconds, 
-where the specification is accurate to the nearest millisecond</p>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The cached MethodInfo</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>name
+or
+factory</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_MethodInfoCache_Retrieve__1_System_String_System_Type___" data-uid="Unosquare.Swan.Reflection.MethodInfoCache.Retrieve``1(System.String,System.Type[])">Retrieve&lt;T&gt;(String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Retrieves the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MethodInfo Retrieve&lt;T&gt;(string name, params Type[] types)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The cached MethodInfo</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of type</p>
 </td>
       </tr>
     </tbody>
