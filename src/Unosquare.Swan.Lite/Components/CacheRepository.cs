@@ -66,7 +66,6 @@
         /// and returns them as an array of PropertyInfo
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="factory">The factory.</param>
         /// <returns>
         /// An array of the properties stored for the specified type
         /// </returns>

@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan.Test.MethodInfoCacheTest
 {
     using NUnit.Framework;
-    using Reflection;
     using Mocks;
 
     [TestFixture]

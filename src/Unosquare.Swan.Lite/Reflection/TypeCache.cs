@@ -65,23 +65,19 @@
         /// </returns>
         public IEnumerable<PropertyInfo> RetrieveAllProperties(Type type, bool onlyPublic = false)
             => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type) : GetAllPropertiesFunc(type));
-        
-        internal static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
 
-            return () => type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(p => p.CanRead || p.CanWrite)
-                .ToArray();
-        }
+        internal static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         
         internal static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.Instance);
+        
+        internal static Func<IEnumerable<PropertyInfo>> GetPropertiesFunc(Type type, BindingFlags flags)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return () => type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            return () => type.GetProperties(flags)
                 .Where(p => p.CanRead || p.CanWrite)
                 .ToArray();
         }
