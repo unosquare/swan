@@ -2815,15 +2815,14 @@ references:
   fullName.vb: Unosquare.Swan.Components.CacheRepository(Of TType, T).Item
   nameWithType: CacheRepository<TType, T>.Item
   nameWithType.vb: CacheRepository(Of TType, T).Item
-- uid: Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})
-  name: Retrieve(TType, Func<IEnumerable<T>>)
-  href: api/Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___
-  commentId: M:Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})
-  name.vb: Retrieve(TType, Func(Of IEnumerable(Of T)))
-  fullName: Unosquare.Swan.Components.CacheRepository<TType, T>.Retrieve(TType, System.Func<System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Unosquare.Swan.Components.CacheRepository(Of TType, T).Retrieve(TType, System.Func(Of System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: CacheRepository<TType, T>.Retrieve(TType, Func<IEnumerable<T>>)
-  nameWithType.vb: CacheRepository(Of TType, T).Retrieve(TType, Func(Of IEnumerable(Of T)))
+- uid: Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0)
+  name: Retrieve(TType)
+  href: api/Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_
+  commentId: M:Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0)
+  fullName: Unosquare.Swan.Components.CacheRepository<TType, T>.Retrieve(TType)
+  fullName.vb: Unosquare.Swan.Components.CacheRepository(Of TType, T).Retrieve(TType)
+  nameWithType: CacheRepository<TType, T>.Retrieve(TType)
+  nameWithType.vb: CacheRepository(Of TType, T).Retrieve(TType)
 - uid: Unosquare.Swan.Components.CacheRepository`2.Retrieve*
   name: Retrieve
   href: api/Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Retrieve_
@@ -3010,6 +3009,68 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CircularBuffer.WriteTag
   nameWithType: CircularBuffer.WriteTag
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2
+  name: CollectionCacheRepository<TType, T>
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html
+  commentId: T:Unosquare.Swan.Components.CollectionCacheRepository`2
+  name.vb: CollectionCacheRepository(Of TType, T)
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T)
+  nameWithType: CollectionCacheRepository<TType, T>
+  nameWithType.vb: CollectionCacheRepository(Of TType, T)
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Contains(`0)
+  name: Contains(TType)
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains__0_
+  commentId: M:Unosquare.Swan.Components.CollectionCacheRepository`2.Contains(`0)
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Contains(TType)
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Contains(TType)
+  nameWithType: CollectionCacheRepository<TType, T>.Contains(TType)
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Contains(TType)
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Contains*
+  name: Contains
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains_
+  commentId: Overload:Unosquare.Swan.Components.CollectionCacheRepository`2.Contains
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Contains
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Contains
+  nameWithType: CollectionCacheRepository<TType, T>.Contains
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Contains
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Item(`0)
+  name: Item[TType]
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item__0_
+  commentId: P:Unosquare.Swan.Components.CollectionCacheRepository`2.Item(`0)
+  name.vb: Item(TType)
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Item[TType]
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Item(TType)
+  nameWithType: CollectionCacheRepository<TType, T>.Item[TType]
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Item(TType)
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Item*
+  name: Item
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item_
+  commentId: Overload:Unosquare.Swan.Components.CollectionCacheRepository`2.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Item
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Item
+  nameWithType: CollectionCacheRepository<TType, T>.Item
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Item
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})
+  name: Retrieve(TType, Func<IEnumerable<T>>)
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___
+  commentId: M:Unosquare.Swan.Components.CollectionCacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})
+  name.vb: Retrieve(TType, Func(Of IEnumerable(Of T)))
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Retrieve(TType, System.Func<System.Collections.Generic.IEnumerable<T>>)
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Retrieve(TType, System.Func(Of System.Collections.Generic.IEnumerable(Of T)))
+  nameWithType: CollectionCacheRepository<TType, T>.Retrieve(TType, Func<IEnumerable<T>>)
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Retrieve(TType, Func(Of IEnumerable(Of T)))
+- uid: Unosquare.Swan.Components.CollectionCacheRepository`2.Retrieve*
+  name: Retrieve
+  href: api/Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve_
+  commentId: Overload:Unosquare.Swan.Components.CollectionCacheRepository`2.Retrieve
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.CollectionCacheRepository<TType, T>.Retrieve
+  fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TType, T).Retrieve
+  nameWithType: CollectionCacheRepository<TType, T>.Retrieve
+  nameWithType.vb: CollectionCacheRepository(Of TType, T).Retrieve
 - uid: Unosquare.Swan.Components.CsProjFile`1
   name: CsProjFile<T>
   href: api/Unosquare.Swan.Components.CsProjFile-1.html
@@ -11947,19 +12008,6 @@ references:
   commentId: T:Unosquare.Swan.Reflection.MethodInfoCache
   fullName: Unosquare.Swan.Reflection.MethodInfoCache
   nameWithType: MethodInfoCache
-- uid: Unosquare.Swan.Reflection.MethodInfoCache.Contains(System.String)
-  name: Contains(String)
-  href: api/Unosquare.Swan.Reflection.MethodInfoCache.html#Unosquare_Swan_Reflection_MethodInfoCache_Contains_System_String_
-  commentId: M:Unosquare.Swan.Reflection.MethodInfoCache.Contains(System.String)
-  fullName: Unosquare.Swan.Reflection.MethodInfoCache.Contains(System.String)
-  nameWithType: MethodInfoCache.Contains(String)
-- uid: Unosquare.Swan.Reflection.MethodInfoCache.Contains*
-  name: Contains
-  href: api/Unosquare.Swan.Reflection.MethodInfoCache.html#Unosquare_Swan_Reflection_MethodInfoCache_Contains_
-  commentId: Overload:Unosquare.Swan.Reflection.MethodInfoCache.Contains
-  isSpec: "True"
-  fullName: Unosquare.Swan.Reflection.MethodInfoCache.Contains
-  nameWithType: MethodInfoCache.Contains
 - uid: Unosquare.Swan.Reflection.MethodInfoCache.Retrieve(System.Type,System.String)
   name: Retrieve(Type, String)
   href: api/Unosquare.Swan.Reflection.MethodInfoCache.html#Unosquare_Swan_Reflection_MethodInfoCache_Retrieve_System_Type_System_String_
@@ -12538,6 +12586,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Runtime.LocalStoragePath
   nameWithType: Runtime.LocalStoragePath
+- uid: Unosquare.Swan.Runtime.MethodInfoCache
+  name: MethodInfoCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_MethodInfoCache
+  commentId: P:Unosquare.Swan.Runtime.MethodInfoCache
+  fullName: Unosquare.Swan.Runtime.MethodInfoCache
+  nameWithType: Runtime.MethodInfoCache
+- uid: Unosquare.Swan.Runtime.MethodInfoCache*
+  name: MethodInfoCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_MethodInfoCache_
+  commentId: Overload:Unosquare.Swan.Runtime.MethodInfoCache
+  isSpec: "True"
+  fullName: Unosquare.Swan.Runtime.MethodInfoCache
+  nameWithType: Runtime.MethodInfoCache
 - uid: Unosquare.Swan.Runtime.ObjectMapper
   name: ObjectMapper
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_ObjectMapper

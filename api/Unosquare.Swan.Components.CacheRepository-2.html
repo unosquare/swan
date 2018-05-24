@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CacheRepository&lt;TType, T&gt;
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.36.0.0">
+    <meta name="generator" content="docfx 2.36.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -89,8 +89,7 @@
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">CacheRepository&lt;TType, T&gt;</span></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.AttributeCache.html">AttributeCache</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.TypeCache-1.html">TypeCache&lt;T&gt;</a></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.MethodInfoCache.html">MethodInfoCache</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -137,7 +136,7 @@
       </tr>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of member to cache.</p>
+        <td><p>The type of object to cache.</p>
 </td>
       </tr>
     </tbody>
@@ -148,12 +147,12 @@
   
   <a id="Unosquare_Swan_Components_CacheRepository_2_Item_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Item*"></a>
   <h4 id="Unosquare_Swan_Components_CacheRepository_2_Item__0_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Item(`0)">Item[TType]</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> with the specified type.</p>
+  <div class="markdown level1 summary"><p>Gets or sets the <see cref="!:T"></see> with the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;T&gt; this[TType type] { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public T this[TType type] { get; set; }</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -183,8 +182,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
-        <td><p>The <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>.</p>
+        <td><span class="xref">T</span></td>
+        <td><p>The value of the cache.</p>
 </td>
       </tr>
     </tbody>
@@ -239,7 +238,7 @@
   
   
   <a id="Unosquare_Swan_Components_CacheRepository_2_Retrieve_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Retrieve*"></a>
-  <h4 id="Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___" data-uid="Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})">Retrieve(TType, Func&lt;IEnumerable&lt;T&gt;&gt;)</h4>
+  <h4 id="Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0)">Retrieve(TType)</h4>
   <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
 If the properties are not available, it calls the factory method to retrieve them
 and returns them as an array of PropertyInfo</p>
@@ -247,7 +246,7 @@ and returns them as an array of PropertyInfo</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T[] Retrieve(TType type, Func&lt;IEnumerable&lt;T&gt;&gt; factory)</code></pre>
+    <pre><code class="lang-csharp hljs">public T Retrieve(TType type)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -265,12 +264,6 @@ and returns them as an array of PropertyInfo</p>
         <td><p>The type.</p>
 </td>
       </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">factory</span></td>
-        <td><p>The factory.</p>
-</td>
-      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -283,7 +276,7 @@ and returns them as an array of PropertyInfo</p>
     </thead>
     <tbody>
       <tr>
-        <td>T[]</td>
+        <td><span class="xref">T</span></td>
         <td><p>An array of the properties stored for the specified type</p>
 </td>
       </tr>
