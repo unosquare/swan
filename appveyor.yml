@@ -29,6 +29,7 @@ before_build:
         {
             Install-Product node 8
         }
+- npm i npm@latest -g
 - npm install
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
