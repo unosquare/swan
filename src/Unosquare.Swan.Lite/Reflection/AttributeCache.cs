@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
+    using System.Linq;
     using Components;
 
     /// <summary>
@@ -12,7 +12,7 @@
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class AttributeCache : CacheRepository<MemberInfo, object>
+    public class AttributeCache : CollectionCacheRepository<MemberInfo, object>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.

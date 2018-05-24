@@ -10,7 +10,7 @@
         [Test]
         public void SingleMethodWithType_ReturnsMethodInfo()
         {
-            var methodInfo = MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.SingleMethod));
+            var methodInfo = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.SingleMethod));
 
             Assert.NotNull(methodInfo);
         }
@@ -18,7 +18,7 @@
         [Test]
         public void SingleMethodWithGenericType_ReturnsMethodInfo()
         {
-            var methodInfo = MethodInfoCache.Retrieve<MethodCacheMock>(nameof(MethodCacheMock.SingleMethod));
+            var methodInfo = Runtime.MethodInfoCache.Retrieve<MethodCacheMock>(nameof(MethodCacheMock.SingleMethod));
 
             Assert.NotNull(methodInfo);
         }
@@ -27,14 +27,14 @@
         public void AmbiguousMethodWithTypeNoParamType_ThrowsAmbiguousMatchException()
         {
             Assert.Throws<System.Reflection.AmbiguousMatchException>(() =>
-                MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.AmbiguousMethod)));
+                Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.AmbiguousMethod)));
         }
 
         [Test]
         public void MultiMethodWithGenericTypeAndWithDifferentParamType_ReturnSameMethodInfo()
         {
-            var methodInfoIntParam = MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), typeof(int));
-            var methodInfoDecimalParam = MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), typeof(decimal));
+            var methodInfoIntParam = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), typeof(int));
+            var methodInfoDecimalParam = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), typeof(decimal));
 
             Assert.AreEqual(methodInfoIntParam, methodInfoDecimalParam);
         }
@@ -42,8 +42,8 @@
         [Test]
         public void MultiMethodWithAliasWithGenericTypeAndWithDifferentParamType_ReturnDifferentMethodInfo()
         {
-            var methodInfoIntParam = MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), "multiint", typeof(int));
-            var methodInfoDecimalParam = MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), "multidecimal", typeof(decimal));
+            var methodInfoIntParam = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), "multiint", typeof(int));
+            var methodInfoDecimalParam = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), "multidecimal", typeof(decimal));
 
             Assert.AreNotEqual(methodInfoIntParam, methodInfoDecimalParam);
         }

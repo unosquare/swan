@@ -1,35 +1,14 @@
 ﻿namespace Unosquare.Swan.Reflection
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
+    using Components;
 
     /// <summary>
     /// Represents a Method Info Cache
     /// </summary>
-    public static class MethodInfoCache
+    public class MethodInfoCache : CacheRepository<string, MethodInfo>
     {
-        private static readonly object SyncLock = new object();
-        private static readonly Dictionary<string, MethodInfo> Cache = new Dictionary<string, MethodInfo>();
-
-        /// <summary>
-        /// Determines whether the cache contains the specified type.
-        /// </summary>
-        /// <param name="name">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [contains] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool Contains(string name)
-        {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-
-            lock (SyncLock)
-            {
-                return Cache.ContainsKey(name);
-            }
-        }
-
         /// <summary>
         /// Retrieves the properties stored for the specified type.
         /// If the properties are not available, it calls the factory method to retrieve them
@@ -46,7 +25,7 @@
         /// or
         /// factory</exception>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        public static MethodInfo Retrieve<T>(string name, string alias, params Type[] types)
+        public MethodInfo Retrieve<T>(string name, string alias, params Type[] types)
             => Retrieve(typeof(T), name, alias, types);
 
         /// <summary>
@@ -58,7 +37,7 @@
         /// <returns>
         /// The cached MethodInfo
         /// </returns>
-        public static MethodInfo Retrieve<T>(string name, params Type[] types)
+        public MethodInfo Retrieve<T>(string name, params Type[] types)
             => Retrieve(typeof(T), name, name, types);
 
         /// <summary>
@@ -70,7 +49,7 @@
         /// <returns>
         /// An array of the properties stored for the specified type
         /// </returns>
-        public static MethodInfo Retrieve(Type type, string name, params Type[] types)
+        public MethodInfo Retrieve(Type type, string name, params Type[] types)
             => Retrieve(type, name, name, types);
 
         /// <summary>
@@ -83,7 +62,7 @@
         /// <returns>
         /// The cached MethodInfo
         /// </returns>
-        public static MethodInfo Retrieve(Type type, string name, string alias, params Type[] types)
+        public MethodInfo Retrieve(Type type, string name, string alias, params Type[] types)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -94,13 +73,10 @@
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
 
-            lock (SyncLock)
-            {
-                if (!Contains(alias))
-                    Cache[alias] = type.GetMethod(name, types ?? new Type[0]);
+            if (!Contains(alias))
+                this[alias] = type.GetMethod(name, types ?? new Type[0]);
 
-                return Cache[alias];
-            }
+            return this[alias];
         }
 
         /// <summary>
@@ -111,7 +87,7 @@
         /// <returns>
         /// The cached MethodInfo
         /// </returns>
-        public static MethodInfo Retrieve<T>(string name)
+        public MethodInfo Retrieve<T>(string name)
             => Retrieve(typeof(T), name);
 
         /// <summary>
@@ -127,7 +103,7 @@
         /// or
         /// name
         /// </exception>
-        public static MethodInfo Retrieve(Type type, string name)
+        public MethodInfo Retrieve(Type type, string name)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -135,13 +111,10 @@
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
 
-            lock (SyncLock)
-            {
-                if (!Contains(name))
-                    Cache[name] = type.GetMethod(name);
+            if (!Contains(name))
+                this[name] = type.GetMethod(name);
 
-                return Cache[name];
-            }
+            return this[name];
         }
     }
 }
