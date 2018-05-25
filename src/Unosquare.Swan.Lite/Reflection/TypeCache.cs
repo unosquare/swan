@@ -66,20 +66,19 @@
         public IEnumerable<PropertyInfo> RetrieveAllProperties(Type type, bool onlyPublic = false)
             => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type) : GetAllPropertiesFunc(type));
 
-        internal static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+        private static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
             => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         
-        internal static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+        private static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
             => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.Instance);
         
-        internal static Func<IEnumerable<PropertyInfo>> GetPropertiesFunc(Type type, BindingFlags flags)
+        private static Func<IEnumerable<PropertyInfo>> GetPropertiesFunc(Type type, BindingFlags flags)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
             return () => type.GetProperties(flags)
-                .Where(p => p.CanRead || p.CanWrite)
-                .ToArray();
+                .Where(p => p.CanRead || p.CanWrite);
         }
     }
 
@@ -111,12 +110,12 @@
         public IEnumerable<FieldInfo> RetrieveAllFields(Type type)
             => Retrieve(type, GetAllFieldsFunc(type));
         
-        internal static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
+        private static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray();
+            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }

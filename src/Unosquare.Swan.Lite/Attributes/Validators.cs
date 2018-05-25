@@ -30,14 +30,6 @@
     public class MatchAttribute : Attribute, IValidator
     {
         /// <summary>
-        /// The string regex used to find a match
-        /// </summary>
-        public string Expression { get; }
-
-        /// <inheritdoc/>
-        public string ErrorMessage => "String does not match the specified regular expression";
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MatchAttribute"/> class.
         /// </summary>
         /// <param name="rgx"> A regex string</param>
@@ -45,6 +37,14 @@
         {
             Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
         }
+        
+        /// <summary>
+        /// The string regex used to find a match
+        /// </summary>
+        public string Expression { get; }
+
+        /// <inheritdoc/>
+        public string ErrorMessage => "String does not match the specified regular expression";
 
         /// <inheritdoc/>
         public bool IsValid<T>(T value)
@@ -70,17 +70,17 @@
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
         /// <summary>
-        /// The error message
-        /// </summary>
-        public new string ErrorMessage => "String is not an email";
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
         /// </summary>
         public EmailAttribute()
             : base(EmailRegExp)
         {
         }
+        
+        /// <summary>
+        /// The error message
+        /// </summary>
+        public new string ErrorMessage => "String is not an email";
     }
 
     /// <summary>
@@ -108,24 +108,6 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class RangeAttribute : Attribute, IValidator
     {
-        /// <inheritdoc/>
-        public string ErrorMessage => "Value is not within the specified range";
-
-        /// <summary>
-        /// Maximum value for the range
-        /// </summary>
-        public object Maximum { get; }
-
-        /// <summary>
-        /// Minimum value for the range
-        /// </summary>
-        public object Minimum { get; }
-
-        /// <summary>
-        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values
-        /// </summary>
-        public Type OperandType { get; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
         /// Constructor that takes integer minimum and maximum values
@@ -157,6 +139,24 @@
             Minimum = min;
             OperandType = typeof(double);
         }
+        
+        /// <inheritdoc/>
+        public string ErrorMessage => "Value is not within the specified range";
+
+        /// <summary>
+        /// Maximum value for the range
+        /// </summary>
+        public object Maximum { get; }
+
+        /// <summary>
+        /// Minimum value for the range
+        /// </summary>
+        public object Minimum { get; }
+
+        /// <summary>
+        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values
+        /// </summary>
+        public Type OperandType { get; }
 
         /// <inheritdoc/>
         public bool IsValid<T>(T value)

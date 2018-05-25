@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -11,8 +12,7 @@
     /// <typeparam name="T">The type of member to cache.</typeparam>
     public class CollectionCacheRepository<TType, T>
     {
-        private readonly object _syncLock = new object();
-        private readonly Dictionary<TType, T[]> _cache = new Dictionary<TType, T[]>();
+        private readonly ConcurrentDictionary<TType, T[]> _cache = new ConcurrentDictionary<TType, T[]>();
 
         /// <summary>
         /// Gets or sets the <see cref="IEnumerable{T}"/> with the specified type.
@@ -24,22 +24,13 @@
         /// <returns>The cache of the type</returns>
         public IEnumerable<T> this[TType type]
         {
-            get
+            get => _cache.ContainsKey(type) ? _cache[type] : null;
+            private set
             {
-                lock (_syncLock)
-                {
-                    return _cache.ContainsKey(type) ? _cache[type] : null;
-                }
-            }
-            set
-            {
-                lock (_syncLock)
-                {
-                    if (value == null)
-                        return;
+                if (value == null)
+                    return;
 
-                    _cache[type] = value.Where(item => item != null).ToArray();
-                }
+                _cache.TryAdd(type, value.Where(item => item != null).ToArray());
             }
         }
 
@@ -55,10 +46,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            lock (_syncLock)
-            {
-                return this[type] != null;
-            }
+            return _cache.ContainsKey(type);
         }
 
         /// <summary>
@@ -80,12 +68,12 @@
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            lock (_syncLock)
-            {
-                if (Contains(type)) return _cache[type];
-                this[type] = factory.Invoke();
-                return _cache[type];
-            }
+            if (_cache.TryGetValue(type, out var value)) return value;
+
+            var factoryValue = factory.Invoke();
+            this[type] = factoryValue;
+
+            return factoryValue.Where(item => item != null).ToArray();
         }
     }
 }

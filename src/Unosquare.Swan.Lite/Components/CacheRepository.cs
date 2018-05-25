@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
 
     /// <summary>
@@ -10,8 +11,7 @@
     /// <typeparam name="T">The type of object to cache.</typeparam>
     public class CacheRepository<TType, T>
     {
-        private readonly object _syncLock = new object();
-        private readonly Dictionary<TType, T> _cache = new Dictionary<TType, T>();
+        private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
 
         /// <summary>
         /// Gets or sets the <see cref="T"/> with the specified type.
@@ -23,22 +23,13 @@
         /// <returns>The value of the cache</returns>
         public T this[TType type]
         {
-            get
-            {
-                lock (_syncLock)
-                {
-                    return _cache.ContainsKey(type) ? _cache[type] : default;
-                }
-            }
+            get => _cache.ContainsKey(type) ? _cache[type] : default;
             set
             {
-                lock (_syncLock)
-                {
-                    if (value == null)
-                        return;
+                if (value == null)
+                    return;
 
-                    _cache[type] = value;
-                }
+                _cache.TryAdd(type, value);
             }
         }
 
@@ -54,10 +45,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            lock (_syncLock)
-            {
-                return this[type] != null;
-            }
+            return _cache.ContainsKey(type);
         }
 
         /// <summary>
@@ -75,10 +63,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            lock (_syncLock)
-            {
-                return Contains(type) ? _cache[type] : throw new KeyNotFoundException();
-            }
+            return _cache.TryGetValue(type, out var value) ? value : throw new KeyNotFoundException();
         }
     }
 }

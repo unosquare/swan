@@ -33,7 +33,7 @@
         /// </summary>
         /// <typeparam name="T">The type of the attribute to be retrieved</typeparam>
         /// <param name="member">The member</param>
-        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An array of the attributes stored for the specified type</returns>
         public object[] Retrieve<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
@@ -49,7 +49,7 @@
         /// </summary>
         /// <param name="member">The member</param>
         /// <param name="type">The attribute type</param>
-        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An array of the attributes stored for the specified type</returns>
         public object[] Retrieve(MemberInfo member, Type type, bool inherit = false)
         {
@@ -67,7 +67,7 @@
         /// </summary>
         /// <typeparam name="T">The attribute type</typeparam>
         /// <param name="member">The member</param>
-        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An attribute stored for the specified type</returns>
         public T RetrieveOne<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
@@ -88,7 +88,7 @@
         /// </summary>
         /// <typeparam name="T">The type of the attribute to retrieve</typeparam>
         /// <param name="type">The type of the object</param>
-        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>A dictionary of the properties and their attributes stored for the specified type</returns>
         public Dictionary<PropertyInfo, object[]> Retrieve<T>(Type type, bool inherit = false)
             where T : Attribute
@@ -96,7 +96,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type))
+            return PropertyTypeCache.RetrieveAllProperties(type, true)
                 .ToDictionary(x => x, x => Retrieve<T>(x, inherit));
         }
 
@@ -105,7 +105,7 @@
         /// </summary>
         /// <typeparam name="T">The object type used to extract the properties from</typeparam>
         /// <param name="attributeType">Type of the attribute.</param>
-        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>
         /// A dictionary of the properties and their attributes stored for the specified type
         /// </returns>
@@ -114,7 +114,7 @@
             if (attributeType == null)
                 throw new ArgumentNullException(nameof(attributeType));
 
-            return PropertyTypeCache.Retrieve(typeof(T), PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)))
+            return PropertyTypeCache.RetrieveAllProperties<T>(true)
                 .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
         }
     }
