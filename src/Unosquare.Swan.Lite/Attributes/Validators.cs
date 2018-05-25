@@ -93,7 +93,7 @@
         public string ErrorMessage => "Value is null";
 
         /// <inheritdoc/>
-        public bool IsValid<T>(T value) => typeof(T).IsValueType() ? !Equals(default(T), value) : !Equals(null, value);
+        public bool IsValid<T>(T value) => !Equals(default(T), value);
     }
 
     /// <summary>
