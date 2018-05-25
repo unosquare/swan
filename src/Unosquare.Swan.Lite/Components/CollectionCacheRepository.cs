@@ -43,7 +43,7 @@
         /// </returns>
         public bool Contains(TType type)
         {
-            if (type == null)
+            if (Equals(default(TType), type))
                 throw new ArgumentNullException(nameof(type));
 
             return _cache.ContainsKey(type);

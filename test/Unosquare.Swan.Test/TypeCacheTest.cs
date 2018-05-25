@@ -35,7 +35,7 @@
         [Test]
         public void WithFactoryReturnsNull_ThrowsKeyNotFoundException()
         {
-            Assert.Throws<KeyNotFoundException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
                 TypeCache.Retrieve(typeof(string), () => null));
         }
 
