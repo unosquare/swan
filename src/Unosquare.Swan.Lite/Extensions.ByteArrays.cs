@@ -86,11 +86,8 @@
         /// <returns>
         /// Bit value at the given offset
         /// </returns>
-        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1)
-        {
-            return (byte)((b >> offset) & ~(0xff << length));
-        }
-        
+        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
+
         /// <summary>
         /// Sets the bit value at the given offset.
         /// </summary>
@@ -114,10 +111,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset</returns>
-        public static byte SetBitValueAt(this byte b, byte offset, byte value)
-        {
-            return b.SetBitValueAt(offset, 1, value);
-        }
+        public static byte SetBitValueAt(this byte b, byte offset, byte value) => b.SetBitValueAt(offset, 1, value);
 
         /// <summary>
         /// Splits a byte array delimited by the specified sequence of bytes.
@@ -374,13 +368,7 @@
         /// Block of bytes to the current stream using data read from a buffer
         /// </returns>
         /// <exception cref="ArgumentNullException">buffer</exception>
-        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer)
-        {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
-
-            return Append(stream, buffer.ToArray());
-        }
+        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer) => Append(stream, buffer?.ToArray());
 
         /// <summary>
         /// Appends the Memory Stream with the specified set of buffers.
@@ -477,10 +465,7 @@
         /// <typeparam name="T">
         /// The type of elements in <paramref name="array"/>.
         /// </typeparam>
-        public static T[] SubArray<T>(this T[] array, long startIndex, long length)
-        {
-            return array.SubArray((int)startIndex, (int)length);
-        }
+        public static T[] SubArray<T>(this T[] array, long startIndex, long length) => array.SubArray((int)startIndex, (int)length);
 
         /// <summary>
         /// Reads the bytes asynchronous.

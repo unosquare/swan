@@ -20,7 +20,7 @@
         /// A dictionary of generic types
         /// </returns>
         /// <exception cref="ArgumentNullException">dict</exception>
-        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default)
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default)
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));
@@ -36,7 +36,7 @@
         /// <param name="dict">The dictionary.</param>
         /// <param name="itemAction">The item action.</param>
         /// <exception cref="ArgumentNullException">dict</exception>
-        public static void ForEach<TKey, TValue>(this Dictionary<TKey, TValue> dict, Action<TKey, TValue> itemAction)
+        public static void ForEach<TKey, TValue>(this IDictionary<TKey, TValue> dict, Action<TKey, TValue> itemAction)
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));

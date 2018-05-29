@@ -23,6 +23,7 @@
         /// <param name="target">The target.</param>
         /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
+            where T : class
         {
             var copyable = GetCopyableProperties(target);
             return copyable.Any()
@@ -54,6 +55,7 @@
         /// <param name="target">The target.</param>
         /// <returns>Number of properties that was copied successful</returns>
         public static int CopyOnlyPropertiesTo<T>(this T source, object target)
+            where T : class
         {
             return CopyOnlyPropertiesTo(source, target, null);
         }
@@ -100,6 +102,7 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">source</exception>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
+            where T : class
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -126,6 +129,7 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">source</exception>
         public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy)
+            where T : class
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -288,9 +292,7 @@
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            var cachedProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(model.GetType(), true);
-
-            return cachedProperties
+            return Runtime.PropertyTypeCache.RetrieveAllProperties(model.GetType(), true)
                 .Select(x => new {x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null})
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)

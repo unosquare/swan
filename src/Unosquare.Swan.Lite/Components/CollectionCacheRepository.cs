@@ -3,33 +3,34 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
-    /// A thread-safe cache repository
+    /// A thread-safe collection cache repository
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
-    /// <typeparam name="T">The type of object to cache.</typeparam>
-    public class CacheRepository<TType, T>
+    /// <typeparam name="T">The type of member to cache.</typeparam>
+    public class CollectionCacheRepository<TType, T>
     {
-        private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
+        private readonly ConcurrentDictionary<TType, T[]> _cache = new ConcurrentDictionary<TType, T[]>();
 
         /// <summary>
-        /// Gets or sets the <see cref="T"/> with the specified type.
+        /// Gets or sets the <see cref="IEnumerable{T}"/> with the specified type.
         /// </summary>
         /// <value>
-        /// The value of the cache.
+        /// The <see cref="IEnumerable{T}"/>.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns>The value of the cache</returns>
-        public T this[TType type]
+        /// <returns>The cache of the type</returns>
+        public IEnumerable<T> this[TType type]
         {
-            get => _cache.ContainsKey(type) ? _cache[type] : default;
-            set
+            get => _cache.ContainsKey(type) ? _cache[type] : null;
+            private set
             {
                 if (value == null)
                     return;
 
-                _cache.TryAdd(type, value);
+                _cache.TryAdd(type, value.Where(item => item != null).ToArray());
             }
         }
 
@@ -42,7 +43,7 @@
         /// </returns>
         public bool Contains(TType type)
         {
-            if (type == null)
+            if (Equals(default(TType), type))
                 throw new ArgumentNullException(nameof(type));
 
             return _cache.ContainsKey(type);
@@ -54,16 +55,25 @@
         /// and returns them as an array of PropertyInfo
         /// </summary>
         /// <param name="type">The type.</param>
+        /// <param name="factory">The factory.</param>
         /// <returns>
         /// An array of the properties stored for the specified type
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        public T Retrieve(TType type)
+        public T[] Retrieve(TType type, Func<IEnumerable<T>> factory)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return _cache.TryGetValue(type, out var value) ? value : throw new KeyNotFoundException();
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
+
+            if (_cache.TryGetValue(type, out var value)) return value;
+
+            var factoryValue = factory.Invoke();
+            this[type] = factoryValue;
+
+            return factoryValue.Where(item => item != null).ToArray();
         }
     }
 }
