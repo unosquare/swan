@@ -125,9 +125,7 @@
   
   <a id="Unosquare_Swan_Abstractions_Tokenizer__ctor_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.#ctor*"></a>
   <h4 id="Unosquare_Swan_Abstractions_Tokenizer__ctor_System_String_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.#ctor(System.String)">Tokenizer(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.Tokenizer.html">Tokenizer</a> class.
-This constructor will use the following default operators:</p>
-<table><thead><tr><th>Operator</th><th>Precendence</th></tr></thead><tbody><tr><td>=</td><td>1</td></tr><tr><td>!=</td><td>1</td></tr><tr><td>&gt;</td><td>2</td></tr><tr><td>&lt;</td><td>2</td></tr><tr><td>&gt;=</td><td>2</td></tr><tr><td>&lt;=</td><td>2</td></tr><tr><td>+</td><td>3</td></tr><tr><td>&amp;</td><td>3</td></tr><tr><td>-</td><td>3</td></tr><tr><td>*</td><td>4</td></tr><tr><td>(backslash)</td><td>4</td></tr><tr><td>/</td><td>4</td></tr><tr><td>^</td><td>4</td></tr></tbody></table>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.Tokenizer.html">Tokenizer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -182,7 +180,7 @@ This constructor will use the following default operators:</p>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.Operator.html">Operator</a>&gt;</td>
         <td><span class="parametername">operators</span></td>
-        <td><p>The operators to use.</p>
+        <td><p>The operators.</p>
 </td>
       </tr>
     </tbody>
@@ -218,84 +216,6 @@ This constructor will use the following default operators:</p>
   </table>
   <h3 id="methods">Methods
   </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_Tokenizer_EvaluateFunctionOrMember_System_String_System_Int32_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.EvaluateFunctionOrMember(System.String,System.Int32)">EvaluateFunctionOrMember(String, Int32)</h4>
-  <div class="markdown level1 summary"><p>Evaluates the function or member.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool EvaluateFunctionOrMember(string input, int position)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">input</span></td>
-        <td><p>The input.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">position</span></td>
-        <td><p>The position.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if the input is a valid function or variable, otherwise <code>false</code></p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_Tokenizer_GetDefaultOperators" data-uid="Unosquare.Swan.Abstractions.Tokenizer.GetDefaultOperators">GetDefaultOperators()</h4>
-  <div class="markdown level1 summary"><p>Gets the default operators.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Operator[] GetDefaultOperators()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Abstractions.Operator.html">Operator</a>[]</td>
-        <td><p>An array with the operators to use for the tokenizer.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
   <a id="Unosquare_Swan_Abstractions_Tokenizer_ResolveFunctionOrMemberType_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.ResolveFunctionOrMemberType*"></a>
@@ -344,32 +264,14 @@ This constructor will use the following default operators:</p>
   
   
   <a id="Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard_System_Boolean_" data-uid="Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard(System.Boolean)">ShuntingYard(Boolean)</h4>
+  <h4 id="Unosquare_Swan_Abstractions_Tokenizer_ShuntingYard" data-uid="Unosquare.Swan.Abstractions.Tokenizer.ShuntingYard">ShuntingYard()</h4>
   <div class="markdown level1 summary"><p>Shuntings the yard.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;Token&gt; ShuntingYard(bool includeFunctionStopper = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;Token&gt; ShuntingYard()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">includeFunctionStopper</span></td>
-        <td><p>if set to <code>true</code> [include function stopper] (Token type <code>Wall</code>).</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -396,7 +298,7 @@ This constructor will use the following default operators:</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><span class="xref">System.Exception</span></td>
         <td><p>Wrong token
 or
 Mismatched parenthesis</p>
