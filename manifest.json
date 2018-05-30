@@ -219,7 +219,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.TokenType.html",
-          "hash": "0bwbox3B9wTKXYjb7/6kfg=="
+          "hash": "lkCClUpw1h9SWYzoUgDiOQ=="
         }
       },
       "is_incremental": false,
@@ -231,7 +231,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.Tokenizer.html",
-          "hash": "0NTQgyMp5ENI8qzx0/Tn+Q=="
+          "hash": "L7Xua8OnX0fr7pCLaBJraQ=="
         }
       },
       "is_incremental": false,
@@ -507,7 +507,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.CacheRepository-2.html",
-          "hash": "SEZfyxDdTaucfglL+P5jTQ=="
+          "hash": "SI1qiJp/lcmszN0MfDrLKg=="
         }
       },
       "is_incremental": false,
@@ -520,6 +520,18 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.CircularBuffer.html",
           "hash": "LHJFYebb3pZCW4K/HY1xfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.CollectionCacheRepository-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.CollectionCacheRepository-2.html",
+          "hash": "ttKxdN8H69q2p87kD6O88Q=="
         }
       },
       "is_incremental": false,
@@ -675,7 +687,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.EnumHelper.html",
-          "hash": "37kICJfuWQeSoDu6vrDiDw=="
+          "hash": "Ag9gNpd7tbiD8xPqbXRlnw=="
         }
       },
       "is_incremental": false,
@@ -903,7 +915,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.ProcessRunner.html",
-          "hash": "tmLJ50AsKKBmRBWTd1AZZw=="
+          "hash": "m/T7lHpTRN2m8D8/mggcPw=="
         }
       },
       "is_incremental": false,
@@ -939,7 +951,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "BOpc/0TlSZnaFMR8dnvMzQ=="
+          "hash": "OpJWuMOAnDJiQ+/ZEGGJWg=="
         }
       },
       "is_incremental": false,
@@ -1179,7 +1191,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Extensions.html",
-          "hash": "MKoOEy+aTSJJgxvQAUVtYg=="
+          "hash": "LiFF6WjIFCCgcdoe/aWrNg=="
         }
       },
       "is_incremental": false,
@@ -1731,7 +1743,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.AttributeCache.html",
-          "hash": "maW4VnexdjN+bxzoL3+0EQ=="
+          "hash": "063F0T1F03SqU8wT82tn5A=="
         }
       },
       "is_incremental": false,
@@ -1791,7 +1803,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.FieldTypeCache.html",
-          "hash": "BzttzRzCArMUU8ORl0u7lQ=="
+          "hash": "ukLMvzTP0QmqU/shZUkBHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Reflection.MethodInfoCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Reflection.MethodInfoCache.html",
+          "hash": "tTMBJGvLqz/vTu2wYp6xng=="
         }
       },
       "is_incremental": false,
@@ -1803,7 +1827,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.PropertyTypeCache.html",
-          "hash": "kUEyBOtvYcNj0NF5oenZwQ=="
+          "hash": "+zikBl67ecbMtYmgr1Av5A=="
         }
       },
       "is_incremental": false,
@@ -1815,7 +1839,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.TypeCache-1.html",
-          "hash": "eF7bQ4pb1oTDCN/qgt2Azg=="
+          "hash": "YjHyiI9yQ5W2puVPFmmioA=="
         }
       },
       "is_incremental": false,
@@ -1827,7 +1851,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.html",
-          "hash": "RDR63PPXQC3/UQSHJwP1dA=="
+          "hash": "tEnYr+Oy+ZP9TmO4cVzV6Q=="
         }
       },
       "is_incremental": false,
@@ -1851,7 +1875,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Runtime.html",
-          "hash": "TiKeC7sk+yUAwWZQSD+USw=="
+          "hash": "LxR4xVcdvDdFZRZ6hKB66g=="
         }
       },
       "is_incremental": false,
@@ -1947,7 +1971,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "aYVdN9cZqTsS4JV3FjeqqA=="
+          "hash": "adao2E2oiGUqIan4uLAhKQ=="
         }
       },
       "is_incremental": false,
@@ -1997,22 +2021,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
