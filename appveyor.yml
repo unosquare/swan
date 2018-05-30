@@ -29,7 +29,7 @@ before_build:
         {
             Install-Product node 8
         }
-- npm install
+- npm install -q
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
