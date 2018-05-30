@@ -30,6 +30,17 @@ namespace Unosquare.Swan.Components
         /// This method is meant to be used for programs that output a relatively small amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>The type of the result produced by this Task</returns>
+        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken ct = default) => GetProcessOutputAsync(filename, "", ct);
+
+        /// <summary>
+        /// Runs the process asynchronously and if the exit code is 0,
+        /// returns all of the standard output text. If the exit code is something other than 0
+        /// it returns the contents of standard error.
+        /// This method is meant to be used for programs that output a relatively small amount of text.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
@@ -54,7 +65,7 @@ namespace Unosquare.Swan.Components
         /// }
         /// </code>
         /// </example>
-        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default)
+        public static async Task<string> GetProcessOutputAsync(string filename, string arguments, CancellationToken ct = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;

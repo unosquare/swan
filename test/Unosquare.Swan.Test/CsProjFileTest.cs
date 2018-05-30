@@ -8,9 +8,10 @@
     using Components;
     using Mocks;
 
-    public abstract class CsProjFileTest : TestFixtureBase
+    [TestFixture]
+    public class CsProjFileConstructor
     {
-        protected string Data = @"<Project Sdk=""Microsoft.NET.Sdk"">
+        private const string Data = @"<Project Sdk=""Microsoft.NET.Sdk"">
                                   <PropertyGroup>
                                     <Description>Unit Testing project</Description>
                                     <Copyright>Copyright(c) 2016-2018 - Unosquare</Copyright>
@@ -20,12 +21,8 @@
                                     <DebugType>Full</DebugType>
                                   </PropertyGroup></Project>";
 
-        protected string WrongSdk = @"<Project Sdk=""Microhard.NET.Sdk""></Project>";
-    }
+        private const string WrongSdk = @"<Project Sdk=""Microhard.NET.Sdk""></Project>";
 
-    [TestFixture]
-    public class CsProjFileConstructor : CsProjFileTest
-    {
         [Test]
         public void WithValidFileAndValidClass_ReturnsFileAndMetadata()
         {
@@ -111,7 +108,7 @@
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Path.GetTempPath());
-            File.WriteAllText(Path.Combine(Path.GetTempPath(), $"{DateTime.Now.Minute}_{DateTime.Now.Second}_{projectFilename}"), Data);
+            File.WriteAllText(Path.Combine(Path.GetTempPath(), $"{DateTime.Now.Minute}_{DateTime.Now.Millisecond}_{projectFilename}"), Data);
 
             using (var csproj = new CsProjFile<CsMetadataMock>())
             {

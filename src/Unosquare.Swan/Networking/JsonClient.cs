@@ -38,7 +38,7 @@
         {
             var jsonString = await PostString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
+            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@
                     return new OkOrError<T, TE>
                     {
                         IsOk = true,
-                        Ok = string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString)
+                        Ok = !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default
                     };
                 }
 
@@ -81,7 +81,7 @@
                 {
                     return new OkOrError<T, TE>
                     {
-                        Error = string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<TE>(jsonString)
+                        Error = !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<TE>(jsonString) : default
                     };
                 }
 
@@ -146,7 +146,7 @@
         {
             var jsonString = await PutString(url, payload, authorization, ct).ConfigureAwait(false);
 
-            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
+            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
 
         /// <summary>
@@ -213,7 +213,7 @@
         {
             var jsonString = await GetString(url, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
+            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
 
         /// <summary>

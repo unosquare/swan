@@ -18,36 +18,83 @@
 
         private const string OpenFuncStr = "(";
 
-        private static readonly Operator[] DefaultOperators = {
-            new Operator {Name = ">", Precedence = 1},
-            new Operator {Name = "<", Precedence = 1},
-            new Operator {Name = "=", Precedence = 1},
-            new Operator {Name = "+", Precedence = 1},
-            new Operator {Name = "&", Precedence = 1},
-            new Operator {Name = "-", Precedence = 1},
-            new Operator {Name = "*", Precedence = 2},
-            new Operator {Name = "/", Precedence = 2},
-            new Operator {Name = "\\", Precedence = 2},
-            new Operator {Name = "^", Precedence = 2},
-        };
-
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer"/> class.
+        /// This constructor will use the following default operators:
+        ///
+        /// <list type="table">
+        ///     <listheader>
+        ///     <term>Operator</term>
+        ///     <description>Precendence</description>
+        ///     </listheader>
+        /// <item>
+        /// <term>=</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>!=</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&gt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>&lt;=</term>
+        /// <description>2</description>
+        /// </item>
+        /// <item>
+        /// <term>+</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>&amp;</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>-</term>
+        /// <description>3</description>
+        /// </item>
+        /// <item>
+        /// <term>*</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>(backslash)</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>/</term>
+        /// <description>4</description>
+        /// </item>
+        /// <item>
+        /// <term>^</term>
+        /// <description>4</description>
+        /// </item>
+        /// </list>
         /// </summary>
         /// <param name="input">The input.</param>
         protected Tokenizer(string input)
-            : this(input, DefaultOperators)
         {
-            // placeholder
+            _operators.AddRange(GetDefaultOperators());
+            Tokenize(input);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="operators">The operators.</param>
+        /// <param name="operators">The operators to use.</param>
         protected Tokenizer(string input, IEnumerable<Operator> operators)
         {
             _operators.AddRange(operators);
@@ -78,15 +125,47 @@
         public abstract TokenType ResolveFunctionOrMemberType(string input);
 
         /// <summary>
+        /// Evaluates the function or member.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="position">The position.</param>
+        /// <returns><c>true</c> if the input is a valid function or variable, otherwise <c>false</c></returns>
+        public virtual bool EvaluateFunctionOrMember(string input, int position) => false;
+
+        /// <summary>
+        /// Gets the default operators.
+        /// </summary>
+        /// <returns>An array with the operators to use for the tokenizer.</returns>
+        public virtual Operator[] GetDefaultOperators() => new[] 
+        {
+            new Operator {Name = "=", Precedence = 1},
+            new Operator {Name = "!=", Precedence = 1},
+            new Operator {Name = ">", Precedence = 2},
+            new Operator {Name = "<", Precedence = 2},
+            new Operator {Name = ">=", Precedence = 2},
+            new Operator {Name = "<=", Precedence = 2},
+            new Operator {Name = "+", Precedence = 3},
+            new Operator {Name = "&", Precedence = 3},
+            new Operator {Name = "-", Precedence = 3},
+            new Operator {Name = "*", Precedence = 4},
+            new Operator {Name = "/", Precedence = 4},
+            new Operator {Name = "\\", Precedence = 4},
+            new Operator {Name = "^", Precedence = 4},
+        };
+
+        /// <summary>
         /// Shuntings the yard.
         /// </summary>
-        /// <returns>Enumerable of the token in in</returns>
-        /// <exception cref="Exception">
+        /// <param name="includeFunctionStopper">if set to <c>true</c> [include function stopper] (Token type <c>Wall</c>).</param>
+        /// <returns>
+        /// Enumerable of the token in in
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
         /// Wrong token
         /// or
         /// Mismatched parenthesis
         /// </exception>
-        public virtual IEnumerable<Token> ShuntingYard()
+        public virtual IEnumerable<Token> ShuntingYard(bool includeFunctionStopper = true)
         {
             var stack = new Stack<Token>();
 
@@ -109,9 +188,21 @@
 
                         stack.Push(tok);
                         break;
+                    case TokenType.Comma:
+                        while (stack.Any() && (stack.Peek().Type != TokenType.Comma &&
+                                               stack.Peek().Type != TokenType.Parenthesis))
+                            yield return stack.Pop();
+
+                        break;
                     case TokenType.Parenthesis:
                         if (tok.Value == OpenFuncStr)
                         {
+                            if (stack.Any() && stack.Peek().Type == TokenType.Function)
+                            {
+                                if (includeFunctionStopper)
+                                    yield return new Token(TokenType.Wall, tok.Value);
+                            }
+
                             stack.Push(tok);
                         }
                         else
@@ -122,7 +213,9 @@
                             stack.Pop();
 
                             if (stack.Any() && stack.Peek().Type == TokenType.Function)
+                            {
                                 yield return stack.Pop();
+                            }
                         }
 
                         break;
@@ -154,7 +247,13 @@
 
             for (var i = startIndex; i < input.Length; i++)
             {
-                if (char.IsWhiteSpace(input, i) || input[i] == CommaChar) continue;
+                if (char.IsWhiteSpace(input, i)) continue;
+
+                if (input[i] == CommaChar)
+                {
+                    Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
+                    continue;
+                }
 
                 if (input[i] == StringQuotedChar)
                 {
@@ -162,7 +261,7 @@
                     continue;
                 }
 
-                if (char.IsLetter(input, i))
+                if (char.IsLetter(input, i) || EvaluateFunctionOrMember(input, i))
                 {
                     i = ExtractFunctionOrMember(input, i);
 
@@ -170,7 +269,8 @@
                 }
 
                 if (char.IsNumber(input, i) || (
-                        input[i] == NegativeChar && ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
+                        input[i] == NegativeChar &&
+                        ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
                 {
                     i = ExtractNumber(input, i);
                     continue;
@@ -222,11 +322,13 @@
 
         private int ExtractFunctionOrMember(string input, int i) =>
             ExtractData(input, i, ResolveFunctionOrMemberType, x => x == OpenFuncChar ||
-                                                    x == CommaChar ||
-                                                    char.IsWhiteSpace(x));
+                                                                    x == CloseFuncChar ||
+                                                                    x == CommaChar ||
+                                                                    char.IsWhiteSpace(x));
 
         private int ExtractNumber(string input, int i) =>
-            ExtractData(input, i, x => TokenType.Number, x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
+            ExtractData(input, i, x => TokenType.Number,
+                x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
 
         private int ExtractString(string input, int i)
         {
@@ -277,6 +379,39 @@
     }
 
     /// <summary>
+    /// Represents a Token structure
+    /// </summary>
+    public struct Token
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> struct.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        public Token(TokenType type, string value)
+        {
+            Type = type;
+            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
+        }
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        public TokenType Type { get; set; }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; }
+    }
+
+    /// <summary>
     /// Enums the token types
     /// </summary>
     public enum TokenType
@@ -309,39 +444,16 @@
         /// <summary>
         /// The operator
         /// </summary>
-        Operator
-    }
-
-    /// <summary>
-    /// Represents a Token structure
-    /// </summary>
-    public struct Token
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Token"/> struct.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        public Token(TokenType type, string value)
-        {
-            Type = type;
-            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
-        }
+        Operator,
 
         /// <summary>
-        /// Gets or sets the type.
+        /// The comma
         /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        public TokenType Type { get; set; }
+        Comma,
 
         /// <summary>
-        /// Gets the value.
+        /// The wall, used to specified the end of argument list of the following function
         /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; }
+        Wall,
     }
 }

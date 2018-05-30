@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
-    using System.Collections.Generic;
     using System.Linq;
     using Abstractions;
 
@@ -16,10 +15,7 @@
         {
         }
 
-        public RdlTokenizer(string input, IEnumerable<Operator> operators)
-            : base(input, operators)
-        {
-        }
+        public override bool EvaluateFunctionOrMember(string input, int position) => input[position] == '[';
 
         public override bool ValidateInput(string input, out int startIndex)
         {

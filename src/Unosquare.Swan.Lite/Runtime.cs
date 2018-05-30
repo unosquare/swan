@@ -28,6 +28,8 @@
 
         private static readonly Lazy<FieldTypeCache> _fieldTypeCache = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
 
+        private static readonly Lazy<MethodInfoCache> _methodInfoCache = new Lazy<MethodInfoCache>(() => new MethodInfoCache());
+
 #if NET452
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
@@ -207,6 +209,14 @@
         /// The field type cache.
         /// </value>
         public static FieldTypeCache FieldTypeCache => _fieldTypeCache.Value;
+
+        /// <summary>
+        /// Gets the method information cache.
+        /// </summary>
+        /// <value>
+        /// The method information cache.
+        /// </value>
+        public static MethodInfoCache MethodInfoCache => _methodInfoCache.Value;
 
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>

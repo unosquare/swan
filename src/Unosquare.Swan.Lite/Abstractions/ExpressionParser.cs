@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
@@ -28,31 +29,45 @@
         /// <returns>The final expression</returns>
         public virtual Expression Parse(IEnumerable<Token> tokens)
         {
-            var expressionStack = new Stack<Expression>();
+            var expressionStack = new List<Stack<Expression>>();
 
             foreach (var token in tokens)
             {
+                if (expressionStack.Any() == false)
+                    expressionStack.Add(new Stack<Expression>());
+
                 switch (token.Type)
                 {
+                    case TokenType.Wall:
+                        expressionStack.Add(new Stack<Expression>());
+                        break;
                     case TokenType.Number:
-                        expressionStack.Push(Expression.Constant(Convert.ToDecimal(token.Value)));
+                        expressionStack.Last().Push(Expression.Constant(Convert.ToDecimal(token.Value)));
                         break;
                     case TokenType.Variable:
-                        ResolveVariable(token.Value, expressionStack);
+                        ResolveVariable(token.Value, expressionStack.Last());
                         break;
                     case TokenType.String:
-                        expressionStack.Push(Expression.Constant(token.Value));
+                        expressionStack.Last().Push(Expression.Constant(token.Value));
                         break;
                     case TokenType.Operator:
-                        ResolveOperator(token.Value, expressionStack);
+                        ResolveOperator(token.Value, expressionStack.Last());
                         break;
                     case TokenType.Function:
-                        ResolveFunction(token.Value, expressionStack);
+                        ResolveFunction(token.Value, expressionStack.Last());
+
+                        if (expressionStack.Count > 1 && expressionStack.Last().Count == 1)
+                        {
+                            var lastValue = expressionStack.Last().Pop();
+                            expressionStack.Remove(expressionStack.Last());
+                            expressionStack.Last().Push(lastValue);
+                        }
+
                         break;
                 }
             }
 
-            return expressionStack.Pop();
+            return expressionStack.Last().Pop();
         }
 
         /// <summary>

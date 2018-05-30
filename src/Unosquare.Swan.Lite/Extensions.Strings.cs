@@ -19,7 +19,7 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
+        private static readonly string[] ByteSuffixes = {"B", "KB", "MB", "GB", "TB"};
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
@@ -109,7 +109,8 @@
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this string inputString, bool createHasher = false) => Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
+        public static byte[] ComputeMD5(this string inputString, bool createHasher = false) =>
+            Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
 
         /// <summary>
         /// Computes the MD5 hash of the given byte array.
@@ -117,7 +118,8 @@
         /// <param name="data">The data.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this byte[] data, bool createHasher = false) => (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
+        public static byte[] ComputeMD5(this byte[] data, bool createHasher = false) =>
+            (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
 
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
@@ -238,7 +240,8 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string ToJson(this object obj, bool format = true) => obj == null ? string.Empty : Json.Serialize(obj, format);
+        public static string ToJson(this object obj, bool format = true) =>
+            obj == null ? string.Empty : Json.Serialize(obj, format);
 
         /// <summary>
         /// Returns text representing the properties of the specified object in a human-readable format.
@@ -312,7 +315,8 @@
         /// An array whose elements contain the substrings from this instance 
         /// that are delimited by one or more characters in separator
         /// </returns>
-        public static string[] ToLines(this string text) => text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
+        public static string[] ToLines(this string text) =>
+            text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
@@ -399,13 +403,10 @@
         /// <exception cref="ArgumentNullException">s</exception>
         public static string ToSafeFilename(this string s)
         {
-            if (s == null)
-                throw new ArgumentNullException(nameof(s));
-
-            foreach (var c in InvalidFilenameChars.Value)
-                s = s.Replace(c, string.Empty);
-
-            return s.Slice(0, 220);
+            return s == null
+                ? throw new ArgumentNullException(nameof(s))
+                : InvalidFilenameChars.Value.Aggregate(s, (current, c) => current.Replace(c, string.Empty))
+                    .Slice(0, 220);
         }
 
         /// <summary>
@@ -415,7 +416,7 @@
         /// <returns>
         /// The string representation of the current Byte object, formatted as specified by the format parameter
         /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
+        public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -484,10 +485,8 @@
         /// <param name="chars">
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
-        public static bool Contains(this string value, params char[] chars)
-        {
-            return chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
-        }
+        public static bool Contains(this string value, params char[] chars) =>
+            chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
 
         /// <summary>
         /// Replaces all chars in a string.
@@ -496,10 +495,8 @@
         /// <param name="replaceValue">The replace value.</param>
         /// <param name="chars">The chars.</param>
         /// <returns>The string with the characters reppaced</returns>
-        public static string ReplaceAll(this string value, string replaceValue, params char[] chars)
-        {
-            return chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue));
-        }
+        public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
+            chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
 
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something

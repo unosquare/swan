@@ -129,12 +129,7 @@
                     .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
                     .ToList();
 
-            if (methods.Count > 1)
-            {
-                throw new AmbiguousMatchException();
-            }
-
-            return methods.FirstOrDefault();
+            return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
 
         /// <summary>
@@ -223,10 +218,7 @@
         /// <returns>
         /// Attributes associated with the property represented by this PropertyInfo object
         /// </returns>
-        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
-        {
-            return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
-        }
+        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) => type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
 
         /// <summary>
         /// Determines whether [is generic type definition].
@@ -261,10 +253,9 @@
         /// <exception cref="ArgumentNullException">type</exception>
         public static bool IsIEnumerable(this Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+            return type == null
+                ? throw new ArgumentNullException(nameof(type))
+                : type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
 
         #endregion
