@@ -173,7 +173,8 @@
         public async Task ContinuousReadingEnabled_ThrowsInvalidOperationException()
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
-            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            Assert.IsTrue(Client.Connected);
 
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {

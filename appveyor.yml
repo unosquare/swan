@@ -30,11 +30,12 @@ before_build:
             Install-Product node 8
         }
 - npm i npm@latest -g
-- npm install
+- npm install -q
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
+- ps: $NTP = Start-Process node ntp.js -PassThru
 - dotnet restore -v Minimal
 - cmd: mkdir tools
 - cmd: nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
@@ -80,3 +81,4 @@ on_finish:
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id
+- ps: Stop-Process -Id $NTP.Id
