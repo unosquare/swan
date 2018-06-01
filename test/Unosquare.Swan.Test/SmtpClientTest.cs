@@ -39,9 +39,9 @@
         {
             Assert.CatchAsync<System.Net.Sockets.SocketException>(async () =>
             {
-               var client = new SmtpClient("invalid.local", 587);
+                var client = new SmtpClient("invalid.local", 587);
 
-               await client.SendMailAsync(new SmtpSessionState());
+                await client.SendMailAsync(new SmtpSessionState());
             });
         }
 
@@ -66,23 +66,21 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient(LocalHost, 1030);
+            var client = new SmtpClient(LocalHost, 1030) { Credentials = new System.Net.NetworkCredential("mail", "pass") };
             var session = new SmtpSessionState { SenderAddress = SenderEmail };
 
             session.Recipients.Add(RecipientEmail);
             session.DataBuffer.AddRange(new byte[] { 0x48, 0x48, 0x0A, 0x0C });
 
-            await email.SendMailAsync(session);
+            await client.SendMailAsync(session);
             await Task.Delay(100);
             Assert.IsTrue(File.Exists(filename));
 
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
 
-            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
-            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
-
-            Assert.AreEqual("hh", smtpMock.Headers.First().Key);
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.MailFrom.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.RcptTo.First().Address);
         }
 
         [Test]
@@ -94,21 +92,18 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient(LocalHost, 1030);
+            var client = new SmtpClient(LocalHost, 1030) { Credentials = new System.Net.NetworkCredential("mail", "pass") };
             var emailMessage = new System.Net.Mail.MailMessage(SenderEmail, RecipientEmail, "Test", "Sure");
 
-            await email.SendMailAsync(emailMessage);
+            await client.SendMailAsync(emailMessage);
             await Task.Delay(100);
             Assert.IsTrue(File.Exists(filename));
 
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
-
-            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
-            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
-
-            Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
-            Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);
+            
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.MailFrom.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.RcptTo.First().Address);
         }
 
         [Test]
