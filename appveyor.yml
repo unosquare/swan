@@ -48,7 +48,7 @@ build_script:
         cd ..
         cd ..
 test_script:
-- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.0
+- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.1
 - cmd: tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
