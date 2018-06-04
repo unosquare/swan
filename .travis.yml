@@ -20,6 +20,6 @@ script:
   - node ./tcp.js &
   - node ./ntp.js &
   - cd ./test/Unosquare.Swan.Test/
-  - dotnet test Unosquare.Swan.Test.csproj -s .runsettings -f netcoreapp2.0
+  - dotnet test Unosquare.Swan.Test.csproj -s .runsettings -f netcoreapp2.1
 after_script:
   - killall -9 node
