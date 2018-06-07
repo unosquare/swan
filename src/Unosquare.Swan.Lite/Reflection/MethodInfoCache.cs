@@ -76,7 +76,7 @@
             if (!Contains(alias))
                 this[alias] = type.GetMethod(name, types ?? new Type[0]);
 
-            return this[alias];
+            return Retrieve(alias);
         }
 
         /// <summary>
