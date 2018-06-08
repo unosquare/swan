@@ -47,15 +47,13 @@
 
             return _cache.ContainsKey(type);
         }
-
+        
         /// <summary>
-        /// Retrieves the properties stored for the specified type.
-        /// If the properties are not available, it calls the factory method to retrieve them
-        /// and returns them as an array of PropertyInfo
+        /// Retrieves the element stored for the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// An array of the properties stored for the specified type
+        /// An object for the specified type
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
         public T Retrieve(TType type)
