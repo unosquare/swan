@@ -229,21 +229,13 @@
     public class GetNetworkTimeUtcAsync : NetworkTest
     {
         [Test]
-        public async Task WithDefaulthNtpServerName_ReturnsDateTime()
+        public async Task WithIPAddressAndPort_ReturnsDateTime()
         {
-            var publicIPAddress = await Network.GetNetworkTimeUtcAsync();
+            var ntpServerAddress = IPAddress.Parse("127.0.0.1");
 
-            Assert.That(publicIPAddress, Is.EqualTo(DateTime.UtcNow).Within(1).Minutes);
-        }
+            var publicIPAddress = await Network.GetNetworkTimeUtcAsync(ntpServerAddress, 1203);
 
-        [Test]
-        public async Task WithIPAddress_ReturnsDateTime()
-        {
-            var ntpServerAddress = IPAddress.Parse("62.116.162.126");
-
-            var publicIPAddress = await Network.GetNetworkTimeUtcAsync(ntpServerAddress);
-
-            Assert.That(publicIPAddress, Is.EqualTo(DateTime.UtcNow).Within(1).Minutes);
+            Assert.AreEqual(publicIPAddress, new DateTime(1900, 1, 1));
         }
     }
 

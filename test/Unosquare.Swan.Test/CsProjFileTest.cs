@@ -16,7 +16,7 @@
                                     <Description>Unit Testing project</Description>
                                     <Copyright>Copyright(c) 2016-2018 - Unosquare</Copyright>
                                     <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-                                    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
+                                    <TargetFrameworks>net46;netcoreapp2.1</TargetFrameworks>
                                     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
                                     <DebugType>Full</DebugType>
                                   </PropertyGroup></Project>";

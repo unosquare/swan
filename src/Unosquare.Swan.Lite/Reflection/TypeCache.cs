@@ -13,7 +13,7 @@
     /// in the cache.
     /// </summary>
     /// <typeparam name="T">The type of Member to be cached</typeparam>
-    public abstract class TypeCache<T> : CacheRepository<Type, T>
+    public abstract class TypeCache<T> : CollectionCacheRepository<Type, T>
         where T : MemberInfo
     {
         /// <summary>
@@ -65,25 +65,20 @@
         /// </returns>
         public IEnumerable<PropertyInfo> RetrieveAllProperties(Type type, bool onlyPublic = false)
             => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type) : GetAllPropertiesFunc(type));
+
+        private static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         
-        internal static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+        private static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.Instance);
+        
+        private static Func<IEnumerable<PropertyInfo>> GetPropertiesFunc(Type type, BindingFlags flags)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return () => type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(p => p.CanRead || p.CanWrite)
-                .ToArray();
-        }
-        
-        internal static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return () => type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead || p.CanWrite)
-                .ToArray();
+            return () => type.GetProperties(flags)
+                .Where(p => p.CanRead || p.CanWrite);
         }
     }
 
@@ -115,12 +110,12 @@
         public IEnumerable<FieldInfo> RetrieveAllFields(Type type)
             => Retrieve(type, GetAllFieldsFunc(type));
         
-        internal static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
+        private static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray();
+            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }

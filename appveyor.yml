@@ -29,11 +29,13 @@ before_build:
         {
             Install-Product node 8
         }
-- npm install
+- npm i npm@latest -g
+- npm install -q
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
+- ps: $NTP = Start-Process node ntp.js -PassThru
 - dotnet restore -v Minimal
 - cmd: mkdir tools
 - cmd: nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
@@ -46,7 +48,7 @@ build_script:
         cd ..
         cd ..
 test_script:
-- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.0
+- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.1
 - cmd: tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
@@ -79,3 +81,4 @@ on_finish:
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id
+- ps: Stop-Process -Id $NTP.Id
