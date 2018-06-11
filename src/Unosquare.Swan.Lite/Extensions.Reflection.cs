@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Collections.Generic;
+    using Attributes;
 
     /// <summary>
     /// Provides various extension methods for Reflection and Types
@@ -204,10 +205,8 @@
         /// <returns>
         ///   <c>true</c> if the specified attribute type is defined; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsDefined(this Type type, Type attributeType, bool inherit)
-        {
-            return type.GetTypeInfo().IsDefined(attributeType, inherit);
-        }
+        public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
+            type.GetTypeInfo().IsDefined(attributeType, inherit);
 
         /// <summary>
         /// Gets the custom attributes.
@@ -218,7 +217,8 @@
         /// <returns>
         /// Attributes associated with the property represented by this PropertyInfo object
         /// </returns>
-        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) => type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
+        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) =>
+            type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
 
         /// <summary>
         /// Determines whether [is generic type definition].
@@ -282,12 +282,36 @@
         {
             try
             {
-                return propertyInfo.GetValue(obj);
+                var value = propertyInfo.GetValue(obj);
+                var attr = Runtime.AttributeCache.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
+
+                if (attr == null) return value;
+                if (value == null) return attr.NullValue;
+
+                return string.IsNullOrEmpty(attr.Format)
+                    ? value
+                    : ConvertObjectAndFormat(propertyInfo, value, attr.Format);
             }
             catch
             {
                 return null;
             }
+        }
+
+        private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)
+        {
+            if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+                return Convert.ToDateTime(value).ToString(format);
+            if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
+                return Convert.ToInt32(value).ToString(format);
+            if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
+                return Convert.ToDecimal(value).ToString(format);
+            if (propertyInfo.PropertyType == typeof(double) || propertyInfo.PropertyType == typeof(double?))
+                return Convert.ToDouble(value).ToString(format);
+            if (propertyInfo.PropertyType == typeof(byte) || propertyInfo.PropertyType == typeof(byte?))
+                return Convert.ToByte(value).ToString(format);
+
+            return value;
         }
     }
 }

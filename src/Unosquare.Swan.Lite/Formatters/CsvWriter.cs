@@ -518,9 +518,7 @@
 
         #region IDisposable Support
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose() => Dispose(true);
 
         /// <summary>
@@ -529,18 +527,17 @@
         /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeAlsoManaged)
         {
-            if (!_isDisposing)
-            {
-                if (disposeAlsoManaged)
-                {
-                    if (_leaveStreamOpen == false)
-                    {
-                        _outputStream.Dispose();
-                    }
-                }
+            if (_isDisposing) return;
 
-                _isDisposing = true;
+            if (disposeAlsoManaged)
+            {
+                if (_leaveStreamOpen == false)
+                {
+                    _outputStream.Dispose();
+                }
             }
+
+            _isDisposing = true;
         }
 
         #endregion

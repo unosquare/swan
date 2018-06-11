@@ -41,5 +41,21 @@
         /// The default value.
         /// </value>
         public object DefaultValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the format string to call with method <c>ToString</c>.
+        /// </summary>
+        /// <value>
+        /// The format.
+        /// </value>
+        public string Format { get; set; }
+
+        /// <summary>
+        /// Gets or sets the null value representation.
+        /// </summary>
+        /// <value>
+        /// The null value.
+        /// </value>
+        public string NullValue { get; set; }
     }
 }
