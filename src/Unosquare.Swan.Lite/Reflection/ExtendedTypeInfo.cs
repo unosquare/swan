@@ -252,11 +252,9 @@
             if (instance == null)
                 return string.Empty;
 
-            if (_toStringArgumentLength != 1)
-                return instance.ToString();
-
-            var arguments = new object[] { CultureInfo.InvariantCulture };
-            return ToStringMethodInfo.Invoke(instance, arguments) as string;
+            return _toStringArgumentLength != 1
+                ? instance.ToString()
+                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string;
         }
 
         #endregion

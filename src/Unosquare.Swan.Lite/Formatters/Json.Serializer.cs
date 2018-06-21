@@ -55,6 +55,12 @@
             /// <param name="options">The options.</param>
             private Serializer(object obj, int depth, bool format, SerializerOptions options)
             {
+                if (depth > 20)
+                {
+                    throw new InvalidOperationException(
+                        "The max depth (20) has been reached. Serializer can not continue.");
+                }
+
                 // Basic Type Handling (nulls, strings and bool)
                 _result = ResolveBasicType(obj, depth);
 
@@ -132,7 +138,10 @@
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
-            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+            /// <returns>
+            /// A <see cref="System.String" /> that represents the current object
+            /// </returns>
+            /// <exception cref="InvalidOperationException">The max depth (20) has been reached. Serializer can not continue.</exception>
             internal static string Serialize(
                 object obj,
                 int depth,
