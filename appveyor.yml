@@ -17,7 +17,6 @@ environment:
   access_token:
        secure: HzWdswNyfQbQ0vLk9IQyO+Ei9mxoPYp9rvv6HPhtC9J/Fm7EHRzyV953pbPRXI9I
 before_build:
-- ps: Write-Host "TItle $env:APPVEYOR_PULL_REQUEST_TITLE Windows $isWindows"
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
@@ -82,4 +81,3 @@ on_finish:
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id
 - ps: Stop-Process -Id $NTP.Id
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
