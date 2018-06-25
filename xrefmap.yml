@@ -1970,19 +1970,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
   nameWithType: PropertyDisplayAttribute.Description
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format
-  name: Format
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Format
-  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format
-  nameWithType: PropertyDisplayAttribute.Format
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format*
-  name: Format
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Format_
-  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Format
-  nameWithType: PropertyDisplayAttribute.Format
 - uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
   name: GroupName
   href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_GroupName
@@ -2009,19 +1996,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
   nameWithType: PropertyDisplayAttribute.Name
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  name: NullValue
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_NullValue
-  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  nameWithType: PropertyDisplayAttribute.NullValue
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue*
-  name: NullValue
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_NullValue_
-  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  nameWithType: PropertyDisplayAttribute.NullValue
 - uid: Unosquare.Swan.Attributes.RangeAttribute
   name: RangeAttribute
   href: api/Unosquare.Swan.Attributes.RangeAttribute.html
