@@ -145,10 +145,10 @@
 
                 if (propertyInfo.PropertyType.IsArray)
                 {
-                    var elementType = propertyInfo.PropertyType.GetElementType();
-
                     if (property.Value is IEnumerable == false)
                         continue;
+                    
+                    var elementType = propertyInfo.PropertyType.GetElementType();
 
                     var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
                     var targetArray = Array.CreateInstance(elementType, sourceArray.Length);

@@ -265,8 +265,7 @@
                         var tempBuffer = new byte[1024];
                         var receiveCount = udp.Client.Receive(tempBuffer);
                         bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
-                    }
-                    while (udp.Client.Available > 0 || bufferList.Count == 0);
+                    } while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer);
@@ -569,7 +568,7 @@
                 => string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
 
             public override bool Equals(object obj)
-                => obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
+                => obj is DnsDomain domain && CompareTo(domain) == 0;
 
             public override int GetHashCode() => ToString().GetHashCode();
 
@@ -598,14 +597,12 @@
 
         public class DnsQuestion : IDnsMessageEntry
         {
-            public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount)
-            {
-                return GetAllFromArray(message, offset, questionCount, out offset);
-            }
+            public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount) =>
+                GetAllFromArray(message, offset, questionCount, out offset);
 
             public static IList<DnsQuestion> GetAllFromArray(
-                byte[] message, 
-                int offset, 
+                byte[] message,
+                int offset,
                 int questionCount,
                 out int endOffset)
             {
@@ -635,7 +632,7 @@
             private readonly DnsRecordClass _klass;
 
             public DnsQuestion(
-                DnsDomain domain, 
+                DnsDomain domain,
                 DnsRecordType type = DnsRecordType.A,
                 DnsRecordClass klass = DnsRecordClass.IN)
             {

@@ -119,7 +119,7 @@
                 $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
                 var input = ReadLine();
 
-                if (int.TryParse(input, out int parsedInt) == false)
+                if (int.TryParse(input, out var parsedInt) == false)
                 {
                     parsedInt = defaultNumber;
                 }
@@ -158,7 +158,7 @@
                     var titleText = string.Format(
                         textFormat,
                         string.IsNullOrWhiteSpace(title) ? " Select an option from the list below." : $" {title}");
-                    titleText.Write(textColor); // , titleText);
+                    titleText.Write(textColor);
                     Table.Vertical();
                 }
 

@@ -554,7 +554,10 @@
             }
         }
 
-        private static object GetCurrentPropertyValue(Type targetType, bool includeNonPublic, object target,
+        private static object GetCurrentPropertyValue(
+            Type targetType, 
+            bool includeNonPublic, 
+            object target,
             MemberInfo targetProperty)
         {
             object currentPropertyValue = null;

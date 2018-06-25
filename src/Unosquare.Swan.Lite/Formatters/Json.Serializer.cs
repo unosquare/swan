@@ -341,9 +341,9 @@
                 if (target is IEnumerable == false) return string.Empty;
 
                 // Special byte array handling
-                if (target is byte[])
+                if (target is byte[] bytes)
                 {
-                    return Serialize((target as byte[]).ToBase64(), depth, _format, options);
+                    return Serialize(bytes.ToBase64(), depth, _format, options);
                 }
 
                 // Cast the items as a generic object array
