@@ -307,22 +307,6 @@
         #region Private API
 
         /// <summary>
-        /// Retrieves PropertyInfo[] (both public and non-public) for the given type
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Properties for the given type</returns>
-        private static PropertyInfo[] RetrieveProperties(Type type)
-            => PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPropertiesFunc(type));
-
-        /// <summary>
-        /// Retrieves FieldInfo[] (public) for the given type
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Value of a field supported by a given object</returns>
-        private static FieldInfo[] RetrieveFields(Type type)
-            => FieldTypeCache.Retrieve(type, FieldTypeCache.GetAllFieldsFunc(type));
-
-        /// <summary>
         /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the specified target type.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -390,11 +374,8 @@
             // Case 2: Source is a List<object>
             if (source is List<object> sourceList)
             {
-                var targetArray = target as Array;
-                var targetList = target as IList;
-
                 // Case 2.1: Source is List, Target is Array
-                if (targetArray != null)
+                if (target is Array targetArray)
                 {
                     for (var i = 0; i < sourceList.Count; i++)
                     {
@@ -414,7 +395,7 @@
                         }
                     }
                 }
-                else if (targetList != null)
+                else if (target is IList targetList)
                 {
                     // Case 2.2: Source is List,  Target is IList
                     // find the add method of the target list
@@ -528,10 +509,10 @@
 
             if (targetType.IsValueType())
             {
-                fields.AddRange(RetrieveFields(targetType));
+                fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
             }
 
-            fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanWrite).ToArray());
+            fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanWrite).ToArray());
 
             foreach (var targetProperty in fields)
             {
@@ -560,22 +541,18 @@
             object target,
             MemberInfo targetProperty)
         {
-            object currentPropertyValue = null;
-
-            if (!targetType.IsValueType() && (targetProperty as PropertyInfo).PropertyType.IsArray == false)
+            try
             {
-                try
-                {
-                    currentPropertyValue =
-                        (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null);
-                }
-                catch
-                {
-                    // ignored
-                }
+                return !targetType.IsValueType() && (targetProperty as PropertyInfo)?.PropertyType.IsArray != true
+                    ? (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
+                    : null;
+            }
+            catch
+            {
+                // ignored
             }
 
-            return currentPropertyValue;
+            return null;
         }
 
         private static void SetValue(

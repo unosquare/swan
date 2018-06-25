@@ -2,7 +2,6 @@
 {
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
     using Reflection;
 
     public abstract class TypeCacheTest
@@ -23,9 +22,7 @@
         [Test]
         public void WithInvalidType_ReturnsFalse()
         {
-            var contains = TypeCache.Contains<string>();
-
-            Assert.IsFalse(contains);
+            Assert.IsFalse(TypeCache.Contains<string>());
         }
     }
 
@@ -35,7 +32,7 @@
         [Test]
         public void WithFactoryReturnsNull_ThrowsKeyNotFoundException()
         {
-            Assert.Throws<KeyNotFoundException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
                 TypeCache.Retrieve(typeof(string), () => null));
         }
 

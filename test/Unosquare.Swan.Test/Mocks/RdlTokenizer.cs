@@ -15,10 +15,7 @@
         {
         }
 
-        public override bool EvaluateFunctionOrMember(string input, int position)
-        {
-            return input[position] == '[';
-        }
+        public override bool EvaluateFunctionOrMember(string input, int position) => input[position] == '[';
 
         public override bool ValidateInput(string input, out int startIndex)
         {

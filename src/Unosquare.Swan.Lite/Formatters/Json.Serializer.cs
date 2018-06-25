@@ -120,7 +120,7 @@
 
                 _result = Serialize(objectDictionary, depth, _format, options);
             }
-            
+
             /// <summary>
             /// Serializes the specified object.
             /// </summary>
@@ -134,13 +134,13 @@
             /// <param name="parentReferences">The parent references.</param>
             /// <returns>A <see cref="System.String" /> that represents the current object</returns>
             internal static string Serialize(
-                object obj, 
-                int depth, 
-                bool format, 
-                string typeSpecifier, 
-                string[] includeProperties, 
-                string[] excludeProperties, 
-                bool includeNonPublic, 
+                object obj,
+                int depth,
+                bool format,
+                string typeSpecifier,
+                string[] includeProperties,
+                string[] excludeProperties,
+                bool includeNonPublic,
                 List<WeakReference> parentReferences = null)
             {
                 var options = new SerializerOptions
@@ -168,27 +168,23 @@
 
             private static string ResolveBasicType(object obj, int depth)
             {
-                if (obj == null)
+                switch (obj)
                 {
-                    return depth == 0 ? EmptyObjectLiteral : NullLiteral;
+                    case null:
+                        return depth == 0 ? EmptyObjectLiteral : NullLiteral;
+                    case string s:
+                        return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
+                    case bool b:
+                        return b ? TrueLiteral : FalseLiteral;
+                    case Type _:
+                    case Assembly _:
+                    case MethodInfo _:
+                    case PropertyInfo _:
+                    case EventInfo _:
+                        return $"{StringQuotedChar}{Escape(obj.ToString())}{StringQuotedChar}";
+                    default:
+                        return string.Empty;
                 }
-
-                if (obj is string s)
-                {
-                    return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
-                }
-
-                if (obj is bool b)
-                {
-                    return b ? TrueLiteral : FalseLiteral;
-                }
-
-                if (obj is Type || obj is Assembly || obj is MethodInfo || obj is PropertyInfo || obj is EventInfo)
-                {
-                    return $"{StringQuotedChar}{Escape(obj.ToString())}{StringQuotedChar}";
-                }
-
-                return string.Empty;
             }
 
             private static string ResolveDateTimeOrNumber(object obj, Type targetType)
@@ -204,8 +200,8 @@
                 }
 
                 var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
-                
-                return decimal.TryParse(escapedValue, out var _)
+
+                return decimal.TryParse(escapedValue, out _)
                     ? $"{escapedValue}"
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }
@@ -398,11 +394,11 @@
                 // If the target is a struct (value type) navigate the fields.
                 if (targetType.IsValueType())
                 {
-                    fields.AddRange(RetrieveFields(targetType));
+                    fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
                 }
 
                 // then incorporate the properties
-                fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanRead).ToArray());
+                fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead).ToArray());
 
                 // If we set the included properties, then we remove everything that is not listed
                 if (_includeProperties.Count > 0)
@@ -423,8 +419,8 @@
                     {
                         objectDictionary[
                                 field.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? field.Name] =
-                            field is PropertyInfo
-                                ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
+                            field is PropertyInfo info
+                                ? info.GetGetMethod(includeNonPublic)?.Invoke(target, null)
                                 : (field as FieldInfo).GetValue(target);
                     }
                     catch
