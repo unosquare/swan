@@ -12,9 +12,8 @@ const server = new SMTPServer({
         callback(null, {user: 123}); // where 123 is the user id or similar property
     },
     onData(stream, session, callback){
+        stream.pipe(process.stdout);
         const fileDir = path.join(os.tmpdir(), 'tempFile.msg');
-
-        console.log('New email saving at ' + fileDir);
         fs.writeFile(fileDir, JSON.stringify(session), () => { });
 
         stream.on('end', callback);

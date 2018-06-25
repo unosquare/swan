@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test.SmtpTests
 {
     using Formatters;
     using Mocks;
@@ -70,7 +70,7 @@
             var session = new SmtpSessionState { SenderAddress = SenderEmail };
 
             session.Recipients.Add(RecipientEmail);
-            session.DataBuffer.AddRange(new byte[] { 0x48, 0x48, 0x0A, 0x0C });
+            session.DataBuffer.AddRange(System.Text.Encoding.ASCII.GetBytes("HH\r\n"));
 
             await client.SendMailAsync(session);
             await Task.Delay(100);
