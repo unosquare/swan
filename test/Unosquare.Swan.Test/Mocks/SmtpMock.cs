@@ -3,60 +3,51 @@
     using Attributes;
     using System.Collections.Generic;
 
-    public class From
+    public class SmtpMock
     {
-        [JsonProperty("address")]
-        public string Address { get; set; }
-
-        [JsonProperty("args")]
-        public bool Args { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("secure")]
+        public bool Secure { get; set; }
+        [JsonProperty("localAddress")]
+        public string LocalAddress { get; set; }
+        [JsonProperty("localPort")]
+        public int LocalPort { get; set; }
+        [JsonProperty("remoteAddress")]
+        public string RemoteAddress { get; set; }
+        [JsonProperty("remotePort")]
+        public int RemotePort { get; set; }
+        [JsonProperty("clientHostname")]
+        public string ClientHostname { get; set; }
+        [JsonProperty("openingCommand")]
+        public string OpeningCommand { get; set; }
+        [JsonProperty("hostNameAppearsAs")]
+        public string HostNameAppearsAs { get; set; }
+        [JsonProperty("transmissionType")]
+        public string TransmissionType { get; set; }
+        [JsonProperty("tlsOptions")]
+        public bool TlsOptions { get; set; }
+        [JsonProperty("transaction")]
+        public int Transaction { get; set; }
+        [JsonProperty("user")]
+        public int User { get; set; }
+        [JsonProperty("envelope")]
+        public Envelope Envelope { get; set; }
     }
-
-    public class To
+    
+    public class GenericMail
     {
         [JsonProperty("address")]
         public string Address { get; set; }
-
         [JsonProperty("args")]
         public bool Args { get; set; }
     }
 
     public class Envelope
     {
-        [JsonProperty("from")]
-        public From From { get; set; }
-
-        [JsonProperty("to")]
-        public List<To> To { get; set; }
-        
-        [JsonProperty("host")]
-        public string Host { get; set; }
-
-        [JsonProperty("remoteAddress")]
-        public string RemoteAddress { get; set; }
-    }
-
-    public class SmtpMock
-    {
-        [JsonProperty("headers")]
-        public Dictionary<string, string> Headers { get; set; }
-
-        [JsonProperty("priority")]
-        public string Priority { get; set; }
-
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("time")]
-        public string Time { get; set; }
-
-        [JsonProperty("read")]
-        public bool Read { get; set; }
-
-        [JsonProperty("envelope")]
-        public Envelope Envelope { get; set; }
-
-        [JsonProperty("source")]
-        public string Source { get; set; }
+        [JsonProperty("mailFrom")]
+        public GenericMail MailFrom { get; set; }
+        [JsonProperty("rcptTo")]
+        public List<GenericMail> RcptTo { get; set; }
     }
 }

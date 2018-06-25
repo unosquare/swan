@@ -461,7 +461,7 @@
                 if (IgnorePropertyNames.Contains(stringKey))
                     continue;
 
-                values.Add(dictionary[key]);
+                values.Add(dictionary[stringKey]);
             }
 
             return values.ToArray();

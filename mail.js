@@ -1,22 +1,26 @@
-const MailDev = require('maildev');
+const SMTPServer = require('smtp-server').SMTPServer;
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const maildev = new MailDev({
-    smtp: 1030,
-    ip: '127.0.0.1'
-});
-
-maildev.listen(function () {
-    console.log('We can now sent emails to port 1030!');
-});
-
-// Print new emails to the console as they come in
-maildev.on('new',
-    function (email) {
+const server = new SMTPServer({
+    allowInsecureAuth : true,
+    onAuth(auth, session, callback){
+        if(auth.username !== 'mail' || auth.password !== 'pass'){
+            return callback(new Error('Invalid username or password'));
+        }
+        callback(null, {user: 123}); // where 123 is the user id or similar property
+    },
+    onData(stream, session, callback){
+        stream.pipe(process.stdout);
         const fileDir = path.join(os.tmpdir(), 'tempFile.msg');
+        fs.writeFile(fileDir, JSON.stringify(session), () => { });
 
-        console.log('New email saving at ' + fileDir);
-        fs.writeFile(fileDir, JSON.stringify(email), () => { });
-    });
+        stream.on('end', callback);
+    }
+});
+server.on('error', err => {
+    console.log('Error %s', err.message);
+});
+server.listen(1030);
+console.log('We can now sent emails to port 1030!');

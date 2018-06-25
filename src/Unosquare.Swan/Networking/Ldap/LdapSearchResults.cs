@@ -71,9 +71,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 _conn.Messages.Remove(item);
                 var response = GetResponse(item);
 
-                if (response is LdapSearchResult)
+                if (response is LdapSearchResult result)
                 {
-                    return (response as LdapSearchResult).Entry;
+                    return result.Entry;
                 }
             }
 

@@ -10,7 +10,7 @@
     /// <summary>
     /// Provides extended information about a type.
     /// 
-    /// This class is mainly used to define sets of types within the Constants class
+    /// This class is mainly used to define sets of types within the Definition class
     /// and it is not meant for other than querying the BasicTypesInfo dictionary.
     /// </summary>
     public class ExtendedTypeInfo

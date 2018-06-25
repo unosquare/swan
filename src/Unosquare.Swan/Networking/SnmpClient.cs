@@ -137,10 +137,7 @@
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
-        public static byte[] Get(IPEndPoint host, string mibstring)
-        {
-            return Get("get", host, "public", mibstring);
-        }
+        public static byte[] Get(IPEndPoint host, string mibstring) => Get("get", host, "public", mibstring);
 
         /// <summary>
         /// Gets the specified request.
