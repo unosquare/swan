@@ -82,3 +82,4 @@ on_finish:
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id
 - ps: Stop-Process -Id $NTP.Id
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
