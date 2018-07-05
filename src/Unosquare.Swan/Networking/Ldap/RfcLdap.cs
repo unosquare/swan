@@ -86,9 +86,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
     internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
-        public const int RESPONSE_NAME = 10;
+        public const int ResponseNameCode = 10;
         
-        public const int RESPONSE = 11;
+        public const int ResponseCode = 11;
 
         private readonly int _referralIndex;
         private readonly int _responseNameIndex;
@@ -119,11 +119,11 @@ namespace Unosquare.Swan.Networking.Ldap
                         Set(i, new Asn1SequenceOf(dec, bais, content.Length));
                         _referralIndex = i;
                         break;
-                    case RESPONSE_NAME:
+                    case ResponseNameCode:
                         Set(i, new Asn1OctetString(((Asn1OctetString) obj.TaggedValue).ByteValue()));
                         _responseNameIndex = i;
                         break;
-                    case RESPONSE:
+                    case ResponseCode:
                         Set(i, obj.TaggedValue);
                         _responseIndex = i;
                         break;

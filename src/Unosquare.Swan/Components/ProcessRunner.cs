@@ -72,6 +72,26 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
+        /// Gets the process output asynchronous.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">The working directory.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
+        public static async Task<string> GetProcessOutputAsync(
+            string filename,
+            string arguments,
+            string workingDirectory,
+            CancellationToken ct = default)
+        {
+            var result = await GetProcessResultAsync(filename, arguments, workingDirectory, null, ct);
+            return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
+        }
+
+        /// <summary>
         /// Runs the process asynchronously and if the exit code is 0,
         /// returns all of the standard output text. If the exit code is something other than 0
         /// it returns the contents of standard error.
@@ -87,7 +107,7 @@ namespace Unosquare.Swan.Components
         /// </returns>
         public static async Task<string> GetProcessEncodedOutputAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, encoding, ct);
+            var result = await GetProcessResultAsync(filename, arguments, null, encoding, ct);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -105,7 +125,7 @@ namespace Unosquare.Swan.Components
         /// <exception cref="ArgumentNullException">filename</exception>
         public static Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
         {
-            return GetProcessResultAsync(filename, arguments, Definitions.CurrentAnsiEncoding, ct);
+            return GetProcessResultAsync(filename, arguments, null, Definitions.CurrentAnsiEncoding, ct);
         }
 
         /// <summary>
@@ -115,6 +135,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">The working directory.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
@@ -122,28 +143,26 @@ namespace Unosquare.Swan.Components
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
         /// <example>
-        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, Encoding, CancellationToken)" /> method.
+        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, string, Encoding, CancellationToken)" /> method.
         /// <code>
         /// class Example
         /// {
-        ///     using System.Threading.Tasks;
-        ///     using Unosquare.Swan.Components;
-        ///     
-        ///     static async Task Main()
-        ///     {
-        ///         // Execute a process asynchronously
-        ///         var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
-        ///         
-        ///         // print out the exit code
-        ///         $"{data.ExitCode}".WriteLine();
-        ///         // print out the output
-        ///         data.StandardOutput.WriteLine();
-        ///         // and the error if exists
-        ///         data.StandardError.Error();
-        ///     }
+        /// using System.Threading.Tasks;
+        /// using Unosquare.Swan.Components;
+        /// static async Task Main()
+        /// {
+        /// // Execute a process asynchronously
+        /// var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
+        /// // print out the exit code
+        /// $"{data.ExitCode}".WriteLine();
+        /// // print out the output
+        /// data.StandardOutput.WriteLine();
+        /// // and the error if exists
+        /// data.StandardError.Error();
+        /// }
         /// }
         /// </code></example>
-        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
+        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", string workingDirectory = null, Encoding encoding = null, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -157,6 +176,7 @@ namespace Unosquare.Swan.Components
             var processReturn = await RunProcessAsync(
                                 filename,
                                 arguments,
+                                workingDirectory,
                                 (data, proc) => { standardOutputBuilder.Append(encoding.GetString(data)); },
                                 (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
                                 encoding,
@@ -175,6 +195,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">The working directory.</param>
         /// <param name="onOutputData">The on output data.</param>
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="encoding">The encoding.</param>
@@ -183,7 +204,15 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// Value type will be -1 for forceful termination of the process
         /// </returns>
-        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, Encoding encoding, bool syncEvents = true, CancellationToken ct = default)
+        public static Task<int> RunProcessAsync(
+            string filename,
+            string arguments,
+            string workingDirectory,
+            ProcessDataReceivedCallback onOutputData,
+            ProcessDataReceivedCallback onErrorData,
+            Encoding encoding,
+            bool syncEvents = true,
+            CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -209,6 +238,9 @@ namespace Unosquare.Swan.Components
 #endif
                     }
                 };
+
+                if (!string.IsNullOrWhiteSpace(workingDirectory))
+                    process.StartInfo.WorkingDirectory = workingDirectory;
 
                 // Launch the process and discard any buffered data for standard error and standard output
                 process.Start();
@@ -307,7 +339,7 @@ namespace Unosquare.Swan.Components
         /// </code>
         /// </example>
         public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
-            => RunProcessAsync(filename, arguments, onOutputData, onErrorData, Definitions.CurrentAnsiEncoding, syncEvents, ct);
+            => RunProcessAsync(filename, arguments, null, onOutputData, onErrorData, Definitions.CurrentAnsiEncoding, syncEvents, ct);
 
         /// <summary>
         /// Copies the stream asynchronously.
