@@ -111,7 +111,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
 
                 default:
-                    throw new Exception("RfcLdapMessage: Invalid tag: " + protocolOpId.Tag);
+                    throw new InvalidOperationException($"RfcLdapMessage: Invalid tag: {protocolOpId.Tag}");
             }
 
             // decode optional implicitly tagged controls from Asn1Tagged type to

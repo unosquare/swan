@@ -122,8 +122,8 @@
 
         static void TestNetworkUtilities()
         {
-            var domainName = "unosquare.com";
-            var ntpServer = "time.windows.com";
+            const string domainName = "unosquare.com";
+            const string ntpServer = "time.windows.com";
 
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);

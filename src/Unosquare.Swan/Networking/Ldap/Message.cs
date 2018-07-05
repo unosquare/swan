@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public string NextToken()
         {
-            if (_source == string.Empty) throw new Exception();
+            if (_source == string.Empty) throw new InvalidOperationException();
 
             string result;
             if (_returnDelims)

@@ -776,7 +776,7 @@ namespace Unosquare.Swan.Networking
 
             // Something really wrong happened
             if (sequences.Count == 0)
-                throw new Exception("Split function failed! This is terribly wrong!");
+                throw new InvalidOperationException("Split function failed! This is terribly wrong!");
 
             // We only have one sequence and it is not newline-terminated
             // we don't have to do anything.
