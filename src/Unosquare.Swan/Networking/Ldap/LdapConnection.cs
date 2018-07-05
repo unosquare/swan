@@ -1,11 +1,10 @@
-﻿using System.IO;
-
-#if !UWP
+﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.IO;
     using System.Net.Sockets;
     using System.Text;
     using System.Threading;
@@ -529,8 +528,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal void RetrieveMessages()
         {
-            var decoder = new LBERDecoder();
-
             while (!_cts.IsCancellationRequested)
             {
                 try
@@ -545,9 +542,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     // Turn the message into an RfcMessage class
                     var asn1Len = new Asn1Length(_conn.ActiveStream);
 
-                    Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
+                    Messages.Add(new RfcLdapMessage(_conn.ActiveStream, asn1Len.Length));
                 }
-                catch (System.IO.IOException)
+                catch (IOException)
                 {
                     // ignore
                 }
