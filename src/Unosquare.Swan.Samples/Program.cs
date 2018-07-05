@@ -21,13 +21,12 @@
         public static async Task Main(string[] args)
         {
             Runtime.WriteWelcomeBanner(ConsoleColor.Green);
-            TestApplicationInfo();
-            await TestTerminalOutputs();
 
 #if !NET46
-            await TestLdapModify();
             await TestLdapSearch();
 #endif
+            TestApplicationInfo();
+            await TestTerminalOutputs();
             TestNetworkUtilities();
             //TestContainerAndMessageHub();
             //TestJson();
@@ -43,49 +42,27 @@
         {
             try
             {
-                var cn = new LdapConnection();
-
-                await cn.Connect("ldap.forumsys.com", 389);
-                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
-
-                while (lsc.HasMore())
+                using (var cn = new LdapConnection())
                 {
-                    var entry = lsc.Next();
-                    var ldapAttributes = entry.GetAttributeSet();
+                    await cn.Connect("ldap.forumsys.com", 389);
+                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
 
+                    while (lsc.HasMore())
+                    {
+                        var entry = lsc.Next();
+                        var ldapAttributes = entry.GetAttributeSet();
 
-                    Console.WriteLine(
-                        $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+                        $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}".Info();
+                    }
                 }
-
-                //While all the entries are parsed, disconnect
-                cn.Disconnect();
             }
             catch (Exception ex)
             {
                 ex.Error(nameof(Main), "Error LDAP");
             }
         }
-
-        static async Task TestLdapModify()
-        {
-            try
-            {
-                var cn = new LdapConnection();
-
-                await cn.Connect("ad.unosquare.com", 389);
-                await cn.Bind("@unosquare.com", "password");
-                await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com",
-                    new[] {new LdapModification(LdapModificationOp.Replace, "mobile", "33366669999")});
-                cn.Disconnect();
-            }
-            catch (Exception ex)
-            {
-                ex.Error(nameof(Main), "Error LDAP");
-            }
-        }
-
+        
         static void TestExceptionLogging()
         {
             try

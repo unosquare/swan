@@ -28,15 +28,14 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="IAsn1Encoder" />
-    internal class LBEREncoder : IAsn1Encoder
+    internal class LBEREncoder
     {
         /// <summary>
         /// BER Encode an Asn1Boolean directly into the specified output stream.
         /// </summary>
         /// <param name="b">The Asn1Boolean object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1Boolean b, Stream stream)
+        public static void Encode(Asn1Boolean b, Stream stream)
         {
             // Encode the id 
             Encode(b.GetIdentifier(), stream);
@@ -56,7 +55,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="n">The Asn1Numeric object to encode</param>
         /// <param name="stream">The stram</param>
-        public void Encode(Asn1Numeric n, Stream stream)
+        public static void Encode(Asn1Numeric n, Stream stream)
         {
             var octets = new sbyte[8];
             sbyte len;
@@ -85,7 +84,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="n">The Asn1Null object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1Null n, Stream stream)
+        public static void Encode(Asn1Null n, Stream stream)
         {
             Encode(n.GetIdentifier(), stream);
             stream.WriteByte(0x00); // Length (with no Content)
@@ -96,12 +95,42 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="os">The Asn1OctetString object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1OctetString os, Stream stream)
+        public static void Encode(Asn1OctetString os, Stream stream)
         {
             Encode(os.GetIdentifier(), stream);
             EncodeLength(os.ByteValue().Length, stream);
             var tempSbyteArray = os.ByteValue();
             stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
+        }
+
+        public static void Encode(Asn1Object obj, Stream stream)
+        {
+            switch (obj)
+            {
+                case Asn1Boolean b:
+                    Encode(b, stream);
+                    break;
+                case Asn1Numeric n:
+                    Encode(n, stream);
+                    break;
+                case Asn1Null n:
+                    Encode(n, stream);
+                    break;
+                case Asn1OctetString n:
+                    Encode(n, stream);
+                    break;
+                case Asn1Structured n:
+                    Encode(n, stream);
+                    break;
+                case Asn1Tagged n:
+                    Encode(n, stream);
+                    break;
+                case Asn1Choice n:
+                    Encode(n.ChoiceValue, stream);
+                    break;
+                default:
+                    throw new InvalidDataException();
+            }
         }
 
         /// <summary>
@@ -110,7 +139,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="c">The Asn1Structured object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1Structured c, Stream stream)
+        public static void Encode(Asn1Structured c, Stream stream)
         {
             Encode(c.GetIdentifier(), stream);
 
@@ -120,7 +149,7 @@ namespace Unosquare.Swan.Networking.Ldap
             
             foreach (var obj in arrayValue)
             {
-                obj.Encode(this, output);
+                Encode(obj, output);
             }
             
             EncodeLength((int)output.Length, stream);
@@ -134,7 +163,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="t">The Asn1Tagged object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1Tagged t, Stream stream)
+        public static void Encode(Asn1Tagged t, Stream stream)
         {
             if (t.Explicit)
             {
@@ -142,7 +171,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 // determine the encoded length of the base type.
                 var encodedContent = new MemoryStream();
-                t.TaggedValue.Encode(this, encodedContent);
+                Encode(t.TaggedValue, encodedContent);
 
                 EncodeLength((int)encodedContent.Length, stream);
                 var tempSbyteArray = encodedContent.ToArray().ToSByteArray();
@@ -150,7 +179,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             else
             {
-                t.TaggedValue.Encode(this, stream);
+                Encode(t.TaggedValue, stream);
             }
         }
 
@@ -159,7 +188,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="id">The Asn1Identifier object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void Encode(Asn1Identifier id, Stream stream)
+        public static void Encode(Asn1Identifier id, Stream stream)
         {
             var c = (int) id.Asn1Class;
             var t = id.Tag;

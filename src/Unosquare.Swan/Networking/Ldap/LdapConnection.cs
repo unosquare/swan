@@ -1,4 +1,6 @@
-﻿#if !UWP
+﻿using System.IO;
+
+#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
@@ -507,19 +509,21 @@ namespace Unosquare.Swan.Networking.Ldap
         internal async Task RequestLdapMessage(LdapMessage msg,
             CancellationToken ct = default)
         {
-            var encoder = new LBEREncoder();
-            var ber = msg.Asn1Object.GetEncoding(encoder);
-            await _conn.WriteDataAsync(ber.ToByteArray(), true, ct);
-
-            while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
-                await Task.Delay(100, ct);
-
-            var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
-
-            if (first != null)
+            using (var stream = new MemoryStream())
             {
-                var response = new LdapResponse(first);
-                response.ChkResultCode();
+                LBEREncoder.Encode(msg.Asn1Object, stream);
+                await _conn.WriteDataAsync(stream.ToArray(), true, ct);
+
+                while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
+                    await Task.Delay(100, ct);
+
+                var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
+
+                if (first != null)
+                {
+                    var response = new LdapResponse(first);
+                    response.ChkResultCode();
+                }
             }
         }
 

@@ -29,9 +29,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="IAsn1Decoder" />
     internal class LBERDecoder
-        : IAsn1Decoder
     {
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.
@@ -46,7 +44,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded Asn1Obect
         /// </returns>
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
-        public Asn1Object Decode(Stream stream, int[] len)
+        public static Asn1Object Decode(Stream stream, int[] len)
         {
             var asn1Id = new Asn1Identifier(stream);
             var asn1Len = new Asn1Length(stream);
@@ -55,27 +53,27 @@ namespace Unosquare.Swan.Networking.Ldap
             len[0] = asn1Id.EncodedLength + asn1Len.EncodedLength + length;
 
             if (asn1Id.Universal == false)
-                return new Asn1Tagged(this, stream, length, (Asn1Identifier) asn1Id.Clone());
+                return new Asn1Tagged(stream, length, (Asn1Identifier) asn1Id.Clone());
 
             switch (asn1Id.Tag)
             {
                 case Asn1Sequence.Tag:
-                    return new Asn1Sequence(this, stream, length);
+                    return new Asn1Sequence(stream, length);
 
                 case Asn1Set.Tag:
-                    return new Asn1Set(this, stream, length);
+                    return new Asn1Set(stream, length);
 
                 case Asn1Boolean.Tag:
-                    return new Asn1Boolean(this, stream, length);
+                    return new Asn1Boolean(stream, length);
 
                 case Asn1Integer.Tag:
-                    return new Asn1Integer(this, stream, length);
+                    return new Asn1Integer(stream, length);
 
                 case Asn1OctetString.Tag:
-                    return new Asn1OctetString(this, stream, length);
+                    return new Asn1OctetString(stream, length);
 
                 case Asn1Enumerated.Tag:
-                    return new Asn1Enumerated(this, stream, length);
+                    return new Asn1Enumerated(stream, length);
 
                 case Asn1Null.Tag:
                     return new Asn1Null(); // has no content to decode.
@@ -94,7 +92,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded boolean object
         /// </returns>
         /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
-        public object DecodeBoolean(Stream stream, int len)
+        public static object DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
 
@@ -118,7 +116,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// LBER: NUMERIC: decode error: EOF
         /// </exception>
-        public object DecodeNumeric(Stream stream, int len)
+        public static object DecodeNumeric(Stream stream, int len)
         {
             long l = 0;
             var r = stream.ReadByte();
@@ -151,7 +149,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream</param>
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded octet </returns>
-        public object DecodeOctetString(Stream stream, int len)
+        public static object DecodeOctetString(Stream stream, int len)
         {
             var octets = new sbyte[len];
             var totalLen = 0;

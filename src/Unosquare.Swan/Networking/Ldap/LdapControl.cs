@@ -34,7 +34,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             Asn1Object = new RfcControl(
-                oid, 
+                oid,
                 new Asn1Boolean(critical),
                 values == null ? null : new Asn1OctetString(values));
         }
@@ -56,9 +56,9 @@ namespace Unosquare.Swan.Networking.Ldap
         public bool Critical => Asn1Object.Criticality.BooleanValue();
 
         internal static RespControlVector RegisteredControls { get; } = new RespControlVector(5);
-        
+
         internal RfcControl Asn1Object { get; private set; }
-        
+
         /// <summary>
         /// Registers a class to be instantiated on receipt of a control with the
         /// given OID.
@@ -78,7 +78,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            var cont = (LdapControl) MemberwiseClone();
+            var cont = (LdapControl)MemberwiseClone();
             var vals = GetValue();
 
             if (vals != null)
@@ -107,7 +107,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     or null if the control has no data.
         /// </returns>
         public sbyte[] GetValue() => Asn1Object.ControlValue?.ByteValue();
-        
+
         internal void SetValue(sbyte[] controlValue)
         {
             Asn1Object.ControlValue = new Asn1OctetString(controlValue);
@@ -189,18 +189,18 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference) Message.Response).ToArray();
+                var references = ((RfcSearchResultReference)Message.Response).ToArray();
                 _srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    _srefs[i] = ((Asn1OctetString) references[i]).StringValue();
+                    _srefs[i] = ((Asn1OctetString)references[i]).StringValue();
                 }
 
                 return _srefs;
             }
         }
     }
-    
+
     /// <summary>
     /// Encapsulates parameters of an Ldap URL query as defined in RFC2255.
     /// An LdapUrl object can be passed to LdapConnection.search to retrieve
@@ -210,7 +210,7 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class LdapUrl
     {
         private int _port; // Port
-        
+
         public LdapUrl(string url)
         {
             ParseUrl(url);
@@ -298,7 +298,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     clone of this URL object.
         /// </returns>
         public object Clone() => MemberwiseClone();
-        
+
         /// <summary>
         /// Returns a valid string representation of this Ldap URL.
         /// </summary>
@@ -376,15 +376,15 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // extensions
             url.Append("?");
-            if (Extensions != null)
+
+            if (Extensions == null) return url.ToString();
+
+            for (var i = 0; i < Extensions.Length; i++)
             {
-                for (var i = 0; i < Extensions.Length; i++)
+                url.Append(Extensions[i]);
+                if (i < Extensions.Length - 1)
                 {
-                    url.Append(Extensions[i]);
-                    if (i < Extensions.Length - 1)
-                    {
-                        url.Append(",");
-                    }
+                    url.Append(",");
                 }
             }
 
@@ -581,7 +581,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 Scope = LdapConnection.ScopeOne;
             }
-            else if (string.Equals(scopeStr,"sub", StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(scopeStr, "sub", StringComparison.OrdinalIgnoreCase))
             {
                 Scope = LdapConnection.ScopeSub;
             }
@@ -619,23 +619,23 @@ namespace Unosquare.Swan.Networking.Ldap
             Extensions = ParseList(url, ',', scanStart, scanEnd);
         }
     }
-    
+
     internal class LdapResponse : LdapMessage
     {
         internal LdapResponse(RfcLdapMessage message)
             : base(message)
         {
         }
-        
-        public string ErrorMessage => ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
-        
-        public string MatchedDN => ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
-        
+
+        public string ErrorMessage => ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
+
+        public string MatchedDN => ((IRfcResponse)Message.Response).GetMatchedDN().StringValue();
+
         public string[] Referrals
         {
             get
             {
-                var reference = ((IRfcResponse) Message.Response).GetReferral();
+                var reference = ((IRfcResponse)Message.Response).GetReferral();
 
                 if (reference == null)
                 {
@@ -647,7 +647,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var referrals = new string[size];
                 for (var i = 0; i < size; i++)
                 {
-                    var refString = ((Asn1OctetString) reference.Get(i)).StringValue();
+                    var refString = ((Asn1OctetString)reference.Get(i)).StringValue();
 
                     try
                     {
@@ -677,21 +677,21 @@ namespace Unosquare.Swan.Networking.Ldap
                 return referrals;
             }
         }
-        
+
         public LdapStatusCode ResultCode
         {
             get
             {
                 if (Message.Response is RfcSearchResultEntry ||
-                    (IRfcResponse) Message.Response is RfcIntermediateResponse)
+                    (IRfcResponse)Message.Response is RfcIntermediateResponse)
                 {
                     return LdapStatusCode.Success;
                 }
 
-                return (LdapStatusCode) ((IRfcResponse) Message.Response).GetResultCode().IntValue();
+                return (LdapStatusCode)((IRfcResponse)Message.Response).GetResultCode().IntValue();
             }
         }
-        
+
         internal LdapException ResultException
         {
             get
@@ -708,7 +708,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         var refs = Referrals;
                         ex = new LdapException(
                             "Automatic referral following not enabled",
-                            LdapStatusCode.Referral, 
+                            LdapStatusCode.Referral,
                             ErrorMessage);
                         ex.SetReferrals(refs);
                         break;
@@ -720,7 +720,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return ex;
             }
         }
-        
+
         internal LdapException Exception { get; set; }
 
         internal bool HasException() => Exception != null;
@@ -751,7 +751,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(cap)
         {
         }
-        
+
         public void RegisterResponseControl(string oid, Type controlClass)
         {
             lock (this)
@@ -759,7 +759,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(new RegisteredControl(this, oid, controlClass));
             }
         }
-        
+
         public Type FindResponseControl(string searchOid)
         {
             lock (this)

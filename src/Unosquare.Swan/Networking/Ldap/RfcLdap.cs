@@ -65,8 +65,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultReference(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcSearchResultReference(Stream stream, int len)
+            : base(stream, len)
         {
         }
         
@@ -102,8 +102,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public RfcExtendedResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcExtendedResponse(Stream stream, int len)
+            : base(stream, len)
         {
             if (Size() <= 3) return;
 
@@ -116,7 +116,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     case RfcLdapResult.REFERRAL:
                         var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
                         var bais = new MemoryStream(content.ToByteArray());
-                        Set(i, new Asn1SequenceOf(dec, bais, content.Length));
+                        Set(i, new Asn1SequenceOf(bais, content.Length));
                         _referralIndex = i;
                         break;
                     case ResponseNameCode:
@@ -166,11 +166,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Note: If serverSaslCreds is included in the BindResponse, it does not
         /// need to be decoded since it is already an OCTET STRING.
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcBindResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcBindResponse(Stream stream, int len)
+            : base(stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() <= 3) return;
@@ -181,7 +180,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
             var bais = new MemoryStream(content.ToByteArray());
-            Set(3, new Asn1SequenceOf(dec, bais, content.Length));
+            Set(3, new Asn1SequenceOf(bais, content.Length));
         }
         
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
@@ -210,8 +209,8 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int TagResponseName = 0;
         public const int TagResponse = 1;
         
-        public RfcIntermediateResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcIntermediateResponse(Stream stream, int len)
+            : base(stream, len)
         {
             var i = Size() >= 3 ? 3 : 0;
 
