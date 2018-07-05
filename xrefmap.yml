@@ -5185,6 +5185,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync
   nameWithType: ProcessRunner.GetProcessEncodedOutputAsync
+- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: GetProcessOutputAsync(String, String, String, CancellationToken)
+  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String, System.String, System.String, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessOutputAsync(String, String, String, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)
   name: GetProcessOutputAsync(String, String, CancellationToken)
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -5204,12 +5210,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync
   nameWithType: ProcessRunner.GetProcessOutputAsync
-- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  name: GetProcessResultAsync(String, String, Encoding, CancellationToken)
-  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.GetProcessResultAsync(String, String, Encoding, CancellationToken)
+- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  name: GetProcessResultAsync(String, String, String, Encoding, CancellationToken)
+  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessResultAsync(String, String, String, Encoding, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Threading.CancellationToken)
   name: GetProcessResultAsync(String, String, CancellationToken)
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -5229,18 +5235,18 @@ references:
   commentId: T:Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback
   fullName: Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback
   nameWithType: ProcessRunner.ProcessDataReceivedCallback
+- uid: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
+  name: RunProcessAsync(String, String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
+  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String, System.String, System.String, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, System.Text.Encoding, System.Boolean, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.RunProcessAsync(String, String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Boolean,System.Threading.CancellationToken)
   name: RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Boolean_System_Threading_CancellationToken_
   commentId: M:Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Boolean,System.Threading.CancellationToken)
   fullName: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String, System.String, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, System.Boolean, System.Threading.CancellationToken)
   nameWithType: ProcessRunner.RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)
-- uid: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
-  name: RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
-  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String, System.String, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback, System.Text.Encoding, System.Boolean, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync*
   name: RunProcessAsync
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_
