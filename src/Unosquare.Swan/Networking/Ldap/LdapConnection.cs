@@ -4,6 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.IO;
     using System.Net.Sockets;
     using System.Text;
     using System.Threading;
@@ -507,26 +508,26 @@ namespace Unosquare.Swan.Networking.Ldap
         internal async Task RequestLdapMessage(LdapMessage msg,
             CancellationToken ct = default)
         {
-            var encoder = new LBEREncoder();
-            var ber = msg.Asn1Object.GetEncoding(encoder);
-            await _conn.WriteDataAsync(ber.ToByteArray(), true, ct);
-
-            while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
-                await Task.Delay(100, ct);
-
-            var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
-
-            if (first != null)
+            using (var stream = new MemoryStream())
             {
-                var response = new LdapResponse(first);
-                response.ChkResultCode();
+                LBEREncoder.Encode(msg.Asn1Object, stream);
+                await _conn.WriteDataAsync(stream.ToArray(), true, ct);
+
+                while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
+                    await Task.Delay(100, ct);
+
+                var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
+
+                if (first != null)
+                {
+                    var response = new LdapResponse(first);
+                    response.ChkResultCode();
+                }
             }
         }
 
         internal void RetrieveMessages()
         {
-            var decoder = new LBERDecoder();
-
             while (!_cts.IsCancellationRequested)
             {
                 try
@@ -541,9 +542,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     // Turn the message into an RfcMessage class
                     var asn1Len = new Asn1Length(_conn.ActiveStream);
 
-                    Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
+                    Messages.Add(new RfcLdapMessage(_conn.ActiveStream, asn1Len.Length));
                 }
-                catch (System.IO.IOException)
+                catch (IOException)
                 {
                     // ignore
                 }

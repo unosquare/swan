@@ -84,14 +84,14 @@
         [Test]
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
         }
 
         [Test]
         public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s));
         }
 
@@ -122,14 +122,14 @@
         [Test]
         public void RemoveInvalidProperty_ThrowsException()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(t => t));
         }
 
         [Test]
         public void PropertyDestionationInfoNull_ReturnsException()
         {
-            Assert.Throws<Exception>(() => 
+            Assert.Throws<ArgumentException>(() => 
                 new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
         }
     }

@@ -56,11 +56,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             _finalFound = false;
             var seq = new Asn1SequenceOf(5);
-            Asn1Object current =
-                new Asn1Tagged(new Asn1Identifier((int)FilterOp.Substrings, true),
-                    new RfcSubstringFilter(attrName, seq),
-                    false);
-            AddObject(current);
+
+            AddObject(new Asn1Tagged(new Asn1Identifier((int)FilterOp.Substrings, true),
+                new RfcSubstringFilter(attrName, seq),
+                false));
             _filterStack.Push(seq);
         }
 
@@ -212,18 +211,18 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             Asn1Object current;
 
-            if (rfcType == FilterOp.And || rfcType == FilterOp.Or)
+            switch (rfcType)
             {
-                current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true), new Asn1SetOf(), false);
-            }
-            else if (rfcType == FilterOp.Not)
-            {
-                current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true));
-            }
-            else
-            {
-                throw new LdapException("Attempt to create a nested filter other than AND, OR or NOT",
-                    LdapStatusCode.FilterError);
+                case FilterOp.And:
+                case FilterOp.Or:
+                    current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true), new Asn1SetOf(), false);
+                    break;
+                case FilterOp.Not:
+                    current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true));
+                    break;
+                default:
+                    throw new LdapException("Attempt to create a nested filter other than AND, OR or NOT",
+                        LdapStatusCode.FilterError);
             }
 
             AddObject(current);
@@ -360,9 +359,9 @@ namespace Unosquare.Swan.Networking.Ldap
                             }
                     }
                 }
-                else if (filterpart is IEnumerator)
+                else if (filterpart is IEnumerator enumerator)
                 {
-                    StringFilter((IEnumerator)filterpart, filter);
+                    StringFilter(enumerator, filter);
                 }
             }
 
@@ -566,6 +565,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             var attr = false;
                             var st = new Tokenizer(_ft.Attr, ":");
                             var first = true;
+
                             while (st.HasMoreTokens())
                             {
                                 var s = st.NextToken().Trim();
@@ -738,23 +738,26 @@ namespace Unosquare.Swan.Networking.Ldap
                 var topOfStack = (Asn1Tagged)_filterStack.Peek();
                 var value = topOfStack.TaggedValue;
 
-                if (value == null)
+                switch (value)
                 {
-                    topOfStack.TaggedValue = current;
-                    _filterStack.Push(current);
-                }
-                else if (value is Asn1SetOf)
-                {
-                    ((Asn1SetOf)value).Add(current);
-                }
-                else if (value is Asn1Set)
-                {
-                    ((Asn1Set)value).Add(current);
-                }
-                else if (value.GetIdentifier().Tag == (int)FilterOp.Not)
-                {
-                    throw new LdapException("Attemp to create more than one 'not' sub-filter",
-                        LdapStatusCode.FilterError);
+                    case null:
+                        topOfStack.TaggedValue = current;
+                        _filterStack.Push(current);
+                        break;
+                    case Asn1SetOf _:
+                        ((Asn1SetOf)value).Add(current);
+                        break;
+                    case Asn1Set _:
+                        ((Asn1Set)value).Add(current);
+                        break;
+                    default:
+                        if (value.GetIdentifier().Tag == (int)FilterOp.Not)
+                        {
+                            throw new LdapException("Attemp to create more than one 'not' sub-filter",
+                                LdapStatusCode.FilterError);
+                        }
+
+                        break;
                 }
             }
 
@@ -850,19 +853,18 @@ namespace Unosquare.Swan.Networking.Ldap
                             for (index = 0; index < Attr.Length; index++)
                             {
                                 var atIndex = Attr[index];
-                                if (
-                                    !(char.IsLetterOrDigit(atIndex) || atIndex == '-' || atIndex == '.' || atIndex == ';' ||
-                                      atIndex == ':'))
-                                {
-                                    if (atIndex == '\\')
-                                    {
-                                        throw new LdapException("Escape sequence not allowed in attribute description",
-                                            LdapStatusCode.FilterError);
-                                    }
+                                if (char.IsLetterOrDigit(atIndex) || atIndex == '-' || atIndex == '.' ||
+                                    atIndex == ';' ||
+                                    atIndex == ':') continue;
 
-                                    throw new LdapException($"Invalid character \"{atIndex}\" in attribute description",
+                                if (atIndex == '\\')
+                                {
+                                    throw new LdapException("Escape sequence not allowed in attribute description",
                                         LdapStatusCode.FilterError);
                                 }
+
+                                throw new LdapException($"Invalid character \"{atIndex}\" in attribute description",
+                                    LdapStatusCode.FilterError);
                             }
 
                             // is there an option specified in the filter ?

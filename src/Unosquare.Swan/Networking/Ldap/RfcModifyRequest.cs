@@ -37,8 +37,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
     internal class RfcModifyResponse : RfcLdapResult
     {
-        public RfcModifyResponse(IAsn1Decoder dec, Stream stream, int len) 
-            : base(dec, stream, len)
+        public RfcModifyResponse(Stream stream, int len) 
+            : base(stream, len)
         {
         }
         

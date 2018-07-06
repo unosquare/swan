@@ -62,11 +62,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The only time a client will create a SearchResultReference is when it is
         /// decoding it from an InputStream
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultReference(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcSearchResultReference(Stream stream, int len)
+            : base(stream, len)
         {
         }
         
@@ -86,9 +85,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
     internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
-        public const int RESPONSE_NAME = 10;
+        public const int ResponseNameCode = 10;
         
-        public const int RESPONSE = 11;
+        public const int ResponseCode = 11;
 
         private readonly int _referralIndex;
         private readonly int _responseNameIndex;
@@ -99,11 +98,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The only time a client will create a ExtendedResponse is when it is
         /// decoding it from an InputStream
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public RfcExtendedResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcExtendedResponse(Stream stream, int len)
+            : base(stream, len)
         {
             if (Size() <= 3) return;
 
@@ -111,19 +109,22 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 var obj = (Asn1Tagged) Get(i);
                 var id = obj.GetIdentifier();
+
                 switch (id.Tag)
                 {
                     case RfcLdapResult.REFERRAL:
                         var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-                        var bais = new MemoryStream(content.ToByteArray());
-                        Set(i, new Asn1SequenceOf(dec, bais, content.Length));
+
+                        using (var bais = new MemoryStream(content.ToByteArray()))
+                            Set(i, new Asn1SequenceOf(bais, content.Length));
+                        
                         _referralIndex = i;
                         break;
-                    case RESPONSE_NAME:
+                    case ResponseNameCode:
                         Set(i, new Asn1OctetString(((Asn1OctetString) obj.TaggedValue).ByteValue()));
                         _responseNameIndex = i;
                         break;
-                    case RESPONSE:
+                    case ResponseCode:
                         Set(i, obj.TaggedValue);
                         _responseIndex = i;
                         break;
@@ -166,11 +167,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Note: If serverSaslCreds is included in the BindResponse, it does not
         /// need to be decoded since it is already an OCTET STRING.
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcBindResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcBindResponse(Stream stream, int len)
+            : base(stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() <= 3) return;
@@ -180,8 +180,9 @@ namespace Unosquare.Swan.Networking.Ldap
             if (obj.GetIdentifier().Tag != RfcLdapResult.REFERRAL) return;
 
             var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-            var bais = new MemoryStream(content.ToByteArray());
-            Set(3, new Asn1SequenceOf(dec, bais, content.Length));
+
+            using (var bais = new MemoryStream(content.ToByteArray()))
+                Set(3, new Asn1SequenceOf(bais, content.Length));
         }
         
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
@@ -210,8 +211,8 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int TagResponseName = 0;
         public const int TagResponse = 1;
         
-        public RfcIntermediateResponse(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
+        public RfcIntermediateResponse(Stream stream, int len)
+            : base(stream, len)
         {
             var i = Size() >= 3 ? 3 : 0;
 

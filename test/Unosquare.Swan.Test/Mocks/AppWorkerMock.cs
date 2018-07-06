@@ -22,7 +22,7 @@
                 if (Count == 6)
                 {
                     ExitBecauseCancellation = false;
-                    throw new Exception("Expected exception");
+                    throw new InvalidOperationException("Expected exception");
                 }
             }
         }

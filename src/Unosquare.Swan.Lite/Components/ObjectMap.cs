@@ -52,7 +52,7 @@
 
             if (propertyDestinationInfo == null)
             {
-                throw new Exception("Invalid destination expression");
+                throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
             }
 
             var sourceMembers = new List<PropertyInfo>();
@@ -69,7 +69,7 @@
 
             if (sourceMembers.Any() == false)
             {
-                throw new Exception("Invalid source expression");
+                throw new ArgumentException("Invalid source expression", nameof(sourceProperty));
             }
 
             // reverse order
@@ -95,7 +95,7 @@
             var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
-                throw new Exception("Invalid destination expression");
+                throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
 
             if (Map.ContainsKey(propertyDestinationInfo))
             {

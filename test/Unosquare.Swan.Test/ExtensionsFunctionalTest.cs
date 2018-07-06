@@ -20,7 +20,7 @@
             AdditionalName
         };
 
-        protected readonly IQueryable<string> Queryable = Enumerable.AsQueryable();
+        protected IQueryable<string> Queryable => Enumerable.AsQueryable();
 
         protected List<string> List => Enumerable.ToList();
 

@@ -47,8 +47,6 @@ namespace Unosquare.Swan.Networking.Ldap
             set => _content = value;
         }
         
-        public override void Encode(IAsn1Encoder enc, Stream stream) => _content.Encode(enc, stream);
-        
         public override Asn1Identifier GetIdentifier() => _content.GetIdentifier();
         
         public override void SetIdentifier(Asn1Identifier id) => _content.SetIdentifier(id);
@@ -184,15 +182,6 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Abstract method that must be implemented by each child
-        /// class to encode itself ( an Asn1Object) directly intto
-        /// a output stream.
-        /// </summary>
-        /// <param name="enc">The enc.</param>
-        /// <param name="stream">The stream.</param>
-        public abstract void Encode(IAsn1Encoder enc, Stream stream);
-
-        /// <summary>
         ///     Returns the identifier for this Asn1Object as an Asn1Identifier.
         ///     This Asn1Identifier object will include the CLASS, FORM and TAG
         ///     for this Asn1Object.
@@ -206,26 +195,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         public virtual void SetIdentifier(Asn1Identifier identifier) => _id = identifier;
-
-        /// <summary>
-        /// This method returns a byte array representing the encoded
-        /// Asn1Object.  It in turn calls the encode method that is
-        /// defined in Asn1Object but will usually be implemented
-        /// in the child Asn1 classes.
-        /// </summary>
-        /// <param name="enc">The enc.</param>
-        /// <returns>
-        /// Byte array
-        /// </returns>
-        public sbyte[] GetEncoding(IAsn1Encoder enc)
-        {
-            using (var stream = new MemoryStream())
-            {
-                Encode(enc, stream);
-
-                return stream.ToArray().ToSByteArray();
-            }
-        }
 
         /// <summary>
         /// Return a String representation of this Asn1Object.
@@ -267,16 +236,14 @@ namespace Unosquare.Swan.Networking.Ldap
             _content = Encoding.UTF8.GetSBytes(content);
         }
         
-        public Asn1OctetString(IAsn1Decoder dec, Stream stream, int len)
+        public Asn1OctetString(Stream stream, int len)
             : base(Id)
         {
-            _content = len > 0 ? (sbyte[]) dec.DecodeOctetString(stream, len) : new sbyte[0];
+            _content = len > 0 ? (sbyte[]) LBERDecoder.DecodeOctetString(stream, len) : new sbyte[0];
         }
         
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
-        
         public sbyte[] ByteValue() => _content;
-        
+
         public string StringValue() => Encoding.UTF8.GetString(_content);
         
         public override string ToString() => base.ToString() + "OCTET STRING: " + StringValue();
@@ -328,20 +295,17 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="Asn1Tagged"/> class by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         /// <param name="identifier">The identifier.</param>
-        public Asn1Tagged(IAsn1Decoder dec, Stream stream, int len, Asn1Identifier identifier)
+        public Asn1Tagged(Stream stream, int len, Asn1Identifier identifier)
             : base(identifier)
         {
             // If we are decoding an implicit tag, there is no way to know at this
             // low level what the base type really is. We can place the content
             // into an Asn1OctetString type and pass it back to the application who
             // will be able to create the appropriate ASN.1 type for this tag.
-            _content = new Asn1OctetString(dec, stream, len);
+            _content = new Asn1OctetString(stream, len);
         }
         
         public Asn1Object TaggedValue
@@ -361,8 +325,6 @@ namespace Unosquare.Swan.Networking.Ldap
         
         public bool Explicit { get; }
         
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
-        
         public override string ToString() => Explicit ? base.ToString() + _content : _content.ToString();
     }
 
@@ -381,15 +343,6 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             _content = new Asn1Object[size];
         }
-        
-        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size)
-            : base(id)
-        {
-            _content = newContent;
-            _contentIndex = size;
-        }
-        
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
         
         public Asn1Object[] ToArray()
         {
@@ -452,13 +405,13 @@ namespace Unosquare.Swan.Networking.Ldap
             return base.ToString() + sb;
         }
         
-        protected internal void DecodeStructured(IAsn1Decoder dec, Stream stream, int len)
+        protected internal void DecodeStructured(Stream stream, int len)
         {
             var componentLen = new int[1]; // collects length of component
 
             while (len > 0)
             {
-                Add(dec.Decode(stream, componentLen));
+                Add(LBERDecoder.Decode(stream, componentLen));
                 len -= componentLen[0];
             }
         }
@@ -495,19 +448,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Boolean object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1Boolean(IAsn1Decoder dec, Stream stream, int len)
+        public Asn1Boolean(Stream stream, int len)
             : base(Id)
         {
-            _content = (bool) dec.DecodeBoolean(stream, len);
+            _content = LBERDecoder.DecodeBoolean(stream, len);
         }
-
-        /// <inheritdoc />
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
         /// <summary>
         /// Returns the content of this Asn1Boolean as a boolean.
@@ -538,10 +485,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id)
         {
         }
-
-        /// <inheritdoc />
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
-
+        
         public override string ToString() => base.ToString() + "NULL: \"\"";
     }
 
@@ -579,12 +523,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal sealed class Asn1Length
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Length"/> class. Constructs an empty Asn1Length.  Values are added by calling reset</summary>
-        public Asn1Length()
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Length"/> class.
         /// Constructs an Asn1Length object by decoding data from an
         /// input stream.
@@ -616,43 +554,9 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public int Length { get; private set; }
+        public int Length { get; }
 
-        public int EncodedLength { get; private set; }
-
-        /// <summary>
-        /// Resets an Asn1Length object by decoding data from an
-        /// input stream.
-        /// Note: this was added for optimization of Asn1.LBERdecoder.decode()
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public void Reset(Stream stream)
-        {
-            EncodedLength = 0;
-            var r = stream.ReadByte();
-            EncodedLength++;
-
-            if (r == 0x80)
-            {
-                Length = -1;
-            }
-            else if (r < 0x80)
-            {
-                Length = r;
-            }
-            else
-            {
-                Length = 0;
-                for (r = r & 0x7F; r > 0; r--)
-                {
-                    var part = stream.ReadByte();
-                    EncodedLength++;
-                    if (part < 0)
-                        throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
-                    Length = (Length << 8) + part;
-                }
-            }
-        }
+        public int EncodedLength { get; }
     }
 
     /// <summary>
@@ -684,20 +588,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Sequence" /> class.
-        /// Constructs an Asn1Sequence object by decoding data from an
-        /// input stream.
-        /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
-        public Asn1Sequence(IAsn1Decoder dec, Stream stream, int len)
+        public Asn1Sequence(Stream stream, int len)
             : base(Id)
         {
-            DecodeStructured(dec, stream, len);
+            DecodeStructured(stream, len);
         }
 
         public override string ToString() => ToString("SEQUENCE: { ");
@@ -715,21 +609,11 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int Tag = 0x11;
 
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1IdentifierTag.Universal, true, Tag);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Set" /> class.
-        /// Constructs an Asn1Set object by decoding data from an
-        /// input stream.
-        /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
-        public Asn1Set(IAsn1Decoder dec, Stream stream, int len)
+        
+        public Asn1Set(Stream stream, int len)
             : base(Id)
         {
-            DecodeStructured(dec, stream, len);
+            DecodeStructured(stream, len);
         }
 
         public override string ToString() => ToString("SET: { ");
@@ -763,17 +647,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Integer object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1Integer(IAsn1Decoder dec, Stream stream, int len)
-            : base(Id, (long) dec.DecodeNumeric(stream, len))
+        public Asn1Integer(Stream stream, int len)
+            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
         {
         }
-
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
         public override string ToString() => base.ToString() + "INTEGER: " + LongValue();
     }
@@ -805,17 +684,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Enumerated object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1Enumerated(IAsn1Decoder dec, Stream stream, int len)
-            : base(Id, (long) dec.DecodeNumeric(stream, len))
+        public Asn1Enumerated(Stream stream, int len)
+            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
         {
         }
-        
-        public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
         
         public override string ToString() => base.ToString() + "ENUMERATED: " + LongValue();
     }
@@ -838,10 +712,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
         
-        public Asn1SequenceOf(IAsn1Decoder dec, Stream stream, int len)
+        public Asn1SequenceOf(Stream stream, int len)
             : base(Id)
         {
-            DecodeStructured(dec, stream, len);
+            DecodeStructured(stream, len);
         }
         
         public override string ToString() => ToString("SEQUENCE OF: { ");
