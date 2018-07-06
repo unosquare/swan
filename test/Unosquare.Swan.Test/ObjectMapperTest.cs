@@ -84,14 +84,14 @@
         [Test]
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
         }
 
         [Test]
         public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s));
         }
 
