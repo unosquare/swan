@@ -25,13 +25,13 @@
             TestApplicationInfo();
             await TestTerminalOutputs();
             TestNetworkUtilities();
-            //TestContainerAndMessageHub();
-            //TestJson();
-            //TestExceptionLogging();
+            TestContainerAndMessageHub();
+            TestJson();
+            TestExceptionLogging();
 
-            //TestFastOutputAndReadPrompt();
-            // TestCsvFormatters();
-            //Terminal.Flush();
+            TestFastOutputAndReadPrompt();
+            TestCsvFormatters();
+            Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
         }
 

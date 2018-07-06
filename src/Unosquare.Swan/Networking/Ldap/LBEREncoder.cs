@@ -28,7 +28,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    internal class LBEREncoder
+    internal static class LBEREncoder
     {
         /// <summary>
         /// BER Encode an Asn1Boolean directly into the specified output stream.
