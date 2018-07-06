@@ -80,17 +80,6 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Encode an Asn1Null directly into the specified outputstream.
-        /// </summary>
-        /// <param name="n">The Asn1Null object to encode</param>
-        /// <param name="stream">The stream.</param>
-        public static void Encode(Asn1Null n, Stream stream)
-        {
-            Encode(n.GetIdentifier(), stream);
-            stream.WriteByte(0x00); // Length (with no Content)
-        }
-
-        /// <summary>
         /// Encode an Asn1OctetString directly into the specified outputstream.
         /// </summary>
         /// <param name="os">The Asn1OctetString object to encode</param>
@@ -114,7 +103,8 @@ namespace Unosquare.Swan.Networking.Ldap
                     Encode(n, stream);
                     break;
                 case Asn1Null n:
-                    Encode(n, stream);
+                    Encode(n.GetIdentifier(), stream);
+                    stream.WriteByte(0x00); // Length (with no Content)
                     break;
                 case Asn1OctetString n:
                     Encode(n, stream);

@@ -92,7 +92,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded boolean object
         /// </returns>
         /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
-        public static object DecodeBoolean(Stream stream, int len)
+        public static bool DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
 
@@ -116,7 +116,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// LBER: NUMERIC: decode error: EOF
         /// </exception>
-        public static object DecodeNumeric(Stream stream, int len)
+        public static long DecodeNumeric(Stream stream, int len)
         {
             long l = 0;
             var r = stream.ReadByte();
@@ -137,6 +137,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 r = stream.ReadByte();
                 if (r < 0)
                     throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
+
                 l = (l << 8) | r;
             }
 

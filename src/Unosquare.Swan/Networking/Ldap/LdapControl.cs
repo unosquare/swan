@@ -81,20 +81,19 @@ namespace Unosquare.Swan.Networking.Ldap
             var cont = (LdapControl)MemberwiseClone();
             var vals = GetValue();
 
-            if (vals != null)
-            {
-                // is this necessary?
-                // Yes even though the contructor above allocates a
-                // new Asn1OctetString, vals in that constuctor
-                // is only copied by reference
-                var twin = new sbyte[vals.Length];
-                for (var i = 0; i < vals.Length; i++)
-                {
-                    twin[i] = vals[i];
-                }
+            if (vals == null) return cont;
 
-                cont.Asn1Object = new RfcControl(Id, new Asn1Boolean(Critical), new Asn1OctetString(twin));
+            // is this necessary?
+            // Yes even though the contructor above allocates a
+            // new Asn1OctetString, vals in that constuctor
+            // is only copied by reference
+            var twin = new sbyte[vals.Length];
+            for (var i = 0; i < vals.Length; i++)
+            {
+                twin[i] = vals[i];
             }
+
+            cont.Asn1Object = new RfcControl(Id, new Asn1Boolean(Critical), new Asn1OctetString(twin));
 
             return cont;
         }
@@ -152,12 +151,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public string AuthenticationDN => Asn1Object.RequestDn;
 
-        /// <summary>
-        /// Return an Asn1 representation of this add request.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString() => Asn1Object.ToString();
     }
 
@@ -391,7 +385,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return url.ToString();
         }
 
-        private string[] ParseList(string listStr, char delimiter, int listStart, int listEnd)
+        private static string[] ParseList(string listStr, char delimiter, int listStart, int listEnd)
         {
             // Check for and empty string
             if (listEnd - listStart < 1)
@@ -853,6 +847,7 @@ namespace Unosquare.Swan.Networking.Ldap
             set => Set(2, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
         /// <pre>

@@ -133,7 +133,7 @@
             $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
 
             var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
-            messageHub.Subscribe<SampleMessage>((m) =>
+            messageHub.Subscribe<SampleMessage>(m =>
             {
                 $"Received the following message from '{m.Sender}': '{m.Content}'".Trace();
             });

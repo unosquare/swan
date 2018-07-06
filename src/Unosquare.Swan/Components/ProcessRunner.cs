@@ -32,7 +32,7 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
-        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken ct = default) => GetProcessOutputAsync(filename, "", ct);
+        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken ct = default) => GetProcessOutputAsync(filename, string.Empty, ct);
 
         /// <summary>
         /// Runs the process asynchronously and if the exit code is 0,

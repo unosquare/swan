@@ -458,15 +458,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Boolean object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public Asn1Boolean(Stream stream, int len)
             : base(Id)
         {
-            _content = (bool) LBERDecoder.DecodeBoolean(stream, len);
+            _content = LBERDecoder.DecodeBoolean(stream, len);
         }
 
         /// <summary>
@@ -700,13 +697,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Integer object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public Asn1Integer(Stream stream, int len)
-            : base(Id, (long) LBERDecoder.DecodeNumeric(stream, len))
+            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
         {
         }
 
@@ -740,13 +734,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Enumerated object by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public Asn1Enumerated(Stream stream, int len)
-            : base(Id, (long) LBERDecoder.DecodeNumeric(stream, len))
+            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
         {
         }
         
