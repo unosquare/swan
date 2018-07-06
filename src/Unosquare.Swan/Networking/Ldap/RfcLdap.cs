@@ -62,7 +62,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The only time a client will create a SearchResultReference is when it is
         /// decoding it from an InputStream
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
         public RfcSearchResultReference(Stream stream, int len)
@@ -99,7 +98,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The only time a client will create a ExtendedResponse is when it is
         /// decoding it from an InputStream
         /// </summary>
-        /// <param name="dec">The decimal.</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public RfcExtendedResponse(Stream stream, int len)
@@ -111,12 +109,15 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 var obj = (Asn1Tagged) Get(i);
                 var id = obj.GetIdentifier();
+
                 switch (id.Tag)
                 {
                     case RfcLdapResult.REFERRAL:
                         var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-                        var bais = new MemoryStream(content.ToByteArray());
-                        Set(i, new Asn1SequenceOf(bais, content.Length));
+
+                        using (var bais = new MemoryStream(content.ToByteArray()))
+                            Set(i, new Asn1SequenceOf(bais, content.Length));
+                        
                         _referralIndex = i;
                         break;
                     case ResponseNameCode:
@@ -179,8 +180,9 @@ namespace Unosquare.Swan.Networking.Ldap
             if (obj.GetIdentifier().Tag != RfcLdapResult.REFERRAL) return;
 
             var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-            var bais = new MemoryStream(content.ToByteArray());
-            Set(3, new Asn1SequenceOf(bais, content.Length));
+
+            using (var bais = new MemoryStream(content.ToByteArray()))
+                Set(3, new Asn1SequenceOf(bais, content.Length));
         }
         
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);

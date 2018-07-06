@@ -9,7 +9,6 @@
     using System.IO;
     using System.Linq;
     using Networking;
-    using System.Collections;
 
     public partial class Program
     {
@@ -20,8 +19,6 @@
         /// <exception cref="SampleException"></exception>
         public static async Task Main(string[] args)
         {
-            Runtime.WriteWelcomeBanner(ConsoleColor.Green);
-
 #if !NET46
             await TestLdapSearch();
 #endif

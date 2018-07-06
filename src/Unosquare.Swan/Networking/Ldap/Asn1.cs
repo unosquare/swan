@@ -243,7 +243,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
         
         public sbyte[] ByteValue() => _content;
-        
+
         public string StringValue() => Encoding.UTF8.GetString(_content);
         
         public override string ToString() => base.ToString() + "OCTET STRING: " + StringValue();
@@ -295,9 +295,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="Asn1Tagged"/> class by decoding data from an
         /// input stream.
         /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         /// <param name="identifier">The identifier.</param>
@@ -345,13 +342,6 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(id)
         {
             _content = new Asn1Object[size];
-        }
-        
-        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size)
-            : base(id)
-        {
-            _content = newContent;
-            _contentIndex = size;
         }
         
         public Asn1Object[] ToArray()
@@ -533,12 +523,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal sealed class Asn1Length
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Length"/> class. Constructs an empty Asn1Length.  Values are added by calling reset</summary>
-        public Asn1Length()
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Length"/> class.
         /// Constructs an Asn1Length object by decoding data from an
         /// input stream.
@@ -570,43 +554,9 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public int Length { get; private set; }
+        public int Length { get; }
 
-        public int EncodedLength { get; private set; }
-
-        /// <summary>
-        /// Resets an Asn1Length object by decoding data from an
-        /// input stream.
-        /// Note: this was added for optimization of Asn1.LBERdecoder.decode()
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public void Reset(Stream stream)
-        {
-            EncodedLength = 0;
-            var r = stream.ReadByte();
-            EncodedLength++;
-
-            if (r == 0x80)
-            {
-                Length = -1;
-            }
-            else if (r < 0x80)
-            {
-                Length = r;
-            }
-            else
-            {
-                Length = 0;
-                for (r = r & 0x7F; r > 0; r--)
-                {
-                    var part = stream.ReadByte();
-                    EncodedLength++;
-                    if (part < 0)
-                        throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
-                    Length = (Length << 8) + part;
-                }
-            }
-        }
+        public int EncodedLength { get; }
     }
 
     /// <summary>

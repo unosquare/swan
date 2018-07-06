@@ -119,8 +119,9 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 var controls = (Asn1Tagged) Get(2);
                 content = ((Asn1OctetString) controls.TaggedValue).ByteValue();
-                bais = new MemoryStream(content.ToByteArray());
-                Set(2, new RfcControls(bais, content.Length));
+
+                using (var ms = new MemoryStream(content.ToByteArray()))
+                    Set(2, new RfcControls(ms, content.Length));
             }
         }
 

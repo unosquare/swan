@@ -37,13 +37,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Boolean b, Stream stream)
         {
-            // Encode the id 
             Encode(b.GetIdentifier(), stream);
-
-            // Encode the length
             stream.WriteByte(0x01);
-
-            // Encode the boolean content
             stream.WriteByte((byte) (b.BooleanValue() ? 0xff : 0x00));
         }
 
@@ -70,11 +65,10 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             Encode(n.GetIdentifier(), stream);
-            stream.WriteByte((byte)len); // Length
+            stream.WriteByte((byte)len);
 
             for (var i = len - 1; i >= 0; i--)
             {
-                // Content
                 stream.WriteByte((byte) octets[i]);
             }
         }
@@ -135,17 +129,18 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var arrayValue = c.ToArray();
 
-            var output = new MemoryStream();
-            
-            foreach (var obj in arrayValue)
+            using (var output = new MemoryStream())
             {
-                Encode(obj, output);
+                foreach (var obj in arrayValue)
+                {
+                    Encode(obj, output);
+                }
+
+                EncodeLength((int) output.Length, stream);
+
+                var tempSbyteArray = output.ToArray();
+                stream.Write(tempSbyteArray, 0, tempSbyteArray.Length);
             }
-            
-            EncodeLength((int)output.Length, stream);
-            
-            var tempSbyteArray = output.ToArray().ToSByteArray();
-            stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
         }
 
         /// <summary>
@@ -155,21 +150,22 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Tagged t, Stream stream)
         {
-            if (t.Explicit)
-            {
-                Encode(t.GetIdentifier(), stream);
-
-                // determine the encoded length of the base type.
-                var encodedContent = new MemoryStream();
-                Encode(t.TaggedValue, encodedContent);
-
-                EncodeLength((int)encodedContent.Length, stream);
-                var tempSbyteArray = encodedContent.ToArray().ToSByteArray();
-                stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
-            }
-            else
+            if (!t.Explicit)
             {
                 Encode(t.TaggedValue, stream);
+                return;
+            }
+
+            Encode(t.GetIdentifier(), stream);
+
+            // determine the encoded length of the base type.
+            using (var encodedContent = new MemoryStream())
+            {
+                Encode(t.TaggedValue, encodedContent);
+
+                EncodeLength((int) encodedContent.Length, stream);
+                var tempSbyteArray = encodedContent.ToArray().ToSByteArray();
+                stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
             }
         }
 
