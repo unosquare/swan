@@ -318,6 +318,14 @@
                 return;
             }
 
+            if(targetProperty.PropertyType == typeof(Boolean))
+            {
+                targetProperty.SetValue(target,
+                    Convert.ToBoolean(valueType.Value));
+
+                return;
+            }
+
             // String to target type conversion
             if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
                 out var targetValue))

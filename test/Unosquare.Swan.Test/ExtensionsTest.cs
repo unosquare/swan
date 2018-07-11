@@ -174,7 +174,8 @@
             {
                 {nameof(UserDto.Name), "Thrall"},
                 {nameof(UserDto.Email), "Warchief.Thrall@horde.com"},
-                {nameof(UserDto.Role), "Warchief"}
+                {nameof(UserDto.Role), "Warchief"},
+                {nameof(UserDto.IsAdmin), 1}
             };
 
             var target = new UserDto();
@@ -183,6 +184,7 @@
 
             Assert.AreEqual(source[nameof(UserDto.Name)].ToString(), target.Name);
             Assert.AreEqual(source[nameof(UserDto.Email)], target.Email);
+            Assert.IsTrue(target.IsAdmin);
         }
     }
 
