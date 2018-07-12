@@ -717,7 +717,7 @@
         {
             var container = new DependencyContainer();
 
-            Assert.IsTrue(container.CanResolve<Shark>(new Dictionary<string, object>()));
+            Assert.IsTrue(container.CanResolve<Shark>(parameters: new Dictionary<string, object>()));
         }
 
         [Test]
@@ -730,7 +730,7 @@
                 UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail
             };
 
-            Assert.IsFalse(container.CanResolve<Shark>(new Dictionary<string, object>(), resolveOptions));
+            Assert.IsFalse(container.CanResolve<Shark>(parameters: new Dictionary<string, object>(), options: resolveOptions));
         }
 
         [Test]
