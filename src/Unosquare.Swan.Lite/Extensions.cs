@@ -148,7 +148,7 @@
         /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful</returns>
         public static int CopyKeyValuePairTo(
-            this IDictionary<string, object> source, 
+            this IDictionary<string, object> source,
             object target,
             string[] ignoreKeys = null)
         {
@@ -292,8 +292,9 @@
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            return Runtime.PropertyTypeCache.RetrieveAllProperties(model.GetType(), true)
-                .Select(x => new {x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null})
+            return Runtime.PropertyTypeCache
+                .RetrieveAllProperties(model.GetType(), true)
+                .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
                 .ToArray();
@@ -309,23 +310,24 @@
         public static bool IsValid(this object model) => Runtime.ObjectValidator.IsValid(model);
 
         internal static void CreateTarget(
-            this object source, 
-            Type targetType, 
-            bool includeNonPublic, 
+            this object source,
+            Type targetType,
+            bool includeNonPublic,
             ref object target)
         {
-            // When using arrays, there is no default constructor, attempt to build a compatible array
-            if (source is string)
+            switch (source)
             {
-                // do nothing. Simply skip creation
-            }
-            else if (source is IList sourceObjectList && targetType.IsArray)
-            {
-                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
-            }
-            else
-            {
-                target = Activator.CreateInstance(targetType, includeNonPublic);
+                case string _:
+                    break; // do nothing. Simply skip creation
+                case IList sourceObjectList when targetType.IsArray: // When using arrays, there is no default constructor, attempt to build a compatible array
+                    var elementType = targetType.GetElementType();
+
+                    if (elementType != null)
+                        target = Array.CreateInstance(elementType, sourceObjectList.Count);
+                    break;
+                default:
+                    target = Activator.CreateInstance(targetType, includeNonPublic);
+                    break;
             }
         }
     }

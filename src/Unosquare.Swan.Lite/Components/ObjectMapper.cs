@@ -153,8 +153,8 @@
                 throw new ArgumentNullException(nameof(target));
 
             return Copy(
-                target, 
-                propertiesToCopy, 
+                target,
+                propertiesToCopy,
                 ignoreProperties,
                 source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
         }
@@ -318,7 +318,7 @@
                 return;
             }
 
-            if(targetProperty.PropertyType == typeof(Boolean))
+            if (targetProperty.PropertyType == typeof(bool))
             {
                 targetProperty.SetValue(target,
                     Convert.ToBoolean(valueType.Value));
@@ -340,60 +340,61 @@
 
             source.CreateTarget(targetType, false, ref target);
 
-            if (source is string)
+            switch (source)
             {
-                target = source;
-            }
-            else if (source is IList sourceList)
-            {
-                var targetArray = target as Array;
-                var targetList = target as IList;
+                case string _:
+                    target = source;
+                    break;
+                case IList sourceList:
+                    var targetArray = target as Array;
+                    var targetList = target as IList;
 
-                // Case 2.1: Source is List, Target is Array
-                if (targetArray != null)
-                {
-                    for (var i = 0; i < sourceList.Count; i++)
+                    // Case 2.1: Source is List, Target is Array
+                    if (targetArray != null)
                     {
-                        try
+                        for (var i = 0; i < sourceList.Count; i++)
                         {
-                            targetArray.SetValue(
-                                sourceList[i].GetType().IsValueType()
-                                    ? sourceList[i]
-                                    : sourceList[i].CopyPropertiesToNew<object>(), i);
-                        }
-                        catch
-                        {
-                            // ignored
+                            try
+                            {
+                                targetArray.SetValue(
+                                    sourceList[i].GetType().IsValueType()
+                                        ? sourceList[i]
+                                        : sourceList[i].CopyPropertiesToNew<object>(), i);
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
                         }
                     }
-                }
-                else if (targetList != null)
-                {
-                    // Case 2.2: Source is List,  Target is IList
-                    // find the add method of the target list
-                    var addMethod = targetType.GetMethods()
-                        .FirstOrDefault(
-                            m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
-                                 m.GetParameters().Length == 1);
-
-                    if (addMethod == null) return target;
-
-                    foreach (var item in sourceList)
+                    else if (targetList != null)
                     {
-                        try
+                        // Case 2.2: Source is List,  Target is IList
+                        // find the add method of the target list
+                        var addMethod = targetType.GetMethods()
+                            .FirstOrDefault(
+                                m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
+                                     m.GetParameters().Length == 1);
+
+                        if (addMethod == null) return target;
+
+                        foreach (var item in sourceList)
                         {
-                            targetList.Add(item.GetType().IsValueType() ? item : item.CopyPropertiesToNew<object>());
-                        }
-                        catch
-                        {
-                            // ignored
+                            try
+                            {
+                                targetList.Add(item.GetType().IsValueType() ? item : item.CopyPropertiesToNew<object>());
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
                         }
                     }
-                }
-            }
-            else
-            {
-                source.CopyPropertiesTo(target);
+
+                    break;
+                default:
+                    source.CopyPropertiesTo(target);
+                    break;
             }
 
             return target;
@@ -415,7 +416,7 @@
         internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
         {
             public bool Equals(PropertyInfo x, PropertyInfo y)
-                => x.Name == y.Name && x.PropertyType == y.PropertyType;
+                => x != null && y != null && x.Name == y.Name && x.PropertyType == y.PropertyType;
 
             public int GetHashCode(PropertyInfo obj)
                 => obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();

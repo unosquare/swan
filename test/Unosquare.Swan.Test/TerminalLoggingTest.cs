@@ -219,6 +219,25 @@
             Assert.AreEqual(ExtendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
+    
+    [TestFixture]
+    public class Fatal : TerminalLoggingTest
+    {
+        [Test]
+        public void MessageWithType_MessageLogged()
+        {
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
+
+            nameof(LogMessageType.Fatal).Fatal(typeof(string), 1);
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual(nameof(LogMessageType.Fatal), messages.First(x => x.ExtendedData != null).Message);
+        }
+    }
 
     [TestFixture]
     public class Error : TerminalLoggingTest

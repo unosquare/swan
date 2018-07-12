@@ -147,8 +147,11 @@
                 {
                     if (property.Value is IEnumerable == false)
                         continue;
-                    
+
                     var elementType = propertyInfo.PropertyType.GetElementType();
+
+                    if (elementType == null)
+                        continue;
 
                     var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
                     var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
@@ -185,16 +188,11 @@
                         isChanged = true;
                         propertyInfo.SetValue(Global, null);
                     }
-                    else
+                    else if (propertyInfo.PropertyType.TryParseBasicType(property.Value.ToString(),
+                            out var propertyValue) && !propertyValue.Equals(originalValue))
                     {
-                        if (propertyInfo.PropertyType.TryParseBasicType(property.Value.ToString(),
-                            out var propertyValue))
-                        {
-                            if (propertyValue.Equals(originalValue)) continue;
-
-                            isChanged = true;
-                            propertyInfo.SetValue(Instance.Global, propertyValue);
-                        }
+                        isChanged = true;
+                        propertyInfo.SetValue(Instance.Global, propertyValue);
                     }
                 }
 

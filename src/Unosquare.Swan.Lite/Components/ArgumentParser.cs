@@ -289,9 +289,8 @@ namespace Unosquare.Swan.Components
                     else
                     {
                         var property = instance.GetType().GetProperty(verbName);
-                        instance.GetType().GetProperty(verbName);
 
-                        if (SetPropertyValue(targetProperty, arg, property.GetValue(instance, null)))
+                        if (property != null && SetPropertyValue(targetProperty, arg, property.GetValue(instance, null)))
                             updatedList.Add(targetProperty);
                     }
 
@@ -317,9 +316,8 @@ namespace Unosquare.Swan.Components
                     else
                     {
                         var property = instance.GetType().GetProperty(verbName);
-                        instance.GetType().GetProperty(verbName);
 
-                        if (SetPropertyValue(targetProperty, true.ToString(), property.GetValue(instance, null)))
+                        if (property != null && SetPropertyValue(targetProperty, true.ToString(), property.GetValue(instance, null)))
                             updatedList.Add(targetProperty);
                     }
 
