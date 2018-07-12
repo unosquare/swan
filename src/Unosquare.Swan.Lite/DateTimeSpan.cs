@@ -6,7 +6,7 @@
     /// Represents a struct of DateTimeSpan to compare dates and get in 
     /// separate fields the amount of time between those dates.
     /// 
-    /// Base on https://stackoverflow.com/a/9216404/1096693
+    /// Based on https://stackoverflow.com/a/9216404/1096693
     /// </summary>
     public struct DateTimeSpan
     {
@@ -141,8 +141,14 @@
                         {
                             current = current.AddDays(days);
                             var timespan = date2 - current;
-                            span = new DateTimeSpan(years, months, days, timespan.Hours, timespan.Minutes,
-                                timespan.Seconds, timespan.Milliseconds);
+                            span = new DateTimeSpan(
+                                years, 
+                                months, 
+                                days, 
+                                timespan.Hours, 
+                                timespan.Minutes,
+                                timespan.Seconds, 
+                                timespan.Milliseconds);
                             phase = Phase.Done;
                         }
                         else
