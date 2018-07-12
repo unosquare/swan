@@ -627,7 +627,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.DependencyContainer.html",
-          "hash": "Rub6roKeMks+7BPCNEtDOA=="
+          "hash": "YH9cTrfMFabJROeUw1GMAQ=="
         }
       },
       "is_incremental": false,
@@ -2021,17 +2021,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ResourceDocumentProcessor": {

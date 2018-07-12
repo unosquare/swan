@@ -349,77 +349,6 @@ Note: Resolution may still fail if user defined factory registrations fail to co
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User supplied named parameter overloads</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -429,7 +358,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
     where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -496,73 +425,9 @@ All user supplied parameters must exist in at least one resolvable constructor o
   </table>
   
   
-  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the specified options.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Unosquare_Swan_Components_DependencyContainer_Dispose_" data-uid="Unosquare.Swan.Components.DependencyContainer.Dispose*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_Dispose" data-uid="Unosquare.Swan.Components.DependencyContainer.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -1335,81 +1200,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using specified options and the supplied constructor parameters.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Type</span></td>
-        <td><span class="parametername">resolveType</span></td>
-        <td><p>Type to resolve</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><p>Instance of type</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-        <td><p>Unable to resolve the type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -1418,7 +1208,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1468,92 +1258,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><p>Instance of type</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-        <td><p>Unable to resolve the type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using specified options and the supplied constructor parameters.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><p>Instance of type</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve</p>
 </td>
       </tr>
     </tbody>
@@ -1585,7 +1289,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
     where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1610,170 +1314,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><p>User specified constructor parameters</p>
 </td>
       </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><p>Instance of type</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-        <td><p>Unable to resolve the type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using supplied options and  name.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options = null)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of registration</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><p>Instance of type</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-        <td><p>Unable to resolve the type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(DependencyContainerResolveOptions)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using specified options.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
         <td><span class="parametername">options</span></td>
@@ -1995,7 +1535,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2058,7 +1598,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2109,7 +1649,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2172,7 +1712,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2241,7 +1781,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2298,7 +1838,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2361,7 +1901,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2418,7 +1958,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2464,7 +2004,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2532,7 +2072,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2606,7 +2146,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2674,7 +2214,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2748,7 +2288,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2828,7 +2368,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2902,7 +2442,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
@@ -2970,7 +2510,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if resolved successfully, false otherwise</p>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise</p>
 </td>
       </tr>
     </tbody>
