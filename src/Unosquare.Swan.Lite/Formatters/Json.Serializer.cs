@@ -62,7 +62,7 @@
                 }
 
                 // Basic Type Handling (nulls, strings and bool)
-                _result = ResolveBasicType(obj, depth);
+                _result = ResolveBasicType(obj);
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
@@ -175,12 +175,12 @@
 
             #region Helper Methods
 
-            private static string ResolveBasicType(object obj, int depth)
+            private static string ResolveBasicType(object obj)
             {
                 switch (obj)
                 {
                     case null:
-                        return depth == 0 ? EmptyObjectLiteral : NullLiteral;
+                        return NullLiteral;
                     case string s:
                         return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
                     case bool b:
