@@ -535,21 +535,24 @@
 
         private static void PopulateObject(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, object target)
         {
-            var fields = new List<MemberInfo>();
-
-            if (targetType.IsValueType())
-            {
-                fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
-            }
-
-            fields.AddRange(PropertyTypeCache.RetrieveFilteredProperties(targetType, false, p => p.CanWrite));
-
-            foreach (var targetProperty in fields)
+            void SetPropertyValue(MemberInfo targetProperty)
             {
                 var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, targetProperty);
 
-                if (sourcePropertyValue == null) continue;
-                SetValue(targetType, includeNonPublic, target, sourcePropertyValue, targetProperty);
+                SetValue(includeNonPublic, target, sourcePropertyValue, targetProperty);
+            }
+
+            if (targetType.IsValueType())
+            {
+                foreach (var targetProperty in FieldTypeCache.RetrieveAllFields(targetType))
+                {
+                    SetPropertyValue(targetProperty);
+                }
+            }
+
+            foreach (var targetProperty in PropertyTypeCache.RetrieveFilteredProperties(targetType, false, p => p.CanWrite))
+            {
+                SetPropertyValue(targetProperty);
             }
         }
 
@@ -581,47 +584,55 @@
         }
 
         private static void SetValue(
-            Type targetType,
             bool includeNonPublic,
             object target,
             object sourcePropertyValue,
             MemberInfo targetProperty)
         {
+            if (sourcePropertyValue == null) return;
+
             var currentPropertyValue = GetCurrentPropertyValue(includeNonPublic, target, targetProperty);
 
-            if (targetType.IsValueType())
+            switch (targetProperty)
             {
-                var targetPropertyValue = ConvertFromJsonResult(
-                    sourcePropertyValue,
-                    (targetProperty as FieldInfo).FieldType,
-                    ref currentPropertyValue,
-                    includeNonPublic);
+                case FieldInfo field:
+                {
+                    var targetPropertyValue = ConvertFromJsonResult(
+                        sourcePropertyValue,
+                        field.FieldType,
+                        ref currentPropertyValue,
+                        includeNonPublic);
 
-                try
-                {
-                    (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-            else
-            {
-                // Try to write properties to the current property value as a reference to the current property value
-                var targetPropertyValue = ConvertFromJsonResult(
-                    sourcePropertyValue,
-                    (targetProperty as PropertyInfo).PropertyType,
-                    ref currentPropertyValue,
-                    includeNonPublic);
+                    try
+                    {
+                        field.SetValue(target, targetPropertyValue);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
 
-                try
-                {
-                    (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic).Invoke(target, new[] { targetPropertyValue });
+                    break;
                 }
-                catch
+                case PropertyInfo property:
                 {
-                    // ignored
+                    // Try to write properties to the current property value as a reference to the current property value
+                    var targetPropertyValue = ConvertFromJsonResult(
+                        sourcePropertyValue,
+                        property.PropertyType,
+                        ref currentPropertyValue,
+                        includeNonPublic);
+
+                    try
+                    {
+                        property.GetSetMethod(includeNonPublic).Invoke(target, new[] { targetPropertyValue });
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
+                    break;
                 }
             }
         }

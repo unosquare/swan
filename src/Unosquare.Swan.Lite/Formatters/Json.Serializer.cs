@@ -86,9 +86,6 @@
 
                 var target = obj;
 
-                // At this point, we will need to construct the object with a StringBuilder.
-                _builder = new StringBuilder();
-
                 // Handle circular references correctly and avoid them
                 if (options.ParentReferences.Any(p => ReferenceEquals(p.Target, obj)))
                 {
@@ -97,6 +94,9 @@
                 }
 
                 options.ParentReferences.Add(new WeakReference(obj));
+                
+                // At this point, we will need to construct the object with a StringBuilder.
+                _builder = new StringBuilder();
 
                 // Dictionary Type Handling (IDictionary)
                 if (obj is IDictionary items)
@@ -298,7 +298,7 @@
             private string ResolveDictionary(IDictionary items, int depth, SerializerOptions options)
             {
                 // Append the start of an object or empty object
-                if (items.Count <= 0)
+                if (items.Count == 0)
                 {
                     return EmptyObjectLiteral;
                 }
@@ -470,9 +470,6 @@
                 _builder.Append(text);
             }
 
-            /// <summary>
-            /// Appends a line to the output StringBuilder.
-            /// </summary>
             private void AppendLine()
             {
                 if (_format == false) return;
