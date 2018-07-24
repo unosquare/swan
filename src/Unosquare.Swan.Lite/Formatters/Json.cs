@@ -571,17 +571,14 @@
                 : null;
         }
 
-        private static object GetCurrentPropertyValue(
-            Type targetType, 
-            bool includeNonPublic, 
+        private static object GetCurrentPropertyValue(bool includeNonPublic, 
             object target,
             MemberInfo targetProperty)
         {
             try
             {
-                return !targetType.IsValueType() && (targetProperty as PropertyInfo)?.PropertyType.IsArray != true
-                    ? (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
-                    : null;
+                if (targetProperty is PropertyInfo property && !property.PropertyType.IsArray)
+                    return property.GetGetMethod(includeNonPublic).Invoke(target, null);
             }
             catch
             {
@@ -598,7 +595,7 @@
             object sourcePropertyValue,
             MemberInfo targetProperty)
         {
-            var currentPropertyValue = GetCurrentPropertyValue(targetType, includeNonPublic, target, targetProperty);
+            var currentPropertyValue = GetCurrentPropertyValue(includeNonPublic, target, targetProperty);
 
             if (targetType.IsValueType())
             {
