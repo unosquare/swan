@@ -105,10 +105,11 @@
                     return;
 
                 // Enumerable Type Handling (IEnumerable)
-                _result = ResolveEnumerable(obj, depth, options);
-
-                if (string.IsNullOrWhiteSpace(_result) == false)
+                if (target is IEnumerable enumerable)
+                {
+                    _result = ResolveEnumerable(enumerable, depth, options);
                     return;
+                }
 
                 // If we arrive here, then we convert the object into a 
                 // dictionary of property names and values and call the serialization
@@ -341,10 +342,8 @@
                 return _builder.ToString();
             }
 
-            private string ResolveEnumerable(object target, int depth, SerializerOptions options)
+            private string ResolveEnumerable(IEnumerable target, int depth, SerializerOptions options)
             {
-                if (target is IEnumerable == false) return string.Empty;
-
                 // Special byte array handling
                 if (target is byte[] bytes)
                 {
@@ -352,7 +351,7 @@
                 }
 
                 // Cast the items as a generic object array
-                var items = ((IEnumerable)target).Cast<object>().ToArray();
+                var items = target.Cast<object>().ToArray();
 
                 // Append the start of an array or empty array
                 if (items.Length <= 0)

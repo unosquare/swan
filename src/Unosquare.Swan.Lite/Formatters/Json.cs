@@ -289,13 +289,13 @@
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>Type of the current conversion from json result</returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false) 
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false)
             => ConvertFromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic);
 
         #endregion
 
         #region Private API
-        
+
         private static string[] GeExcludedNames(object obj, string[] excludedNames)
         {
             var excludedByAttr = obj?.GetType().GetProperties()
@@ -549,15 +549,7 @@
                 var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, targetProperty);
 
                 if (sourcePropertyValue == null) continue;
-
-                try
-                {
-                    SetValue(targetType, includeNonPublic, target, sourcePropertyValue, targetProperty);
-                }
-                catch
-                {
-                    // ignored
-                }
+                SetValue(targetType, includeNonPublic, target, sourcePropertyValue, targetProperty);
             }
         }
 
@@ -571,7 +563,7 @@
                 : null;
         }
 
-        private static object GetCurrentPropertyValue(bool includeNonPublic, 
+        private static object GetCurrentPropertyValue(bool includeNonPublic,
             object target,
             MemberInfo targetProperty)
         {
@@ -589,9 +581,9 @@
         }
 
         private static void SetValue(
-            Type targetType, 
-            bool includeNonPublic, 
-            object target, 
+            Type targetType,
+            bool includeNonPublic,
+            object target,
             object sourcePropertyValue,
             MemberInfo targetProperty)
         {
@@ -605,7 +597,14 @@
                     ref currentPropertyValue,
                     includeNonPublic);
 
-                (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
+                try
+                {
+                    (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
+                }
+                catch
+                {
+                    // ignored
+                }
             }
             else
             {
@@ -616,7 +615,14 @@
                     ref currentPropertyValue,
                     includeNonPublic);
 
-                (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?.Invoke(target, new[] {targetPropertyValue});
+                try
+                {
+                    (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic).Invoke(target, new[] { targetPropertyValue });
+                }
+                catch
+                {
+                    // ignored
+                }
             }
         }
 
