@@ -135,18 +135,12 @@
             string[] excludedNames,
             List<WeakReference> parentReferences)
         {
-            if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
-                throw new ArgumentException("You need to provide an object or array", nameof(obj));
-
-            var excludedByAttr = obj?.GetType().GetProperties()
-                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name).ToArray();
-
-            if (excludedByAttr?.Any() == true)
+            if (obj != null && (obj is string || Definitions.AllBasicValueTypes.Contains(obj.GetType())))
             {
-                excludedNames = excludedNames == null ? excludedByAttr.ToArray() : excludedByAttr.Intersect(excludedNames).ToArray();
+                return SerializePrimitiveValue(obj);
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, parentReferences);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, GeExcludedNames(obj, excludedNames), includeNonPublic, parentReferences);
         }
 
         /// <summary>
@@ -295,16 +289,49 @@
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>Type of the current conversion from json result</returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false)
-        {
-            var source = Deserializer.DeserializeInternal(json);
-            object nullRef = null;
-            return ConvertFromJsonResult(source, resultType, ref nullRef, includeNonPublic);
-        }
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false) 
+            => ConvertFromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic);
 
         #endregion
 
         #region Private API
+        
+        private static string[] GeExcludedNames(object obj, string[] excludedNames)
+        {
+            var excludedByAttr = obj?.GetType().GetProperties()
+                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name).ToArray();
+
+            if (excludedByAttr?.Any() == true)
+            {
+                excludedNames = excludedNames == null
+                    ? excludedByAttr.ToArray()
+                    : excludedByAttr.Intersect(excludedNames).ToArray();
+            }
+
+            return excludedNames;
+        }
+
+        private static string SerializePrimitiveValue(object obj)
+        {
+            switch (obj)
+            {
+                case string stringValue:
+                    return stringValue;
+                case bool boolValue:
+                    return boolValue ? TrueLiteral : FalseLiteral;
+                default:
+                    return obj.ToString();
+            }
+        }
+
+        private static object ConvertFromJsonResult(
+            object source,
+            Type targetType,
+            bool includeNonPublic)
+        {
+            object nullRef = null;
+            return ConvertFromJsonResult(source, targetType, ref nullRef, includeNonPublic);
+        }
 
         /// <summary>
         /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the specified target type.
@@ -374,54 +401,54 @@
             // Case 2: Source is a List<object>
             if (source is List<object> sourceList)
             {
-                // Case 2.1: Source is List, Target is Array
-                if (target is Array targetArray)
+                switch (target)
                 {
-                    for (var i = 0; i < sourceList.Count; i++)
-                    {
-                        try
+                    // Case 2.1: Source is List, Target is Array
+                    case Array targetArray:
+                        for (var i = 0; i < sourceList.Count; i++)
                         {
-                            object nullRef = null;
-                            var targetItem = ConvertFromJsonResult(
-                                sourceList[i],
-                                targetType.GetElementType(),
-                                ref nullRef,
-                                includeNonPublic);
-                            targetArray.SetValue(targetItem, i);
+                            try
+                            {
+                                var targetItem = ConvertFromJsonResult(
+                                    sourceList[i],
+                                    targetType.GetElementType(),
+                                    includeNonPublic);
+                                targetArray.SetValue(targetItem, i);
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
                         }
-                        catch
-                        {
-                            // ignored
-                        }
-                    }
-                }
-                else if (target is IList targetList)
-                {
-                    // Case 2.2: Source is List,  Target is IList
-                    // find the add method of the target list
-                    var addMethod = targetType.GetMethods()
-                        .FirstOrDefault(
-                            m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1);
 
-                    if (addMethod == null) return target;
+                        break;
+                    case IList targetList:
 
-                    foreach (var item in sourceList)
-                    {
-                        try
+                        // Case 2.2: Source is List,  Target is IList
+                        // find the add method of the target list
+                        var addMethod = targetType.GetMethods()
+                            .FirstOrDefault(
+                                m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1);
+
+                        if (addMethod == null) return target;
+
+                        foreach (var item in sourceList)
                         {
-                            object nullRef = null;
-                            var targetItem = ConvertFromJsonResult(
-                                item,
-                                addMethod.GetParameters()[0].ParameterType,
-                                ref nullRef,
-                                includeNonPublic);
-                            targetList.Add(targetItem);
+                            try
+                            {
+                                var targetItem = ConvertFromJsonResult(
+                                    item,
+                                    addMethod.GetParameters()[0].ParameterType,
+                                    includeNonPublic);
+                                targetList.Add(targetItem);
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
                         }
-                        catch
-                        {
-                            // ignored
-                        }
-                    }
+
+                        break;
                 }
 
                 return target;
@@ -439,21 +466,26 @@
             else
             {
                 // Handle Enumerations
-                var enumType = Nullable.GetUnderlyingType(targetType);
-                if (enumType == null && targetType.GetTypeInfo().IsEnum) enumType = targetType;
-                if (enumType == null) return target;
-
-                try
-                {
-                    target = Enum.Parse(enumType, sourceStringValue);
-                }
-                catch
-                {
-                    // ignored
-                }
+                GetEnumValue(targetType, sourceStringValue, ref target);
             }
 
             return target;
+        }
+
+        private static void GetEnumValue(Type targetType, string sourceStringValue, ref object target)
+        {
+            var enumType = Nullable.GetUnderlyingType(targetType);
+            if (enumType == null && targetType.GetTypeInfo().IsEnum) enumType = targetType;
+            if (enumType == null) return;
+
+            try
+            {
+                target = Enum.Parse(enumType, sourceStringValue);
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         private static void PopulateDictionary(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, IDictionary targetDictionary)
@@ -476,11 +508,9 @@
             {
                 try
                 {
-                    object instance = null;
                     var targetEntryValue = ConvertFromJsonResult(
                         sourceProperty.Value,
                         targetEntryType,
-                        ref instance,
                         includeNonPublic);
                     targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                 }
@@ -516,11 +546,7 @@
 
             foreach (var targetProperty in fields)
             {
-                var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
-                                         targetProperty.Name;
-                var sourcePropertyValue = sourceProperties.ContainsKey(targetPropertyName)
-                    ? sourceProperties[targetPropertyName]
-                    : null;
+                var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, targetProperty);
 
                 if (sourcePropertyValue == null) continue;
 
@@ -533,6 +559,16 @@
                     // ignored
                 }
             }
+        }
+
+        private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties, MemberInfo targetProperty)
+        {
+            var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
+                                     targetProperty.Name;
+
+            return sourceProperties.ContainsKey(targetPropertyName)
+                ? sourceProperties[targetPropertyName]
+                : null;
         }
 
         private static object GetCurrentPropertyValue(

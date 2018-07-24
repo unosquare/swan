@@ -76,7 +76,7 @@
     public class Serialize : JsonTest
     {
         [Test]
-        public void StringArray_ReturnsArraySerialized()
+        public void WithStringArray_ReturnsArraySerialized()
         {
             var data = Json.Serialize(DefaultStringList);
 
@@ -96,25 +96,19 @@
         }
 
         [Test]
-        public void NumericArray_ReturnsArraySerialized()
+        public void WithNumericArray_ReturnsArraySerialized()
         {
-            var data = Json.Serialize(NumericArray);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(NumericAStr, data);
+            Assert.AreEqual(NumericAStr, Json.Serialize(NumericArray));
         }
 
         [Test]
-        public void BasicObjectWithArray_ReturnsObjectWithArraySerialized()
+        public void WithBasicObjectWithArray_ReturnsObjectWithArraySerialized()
         {
-            var data = Json.Serialize(BasicAObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(BasicAObjStr, data);
+            Assert.AreEqual(BasicAObjStr, Json.Serialize(BasicAObj));
         }
 
         [Test]
-        public void ArrayOfObjects_ReturnsArrayOfObjectsSerialized()
+        public void WithArrayOfObjects_ReturnsArrayOfObjectsSerialized()
         {
             var data = Json.Serialize(new List<BasicJson>
             {
@@ -123,48 +117,42 @@
             });
 
             Assert.IsNotNull(data);
-            Assert.AreEqual("[" + BasicStr + "," + BasicStr + "]", data);
+            Assert.AreEqual($"[{BasicStr},{BasicStr}]", data);
         }
 
         [Test]
         public void AdvObject_ReturnsAdvObjectSerialized()
         {
-            var data = Json.Serialize(AdvObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(AdvStr, data);
+            Assert.AreEqual(AdvStr, Json.Serialize(AdvObj));
         }
 
         [Test]
         public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
         {
-            var data = Json.Serialize(AdvAObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(AdvAStr, data);
+            Assert.AreEqual(AdvAStr, Json.Serialize(AdvAObj));
         }
 
-        [Test]
-        public void EmptyObject_ReturnsEmptyObjectSerialized()
+        [TestCase("1", 1)]
+        [TestCase("1", (float)1)]
+        [TestCase("string", "string")]
+        [TestCase("true", true)]
+        [TestCase("false", false)]
+        [TestCase("null", null)]
+        [TestCase("null", default)]
+        public void WithPrimitive_ReturnsStringValue(string expected, object actual)
         {
-            Assert.AreEqual("{ }", Json.Serialize(default));
+            Assert.AreEqual(expected, Json.Serialize(actual));
         }
 
         [Test]
-        public void PrimitiveError_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => Json.Serialize(1), "Throws exception serializing primitive");
-        }
-
-        [Test]
-        public void DateTest_ReturnsDateTestSerialized()
+        public void WithDateTest_ReturnsDateTestSerialized()
         {
             var obj = new DateTimeJson {Date = new DateTime(2010, 1, 1)};
             var data = Json.Serialize(obj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(
-                "{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", 
+                $"{{\"Date\": \"{obj.Date.Value:s}\"}}", 
                 data,
                 "Date must be formatted as ISO");
 
@@ -191,12 +179,9 @@
         }
 
         [Test]
-        public void EmptyClass_ReturnsEmptyClassSerialized()
+        public void WithEmptyClass_ReturnsEmptyClassSerialized()
         {
-            var data = Json.Serialize(new EmptyJson());
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{ }", data);
+            Assert.AreEqual("{ }", Json.Serialize(new EmptyJson()));
         }
 
         [Test]
@@ -227,7 +212,7 @@
         }
 
         [Test]
-        public void BasicObject_ReturnsObjectDeserialized()
+        public void WithBasicObject_ReturnsObjectDeserialized()
         {
             var obj = Json.Deserialize<BasicJson>(BasicStr);
 
@@ -241,7 +226,7 @@
         }
 
         [Test]
-        public void BasicArray_ReturnsArrayDeserialized()
+        public void WithBasicArray_ReturnsArrayDeserialized()
         {
             var arr = Json.Deserialize<List<string>>(BasicAStr);
 
@@ -250,7 +235,7 @@
         }
 
         [Test]
-        public void BasicObjectWithArray_ReturnsBasicObjectWithArrayDeserialized()
+        public void WithBasicObjectWithArray_ReturnsBasicObjectWithArrayDeserialized()
         {
             var data = Json.Deserialize<BasicArrayJson>(BasicAObjStr);
 
@@ -261,7 +246,7 @@
         }
 
         [Test]
-        public void ArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
+        public void WithArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
         {
             var data = Json.Deserialize<List<ExtendedPropertyInfo>>(BasicAObjStr);
 
@@ -269,7 +254,7 @@
         }
 
         [Test]
-        public void AdvObject_ReturnsAdvObjectDeserialized()
+        public void WithAdvObject_ReturnsAdvObjectDeserialized()
         {
             var data = Json.Deserialize<AdvJson>(AdvStr);
 
@@ -288,7 +273,7 @@
         }
 
         [Test]
-        public void AdvObjectArray_ReturnsAdvObjectArray()
+        public void WithAdvObjectArray_ReturnsAdvObjectArray()
         {
             var data = Json.Deserialize<AdvArrayJson>(AdvAStr);
 
@@ -307,19 +292,20 @@
             }
         }
 
-        public void EmptyString_ReturnsNull()
+        [Test]
+        public void WithEmptyString_ReturnsNull()
         {
             Assert.IsNull(Json.Deserialize(string.Empty));
         }
 
         [Test]
-        public void EmptyStringWithTypeParam_ReturnsNull()
+        public void WithEmptyStringWithTypeParam_ReturnsNull()
         {
             Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
         }
 
         [Test]
-        public void EmptyPropertyTest_ReturnsNotNullPropertyDeserialized()
+        public void WithEmptyPropertyTest_ReturnsNotNullPropertyDeserialized()
         {
             Assert.IsNotNull(Json.Deserialize<BasicJson>("{ \"\": \"value\" }"));
         }
@@ -371,7 +357,7 @@
         }
 
         [Test]
-        public void EmptyClass_ReturnsEmptyClassDeserialized()
+        public void WithEmptyClass_ReturnsEmptyClassDeserialized()
         {
             Assert.IsNotNull(Json.Deserialize<EmptyJson>("{ }"));
         }
@@ -440,9 +426,7 @@
         [Test]
         public void WithString_ReturnsString()
         {
-            var sdsdas = Json.SerializeOnly("\b\t\f\0", true, null);
-
-            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", sdsdas);
+            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", Json.SerializeOnly("\b\t\f\0", true, null));
         }
 
         [Test]
