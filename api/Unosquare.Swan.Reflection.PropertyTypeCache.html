@@ -253,6 +253,63 @@ in the cache.</p>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_RetrieveFilteredProperties_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_RetrieveFilteredProperties_System_Type_System_Boolean_System_Func_System_Reflection_PropertyInfo_System_Boolean__" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties(System.Type,System.Boolean,System.Func{System.Reflection.PropertyInfo,System.Boolean})">RetrieveFilteredProperties(Type, Boolean, Func&lt;PropertyInfo, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the filtered properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;PropertyInfo&gt; RetrieveFilteredProperties(Type type, bool onlyPublic, Func&lt;PropertyInfo, bool&gt; filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">onlyPublic</span></td>
+        <td><p>if set to <code>true</code> [only public].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>The filter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a>&gt;</td>
+        <td><p>A collection with all the properties in the given type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

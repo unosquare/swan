@@ -12072,6 +12072,22 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveAllProperties(Of T)(System.Boolean)
   nameWithType: PropertyTypeCache.RetrieveAllProperties<T>(Boolean)
   nameWithType.vb: PropertyTypeCache.RetrieveAllProperties(Of T)(Boolean)
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties(System.Type,System.Boolean,System.Func{System.Reflection.PropertyInfo,System.Boolean})
+  name: RetrieveFilteredProperties(Type, Boolean, Func<PropertyInfo, Boolean>)
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_RetrieveFilteredProperties_System_Type_System_Boolean_System_Func_System_Reflection_PropertyInfo_System_Boolean__
+  commentId: M:Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties(System.Type,System.Boolean,System.Func{System.Reflection.PropertyInfo,System.Boolean})
+  name.vb: RetrieveFilteredProperties(Type, Boolean, Func(Of PropertyInfo, Boolean))
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties(System.Type, System.Boolean, System.Func<System.Reflection.PropertyInfo, System.Boolean>)
+  fullName.vb: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties(System.Type, System.Boolean, System.Func(Of System.Reflection.PropertyInfo, System.Boolean))
+  nameWithType: PropertyTypeCache.RetrieveFilteredProperties(Type, Boolean, Func<PropertyInfo, Boolean>)
+  nameWithType.vb: PropertyTypeCache.RetrieveFilteredProperties(Type, Boolean, Func(Of PropertyInfo, Boolean))
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties*
+  name: RetrieveFilteredProperties
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_RetrieveFilteredProperties_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties
+  isSpec: "True"
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.RetrieveFilteredProperties
+  nameWithType: PropertyTypeCache.RetrieveFilteredProperties
 - uid: Unosquare.Swan.Reflection.TypeCache`1
   name: TypeCache<T>
   href: api/Unosquare.Swan.Reflection.TypeCache-1.html
