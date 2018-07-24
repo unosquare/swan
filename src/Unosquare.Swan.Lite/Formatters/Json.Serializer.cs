@@ -99,10 +99,11 @@
                 options.ParentReferences.Add(new WeakReference(obj));
 
                 // Dictionary Type Handling (IDictionary)
-                _result = ResolveDictionary(obj, depth, options);
-
-                if (string.IsNullOrWhiteSpace(_result) == false)
+                if (obj is IDictionary items)
+                {
+                    _result = ResolveDictionary(items, depth, options);
                     return;
+                }
 
                 // Enumerable Type Handling (IEnumerable)
                 if (target is IEnumerable enumerable)
@@ -216,25 +217,21 @@
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }
 
-            /// <summary>
-            /// Determines whether the specified serialized JSON is a non-empty an array or an object
-            /// </summary>
-            /// <param name="serialized">The serialized.</param>
-            /// <returns>
-            ///   <c>true</c> if [is set opening] [the specified serialized]; otherwise, <c>false</c>.
-            /// </returns>
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
-                if (serialized.Length == EmptyObjectLiteral.Length && serialized.Equals(EmptyObjectLiteral)) return false;
-                if (serialized.Length == EmptyArrayLiteral.Length && serialized.Equals(EmptyArrayLiteral)) return false;
+                if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
 
                 // find the first position the character is not a space
-                var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
+                foreach (var c in serialized)
+                {
+                    if (c == ' ') continue;
+                    
+                    // If the position is opening braces or brackets, then we have an
+                    // opening set.
+                    return c == OpenObjectChar || c == OpenArrayChar;
+                }
 
-                // If the position is opening braces or brackets, then we have an
-                // opening set.
-                return serialized[startTextIndex] == OpenObjectChar
-                    || serialized[startTextIndex] == OpenArrayChar;
+                return false;
             }
 
             /// <summary>
@@ -282,9 +279,9 @@
                                 if (BitConverter.IsLittleEndian == false)
                                     Array.Reverse(escapeBytes);
 
-                                builder.Append("\\u"
-                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
-                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                                builder.Append("\\u")
+                                        .Append(escapeBytes[1].ToString("X").PadLeft(2, '0'))
+                                        .Append(escapeBytes[0].ToString("X").PadLeft(2, '0'));
                             }
                             else
                             {
@@ -298,14 +295,8 @@
                 return builder.ToString();
             }
 
-            private string ResolveDictionary(object target, int depth, SerializerOptions options)
+            private string ResolveDictionary(IDictionary items, int depth, SerializerOptions options)
             {
-                if (target is IDictionary == false)
-                    return string.Empty;
-
-                // Cast the items as an IDictionary
-                var items = (IDictionary)target;
-
                 // Append the start of an object or empty object
                 if (items.Count <= 0)
                 {
@@ -440,19 +431,14 @@
                 return objectDictionary;
             }
 
-            /// <summary>
-            /// Gets the indent string given the depth.
-            /// </summary>
-            /// <param name="depth">The depth.</param>
-            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-            private string GetIndentString(int depth)
+            private void SetIndent(int depth)
             {
-                if (_format == false) return string.Empty;
-
-                if (depth > 0 && IndentStrings.ContainsKey(depth) == false)
+                if (_format == false || depth <= 0) return;
+                
+                if (IndentStrings.ContainsKey(depth) == false)
                     IndentStrings[depth] = new string(' ', depth * 4);
 
-                return depth > 0 ? IndentStrings[depth] : string.Empty;
+                _builder.Append(IndentStrings[depth]);
             }
 
             /// <summary>
@@ -471,20 +457,18 @@
                 // If we got this far, we simply remove the comma character
                 _builder.Remove(_builder.Length - _lastCommaSearch.Length, 1);
             }
-
-            /// <summary>
-            /// Appends the specified text to the output StringBuilder.
-            /// </summary>
-            /// <param name="text">The text.</param>
-            /// <param name="depth">The depth.</param>
-            private void Append(string text, int depth) => _builder.Append($"{GetIndentString(depth)}{text}");
-
-            /// <summary>
-            /// Appends the specified text to the output StringBuilder.
-            /// </summary>
-            /// <param name="text">The text.</param>
-            /// <param name="depth">The depth.</param>
-            private void Append(char text, int depth) => _builder.Append($"{GetIndentString(depth)}{text}");
+            
+            private void Append(string text, int depth)
+            {
+                SetIndent(depth);
+                _builder.Append(text);
+            }
+            
+            private void Append(char text, int depth)
+            {
+                SetIndent(depth);
+                _builder.Append(text);
+            }
 
             /// <summary>
             /// Appends a line to the output StringBuilder.

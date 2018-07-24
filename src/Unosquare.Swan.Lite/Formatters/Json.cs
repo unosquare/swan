@@ -542,7 +542,7 @@
                 fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
             }
 
-            fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanWrite).ToArray());
+            fields.AddRange(PropertyTypeCache.RetrieveFilteredProperties(targetType, false, p => p.CanWrite));
 
             foreach (var targetProperty in fields)
             {
