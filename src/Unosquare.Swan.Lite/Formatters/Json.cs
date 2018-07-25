@@ -45,6 +45,9 @@
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
         private static readonly Dictionary<Type, string[]> IgnoredPropertiesCache = new Dictionary<Type, string[]>();
+        private static readonly Dictionary<MemberInfo, string> MemberInfoNameCache =
+            new Dictionary<MemberInfo, string>();
+        private static readonly Dictionary<Type, Type> ListAddMethodCache = new Dictionary<Type, Type>();
 
         #region Public API
 
@@ -414,13 +417,15 @@
                 {
                     // Case 2.1: Source is List, Target is Array
                     case Array targetArray:
+                        var elementType = targetType.GetElementType();
+
                         for (var i = 0; i < sourceList.Count; i++)
                         {
                             try
                             {
                                 var targetItem = ConvertFromJsonResult(
                                     sourceList[i],
-                                    targetType.GetElementType(),
+                                    elementType,
                                     includeNonPublic);
                                 targetArray.SetValue(targetItem, i);
                             }
@@ -435,21 +440,17 @@
 
                         // Case 2.2: Source is List,  Target is IList
                         // find the add method of the target list
-                        var addMethod = targetType.GetMethods()
-                            .FirstOrDefault(
-                                m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1);
-
-                        if (addMethod == null) return target;
+                        var parameterType = GetAddMethodParameterType(targetType);
+                        if (parameterType == null) return target;
 
                         foreach (var item in sourceList)
                         {
                             try
                             {
-                                var targetItem = ConvertFromJsonResult(
+                                targetList.Add(ConvertFromJsonResult(
                                     item,
-                                    addMethod.GetParameters()[0].ParameterType,
-                                    includeNonPublic);
-                                targetList.Add(targetItem);
+                                    parameterType,
+                                    includeNonPublic));
                             }
                             catch
                             {
@@ -479,6 +480,20 @@
             }
 
             return target;
+        }
+
+        private static Type GetAddMethodParameterType(Type targetType)
+        {
+            if (!ListAddMethodCache.ContainsKey(targetType))
+            {
+                ListAddMethodCache[targetType] = targetType
+                    .GetMethods()
+                    .FirstOrDefault(m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
+                    .GetParameters()[0]
+                    .ParameterType;
+            }
+
+            return ListAddMethodCache[targetType];
         }
 
         private static void GetEnumValue(Type targetType, string sourceStringValue, ref object target)
@@ -567,8 +582,14 @@
 
         private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties, MemberInfo targetProperty)
         {
-            var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
-                                     targetProperty.Name;
+            if (!MemberInfoNameCache.ContainsKey(targetProperty))
+            {
+                MemberInfoNameCache[targetProperty] =
+                    targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
+                    targetProperty.Name;
+            }
+
+            var targetPropertyName = MemberInfoNameCache[targetProperty];
 
             return sourceProperties.ContainsKey(targetPropertyName)
                 ? sourceProperties[targetPropertyName]
@@ -605,44 +626,44 @@
             switch (targetProperty)
             {
                 case FieldInfo field:
-                {
-                    var targetPropertyValue = ConvertFromJsonResult(
-                        sourcePropertyValue,
-                        field.FieldType,
-                        ref currentPropertyValue,
-                        includeNonPublic);
-
-                    try
                     {
-                        field.SetValue(target, targetPropertyValue);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            field.FieldType,
+                            ref currentPropertyValue,
+                            includeNonPublic);
 
-                    break;
-                }
+                        try
+                        {
+                            field.SetValue(target, targetPropertyValue);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+
+                        break;
+                    }
                 case PropertyInfo property:
-                {
-                    // Try to write properties to the current property value as a reference to the current property value
-                    var targetPropertyValue = ConvertFromJsonResult(
-                        sourcePropertyValue,
-                        property.PropertyType,
-                        ref currentPropertyValue,
-                        includeNonPublic);
-
-                    try
                     {
-                        property.GetSetMethod(includeNonPublic).Invoke(target, new[] { targetPropertyValue });
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
+                        // Try to write properties to the current property value as a reference to the current property value
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            property.PropertyType,
+                            ref currentPropertyValue,
+                            includeNonPublic);
 
-                    break;
-                }
+                        try
+                        {
+                            property.GetSetMethod(includeNonPublic).Invoke(target, new[] { targetPropertyValue });
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+
+                        break;
+                    }
             }
         }
 
