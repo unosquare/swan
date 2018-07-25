@@ -44,6 +44,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
+        private static readonly Dictionary<Type, string[]> IgnoredPropertiesCache = new Dictionary<Type, string[]>();
 
         #region Public API
 
@@ -140,7 +141,7 @@
                 return SerializePrimitiveValue(obj);
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, GeExcludedNames(obj, excludedNames), includeNonPublic, parentReferences);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, GeExcludedNames(obj?.GetType(), excludedNames), includeNonPublic, parentReferences);
         }
 
         /// <summary>
@@ -296,10 +297,18 @@
 
         #region Private API
 
-        private static string[] GeExcludedNames(object obj, string[] excludedNames)
+        private static string[] GeExcludedNames(Type type, string[] excludedNames)
         {
-            var excludedByAttr = obj?.GetType().GetProperties()
-                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name).ToArray();
+            if (type == null) return excludedNames;
+
+            if (!IgnoredPropertiesCache.ContainsKey(type))
+            {
+                IgnoredPropertiesCache[type] = type.GetProperties()
+                    .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name)
+                    .ToArray();
+            }
+
+            var excludedByAttr = IgnoredPropertiesCache[type];
 
             if (excludedByAttr?.Any() == true)
             {
