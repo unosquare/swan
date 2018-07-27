@@ -54,7 +54,7 @@
                             continue;
                         }
 
-                        throw CreateParserException(json, i, _state, $"'{OpenObjectChar}' or '{OpenArrayChar}'");
+                        throw CreateParserException(json, i, $"'{OpenObjectChar}' or '{OpenArrayChar}'");
                     }
 
                     #endregion
@@ -75,7 +75,7 @@
                         }
 
                         if (json[i] != StringQuotedChar)
-                            throw CreateParserException(json, i, _state, $"'{StringQuotedChar}'");
+                            throw CreateParserException(json, i, $"'{StringQuotedChar}'");
 
                         var charCount = GetFieldNameCount(json, i);
 
@@ -94,7 +94,7 @@
                         if (char.IsWhiteSpace(json, i)) continue;
 
                         if (json[i] != ValueSeparatorChar)
-                            throw CreateParserException(json, i, _state, $"'{ValueSeparatorChar}'");
+                            throw CreateParserException(json, i, $"'{ValueSeparatorChar}'");
 
                         _state = ReadState.WaitingForValue;
                         continue;
@@ -206,7 +206,9 @@
                         return;
                     }
 
-                    throw CreateParserException(json, i, _state,
+                    throw CreateParserException(
+                        json, 
+                        i, 
                         $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
 
                     #endregion
@@ -219,17 +221,6 @@
             /// <param name="json">The json.</param>
             /// <returns>Type of the current deserializes specified JSON string</returns>
             public static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
-
-            private static FormatException CreateParserException(
-                string json, 
-                int charIndex, 
-                ReadState state,
-                string expected)
-            {
-                var textPosition = json.TextPositionAt(charIndex);
-                return new FormatException(
-                    $"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
-            }
 
             private static string Unescape(string str)
             {
@@ -343,7 +334,7 @@
                 var stringValue = json.SliceLength(i, charCount);
 
                 if (decimal.TryParse(stringValue, out var value) == false)
-                    throw CreateParserException(json, i, _state, "[number]");
+                    throw CreateParserException(json, i, "[number]");
 
                 if (_currentFieldName != null)
                     _resultObject[_currentFieldName] = value;
@@ -357,7 +348,7 @@
             private int ExtractConstant(string json, int i, string boolValue, bool? value)
             {
                 if (!json.SliceLength(i, boolValue.Length).Equals(boolValue))
-                    throw CreateParserException(json, i, _state, $"'{ValueSeparatorChar}'");
+                    throw CreateParserException(json, i, $"'{ValueSeparatorChar}'");
 
                 // Extract and set the value
                 if (_currentFieldName != null)
@@ -395,6 +386,16 @@
 
                 i += charCount + 1;
                 return i;
+            }
+            
+            private FormatException CreateParserException(
+                string json, 
+                int charIndex, 
+                string expected)
+            {
+                var textPosition = json.TextPositionAt(charIndex);
+                return new FormatException(
+                    $"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {_state}): Expected {expected} but got '{json[charIndex]}'.");
             }
 
             /// <summary>
