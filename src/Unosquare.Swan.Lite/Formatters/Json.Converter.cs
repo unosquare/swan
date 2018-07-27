@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
-    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -77,56 +76,46 @@
                     // Case 0.1: Source is string, Target is byte[]
                     case string sourceString when _targetType == typeof(byte[]):
                         _target = GetByteArray(sourceString);
-                        return;
+                        break;
 
-                    // Case 1: Source is a Dictionary<string, object>
+                    // Case 1.1: Source is Dictionary, Target is IDictionary
+                    case Dictionary<string, object> sourceProperties when _target is IDictionary targetDictionary:
+                        PopulateDictionary(sourceProperties, targetDictionary);
+                        break;
+
+                    // Case 1.2: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
                     case Dictionary<string, object> sourceProperties:
-                        if (_target is IDictionary targetDictionary)
+                        PopulateObject(sourceProperties);
+                        break;
+
+                    // Case 2.1: Source is List, Target is Array
+                    case List<object> sourceList when _target is Array targetArray:
+                        PopulateArray(sourceList, targetArray);
+                        break;
+
+                    // Case 2.2: Source is List,  Target is IList
+                    case List<object> sourceList when _target is IList targetList:
+
+                        PopulateIList(sourceList, targetList);
+                        break;
+
+                    // Case 3: Source is a simple type; Attempt conversion
+                    default:
+                        var sourceStringValue = source.ToStringInvariant();
+
+                        if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
                         {
-                            // Case 1.1: Source is Dictionary, Target is IDictionary
-                            PopulateDictionary(sourceProperties, targetDictionary);
+                            // Handle basic types
+                            if (!_targetType.TryParseBasicType(sourceStringValue, out _target))
+                                _target = _targetType.GetDefault();
                         }
                         else
                         {
-                            // Case 1.2: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
-                            PopulateObject(sourceProperties);
+                            // Handle Enumerations
+                            GetEnumValue(sourceStringValue, ref _target);
                         }
 
-                        return;
-
-                    // Case 2: Source is a List<object>
-                    case List<object> sourceList:
-                        switch (_target)
-                        {
-                            case Array targetArray:
-
-                                // Case 2.1: Source is List, Target is Array
-                                PopulateArray(sourceList, targetArray);
-                                break;
-                            case IList targetList:
-
-                                // Case 2.2: Source is List,  Target is IList
-                                // find the add method of the target list
-                                PopulateIList(sourceList, targetList);
-                                break;
-                        }
-
-                        return;
-                }
-
-                // Case 3: Source is a simple type; Attempt conversion
-                var sourceStringValue = source.ToStringInvariant();
-
-                if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
-                {
-                    // Handle basic types
-                    if (!_targetType.TryParseBasicType(sourceStringValue, out _target))
-                        _target = _targetType.GetDefault();
-                }
-                else
-                {
-                    // Handle Enumerations
-                    GetEnumValue(_targetType, sourceStringValue, ref _target);
+                        break;
                 }
             }
 
@@ -144,7 +133,57 @@
                 object nullRef = null;
                 return new Converter(source, targetType, ref nullRef, includeNonPublic)._target;
             }
-            
+
+            private static object FromJsonResult(object source,
+                Type targetType,
+                ref object targetInstance,
+                bool includeNonPublic)
+            {
+                return new Converter(source, targetType, ref targetInstance, includeNonPublic)._target;
+            }
+
+            private static Type GetAddMethodParameterType(Type targetType)
+            {
+                if (!ListAddMethodCache.ContainsKey(targetType))
+                {
+                    ListAddMethodCache[targetType] = targetType
+                        .GetMethods()
+                        .FirstOrDefault(m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
+                        .GetParameters()[0]
+                        .ParameterType;
+                }
+
+                return ListAddMethodCache[targetType];
+            }
+
+            private static byte[] GetByteArray(string sourceString)
+            {
+                try
+                {
+                    return Convert.FromBase64String(sourceString);
+                } // Try conversion from Base 64
+                catch
+                {
+                    return Encoding.UTF8.GetBytes(sourceString);
+                } // Get the string bytes in UTF8
+            }
+
+            private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties, MemberInfo targetProperty)
+            {
+                if (!MemberInfoNameCache.ContainsKey(targetProperty))
+                {
+                    MemberInfoNameCache[targetProperty] =
+                        targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
+                        targetProperty.Name;
+                }
+
+                var targetPropertyName = MemberInfoNameCache[targetProperty];
+
+                return sourceProperties.ContainsKey(targetPropertyName)
+                    ? sourceProperties[targetPropertyName]
+                    : null;
+            }
+
             private void PopulateIList(List<object> objects, IList list)
             {
                 var parameterType = GetAddMethodParameterType(_targetType);
@@ -187,6 +226,22 @@
                 }
             }
 
+            private void GetEnumValue(string sourceStringValue, ref object target)
+            {
+                var enumType = Nullable.GetUnderlyingType(_targetType);
+                if (enumType == null && _targetType.GetTypeInfo().IsEnum) enumType = _targetType;
+                if (enumType == null) return;
+
+                try
+                {
+                    target = Enum.Parse(enumType, sourceStringValue);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
             private void PopulateDictionary(Dictionary<string, object> sourceProperties, IDictionary targetDictionary)
             {
                 // find the add method of the target dictionary
@@ -225,6 +280,7 @@
                 void SetPropertyValue(MemberInfo targetProperty)
                 {
                     var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, targetProperty);
+                    if (sourcePropertyValue == null) return;
 
                     SetValue(sourcePropertyValue, targetProperty);
                 }
@@ -247,8 +303,6 @@
                 object sourcePropertyValue,
                 MemberInfo targetProperty)
             {
-                if (sourcePropertyValue == null) return;
-
                 var currentPropertyValue = GetCurrentPropertyValue(targetProperty);
 
                 switch (targetProperty)
@@ -309,72 +363,6 @@
                 }
 
                 return null;
-            }
-
-            private static object FromJsonResult(object source,
-                Type targetType,
-                ref object targetInstance,
-                bool includeNonPublic)
-            {
-                return new Converter(source, targetType, ref targetInstance, includeNonPublic)._target;
-            }
-
-            private static Type GetAddMethodParameterType(Type targetType)
-            {
-                if (!ListAddMethodCache.ContainsKey(targetType))
-                {
-                    ListAddMethodCache[targetType] = targetType
-                        .GetMethods()
-                        .FirstOrDefault(m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
-                        .GetParameters()[0]
-                        .ParameterType;
-                }
-
-                return ListAddMethodCache[targetType];
-            }
-
-            private static byte[] GetByteArray(string sourceString)
-            {
-                try
-                {
-                    return Convert.FromBase64String(sourceString);
-                } // Try conversion from Base 64
-                catch
-                {
-                    return Encoding.UTF8.GetBytes(sourceString);
-                } // Get the string bytes in UTF8
-            }
-
-            private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties, MemberInfo targetProperty)
-            {
-                if (!MemberInfoNameCache.ContainsKey(targetProperty))
-                {
-                    MemberInfoNameCache[targetProperty] =
-                        targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
-                        targetProperty.Name;
-                }
-
-                var targetPropertyName = MemberInfoNameCache[targetProperty];
-
-                return sourceProperties.ContainsKey(targetPropertyName)
-                    ? sourceProperties[targetPropertyName]
-                    : null;
-            }
-
-            private static void GetEnumValue(Type _targetType, string sourceStringValue, ref object target)
-            {
-                var enumType = Nullable.GetUnderlyingType(_targetType);
-                if (enumType == null && _targetType.GetTypeInfo().IsEnum) enumType = _targetType;
-                if (enumType == null) return;
-
-                try
-                {
-                    target = Enum.Parse(enumType, sourceStringValue);
-                }
-                catch
-                {
-                    // ignored
-                }
             }
         }
     }
