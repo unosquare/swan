@@ -69,15 +69,24 @@
 
                 switch (obj)
                 {
+                    case IDictionary itemsZero when itemsZero.Count == 0:
+                        _result = EmptyObjectLiteral;
+                        break;
                     case IDictionary items:
                         _result = ResolveDictionary(items, depth);
-                        return;
+                        break;
+                    case IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any():
+                        _result = EmptyArrayLiteral;
+                        break;
+                    case IEnumerable enumerableBytes when enumerableBytes is byte[] bytes:
+                        _result = Serialize(bytes.ToBase64(), depth, _options);
+                        break;
                     case IEnumerable enumerable:
                         _result = ResolveEnumerable(enumerable, depth);
-                        return;
+                        break;
                     default:
                         _result = ResolveObject(obj, depth);
-                        return;
+                        break;
                 }
             }
             
@@ -127,16 +136,7 @@
                 if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
 
                 // find the first position the character is not a space
-                foreach (var c in serialized)
-                {
-                    if (c == ' ') continue;
-
-                    // If the position is opening braces or brackets, then we have an
-                    // opening set.
-                    return c == OpenObjectChar || c == OpenArrayChar;
-                }
-
-                return false;
+                return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
             }
 
             /// <summary>
@@ -230,12 +230,6 @@
 
             private string ResolveDictionary(IDictionary items, int depth)
             {
-                // Append the start of an object or empty object
-                if (items.Count == 0)
-                {
-                    return EmptyObjectLiteral;
-                }
-
                 Append(OpenObjectChar, depth);
                 AppendLine();
 
@@ -284,20 +278,8 @@
 
             private string ResolveEnumerable(IEnumerable target, int depth)
             {
-                // Special byte array handling
-                if (target is byte[] bytes)
-                {
-                    return Serialize(bytes.ToBase64(), depth, _options);
-                }
-
                 // Cast the items as a generic object array
                 var items = target.Cast<object>().ToArray();
-
-                // Append the start of an array or empty array
-                if (items.Length <= 0)
-                {
-                    return EmptyArrayLiteral;
-                }
 
                 Append(OpenArrayChar, depth);
                 AppendLine();
