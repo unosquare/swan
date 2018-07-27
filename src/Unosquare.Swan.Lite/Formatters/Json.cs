@@ -144,7 +144,15 @@
                 return SerializePrimitiveValue(obj);
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, GeExcludedNames(obj?.GetType(), excludedNames), includeNonPublic, parentReferences);
+            var options = new SerializerOptions(
+                format,
+                typeSpecifier,
+                includedNames,
+                GeExcludedNames(obj?.GetType(), excludedNames),
+                includeNonPublic,
+                parentReferences);
+
+            return Serializer.Serialize(obj, 0, options);
         }
 
         /// <summary>
@@ -178,7 +186,9 @@
         /// </example>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
-            return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
+            var options = new SerializerOptions(format, null, includeNames);
+
+            return Serializer.Serialize(obj, 0, options);
         }
 
         /// <summary>
@@ -213,7 +223,9 @@
         /// </example>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
-            return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false);
+            var options = new SerializerOptions(format, null, null, excludeNames);
+
+            return Serializer.Serialize(obj, 0, options);
         }
 
         /// <summary>

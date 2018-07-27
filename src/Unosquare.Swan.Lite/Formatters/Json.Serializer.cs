@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using Attributes;
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario
@@ -17,18 +16,6 @@
     /// </summary>
     public partial class Json
     {
-        private class SerializerOptions
-        {
-            public bool Format { get; set; }
-            public string TypeSpecifier { get; set; }
-            public string[] IncludeProperties { get; set; }
-            public string[] ExcludeProperties { get; set; }
-            public bool IncludeNonPublic { get; set; }
-            public List<WeakReference> ParentReferences { get; set; } = new List<WeakReference>();
-
-            public Dictionary<Type, Dictionary<string, MemberInfo>> TypeCache { get; } = new Dictionary<Type, Dictionary<string, MemberInfo>>();
-        }
-
         /// <summary>
         /// A simple JSON serializer
         /// </summary>
@@ -38,12 +25,10 @@
 
             private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
 
+            private readonly SerializerOptions _options;
             private readonly string _result;
             private readonly StringBuilder _builder;
-            private readonly bool _format;
             private readonly string _lastCommaSearch;
-            private readonly List<string> _excludeProperties = new List<string>();
-            private readonly List<string> _includeProperties = new List<string>();
 
             #endregion
 
@@ -69,15 +54,6 @@
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
 
-                if (options.IncludeProperties != null && options.IncludeProperties.Length > 0)
-                    _includeProperties.AddRange(options.IncludeProperties);
-
-                if (options.ExcludeProperties != null && options.ExcludeProperties.Length > 0)
-                    _excludeProperties.AddRange(options.ExcludeProperties);
-
-                _format = options.Format;
-                _lastCommaSearch = FieldSeparatorChar + (_format ? Environment.NewLine : string.Empty);
-
                 var targetType = obj.GetType();
 
                 // Number or DateTime
@@ -85,6 +61,9 @@
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
+
+                _options = options;
+                _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
                 var target = obj;
 
@@ -100,78 +79,21 @@
                 // At this point, we will need to construct the object with a StringBuilder.
                 _builder = new StringBuilder();
 
-                // Dictionary Type Handling (IDictionary)
-                if (obj is IDictionary items)
+                switch (target)
                 {
-                    _result = ResolveDictionary(items, depth, options);
-                    return;
+                    case IDictionary items:
+                        _result = ResolveDictionary(items, depth);
+                        return;
+                    case IEnumerable enumerable:
+                        _result = ResolveEnumerable(enumerable, depth);
+                        return;
+                    default:
+                        _result = ResolveObject(targetType, target, depth);
+                        return;
                 }
-
-                // Enumerable Type Handling (IEnumerable)
-                if (target is IEnumerable enumerable)
-                {
-                    _result = ResolveEnumerable(enumerable, depth, options);
-                    return;
-                }
-
-                // If we arrive here, then we convert the object into a 
-                // dictionary of property names and values and call the serialization
-                // function again
-                var objectDictionary = CreateDictionary(options.TypeSpecifier, options.IncludeNonPublic, targetType, target, options.TypeCache);
-
-                // At this point we either have a dictionary with or without properties
-                // If we have at least one property then we send it through the serialization method
-                // If we don't have any properties we return empty object
-                if (objectDictionary.Count == 0)
-                {
-                    _result = EmptyObjectLiteral;
-                    return;
-                }
-
-                _result = Serialize(objectDictionary, depth, options);
             }
-
-            /// <summary>
-            /// Serializes the specified object.
-            /// </summary>
-            /// <param name="obj">The object.</param>
-            /// <param name="depth">The depth.</param>
-            /// <param name="format">if set to <c>true</c> [format].</param>
-            /// <param name="typeSpecifier">The type specifier. Leave empty to avoid setting.</param>
-            /// <param name="includeProperties">The include properties.</param>
-            /// <param name="excludeProperties">The exclude properties.</param>
-            /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
-            /// <param name="parentReferences">The parent references.</param>
-            /// <returns>
-            /// A <see cref="System.String" /> that represents the current object
-            /// </returns>
-            /// <exception cref="InvalidOperationException">The max depth (20) has been reached. Serializer can not continue.</exception>
-            internal static string Serialize(
-                object obj,
-                int depth,
-                bool format,
-                string typeSpecifier,
-                string[] includeProperties,
-                string[] excludeProperties,
-                bool includeNonPublic,
-                List<WeakReference> parentReferences = null)
-            {
-                var options = new SerializerOptions
-                {
-                    TypeSpecifier = typeSpecifier,
-                    IncludeProperties = includeProperties,
-                    ExcludeProperties = excludeProperties,
-                    IncludeNonPublic = includeNonPublic,
-                    Format = format
-                };
-
-                if (parentReferences != null)
-                    options.ParentReferences = parentReferences;
-
-                return Serialize(obj, depth, options);
-            }
-
-            private static string Serialize(object obj, int depth, SerializerOptions options)
+            
+            internal static string Serialize(object obj, int depth, SerializerOptions options)
             {
                 return new Serializer(obj, depth, options)._result;
             }
@@ -298,7 +220,36 @@
                 return builder.ToString();
             }
 
-            private string ResolveDictionary(IDictionary items, int depth, SerializerOptions options)
+            private static Dictionary<string, object> CreateDictionary(
+                string typeSpecifier,
+                Dictionary<string, Func<object, object>> fields,
+                Type targetType,
+                object target)
+            {
+                // Create the dictionary and extract the properties
+                var objectDictionary = new Dictionary<string, object>();
+
+                if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
+                    objectDictionary[typeSpecifier] = targetType.ToString();
+
+                foreach (var field in fields)
+                {
+                    // Build the dictionary using property names and values
+                    // Note: used to be: property.GetValue(target); but we would be reading private properties
+                    try
+                    {
+                        objectDictionary[field.Key] = field.Value(target);
+                    }
+                    catch
+                    {
+                        /* ignored */
+                    }
+                }
+
+                return objectDictionary;
+            }
+
+            private string ResolveDictionary(IDictionary items, int depth)
             {
                 // Append the start of an object or empty object
                 if (items.Count == 0)
@@ -319,7 +270,7 @@
                         depth + 1);
 
                     // Serialize and append the value
-                    var serializedValue = Serialize(entry.Value, depth + 1, options);
+                    var serializedValue = Serialize(entry.Value, depth + 1, _options);
 
                     if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
                     Append(serializedValue, 0);
@@ -336,12 +287,27 @@
                 return _builder.ToString();
             }
 
-            private string ResolveEnumerable(IEnumerable target, int depth, SerializerOptions options)
+            private string ResolveObject(Type targetType, object target, int depth)
+            {
+                var fields = _options.GetProperties(targetType);
+
+                if (fields.Count == 0)
+                    return EmptyObjectLiteral;
+
+                // If we arrive here, then we convert the object into a 
+                // dictionary of property names and values and call the serialization
+                // function again
+                var objectDictionary = CreateDictionary(_options.TypeSpecifier, fields, targetType, target);
+
+                return Serialize(objectDictionary, depth, _options);
+            }
+
+            private string ResolveEnumerable(IEnumerable target, int depth)
             {
                 // Special byte array handling
                 if (target is byte[] bytes)
                 {
-                    return Serialize(bytes.ToBase64(), depth, options);
+                    return Serialize(bytes.ToBase64(), depth, _options);
                 }
 
                 // Cast the items as a generic object array
@@ -360,7 +326,7 @@
                 var writeCount = 0;
                 foreach (var entry in items)
                 {
-                    var serializedValue = Serialize(entry, depth + 1, options);
+                    var serializedValue = Serialize(entry, depth + 1, _options);
 
                     if (IsNonEmptyJsonArrayOrObject(serializedValue))
                         Append(serializedValue, 0);
@@ -378,73 +344,9 @@
                 return _builder.ToString();
             }
 
-            private Dictionary<string, object> CreateDictionary(
-                string typeSpecifier,
-                bool includeNonPublic,
-                Type targetType,
-                object target,
-                Dictionary<Type, Dictionary<string, MemberInfo>> typeCache)
-            {
-                // Create the dictionary and extract the properties
-                var objectDictionary = new Dictionary<string, object>();
-
-                var fields = GetMemberInfo(targetType, typeCache);
-
-                if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
-                    objectDictionary[typeSpecifier] = targetType.ToString();
-
-                foreach (var field in fields)
-                {
-                    // Skip over the excluded properties
-                    if (_excludeProperties.Count > 0 && _excludeProperties.Contains(field.Value.Name))
-                        continue;
-
-                    // Build the dictionary using property names and values
-                    // Note: used to be: property.GetValue(target); but we would be reading private properties
-                    try
-                    {
-                        objectDictionary[field.Key] =
-                            field.Value is PropertyInfo info
-                                ? info.GetGetMethod(includeNonPublic)?.Invoke(target, null)
-                                : (field.Value as FieldInfo).GetValue(target);
-                    }
-                    catch
-                    {
-                        /* ignored */
-                    }
-                }
-
-                return objectDictionary;
-            }
-
-            private Dictionary<string, MemberInfo> GetMemberInfo(Type targetType, Dictionary<Type, Dictionary<string, MemberInfo>> cache)
-            {
-                if (cache.ContainsKey(targetType))
-                    return cache[targetType];
-
-                var fields = new List<MemberInfo>();
-
-                // If the target is a struct (value type) navigate the fields.
-                if (targetType.IsValueType())
-                {
-                    fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
-                }
-
-                // then incorporate the properties
-                fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead).ToArray());
-
-                // If we set the included properties, then we remove everything that is not listed
-                if (_includeProperties.Count > 0)
-                    fields = fields.Where(p => _includeProperties.Contains(p.Name)).ToList();
-
-                cache[targetType] = fields.ToDictionary(x => x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name, x => x);
-
-                return cache[targetType];
-            }
-
             private void SetIndent(int depth)
             {
-                if (_format == false || depth <= 0) return;
+                if (_options.Format == false || depth <= 0) return;
 
                 if (IndentStrings.ContainsKey(depth) == false)
                     IndentStrings[depth] = new string(' ', depth * 4);
@@ -483,7 +385,7 @@
 
             private void AppendLine()
             {
-                if (_format == false) return;
+                if (_options.Format == false) return;
                 _builder.Append(Environment.NewLine);
             }
 
