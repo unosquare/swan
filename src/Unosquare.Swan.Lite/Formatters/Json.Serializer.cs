@@ -273,7 +273,7 @@
                 var targetType = target.GetType();
                 var fields = _options.GetProperties(targetType);
 
-                if (fields.Count == 0)
+                if (fields.Count == 0 && string.IsNullOrWhiteSpace(_options.TypeSpecifier))
                     return EmptyObjectLiteral;
 
                 // If we arrive here, then we convert the object into a 
