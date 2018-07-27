@@ -26,7 +26,7 @@
 
             private readonly ReadState _state = ReadState.WaitingForRootOpen;
             private readonly string _currentFieldName;
-            private readonly int _endIndex;
+            private readonly string _json;
 
             private int _index;
 
@@ -34,6 +34,7 @@
 
             private Deserializer(string json, int startIndex)
             {
+                _json = json;
                 for (_index = startIndex; _index < json.Length; _index++)
                 {
                     #region Wait for { or [
@@ -71,7 +72,6 @@
                         if ((_resultObject != null && json[_index] == CloseObjectChar)
                             || (_resultArray != null && json[_index] == CloseArrayChar))
                         {
-                            _endIndex = _index;
                             _result = _resultObject ?? _resultArray as object;
                             return;
                         }
@@ -114,7 +114,6 @@
                         if ((_resultObject != null && json[_index] == CloseObjectChar)
                             || (_resultArray != null && json[_index] == CloseArrayChar))
                         {
-                            _endIndex = _index;
                             _result = _resultObject ?? _resultArray as object;
                             return;
                         }
@@ -203,7 +202,6 @@
                     if ((_resultObject != null && json[_index] == CloseObjectChar) ||
                         (_resultArray != null && json[_index] == CloseArrayChar))
                     {
-                        _endIndex = _index;
                         _result = _resultObject ?? _resultArray as object;
                         return;
                     }
@@ -313,7 +311,7 @@
                 else
                     _resultArray.Add(deserializer._result);
 
-                _index = deserializer._endIndex;
+                _index = deserializer._index;
             }
 
             private void ExtractNumber(string json)
