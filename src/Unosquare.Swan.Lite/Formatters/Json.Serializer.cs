@@ -48,24 +48,14 @@
                         "The max depth (20) has been reached. Serializer can not continue.");
                 }
 
-                // Basic Type Handling (nulls, strings and bool)
+                // Basic Type Handling (nulls, strings, number, date and bool)
                 _result = ResolveBasicType(obj);
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
-
-                var targetType = obj.GetType();
-
-                // Number or DateTime
-                _result = ResolveDateTimeOrNumber(obj, targetType);
-
-                if (string.IsNullOrWhiteSpace(_result) == false)
-                    return;
-
+                
                 _options = options;
                 _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
-
-                var target = obj;
 
                 // Handle circular references correctly and avoid them
                 if (options.ParentReferences.Any(p => ReferenceEquals(p.Target, obj)))
@@ -79,7 +69,7 @@
                 // At this point, we will need to construct the object with a StringBuilder.
                 _builder = new StringBuilder();
 
-                switch (target)
+                switch (obj)
                 {
                     case IDictionary items:
                         _result = ResolveDictionary(items, depth);
@@ -88,7 +78,7 @@
                         _result = ResolveEnumerable(enumerable, depth);
                         return;
                     default:
-                        _result = ResolveObject(targetType, target, depth);
+                        _result = ResolveObject(obj, depth);
                         return;
                 }
             }
@@ -118,30 +108,22 @@
                     case PropertyInfo _:
                     case EventInfo _:
                         return $"{StringQuotedChar}{Escape(obj.ToString())}{StringQuotedChar}";
+                    case DateTime d:
+                        return $"{StringQuotedChar}{d:s}{StringQuotedChar}";
                     default:
-                        return string.Empty;
+                        var targetType = obj.GetType();
+
+                        if (!Definitions.BasicTypesInfo.ContainsKey(targetType))
+                            return string.Empty;
+
+                        var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
+
+                        return decimal.TryParse(escapedValue, out _)
+                            ? $"{escapedValue}"
+                            : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
                 }
             }
-
-            private static string ResolveDateTimeOrNumber(object obj, Type targetType)
-            {
-                if (!Definitions.BasicTypesInfo.ContainsKey(targetType))
-                    return string.Empty;
-
-                if (targetType == typeof(DateTime) || targetType == typeof(DateTime?))
-                {
-                    var date = targetType == typeof(DateTime) ? (DateTime)obj : ((DateTime?)obj).Value;
-
-                    return $"{StringQuotedChar}{date:s}{StringQuotedChar}";
-                }
-
-                var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
-
-                return decimal.TryParse(escapedValue, out _)
-                    ? $"{escapedValue}"
-                    : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
-            }
-
+            
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
                 if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
@@ -220,17 +202,16 @@
                 return builder.ToString();
             }
 
-            private static Dictionary<string, object> CreateDictionary(
-                string typeSpecifier,
+            private Dictionary<string, object> CreateDictionary(
                 Dictionary<string, Func<object, object>> fields,
-                Type targetType,
+                string targetType,
                 object target)
             {
                 // Create the dictionary and extract the properties
                 var objectDictionary = new Dictionary<string, object>();
 
-                if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
-                    objectDictionary[typeSpecifier] = targetType.ToString();
+                if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
+                    objectDictionary[_options.TypeSpecifier] = targetType;
 
                 foreach (var field in fields)
                 {
@@ -287,8 +268,9 @@
                 return _builder.ToString();
             }
 
-            private string ResolveObject(Type targetType, object target, int depth)
+            private string ResolveObject(object target, int depth)
             {
+                var targetType = target.GetType();
                 var fields = _options.GetProperties(targetType);
 
                 if (fields.Count == 0)
@@ -297,7 +279,7 @@
                 // If we arrive here, then we convert the object into a 
                 // dictionary of property names and values and call the serialization
                 // function again
-                var objectDictionary = CreateDictionary(_options.TypeSpecifier, fields, targetType, target);
+                var objectDictionary = CreateDictionary(fields, targetType.ToString(), target);
 
                 return Serialize(objectDictionary, depth, _options);
             }
