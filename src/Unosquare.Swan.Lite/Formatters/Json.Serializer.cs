@@ -58,13 +58,11 @@
                 _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
                 // Handle circular references correctly and avoid them
-                if (options.ParentReferences.Any(p => ReferenceEquals(p.Target, obj)))
+                if (options.IsObjectPresent(obj))
                 {
                     _result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant())}\" }}";
                     return;
                 }
-
-                options.ParentReferences.Add(new WeakReference(obj));
 
                 // At this point, we will need to construct the object with a StringBuilder.
                 _builder = new StringBuilder();

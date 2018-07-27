@@ -23,6 +23,8 @@
             private readonly string[] _includeProperties;
             private readonly string[] _excludeProperties;
             private readonly bool _includeNonPublic;
+            private readonly List<WeakReference> _parentReferences; 
+            private readonly HashSet<object> _hashMap;
 
             public SerializerOptions(
                 bool format,
@@ -38,12 +40,31 @@
 
                 Format = format;
                 TypeSpecifier = typeSpecifier;
-                ParentReferences = parentReferences ?? new List<WeakReference>();
+
+                _parentReferences = parentReferences;
+                _hashMap = new HashSet<object>();
             }
 
             public bool Format { get; }
             public string TypeSpecifier { get; }
-            public List<WeakReference> ParentReferences { get; }
+            
+            internal bool IsObjectPresent(object target)
+            {
+                if (_parentReferences != null)
+                {
+                    if (_parentReferences.Any(p => ReferenceEquals(p.Target,target)))
+                        return true;
+
+                    _parentReferences.Add(new WeakReference(target));
+                    return false;
+                }
+
+                if (_hashMap.Contains(target))
+                    return true;
+
+                _hashMap.Add(target);
+                return false;
+            }
 
             internal Dictionary<string, Func<object, object>> GetProperties(Type targetType)
                 => GetPropertiesCache(targetType)
