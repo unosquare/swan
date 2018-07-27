@@ -318,7 +318,8 @@
             if (!IgnoredPropertiesCache.ContainsKey(type))
             {
                 IgnoredPropertiesCache[type] = type.GetProperties()
-                    .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name)
+                    .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true)
+                    .Select(x => x.Name)
                     .ToArray();
             }
 

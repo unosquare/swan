@@ -142,7 +142,7 @@
                             case 't': // expect true
                             {
                                 // Update state variables
-                                i = ExtractTrueValue(json, i);
+                                i = ExtractConstant(json, i, TrueLiteral, true);
                                 _currentFieldName = null;
                                 _state = ReadState.WaitingForNextOrRootClose;
                                 continue;
@@ -151,7 +151,7 @@
                             case 'f': // expect false
                             {
                                 // Update state variables
-                                i = ExtractFalseValue(json, i);
+                                i = ExtractConstant(json, i, FalseLiteral, false);
                                 _currentFieldName = null;
                                 _state = ReadState.WaitingForNextOrRootClose;
                                 continue;
@@ -160,7 +160,7 @@
                             case 'n': // expect null
                             {
                                 // Update state variables
-                                i = ExtractNullValue(json, i);
+                                i = ExtractConstant(json, i, NullLiteral, null);
                                 _currentFieldName = null;
                                 _state = ReadState.WaitingForNextOrRootClose;
                                 continue;
@@ -218,11 +218,7 @@
             /// </summary>
             /// <param name="json">The json.</param>
             /// <returns>Type of the current deserializes specified JSON string</returns>
-            public static object DeserializeInternal(string json)
-            {
-                var deserializer = new Deserializer(json, 0);
-                return deserializer._result;
-            }
+            public static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
 
             private static FormatException CreateParserException(
                 string json, 
@@ -358,48 +354,18 @@
                 return i;
             }
 
-            private int ExtractNullValue(string json, int i)
+            private int ExtractConstant(string json, int i, string boolValue, bool? value)
             {
-                if (!json.SliceLength(i, NullLiteral.Length).Equals(NullLiteral))
+                if (!json.SliceLength(i, boolValue.Length).Equals(boolValue))
                     throw CreateParserException(json, i, _state, $"'{ValueSeparatorChar}'");
 
                 // Extract and set the value
                 if (_currentFieldName != null)
-                    _resultObject[_currentFieldName] = null;
+                    _resultObject[_currentFieldName] = value;
                 else
-                    _resultArray.Add(null);
+                    _resultArray.Add(value);
 
-                i += NullLiteral.Length - 1;
-                return i;
-            }
-
-            private int ExtractFalseValue(string json, int i)
-            {
-                if (!json.SliceLength(i, FalseLiteral.Length).Equals(FalseLiteral))
-                    throw CreateParserException(json, i, _state, $"'{ValueSeparatorChar}'");
-
-                // Extract and set the value
-                if (_currentFieldName != null)
-                    _resultObject[_currentFieldName] = false;
-                else
-                    _resultArray.Add(false);
-
-                i += FalseLiteral.Length - 1;
-                return i;
-            }
-
-            private int ExtractTrueValue(string json, int i)
-            {
-                if (!json.SliceLength(i, TrueLiteral.Length).Equals(TrueLiteral))
-                    throw CreateParserException(json, i, _state, $"'{ValueSeparatorChar}'");
-
-                // Extract and set the value
-                if (_currentFieldName != null)
-                    _resultObject[_currentFieldName] = true;
-                else
-                    _resultArray.Add(true);
-
-                i += TrueLiteral.Length - 1;
+                i += boolValue.Length - 1;
                 return i;
             }
 
