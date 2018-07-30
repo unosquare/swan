@@ -123,60 +123,34 @@
                         switch (_json[_index])
                         {
                             case StringQuotedChar: // expect a string
-                                {
-                                    // Update state variables
-                                    ExtractStringQuoted();
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractStringQuoted();
+                                break;
 
                             case OpenObjectChar: // expect object
                             case OpenArrayChar: // expect array
-                                {
-                                    // Update state variables
-                                    ExtractObject();
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractObject();
+                                break;
 
                             case 't': // expect true
-                                {
-                                    // Update state variables
-                                    ExtractConstant(TrueLiteral, true);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractConstant(TrueLiteral, true);
+                                break;
 
                             case 'f': // expect false
-                                {
-                                    // Update state variables
-                                    ExtractConstant(FalseLiteral, false);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractConstant(FalseLiteral, false);
+                                break;
 
                             case 'n': // expect null
-                                {
-                                    // Update state variables
-                                    ExtractConstant(NullLiteral, null);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractConstant(NullLiteral, null);
+                                break;
 
                             default: // expect number
-                                {
-                                    // Update state variables
-                                    ExtractNumber();
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                                ExtractNumber();
+                                break;
                         }
+
+                        _currentFieldName = null;
+                        _state = ReadState.WaitingForNextOrRootClose;
+                        continue;
                     }
 
                     #endregion
