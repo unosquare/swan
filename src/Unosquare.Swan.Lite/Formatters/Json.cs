@@ -122,9 +122,9 @@
         /// <param name="excludedNames">The excluded property names.</param>
         /// <param name="parentReferences">The parent references.</param>
         /// <returns>
-        /// A <see cref="System.String" /> that represents the current object
+        /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
-        /// <exception cref="ArgumentException">You need to provide an object or array</exception>
+        /// <exception cref="ArgumentException">You need to provide an object or array.</exception>
         public static string Serialize(
             object obj,
             bool format,
@@ -211,7 +211,6 @@
         ///         // serialize excluding
         ///         var data = Json.SerializeExcluding(basicObject, false, includedNames); 
         ///         // {"One": "One"}
-        ///         
         ///     }
         /// }
         /// </code>
@@ -243,7 +242,6 @@
         ///         
         ///         // deserializes the specified json into a Dictionary&lt;string, object&gt;.
         ///         var data = Json.Deserialize(basicJson);
-        ///         
         ///     }
         /// }
         /// </code>
@@ -271,15 +269,11 @@
         ///         
         ///         // deserializes the specified string in a new instance of the type BasicJson.
         ///         var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
-        ///         
         ///     }
         /// }
         /// </code>
         /// </example>
-        public static T Deserialize<T>(string json)
-        {
-            return (T)Deserialize(json, typeof(T));
-        }
+        public static T Deserialize<T>(string json) => (T)Deserialize(json, typeof(T));
 
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.
@@ -288,10 +282,7 @@
         /// <param name="json">The json.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>The deserialized specified type object</returns>
-        public static T Deserialize<T>(string json, bool includeNonPublic)
-        {
-            return (T)Deserialize(json, typeof(T), includeNonPublic);
-        }
+        public static T Deserialize<T>(string json, bool includeNonPublic) => (T)Deserialize(json, typeof(T), includeNonPublic);
 
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.

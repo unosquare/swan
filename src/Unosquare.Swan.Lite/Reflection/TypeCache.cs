@@ -76,13 +76,13 @@
         /// A collection with all the properties in the given type
         /// </returns>
         public IEnumerable<PropertyInfo> RetrieveFilteredProperties(Type type, bool onlyPublic, Func<PropertyInfo, bool> filter)
-            => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type) : GetAllPropertiesFunc(type));
+            => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type, filter) : GetAllPropertiesFunc(type, filter));
 
-        private static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
-            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        private static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type, Func<PropertyInfo, bool> filter = null)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, filter);
         
-        private static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
-            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.Instance);
+        private static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type, Func<PropertyInfo, bool> filter = null)
+            => GetPropertiesFunc(type, BindingFlags.Public | BindingFlags.Instance, filter);
         
         private static Func<IEnumerable<PropertyInfo>> GetPropertiesFunc(Type type, BindingFlags flags, Func<PropertyInfo, bool> filter = null)
         {

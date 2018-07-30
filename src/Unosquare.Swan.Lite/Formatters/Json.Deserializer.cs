@@ -187,12 +187,7 @@
                 }
             }
 
-            /// <summary>
-            /// Deserializes specified JSON string
-            /// </summary>
-            /// <param name="json">The json.</param>
-            /// <returns>Type of the current deserializes specified JSON string</returns>
-            public static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
+            internal static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
 
             private static string Unescape(string str)
             {
