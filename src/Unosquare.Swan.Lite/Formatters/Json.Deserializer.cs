@@ -242,22 +242,8 @@
                     switch (str[i + 1])
                     {
                         case 'u':
-                            {
-                                var startIndex = i + 2;
-                                var endIndex = i + 5;
-                                if (endIndex > str.Length - 1)
-                                {
-                                    builder.Append(str[i + 1]);
-                                    i += 1;
-                                    break;
-                                }
-
-                                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
-                                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
-                                i += 5;
-                                break;
-                            }
-
+                            i = ExtractEscapeSequence(str, i, builder);
+                            break;
                         case 'b':
                             builder.Append('\b');
                             i += 1;
@@ -286,6 +272,23 @@
                 }
 
                 return builder.ToString();
+            }
+
+            private static int ExtractEscapeSequence(string str, int i, StringBuilder builder)
+            {
+                var startIndex = i + 2;
+                var endIndex = i + 5;
+                if (endIndex > str.Length - 1)
+                {
+                    builder.Append(str[i + 1]);
+                    i += 1;
+                    return i;
+                }
+
+                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
+                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
+                i += 5;
+                return i;
             }
 
             private int GetFieldNameCount()
@@ -365,11 +368,7 @@
                     if (_json[j] == StringQuotedChar && !escapeCharFound)
                         break;
 
-                    if (_json[j] == StringEscapeChar)
-                        escapeCharFound = !escapeCharFound;
-                    else
-                        escapeCharFound = false;
-
+                    escapeCharFound = _json[j] == StringEscapeChar && !escapeCharFound;
                     charCount++;
                 }
 

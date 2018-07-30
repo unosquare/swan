@@ -23,8 +23,7 @@
             private readonly string[] _includeProperties;
             private readonly string[] _excludeProperties;
             private readonly bool _includeNonPublic;
-            private readonly List<WeakReference> _parentReferences; 
-            private readonly HashSet<object> _hashMap;
+            private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
 
             public SerializerOptions(
                 bool format,
@@ -32,7 +31,7 @@
                 string[] includeProperties,
                 string[] excludeProperties = null,
                 bool includeNonPublic = true,
-                List<WeakReference> parentReferences = null)
+                IReadOnlyCollection<WeakReference> parentReferences = null)
             {
                 _includeProperties = includeProperties;
                 _excludeProperties = excludeProperties;
@@ -41,28 +40,32 @@
                 Format = format;
                 TypeSpecifier = typeSpecifier;
 
-                _parentReferences = parentReferences;
-                _hashMap = new HashSet<object>();
+                if (parentReferences == null)
+                    return;
+
+                foreach (var parentReference in parentReferences.Where(x => x.IsAlive))
+                {
+                    IsObjectPresent(parentReference.Target);
+                }
             }
 
             public bool Format { get; }
             public string TypeSpecifier { get; }
-            
+
             internal bool IsObjectPresent(object target)
             {
-                if (_parentReferences != null)
+                var hashCode = target.GetHashCode();
+
+                if (_parentReferences.ContainsKey(hashCode))
                 {
-                    if (_parentReferences.Any(p => ReferenceEquals(p.Target,target)))
+                    if (_parentReferences[hashCode].Any(p => ReferenceEquals(p.Target, target)))
                         return true;
 
-                    _parentReferences.Add(new WeakReference(target));
+                    _parentReferences[hashCode].Add(new WeakReference(target));
                     return false;
                 }
 
-                if (_hashMap.Contains(target))
-                    return true;
-
-                _hashMap.Add(target);
+                _parentReferences.Add(hashCode, new List<WeakReference> { new WeakReference(target) });
                 return false;
             }
 

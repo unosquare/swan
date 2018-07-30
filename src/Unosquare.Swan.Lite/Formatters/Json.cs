@@ -113,10 +113,6 @@
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
-        ///
-        /// You need to initialize <c>parentReferences</c> with a empty list to use <c>WekReference</c> mode, by default is off.
-        /// When <c>WekReference</c> mode is turn on, the circular reference will host the object map using <c>WekReference</c>
-        /// and the objects may be removed without issues with GC.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
