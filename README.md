@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/unosquare/swan.svg?branch=master)](https://travis-ci.org/unosquare/swan)
 [![Build status](https://ci.appveyor.com/api/projects/status/063tybvog8mb1sic/branch/master?svg=true)](https://ci.appveyor.com/project/geoperez/swan/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master)](https://coveralls.io/github/unosquare/swan?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c588287f33694935a4d061e82baf62f5)](https://www.codacy.com/project/UnosquareLabs/swan/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=unosquare/swan&amp;utm_campaign=Badge_Grade_Dashboard)
+
 # <img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"></img> SWAN: Stuff We All Need
 
 *:star: Please star this project if you find it useful!*
