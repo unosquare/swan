@@ -78,10 +78,7 @@
         [Test]
         public void WithStringArray_ReturnsArraySerialized()
         {
-            var data = Json.Serialize(DefaultStringList);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(BasicAStr, data);
+            Assert.AreEqual(BasicAStr, Json.Serialize(DefaultStringList));
         }
 
         [Test]
@@ -172,10 +169,8 @@
         public void WithStructureArray_ReturnsStructureArraySerialized()
         {
             var result = new[] {new SampleStruct {Value = 1, Name = "A"}, new SampleStruct {Value = 2, Name = "B"}};
-            var data = Json.Serialize(result);
 
-            Assert.IsNotNull(data);
-            Assert.AreEqual(ArrayStruct, data);
+            Assert.AreEqual(ArrayStruct, Json.Serialize(result));
         }
 
         [Test]
@@ -187,10 +182,7 @@
         [Test]
         public void WithStructure_ReturnsStructureSerialized()
         {
-            var data = Json.Serialize(DefaultStruct);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"string\"}", data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"string\"}", Json.Serialize(DefaultStruct));
         }
     }
 
@@ -315,7 +307,6 @@
         {
             var data = Json.Deserialize<ArrayJsonWithInitialData>("{\"Id\": 2,\"Properties\": [\"THREE\"]}");
 
-            Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
             Assert.AreEqual(1, data.Properties.Length);
         }
@@ -323,15 +314,13 @@
         [Test]
         public void WithJsonProperty_ReturnsPropertiesDeserialized()
         {
-            var obj = new JsonPropertySample() {Data = "OK", IgnoredData = "OK"};
+            var obj = new JsonPropertySample {Data = "OK", IgnoredData = "OK"};
             var data = Json.Serialize(obj);
 
-            Assert.IsNotNull(data);
             Assert.AreEqual("{\"data\": \"OK\"}", data);
 
             var objDeserialized = Json.Deserialize<JsonPropertySample>(data);
 
-            Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Data, objDeserialized.Data);
         }
 
@@ -340,7 +329,6 @@
         {
             var data = Json.Deserialize<SampleStruct>("{\"Value\": 1,\"Name\": \"A\"}");
 
-            Assert.IsNotNull(data);
             Assert.AreEqual(data.Value, 1);
             Assert.AreEqual(data.Name, "A");
         }
@@ -350,7 +338,6 @@
         {
             var data = Json.Deserialize<SampleStruct[]>(ArrayStruct);
 
-            Assert.IsNotNull(data);
             Assert.IsTrue(data.Any());
             Assert.AreEqual(data.First().Value, 1);
             Assert.AreEqual(data.First().Name, "A");
