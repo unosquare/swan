@@ -277,92 +277,62 @@
 
             private void PopulateObject(Dictionary<string, object> sourceProperties)
             {
-                void SetPropertyValue(MemberInfo targetProperty)
-                {
-                    var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, targetProperty);
-                    if (sourcePropertyValue == null) return;
-
-                    SetValue(sourcePropertyValue, targetProperty);
-                }
-
                 if (_targetType.IsValueType())
                 {
-                    foreach (var targetProperty in FieldTypeCache.RetrieveAllFields(_targetType))
+                    PopulateFields(sourceProperties);
+                }
+
+                PopulateProperties(sourceProperties);
+            }
+
+            private void PopulateProperties(Dictionary<string, object> sourceProperties)
+            {
+                foreach (var property in PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite))
+                {
+                    var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property);
+                    if (sourcePropertyValue == null) continue;
+
+                    try
                     {
-                        SetPropertyValue(targetProperty);
+                        var currentPropertyValue = !property.PropertyType.IsArray
+                            ? property.GetGetMethod(_includeNonPublic).Invoke(_target, null)
+                            : null;
+                        var targetPropertyValue = FromJsonResult(
+                            sourcePropertyValue,
+                            property.PropertyType,
+                            ref currentPropertyValue,
+                            _includeNonPublic);
+
+                        property.GetSetMethod(_includeNonPublic).Invoke(_target, new[] {targetPropertyValue});
+                    }
+                    catch
+                    {
+                        // ignored
                     }
                 }
-
-                foreach (var targetProperty in PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite))
-                {
-                    SetPropertyValue(targetProperty);
-                }
             }
 
-            private void SetValue(
-                object sourcePropertyValue,
-                MemberInfo targetProperty)
+            private void PopulateFields(Dictionary<string, object> sourceProperties)
             {
-                var currentPropertyValue = GetCurrentPropertyValue(targetProperty);
-
-                switch (targetProperty)
+                foreach (var field in FieldTypeCache.RetrieveAllFields(_targetType))
                 {
-                    case FieldInfo field:
-                        {
-                            var targetPropertyValue = FromJsonResult(
-                                sourcePropertyValue,
-                                field.FieldType,
-                                ref currentPropertyValue,
-                                _includeNonPublic);
+                    var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, field);
+                    if (sourcePropertyValue == null) continue;
 
-                            try
-                            {
-                                field.SetValue(_target, targetPropertyValue);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                    var targetPropertyValue = FromJsonResult(
+                        sourcePropertyValue,
+                        field.FieldType,
+                        _includeNonPublic);
 
-                            break;
-                        }
-
-                    case PropertyInfo property:
-                        {
-                            // Try to write properties to the current property value as a reference to the current property value
-                            var targetPropertyValue = FromJsonResult(
-                                sourcePropertyValue,
-                                property.PropertyType,
-                                ref currentPropertyValue,
-                                _includeNonPublic);
-
-                            try
-                            {
-                                property.GetSetMethod(_includeNonPublic).Invoke(_target, new[] { targetPropertyValue });
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
-
-                            break;
-                        }
+                    try
+                    {
+                        field.SetValue(_target, targetPropertyValue);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
-            }
-
-            private object GetCurrentPropertyValue(MemberInfo targetProperty)
-            {
-                try
-                {
-                    if (targetProperty is PropertyInfo property && !property.PropertyType.IsArray)
-                        return property.GetGetMethod(_includeNonPublic).Invoke(_target, null);
-                }
-                catch
-                {
-                    // ignored
-                }
-
-                return null;
             }
         }
     }
