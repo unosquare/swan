@@ -21,6 +21,7 @@
         {
             private static readonly Dictionary<MemberInfo, string> MemberInfoNameCache =
                 new Dictionary<MemberInfo, string>();
+
             private static readonly Dictionary<Type, Type> ListAddMethodCache = new Dictionary<Type, Type>();
 
             private readonly object _target;
@@ -33,24 +34,23 @@
                 ref object targetInstance,
                 bool includeNonPublic)
             {
-                _targetType = targetType;
+                _targetType = targetInstance != null ? targetInstance.GetType() : targetType;
 
                 if (source == null)
                 {
-                    _target = _targetType.GetDefault();
                     return;
                 }
 
-                _includeNonPublic = includeNonPublic;
                 var sourceType = source.GetType();
-
-                if (targetInstance != null) _targetType = targetInstance.GetType();
+                
                 if (_targetType == null || _targetType == typeof(object)) _targetType = sourceType;
                 if (sourceType == _targetType)
                 {
                     _target = source;
                     return;
                 }
+
+                _includeNonPublic = includeNonPublic;
 
                 if (targetInstance == null)
                 {
@@ -61,7 +61,6 @@
                     }
                     catch
                     {
-                        _target = _targetType.GetDefault();
                         return;
                     }
                 }
@@ -75,7 +74,7 @@
                     // Case 0: Special Cases Handling (Source and Target are of specific convertible types)
                     // Case 0.1: Source is string, Target is byte[]
                     case string sourceString when _targetType == typeof(byte[]):
-                        _target = GetByteArray(sourceString);
+                        GetByteArray(sourceString, out _target);
                         break;
 
                     // Case 1.1: Source is Dictionary, Target is IDictionary
@@ -95,7 +94,6 @@
 
                     // Case 2.2: Source is List,  Target is IList
                     case List<object> sourceList when _target is IList targetList:
-
                         PopulateIList(sourceList, targetList);
                         break;
 
@@ -106,8 +104,7 @@
                         if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
                         {
                             // Handle basic types
-                            if (!_targetType.TryParseBasicType(sourceStringValue, out _target))
-                                _target = _targetType.GetDefault();
+                            _targetType.TryParseBasicType(sourceStringValue, out _target);
                         }
                         else
                         {
@@ -131,7 +128,7 @@
                 bool includeNonPublic)
             {
                 object nullRef = null;
-                return new Converter(source, targetType, ref nullRef, includeNonPublic)._target;
+                return new Converter(source, targetType, ref nullRef, includeNonPublic).GetResult();
             }
 
             private static object FromJsonResult(object source,
@@ -139,7 +136,7 @@
                 ref object targetInstance,
                 bool includeNonPublic)
             {
-                return new Converter(source, targetType, ref targetInstance, includeNonPublic)._target;
+                return new Converter(source, targetType, ref targetInstance, includeNonPublic).GetResult();
             }
 
             private static Type GetAddMethodParameterType(Type targetType)
@@ -148,7 +145,8 @@
                 {
                     ListAddMethodCache[targetType] = targetType
                         .GetMethods()
-                        .FirstOrDefault(m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
+                        .FirstOrDefault(
+                            m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
                         .GetParameters()[0]
                         .ParameterType;
                 }
@@ -156,19 +154,20 @@
                 return ListAddMethodCache[targetType];
             }
 
-            private static byte[] GetByteArray(string sourceString)
+            private static void GetByteArray(string sourceString, out object target)
             {
                 try
                 {
-                    return Convert.FromBase64String(sourceString);
+                    target = Convert.FromBase64String(sourceString);
                 } // Try conversion from Base 64
                 catch
                 {
-                    return Encoding.UTF8.GetBytes(sourceString);
+                    target = Encoding.UTF8.GetBytes(sourceString);
                 } // Get the string bytes in UTF8
             }
 
-            private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties, MemberInfo targetProperty)
+            private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties,
+                MemberInfo targetProperty)
             {
                 if (!MemberInfoNameCache.ContainsKey(targetProperty))
                 {
@@ -183,6 +182,8 @@
                     ? sourceProperties[targetPropertyName]
                     : null;
             }
+
+            private object GetResult() => _target ?? _targetType.GetDefault();
 
             private void PopulateIList(List<object> objects, IList list)
             {
@@ -287,7 +288,8 @@
 
             private void PopulateProperties(Dictionary<string, object> sourceProperties)
             {
-                foreach (var property in PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite))
+                foreach (var property in PropertyTypeCache.RetrieveFilteredProperties(_targetType, false,
+                    p => p.CanWrite))
                 {
                     var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property);
                     if (sourcePropertyValue == null) continue;
@@ -297,6 +299,7 @@
                         var currentPropertyValue = !property.PropertyType.IsArray
                             ? property.GetGetMethod(_includeNonPublic).Invoke(_target, null)
                             : null;
+
                         var targetPropertyValue = FromJsonResult(
                             sourcePropertyValue,
                             property.PropertyType,
