@@ -35,6 +35,7 @@
                 bool includeNonPublic)
             {
                 _targetType = targetInstance != null ? targetInstance.GetType() : targetType;
+                _includeNonPublic = includeNonPublic;
 
                 if (source == null)
                 {
@@ -49,71 +50,11 @@
                     _target = source;
                     return;
                 }
+                
+                if (!TrySetInstance(targetInstance, source, ref _target))
+                    return;
 
-                _includeNonPublic = includeNonPublic;
-
-                if (targetInstance == null)
-                {
-                    // Try to create a default instance
-                    try
-                    {
-                        source.CreateTarget(_targetType, _includeNonPublic, ref _target);
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    _target = targetInstance;
-                }
-
-                switch (source)
-                {
-                    // Case 0: Special Cases Handling (Source and Target are of specific convertible types)
-                    // Case 0.1: Source is string, Target is byte[]
-                    case string sourceString when _targetType == typeof(byte[]):
-                        GetByteArray(sourceString, out _target);
-                        break;
-
-                    // Case 1.1: Source is Dictionary, Target is IDictionary
-                    case Dictionary<string, object> sourceProperties when _target is IDictionary targetDictionary:
-                        PopulateDictionary(sourceProperties, targetDictionary);
-                        break;
-
-                    // Case 1.2: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
-                    case Dictionary<string, object> sourceProperties:
-                        PopulateObject(sourceProperties);
-                        break;
-
-                    // Case 2.1: Source is List, Target is Array
-                    case List<object> sourceList when _target is Array targetArray:
-                        PopulateArray(sourceList, targetArray);
-                        break;
-
-                    // Case 2.2: Source is List,  Target is IList
-                    case List<object> sourceList when _target is IList targetList:
-                        PopulateIList(sourceList, targetList);
-                        break;
-
-                    // Case 3: Source is a simple type; Attempt conversion
-                    default:
-                        var sourceStringValue = source.ToStringInvariant();
-
-                        if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
-                        {
-                            // Handle basic types
-                            _targetType.TryParseBasicType(sourceStringValue, out _target);
-                        }
-                        else
-                        {
-                            // Handle Enumerations
-                            GetEnumValue(sourceStringValue, ref _target);
-                        }
-
-                        break;
-                }
+                ResolveObject(source, ref _target);
             }
 
             /// <summary>
@@ -154,7 +95,7 @@
                 return ListAddMethodCache[targetType];
             }
 
-            private static void GetByteArray(string sourceString, out object target)
+            private static void GetByteArray(string sourceString, ref object target)
             {
                 try
                 {
@@ -183,7 +124,78 @@
                     : null;
             }
 
+            private bool TrySetInstance(object targetInstance, object source, ref object target)
+            {
+                if (targetInstance == null)
+                {
+                    // Try to create a default instance
+                    try
+                    {
+                        source.CreateTarget(_targetType, _includeNonPublic, ref target);
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    target = targetInstance;
+                }
+
+                return true;
+            }
+
             private object GetResult() => _target ?? _targetType.GetDefault();
+
+            private void ResolveObject(object source, ref object target)
+            {
+                switch (source)
+                {
+                    // Case 0: Special Cases Handling (Source and Target are of specific convertible types)
+                    // Case 0.1: Source is string, Target is byte[]
+                    case string sourceString when _targetType == typeof(byte[]):
+                        GetByteArray(sourceString, ref target);
+                        break;
+
+                    // Case 1.1: Source is Dictionary, Target is IDictionary
+                    case Dictionary<string, object> sourceProperties when target is IDictionary targetDictionary:
+                        PopulateDictionary(sourceProperties, targetDictionary);
+                        break;
+
+                    // Case 1.2: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
+                    case Dictionary<string, object> sourceProperties:
+                        PopulateObject(sourceProperties);
+                        break;
+
+                    // Case 2.1: Source is List, Target is Array
+                    case List<object> sourceList when target is Array targetArray:
+                        PopulateArray(sourceList, targetArray);
+                        break;
+
+                    // Case 2.2: Source is List,  Target is IList
+                    case List<object> sourceList when target is IList targetList:
+                        PopulateIList(sourceList, targetList);
+                        break;
+
+                    // Case 3: Source is a simple type; Attempt conversion
+                    default:
+                        var sourceStringValue = source.ToStringInvariant();
+
+                        if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
+                        {
+                            // Handle basic types
+                            _targetType.TryParseBasicType(sourceStringValue, out target);
+                        }
+                        else
+                        {
+                            // Handle Enumerations
+                            GetEnumValue(sourceStringValue, ref target);
+                        }
+
+                        break;
+                }
+            }
 
             private void PopulateIList(List<object> objects, IList list)
             {
