@@ -153,7 +153,49 @@ namespace Unosquare.Swan.Components
         /// <exception cref="InvalidOperationException">
         /// The exception that is thrown when a method call is invalid for the object's current state
         /// </exception>
-        public bool ParseArguments<T>(IEnumerable<string> args, T instance) 
-            => new Validator<T>(args, instance, Settings).IsValid();        
+        public bool ParseArguments<T>(IEnumerable<string> args, T instance)
+        {
+            var validator = new Validator<T>(args, instance, Settings);
+
+            if (validator.IsValid())
+                return true;
+
+            ReportIssues(validator);
+            return false;
+        }
+
+        private void ReportIssues<T>(Validator<T> validator)
+        {
+#if !NETSTANDARD1_3 && !UWP
+            if (Settings.WriteBanner)
+                Runtime.WriteWelcomeBanner();
+#endif
+
+            var options = validator.GetPropertiesOptions();
+
+            foreach (var option in options)
+            {
+                string.Empty.WriteLine();
+
+                // TODO: If Enum list values
+                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
+                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
+                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName)
+                    ? string.Empty
+                    : ", ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
+
+                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+
+            string.Empty.WriteLine();
+            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+
+            if (validator.UnknownList.Any())
+                $"Unknown arguments: {string.Join(", ", validator.UnknownList)}".WriteLine(ConsoleColor.Red);
+
+            if (validator.RequiredList.Any())
+                $"Required arguments: {string.Join(", ", validator.RequiredList)}".WriteLine(ConsoleColor.Red);
+        }
     }
 }

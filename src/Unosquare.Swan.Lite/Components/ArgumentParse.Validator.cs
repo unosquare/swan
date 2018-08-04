@@ -10,12 +10,13 @@
     {
         internal class Validator<T>
         {
+            public readonly List<string> UnknownList = new List<string>();
+            public readonly List<string> RequiredList = new List<string>();
+
             private readonly T _instance;
             private readonly Type _type;
             private readonly string[] _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
-            private readonly List<string> _unknownList = new List<string>();
-            private readonly List<string> _requiredList = new List<string>();
             private readonly ArgumentParserSettings _settings;
 
             private bool _result;
@@ -28,10 +29,10 @@
 
                 if (instance == null)
                     throw new ArgumentNullException(nameof(instance));
-                
+
                 _instance = instance;
                 _type = instance.GetType();
-                
+
                 _settings = settings;
                 _properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
                 _verbName = string.Empty;
@@ -45,34 +46,16 @@
                 SetDefaultValues();
                 GetRequiredList();
 
-                if ((settings.IgnoreUnknownArguments || !_unknownList.Any()) && !_requiredList.Any())
-                {
-                    _result = true;
-                }
-                else
-                {
-                    ReportIssues(_requiredList);
-                }
+                _result = (settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
             }
 
             public bool IsValid() => _result;
-
-            private void ReportIssues(List<string> requiredList)
-            {
-#if !NETSTANDARD1_3 && !UWP
-                if (_settings.WriteBanner)
-                    Runtime.WriteWelcomeBanner();
-#endif
-
-                WriteUsage(_properties);
-
-                if (_unknownList.Any())
-                    $"Unknown arguments: {string.Join(", ", _unknownList)}".WriteLine(ConsoleColor.Red);
-
-                if (requiredList.Any())
-                    $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
-            }
             
+            public ArgumentOptionAttribute[] GetPropertiesOptions() 
+                => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
+                    .Where(x => x != null)
+                    .ToArray();
+
             private void GetRequiredList()
             {
                 foreach (var targetProperty in _properties)
@@ -86,7 +69,7 @@
                     {
                         if (targetProperty.GetValue(_instance) == null)
                         {
-                            _requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                            RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                         }
                     }
                     else
@@ -95,7 +78,7 @@
 
                         if (targetProperty.GetValue(property.GetValue(_instance)) == null)
                         {
-                            _requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                            RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                         }
                     }
                 }
@@ -125,9 +108,9 @@
 
             private bool ValidateVerb()
             {
-                if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any())) 
+                if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                     return true;
-                
+
                 var selectedVerb = !_args.Any()
                     ? null
                     : _properties.FirstOrDefault(x =>
@@ -177,7 +160,7 @@
                         // Skip if the property is not found
                         if (targetProperty == null)
                         {
-                            _unknownList.Add(propertyName);
+                            UnknownList.Add(propertyName);
                             propertyName = string.Empty;
                             continue;
                         }
@@ -228,32 +211,8 @@
 
                 if (string.IsNullOrEmpty(propertyName) == false)
                 {
-                    _unknownList.Add(propertyName);
+                    UnknownList.Add(propertyName);
                 }
-            }
-
-            private static void WriteUsage(IEnumerable<PropertyInfo> properties)
-            {
-                var options = properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
-                    .Where(x => x != null);
-
-                foreach (var option in options)
-                {
-                    string.Empty.WriteLine();
-
-                    // TODO: If Enum list values
-                    var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
-                    var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                    var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName)
-                        ? string.Empty
-                        : ", ";
-                    var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
-
-                    $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
-                }
-
-                string.Empty.WriteLine();
-                "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
             }
 
             private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
