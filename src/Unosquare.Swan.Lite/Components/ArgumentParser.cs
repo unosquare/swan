@@ -164,9 +164,12 @@ namespace Unosquare.Swan.Components
 
             var typeResolver = new TypeResolver<T>(args.FirstOrDefault());
             var options = typeResolver.GetOptionsObject(instance);
-            
+
             if (options == null)
+            {
                 ReportUnknownVerb<T>();
+                return false;
+            }
 
             var properties = typeResolver.GetProperties();
 
