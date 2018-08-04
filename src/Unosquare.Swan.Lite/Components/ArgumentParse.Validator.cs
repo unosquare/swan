@@ -18,7 +18,6 @@
             public readonly List<string> RequiredList = new List<string>();
 
             private readonly object _instance;
-            private readonly Type _type;
             private readonly IEnumerable<string> _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
             private readonly ArgumentParserSettings _settings;
@@ -33,7 +32,6 @@
             {
                 _args = args;
                 _instance = instance;
-                _type = instance.GetType();
                 _settings = settings;
                 _properties = properties;
 

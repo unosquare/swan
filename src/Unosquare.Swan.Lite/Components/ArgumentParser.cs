@@ -162,13 +162,13 @@ namespace Unosquare.Swan.Components
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
 
-            var typeResolver = new TypeResolver<T>(args, instance);
-
-            var options = typeResolver.GetOptionsObject();
-            var properties = typeResolver.GetProperties();
-
+            var typeResolver = new TypeResolver<T>(args.FirstOrDefault());
+            var options = typeResolver.GetOptionsObject(instance);
+            
             if (options == null)
                 ReportUnknownVerb<T>();
+
+            var properties = typeResolver.GetProperties();
 
             if (properties == null)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
