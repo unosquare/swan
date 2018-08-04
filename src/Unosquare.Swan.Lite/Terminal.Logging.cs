@@ -59,47 +59,8 @@
         {
             lock (SyncLock)
             {
-                #region Color and Prefix
-
-                ConsoleColor color;
-                string prefix;
-
-                // Select color and prefix based on message type
-                // and settings
-                switch (messageType)
-                {
-                    case LogMessageType.Debug:
-                        color = Settings.DebugColor;
-                        prefix = Settings.DebugPrefix;
-                        break;
-                    case LogMessageType.Error:
-                        color = Settings.ErrorColor;
-                        prefix = Settings.ErrorPrefix;
-                        break;
-                    case LogMessageType.Info:
-                        color = Settings.InfoColor;
-                        prefix = Settings.InfoPrefix;
-                        break;
-                    case LogMessageType.Trace:
-                        color = Settings.TraceColor;
-                        prefix = Settings.TracePrefix;
-                        break;
-                    case LogMessageType.Warning:
-                        color = Settings.WarnColor;
-                        prefix = Settings.WarnPrefix;
-                        break;
-                    case LogMessageType.Fatal:
-                        color = Settings.FatalColor;
-                        prefix = Settings.FatalPrefix;
-                        break;
-                    default:
-                        color = Settings.DefaultColor;
-                        prefix = new string(' ', Settings.InfoPrefix.Length);
-                        break;
-                }
-
-                #endregion
-
+                var prefix = GetConsoleColorAndPrefix(messageType, out var color);
+                
                 #region Create and Format the Output
 
                 var sequence = _loggingSequence;
@@ -109,14 +70,7 @@
                 var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                     string.Empty : message.RemoveControlCharsExcept('\n');
 
-                var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
-                    ? string.Empty
-                    : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
-
-                var outputMessage = string.IsNullOrWhiteSpace(sourceName) ? loggerMessage : $"[{friendlySourceName}] {loggerMessage}";
-                outputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
-                    $" {prefix} >> {outputMessage}" :
-                    $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
+                var outputMessage = CreateOutputMessage(sourceName, loggerMessage, prefix, date);
 
                 // Log the message asynchronously with the appropriate event args
                 var eventArgs = new LogMessageReceivedEventArgs(
@@ -157,43 +111,105 @@
                 if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
                     return;
 
-                // Select the writer based on the message type
-                var writer = IsConsolePresent ?
-                    messageType.HasFlag(LogMessageType.Error) ?
-                        TerminalWriters.StandardError : TerminalWriters.StandardOutput
-                    : TerminalWriters.None;
-
-                // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
-                // if it is attached at all
-                if (IsDebuggerAttached
-                    && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug) || messageType.HasFlag(LogMessageType.Error)))
-                    writer = writer | TerminalWriters.Diagnostics;
-
-                // Check if we really need to write this out
-                if (writer == TerminalWriters.None) return;
-
-                // Further format the output in the case there is an exception being logged
-                if (writer.HasFlag(TerminalWriters.StandardError) && eventArgs.Exception != null)
-                {
-                    try
-                    {
-                        outputMessage =
-                            $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent()}";
-                    }
-                    catch
-                    {
-                        // Ignore  
-                    }
-                }
-
-                // Filter output messages via events
-                var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
-                OnLogMessageDisplaying?.Invoke(sourceName, displayingEventArgs);
-                if (displayingEventArgs.CancelOutput == false)
-                    outputMessage.WriteLine(color, writer);
+                Write(messageType, sourceName, eventArgs, outputMessage, color);
 
                 #endregion
             }
+        }
+
+        private static void Write(LogMessageType messageType, string sourceName, LogMessageReceivedEventArgs eventArgs,
+            string outputMessage, ConsoleColor color)
+        {
+            // Select the writer based on the message type
+            var writer = IsConsolePresent
+                ? messageType.HasFlag(LogMessageType.Error) ? TerminalWriters.StandardError : TerminalWriters.StandardOutput
+                : TerminalWriters.None;
+
+            // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
+            // if it is attached at all
+            if (IsDebuggerAttached
+                && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug) ||
+                    messageType.HasFlag(LogMessageType.Error)))
+                writer = writer | TerminalWriters.Diagnostics;
+
+            // Check if we really need to write this out
+            if (writer == TerminalWriters.None) return;
+
+            // Further format the output in the case there is an exception being logged
+            if (writer.HasFlag(TerminalWriters.StandardError) && eventArgs.Exception != null)
+            {
+                try
+                {
+                    outputMessage =
+                        $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent()}";
+                }
+                catch
+                {
+                    // Ignore  
+                }
+            }
+
+            // Filter output messages via events
+            var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
+            OnLogMessageDisplaying?.Invoke(sourceName, displayingEventArgs);
+            if (displayingEventArgs.CancelOutput == false)
+                outputMessage.WriteLine(color, writer);
+        }
+
+        private static string GetConsoleColorAndPrefix(LogMessageType messageType, out ConsoleColor color)
+        {
+            string prefix;
+
+            // Select color and prefix based on message type
+            // and settings
+            switch (messageType)
+            {
+                case LogMessageType.Debug:
+                    color = Settings.DebugColor;
+                    prefix = Settings.DebugPrefix;
+                    break;
+                case LogMessageType.Error:
+                    color = Settings.ErrorColor;
+                    prefix = Settings.ErrorPrefix;
+                    break;
+                case LogMessageType.Info:
+                    color = Settings.InfoColor;
+                    prefix = Settings.InfoPrefix;
+                    break;
+                case LogMessageType.Trace:
+                    color = Settings.TraceColor;
+                    prefix = Settings.TracePrefix;
+                    break;
+                case LogMessageType.Warning:
+                    color = Settings.WarnColor;
+                    prefix = Settings.WarnPrefix;
+                    break;
+                case LogMessageType.Fatal:
+                    color = Settings.FatalColor;
+                    prefix = Settings.FatalPrefix;
+                    break;
+                default:
+                    color = Settings.DefaultColor;
+                    prefix = new string(' ', Settings.InfoPrefix.Length);
+                    break;
+            }
+
+            return prefix;
+        }
+
+        private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
+        {
+            var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
+                ? string.Empty
+                : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
+
+            var outputMessage = string.IsNullOrWhiteSpace(sourceName)
+                ? loggerMessage
+                : $"[{friendlySourceName}] {loggerMessage}";
+
+            return string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat)
+                ? $" {prefix} >> {outputMessage}"
+                : $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
         }
 
         #endregion
