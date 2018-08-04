@@ -10,75 +10,71 @@
     {
         internal class Validator<T>
         {
-            private bool _result;
             private readonly T _instance;
-            private readonly IEnumerable<string> _args;
+            private readonly Type _type;
+            private readonly string[] _args;
+            private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
+            private readonly List<string> _unknownList = new List<string>();
+            private readonly List<string> _requiredList = new List<string>();
             private readonly ArgumentParserSettings _settings;
-            private readonly PropertyInfo[] _properties;
-            private readonly string _verbName;
+
+            private bool _result;
+            private PropertyInfo[] _properties;
+            private string _verbName;
 
             public Validator(IEnumerable<string> args, T instance, ArgumentParserSettings settings)
             {
+                _args = args?.ToArray() ?? throw new ArgumentNullException(nameof(args));
+
                 if (instance == null)
                     throw new ArgumentNullException(nameof(instance));
                 
                 _instance = instance;
-                _args = args ?? throw new ArgumentNullException(nameof(args));
-
+                _type = instance.GetType();
+                
                 _settings = settings;
-
                 _properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
                 _verbName = string.Empty;
 
-                if (_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
-                {
-                    var selectedVerb = !args.Any()
-                        ? null
-                        : _properties.FirstOrDefault(x =>
-                            Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(args.First()));
-
-                    if (selectedVerb == null)
-                    {
-                        ReportUnknownVerb();
-                        return;
-                    }
-
-                    _verbName = selectedVerb.Name;
-                    if (instance.GetType().GetProperty(_verbName).GetValue(instance) == null)
-                    {
-                        var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
-                        instance.GetType().GetProperty(_verbName).SetValue(instance, propertyInstance);
-                    }
-
-                    _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true).ToArray();
-                }
+                if (!ValidateVerb()) return;
 
                 if (_properties.Any() == false)
                     throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
-                var requiredList = new List<string>();
-                var updatedList = new List<PropertyInfo>();
-                var unknownList = PopulateInstance(updatedList);
+                PopulateInstance();
+                SetDefaultValues();
+                GetRequiredList();
 
-                foreach (var targetProperty in _properties.Except(updatedList))
+                if ((settings.IgnoreUnknownArguments || !_unknownList.Any()) && !_requiredList.Any())
                 {
-                    var defaultValue = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty)?.DefaultValue;
-
-                    if (defaultValue == null)
-                        continue;
-
-                    if (string.IsNullOrEmpty(_verbName))
-                    {
-                        SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
-                    }
-                    else
-                    {
-                        var property = instance.GetType().GetProperty(_verbName);
-                        if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(instance, null)))
-                            updatedList.Add(targetProperty);
-                    }
+                    _result = true;
                 }
+                else
+                {
+                    ReportIssues(_requiredList);
+                }
+            }
 
+            public bool IsValid() => _result;
+
+            private void ReportIssues(List<string> requiredList)
+            {
+#if !NETSTANDARD1_3 && !UWP
+                if (_settings.WriteBanner)
+                    Runtime.WriteWelcomeBanner();
+#endif
+
+                WriteUsage(_properties);
+
+                if (_unknownList.Any())
+                    $"Unknown arguments: {string.Join(", ", _unknownList)}".WriteLine(ConsoleColor.Red);
+
+                if (requiredList.Any())
+                    $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
+            }
+            
+            private void GetRequiredList()
+            {
                 foreach (var targetProperty in _properties)
                 {
                     var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
@@ -88,40 +84,72 @@
 
                     if (string.IsNullOrWhiteSpace(_verbName))
                     {
-                        if (targetProperty.GetValue(instance) == null)
+                        if (targetProperty.GetValue(_instance) == null)
                         {
-                            requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                            _requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                         }
                     }
                     else
                     {
-                        var property = instance.GetType().GetProperty(_verbName);
+                        var property = _type.GetProperty(_verbName);
 
-                        if (targetProperty.GetValue(property.GetValue(instance)) == null)
+                        if (targetProperty.GetValue(property.GetValue(_instance)) == null)
                         {
-                            requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                            _requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                         }
                     }
                 }
+            }
 
-                if ((settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any())
+            private void SetDefaultValues()
+            {
+                foreach (var targetProperty in _properties.Except(_updatedList))
                 {
-                    _result = true;
-                    return;
+                    var defaultValue = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty)?.DefaultValue;
+
+                    if (defaultValue == null)
+                        continue;
+
+                    if (string.IsNullOrEmpty(_verbName))
+                    {
+                        SetPropertyValue(targetProperty, defaultValue.ToString(), _instance);
+                    }
+                    else
+                    {
+                        var property = _type.GetProperty(_verbName);
+                        if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(_instance, null)))
+                            _updatedList.Add(targetProperty);
+                    }
+                }
+            }
+
+            private bool ValidateVerb()
+            {
+                if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any())) 
+                    return true;
+                
+                var selectedVerb = !_args.Any()
+                    ? null
+                    : _properties.FirstOrDefault(x =>
+                        Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(_args.First()));
+
+                if (selectedVerb == null)
+                {
+                    ReportUnknownVerb();
+                    return false;
                 }
 
-#if !NETSTANDARD1_3 && !UWP
-                if (settings.WriteBanner)
-                    Runtime.WriteWelcomeBanner();
-#endif
+                _verbName = selectedVerb.Name;
+                if (_type.GetProperty(_verbName).GetValue(_instance) == null)
+                {
+                    var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
+                    _type.GetProperty(_verbName).SetValue(_instance, propertyInstance);
+                }
 
-                WriteUsage(_properties);
+                _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true)
+                    .ToArray();
 
-                if (unknownList.Any())
-                    $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine(ConsoleColor.Red);
-
-                if (requiredList.Any())
-                    $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
+                return true;
             }
 
             private void ReportUnknownVerb()
@@ -136,11 +164,8 @@
                 _result = false;
             }
 
-            public bool IsValid() => _result;
-
-            private List<string> PopulateInstance(List<PropertyInfo> updatedList)
+            private void PopulateInstance()
             {
-                var unknownList = new List<string>();
                 var propertyName = string.Empty;
 
                 foreach (var arg in _args)
@@ -152,7 +177,7 @@
                         // Skip if the property is not found
                         if (targetProperty == null)
                         {
-                            unknownList.Add(propertyName);
+                            _unknownList.Add(propertyName);
                             propertyName = string.Empty;
                             continue;
                         }
@@ -160,14 +185,14 @@
                         if (string.IsNullOrEmpty(_verbName))
                         {
                             if (SetPropertyValue(targetProperty, arg, _instance))
-                                updatedList.Add(targetProperty);
+                                _updatedList.Add(targetProperty);
                         }
                         else
                         {
-                            var property = _instance.GetType().GetProperty(_verbName);
+                            var property = _type.GetProperty(_verbName);
 
                             if (property != null && SetPropertyValue(targetProperty, arg, property.GetValue(_instance, null)))
-                                updatedList.Add(targetProperty);
+                                _updatedList.Add(targetProperty);
                         }
 
                         propertyName = string.Empty;
@@ -187,14 +212,14 @@
                         if (string.IsNullOrEmpty(_verbName))
                         {
                             if (SetPropertyValue(targetProperty, true.ToString(), _instance))
-                                updatedList.Add(targetProperty);
+                                _updatedList.Add(targetProperty);
                         }
                         else
                         {
-                            var property = _instance.GetType().GetProperty(_verbName);
+                            var property = _type.GetProperty(_verbName);
 
                             if (property != null && SetPropertyValue(targetProperty, true.ToString(), property.GetValue(_instance, null)))
-                                updatedList.Add(targetProperty);
+                                _updatedList.Add(targetProperty);
                         }
 
                         propertyName = string.Empty;
@@ -203,10 +228,8 @@
 
                 if (string.IsNullOrEmpty(propertyName) == false)
                 {
-                    unknownList.Add(propertyName);
+                    _unknownList.Add(propertyName);
                 }
-
-                return unknownList;
             }
 
             private static void WriteUsage(IEnumerable<PropertyInfo> properties)
