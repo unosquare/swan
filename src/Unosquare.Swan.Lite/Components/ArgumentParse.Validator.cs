@@ -10,11 +10,12 @@
     {
         internal class Validator<T>
         {
-            private readonly bool _result;
+            private bool _result;
             private readonly T _instance;
             private readonly IEnumerable<string> _args;
             private readonly ArgumentParserSettings _settings;
             private readonly PropertyInfo[] _properties;
+            private readonly string _verbName;
 
             public Validator(IEnumerable<string> args, T instance, ArgumentParserSettings settings)
             {
@@ -27,7 +28,7 @@
                 _settings = settings;
 
                 _properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
-                var verbName = string.Empty;
+                _verbName = string.Empty;
 
                 if (_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                 {
@@ -38,22 +39,15 @@
 
                     if (selectedVerb == null)
                     {
-                        "No verb was specified".WriteLine(ConsoleColor.Red);
-                        "Valid verbs:".WriteLine(ConsoleColor.Cyan);
-                        _properties.Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x)).Where(x => x != null)
-                            .Select(x => $"  {x.Name}\t\t{x.HelpText}")
-                            .ToList()
-                            .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
-
-                        _result = false;
+                        ReportUnknownVerb();
                         return;
                     }
 
-                    verbName = selectedVerb.Name;
-                    if (instance.GetType().GetProperty(verbName).GetValue(instance) == null)
+                    _verbName = selectedVerb.Name;
+                    if (instance.GetType().GetProperty(_verbName).GetValue(instance) == null)
                     {
                         var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
-                        instance.GetType().GetProperty(verbName).SetValue(instance, propertyInstance);
+                        instance.GetType().GetProperty(_verbName).SetValue(instance, propertyInstance);
                     }
 
                     _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true).ToArray();
@@ -64,7 +58,7 @@
 
                 var requiredList = new List<string>();
                 var updatedList = new List<PropertyInfo>();
-                var unknownList = PopulateInstance(verbName, updatedList);
+                var unknownList = PopulateInstance(updatedList);
 
                 foreach (var targetProperty in _properties.Except(updatedList))
                 {
@@ -73,13 +67,13 @@
                     if (defaultValue == null)
                         continue;
 
-                    if (string.IsNullOrEmpty(verbName))
+                    if (string.IsNullOrEmpty(_verbName))
                     {
                         SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
                     }
                     else
                     {
-                        var property = instance.GetType().GetProperty(verbName);
+                        var property = instance.GetType().GetProperty(_verbName);
                         if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(instance, null)))
                             updatedList.Add(targetProperty);
                     }
@@ -92,7 +86,7 @@
                     if (optionAttr == null || optionAttr.Required == false)
                         continue;
 
-                    if (string.IsNullOrWhiteSpace(verbName))
+                    if (string.IsNullOrWhiteSpace(_verbName))
                     {
                         if (targetProperty.GetValue(instance) == null)
                         {
@@ -101,7 +95,7 @@
                     }
                     else
                     {
-                        var property = instance.GetType().GetProperty(verbName);
+                        var property = instance.GetType().GetProperty(_verbName);
 
                         if (targetProperty.GetValue(property.GetValue(instance)) == null)
                         {
@@ -130,9 +124,21 @@
                     $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
             }
 
+            private void ReportUnknownVerb()
+            {
+                "No verb was specified".WriteLine(ConsoleColor.Red);
+                "Valid verbs:".WriteLine(ConsoleColor.Cyan);
+                _properties.Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x)).Where(x => x != null)
+                    .Select(x => $"  {x.Name}\t\t{x.HelpText}")
+                    .ToList()
+                    .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
+
+                _result = false;
+            }
+
             public bool IsValid() => _result;
 
-            private List<string> PopulateInstance(string verbName, List<PropertyInfo> updatedList)
+            private List<string> PopulateInstance(List<PropertyInfo> updatedList)
             {
                 var unknownList = new List<string>();
                 var propertyName = string.Empty;
@@ -151,14 +157,14 @@
                             continue;
                         }
 
-                        if (string.IsNullOrEmpty(verbName))
+                        if (string.IsNullOrEmpty(_verbName))
                         {
                             if (SetPropertyValue(targetProperty, arg, _instance))
                                 updatedList.Add(targetProperty);
                         }
                         else
                         {
-                            var property = _instance.GetType().GetProperty(verbName);
+                            var property = _instance.GetType().GetProperty(_verbName);
 
                             if (property != null && SetPropertyValue(targetProperty, arg, property.GetValue(_instance, null)))
                                 updatedList.Add(targetProperty);
@@ -178,14 +184,14 @@
                         // If the arg is a boolean property set it to true.
                         if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
 
-                        if (string.IsNullOrEmpty(verbName))
+                        if (string.IsNullOrEmpty(_verbName))
                         {
                             if (SetPropertyValue(targetProperty, true.ToString(), _instance))
                                 updatedList.Add(targetProperty);
                         }
                         else
                         {
-                            var property = _instance.GetType().GetProperty(verbName);
+                            var property = _instance.GetType().GetProperty(_verbName);
 
                             if (property != null && SetPropertyValue(targetProperty, true.ToString(), property.GetValue(_instance, null)))
                                 updatedList.Add(targetProperty);
