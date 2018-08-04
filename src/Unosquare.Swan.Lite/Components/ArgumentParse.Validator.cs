@@ -5,57 +5,46 @@
     using Attributes;
     using System;
     using System.Collections.Generic;
-    
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
     public partial class ArgumentParser
     {
-        internal class Validator<T>
+        internal class Validator
         {
             public readonly List<string> UnknownList = new List<string>();
             public readonly List<string> RequiredList = new List<string>();
 
-            private readonly T _instance;
+            private readonly object _instance;
             private readonly Type _type;
-            private readonly string[] _args;
+            private readonly IEnumerable<string> _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
             private readonly ArgumentParserSettings _settings;
 
-            private bool _result;
-            private PropertyInfo[] _properties;
-            private string _verbName;
+            private readonly PropertyInfo[] _properties;
 
-            public Validator(IEnumerable<string> args, T instance, ArgumentParserSettings settings)
+            public Validator(
+                PropertyInfo[] properties,
+                IEnumerable<string> args,
+                object instance,
+                ArgumentParserSettings settings)
             {
-                _args = args?.ToArray() ?? throw new ArgumentNullException(nameof(args));
-
-                if (instance == null)
-                    throw new ArgumentNullException(nameof(instance));
-
+                _args = args;
                 _instance = instance;
                 _type = instance.GetType();
-
                 _settings = settings;
-                _properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
-                _verbName = string.Empty;
-
-                if (!ValidateVerb()) return;
-
-                if (_properties.Any() == false)
-                    throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
+                _properties = properties;
 
                 PopulateInstance();
                 SetDefaultValues();
                 GetRequiredList();
-
-                _result = (settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
             }
 
-            public bool IsValid() => _result;
-            
-            public ArgumentOptionAttribute[] GetPropertiesOptions() 
+            public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
+
+            public ArgumentOptionAttribute[] GetPropertiesOptions()
                 => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
                     .Where(x => x != null)
                     .ToArray();
@@ -69,21 +58,9 @@
                     if (optionAttr == null || optionAttr.Required == false)
                         continue;
 
-                    if (string.IsNullOrWhiteSpace(_verbName))
+                    if (targetProperty.GetValue(_instance) == null)
                     {
-                        if (targetProperty.GetValue(_instance) == null)
-                        {
-                            RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
-                        }
-                    }
-                    else
-                    {
-                        var property = _type.GetProperty(_verbName);
-
-                        if (targetProperty.GetValue(property.GetValue(_instance)) == null)
-                        {
-                            RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
-                        }
+                        RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                     }
                 }
             }
@@ -97,58 +74,9 @@
                     if (defaultValue == null)
                         continue;
 
-                    if (string.IsNullOrEmpty(_verbName))
-                    {
-                        SetPropertyValue(targetProperty, defaultValue.ToString(), _instance);
-                    }
-                    else
-                    {
-                        var property = _type.GetProperty(_verbName);
-                        if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(_instance, null)))
-                            _updatedList.Add(targetProperty);
-                    }
+                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), _instance))
+                        _updatedList.Add(targetProperty);
                 }
-            }
-
-            private bool ValidateVerb()
-            {
-                if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
-                    return true;
-
-                var selectedVerb = !_args.Any()
-                    ? null
-                    : _properties.FirstOrDefault(x =>
-                        Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(_args.First()));
-
-                if (selectedVerb == null)
-                {
-                    ReportUnknownVerb();
-                    return false;
-                }
-
-                _verbName = selectedVerb.Name;
-                if (_type.GetProperty(_verbName).GetValue(_instance) == null)
-                {
-                    var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
-                    _type.GetProperty(_verbName).SetValue(_instance, propertyInstance);
-                }
-
-                _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true)
-                    .ToArray();
-
-                return true;
-            }
-
-            private void ReportUnknownVerb()
-            {
-                "No verb was specified".WriteLine(ConsoleColor.Red);
-                "Valid verbs:".WriteLine(ConsoleColor.Cyan);
-                _properties.Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x)).Where(x => x != null)
-                    .Select(x => $"  {x.Name}\t\t{x.HelpText}")
-                    .ToList()
-                    .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
-
-                _result = false;
             }
 
             private void PopulateInstance()
@@ -169,18 +97,8 @@
                             continue;
                         }
 
-                        if (string.IsNullOrEmpty(_verbName))
-                        {
-                            if (SetPropertyValue(targetProperty, arg, _instance))
-                                _updatedList.Add(targetProperty);
-                        }
-                        else
-                        {
-                            var property = _type.GetProperty(_verbName);
-
-                            if (property != null && SetPropertyValue(targetProperty, arg, property.GetValue(_instance, null)))
-                                _updatedList.Add(targetProperty);
-                        }
+                        if (SetPropertyValue(targetProperty, arg, _instance))
+                            _updatedList.Add(targetProperty);
 
                         propertyName = string.Empty;
                     }
@@ -196,18 +114,8 @@
                         // If the arg is a boolean property set it to true.
                         if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
 
-                        if (string.IsNullOrEmpty(_verbName))
-                        {
-                            if (SetPropertyValue(targetProperty, true.ToString(), _instance))
-                                _updatedList.Add(targetProperty);
-                        }
-                        else
-                        {
-                            var property = _type.GetProperty(_verbName);
-
-                            if (property != null && SetPropertyValue(targetProperty, true.ToString(), property.GetValue(_instance, null)))
-                                _updatedList.Add(targetProperty);
-                        }
+                        if (SetPropertyValue(targetProperty, true.ToString(), _instance))
+                            _updatedList.Add(targetProperty);
 
                         propertyName = string.Empty;
                     }
@@ -219,7 +127,7 @@
                 }
             }
 
-            private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
+            private bool SetPropertyValue(PropertyInfo targetProperty, string propertyValueString, object result)
             {
                 var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 

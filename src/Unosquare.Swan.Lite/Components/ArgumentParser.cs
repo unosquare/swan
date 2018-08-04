@@ -1,3 +1,6 @@
+using System.Reflection;
+using Unosquare.Swan.Attributes;
+
 namespace Unosquare.Swan.Components
 {
     using System;
@@ -153,7 +156,24 @@ namespace Unosquare.Swan.Components
         /// </exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {
-            var validator = new Validator<T>(args, instance, Settings);
+            if (args == null)
+                throw new ArgumentNullException(nameof(args));
+
+            if (instance == null)
+                throw new ArgumentNullException(nameof(instance));
+
+            var typeResolver = new TypeResolver<T>(args, instance);
+
+            var options = typeResolver.GetOptionsObject();
+            var properties = typeResolver.GetProperties();
+
+            if (options == null)
+                ReportUnknownVerb<T>();
+
+            if (properties == null)
+                throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
+
+            var validator = new Validator(properties, args, options, Settings);
 
             if (validator.IsValid())
                 return true;
@@ -162,7 +182,7 @@ namespace Unosquare.Swan.Components
             return false;
         }
 
-        private void ReportIssues<T>(Validator<T> validator)
+        private void ReportIssues(Validator validator)
         {
 #if !NETSTANDARD1_3 && !UWP
             if (Settings.WriteBanner)
@@ -194,6 +214,19 @@ namespace Unosquare.Swan.Components
 
             if (validator.RequiredList.Any())
                 $"Required arguments: {string.Join(", ", validator.RequiredList)}".WriteLine(ConsoleColor.Red);
+        }
+        
+        private static void ReportUnknownVerb<T>()
+        {
+            "No verb was specified".WriteLine(ConsoleColor.Red);
+            "Valid verbs:".WriteLine(ConsoleColor.Cyan);
+
+            Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true)
+                .Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x))
+                .Where(x => x != null)
+                .Select(x => $"  {x.Name}\t\t{x.HelpText}")
+                .ToList()
+                .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
         }
     }
 }
