@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Unosquare.Swan.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using Formatters;
     using Reflection;
@@ -9,9 +7,7 @@ namespace Unosquare.Swan.Abstractions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-#if NETSTANDARD1_3 || UWP
     using System.Reflection;
-#endif
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
