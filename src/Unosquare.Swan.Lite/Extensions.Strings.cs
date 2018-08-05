@@ -327,8 +327,10 @@
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string Humanize(this string identifierString)
         {
-            var returnValue = identifierString ?? string.Empty;
-            returnValue = UnderscoreRegex.Value.Replace(returnValue, " ");
+            if (identifierString == null)
+                return string.Empty;
+
+            var returnValue = UnderscoreRegex.Value.Replace(identifierString, " ");
             returnValue = CamelCaseRegEx.Value.Replace(returnValue, SplitCamelCaseString.Value);
             return returnValue;
         }
@@ -494,7 +496,7 @@
         /// <param name="value">The value.</param>
         /// <param name="replaceValue">The replace value.</param>
         /// <param name="chars">The chars.</param>
-        /// <returns>The string with the characters reppaced</returns>
+        /// <returns>The string with the characters replaced.</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
             chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
 
