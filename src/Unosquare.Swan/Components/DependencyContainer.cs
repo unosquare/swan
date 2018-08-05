@@ -687,7 +687,9 @@ namespace Unosquare.Swan.Components
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise</returns>
-        public bool TryResolve<TResolveType>(string name, DependencyContainerResolveOptions options,
+        public bool TryResolve<TResolveType>(
+            string name, 
+            DependencyContainerResolveOptions options,
             out TResolveType resolvedType)
             where TResolveType : class
         {
@@ -757,8 +759,10 @@ namespace Unosquare.Swan.Components
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise</returns>
-        public bool TryResolve<TResolveType>(Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options, out TResolveType resolvedType)
+        public bool TryResolve<TResolveType>(
+            Dictionary<string, object> parameters,
+            DependencyContainerResolveOptions options, 
+            out TResolveType resolvedType)
             where TResolveType : class
         {
             try
@@ -842,15 +846,17 @@ namespace Unosquare.Swan.Components
 
             var properties = input.GetType()
                 .GetProperties()
-                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
+                .Where(property => (property.GetCacheGetMethod() != null) && (property.GetSetMethod() != null) &&
                                    !property.PropertyType.IsValueType());
 
             foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
             {
                 try
                 {
-                    property.SetValue(input,
-                        ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), null);
+                    property.SetValue(
+                        input,
+                        ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), 
+                        null);
                 }
                 catch (DependencyContainerResolutionException)
                 {

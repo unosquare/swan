@@ -254,43 +254,83 @@
                 _type.GetMethod(BindingFlags, MethodName, _genericTypes, null));
         }
     }
+
+    public abstract class GetCacheMethodInfo : TestFixtureBase
+    {
+        public PropertyInfo PublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.Animal));
+
+        public PropertyInfo NonPublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
+    }
     
     [TestFixture]
-    public class GetCacheGetMethod : TestFixtureBase
+    public class GetCacheGetMethod : GetCacheMethodInfo
     {
-        private readonly PropertyInfo _publicProperty = typeof(Controller).GetProperty(nameof(Controller.Animal));
-        private readonly PropertyInfo _nonPublicProperty = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
-
         [Test]
         public void PublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
         {
-            Assert.IsNotNull(_publicProperty.GetCacheGetMethod());
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
         }
 
         [Test]
         public void PublicPropertyNoPublicFlag_ReturnsMemberInfo()
         {
-            Assert.IsNotNull(_publicProperty.GetCacheGetMethod(true));
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod(true));
         }
 
         [Test]
         public void NonPublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
         {
-            Assert.IsNull(_nonPublicProperty.GetCacheGetMethod());
+            Assert.IsNull(NonPublicProperty.GetCacheGetMethod());
         }
 
         [Test]
         public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
         {
-            Assert.IsNotNull(_nonPublicProperty.GetCacheGetMethod(true));
+            Assert.IsNotNull(NonPublicProperty.GetCacheGetMethod(true));
         }
 
         [Test]
         public void CallTwice_ReturnsCache()
         {
-            _publicProperty.GetCacheGetMethod();
+            PublicProperty.GetCacheGetMethod();
 
-            Assert.IsNotNull(_publicProperty.GetCacheGetMethod());
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
+        }
+    }
+    
+    [TestFixture]
+    public class GetCacheSetMethod : GetCacheMethodInfo
+    {
+        [Test]
+        public void PublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
+        }
+
+        [Test]
+        public void PublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
+        }
+
+        [Test]
+        public void NonPublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNull(NonPublicProperty.GetCacheSetMethod());
+        }
+
+        [Test]
+        public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(NonPublicProperty.GetCacheSetMethod(true));
+        }
+
+        [Test]
+        public void CallTwice_ReturnsCache()
+        {
+            PublicProperty.GetCacheSetMethod();
+
+            Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
         }
     }
 }

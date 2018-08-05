@@ -15,6 +15,9 @@
         private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
             new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
 
+        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
+            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+
         #region Assembly Extensions
 
         /// <summary>
@@ -419,18 +422,35 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value);
+
+        /// <summary>
+        /// Gets a MethodInfo from a Property Set method.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>
+        /// The cached MethodInfo.
+        /// </returns>
+        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value);
+
+        private static MethodInfo GetMethodInfoCache(
+            PropertyInfo propertyInfo, 
+            bool nonPublic,
+            Dictionary<PropertyInfo, MethodInfo> cache)
         {
             MethodInfo methodInfo;
 
-            if (!CacheGetMethods.Value.ContainsKey(propertyInfo))
+            if (!cache.ContainsKey(propertyInfo))
             {
                 methodInfo = propertyInfo.GetGetMethod(nonPublic);
-                CacheGetMethods.Value[propertyInfo] = methodInfo;
+                cache[propertyInfo] = methodInfo;
             }
             else
             {
-                methodInfo = CacheGetMethods.Value[propertyInfo];
+                methodInfo = cache[propertyInfo];
             }
 
             return methodInfo.IsPublic ? methodInfo : (nonPublic ? methodInfo : null);
