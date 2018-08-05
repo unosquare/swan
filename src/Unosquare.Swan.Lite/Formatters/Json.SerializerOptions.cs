@@ -17,12 +17,11 @@
     {
         private class SerializerOptions
         {
-            private static readonly Dictionary<Type, Dictionary<Tuple<string, string>, Func<object, object>>>
-                TypeCache = new Dictionary<Type, Dictionary<Tuple<string, string>, Func<object, object>>>();
+            private static readonly Dictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
+                TypeCache = new Dictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
 
             private readonly string[] _includeProperties;
             private readonly string[] _excludeProperties;
-            private readonly bool _includeNonPublic;
             private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
 
             public SerializerOptions(
@@ -35,8 +34,8 @@
             {
                 _includeProperties = includeProperties;
                 _excludeProperties = excludeProperties;
-                _includeNonPublic = includeNonPublic;
 
+                IncludeNonPublic = includeNonPublic;
                 Format = format;
                 TypeSpecifier = typeSpecifier;
 
@@ -51,6 +50,7 @@
 
             public bool Format { get; }
             public string TypeSpecifier { get; }
+            public bool IncludeNonPublic { get; }
 
             internal bool IsObjectPresent(object target)
             {
@@ -69,7 +69,7 @@
                 return false;
             }
 
-            internal Dictionary<string, Func<object, object>> GetProperties(Type targetType)
+            internal Dictionary<string, MemberInfo> GetProperties(Type targetType)
                 => GetPropertiesCache(targetType)
                     .When(() => _includeProperties?.Length > 0,
                         query => query.Where(p => _includeProperties.Contains(p.Key.Item1)))
@@ -77,7 +77,7 @@
                         query => query.Where(p => !_excludeProperties.Contains(p.Key.Item1)))
                     .ToDictionary(x => x.Key.Item2, x => x.Value);
 
-            private Dictionary<Tuple<string, string>, Func<object, object>> GetPropertiesCache(Type targetType)
+            private static Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
             {
                 if (TypeCache.ContainsKey(targetType))
                     return TypeCache[targetType];
@@ -97,10 +97,7 @@
                     .ToDictionary(
                         x => new Tuple<string, string>(x.Name,
                             x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name),
-                        x => new Func<object, object>(target =>
-                            x is PropertyInfo info
-                                ? info.GetGetMethod(_includeNonPublic)?.Invoke(target, null)
-                                : (x as FieldInfo).GetValue(target)));
+                        x => x);
 
                 return TypeCache[targetType];
             }

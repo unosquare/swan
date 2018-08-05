@@ -75,7 +75,7 @@
 
             foreach (var propertyTarget in properties)
             {
-                var targetPropertyGetMethod = propertyTarget.GetGetMethod();
+                var targetPropertyGetMethod = propertyTarget.GetCacheGetMethod();
                 
                 if (propertyTarget.PropertyType.IsArray)
                 {
@@ -135,7 +135,7 @@
                             return false;
                         break;
                     case PropertyInfo property:
-                        var targetPropertyGetMethod = property.GetGetMethod();
+                        var targetPropertyGetMethod = property.GetCacheGetMethod();
 
                         if (targetPropertyGetMethod != null &&
                             Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)

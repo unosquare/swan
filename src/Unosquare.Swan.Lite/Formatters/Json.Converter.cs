@@ -293,8 +293,9 @@
 
             private void PopulateProperties(Dictionary<string, object> sourceProperties)
             {
-                foreach (var property in PropertyTypeCache.RetrieveFilteredProperties(_targetType, false,
-                    p => p.CanWrite))
+                var properties = PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite);
+                
+                foreach (var property in properties)
                 {
                     var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property);
                     if (sourcePropertyValue == null) continue;
@@ -302,7 +303,7 @@
                     try
                     {
                         var currentPropertyValue = !property.PropertyType.IsArray
-                            ? property.GetGetMethod(_includeNonPublic).Invoke(_target, null)
+                            ? property.GetCacheGetMethod(_includeNonPublic).Invoke(_target, null)
                             : null;
 
                         var targetPropertyValue = FromJsonResult(
