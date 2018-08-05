@@ -362,14 +362,12 @@
         /// <param name="property">The property.</param>
         /// <param name="value">The value.</param>
         /// <param name="obj">The object.</param>
-        /// <param name="elementType">Type of the element.</param>
         /// <returns>
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArray(this PropertyInfo property, object[] value, object obj, Type elementType = null)
+        public static bool TrySetArray(this PropertyInfo property, object[] value, object obj)
         {
-            if (elementType == null)
-                elementType = property.PropertyType.GetElementType();
+            var elementType = property.PropertyType.GetElementType();
 
             if (elementType == null)
                 return false;
