@@ -51,20 +51,22 @@
         /// <returns>A string containing human-readable statistics</returns>
         public static string Dump()
         {
+            var builder = new StringBuilder();
+
             lock (SyncLock)
             {
-                var builder = new StringBuilder();
-
                 foreach (var kvp in Measures)
                 {
-                    builder.AppendLine($"BID: {kvp.Key,-30} | CNT: {kvp.Value.Count,6} | " +
-                        $"AVG: {kvp.Value.Average(t => t.TotalMilliseconds),8:0.000} ms. | " +
-                        $"MAX: {kvp.Value.Max(t => t.TotalMilliseconds),8:0.000} ms. | " +
-                        $"MIN: {kvp.Value.Min(t => t.TotalMilliseconds),8:0.000} ms. | ");
+                    builder.Append($"BID: {kvp.Key,-30} | ")
+                        .Append($"CNT: {kvp.Value.Count,6} | ")
+                        .Append($"AVG: {kvp.Value.Average(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                        .Append($"MAX: {kvp.Value.Max(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                        .Append($"MIN: {kvp.Value.Min(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                        .Append(Environment.NewLine);
                 }
-
-                return builder.ToString().TrimEnd();
             }
+            
+            return builder.ToString().TrimEnd();
         }
 
         /// <summary>

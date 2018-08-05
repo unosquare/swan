@@ -12,7 +12,7 @@
     /// </summary>
     public partial class ArgumentParser
     {
-        internal class TypeResolver<T>
+        private sealed class TypeResolver<T>
         {
             private readonly string _selectedVerb;
             

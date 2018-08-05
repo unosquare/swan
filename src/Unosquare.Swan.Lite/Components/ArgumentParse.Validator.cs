@@ -12,7 +12,7 @@
     /// </summary>
     public partial class ArgumentParser
     {
-        internal class Validator
+        private sealed class Validator
         {
             public readonly List<string> UnknownList = new List<string>();
             public readonly List<string> RequiredList = new List<string>();
