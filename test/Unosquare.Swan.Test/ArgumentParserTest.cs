@@ -34,13 +34,12 @@
         }
 
         [Test]
-        public void ValidObjectCollection_ReturnsTrue()
+        public void InvalidClassWithCollection_ReturnsFalse()
         {
             var options = new OptionObjectCollectionMock();
             var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1", "1", "0" }, options);
 
-            Assert.IsTrue(result);
-            Assert.AreEqual(3, options.Options.Count);
+            Assert.IsFalse(result);
         }
 
         [Test]

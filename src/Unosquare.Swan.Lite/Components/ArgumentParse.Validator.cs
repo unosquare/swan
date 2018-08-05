@@ -142,7 +142,7 @@
 
                 var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
-                if (targetProperty.PropertyType.IsCollection())
+                if (targetProperty.PropertyType.IsArray)
                 {
                     return PopulateArray(targetProperty, propertyValueString, result, optionAttr);
                 }

@@ -270,7 +270,13 @@
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
-            => Definitions.BasicTypesInfo[type].TryParse(value, out result);
+        {
+            if (Definitions.BasicTypesInfo.ContainsKey(type))
+                return Definitions.BasicTypesInfo[type].TryParse(value, out result);
+
+            result = null;
+            return false;
+        }
 
         /// <summary>
         /// Gets property value or null.

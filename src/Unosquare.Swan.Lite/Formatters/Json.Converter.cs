@@ -182,16 +182,9 @@
                     default:
                         var sourceStringValue = source.ToStringInvariant();
 
-                        if (Definitions.BasicTypesInfo.ContainsKey(_targetType))
-                        {
-                            // Handle basic types
-                            _targetType.TryParseBasicType(sourceStringValue, out target);
-                        }
-                        else
-                        {
-                            // Handle Enumerations
+                        // Handle basic types or enumerations if not
+                        if (!_targetType.TryParseBasicType(sourceStringValue, out target))
                             GetEnumValue(sourceStringValue, ref target);
-                        }
 
                         break;
                 }
