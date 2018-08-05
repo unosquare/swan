@@ -305,11 +305,7 @@
                 return;
             }
 
-            // String to target type conversion
-            if (property.Key.PropertyType.TryParseBasicType(property.Value.Value, out var targetValue))
-            {
-                property.Key.SetValue(target, targetValue);
-            }
+            property.Key.TrySetBasicType(property.Value.Value, target);
         }
 
         private static object GetValue(object source, Type targetType)

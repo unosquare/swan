@@ -291,6 +291,67 @@
         }
 
         /// <summary>
+        /// Tries the type of the set basic value to a property.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetBasicType(this PropertyInfo property, object value, object obj)
+        {
+            try
+            {
+                if (property.PropertyType.TryParseBasicType(value, out var propertyValue))
+                {
+                    property.SetValue(obj, propertyValue);
+                    return true;
+                }
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries the type of the set to an array a basic type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetArrayBasicType(this Type type, object value, Array array, int index)
+        {
+            try
+            {
+                if (value == null)
+                {
+                    array.SetValue(null, index);
+                    return true;
+                }
+
+                if (type.TryParseBasicType(value, out var propertyValue))
+                {
+                    array.SetValue(propertyValue, index);
+                    return true;
+                }
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Gets property value or null.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>

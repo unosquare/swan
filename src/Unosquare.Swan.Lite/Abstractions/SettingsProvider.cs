@@ -195,21 +195,7 @@ namespace Unosquare.Swan.Abstractions
             var i = 0;
             foreach (var sourceElement in sourceArray)
             {
-                try
-                {
-                    if (sourceElement == null)
-                    {
-                        targetArray.SetValue(null, i++);
-                        continue;
-                    }
-
-                    if (elementType.TryParseBasicType(sourceElement, out var itemvalue))
-                        targetArray.SetValue(itemvalue, i++);
-                }
-                catch
-                {
-                    // swallow
-                }
+                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
             }
 
             propertyInfo.SetValue(Global, targetArray);

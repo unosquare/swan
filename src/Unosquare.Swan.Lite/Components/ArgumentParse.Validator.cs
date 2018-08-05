@@ -140,16 +140,9 @@
                     return true;
                 }
 
-                if (targetProperty.PropertyType.IsArray)
-                {
-                    return PopulateArray(targetProperty, propertyValueString, result);
-                }
-
-                if (!targetProperty.PropertyType.TryParseBasicType(propertyValueString, out var value))
-                    return false;
-
-                targetProperty.SetValue(result, value);
-                return true;
+                return targetProperty.PropertyType.IsArray
+                    ? PopulateArray(targetProperty, propertyValueString, result)
+                    : targetProperty.TrySetBasicType(propertyValueString, result);
             }
 
             private static bool PopulateArray(
@@ -170,8 +163,7 @@
                 var i = 0;
                 foreach (var value in propertyArrayValue)
                 {
-                    if (itemType.TryParseBasicType(value, out var itemvalue))
-                        arr.SetValue(itemvalue, i++);
+                    itemType.TrySetArrayBasicType(value, arr, i++);
                 }
 
                 targetProperty.SetValue(result, arr);

@@ -337,10 +337,7 @@
         /// The property names correspond to the names of the CSV headings
         /// </summary>
         /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
-        public IDictionary<string, object> ReadObject()
-        {
-            return ReadObject(_defaultMap);
-        }
+        public IDictionary<string, object> ReadObject() => ReadObject(_defaultMap);
 
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
@@ -396,22 +393,11 @@
                     // Prepare the target property
                     var propertyName = map[_headings[i]];
                     var propertyStringValue = values[i];
-                    var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
-
-                    // Skip if the property is not found
-                    if (targetProperty == null)
-                        continue;
-
-                    // Parse and assign the basic type value to the property
-                    try
-                    {
-                        if (targetProperty.PropertyType.TryParseBasicType(propertyStringValue, out var propertyValue))
-                            targetProperty.SetValue(result, propertyValue);
-                    }
-                    catch
-                    {
-                        // swallow
-                    }
+                    
+                    // Parse and assign the basic type value to the property if exists
+                    properties
+                        .FirstOrDefault(p => p.Name.Equals(propertyName))?
+                        .TrySetBasicType(propertyStringValue, result);
                 }
             }
         }

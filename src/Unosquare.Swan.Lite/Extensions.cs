@@ -41,10 +41,8 @@
         /// <returns>
         /// Number of properties that were successfully copied
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
-        {
-            return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
-        }
+        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null) 
+            => Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
