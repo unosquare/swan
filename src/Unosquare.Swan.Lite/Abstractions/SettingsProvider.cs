@@ -183,23 +183,9 @@ namespace Unosquare.Swan.Abstractions
         {
             if (property is IEnumerable == false)
                 return false;
-
-            var elementType = propertyInfo.PropertyType.GetElementType();
-
-            if (elementType == null)
-                return false;
-
+            
             var sourceArray = ((IEnumerable)property).Cast<object>().ToArray();
-            var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
-
-            var i = 0;
-            foreach (var sourceElement in sourceArray)
-            {
-                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
-            }
-
-            propertyInfo.SetValue(Global, targetArray);
-            return true;
+            return propertyInfo.TrySetArray(sourceArray, Global);
         }
 
         /// <summary>

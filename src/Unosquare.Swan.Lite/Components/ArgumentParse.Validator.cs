@@ -150,25 +150,10 @@
                 string propertyValueString,
                 object result)
             {
-                var itemType = targetProperty.PropertyType.GetElementType();
-
-                if (itemType == null)
-                    return false;
-
                 var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
-                var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
-                var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
-
-                var i = 0;
-                foreach (var value in propertyArrayValue)
-                {
-                    itemType.TrySetArrayBasicType(value, arr, i++);
-                }
-
-                targetProperty.SetValue(result, arr);
-
-                return true;
+                var source = propertyValueString.Split(optionAttr.Separator);
+                return targetProperty.TrySetArray(source, result);
             }
 
             private PropertyInfo TryGetProperty(string propertyName)

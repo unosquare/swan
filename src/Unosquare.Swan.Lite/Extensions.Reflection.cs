@@ -352,6 +352,37 @@
         }
 
         /// <summary>
+        /// Tries to set a property array with another array.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetArray(this PropertyInfo property, object[] value, object obj, Type elementType = null)
+        {
+            if (elementType == null)
+                elementType = property.PropertyType.GetElementType();
+
+            if (elementType == null)
+                return false;
+
+            var targetArray = Array.CreateInstance(elementType, value.Length);
+
+            var i = 0;
+            foreach (var sourceElement in value)
+            {
+                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+            }
+
+            property.SetValue(obj, targetArray);
+
+            return true;
+        }
+
+        /// <summary>
         /// Gets property value or null.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
