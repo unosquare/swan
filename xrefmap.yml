@@ -12191,6 +12191,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.GetCacheGetMethod
   nameWithType: ReflectionExtensions.GetCacheGetMethod
+- uid: Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod(System.Reflection.PropertyInfo,System.Boolean)
+  name: GetCacheSetMethod(PropertyInfo, Boolean)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetCacheSetMethod_System_Reflection_PropertyInfo_System_Boolean_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod(System.Reflection.PropertyInfo,System.Boolean)
+  fullName: Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod(System.Reflection.PropertyInfo, System.Boolean)
+  nameWithType: ReflectionExtensions.GetCacheSetMethod(PropertyInfo, Boolean)
+- uid: Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod*
+  name: GetCacheSetMethod
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetCacheSetMethod_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.GetCacheSetMethod
+  nameWithType: ReflectionExtensions.GetCacheSetMethod
 - uid: Unosquare.Swan.ReflectionExtensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
   name: GetCustomAttributes(Type, Type, Boolean)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetCustomAttributes_System_Type_System_Type_System_Boolean_
