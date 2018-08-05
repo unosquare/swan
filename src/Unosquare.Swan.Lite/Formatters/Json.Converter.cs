@@ -312,7 +312,7 @@
                             ref currentPropertyValue,
                             _includeNonPublic);
 
-                        property.GetSetMethod(_includeNonPublic).Invoke(_target, new[] {targetPropertyValue});
+                        property.GetCacheSetMethod(_includeNonPublic).Invoke(_target, new[] {targetPropertyValue});
                     }
                     catch
                     {

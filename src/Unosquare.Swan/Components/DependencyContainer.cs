@@ -846,7 +846,7 @@ namespace Unosquare.Swan.Components
 
             var properties = input.GetType()
                 .GetProperties()
-                .Where(property => (property.GetCacheGetMethod() != null) && (property.GetSetMethod() != null) &&
+                .Where(property => (property.GetCacheGetMethod() != null) && (property.GetCacheSetMethod() != null) &&
                                    !property.PropertyType.IsValueType());
 
             foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
