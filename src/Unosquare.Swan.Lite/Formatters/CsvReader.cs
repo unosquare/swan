@@ -375,8 +375,8 @@
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = TypeCache.Retrieve<T>(() => typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType)));
+                var properties = TypeCache
+                    .RetrieveFilteredProperties(typeof(T), true, x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
 
                 // Assign property values for each heading
                 for (var i = 0; i < _headings.Length; i++)
@@ -392,12 +392,11 @@
 
                     // Prepare the target property
                     var propertyName = map[_headings[i]];
-                    var propertyStringValue = values[i];
                     
                     // Parse and assign the basic type value to the property if exists
                     properties
                         .FirstOrDefault(p => p.Name.Equals(propertyName))?
-                        .TrySetBasicType(propertyStringValue, result);
+                        .TrySetBasicType(values[i], result);
                 }
             }
         }
@@ -581,7 +580,7 @@
             using (var reader = new CsvReader(stream))
             {
                 reader.ReadHeadings();
-                while (reader.EndOfStream == false)
+                while (!reader.EndOfStream)
                 {
                     result.Add(reader.ReadObject<T>());
                 }
