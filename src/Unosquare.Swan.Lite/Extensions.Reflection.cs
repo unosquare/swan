@@ -126,10 +126,9 @@
             if (parameterTypes == null)
                 throw new ArgumentNullException(nameof(parameterTypes));
 
-            var methods =
-                sourceType.GetMethods(bindingFlags).Where(
-                        mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
-                        mi => mi.ContainsGenericParameters)
+            var methods = sourceType
+                    .GetMethods(bindingFlags)
+                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(mi => mi.ContainsGenericParameters)
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
                     .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
                     .Select(mi => mi.MakeGenericMethod(genericTypes))
@@ -453,7 +452,7 @@
                 methodInfo = cache[propertyInfo];
             }
 
-            return methodInfo.IsPublic ? methodInfo : (nonPublic ? methodInfo : null);
+            return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
         private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)

@@ -75,12 +75,12 @@ namespace Unosquare.Swan.Components
         #region Registration
 
 #if !NETSTANDARD1_3 && !UWP
-/// <summary>
-/// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
-/// Types will only be registered if they pass the supplied registration predicate.
-/// </summary>
-/// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
-/// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
+        /// <summary>
+        /// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
+        /// Types will only be registered if they pass the supplied registration predicate.
+        /// </summary>
+        /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
+        /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
         public void AutoRegister(
             DependencyContainerDuplicateImplementationActions duplicateAction =
                 DependencyContainerDuplicateImplementationActions.RegisterSingle,
@@ -688,7 +688,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise</returns>
         public bool TryResolve<TResolveType>(
-            string name, 
+            string name,
             DependencyContainerResolveOptions options,
             out TResolveType resolvedType)
             where TResolveType : class
@@ -761,7 +761,7 @@ namespace Unosquare.Swan.Components
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise</returns>
         public bool TryResolve<TResolveType>(
             Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options, 
+            DependencyContainerResolveOptions options,
             out TResolveType resolvedType)
             where TResolveType : class
         {
@@ -786,9 +786,9 @@ namespace Unosquare.Swan.Components
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise</returns>
-        public bool TryResolve<TResolveType>(string name, 
+        public bool TryResolve<TResolveType>(string name,
             Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options, 
+            DependencyContainerResolveOptions options,
             out TResolveType resolvedType)
             where TResolveType : class
         {
@@ -855,7 +855,7 @@ namespace Unosquare.Swan.Components
                 {
                     property.SetValue(
                         input,
-                        ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), 
+                        ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions),
                         null);
                 }
                 catch (DependencyContainerResolutionException)
@@ -966,7 +966,7 @@ namespace Unosquare.Swan.Components
             => _registeredTypes.TryRemove(typeRegistration, out _);
 
         private bool CanResolveInternal(
-            TypeRegistration registration, 
+            TypeRegistration registration,
             Dictionary<string, object> parameters = null,
             DependencyContainerResolveOptions options = null)
         {
@@ -1039,7 +1039,7 @@ namespace Unosquare.Swan.Components
         }
 
         private object ResolveInternal(
-            TypeRegistration registration, 
+            TypeRegistration registration,
             Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options = null)
         {
@@ -1122,7 +1122,7 @@ namespace Unosquare.Swan.Components
         }
 
         private bool CanConstruct(
-            ConstructorInfo ctor, 
+            ConstructorInfo ctor,
             Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
@@ -1158,7 +1158,8 @@ namespace Unosquare.Swan.Components
         private ConstructorInfo GetBestConstructor(
                     Type type,
                     Dictionary<string, object> parameters,
-                    DependencyContainerResolveOptions options) => type.IsValueType() ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, parameters, options));
+                    DependencyContainerResolveOptions options)
+            => type.IsValueType() ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, parameters, options));
 
         private object ConstructType(
             Type implementationType,
@@ -1267,10 +1268,8 @@ namespace Unosquare.Swan.Components
             return true;
         }
 
-        private IEnumerable<TypeRegistration> GetParentRegistrationsForType(Type resolveType)
-        {
-            return _parent == null ? new TypeRegistration[] { } : _parent._registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(_parent.GetParentRegistrationsForType(resolveType));
-        }
+        private IEnumerable<TypeRegistration> GetParentRegistrationsForType(Type resolveType) 
+            => _parent == null ? new TypeRegistration[] { } : _parent._registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(_parent.GetParentRegistrationsForType(resolveType));
 
         #endregion
 

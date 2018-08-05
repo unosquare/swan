@@ -92,10 +92,10 @@
         public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)
         {
             if (inputStream == null)
-                throw new NullReferenceException(nameof(inputStream));
+                throw new ArgumentNullException(nameof(inputStream));
 
             if (textEncoding == null)
-                throw new NullReferenceException(nameof(textEncoding));
+                throw new ArgumentNullException(nameof(textEncoding));
             
             _reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
         }

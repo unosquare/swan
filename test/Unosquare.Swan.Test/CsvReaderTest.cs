@@ -42,7 +42,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithNullStream_ThrowsNullReferenceException()
         {
-            Assert.Throws<NullReferenceException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
                 var csvReader = new CsvReader(null, true, Encoding.ASCII);
             });
@@ -53,7 +53,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
             {
-                Assert.Throws<NullReferenceException>(() =>
+                Assert.Throws<ArgumentNullException>(() =>
                 {
                     var csvReader = new CsvReader(stream, true, null);
                 });
