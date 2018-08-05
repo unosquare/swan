@@ -12401,6 +12401,22 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType
   nameWithType: ReflectionExtensions.TryParseBasicType
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Object[],System.Object,System.Type)
+  name: TrySetArray(PropertyInfo, Object[], Object, Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArray_System_Reflection_PropertyInfo_System_Object___System_Object_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Object[],System.Object,System.Type)
+  name.vb: TrySetArray(PropertyInfo, Object(), Object, Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Object[], System.Object, System.Type)
+  fullName.vb: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Object(), System.Object, System.Type)
+  nameWithType: ReflectionExtensions.TrySetArray(PropertyInfo, Object[], Object, Type)
+  nameWithType.vb: ReflectionExtensions.TrySetArray(PropertyInfo, Object(), Object, Type)
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetArray*
+  name: TrySetArray
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArray_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.TrySetArray
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArray
+  nameWithType: ReflectionExtensions.TrySetArray
 - uid: Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType(System.Type,System.Object,System.Array,System.Int32)
   name: TrySetArrayBasicType(Type, Object, Array, Int32)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArrayBasicType_System_Type_System_Object_System_Array_System_Int32_
