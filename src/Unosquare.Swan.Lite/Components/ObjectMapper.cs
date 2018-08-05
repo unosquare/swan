@@ -107,22 +107,11 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(source.GetType(), true)
-                .Where(x => x.CanRead)
-                .ToArray();
-
             return Copy(
                 target,
                 propertiesToCopy,
                 ignoreProperties,
-                sourceProperties
-                    .Select(x => x.Name)
-                    .Distinct()
-                    .ToDictionary(
-                        x => x.ToLowerInvariant(),
-                        x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
-                            sourceProperties.First(y => y.Name == x).GetValue(source))));
+                GetSourceMap(source));
         }
 
         /// <summary>
@@ -156,7 +145,9 @@
                 target,
                 propertiesToCopy,
                 ignoreProperties,
-                source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
+                source.ToDictionary(
+                    x => x.Key.ToLowerInvariant(),
+                    x => new TypeValuePair(typeof(object), x.Value)));
         }
 
         /// <summary>
@@ -250,94 +241,79 @@
             IEnumerable<string> ignoreProperties,
             Dictionary<string, TypeValuePair> sourceProperties)
         {
-            var copiedProperties = 0;
+            // Filter properties
+            var requiredProperties = propertiesToCopy?
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant());
+
+            var ignoredProperties = ignoreProperties?
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant());
 
             // Targets
-            var targetType = target.GetType();
-            var targetProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(targetType, true)
-                .Where(x => x.CanWrite)
-                .ToList();
-
-            // Filter properties
-            var targetPropertyNames = targetProperties
-                .Select(t => t.Name.ToLowerInvariant());
-
-            var filteredSourceProperties = sourceProperties
-                .Where(s => targetPropertyNames.Contains(s.Key))
-                .ToArray();
-
-            var requiredProperties = propertiesToCopy?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            var ignoredProperties = ignoreProperties?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            // Copy source properties
-            foreach (var sourceProperty in filteredSourceProperties)
-            {
-                var targetProperty = targetProperties
-                    .First(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
-
-                if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                try
-                {
-                    SetValue(sourceProperty.Value, target, targetProperty);
-                    copiedProperties++;
-                }
-                catch
-                {
-                    // swallow
-                }
-            }
-
-            return copiedProperties;
+            return Runtime.PropertyTypeCache.RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
+                .ToDictionary(x => x.Name.ToLowerInvariant(), x => x)
+                .Where(x => sourceProperties.Keys.Contains(x.Key))
+                .When(() => requiredProperties != null, q => q.Where(y => requiredProperties.Contains(y.Key)))
+                .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties.Contains(y.Key)))
+                .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
+                .Sum(x => TrySetValue(x, target) ? 1 : 0);
         }
 
-        private static void SetValue(TypeValuePair valueType, object target, PropertyInfo targetProperty)
+        private static bool TrySetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
         {
-            if (valueType.Type.GetTypeInfo().IsEnum)
+            try
             {
-                targetProperty.SetValue(target,
-                    Enum.ToObject(targetProperty.PropertyType, valueType.Value));
+                SetValue(property, target);
+                return true;
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        private static void SetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
+        {
+            if (property.Value.Type.GetTypeInfo().IsEnum)
+            {
+                property.Key.SetValue(target,
+                    Enum.ToObject(property.Key.PropertyType, property.Value.Value));
 
                 return;
             }
 
-            if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
+            if (!property.Value.Type.IsValueType() && property.Key.PropertyType == property.Value.Type)
             {
-                targetProperty.SetValue(target,
-                    valueType.Value != null ? GetValue(valueType.Value, targetProperty.PropertyType) : null);
+                property.Key.SetValue(target, GetValue(property.Value.Value, property.Key.PropertyType));
 
                 return;
             }
 
-            if (targetProperty.PropertyType == typeof(bool))
+            if (property.Key.PropertyType == typeof(bool))
             {
-                targetProperty.SetValue(target,
-                    Convert.ToBoolean(valueType.Value));
+                property.Key.SetValue(target,
+                    Convert.ToBoolean(property.Value.Value));
 
                 return;
             }
 
             // String to target type conversion
-            if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
-                out var targetValue))
+            if (property.Key.PropertyType.TryParseBasicType(property.Value.Value, out var targetValue))
             {
-                targetProperty.SetValue(target, targetValue);
+                property.Key.SetValue(target, targetValue);
             }
         }
 
         private static object GetValue(object source, Type targetType)
         {
-            object target = null;
+            if (source == null)
+                return null;
 
+            object target = null;
+            
             source.CreateTarget(targetType, false, ref target);
 
             switch (source)
@@ -391,6 +367,22 @@
             }
 
             return target;
+        }
+
+        private static Dictionary<string, TypeValuePair> GetSourceMap(object source)
+        {
+            // select distinct properties because they can be duplicated by inheritance
+            var sourceProperties = Runtime.PropertyTypeCache
+                .RetrieveFilteredProperties(source.GetType(), true, x => x.CanRead)
+                .ToArray();
+
+            return sourceProperties
+                .Select(x => x.Name)
+                .Distinct()
+                .ToDictionary(
+                    x => x.ToLowerInvariant(),
+                    x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
+                        sourceProperties.First(y => y.Name == x).GetValue(source)));
         }
 
         internal class TypeValuePair

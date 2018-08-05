@@ -269,6 +269,18 @@
         /// <returns>
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        public static bool TryParseBasicType(this Type type, object value, out object result) 
+            => TryParseBasicType(type, value.ToStringInvariant(), out result);
+
+        /// <summary>
+        /// Tries to parse using the basic types.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
         {
             if (Definitions.BasicTypesInfo.ContainsKey(type))

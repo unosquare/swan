@@ -166,8 +166,8 @@ namespace Unosquare.Swan.Abstractions
                     propertyInfo.SetValue(Global, null);
                     return true;
                 default:
-                    if (propertyInfo.PropertyType.TryParseBasicType(property.ToString(),
-                            out var propertyValue) && !propertyValue.Equals(originalValue))
+                    if (propertyInfo.PropertyType.TryParseBasicType(property, out var propertyValue) &&
+                        !propertyValue.Equals(originalValue))
                     {
                         propertyInfo.SetValue(Global, propertyValue);
                         return true;
@@ -203,7 +203,7 @@ namespace Unosquare.Swan.Abstractions
                         continue;
                     }
 
-                    if (elementType.TryParseBasicType(sourceElement.ToString(), out var itemvalue))
+                    if (elementType.TryParseBasicType(sourceElement, out var itemvalue))
                         targetArray.SetValue(itemvalue, i++);
                 }
                 catch

@@ -7,7 +7,7 @@
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class ArgumentOptionAttribute 
+    public sealed class ArgumentOptionAttribute
         : Attribute
     {
         private string _setName;
@@ -48,7 +48,7 @@
             : this(new string(shortName, 1), string.Empty)
         {
         }
-        
+
         private ArgumentOptionAttribute(string shortName, string longName)
         {
             ShortName = shortName ?? throw new ArgumentNullException(nameof(shortName));
