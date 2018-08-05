@@ -12,6 +12,9 @@
     /// </summary>
     public static class ReflectionExtensions
     {
+        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
+            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+
         #region Assembly Extensions
 
         /// <summary>
@@ -406,6 +409,31 @@
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets a MethodInfo from a Property Get method.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>
+        /// The cached MethodInfo.
+        /// </returns>
+        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        {
+            MethodInfo methodInfo;
+
+            if (!CacheGetMethods.Value.ContainsKey(propertyInfo))
+            {
+                methodInfo = propertyInfo.GetGetMethod(nonPublic);
+                CacheGetMethods.Value[propertyInfo] = methodInfo;
+            }
+            else
+            {
+                methodInfo = CacheGetMethods.Value[propertyInfo];
+            }
+
+            return methodInfo.IsPublic ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
         private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)

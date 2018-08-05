@@ -42,10 +42,9 @@
 
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 
-            public ArgumentOptionAttribute[] GetPropertiesOptions()
+            public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions()
                 => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
-                    .Where(x => x != null)
-                    .ToArray();
+                    .Where(x => x != null);
 
             private void GetRequiredList()
             {

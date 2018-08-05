@@ -76,7 +76,7 @@
             foreach (var propertyTarget in properties)
             {
                 var targetPropertyGetMethod = propertyTarget.GetGetMethod();
-
+                
                 if (propertyTarget.PropertyType.IsArray)
                 {
                     var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;

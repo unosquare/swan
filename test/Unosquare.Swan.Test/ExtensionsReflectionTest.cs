@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.ExtensionsReflectionTest
 {
     using NUnit.Framework;
+    using System.Reflection;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -182,7 +183,7 @@
         [Test]
         public void WithNullAssembly_ThrowsArgumentNullException()
         {
-            System.Reflection.Assembly assembly = null;
+            Assembly assembly = null;
 
             Assert.Throws<ArgumentNullException>(() => assembly.GetAllTypes());
         }
@@ -191,7 +192,7 @@
         public void WithInvalidAssmblyFromFile_ThrowsFileNotFoundException()
         {
             Assert.Throws<FileNotFoundException>(() =>
-                System.Reflection.Assembly.LoadFrom("invalid.dll").GetAllTypes());
+                Assembly.LoadFrom("invalid.dll").GetAllTypes());
         }
 
         [Test]
@@ -214,13 +215,12 @@
         private readonly Type[] _genericTypes = {typeof(Task<string>)};
         private readonly Type[] _parameterTypes = {typeof(string), typeof(byte[]), typeof(string), typeof(string)};
 
-        private readonly System.Reflection.BindingFlags _bindingFlags =
-            System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static;
+        private const BindingFlags BindingFlags = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static;
 
         [Test]
         public void WithValidParams_ReturnsAnObject()
         {
-            var method = _type.GetMethod(_bindingFlags, MethodName, _genericTypes, _parameterTypes);
+            var method = _type.GetMethod(BindingFlags, MethodName, _genericTypes, _parameterTypes);
 
             Assert.AreEqual(method.ToString(),
                 "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] PostFile[Task`1](System.String, Byte[], System.String, System.String)");
@@ -230,28 +230,67 @@
         public void WithNullSourceType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullType.GetMethod(_bindingFlags, MethodName, _genericTypes, _parameterTypes));
+                NullType.GetMethod(BindingFlags, MethodName, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullMethodName_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, null, _genericTypes, _parameterTypes));
+                _type.GetMethod(BindingFlags, null, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullGenericTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, MethodName, null, _parameterTypes));
+                _type.GetMethod(BindingFlags, MethodName, null, _parameterTypes));
         }
 
         [Test]
         public void WithNullParameterTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, MethodName, _genericTypes, null));
+                _type.GetMethod(BindingFlags, MethodName, _genericTypes, null));
+        }
+    }
+    
+    [TestFixture]
+    public class GetCacheGetMethod : TestFixtureBase
+    {
+        private readonly PropertyInfo _publicProperty = typeof(Controller).GetProperty(nameof(Controller.Animal));
+        private readonly PropertyInfo _nonPublicProperty = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
+
+        [Test]
+        public void PublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(_publicProperty.GetCacheGetMethod());
+        }
+
+        [Test]
+        public void PublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(_publicProperty.GetCacheGetMethod(true));
+        }
+
+        [Test]
+        public void NonPublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNull(_nonPublicProperty.GetCacheGetMethod());
+        }
+
+        [Test]
+        public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        {
+            Assert.IsNotNull(_nonPublicProperty.GetCacheGetMethod(true));
+        }
+
+        [Test]
+        public void CallTwice_ReturnsCache()
+        {
+            _publicProperty.GetCacheGetMethod();
+
+            Assert.IsNotNull(_publicProperty.GetCacheGetMethod());
         }
     }
 }

@@ -51,9 +51,16 @@
 
     public class Controller
     {
+        public Controller()
+        {
+            IsReadonly = !IsReadonly;
+        }
+
         public IAnimal Animal { get; set; }
 
         public ICar Car { get; set; }
+
+        public bool IsReadonly { private get; set; }
     }
 
     public class StringEnumerable : IEnumerable<string>
