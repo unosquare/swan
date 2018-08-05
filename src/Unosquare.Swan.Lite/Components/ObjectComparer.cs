@@ -128,18 +128,19 @@
 
             foreach (var targetMember in fields)
             {
-                if (targetMember is FieldInfo targetField)
+                switch (targetMember)
                 {
-                    if (Equals(targetField.GetValue(left), targetField.GetValue(right)) == false)
-                        return false;
-                }
-                else
-                {
-                    var targetPropertyGetMethod = (targetMember as PropertyInfo)?.GetGetMethod();
+                    case FieldInfo field:
+                        if (Equals(field.GetValue(left), field.GetValue(right)) == false)
+                            return false;
+                        break;
+                    case PropertyInfo property:
+                        var targetPropertyGetMethod = property.GetGetMethod();
 
-                    if (targetPropertyGetMethod != null &&
-                        Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
-                        return false;
+                        if (targetPropertyGetMethod != null &&
+                            Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                            return false;
+                        break;
                 }
             }
 

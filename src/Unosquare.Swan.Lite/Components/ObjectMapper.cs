@@ -190,11 +190,11 @@
                 throw new InvalidOperationException("Types doesn't match");
             }
 
-            var objMap = new ObjectMap<TSource, TDestination>(intersect);
+            var map = new ObjectMap<TSource, TDestination>(intersect);
 
-            _maps.Add(objMap);
+            _maps.Add(map);
 
-            return objMap;
+            return map;
         }
 
         /// <summary>
@@ -345,49 +345,42 @@
                 case string _:
                     target = source;
                     break;
-                case IList sourceList:
-                    var targetArray = target as Array;
-                    var targetList = target as IList;
-
-                    // Case 2.1: Source is List, Target is Array
-                    if (targetArray != null)
+                case IList sourceList when target is Array targetArray:
+                    for (var i = 0; i < sourceList.Count; i++)
                     {
-                        for (var i = 0; i < sourceList.Count; i++)
+                        try
                         {
-                            try
-                            {
-                                targetArray.SetValue(
-                                    sourceList[i].GetType().IsValueType()
-                                        ? sourceList[i]
-                                        : sourceList[i].CopyPropertiesToNew<object>(), i);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                            targetArray.SetValue(
+                                sourceList[i].GetType().IsValueType()
+                                    ? sourceList[i]
+                                    : sourceList[i].CopyPropertiesToNew<object>(), i);
+                        }
+                        catch
+                        {
+                            // ignored
                         }
                     }
-                    else if (targetList != null)
+
+                    break;
+                case IList sourceList when target is IList targetList:
+                    var addMethod = targetType.GetMethods()
+                        .FirstOrDefault(
+                            m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
+                                 m.GetParameters().Length == 1);
+
+                    if (addMethod == null) return target;
+
+                    foreach (var item in sourceList)
                     {
-                        // Case 2.2: Source is List,  Target is IList
-                        // find the add method of the target list
-                        var addMethod = targetType.GetMethods()
-                            .FirstOrDefault(
-                                m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
-                                     m.GetParameters().Length == 1);
-
-                        if (addMethod == null) return target;
-
-                        foreach (var item in sourceList)
+                        try
                         {
-                            try
-                            {
-                                targetList.Add(item.GetType().IsValueType() ? item : item.CopyPropertiesToNew<object>());
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                            targetList.Add(item.GetType().IsValueType()
+                                ? item
+                                : item.CopyPropertiesToNew<object>());
+                        }
+                        catch
+                        {
+                            // ignored
                         }
                     }
 
