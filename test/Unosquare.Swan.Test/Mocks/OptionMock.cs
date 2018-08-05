@@ -28,7 +28,7 @@
     public class OptionObjectCollectionMock
     {
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Specify additional options.")]
-        public List<int?> Options { get; set; }
+        public List<int> Options { get; set; }
     }
 
     public class OptionObjectArrayMock

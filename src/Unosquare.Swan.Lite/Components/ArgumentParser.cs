@@ -1,10 +1,8 @@
-using System.Reflection;
-using Unosquare.Swan.Attributes;
-
 namespace Unosquare.Swan.Components
 {
     using System;
     using System.Collections.Generic;
+    using Attributes;
     using System.Linq;
 
     /// <summary>
@@ -110,8 +108,6 @@ namespace Unosquare.Swan.Components
     /// </example>
     public partial class ArgumentParser
     {
-        private const char Dash = '-';
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>

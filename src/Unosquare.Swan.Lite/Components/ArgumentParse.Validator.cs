@@ -79,47 +79,48 @@
 
             private void PopulateInstance()
             {
+                const char dash = '-';
                 var propertyName = string.Empty;
 
                 foreach (var arg in _args)
                 {
-                    if (string.IsNullOrWhiteSpace(propertyName) == false)
+                    var ignoreSetValue = string.IsNullOrWhiteSpace(propertyName);
+
+                    if (ignoreSetValue)
                     {
-                        var targetProperty = TryGetProperty(propertyName);
-
-                        // Skip if the property is not found
-                        if (targetProperty == null)
-                        {
-                            UnknownList.Add(propertyName);
-                            propertyName = string.Empty;
-                            continue;
-                        }
-
-                        if (SetPropertyValue(targetProperty, arg, _instance))
-                            _updatedList.Add(targetProperty);
-
-                        propertyName = string.Empty;
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(arg) || arg[0] != Dash) continue;
+                        if (string.IsNullOrWhiteSpace(arg) || arg[0] != dash) continue;
 
                         propertyName = arg.Substring(1);
-                        if (propertyName[0] == Dash) propertyName = propertyName.Substring(1);
 
-                        var targetProperty = TryGetProperty(propertyName);
+                        if (!string.IsNullOrWhiteSpace(propertyName) && propertyName[0] == dash)
+                            propertyName = propertyName.Substring(1);
+                    }
 
+                    var targetProperty = TryGetProperty(propertyName);
+
+                    if (targetProperty == null)
+                    {
+                        // Skip if the property is not found
+                        UnknownList.Add(propertyName);
+                        continue;
+                    }
+
+                    if (!ignoreSetValue && SetPropertyValue(targetProperty, arg, _instance))
+                    {
+                        _updatedList.Add(targetProperty);
+                        propertyName = string.Empty;
+                    }
+                    else if (targetProperty.PropertyType == typeof(bool))
+                    {
                         // If the arg is a boolean property set it to true.
-                        if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
+                        targetProperty.SetValue(_instance, true);
 
-                        if (SetPropertyValue(targetProperty, true.ToString(), _instance))
-                            _updatedList.Add(targetProperty);
-
+                        _updatedList.Add(targetProperty);
                         propertyName = string.Empty;
                     }
                 }
 
-                if (string.IsNullOrEmpty(propertyName) == false)
+                if (!string.IsNullOrEmpty(propertyName))
                 {
                     UnknownList.Add(propertyName);
                 }
@@ -127,48 +128,55 @@
 
             private bool SetPropertyValue(PropertyInfo targetProperty, string propertyValueString, object result)
             {
-                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
-
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
                     var parsedValue = Enum.Parse(
                         targetProperty.PropertyType,
                         propertyValueString,
                         _settings.CaseInsensitiveEnumValues);
+
                     targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
 
                     return true;
                 }
 
+                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+
                 if (targetProperty.PropertyType.IsCollection())
                 {
-                    var itemType = targetProperty.PropertyType.GetElementType();
-
-                    if (itemType == null)
-                    {
-                        throw new InvalidOperationException(
-                            $"The option collection {optionAttr.ShortName ?? optionAttr.LongName} should be an array");
-                    }
-
-                    var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
-                    var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
-
-                    var i = 0;
-                    foreach (var value in propertyArrayValue)
-                    {
-                        if (itemType.TryParseBasicType(value, out var itemvalue))
-                            arr.SetValue(itemvalue, i++);
-                    }
-
-                    targetProperty.SetValue(result, arr);
-
-                    return true;
+                    return PopulateArray(targetProperty, propertyValueString, result, optionAttr);
                 }
 
                 if (!targetProperty.PropertyType.TryParseBasicType(propertyValueString, out var propertyValue))
                     return false;
 
                 targetProperty.SetValue(result, propertyValue);
+                return true;
+            }
+
+            private static bool PopulateArray(
+                PropertyInfo targetProperty,
+                string propertyValueString,
+                object result,
+                ArgumentOptionAttribute optionAttr)
+            {
+                var itemType = targetProperty.PropertyType.GetElementType();
+
+                if (itemType == null)
+                    return false;
+
+                var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
+                var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
+
+                var i = 0;
+                foreach (var value in propertyArrayValue)
+                {
+                    if (itemType.TryParseBasicType(value, out var itemvalue))
+                        arr.SetValue(itemvalue, i++);
+                }
+
+                targetProperty.SetValue(result, arr);
+
                 return true;
             }
 
