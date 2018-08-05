@@ -1863,7 +1863,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.ReflectionExtensions.html",
-          "hash": "P5/HBUZk8Hc4j4AKE+8d0Q=="
+          "hash": "hSzvH0/JGC3rJL0jOHlvVg=="
         }
       },
       "is_incremental": false,
@@ -2030,13 +2030,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }

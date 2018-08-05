@@ -12376,6 +12376,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.IsValueType
   nameWithType: ReflectionExtensions.IsValueType
+- uid: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.Object,System.Object@)
+  name: TryParseBasicType(Type, Object, out Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TryParseBasicType_System_Type_System_Object_System_Object__
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.Object,System.Object@)
+  name.vb: TryParseBasicType(Type, Object, ByRef Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type, System.Object, out System.Object)
+  fullName.vb: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type, System.Object, ByRef System.Object)
+  nameWithType: ReflectionExtensions.TryParseBasicType(Type, Object, out Object)
+  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, Object, ByRef Object)
 - uid: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.String,System.Object@)
   name: TryParseBasicType(Type, String, out Object)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TryParseBasicType_System_Type_System_String_System_Object__
