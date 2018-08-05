@@ -12401,6 +12401,32 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType
   nameWithType: ReflectionExtensions.TryParseBasicType
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType(System.Type,System.Object,System.Array,System.Int32)
+  name: TrySetArrayBasicType(Type, Object, Array, Int32)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArrayBasicType_System_Type_System_Object_System_Array_System_Int32_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType(System.Type,System.Object,System.Array,System.Int32)
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType(System.Type, System.Object, System.Array, System.Int32)
+  nameWithType: ReflectionExtensions.TrySetArrayBasicType(Type, Object, Array, Int32)
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType*
+  name: TrySetArrayBasicType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArrayBasicType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArrayBasicType
+  nameWithType: ReflectionExtensions.TrySetArrayBasicType
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetBasicType(System.Reflection.PropertyInfo,System.Object,System.Object)
+  name: TrySetBasicType(PropertyInfo, Object, Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetBasicType_System_Reflection_PropertyInfo_System_Object_System_Object_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TrySetBasicType(System.Reflection.PropertyInfo,System.Object,System.Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetBasicType(System.Reflection.PropertyInfo, System.Object, System.Object)
+  nameWithType: ReflectionExtensions.TrySetBasicType(PropertyInfo, Object, Object)
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetBasicType*
+  name: TrySetBasicType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetBasicType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.TrySetBasicType
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetBasicType
+  nameWithType: ReflectionExtensions.TrySetBasicType
 - uid: Unosquare.Swan.Runtime
   name: Runtime
   href: api/Unosquare.Swan.Runtime.html
