@@ -274,7 +274,7 @@
         /// <returns>
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TryParseBasicType(this Type type, object value, out object result) 
+        public static bool TryParseBasicType(this Type type, object value, out object result)
             => TryParseBasicType(type, value.ToStringInvariant(), out result);
 
         /// <summary>
@@ -419,8 +419,8 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value);
+        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value, true);
 
         /// <summary>
         /// Gets a MethodInfo from a Property Set method.
@@ -430,19 +430,20 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value);
+        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value, false);
 
         private static MethodInfo GetMethodInfoCache(
-            PropertyInfo propertyInfo, 
+            PropertyInfo propertyInfo,
             bool nonPublic,
-            Dictionary<PropertyInfo, MethodInfo> cache)
+            Dictionary<PropertyInfo, MethodInfo> cache,
+            bool isGet)
         {
             MethodInfo methodInfo;
 
             if (!cache.ContainsKey(propertyInfo))
             {
-                methodInfo = propertyInfo.GetGetMethod(nonPublic);
+                methodInfo = isGet ? propertyInfo.GetGetMethod(nonPublic) : propertyInfo.GetSetMethod(nonPublic);
                 cache[propertyInfo] = methodInfo;
             }
             else
