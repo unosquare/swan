@@ -250,9 +250,14 @@
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Select(p => p.ToLowerInvariant());
 
-            // Targets
-            return Runtime.PropertyTypeCache.RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
-                .ToDictionary(x => x.Name.ToLowerInvariant(), x => x)
+            var properties = Runtime.PropertyTypeCache
+                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
+                .ToArray();
+
+            return properties
+                .Select(x => x.Name)
+                .Distinct()
+                .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.Name == x))
                 .Where(x => sourceProperties.Keys.Contains(x.Key))
                 .When(() => requiredProperties != null, q => q.Where(y => requiredProperties.Contains(y.Key)))
                 .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties.Contains(y.Key)))
@@ -313,7 +318,7 @@
                 return null;
 
             object target = null;
-            
+
             source.CreateTarget(targetType, false, ref target);
 
             switch (source)

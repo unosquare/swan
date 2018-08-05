@@ -140,30 +140,29 @@
                     return true;
                 }
 
-                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
-
                 if (targetProperty.PropertyType.IsArray)
                 {
-                    return PopulateArray(targetProperty, propertyValueString, result, optionAttr);
+                    return PopulateArray(targetProperty, propertyValueString, result);
                 }
 
-                if (!targetProperty.PropertyType.TryParseBasicType(propertyValueString, out var propertyValue))
+                if (!targetProperty.PropertyType.TryParseBasicType(propertyValueString, out var value))
                     return false;
 
-                targetProperty.SetValue(result, propertyValue);
+                targetProperty.SetValue(result, value);
                 return true;
             }
 
             private static bool PopulateArray(
                 PropertyInfo targetProperty,
                 string propertyValueString,
-                object result,
-                ArgumentOptionAttribute optionAttr)
+                object result)
             {
                 var itemType = targetProperty.PropertyType.GetElementType();
 
                 if (itemType == null)
                     return false;
+
+                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
                 var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
                 var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
