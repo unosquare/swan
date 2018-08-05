@@ -10,6 +10,7 @@
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of object to cache.</typeparam>
     public class CacheRepository<TType, T>
+        where TType : class
     {
         private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
 
