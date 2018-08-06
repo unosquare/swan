@@ -312,25 +312,11 @@
         {
             Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
         }
-
-        [Test]
-        public void NonPublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
-        {
-            Assert.IsNull(NonPublicProperty.GetCacheSetMethod());
-        }
-
+        
         [Test]
         public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
         {
             Assert.IsNotNull(NonPublicProperty.GetCacheSetMethod(true));
-        }
-
-        [Test]
-        public void CallTwice_ReturnsCache()
-        {
-            PublicProperty.GetCacheSetMethod();
-
-            Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
         }
     }
 }

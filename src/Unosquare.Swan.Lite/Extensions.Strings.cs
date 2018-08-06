@@ -106,11 +106,11 @@
         /// <summary>
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this string inputString, bool createHasher = false) =>
-            Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
+        public static byte[] ComputeMD5(this string value, bool createHasher = false) =>
+            Encoding.UTF8.GetBytes(value).ComputeMD5(createHasher);
 
         /// <summary>
         /// Computes the MD5 hash of the given byte array.
@@ -124,45 +124,45 @@
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA1 hash function
         /// </returns>
-        public static byte[] ComputeSha1(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha1(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA1.Create() : SHA1Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-256 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// by using the SHA256 hash function
         /// </returns>
-        public static byte[] ComputeSha256(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha256(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA256.Create() : SHA256Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-512 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA512 hash function
         /// </returns>
-        public static byte[] ComputeSha512(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha512(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA512.Create() : SHA512Hasher.Value).ComputeHash(inputBytes);
         }
 
@@ -171,21 +171,21 @@
         /// It tries to use InvariantCulture if the ToString(IFormatProvider)
         /// overload exists.
         /// </summary>
-        /// <param name="item">The item.</param>
+        /// <param name="obj">The item.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string ToStringInvariant(this object item)
+        public static string ToStringInvariant(this object obj)
         {
-            if (item == null)
+            if (obj == null)
                 return string.Empty;
 
-            var itemType = item.GetType();
+            var itemType = obj.GetType();
 
             if (itemType == typeof(string))
-                return item as string;
+                return obj as string;
 
             return Definitions.BasicTypesInfo.ContainsKey(itemType)
-                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(item)
-                : item.ToString();
+                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(obj)
+                : obj.ToString();
         }
 
         /// <summary>
@@ -207,21 +207,21 @@
         /// <summary>
         /// Removes the control characters from a string except for those specified.
         /// </summary>
-        /// <param name="input">The input.</param>
+        /// <param name="value">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
         /// <returns>
         /// A string that represents the current object
         /// </returns>
         /// <exception cref="ArgumentNullException">input</exception>
-        public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
+        public static string RemoveControlCharsExcept(this string value, params char[] excludeChars)
         {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
             if (excludeChars == null)
                 excludeChars = new char[] { };
 
-            return new string(input
+            return new string(value
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
                 .ToArray());
         }
