@@ -128,7 +128,8 @@
 
             var methods = type
                     .GetMethods(bindingFlags)
-                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(mi => mi.ContainsGenericParameters)
+                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
+                    .Where(mi => mi.ContainsGenericParameters)
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
                     .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
                     .Select(mi => mi.MakeGenericMethod(genericTypes))

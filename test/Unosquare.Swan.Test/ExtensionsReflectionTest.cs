@@ -209,49 +209,48 @@
     [TestFixture]
     public class GetMethod : TestFixtureBase
     {
-        private const string MethodName = "PostFile";
-
-        private readonly Type _type = typeof(JsonClient);
+        private readonly string _methodName = nameof(MethodCacheMock.GetMethodTest);
+        private readonly Type _type = typeof(MethodCacheMock);
         private readonly Type[] _genericTypes = {typeof(Task<string>)};
-        private readonly Type[] _parameterTypes = {typeof(string), typeof(byte[]), typeof(string), typeof(string)};
+        private readonly Type[] _parameterTypes = {typeof(string)};
 
-        private const BindingFlags BindingFlags = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static;
+        private const BindingFlags Flags = BindingFlags.Public | BindingFlags.Static;
 
         [Test]
         public void WithValidParams_ReturnsAnObject()
         {
-            var method = _type.GetMethod(BindingFlags, MethodName, _genericTypes, _parameterTypes);
+            var method = _type.GetMethod(Flags, _methodName, _genericTypes, _parameterTypes);
 
             Assert.AreEqual(method.ToString(),
-                "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] PostFile[Task`1](System.String, Byte[], System.String, System.String)");
+                "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] GetMethodTest[Task`1](System.String)");
         }
 
         [Test]
         public void WithNullSourceType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullType.GetMethod(BindingFlags, MethodName, _genericTypes, _parameterTypes));
+                NullType.GetMethod(Flags, _methodName, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullMethodName_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(BindingFlags, null, _genericTypes, _parameterTypes));
+                _type.GetMethod(Flags, null, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullGenericTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(BindingFlags, MethodName, null, _parameterTypes));
+                _type.GetMethod(Flags, _methodName, null, _parameterTypes));
         }
 
         [Test]
         public void WithNullParameterTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(BindingFlags, MethodName, _genericTypes, null));
+                _type.GetMethod(Flags, _methodName, _genericTypes, null));
         }
     }
 
