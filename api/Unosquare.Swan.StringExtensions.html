@@ -601,7 +601,7 @@ other than a hex char.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int Hex2Int(this char c)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int Hex2Int(this char value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -615,7 +615,7 @@ other than a hex char.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a></td>
-        <td><span class="parametername">c</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The c.</p>
 </td>
       </tr>
@@ -648,7 +648,7 @@ Camel Case and Snake_Case will be converted to Snake Case.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Humanize(this string identifierString)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Humanize(this string value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -662,7 +662,7 @@ Camel Case and Snake_Case will be converted to Snake Case.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">identifierString</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The identifier-style string.</p>
 </td>
       </tr>
@@ -694,7 +694,7 @@ per line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Indent(this string text, int spaces = 4)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Indent(this string value, int spaces = 4)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -708,7 +708,7 @@ per line.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">text</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The text.</p>
 </td>
       </tr>
@@ -745,7 +745,7 @@ per line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string RemoveControlChars(this string input)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string RemoveControlChars(this string value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -759,7 +759,7 @@ per line.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">input</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The input.</p>
 </td>
       </tr>
@@ -932,7 +932,7 @@ If the string is null it returns an empty string</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Slice(this string str, int startIndex, int endIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Slice(this string value, int startIndex, int endIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -946,7 +946,7 @@ If the string is null it returns an empty string</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">str</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The string.</p>
 </td>
       </tr>
@@ -1099,7 +1099,7 @@ column number</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, int&gt; TextPositionAt(this string str, int charIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, int&gt; TextPositionAt(this string value, int charIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1113,7 +1113,7 @@ column number</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">str</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The string.</p>
 </td>
       </tr>
@@ -1201,7 +1201,7 @@ column number</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string[] ToLines(this string text)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string[] ToLines(this string value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1215,7 +1215,7 @@ column number</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">text</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The text.</p>
 </td>
       </tr>
@@ -1247,7 +1247,7 @@ that are delimited by one or more characters in separator</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToSafeFilename(this string s)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string ToSafeFilename(this string value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1261,7 +1261,7 @@ that are delimited by one or more characters in separator</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">s</span></td>
+        <td><span class="parametername">value</span></td>
         <td><p>The s.</p>
 </td>
       </tr>
