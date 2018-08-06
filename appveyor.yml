@@ -50,7 +50,7 @@ test_script:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
-            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Unosquare.Labs.LiteLib.Tests\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
+            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Unosquare.Swan.Test\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
         }
 after_build:
 - ps: |
