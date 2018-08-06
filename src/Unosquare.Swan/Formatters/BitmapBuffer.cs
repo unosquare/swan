@@ -12,16 +12,14 @@ namespace Unosquare.Swan.Formatters
     /// loaded from an image that is passed on to the constructor.
     /// Data contains all the raw bytes (without scanline left-over bytes)
     /// where they can be quickly changed and then a new bitmap
-    /// can be created from the byte data
+    /// can be created from the byte data.
     /// </summary>
     public class BitmapBuffer
     {
-#region Constant Definitions
-
         /// <summary>
         /// A constant representing the number of
         /// bytes per pixel in the pixel data. This is
-        /// always 4 but it is kept here for readability
+        /// always 4 but it is kept here for readability.
         /// </summary>
         public const int BytesPerPixel = 4;
 
@@ -31,24 +29,20 @@ namespace Unosquare.Swan.Formatters
         public const int BOffset = 0;
         
         /// <summary>
-        /// The green byte offset within a pixel offset.  This is 1
+        /// The green byte offset within a pixel offset.  This is 1.
         /// </summary>
         public const int GOffset = 1;
         
         /// <summary>
-        /// The red byte offset within a pixel offset.  This is 2
+        /// The red byte offset within a pixel offset.  This is 2.
         /// </summary>
         public const int ROffset = 2;
         
         /// <summary>
-        /// The alpha byte offset within a pixel offset.  This is 3
+        /// The alpha byte offset within a pixel offset.  This is 3.
         /// </summary>
         public const int AOffset = 3;
-
-#endregion
-
-#region Constructor
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="BitmapBuffer"/> class.
         /// Data will not contain left-over stride bytes
@@ -57,14 +51,12 @@ namespace Unosquare.Swan.Formatters
         public BitmapBuffer(Image sourceImage)
         {
             // Acquire or create the source bitmap in a manageable format
-            var sourceBitmap = sourceImage as Bitmap;
             var disposeSourceBitmap = false;
-            if (sourceBitmap == null || sourceBitmap.PixelFormat != PixelFormat)
+            if (!(sourceImage is Bitmap sourceBitmap) || sourceBitmap.PixelFormat != PixelFormat)
             {
                 sourceBitmap = new Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat);
                 using (var g = Graphics.FromImage(sourceBitmap))
                 {
-                    // g.Clear(Color.Black);
                     g.DrawImage(sourceImage, 0, 0);
                 }
 
@@ -88,7 +80,7 @@ namespace Unosquare.Swan.Formatters
             Data = new byte[LineLength * sourceBitmap.Height];
 
             // copy line by line in order to ignore the useless left-over stride
-            Parallel.For(0, sourceBitmap.Height, (y) =>
+            Parallel.For(0, sourceBitmap.Height, y =>
             {
                 var sourceAddress = sourceDataLocker.Scan0 + (sourceDataLocker.Stride * y);
                 var targetAddress = y * LineLength;
@@ -104,16 +96,12 @@ namespace Unosquare.Swan.Formatters
                 sourceBitmap.Dispose();
             }
         }
-
-#endregion
-
-#region Properties
-
+        
         /// <summary>
         /// Contains all the bytes of the pixel data
         /// Each horizontal scanline is represented by LineLength
         /// rather than by LinceStride. The left-over stride bytes
-        /// are removed
+        /// are removed.
         /// </summary>
         public byte[] Data { get; }
 
@@ -128,38 +116,34 @@ namespace Unosquare.Swan.Formatters
         public int ImageHeight { get; }
 
         /// <summary>
-        /// Gets the pixel format. This will always be Format32bppArgb
+        /// Gets the pixel format. This will always be Format32bppArgb.
         /// </summary>
         public PixelFormat PixelFormat { get; } = PixelFormat.Format32bppArgb;
 
         /// <summary>
         /// Gets the length in bytes of a line of pixel data.
         /// Basically the same as Line Length except Stride might be a little larger as
-        /// some bitmaps might be DWORD-algned
+        /// some bitmaps might be DWORD-algned.
         /// </summary>
         public int LineStride { get; }
 
         /// <summary>
         /// Gets the length in bytes of a line of pixel data.
         /// Basically the same as Stride except Stride might be a little larger as
-        /// some bitmaps might be DWORD-algned
+        /// some bitmaps might be DWORD-algned.
         /// </summary>
         public int LineLength { get; }
-
-#endregion
-
-#region Methods
-
+        
         /// <summary>
         /// Gets the index of the first byte in the BGRA pixel data for the given image coordinates.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>Index of the first byte in the BGRA pixel</returns>
+        /// <returns>Index of the first byte in the BGRA pixel.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// x
         /// or
-        /// y
+        /// y.
         /// </exception>
         public int GetPixelOffset(int x, int y)
         {
@@ -173,13 +157,13 @@ namespace Unosquare.Swan.Formatters
         /// Converts the pixel data bytes held in the buffer
         /// to a 32-bit RGBA bitmap.
         /// </summary>
-        /// <returns>Pixel data for a graphics image and its attribute</returns>
+        /// <returns>Pixel data for a graphics image and its attribute.</returns>
         public Bitmap ToBitmap()
         {
             var bitmap = new Bitmap(ImageWidth, ImageHeight, PixelFormat);
             var bitLocker = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
 
-            Parallel.For(0, bitmap.Height, (y) =>
+            Parallel.For(0, bitmap.Height, y =>
             {
                 var sourceOffset = GetPixelOffset(0, y);
                 var targetOffset = bitLocker.Scan0 + (y * bitLocker.Stride);
@@ -190,9 +174,6 @@ namespace Unosquare.Swan.Formatters
 
             return bitmap;
         }
-
-#endregion
-
     }
 }
 #endif

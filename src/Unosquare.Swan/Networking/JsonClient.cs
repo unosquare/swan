@@ -316,7 +316,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested string</returns>
         public static async Task<string> SendAsync(HttpMethod method,
             string url,

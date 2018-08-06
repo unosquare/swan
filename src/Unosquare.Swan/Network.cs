@@ -193,7 +193,7 @@
         /// Gets the DNS host entry (a list of IP addresses) for the domain name.
         /// </summary>
         /// <param name="fqdn">The FQDN.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>An array of local ip addresses of the result produced by this task</returns>
         public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn,
             CancellationToken ct = default)
@@ -269,7 +269,7 @@
         /// <param name="query">The query.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port,
             CancellationToken ct = default)
@@ -291,7 +291,7 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query,
             CancellationToken ct = default)
@@ -325,7 +325,7 @@
         /// <param name="recordType">Type of the record.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>Queries the DNS server for the specified record type of the result produced by this Task</returns>
         public static Task<DnsQueryResult> QueryDnsAsync(
             string query,

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Represents errors that occurs requesting a JSON file through HTTP
+    /// Represents errors that occurs requesting a JSON file through HTTP.
     /// </summary>
     /// <seealso cref="System.Exception" />
 #if !NETSTANDARD1_3 && !UWP

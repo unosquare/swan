@@ -503,7 +503,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Requests the LDAP message.
         /// </summary>
         /// <param name="msg">The MSG.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         internal async Task RequestLdapMessage(LdapMessage msg,
             CancellationToken ct = default)

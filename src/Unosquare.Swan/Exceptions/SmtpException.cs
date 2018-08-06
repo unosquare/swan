@@ -4,7 +4,7 @@ namespace Unosquare.Swan.Exceptions
     using Networking;
 
     /// <summary>
-    /// Defines an SMTP Exceptions class
+    /// Defines an SMTP Exceptions class.
     /// </summary>
     public class SmtpException : System.Exception
     {
