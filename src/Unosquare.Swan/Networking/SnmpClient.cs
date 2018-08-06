@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents a little SNMP client based on http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm
+    /// Represents a little SNMP client based on http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm.
     /// </summary>
     public class SnmpClient
     {
@@ -72,7 +72,7 @@
         /// <param name="host">The host.</param>
         /// <returns>
         /// A string that contains the results of decoding the specified sequence 
-        /// of bytes ref=GetString"
+        /// of bytes ref=GetString".
         /// </returns>
         public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
 
@@ -83,7 +83,7 @@
         /// <param name="mibstring">The mibstring.</param>
         /// <returns>
         ///  A time interval that represents a specified number of seconds, 
-        ///  where the specification is accurate to the nearest millisecond
+        ///  where the specification is accurate to the nearest millisecond.
         ///  </returns>
         public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
         {
@@ -114,7 +114,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string GetString(IPEndPoint host, string mibstring)
         {
             var response = Get(host, mibstring);
@@ -136,7 +136,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] Get(IPEndPoint host, string mibstring) => Get("get", host, "public", mibstring);
 
         /// <summary>
@@ -146,7 +146,7 @@
         /// <param name="host">The host.</param>
         /// <param name="community">The community.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)
         {
             var packet = new byte[1024];
@@ -192,6 +192,7 @@
             // Community name
             packet[pos++] = 0x04; // String type
             packet[pos++] = Convert.ToByte(comlen); // length
+
             // Convert community name to byte array
             var data = Encoding.ASCII.GetBytes(community);
 
