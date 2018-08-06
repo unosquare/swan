@@ -13,7 +13,7 @@
         /// <value>
         ///   <c>true</c> if this instance is ok; otherwise, <c>false</c>.
         /// </value>
-        public bool IsOk { get; set; }
+        public bool IsOk => Ok != null;
 
         /// <summary>
         /// Gets or sets the ok.
@@ -30,5 +30,19 @@
         /// The error.
         /// </value>
         public TError Error { get; set; } = default;
+
+        /// <summary>
+        /// Creates a new OkOrError froms the Ok object specified.
+        /// </summary>
+        /// <param name="ok">The ok.</param>
+        /// <returns>OkOrError instance.</returns>
+        public static OkOrError<T, TError> FromOk(T ok) => new OkOrError<T, TError> { Ok = ok };
+
+        /// <summary>
+        /// Creates a new OkOrError froms the Error object specified.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        /// <returns>OkOrError instance.</returns>
+        public static OkOrError<T, TError> FromError(TError error) => new OkOrError<T, TError> { Error = error };
     }
 }

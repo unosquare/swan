@@ -18,9 +18,7 @@
     public class JsonClient
     {
         private const string JsonMimeType = "application/json";
-
-        #region Methods
-
+        
         /// <summary>
         /// Post a object as JSON with optional authorization token.
         /// </summary>
@@ -70,19 +68,16 @@
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return new OkOrError<T, TE>
-                    {
-                        IsOk = true,
-                        Ok = !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default
-                    };
+                    return OkOrError<T, TE>.FromOk(!string.IsNullOrEmpty(jsonString)
+                        ? Json.Deserialize<T>(jsonString)
+                        : default);
                 }
 
                 if ((int)response.StatusCode == httpStatusError)
                 {
-                    return new OkOrError<T, TE>
-                    {
-                        Error = !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<TE>(jsonString) : default
-                    };
+                    return OkOrError<T, TE>.FromError(!string.IsNullOrEmpty(jsonString) 
+                        ? Json.Deserialize<TE>(jsonString) 
+                        : default);
                 }
 
                 return new OkOrError<T, TE>();
@@ -285,14 +280,18 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>A task with a result of the requested string</returns>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// A task with a result of the requested string.
+        /// </returns>
         public static Task<string> PostFileString(
             string url,
             byte[] buffer,
             string fileName,
-            string authorization = null)
+            string authorization = null,
+            CancellationToken ct = default)
         {
-            return PostString(url, new { Filename = fileName, Data = buffer }, authorization);
+            return PostString(url, new { Filename = fileName, Data = buffer }, authorization, ct);
         }
 
         /// <summary>
@@ -303,10 +302,16 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>A task with a result of the requested string</returns>
-        public static Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>A task with a result of the requested string.</returns>
+        public static Task<T> PostFile<T>(
+            string url, 
+            byte[] buffer, 
+            string fileName, 
+            string authorization = null,
+            CancellationToken ct = default)
         {
-            return Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
+            return Post<T>(url, new { Filename = fileName, Data = buffer }, authorization, ct);
         }
         
         /// <summary>
@@ -339,11 +344,7 @@
                 return await response.Content.ReadAsStringAsync();
             }
         }
-
-        #endregion
-
-        #region Private Methods
-
+        
         private static HttpClient GetHttpClientWithAuthorizationHeader(string authorization)
         {
             var httpClient = new HttpClient();
@@ -375,6 +376,5 @@
                 return response.Content;
             }
         }
-        #endregion
     }
 }
