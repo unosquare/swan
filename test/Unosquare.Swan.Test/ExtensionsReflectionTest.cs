@@ -266,25 +266,25 @@
     public class GetCacheGetMethod : GetCacheMethodInfo
     {
         [Test]
-        public void PublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        public void PublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
         {
             Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
         }
 
         [Test]
-        public void PublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        public void PublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
         {
             Assert.IsNotNull(PublicProperty.GetCacheGetMethod(true));
         }
 
         [Test]
-        public void NonPublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        public void NonPublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
         {
             Assert.IsNull(NonPublicProperty.GetCacheGetMethod());
         }
 
         [Test]
-        public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        public void NonPublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
         {
             Assert.IsNotNull(NonPublicProperty.GetCacheGetMethod(true));
         }
@@ -302,19 +302,19 @@
     public class GetCacheSetMethod : GetCacheMethodInfo
     {
         [Test]
-        public void PublicPropertyOnlyPublicFlag_ReturnsMemberInfo()
+        public void PublicPropertyOnlyPublicFlag_ReturnsSetMethodInfo()
         {
             Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
         }
 
         [Test]
-        public void PublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        public void PublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
         {
             Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
         }
         
         [Test]
-        public void NonPublicPropertyNoPublicFlag_ReturnsMemberInfo()
+        public void NonPublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
         {
             Assert.IsNotNull(NonPublicProperty.GetCacheSetMethod(true));
         }
