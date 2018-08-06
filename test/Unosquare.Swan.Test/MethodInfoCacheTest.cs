@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Unosquare.Swan.Test.MethodInfoCacheTest
+﻿namespace Unosquare.Swan.Test.MethodInfoCacheTest
 {
+    using System;
     using NUnit.Framework;
     using Mocks;
 
@@ -52,6 +51,7 @@ namespace Unosquare.Swan.Test.MethodInfoCacheTest
         [Test]
         public void ContainsWithNullType_ThrowsError()
         {
+            // TODO: Move this and test blwo to another implementation CacheRepository
             Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Contains(null));
         }
         

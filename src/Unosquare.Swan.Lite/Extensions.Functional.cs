@@ -13,7 +13,7 @@
         /// Whens the specified condition.
         /// </summary>
         /// <typeparam name="T">The type of IQueryable</typeparam>
-        /// <param name="this">The this.</param>
+        /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
         /// <returns>
@@ -27,12 +27,12 @@
         /// fn
         /// </exception>
         public static IQueryable<T> When<T>(
-            this IQueryable<T> @this,
+            this IQueryable<T> list,
             Func<bool> condition,
             Func<IQueryable<T>, IQueryable<T>> fn)
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
 
             if (condition == null)
                 throw new ArgumentNullException(nameof(condition));
@@ -40,14 +40,14 @@
             if (fn == null)
                 throw new ArgumentNullException(nameof(fn));
 
-            return condition() ? fn(@this) : @this;
+            return condition() ? fn(list) : list;
         }
 
         /// <summary>
         /// Whens the specified condition.
         /// </summary>
         /// <typeparam name="T">The type of IEnumerable</typeparam>
-        /// <param name="this">The this.</param>
+        /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
         /// <returns>
@@ -61,12 +61,12 @@
         /// fn
         /// </exception>
         public static IEnumerable<T> When<T>(
-            this IEnumerable<T> @this,
+            this IEnumerable<T> list,
             Func<bool> condition,
             Func<IEnumerable<T>, IEnumerable<T>> fn)
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
 
             if (condition == null)
                 throw new ArgumentNullException(nameof(condition));
@@ -74,14 +74,14 @@
             if (fn == null)
                 throw new ArgumentNullException(nameof(fn));
 
-            return condition() ? fn(@this) : @this;
+            return condition() ? fn(list) : list;
         }
 
         /// <summary>
         /// Adds the value when the condition is true.
         /// </summary>
         /// <typeparam name="T">The type of IList element</typeparam>
-        /// <param name="this">The this.</param>
+        /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -95,12 +95,12 @@
         /// value
         /// </exception>
         public static IList<T> AddWhen<T>(
-            this IList<T> @this,
+            this IList<T> list,
             Func<bool> condition,
             Func<T> value)
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
 
             if (condition == null)
                 throw new ArgumentNullException(nameof(condition));
@@ -109,16 +109,16 @@
                 throw new ArgumentNullException(nameof(value));
 
             if (condition())
-                @this.Add(value());
+                list.Add(value());
 
-            return @this;
+            return list;
         }
 
         /// <summary>
         /// Adds the value when the condition is true.
         /// </summary>
         /// <typeparam name="T">The type of IList element</typeparam>
-        /// <param name="this">The this.</param>
+        /// <param name="list">The list.</param>
         /// <param name="condition">if set to <c>true</c> [condition].</param>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -126,24 +126,24 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">this</exception>
         public static IList<T> AddWhen<T>(
-            this IList<T> @this,
+            this IList<T> list,
             bool condition,
             T value)
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
 
             if (condition)
-                @this.Add(value);
+                list.Add(value);
 
-            return @this;
+            return list;
         }
 
         /// <summary>
         /// Adds the range when the condition is true.
         /// </summary>
         /// <typeparam name="T">The type of List element</typeparam>
-        /// <param name="this">The this.</param>
+        /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -157,12 +157,12 @@
         /// value
         /// </exception>
         public static List<T> AddRangeWhen<T>(
-            this List<T> @this,
+            this List<T> list,
             Func<bool> condition,
             Func<IEnumerable<T>> value)
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
 
             if (condition == null)
                 throw new ArgumentNullException(nameof(condition));
@@ -171,9 +171,9 @@
                 throw new ArgumentNullException(nameof(value));
 
             if (condition())
-                @this.AddRange(value());
+                list.AddRange(value());
 
-            return @this;
+            return list;
         }
     }
 }

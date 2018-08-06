@@ -280,18 +280,18 @@
         /// <summary>
         /// Gets the copyable properties.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="obj">The object.</param>
         /// <returns>
-        /// Array of properties
+        /// Array of properties.
         /// </returns>
         /// <exception cref="ArgumentNullException">model</exception>
-        public static string[] GetCopyableProperties(this object model)
+        public static string[] GetCopyableProperties(this object obj)
         {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
 
             return Runtime.PropertyTypeCache
-                .RetrieveAllProperties(model.GetType(), true)
+                .RetrieveAllProperties(obj.GetType(), true)
                 .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
@@ -301,11 +301,11 @@
         /// <summary>
         /// Returns true if the object is valid.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="obj">The object.</param>
         /// <returns>
         ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsValid(this object model) => Runtime.ObjectValidator.IsValid(model);
+        public static bool IsValid(this object obj) => Runtime.ObjectValidator.IsValid(obj);
 
         internal static void CreateTarget(
             this object source,

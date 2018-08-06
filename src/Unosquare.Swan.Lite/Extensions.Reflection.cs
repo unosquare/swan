@@ -95,7 +95,7 @@
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
-        /// <param name="sourceType">Type of the source.</param>
+        /// <param name="type">Type of the source.</param>
         /// <param name="bindingFlags">The binding flags.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="genericTypes">The generic types.</param>
@@ -108,14 +108,14 @@
         /// binding criteria. This class cannot be inherited
         /// </exception>
         public static MethodInfo GetMethod(
-            this Type sourceType,
+            this Type type,
             BindingFlags bindingFlags,
             string methodName,
             Type[] genericTypes,
             Type[] parameterTypes)
         {
-            if (sourceType == null)
-                throw new ArgumentNullException(nameof(sourceType));
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
 
             if (methodName == null)
                 throw new ArgumentNullException(nameof(methodName));
@@ -126,7 +126,7 @@
             if (parameterTypes == null)
                 throw new ArgumentNullException(nameof(parameterTypes));
 
-            var methods = sourceType
+            var methods = type
                     .GetMethods(bindingFlags)
                     .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(mi => mi.ContainsGenericParameters)
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
@@ -359,15 +359,15 @@
         /// <summary>
         /// Tries to set a property array with another array.
         /// </summary>
-        /// <param name="property">The property.</param>
+        /// <param name="propertyInfo">The property.</param>
         /// <param name="value">The value.</param>
         /// <param name="obj">The object.</param>
         /// <returns>
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArray(this PropertyInfo property, object[] value, object obj)
+        public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)
         {
-            var elementType = property.PropertyType.GetElementType();
+            var elementType = propertyInfo.PropertyType.GetElementType();
 
             if (elementType == null)
                 return false;
@@ -380,7 +380,7 @@
                 elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
             }
 
-            property.SetValue(obj, targetArray);
+            propertyInfo.SetValue(obj, targetArray);
 
             return true;
         }
