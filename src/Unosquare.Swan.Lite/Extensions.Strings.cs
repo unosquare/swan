@@ -2,7 +2,6 @@
 {
     using Formatters;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Security.Cryptography;
@@ -260,7 +259,7 @@
                 var jsonText = Json.Serialize(obj, false, "$type");
                 var jsonData = Json.Deserialize(jsonText);
 
-                return HumanizeJson(jsonData, 0);
+                return new HumanizeJson(jsonData, 0).GetResult();
             }
             catch
             {
@@ -516,128 +515,6 @@
                     : value >= 'a' && value <= 'f'
                         ? value - 'a' + 10
                         : -1;
-        }
-
-        /// <summary>
-        /// Humanizes a JSON serialization result.
-        /// jsonResult has to be a Dictionary[string,object] or List[object]
-        /// </summary>
-        /// <param name="obj">The json result.</param>
-        /// <param name="indent">The indent.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        private static string HumanizeJson(object obj, int indent)
-        {
-            if (obj == null)
-                return string.Empty;
-
-            var builder = new StringBuilder();
-            var indentStr = new string(' ', indent * 4);
-
-            switch (obj)
-            {
-                case Dictionary<string, object> dictionary:
-                    foreach (var kvp in dictionary)
-                    {
-                        if (kvp.Value == null) continue;
-
-                        var writeOutput = false;
-
-                        switch (kvp.Value)
-                        {
-                            case Dictionary<string, object> valueDictionary:
-                                if (valueDictionary.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}{kvp.Key,-16}: object")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            case List<object> valueList:
-                                if (valueList.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            default:
-                                writeOutput = true;
-                                builder.Append($"{indentStr}{kvp.Key,-16}: ");
-                                break;
-                        }
-
-                        if (writeOutput)
-                            builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
-                    }
-
-                    break;
-                case List<object> list:
-                    var index = 0;
-                    foreach (var value in list)
-                    {
-                        var writeOutput = false;
-
-                        switch (value)
-                        {
-                            case Dictionary<string, object> valueDictionary:
-                                if (valueDictionary.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}[{index}]: object")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            case List<object> valueList:
-                                if (valueList.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}[{index}]: array[{valueList.Count}]")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            default:
-                                writeOutput = true;
-                                builder.Append($"{indentStr}[{index}]: ");
-                                break;
-                        }
-
-                        index++;
-                        if (writeOutput)
-                            builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
-                    }
-
-                    break;
-                default:
-                    var stringValue = obj.ToString();
-
-                    if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
-                        stringValue.IndexOf('\n') >= 0)
-                    {
-                        builder.AppendLine();
-                        var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
-
-                        foreach (var line in stringLines)
-                        {
-                            builder.AppendLine($"{indentStr}{line}");
-                        }
-                    }
-                    else
-                    {
-                        builder.Append($"{stringValue}");
-                    }
-
-                    break;
-            }
-
-            return builder.ToString().TrimEnd();
         }
     }
 }
