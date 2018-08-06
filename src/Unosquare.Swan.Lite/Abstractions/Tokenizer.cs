@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Represents a generic tokenizer
+    /// Represents a generic tokenizer.
     /// </summary>
     public abstract class Tokenizer
     {
@@ -121,7 +121,7 @@
         /// Resolves the type of the function or member.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>The token type</returns>
+        /// <returns>The token type.</returns>
         public abstract TokenType ResolveFunctionOrMemberType(string input);
 
         /// <summary>
@@ -379,7 +379,7 @@
     }
 
     /// <summary>
-    /// Represents a Token structure
+    /// Represents a Token structure.
     /// </summary>
     public struct Token
     {
@@ -412,7 +412,7 @@
     }
 
     /// <summary>
-    /// Enums the token types
+    /// Enums the token types.
     /// </summary>
     public enum TokenType
     {

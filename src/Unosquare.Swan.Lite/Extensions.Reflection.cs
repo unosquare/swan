@@ -12,6 +12,12 @@
     /// </summary>
     public static class ReflectionExtensions
     {
+        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
+            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+
+        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
+            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+
         #region Assembly Extensions
 
         /// <summary>
@@ -89,7 +95,7 @@
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
-        /// <param name="sourceType">Type of the source.</param>
+        /// <param name="type">Type of the source.</param>
         /// <param name="bindingFlags">The binding flags.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="genericTypes">The generic types.</param>
@@ -102,14 +108,14 @@
         /// binding criteria. This class cannot be inherited
         /// </exception>
         public static MethodInfo GetMethod(
-            this Type sourceType,
+            this Type type,
             BindingFlags bindingFlags,
             string methodName,
             Type[] genericTypes,
             Type[] parameterTypes)
         {
-            if (sourceType == null)
-                throw new ArgumentNullException(nameof(sourceType));
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
 
             if (methodName == null)
                 throw new ArgumentNullException(nameof(methodName));
@@ -120,10 +126,10 @@
             if (parameterTypes == null)
                 throw new ArgumentNullException(nameof(parameterTypes));
 
-            var methods =
-                sourceType.GetMethods(bindingFlags).Where(
-                        mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
-                        mi => mi.ContainsGenericParameters)
+            var methods = type
+                    .GetMethods(bindingFlags)
+                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
+                    .Where(mi => mi.ContainsGenericParameters)
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
                     .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
                     .Select(mi => mi.MakeGenericMethod(genericTypes))
@@ -269,8 +275,116 @@
         /// <returns>
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        public static bool TryParseBasicType(this Type type, object value, out object result)
+            => TryParseBasicType(type, value.ToStringInvariant(), out result);
+
+        /// <summary>
+        /// Tries to parse using the basic types.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
-            => Definitions.BasicTypesInfo[type].TryParse(value, out result);
+        {
+            if (Definitions.BasicTypesInfo.ContainsKey(type))
+                return Definitions.BasicTypesInfo[type].TryParse(value, out result);
+
+            result = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Tries the type of the set basic value to a property.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetBasicType(this PropertyInfo property, object value, object obj)
+        {
+            try
+            {
+                if (property.PropertyType.TryParseBasicType(value, out var propertyValue))
+                {
+                    property.SetValue(obj, propertyValue);
+                    return true;
+                }
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries the type of the set to an array a basic type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetArrayBasicType(this Type type, object value, Array array, int index)
+        {
+            try
+            {
+                if (value == null)
+                {
+                    array.SetValue(null, index);
+                    return true;
+                }
+
+                if (type.TryParseBasicType(value, out var propertyValue))
+                {
+                    array.SetValue(propertyValue, index);
+                    return true;
+                }
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to set a property array with another array.
+        /// </summary>
+        /// <param name="propertyInfo">The property.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)
+        {
+            var elementType = propertyInfo.PropertyType.GetElementType();
+
+            if (elementType == null)
+                return false;
+
+            var targetArray = Array.CreateInstance(elementType, value.Length);
+
+            var i = 0;
+            foreach (var sourceElement in value)
+            {
+                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+            }
+
+            propertyInfo.SetValue(obj, targetArray);
+
+            return true;
+        }
 
         /// <summary>
         /// Gets property value or null.
@@ -296,6 +410,49 @@
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets a MethodInfo from a Property Get method.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>
+        /// The cached MethodInfo.
+        /// </returns>
+        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value, true);
+
+        /// <summary>
+        /// Gets a MethodInfo from a Property Set method.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>
+        /// The cached MethodInfo.
+        /// </returns>
+        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value, false);
+
+        private static MethodInfo GetMethodInfoCache(
+            PropertyInfo propertyInfo,
+            bool nonPublic,
+            Dictionary<PropertyInfo, MethodInfo> cache,
+            bool isGet)
+        {
+            MethodInfo methodInfo;
+
+            if (!cache.ContainsKey(propertyInfo))
+            {
+                methodInfo = isGet ? propertyInfo.GetGetMethod(true) : propertyInfo.GetSetMethod(true);
+                cache[propertyInfo] = methodInfo;
+            }
+            else
+            {
+                methodInfo = cache[propertyInfo];
+            }
+
+            return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
         private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)

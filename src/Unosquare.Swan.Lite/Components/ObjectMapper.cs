@@ -107,22 +107,11 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(source.GetType(), true)
-                .Where(x => x.CanRead)
-                .ToArray();
-
             return Copy(
                 target,
                 propertiesToCopy,
                 ignoreProperties,
-                sourceProperties
-                    .Select(x => x.Name)
-                    .Distinct()
-                    .ToDictionary(
-                        x => x.ToLowerInvariant(),
-                        x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
-                            sourceProperties.First(y => y.Name == x).GetValue(source))));
+                GetSourceMap(source));
         }
 
         /// <summary>
@@ -156,7 +145,9 @@
                 target,
                 propertiesToCopy,
                 ignoreProperties,
-                source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
+                source.ToDictionary(
+                    x => x.Key.ToLowerInvariant(),
+                    x => new TypeValuePair(typeof(object), x.Value)));
         }
 
         /// <summary>
@@ -190,11 +181,11 @@
                 throw new InvalidOperationException("Types doesn't match");
             }
 
-            var objMap = new ObjectMap<TSource, TDestination>(intersect);
+            var map = new ObjectMap<TSource, TDestination>(intersect);
 
-            _maps.Add(objMap);
+            _maps.Add(map);
 
-            return objMap;
+            return map;
         }
 
         /// <summary>
@@ -250,92 +241,78 @@
             IEnumerable<string> ignoreProperties,
             Dictionary<string, TypeValuePair> sourceProperties)
         {
-            var copiedProperties = 0;
-
-            // Targets
-            var targetType = target.GetType();
-            var targetProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(targetType, true)
-                .Where(x => x.CanWrite)
-                .ToList();
-
             // Filter properties
-            var targetPropertyNames = targetProperties
-                .Select(t => t.Name.ToLowerInvariant());
+            var requiredProperties = propertiesToCopy?
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant());
 
-            var filteredSourceProperties = sourceProperties
-                .Where(s => targetPropertyNames.Contains(s.Key))
+            var ignoredProperties = ignoreProperties?
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant());
+
+            var properties = Runtime.PropertyTypeCache
+                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
                 .ToArray();
 
-            var requiredProperties = propertiesToCopy?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            var ignoredProperties = ignoreProperties?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            // Copy source properties
-            foreach (var sourceProperty in filteredSourceProperties)
-            {
-                var targetProperty = targetProperties
-                    .First(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
-
-                if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                try
-                {
-                    SetValue(sourceProperty.Value, target, targetProperty);
-                    copiedProperties++;
-                }
-                catch
-                {
-                    // swallow
-                }
-            }
-
-            return copiedProperties;
+            return properties
+                .Select(x => x.Name)
+                .Distinct()
+                .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.Name == x))
+                .Where(x => sourceProperties.Keys.Contains(x.Key))
+                .When(() => requiredProperties != null, q => q.Where(y => requiredProperties.Contains(y.Key)))
+                .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties.Contains(y.Key)))
+                .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
+                .Sum(x => TrySetValue(x, target) ? 1 : 0);
         }
 
-        private static void SetValue(TypeValuePair valueType, object target, PropertyInfo targetProperty)
+        private static bool TrySetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
         {
-            if (valueType.Type.GetTypeInfo().IsEnum)
+            try
             {
-                targetProperty.SetValue(target,
-                    Enum.ToObject(targetProperty.PropertyType, valueType.Value));
+                SetValue(property, target);
+                return true;
+            }
+            catch
+            {
+                // swallow
+            }
+
+            return false;
+        }
+
+        private static void SetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
+        {
+            if (property.Value.Type.GetTypeInfo().IsEnum)
+            {
+                property.Key.SetValue(target,
+                    Enum.ToObject(property.Key.PropertyType, property.Value.Value));
 
                 return;
             }
 
-            if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
+            if (!property.Value.Type.IsValueType() && property.Key.PropertyType == property.Value.Type)
             {
-                targetProperty.SetValue(target,
-                    valueType.Value != null ? GetValue(valueType.Value, targetProperty.PropertyType) : null);
+                property.Key.SetValue(target, GetValue(property.Value.Value, property.Key.PropertyType));
 
                 return;
             }
 
-            if (targetProperty.PropertyType == typeof(bool))
+            if (property.Key.PropertyType == typeof(bool))
             {
-                targetProperty.SetValue(target,
-                    Convert.ToBoolean(valueType.Value));
+                property.Key.SetValue(target,
+                    Convert.ToBoolean(property.Value.Value));
 
                 return;
             }
 
-            // String to target type conversion
-            if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
-                out var targetValue))
-            {
-                targetProperty.SetValue(target, targetValue);
-            }
+            property.Key.TrySetBasicType(property.Value.Value, target);
         }
 
         private static object GetValue(object source, Type targetType)
         {
+            if (source == null)
+                return null;
+
             object target = null;
 
             source.CreateTarget(targetType, false, ref target);
@@ -345,49 +322,42 @@
                 case string _:
                     target = source;
                     break;
-                case IList sourceList:
-                    var targetArray = target as Array;
-                    var targetList = target as IList;
-
-                    // Case 2.1: Source is List, Target is Array
-                    if (targetArray != null)
+                case IList sourceList when target is Array targetArray:
+                    for (var i = 0; i < sourceList.Count; i++)
                     {
-                        for (var i = 0; i < sourceList.Count; i++)
+                        try
                         {
-                            try
-                            {
-                                targetArray.SetValue(
-                                    sourceList[i].GetType().IsValueType()
-                                        ? sourceList[i]
-                                        : sourceList[i].CopyPropertiesToNew<object>(), i);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                            targetArray.SetValue(
+                                sourceList[i].GetType().IsValueType()
+                                    ? sourceList[i]
+                                    : sourceList[i].CopyPropertiesToNew<object>(), i);
+                        }
+                        catch
+                        {
+                            // ignored
                         }
                     }
-                    else if (targetList != null)
+
+                    break;
+                case IList sourceList when target is IList targetList:
+                    var addMethod = targetType.GetMethods()
+                        .FirstOrDefault(
+                            m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
+                                 m.GetParameters().Length == 1);
+
+                    if (addMethod == null) return target;
+
+                    foreach (var item in sourceList)
                     {
-                        // Case 2.2: Source is List,  Target is IList
-                        // find the add method of the target list
-                        var addMethod = targetType.GetMethods()
-                            .FirstOrDefault(
-                                m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
-                                     m.GetParameters().Length == 1);
-
-                        if (addMethod == null) return target;
-
-                        foreach (var item in sourceList)
+                        try
                         {
-                            try
-                            {
-                                targetList.Add(item.GetType().IsValueType() ? item : item.CopyPropertiesToNew<object>());
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                            targetList.Add(item.GetType().IsValueType()
+                                ? item
+                                : item.CopyPropertiesToNew<object>());
+                        }
+                        catch
+                        {
+                            // ignored
                         }
                     }
 
@@ -398,6 +368,22 @@
             }
 
             return target;
+        }
+
+        private static Dictionary<string, TypeValuePair> GetSourceMap(object source)
+        {
+            // select distinct properties because they can be duplicated by inheritance
+            var sourceProperties = Runtime.PropertyTypeCache
+                .RetrieveFilteredProperties(source.GetType(), true, x => x.CanRead)
+                .ToArray();
+
+            return sourceProperties
+                .Select(x => x.Name)
+                .Distinct()
+                .ToDictionary(
+                    x => x.ToLowerInvariant(),
+                    x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
+                        sourceProperties.First(y => y.Name == x).GetValue(source)));
         }
 
         internal class TypeValuePair

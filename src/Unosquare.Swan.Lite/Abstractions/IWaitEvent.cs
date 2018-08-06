@@ -15,7 +15,7 @@
 
         /// <summary>
         /// Gets a value indicating whether the Begin method has been called.
-        /// It returns false after the Complete method is called
+        /// It returns false after the Complete method is called.
         /// </summary>
         bool IsInProgress { get; }
 
@@ -31,7 +31,7 @@
 
         /// <summary>
         /// Enters the state in which waiters need to wait.
-        /// All future waiters will block when they call the Wait method
+        /// All future waiters will block when they call the Wait method.
         /// </summary>
         void Begin();
 
@@ -42,16 +42,16 @@
         void Complete();
 
         /// <summary>
-        /// Waits for the event to be completed
+        /// Waits for the event to be completed.
         /// </summary>
         void Wait();
 
         /// <summary>
         /// Waits for the event to be completed.
-        /// Returns True when there was no timeout. False if the tiemout was reached
+        /// Returns <c>true</c> when there was no timeout. False if the tiemout was reached.
         /// </summary>
         /// <param name="timeout">The maximum amount of time to wait for.</param>
-        /// <returns>True when there was no timeout. False if the tiemout was reached</returns>
+        /// <returns><c>true</c> when there was no timeout. <c>false</c> if the tiemout was reached.</returns>
         bool Wait(TimeSpan timeout);
     }
 }

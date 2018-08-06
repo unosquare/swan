@@ -2,7 +2,6 @@
 {
     using Formatters;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Security.Cryptography;
@@ -106,11 +105,11 @@
         /// <summary>
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this string inputString, bool createHasher = false) =>
-            Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
+        public static byte[] ComputeMD5(this string value, bool createHasher = false) =>
+            Encoding.UTF8.GetBytes(value).ComputeMD5(createHasher);
 
         /// <summary>
         /// Computes the MD5 hash of the given byte array.
@@ -124,45 +123,45 @@
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA1 hash function
         /// </returns>
-        public static byte[] ComputeSha1(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha1(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA1.Create() : SHA1Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-256 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// by using the SHA256 hash function
         /// </returns>
-        public static byte[] ComputeSha256(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha256(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA256.Create() : SHA256Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-512 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="inputString">The input string.</param>
+        /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA512 hash function
         /// </returns>
-        public static byte[] ComputeSha512(this string inputString, bool createHasher = false)
+        public static byte[] ComputeSha512(this string value, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
+            var inputBytes = Encoding.UTF8.GetBytes(value);
             return (createHasher ? SHA512.Create() : SHA512Hasher.Value).ComputeHash(inputBytes);
         }
 
@@ -171,21 +170,21 @@
         /// It tries to use InvariantCulture if the ToString(IFormatProvider)
         /// overload exists.
         /// </summary>
-        /// <param name="item">The item.</param>
+        /// <param name="obj">The item.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string ToStringInvariant(this object item)
+        public static string ToStringInvariant(this object obj)
         {
-            if (item == null)
+            if (obj == null)
                 return string.Empty;
 
-            var itemType = item.GetType();
+            var itemType = obj.GetType();
 
             if (itemType == typeof(string))
-                return item as string;
+                return obj as string;
 
             return Definitions.BasicTypesInfo.ContainsKey(itemType)
-                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(item)
-                : item.ToString();
+                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(obj)
+                : obj.ToString();
         }
 
         /// <summary>
@@ -207,21 +206,21 @@
         /// <summary>
         /// Removes the control characters from a string except for those specified.
         /// </summary>
-        /// <param name="input">The input.</param>
+        /// <param name="value">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
         /// <returns>
         /// A string that represents the current object
         /// </returns>
         /// <exception cref="ArgumentNullException">input</exception>
-        public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
+        public static string RemoveControlCharsExcept(this string value, params char[] excludeChars)
         {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
             if (excludeChars == null)
                 excludeChars = new char[] { };
 
-            return new string(input
+            return new string(value
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
                 .ToArray());
         }
@@ -229,10 +228,10 @@
         /// <summary>
         /// Removes all control characters from a string, including new line sequences.
         /// </summary>
-        /// <param name="input">The input.</param>
+        /// <param name="value">The input.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         /// <exception cref="ArgumentNullException">input</exception>
-        public static string RemoveControlChars(this string input) => input.RemoveControlCharsExcept(null);
+        public static string RemoveControlChars(this string value) => value.RemoveControlCharsExcept(null);
 
         /// <summary>
         /// Outputs JSON string representing this object
@@ -260,7 +259,7 @@
                 var jsonText = Json.Serialize(obj, false, "$type");
                 var jsonData = Json.Deserialize(jsonText);
 
-                return HumanizeJson(jsonData, 0);
+                return new HumanizeJson(jsonData, 0).GetResult();
             }
             catch
             {
@@ -273,18 +272,18 @@
         /// This behavior is unlike JavaScript's Slice behavior where the end index is non-inclusive
         /// If the string is null it returns an empty string
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="value">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns>Retrieves a substring from this instance</returns>
-        public static string Slice(this string str, int startIndex, int endIndex)
+        public static string Slice(this string value, int startIndex, int endIndex)
         {
-            if (str == null)
+            if (value == null)
                 return string.Empty;
 
-            endIndex = endIndex.Clamp(startIndex, str.Length - 1);
+            endIndex = endIndex.Clamp(startIndex, value.Length - 1);
 
-            return startIndex >= endIndex ? string.Empty : str.Substring(startIndex, (endIndex - startIndex) + 1);
+            return startIndex >= endIndex ? string.Empty : value.Substring(startIndex, (endIndex - startIndex) + 1);
         }
 
         /// <summary>
@@ -310,25 +309,27 @@
         /// <summary>
         /// Splits the specified text into r, n or rn separated lines
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="value">The text.</param>
         /// <returns>
         /// An array whose elements contain the substrings from this instance 
         /// that are delimited by one or more characters in separator
         /// </returns>
-        public static string[] ToLines(this string text) =>
-            text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
+        public static string[] ToLines(this string value) =>
+            value == null ? new string[] { } : SplitLinesRegex.Value.Split(value);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
         /// in either camel case or snake case. For example, CamelCase will be converted to 
         /// Camel Case and Snake_Case will be converted to Snake Case.
         /// </summary>
-        /// <param name="identifierString">The identifier-style string.</param>
+        /// <param name="value">The identifier-style string.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string Humanize(this string identifierString)
+        public static string Humanize(this string value)
         {
-            var returnValue = identifierString ?? string.Empty;
-            returnValue = UnderscoreRegex.Value.Replace(returnValue, " ");
+            if (value == null)
+                return string.Empty;
+
+            var returnValue = UnderscoreRegex.Value.Replace(value, " ");
             returnValue = CamelCaseRegEx.Value.Replace(returnValue, SplitCamelCaseString.Value);
             return returnValue;
         }
@@ -337,15 +338,15 @@
         /// Indents the specified multi-line text with the given amount of leading spaces
         /// per line.
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string Indent(this string text, int spaces = 4)
+        public static string Indent(this string value, int spaces = 4)
         {
-            if (text == null) text = string.Empty;
-            if (spaces <= 0) return text;
+            if (value == null) value = string.Empty;
+            if (spaces <= 0) return value;
 
-            var lines = text.ToLines();
+            var lines = value.ToLines();
             var builder = new StringBuilder();
             var indentStr = new string(' ', spaces);
 
@@ -364,29 +365,29 @@
         /// Please not that the tuple contains first the line number and then the
         /// column number
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
         /// <returns>A 2-tuple whose value is (item1, item2)</returns>
-        public static Tuple<int, int> TextPositionAt(this string str, int charIndex)
+        public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
         {
-            if (str == null)
+            if (value == null)
                 return Tuple.Create(0, 0);
 
-            charIndex = charIndex.Clamp(0, str.Length - 1);
+            charIndex = charIndex.Clamp(0, value.Length - 1);
 
             var lineIndex = 0;
             var colNumber = 0;
 
             for (var i = 0; i <= charIndex; i++)
             {
-                if (str[i] == '\n')
+                if (value[i] == '\n')
                 {
                     lineIndex++;
                     colNumber = 0;
                     continue;
                 }
 
-                if (str[i] != '\r')
+                if (value[i] != '\r')
                     colNumber++;
             }
 
@@ -396,16 +397,17 @@
         /// <summary>
         /// Makes the file name system safe.
         /// </summary>
-        /// <param name="s">The s.</param>
+        /// <param name="value">The s.</param>
         /// <returns>
         /// A string with a safe file name
         /// </returns>
         /// <exception cref="ArgumentNullException">s</exception>
-        public static string ToSafeFilename(this string s)
+        public static string ToSafeFilename(this string value)
         {
-            return s == null
-                ? throw new ArgumentNullException(nameof(s))
-                : InvalidFilenameChars.Value.Aggregate(s, (current, c) => current.Replace(c, string.Empty))
+            return value == null
+                ? throw new ArgumentNullException(nameof(value))
+                : InvalidFilenameChars.Value
+                    .Aggregate(value, (current, c) => current.Replace(c, string.Empty))
                     .Slice(0, 220);
         }
 
@@ -494,7 +496,7 @@
         /// <param name="value">The value.</param>
         /// <param name="replaceValue">The replace value.</param>
         /// <param name="chars">The chars.</param>
-        /// <returns>The string with the characters reppaced</returns>
+        /// <returns>The string with the characters replaced.</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
             chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
 
@@ -502,139 +504,17 @@
         /// Convert hex character to an integer. Return -1 if char is something
         /// other than a hex char.
         /// </summary>
-        /// <param name="c">The c.</param>
+        /// <param name="value">The c.</param>
         /// <returns>Converted integer</returns>
-        public static int Hex2Int(this char c)
+        public static int Hex2Int(this char value)
         {
-            return c >= '0' && c <= '9'
-                ? c - '0'
-                : c >= 'A' && c <= 'F'
-                    ? c - 'A' + 10
-                    : c >= 'a' && c <= 'f'
-                        ? c - 'a' + 10
+            return value >= '0' && value <= '9'
+                ? value - '0'
+                : value >= 'A' && value <= 'F'
+                    ? value - 'A' + 10
+                    : value >= 'a' && value <= 'f'
+                        ? value - 'a' + 10
                         : -1;
-        }
-
-        /// <summary>
-        /// Humanizes a JSON serialization result.
-        /// jsonResult has to be a Dictionary[string,object] or List[object]
-        /// </summary>
-        /// <param name="jsonResult">The json result.</param>
-        /// <param name="indent">The indent.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        private static string HumanizeJson(object jsonResult, int indent)
-        {
-            if (jsonResult == null)
-                return string.Empty;
-
-            var builder = new StringBuilder();
-            var indentStr = new string(' ', indent * 4);
-
-            switch (jsonResult)
-            {
-                case Dictionary<string, object> dictionary:
-                    foreach (var kvp in dictionary)
-                    {
-                        if (kvp.Value == null) continue;
-
-                        var writeOutput = false;
-
-                        switch (kvp.Value)
-                        {
-                            case Dictionary<string, object> valueDictionary:
-                                if (valueDictionary.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}{kvp.Key,-16}: object")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            case List<object> valueList:
-                                if (valueList.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            default:
-                                writeOutput = true;
-                                builder.Append($"{indentStr}{kvp.Key,-16}: ");
-                                break;
-                        }
-
-                        if (writeOutput)
-                            builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
-                    }
-
-                    break;
-                case List<object> list:
-                    var index = 0;
-                    foreach (var value in list)
-                    {
-                        var writeOutput = false;
-
-                        switch (value)
-                        {
-                            case Dictionary<string, object> valueDictionary:
-                                if (valueDictionary.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}[{index}]: object")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            case List<object> valueList:
-                                if (valueList.Count > 0)
-                                {
-                                    writeOutput = true;
-                                    builder
-                                        .Append($"{indentStr}[{index}]: array[{valueList.Count}]")
-                                        .AppendLine();
-                                }
-
-                                break;
-                            default:
-                                writeOutput = true;
-                                builder.Append($"{indentStr}[{index}]: ");
-                                break;
-                        }
-
-                        index++;
-                        if (writeOutput)
-                            builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
-                    }
-
-                    break;
-                default:
-                    var stringValue = jsonResult.ToString();
-
-                    if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
-                        stringValue.IndexOf('\n') >= 0)
-                    {
-                        builder.AppendLine();
-                        var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
-
-                        foreach (var line in stringLines)
-                        {
-                            builder.AppendLine($"{indentStr}{line}");
-                        }
-                    }
-                    else
-                    {
-                        builder.Append($"{stringValue}");
-                    }
-
-                    break;
-            }
-
-            return builder.ToString().TrimEnd();
         }
     }
 }

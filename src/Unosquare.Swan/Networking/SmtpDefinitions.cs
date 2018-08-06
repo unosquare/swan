@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Networking
 {
     /// <summary>
-    /// Contains useful constants and definitions
+    /// Contains useful constants and definitions.
     /// </summary>
     public static class SmtpDefinitions
     {
@@ -16,12 +16,12 @@
         public class SmtpAuthMethods
         {
             /// <summary>
-            /// The plain method
+            /// The plain method.
             /// </summary>
             public const string Plain = "PLAIN";
             
             /// <summary>
-            /// The login method
+            /// The login method.
             /// </summary>
             public const string Login = "LOGIN";
         }

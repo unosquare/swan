@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the state of an SMTP session associated with a client
+    /// Represents the state of an SMTP session associated with a client.
     /// </summary>
     public class SmtpSessionState
     {
@@ -119,7 +119,7 @@
         #region Methods
 
         /// <summary>
-        /// Resets the data mode to false, clears the recipients, the sender address and the data buffer
+        /// Resets the data mode to false, clears the recipients, the sender address and the data buffer.
         /// </summary>
         public void ResetEmail()
         {
@@ -130,7 +130,7 @@
         }
 
         /// <summary>
-        /// Resets the state table entirely
+        /// Resets the state table entirely.
         /// </summary>
         /// <param name="clearExtensionData">if set to <c>true</c> [clear extension data].</param>
         public void Reset(bool clearExtensionData)
@@ -147,7 +147,7 @@
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// <returns>A clone</returns>
+        /// <returns>A clone.</returns>
         public virtual SmtpSessionState Clone()
         {
             var clonedState = this.CopyPropertiesToNew<SmtpSessionState>(new[] {nameof(DataBuffer)});

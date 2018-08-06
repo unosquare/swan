@@ -117,14 +117,9 @@
             lock (SyncLock)
             {
                 $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
+
                 var input = ReadLine();
-
-                if (int.TryParse(input, out var parsedInt) == false)
-                {
-                    parsedInt = defaultNumber;
-                }
-
-                return parsedInt;
+                return int.TryParse(input, out var parsedInt) ? parsedInt : defaultNumber;
             }
         }
 

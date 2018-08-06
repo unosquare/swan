@@ -201,7 +201,7 @@
             }
 
             private Dictionary<string, object> CreateDictionary(
-                Dictionary<string, Func<object, object>> fields,
+                Dictionary<string, MemberInfo> fields,
                 string targetType,
                 object target)
             {
@@ -217,7 +217,9 @@
                     // Note: used to be: property.GetValue(target); but we would be reading private properties
                     try
                     {
-                        objectDictionary[field.Key] = field.Value(target);
+                        objectDictionary[field.Key] = field.Value is PropertyInfo property 
+                            ? property.GetCacheGetMethod(_options.IncludeNonPublic).Invoke(target, null)
+                            : (field.Value as FieldInfo)?.GetValue(target);
                     }
                     catch
                     {

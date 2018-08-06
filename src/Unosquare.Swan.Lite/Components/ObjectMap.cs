@@ -55,17 +55,7 @@
                 throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
             }
 
-            var sourceMembers = new List<PropertyInfo>();
-            var initialExpression = sourceProperty.Body as MemberExpression;
-
-            while (true)
-            {
-                var propertySourceInfo = initialExpression?.Member as PropertyInfo;
-
-                if (propertySourceInfo == null) break;
-                sourceMembers.Add(propertySourceInfo);
-                initialExpression = initialExpression.Expression as MemberExpression;
-            }
+            var sourceMembers = GetSourceMembers(sourceProperty);
 
             if (sourceMembers.Any() == false)
             {
@@ -78,7 +68,7 @@
 
             return this;
         }
-        
+
         /// <summary>
         /// Removes the map property.
         /// </summary>
@@ -103,6 +93,23 @@
             }
 
             return this;
+        }
+        
+        private static List<PropertyInfo> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
+        {
+            var sourceMembers = new List<PropertyInfo>();
+            var initialExpression = sourceProperty.Body as MemberExpression;
+
+            while (true)
+            {
+                var propertySourceInfo = initialExpression?.Member as PropertyInfo;
+
+                if (propertySourceInfo == null) break;
+                sourceMembers.Add(propertySourceInfo);
+                initialExpression = initialExpression.Expression as MemberExpression;
+            }
+
+            return sourceMembers;
         }
     }
 }

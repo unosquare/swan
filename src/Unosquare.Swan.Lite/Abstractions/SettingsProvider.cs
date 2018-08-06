@@ -7,9 +7,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-#if NETSTANDARD1_3 || UWP
     using System.Reflection;
-#endif
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
@@ -141,60 +139,9 @@
                 if (propertyInfo == null) continue;
 
                 var originalValue = propertyInfo.GetValue(Global);
-                var isChanged = false;
-
-                if (propertyInfo.PropertyType.IsArray)
-                {
-                    if (property.Value is IEnumerable == false)
-                        continue;
-
-                    var elementType = propertyInfo.PropertyType.GetElementType();
-
-                    if (elementType == null)
-                        continue;
-
-                    var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
-                    var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
-
-                    var i = 0;
-                    foreach (var sourceElement in sourceArray)
-                    {
-                        try
-                        {
-                            if (sourceElement == null)
-                            {
-                                targetArray.SetValue(null, i++);
-                                continue;
-                            }
-
-                            if (elementType.TryParseBasicType(sourceElement.ToString(), out var itemvalue))
-                                targetArray.SetValue(itemvalue, i++);
-                        }
-                        catch
-                        {
-                            // swallow
-                        }
-                    }
-
-                    isChanged = true;
-                    propertyInfo.SetValue(Global, targetArray);
-                }
-                else
-                {
-                    if (property.Value == null)
-                    {
-                        if (originalValue == null) continue;
-
-                        isChanged = true;
-                        propertyInfo.SetValue(Global, null);
-                    }
-                    else if (propertyInfo.PropertyType.TryParseBasicType(property.Value.ToString(),
-                            out var propertyValue) && !propertyValue.Equals(originalValue))
-                    {
-                        isChanged = true;
-                        propertyInfo.SetValue(Instance.Global, propertyValue);
-                    }
-                }
+                var isChanged = propertyInfo.PropertyType.IsArray
+                    ? SetIEnumerable(property.Value, propertyInfo)
+                    : SetValue(property.Value, originalValue, propertyInfo);
 
                 if (!isChanged) continue;
 
@@ -205,10 +152,42 @@
             return changedSettings;
         }
 
+        private bool SetValue(object property, object originalValue, PropertyInfo propertyInfo)
+        {
+            switch (property)
+            {
+                case null when originalValue == null:
+                    break;
+                case null:
+                    propertyInfo.SetValue(Global, null);
+                    return true;
+                default:
+                    if (propertyInfo.PropertyType.TryParseBasicType(property, out var propertyValue) &&
+                        !propertyValue.Equals(originalValue))
+                    {
+                        propertyInfo.SetValue(Global, propertyValue);
+                        return true;
+                    }
+
+                    break;
+            }
+
+            return false;
+        }
+
+        private bool SetIEnumerable(object property, PropertyInfo propertyInfo)
+        {
+            if (property is IEnumerable == false)
+                return false;
+            
+            var sourceArray = ((IEnumerable)property).Cast<object>().ToArray();
+            return propertyInfo.TrySetArray(sourceArray, Global);
+        }
+
         /// <summary>
         /// Gets the list.
         /// </summary>
-        /// <returns>A List of ExtendedPropertyInfo of the type T</returns>
+        /// <returns>A List of ExtendedPropertyInfo of the type T.</returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;

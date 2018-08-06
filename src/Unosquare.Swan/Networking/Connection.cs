@@ -110,7 +110,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="textEncoding">The text encoding.</param>
         /// <param name="newLineSequence">The new line sequence used for read and write operations.</param>
         /// <param name="disableContinuousReading">if set to <c>true</c> [disable continuous reading].</param>
-        /// <param name="blockSize">Size of the block. -- set to 0 or less to disable</param>
+        /// <param name="blockSize">Size of the block. -- set to 0 or less to disable.</param>
         public Connection(
             TcpClient client,
             Encoding textEncoding,
@@ -171,7 +171,7 @@ namespace Unosquare.Swan.Networking
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection"/> class in continuous reading mode.
-        /// It uses UTF8 encoding, CRLF as a new line sequence and disables a protocol block size
+        /// It uses UTF8 encoding, CRLF as a new line sequence and disables a protocol block size.
         /// </summary>
         /// <param name="client">The client.</param>
         public Connection(TcpClient client)
@@ -182,7 +182,7 @@ namespace Unosquare.Swan.Networking
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection"/> class in continuous reading mode.
-        /// It uses UTF8 encoding, disables line sequences, and uses a protocol block size instead
+        /// It uses UTF8 encoding, disables line sequences, and uses a protocol block size instead.
         /// </summary>
         /// <param name="client">The client.</param>
         /// <param name="blockSize">Size of the block.</param>
@@ -756,7 +756,7 @@ namespace Unosquare.Swan.Networking
         /// Raises the receive buffer events.
         /// </summary>
         /// <param name="receivedData">The received data.</param>
-        /// <exception cref="Exception">Split function failed! This is terribly wrong!</exception>
+        /// <exception cref="Exception">Split function failed! This is terribly wrong.</exception>
         private void RaiseReceiveBufferEvents(byte[] receivedData)
         {
             var moreAvailable = RemoteClient.Available > 0;
@@ -789,8 +789,6 @@ namespace Unosquare.Swan.Networking
                 var sequenceBytes = sequences[i];
                 var isNewLineTerminated = sequences[i].EndsWith(_newLineSequenceBytes);
                 var isLast = i == sequences.Count - 1;
-
-                // Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
 
                 if (isNewLineTerminated)
                 {
@@ -827,31 +825,28 @@ namespace Unosquare.Swan.Networking
             // Block size reached
             if (ProtocolBlockSize > 0 && _receiveBufferPointer >= ProtocolBlockSize)
             {
-                var eventBuffer = new byte[_receiveBuffer.Length];
-                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
-
-                DataReceived(this,
-                    new ConnectionDataReceivedEventArgs(
-                        eventBuffer,
-                        ConnectionDataReceivedTrigger.BlockSizeReached,
-                        moreAvailable));
-                _receiveBufferPointer = 0;
+                SendBuffer(moreAvailable, ConnectionDataReceivedTrigger.BlockSizeReached);
                 return;
             }
 
             // The receive buffer is full. Time to flush
             if (_receiveBufferPointer >= _receiveBuffer.Length)
             {
-                var eventBuffer = new byte[_receiveBuffer.Length];
-                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
-
-                DataReceived(this,
-                    new ConnectionDataReceivedEventArgs(
-                        eventBuffer,
-                        ConnectionDataReceivedTrigger.BufferFull,
-                        moreAvailable));
-                _receiveBufferPointer = 0;
+                SendBuffer(moreAvailable, ConnectionDataReceivedTrigger.BufferFull);
             }
+        }
+
+        private void SendBuffer(bool moreAvailable, ConnectionDataReceivedTrigger trigger)
+        {
+            var eventBuffer = new byte[_receiveBuffer.Length];
+            Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
+
+            DataReceived(this,
+                new ConnectionDataReceivedEventArgs(
+                    eventBuffer,
+                    trigger,
+                    moreAvailable));
+            _receiveBufferPointer = 0;
         }
 
         /// <summary>

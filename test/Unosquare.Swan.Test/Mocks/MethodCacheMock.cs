@@ -1,5 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System.Threading.Tasks;
+
     internal class MethodCacheMock
     {
         public void SingleMethod()
@@ -26,5 +28,7 @@
         {
             // do nothing
         }
+
+        public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
     }
 }

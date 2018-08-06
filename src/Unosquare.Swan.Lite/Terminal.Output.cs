@@ -25,6 +25,7 @@
                 for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
                 {
                     var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
+
                     switch (byteValue)
                     {
                         case 8: // Backspace
@@ -64,7 +65,6 @@
         {
             lock (SyncLock)
             {
-                if (color == null) color = Settings.DefaultColor;
                 var bytes = new byte[count];
                 for (var i = 0; i < bytes.Length; i++)
                 {
@@ -78,9 +78,9 @@
                 }
 
                 var buffer = OutputEncoding.GetChars(bytes);
-                var context = new OutputContext()
+                var context = new OutputContext
                 {
-                    OutputColor = color.Value,
+                    OutputColor = color ?? Settings.DefaultColor,
                     OutputText = buffer,
                     OutputWriters = writerFlags
                 };
@@ -99,12 +99,10 @@
         {
             lock (SyncLock)
             {
-                if (color == null) color = Settings.DefaultColor;
-                var buffer = new[] { charCode };
-                var context = new OutputContext()
+                var context = new OutputContext
                 {
-                    OutputColor = color.Value,
-                    OutputText = buffer,
+                    OutputColor = color ?? Settings.DefaultColor,
+                    OutputText = new[] { charCode },
                     OutputWriters = writerFlags
                 };
 
@@ -121,14 +119,13 @@
         public static void Write(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             if (text == null) return;
-            if (color == null) color = Settings.DefaultColor;
-
+            
             lock (SyncLock)
             {
                 var buffer = OutputEncoding.GetBytes(text);
-                var context = new OutputContext()
+                var context = new OutputContext
                 {
-                    OutputColor = color.Value,
+                    OutputColor = color ?? Settings.DefaultColor,
                     OutputText = OutputEncoding.GetChars(buffer),
                     OutputWriters = writerFlags
                 };
@@ -145,10 +142,8 @@
         /// Writes a New Line Sequence to the standard output
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)
-        {
-            Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
-        }
+        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
+            => Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
 
         /// <summary>
         /// Writes a line of text in the current console foreground color
@@ -159,8 +154,7 @@
         /// <param name="writerFlags">The writer flags.</param>
         public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
-            if (text == null) text = string.Empty;
-            $"{text}{Environment.NewLine}".Write(color, writerFlags);
+            Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
         }
 
         /// <summary>
@@ -172,8 +166,7 @@
         /// <param name="writerFlags">The writer flags.</param>
         public static void OverwriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
-            if (text == null) text = string.Empty;
-            $"\r{text}".Write(color, writerFlags);
+            Write($"\r{text ?? string.Empty}", color, writerFlags);
             Flush();
             CursorLeft = 0;
         }

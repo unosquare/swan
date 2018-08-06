@@ -1,4 +1,4 @@
-version: '0.27.{build}'
+version: '1.00.{build}'
 image: 
 - Visual Studio 2017
 - Ubuntu
@@ -37,7 +37,6 @@ before_build:
 - ps: $NTP = Start-Process node ntp.js -PassThru
 - dotnet restore -v Minimal
 - cmd: mkdir tools
-- cmd: nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 - cmd: nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 build_script:
 - cmd: msbuild /p:Configuration=Release /verbosity:quiet
@@ -47,12 +46,11 @@ build_script:
         cd ..
         cd ..
 test_script:
-- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.1
-- cmd: tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
+- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.1
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
-            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --serviceName appveyor --jobId %APPVEYOR_BUILD_NUMBER%
+            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Unosquare.Swan.Test\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
         }
 after_build:
 - ps: |

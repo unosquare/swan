@@ -34,17 +34,16 @@
         }
 
         [Test]
-        public void ObjectCollection_ThrowsInvalidOperationException()
+        public void InvalidClassWithCollection_ReturnsFalse()
         {
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                var options = new OptionObjectCollectionMock();
-                Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1", null, "0" }, options);
-            });
+            var options = new OptionObjectCollectionMock();
+            var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1", "1", "0" }, options);
+
+            Assert.IsFalse(result);
         }
 
         [Test]
-        public void ObjectArray_ReturnsTrue()
+        public void ValidObjectArray_ReturnsTrue()
         {
             var options = new OptionObjectArrayMock();
             var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1,null,0" }, options);

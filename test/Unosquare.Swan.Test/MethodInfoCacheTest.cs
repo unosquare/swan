@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Test.MethodInfoCacheTest
 {
+    using System;
     using NUnit.Framework;
     using Mocks;
 
@@ -45,6 +46,19 @@
             var methodInfoDecimalParam = Runtime.MethodInfoCache.Retrieve(typeof(MethodCacheMock), nameof(MethodCacheMock.MultiMethod), "multidecimal", typeof(decimal));
 
             Assert.AreNotEqual(methodInfoIntParam, methodInfoDecimalParam);
+        }
+        
+        [Test]
+        public void ContainsWithNullType_ThrowsError()
+        {
+            // TODO: Move this and test blwo to another implementation CacheRepository
+            Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Contains(null));
+        }
+        
+        [Test]
+        public void RetrieveWithNullType_ThrowsError()
+        {
+            Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Retrieve(null));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.ExtensionsReflectionTest
 {
     using NUnit.Framework;
+    using System.Reflection;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -182,7 +183,7 @@
         [Test]
         public void WithNullAssembly_ThrowsArgumentNullException()
         {
-            System.Reflection.Assembly assembly = null;
+            Assembly assembly = null;
 
             Assert.Throws<ArgumentNullException>(() => assembly.GetAllTypes());
         }
@@ -191,7 +192,7 @@
         public void WithInvalidAssmblyFromFile_ThrowsFileNotFoundException()
         {
             Assert.Throws<FileNotFoundException>(() =>
-                System.Reflection.Assembly.LoadFrom("invalid.dll").GetAllTypes());
+                Assembly.LoadFrom("invalid.dll").GetAllTypes());
         }
 
         [Test]
@@ -208,50 +209,113 @@
     [TestFixture]
     public class GetMethod : TestFixtureBase
     {
-        private const string MethodName = "PostFile";
-
-        private readonly Type _type = typeof(JsonClient);
+        private readonly string _methodName = nameof(MethodCacheMock.GetMethodTest);
+        private readonly Type _type = typeof(MethodCacheMock);
         private readonly Type[] _genericTypes = {typeof(Task<string>)};
-        private readonly Type[] _parameterTypes = {typeof(string), typeof(byte[]), typeof(string), typeof(string)};
+        private readonly Type[] _parameterTypes = {typeof(string)};
 
-        private readonly System.Reflection.BindingFlags _bindingFlags =
-            System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static;
+        private const BindingFlags Flags = BindingFlags.Public | BindingFlags.Static;
 
         [Test]
         public void WithValidParams_ReturnsAnObject()
         {
-            var method = _type.GetMethod(_bindingFlags, MethodName, _genericTypes, _parameterTypes);
+            var method = _type.GetMethod(Flags, _methodName, _genericTypes, _parameterTypes);
 
             Assert.AreEqual(method.ToString(),
-                "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] PostFile[Task`1](System.String, Byte[], System.String, System.String)");
+                "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] GetMethodTest[Task`1](System.String)");
         }
 
         [Test]
         public void WithNullSourceType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullType.GetMethod(_bindingFlags, MethodName, _genericTypes, _parameterTypes));
+                NullType.GetMethod(Flags, _methodName, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullMethodName_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, null, _genericTypes, _parameterTypes));
+                _type.GetMethod(Flags, null, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullGenericTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, MethodName, null, _parameterTypes));
+                _type.GetMethod(Flags, _methodName, null, _parameterTypes));
         }
 
         [Test]
         public void WithNullParameterTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, MethodName, _genericTypes, null));
+                _type.GetMethod(Flags, _methodName, _genericTypes, null));
+        }
+    }
+
+    public abstract class GetCacheMethodInfo : TestFixtureBase
+    {
+        public PropertyInfo PublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.Animal));
+
+        public PropertyInfo NonPublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
+    }
+    
+    [TestFixture]
+    public class GetCacheGetMethod : GetCacheMethodInfo
+    {
+        [Test]
+        public void PublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
+        }
+
+        [Test]
+        public void PublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod(true));
+        }
+
+        [Test]
+        public void NonPublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
+        {
+            Assert.IsNull(NonPublicProperty.GetCacheGetMethod());
+        }
+
+        [Test]
+        public void NonPublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
+        {
+            Assert.IsNotNull(NonPublicProperty.GetCacheGetMethod(true));
+        }
+
+        [Test]
+        public void CallTwice_ReturnsCache()
+        {
+            PublicProperty.GetCacheGetMethod();
+
+            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
+        }
+    }
+    
+    [TestFixture]
+    public class GetCacheSetMethod : GetCacheMethodInfo
+    {
+        [Test]
+        public void PublicPropertyOnlyPublicFlag_ReturnsSetMethodInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
+        }
+
+        [Test]
+        public void PublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
+        {
+            Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
+        }
+        
+        [Test]
+        public void NonPublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
+        {
+            Assert.IsNotNull(NonPublicProperty.GetCacheSetMethod(true));
         }
     }
 }

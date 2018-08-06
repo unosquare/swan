@@ -45,17 +45,17 @@
         }
 
         /// <summary>
-        /// Enumerates the different ways of providing delays
+        /// Enumerates the different ways of providing delays.
         /// </summary>
         public enum DelayStrategy
         {
             /// <summary>
-            /// Using the Thread.Sleep(1) mechanism
+            /// Using the Thread.Sleep(1) mechanism.
             /// </summary>
             ThreadSleep,
 
             /// <summary>
-            /// Using the Task.Delay(1).Wait mechanism
+            /// Using the Task.Delay(1).Wait mechanism.
             /// </summary>
             TaskDelay,
 
@@ -63,7 +63,7 @@
             /// <summary>
             /// Using a wait event that completes in a background threadpool thread.
             /// </summary>
-            ThreadPool
+            ThreadPool,
 #endif
         }
 
@@ -73,9 +73,9 @@
         public DelayStrategy Strategy { get; }
 
         /// <summary>
-        /// Creates the smallest possible, synchronous delay based on the selected strategy
+        /// Creates the smallest possible, synchronous delay based on the selected strategy.
         /// </summary>
-        /// <returns>The elamped time of the delay</returns>
+        /// <returns>The elamped time of the delay.</returns>
         public TimeSpan WaitOne()
         {
             lock (_syncRoot)

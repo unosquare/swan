@@ -7,7 +7,7 @@
     using Exceptions;
 
     /// <summary>
-    /// DnsClient public methods
+    /// DnsClient public methods.
     /// </summary>
     internal partial class DnsClient
     {

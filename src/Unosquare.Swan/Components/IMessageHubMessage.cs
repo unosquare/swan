@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     /// <summary>
-    /// A Message to be published/delivered by Messenger
+    /// A Message to be published/delivered by Messenger.
     /// </summary>
     public interface IMessageHubMessage
     {

@@ -15,7 +15,7 @@
         /// </summary>
         /// <typeparam name="T">The type of expression result</typeparam>
         /// <param name="tokens">The tokens.</param>
-        /// <returns>The representation of the expression parsed</returns>
+        /// <returns>The representation of the expression parsed.</returns>
         public virtual T ResolveExpression<T>(IEnumerable<Token> tokens)
         {
             var conversion = Expression.Convert(Parse(tokens), typeof(T));
@@ -26,7 +26,7 @@
         /// Parses the specified tokens.
         /// </summary>
         /// <param name="tokens">The tokens.</param>
-        /// <returns>The final expression</returns>
+        /// <returns>The final expression.</returns>
         public virtual Expression Parse(IEnumerable<Token> tokens)
         {
             var expressionStack = new List<Stack<Expression>>();

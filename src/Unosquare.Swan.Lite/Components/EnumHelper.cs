@@ -19,12 +19,10 @@
         public static Tuple<string, object>[] Retrieve<T>()
             where T : struct, IConvertible
         {
-            return Instance.Retrieve(typeof(T), () =>
-            {
-                var values = Enum.GetValues(typeof(T)).Cast<object>();
-
-                return values.Select(item => new Tuple<string, object>(Enum.GetName(typeof(T), item), item)).ToList();
-            });
+            return Instance.Retrieve(typeof(T), () => Enum.GetValues(typeof(T))
+                .Cast<object>()
+                .Select(item => new Tuple<string, object>(Enum.GetName(typeof(T), item), item))
+                .ToArray());
         }
 
         /// <summary>

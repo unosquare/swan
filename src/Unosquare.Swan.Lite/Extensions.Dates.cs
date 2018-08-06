@@ -96,7 +96,7 @@
         /// <param name="startDate">The start date.</param>
         /// <param name="endDate">The end date.</param>
         /// <returns>
-        /// A sequence of integral numbers within a specified date's range
+        /// A sequence of integral numbers within a specified date's range.
         /// </returns>
         public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
             => Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
@@ -104,13 +104,13 @@
         /// <summary>
         /// Rounds up a date to match a timespan.
         /// </summary>
-        /// <param name="dt">The datetime.</param>
-        /// <param name="d">The timespan to match.</param>
+        /// <param name="date">The datetime.</param>
+        /// <param name="timeSpan">The timespan to match.</param>
         /// <returns>
-        /// A new instance of the DateTime structure to the specified datetime and timespan ticks
+        /// A new instance of the DateTime structure to the specified datetime and timespan ticks.
         /// </returns>
-        public static DateTime RoundUp(this DateTime dt, TimeSpan d)
-            => new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
+        public static DateTime RoundUp(this DateTime date, TimeSpan timeSpan)
+            => new DateTime(((date.Ticks + timeSpan.Ticks - 1) / timeSpan.Ticks) * timeSpan.Ticks);
 
         /// <summary>
         /// Get this datetime as a Unix epoch timestamp (seconds since Jan 1, 1970, midnight UTC).

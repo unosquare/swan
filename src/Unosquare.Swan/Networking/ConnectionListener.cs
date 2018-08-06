@@ -9,7 +9,7 @@
 
     /// <summary>
     /// TCP Listener manager with built-in events and asynchronous functionality.
-    /// This networking component is typically used when writing server software
+    /// This networking component is typically used when writing server software.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public sealed class ConnectionListener : IDisposable
@@ -103,7 +103,7 @@
         public IPEndPoint LocalEndPoint { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this listener is active
+        /// Gets a value indicating whether this listener is active.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is listening; otherwise, <c>false</c>.
@@ -147,9 +147,59 @@
         }
 
         /// <summary>
+        /// Stops the listener from receiving new connections.
+        /// This does not prevent the listener from .
+        /// </summary>
+        public void Stop()
+        {
+            lock (_stateLock)
+            {
+                _cancellationPending = true;
+                _listenerSocket?.Stop();
+                _cancelListening?.Cancel();
+                _backgroundWorkerTask?.Wait();
+                _backgroundWorkerTask = null;
+                _cancellationPending = false;
+            }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => LocalEndPoint.ToString();
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        private void Dispose(bool disposing)
+        {
+            if (_hasDisposed)
+                return;
+
+            if (disposing)
+            {
+                // Release managed resources
+                Stop();
+            }
+
+            _hasDisposed = true;
+        }
+        
+        /// <summary>
         /// Continuously checks for client connections until the Close method has been called.
         /// </summary>
-        /// <returns>A task that represents the asynchronous connection operation</returns>
+        /// <returns>A task that represents the asynchronous connection operation.</returns>
         private async Task DoWorkAsync()
         {
             _cancellationPending = false;
@@ -201,62 +251,6 @@
                 _backgroundWorkerTask = null;
                 _cancellationPending = false;
             }
-        }
-
-        /// <summary>
-        /// Stops the listener from receiving new connections.
-        /// This does not prevent the listener from 
-        /// </summary>
-        public void Stop()
-        {
-            lock (_stateLock)
-            {
-                _cancellationPending = true;
-                _listenerSocket?.Stop();
-                _cancelListening?.Cancel();
-                _backgroundWorkerTask?.Wait();
-                _backgroundWorkerTask = null;
-                _cancellationPending = false;
-            }
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString() => LocalEndPoint.ToString();
-
-        #endregion
-
-        #region Dispose
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        private void Dispose(bool disposing)
-        {
-            if (_hasDisposed)
-                return;
-
-            if (disposing)
-            {
-                // Release managed resources
-                Stop();
-            }
-
-            _hasDisposed = true;
         }
 
         #endregion

@@ -61,19 +61,13 @@
         /// Sets the data.
         /// </summary>
         /// <param name="xmlDocument">The XML document.</param>
-        public void SetData(XDocument xmlDocument)
-        {
-            _xmlDocument = xmlDocument;
-        }
+        public void SetData(XDocument xmlDocument) => _xmlDocument = xmlDocument;
 
         /// <summary>
         /// Finds the element.
         /// </summary>
         /// <param name="elementName">Name of the element.</param>
         /// <returns>A XElement.</returns>
-        protected XElement FindElement(string elementName)
-        {
-            return _xmlDocument.Descendants(elementName).FirstOrDefault();
-        }
+        protected XElement FindElement(string elementName) => _xmlDocument.Descendants(elementName).FirstOrDefault();
     }
 }
