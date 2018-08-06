@@ -3,8 +3,6 @@
     using System;
     using System.Text;
     
-    #region Connection
-
     /// <summary>
     /// The event arguments for connection failure events
     /// </summary>
@@ -89,6 +87,4 @@
         public string GetStringFromBuffer(Encoding encoding) 
             => GetStringFromBuffer(Buffer, encoding);
     }
-
-    #endregion
 }

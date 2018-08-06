@@ -78,7 +78,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            var cont = (LdapControl)MemberwiseClone();
+            var cont = (LdapControl) MemberwiseClone();
             var vals = GetValue();
 
             if (vals == null) return cont;
@@ -138,7 +138,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 new RfcBindRequest(
                     version,
                     dn,
-                    new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd), false))),
+                    new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd),
+                        false))),
                 null)
         {
         }
@@ -183,11 +184,11 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference)Message.Response).ToArray();
+                var references = ((RfcSearchResultReference) Message.Response).ToArray();
                 _srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    _srefs[i] = ((Asn1OctetString)references[i]).StringValue();
+                    _srefs[i] = ((Asn1OctetString) references[i]).StringValue();
                 }
 
                 return _srefs;
@@ -203,7 +204,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapConnection.Search"></seealso>
     internal class LdapUrl
     {
-        private int _port; // Port
+        private int _port;
 
         public LdapUrl(string url)
         {
@@ -226,38 +227,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public string[] AttributeArray { get; private set; }
 
-        /// <summary>
-        ///     Returns an enumerator for the attribute names specified in the URL.
-        /// </summary>
-        /// <returns>
-        ///     An enumeration of attribute names.
-        /// </returns>
-        /// <summary>
-        ///     Returns any Ldap URL extensions specified, or null if none are
-        ///     specified. Each extension is a type=value expression. The =value part
-        ///     MAY be omitted. The expression MAY be prefixed with '!' if it is
-        ///     mandatory for evaluation of the URL.
-        /// </summary>
-        /// <returns>
-        ///     string array of extensions.
-        /// </returns>
-        public string[] Extensions { get; private set; }
+        private string[] Extensions { get; set; }
 
-        /// <summary>
-        ///     Returns the search filter or null if none was specified.
-        /// </summary>
-        /// <returns>
-        ///     The search filter.
-        /// </returns>
-        public string Filter { get; private set; }
+        private string Filter { get; set; }
 
-        /// <summary>
-        ///     Returns the name of the Ldap server in the URL.
-        /// </summary>
-        /// <returns>
-        ///     The host name specified in the URL.
-        /// </returns>
-        public string Host { get; private set; }
+        private string Host { get; set; }
 
         /// <summary>
         ///     Returns the port number of the Ldap server in the URL.
@@ -278,20 +252,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         ///     Returns true if the URL is of the type ldaps (Ldap over SSL, a predecessor
-        ///     to startTls)
+        ///     to startTls).
         /// </summary>
         /// <returns>
         ///     whether this is a secure Ldap url or not.
         /// </returns>
         public bool Secure { get; private set; }
-
-        /// <summary>
-        ///     Returns a clone of this URL object.
-        /// </summary>
-        /// <returns>
-        ///     clone of this URL object.
-        /// </returns>
-        public object Clone() => MemberwiseClone();
 
         /// <summary>
         /// Returns a valid string representation of this Ldap URL.
@@ -567,7 +533,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 ? url.Substring(scanStart, scanEnd - scanStart)
                 : url.Substring(scanStart, filterStart - scanStart);
 
-            if (string.IsNullOrWhiteSpace(scopeStr) || string.Equals(scopeStr, "base", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrWhiteSpace(scopeStr) ||
+                string.Equals(scopeStr, "base", StringComparison.OrdinalIgnoreCase))
             {
                 Scope = LdapConnection.ScopeBase;
             }
@@ -621,15 +588,15 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        public string ErrorMessage => ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
 
-        public string MatchedDN => ((IRfcResponse)Message.Response).GetMatchedDN().StringValue();
+        public string MatchedDN => ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
 
         public string[] Referrals
         {
             get
             {
-                var reference = ((IRfcResponse)Message.Response).GetReferral();
+                var reference = ((IRfcResponse) Message.Response).GetReferral();
 
                 if (reference == null)
                 {
@@ -641,7 +608,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var referrals = new string[size];
                 for (var i = 0; i < size; i++)
                 {
-                    var refString = ((Asn1OctetString)reference.Get(i)).StringValue();
+                    var refString = ((Asn1OctetString) reference.Get(i)).StringValue();
 
                     try
                     {
@@ -677,12 +644,12 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Message.Response is RfcSearchResultEntry ||
-                    (IRfcResponse)Message.Response is RfcIntermediateResponse)
+                    (IRfcResponse) Message.Response is RfcIntermediateResponse)
                 {
                     return LdapStatusCode.Success;
                 }
 
-                return (LdapStatusCode)((IRfcResponse)Message.Response).GetResultCode().IntValue();
+                return (LdapStatusCode) ((IRfcResponse) Message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -716,9 +683,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         internal LdapException Exception { get; set; }
-
-        internal bool HasException() => Exception != null;
-
+        
         internal void ChkResultCode()
         {
             if (Exception != null)
@@ -814,13 +779,7 @@ namespace Unosquare.Swan.Networking.Ldap
         : Asn1Sequence, IRfcRequest
     {
         private static readonly Asn1Identifier Id = new Asn1Identifier(LdapOperation.BindRequest);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
-        /// </summary>
-        /// <param name="version">The version.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="auth">The authentication.</param>
+        
         public RfcBindRequest(int version, string name, Asn1Object auth)
             : base(3)
         {
@@ -831,35 +790,25 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public Asn1Integer Version
         {
-            get => (Asn1Integer)Get(0);
+            get => (Asn1Integer) Get(0);
             set => Set(0, value);
         }
 
         public Asn1OctetString Name
         {
-            get => (Asn1OctetString)Get(1);
+            get => (Asn1OctetString) Get(1);
             set => Set(1, value);
         }
 
         public RfcAuthenticationChoice AuthenticationChoice
         {
-            get => (RfcAuthenticationChoice)Get(2);
+            get => (RfcAuthenticationChoice) Get(2);
             set => Set(2, value);
         }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// <pre>
-        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 0. (0x60)
-        /// </pre>
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
         public override Asn1Identifier GetIdentifier() => Id;
 
-        public string GetRequestDN() => ((Asn1OctetString)Get(1)).StringValue();
+        public string GetRequestDN() => ((Asn1OctetString) Get(1)).StringValue();
     }
 }
 #endif

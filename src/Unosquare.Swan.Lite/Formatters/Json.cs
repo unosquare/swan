@@ -256,7 +256,7 @@
         /// <param name="json">The json.</param>
         /// <returns>The deserialized specified type object</returns>
         /// <example>
-        /// The following code describes how to deserialize a JSON string into an object of type T
+        /// The following code describes how to deserialize a JSON string into an object of type T.
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
