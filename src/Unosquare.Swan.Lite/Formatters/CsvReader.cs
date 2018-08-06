@@ -102,7 +102,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It will automatically close the stream upon disposing
+        /// It will automatically close the stream upon disposing.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="textEncoding">The text encoding.</param>
@@ -115,7 +115,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
         /// It automatically closes the stream when disposing this reader
-        /// and uses the Windows 1253 encoding
+        /// and uses the Windows 1253 encoding.
         /// </summary>
         /// <param name="stream">The stream.</param>
         public CsvReader(Stream stream)
@@ -137,7 +137,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It automatically closes the file when disposing this reader
+        /// It automatically closes the file when disposing this reader.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="encoding">The encoding.</param>
@@ -152,7 +152,7 @@
         #region Properties
 
         /// <summary>
-        /// Gets number of lines that have been read, including the headings
+        /// Gets number of lines that have been read, including the headings.
         /// </summary>
         /// <value>
         /// The count.
@@ -170,7 +170,7 @@
 
         /// <summary>
         /// Gets or sets the escape character.
-        /// By default it is the double quote '"'
+        /// By default it is the double quote '"'.
         /// </summary>
         /// <value>
         /// The escape character.
@@ -189,7 +189,7 @@
 
         /// <summary>
         /// Gets or sets the separator character.
-        /// By default it is the comma character ','
+        /// By default it is the comma character ','.
         /// </summary>
         /// <value>
         /// The separator character.
@@ -229,10 +229,10 @@
         #region Generic, Main ReadLine method
 
         /// <summary>
-        /// Reads a line of CSV text into an array of strings
+        /// Reads a line of CSV text into an array of strings.
         /// </summary>
-        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public string[] ReadLine()
         {
             lock (_syncLock)
@@ -253,9 +253,10 @@
         /// <summary>
         /// Skips a line of CSV text.
         /// This operation does not increment the Count property and it is useful when you need to read the headings
-        /// skipping over a few lines as Reading headings is only supported as the first read operation (i.e. while count is still 0)
+        /// skipping over a few lines as Reading headings is only supported
+        /// as the first read operation (i.e. while count is still 0).
         /// </summary>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public void SkipRecord()
         {
             lock (_syncLock)
@@ -271,13 +272,13 @@
         /// Reads a line of CSV text and stores the values read as a representation of the column names
         /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
         /// </summary>
-        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
         /// <exception cref="System.InvalidOperationException">
         /// Reading headings is only supported as the first read operation.
         /// or
         /// ReadHeadings
         /// </exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public string[] ReadHeadings()
         {
             lock (_syncLock)
@@ -300,12 +301,12 @@
         }
 
         /// <summary>
-        /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings
+        /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings.
         /// </summary>
         /// <param name="map">The mappings between CSV headings (keys) and object properties (values)</param>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs.</returns>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         /// <exception cref="System.ArgumentNullException">map</exception>
         public IDictionary<string, object> ReadObject(IDictionary<string, string> map)
         {
@@ -334,9 +335,9 @@
 
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object
-        /// The property names correspond to the names of the CSV headings
+        /// The property names correspond to the names of the CSV headings.
         /// </summary>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs.</returns>
         public IDictionary<string, object> ReadObject() => ReadObject(_defaultMap);
 
         /// <summary>
@@ -344,14 +345,14 @@
         /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type. The result object must be already instantiated.
         /// </summary>
-        /// <typeparam name="T">The type of object to map</typeparam>
+        /// <typeparam name="T">The type of object to map.</typeparam>
         /// <param name="map">The map.</param>
         /// <param name="result">The result.</param>
         /// <exception cref="System.ArgumentNullException">map
         /// or
         /// result</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
             lock (_syncLock)
@@ -408,10 +409,10 @@
         /// </summary>
         /// <typeparam name="T">The type of object to map</typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
-        /// <returns>The conversion of specific type of object</returns>
+        /// <returns>The conversion of specific type of object.</returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public T ReadObject<T>(IDictionary<string, string> map)
             where T : new()
         {
@@ -424,8 +425,8 @@
         /// Reads a line of CSV text converting it into an object of the given type, and assuming
         /// the property names of the target type match the heading names of the file.
         /// </summary>
-        /// <typeparam name="T">The type of object</typeparam>
-        /// <returns>The conversion of specific type of object</returns>
+        /// <typeparam name="T">The type of object.</typeparam>
+        /// <returns>The conversion of specific type of object.</returns>
         public T ReadObject<T>()
             where T : new()
         {
@@ -438,12 +439,12 @@
 
         /// <summary>
         /// Parses a line of standard CSV text into an array of strings.
-        /// Note that quoted values might have new line sequences in them. Field values will contain such sequences
+        /// Note that quoted values might have new line sequences in them. Field values will contain such sequences.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="escapeCharacter">The escape character.</param>
         /// <param name="separatorCharacter">The separator character.</param>
-        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
         private static string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
@@ -567,11 +568,11 @@
 
         /// <summary>
         /// Loads the records from the stream
-        /// This method uses Windows 1252 encoding
+        /// This method uses Windows 1252 encoding.
         /// </summary>
-        /// <typeparam name="T">The type of IList items to load</typeparam>
+        /// <typeparam name="T">The type of IList items to load.</typeparam>
         /// <param name="stream">The stream.</param>
-        /// <returns>A generic collection of objects that can be individually accessed by index</returns>
+        /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
         public static IList<T> LoadRecords<T>(Stream stream)
             where T : new()
         {
@@ -591,11 +592,11 @@
 
         /// <summary>
         /// Loads the records from the give file path.
-        /// This method uses Windows 1252 encoding
+        /// This method uses Windows 1252 encoding.
         /// </summary>
-        /// <typeparam name="T">The type of IList items to load</typeparam>
+        /// <typeparam name="T">The type of IList items to load.</typeparam>
         /// <param name="filePath">The file path.</param>
-        /// <returns>A generic collection of objects that can be individually accessed by index</returns>
+        /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
         public static IList<T> LoadRecords<T>(string filePath)
             where T : new()
         {
@@ -641,7 +642,7 @@
         
         /// <summary>
         /// Defines the 3 different read states
-        /// for the parsing state machine
+        /// for the parsing state machine.
         /// </summary>
         private enum ReadState
         {

@@ -90,9 +90,9 @@
     }
 
     /// <summary>
-    /// Represents a Property object from a Object Reflection Property with extended values
+    /// Represents a Property object from a Object Reflection Property with extended values.
     /// </summary>
-    /// <typeparam name="T">The type of the object</typeparam>
+    /// <typeparam name="T">The type of the object.</typeparam>
     public class ExtendedPropertyInfo<T> : ExtendedPropertyInfo
     {
         /// <summary>

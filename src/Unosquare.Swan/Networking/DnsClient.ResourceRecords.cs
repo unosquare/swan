@@ -1,13 +1,16 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using Attributes;
     using Formatters;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Runtime.InteropServices;
-    using Attributes;
 
+    /// <summary>
+    /// DnsClient public methods.
+    /// </summary>
     internal partial class DnsClient
     {
         public abstract class DnsResourceRecordBase : IDnsResourceRecord
@@ -331,6 +334,13 @@
             public TimeSpan ExpireInterval { get; }
 
             public TimeSpan MinimumTimeToLive { get; }
+            
+            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
+            {
+                nameof(MasterDomainName),
+                nameof(ResponsibleDomainName),
+                nameof(SerialNumber),
+            }.ToArray();
 
             private static IDnsResourceRecord Create(
                 DnsDomain domain,
@@ -344,26 +354,19 @@
                 TimeSpan ttl)
             {
                 var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
-                var tail = new Options()
+                var tail = new Options
                 {
                     SerialNumber = serial,
                     RefreshInterval = refresh,
                     RetryInterval = retry,
                     ExpireInterval = expire,
-                    MinimumTimeToLive = minTtl
+                    MinimumTimeToLive = minTtl,
                 };
 
                 data.Append(master.ToArray()).Append(responsible.ToArray()).Append(tail.ToBytes());
 
                 return new DnsResourceRecord(domain, data.ToArray(), DnsRecordType.SOA, DnsRecordClass.IN, ttl);
             }
-
-            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
-            {
-                nameof(MasterDomainName),
-                nameof(ResponsibleDomainName),
-                nameof(SerialNumber)
-            }.ToArray();
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 4)]

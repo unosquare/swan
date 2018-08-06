@@ -122,9 +122,9 @@
         /// <param name="condition">if set to <c>true</c> [condition].</param>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The IList
+        /// The IList.
         /// </returns>
-        /// <exception cref="ArgumentNullException">this</exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public static IList<T> AddWhen<T>(
             this IList<T> list,
             bool condition,
@@ -142,7 +142,7 @@
         /// <summary>
         /// Adds the range when the condition is true.
         /// </summary>
-        /// <typeparam name="T">The type of List element</typeparam>
+        /// <typeparam name="T">The type of List element.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>

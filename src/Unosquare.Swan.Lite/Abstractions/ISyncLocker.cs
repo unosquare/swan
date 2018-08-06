@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Defines a generic interface for synchronized locking mechanisms
+    /// Defines a generic interface for synchronized locking mechanisms.
     /// </summary>
     public interface ISyncLocker : IDisposable
     {
