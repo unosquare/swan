@@ -9,9 +9,9 @@
     /// Represents a CsProjFile (and FsProjFile) parser.
     /// </summary>
     /// <remarks>
-    /// Based on https://github.com/maartenba/dotnetcli-init
+    /// Based on https://github.com/maartenba/dotnetcli-init.
     /// </remarks>
-    /// <typeparam name="T">The type of <c>CsProjMetadataBase</c></typeparam>
+    /// <typeparam name="T">The type of <c>CsProjMetadataBase</c>.</typeparam>
     /// <seealso cref="System.IDisposable" />
     public class CsProjFile<T>
         : IDisposable

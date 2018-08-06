@@ -67,7 +67,8 @@ namespace Unosquare.Swan.Abstractions
         }
 
         /// <summary>
-        /// When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
+        /// When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM)
+        /// or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
         /// </summary>
         /// <param name="args">The arguments.</param>
         protected virtual void OnStart(string[] args)
@@ -76,7 +77,8 @@ namespace Unosquare.Swan.Abstractions
         }
 
         /// <summary>
-        /// When implemented in a derived class, executes when a Stop command is sent to the service by the Service Control Manager (SCM). Specifies actions to take when a service stops running.
+        /// When implemented in a derived class, executes when a Stop command is sent to the service by the Service Control Manager (SCM).
+        /// Specifies actions to take when a service stops running.
         /// </summary>
         protected virtual void OnStop()
         {

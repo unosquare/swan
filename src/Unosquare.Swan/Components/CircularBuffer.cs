@@ -13,14 +13,7 @@ namespace Unosquare.Swan.Components
     /// <seealso cref="System.IDisposable" />
     public sealed class CircularBuffer : IDisposable
     {
-        /// <summary>
-        /// The locking object to perform synchronization.
-        /// </summary>
         private readonly object _syncLock = new object();
-
-        /// <summary>
-        /// The unmanaged buffer
-        /// </summary>
         private IntPtr _buffer = IntPtr.Zero;
         
         /// <summary>
@@ -49,7 +42,7 @@ namespace Unosquare.Swan.Components
         public int Length { get; private set; }
 
         /// <summary>
-        /// Gets the current, 0-based read index
+        /// Gets the current, 0-based read index.
         /// </summary>
         /// <value>
         /// The index of the read.
@@ -65,7 +58,7 @@ namespace Unosquare.Swan.Components
         public int WriteIndex { get; private set; }
 
         /// <summary>
-        /// Gets an the object associated with the last write
+        /// Gets an the object associated with the last write.
         /// </summary>
         /// <value>
         /// The write tag.
@@ -107,7 +100,7 @@ namespace Unosquare.Swan.Components
         /// <param name="target">The target.</param>
         /// <param name="targetOffset">The target offset.</param>
         /// <exception cref="System.InvalidOperationException">
-        /// Exception that is thrown when a method call is invalid for the object's current state
+        /// Exception that is thrown when a method call is invalid for the object's current state.
         /// </exception>
         public void Read(int requestedBytes, byte[] target, int targetOffset)
         {
@@ -143,7 +136,7 @@ namespace Unosquare.Swan.Components
         /// <param name="source">The source.</param>
         /// <param name="length">The length.</param>
         /// <param name="writeTag">The write tag.</param>
-        /// <exception cref="System.InvalidOperationException">Read</exception>
+        /// <exception cref="System.InvalidOperationException">Unable to write to circular buffer. Call the Read method to make some additional room.</exception>
         public void Write(IntPtr source, int length, TimeSpan writeTag)
         {
             lock (_syncLock)
@@ -151,7 +144,7 @@ namespace Unosquare.Swan.Components
                 if (ReadableCount + length > Length)
                 {
                     throw new InvalidOperationException(
-                        $"Unable to write to circular buffer. Call the {nameof(Read)} method to make some additional room");
+                        $"Unable to write to circular buffer. Call the {nameof(Read)} method to make some additional room.");
                 }
 
                 var writeCount = 0;
@@ -199,7 +192,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Fast pointer memory block copy function
+        /// Fast pointer memory block copy function.
         /// </summary>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
