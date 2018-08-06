@@ -83,7 +83,7 @@
   <h1 id="Unosquare_Swan_Networking_JsonClient" data-uid="Unosquare.Swan.Networking.JsonClient" class="text-break">Class JsonClient
   </h1>
   <div class="markdown level0 summary"><p>Represents a HttpClient with extended methods to use with JSON payloads 
-and bearer tokens authentication</p>
+and bearer tokens authentication.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -126,7 +126,7 @@ and bearer tokens authentication</p>
   
   <a id="Unosquare_Swan_Networking_JsonClient_Authenticate_" data-uid="Unosquare.Swan.Networking.JsonClient.Authenticate*"></a>
   <h4 id="Unosquare_Swan_Networking_JsonClient_Authenticate_System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.Authenticate(System.String,System.String,System.String,System.Threading.CancellationToken)">Authenticate(String, String, String, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Authenticate against a web server using Bearer Token</p>
+  <div class="markdown level1 summary"><p>Authenticate against a web server using Bearer Token.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -180,7 +180,7 @@ and bearer tokens authentication</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
-        <td><p>A task with a Dictionary with authentication data</p>
+        <td><p>A task with a Dictionary with authentication data.</p>
 </td>
       </tr>
     </tbody>
@@ -203,7 +203,7 @@ username</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.securityexception">SecurityException</a></td>
-        <td><p>Error Authenticating</p>
+        <td><p>Error Authenticating.</p>
 </td>
       </tr>
     </tbody>
@@ -496,7 +496,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
-        <td><p>A task with a result as a collection of key/value pairs</p>
+        <td><p>A task with a result as a collection of key/value pairs.</p>
 </td>
       </tr>
     </tbody>
@@ -559,7 +559,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
-        <td><p>A task with a result of the requested type</p>
+        <td><p>A task with a result of the requested type.</p>
 </td>
       </tr>
     </tbody>
@@ -575,7 +575,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of response object</p>
+        <td><p>The type of response object.</p>
 </td>
       </tr>
     </tbody>
@@ -583,13 +583,13 @@ with optional authorization token.</p>
   
   
   <a id="Unosquare_Swan_Networking_JsonClient_PostFile_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile*"></a>
-  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)">PostFile&lt;T&gt;(String, Byte[], String, String)</h4>
+  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)">PostFile&lt;T&gt;(String, Byte[], String, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(string url, byte[] buffer, string fileName, string authorization = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(string url, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -625,6 +625,12 @@ with optional authorization token.</p>
         <td><p>The authorization.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -638,7 +644,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
-        <td><p>A task with a result of the requested string</p>
+        <td><p>A task with a result of the requested string.</p>
 </td>
       </tr>
     </tbody>
@@ -662,13 +668,13 @@ with optional authorization token.</p>
   
   
   <a id="Unosquare_Swan_Networking_JsonClient_PostFileString_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFileString*"></a>
-  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)">PostFileString(String, Byte[], String, String)</h4>
+  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)">PostFileString(String, Byte[], String, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(string url, byte[] buffer, string fileName, string authorization = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(string url, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -704,6 +710,12 @@ with optional authorization token.</p>
         <td><p>The authorization.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -717,7 +729,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>A task with a result of the requested string</p>
+        <td><p>A task with a result of the requested string.</p>
 </td>
       </tr>
     </tbody>
@@ -787,7 +799,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Models.OkOrError-2.html">OkOrError</a>&lt;T, TE&gt;&gt;</td>
-        <td><p>A task with a result of the requested type or an error object</p>
+        <td><p>A task with a result of the requested type or an error object.</p>
 </td>
       </tr>
     </tbody>
@@ -803,7 +815,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of response object</p>
+        <td><p>The type of response object.</p>
 </td>
       </tr>
       <tr>
@@ -871,7 +883,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>A task with a result of the requested string</p>
+        <td><p>A task with a result of the requested string.</p>
 </td>
       </tr>
     </tbody>
@@ -887,17 +899,12 @@ or an error.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>url</p>
+        <td><p>url.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
-        <td><p>Error POST JSON</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
-        <td><p>Error POST Json.</p>
+        <td><p>Error POST JSON.</p>
 </td>
       </tr>
     </tbody>
@@ -960,7 +967,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
-        <td><p>A task with a result of the requested collection of key/value pairs</p>
+        <td><p>A task with a result of the requested collection of key/value pairs.</p>
 </td>
       </tr>
     </tbody>
@@ -1039,7 +1046,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of response object</p>
+        <td><p>The type of response object.</p>
 </td>
       </tr>
     </tbody>
@@ -1192,7 +1199,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>A task with a result of the requested string</p>
+        <td><p>A task with a result of the requested string.</p>
 </td>
       </tr>
     </tbody>

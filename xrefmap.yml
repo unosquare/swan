@@ -7310,6 +7310,40 @@ references:
   fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Error
   nameWithType: OkOrError<T, TError>.Error
   nameWithType.vb: OkOrError(Of T, TError).Error
+- uid: Unosquare.Swan.Models.OkOrError`2.FromError(`1)
+  name: FromError(TError)
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromError__1_
+  commentId: M:Unosquare.Swan.Models.OkOrError`2.FromError(`1)
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromError(TError)
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromError(TError)
+  nameWithType: OkOrError<T, TError>.FromError(TError)
+  nameWithType.vb: OkOrError(Of T, TError).FromError(TError)
+- uid: Unosquare.Swan.Models.OkOrError`2.FromError*
+  name: FromError
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromError_
+  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.FromError
+  isSpec: "True"
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromError
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromError
+  nameWithType: OkOrError<T, TError>.FromError
+  nameWithType.vb: OkOrError(Of T, TError).FromError
+- uid: Unosquare.Swan.Models.OkOrError`2.FromOk(`0)
+  name: FromOk(T)
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromOk__0_
+  commentId: M:Unosquare.Swan.Models.OkOrError`2.FromOk(`0)
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromOk(T)
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromOk(T)
+  nameWithType: OkOrError<T, TError>.FromOk(T)
+  nameWithType.vb: OkOrError(Of T, TError).FromOk(T)
+- uid: Unosquare.Swan.Models.OkOrError`2.FromOk*
+  name: FromOk
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromOk_
+  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.FromOk
+  isSpec: "True"
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromOk
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromOk
+  nameWithType: OkOrError<T, TError>.FromOk
+  nameWithType.vb: OkOrError(Of T, TError).FromOk
 - uid: Unosquare.Swan.Models.OkOrError`2.IsOk
   name: IsOk
   href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_IsOk
@@ -8911,24 +8945,24 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.JsonClient.PostFile
   nameWithType: JsonClient.PostFile
-- uid: Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)
-  name: PostFile<T>(String, Byte[], String, String)
-  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)
-  name.vb: PostFile(Of T)(String, Byte(), String, String)
-  fullName: Unosquare.Swan.Networking.JsonClient.PostFile<T>(System.String, System.Byte[], System.String, System.String)
-  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFile(Of T)(System.String, System.Byte(), System.String, System.String)
-  nameWithType: JsonClient.PostFile<T>(String, Byte[], String, String)
-  nameWithType.vb: JsonClient.PostFile(Of T)(String, Byte(), String, String)
-- uid: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)
-  name: PostFileString(String, Byte[], String, String)
-  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)
-  name.vb: PostFileString(String, Byte(), String, String)
-  fullName: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte[], System.String, System.String)
-  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte(), System.String, System.String)
-  nameWithType: JsonClient.PostFileString(String, Byte[], String, String)
-  nameWithType.vb: JsonClient.PostFileString(String, Byte(), String, String)
+- uid: Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
+  name: PostFile<T>(String, Byte[], String, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
+  name.vb: PostFile(Of T)(String, Byte(), String, String, CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.PostFile<T>(System.String, System.Byte[], System.String, System.String, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFile(Of T)(System.String, System.Byte(), System.String, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostFile<T>(String, Byte[], String, String, CancellationToken)
+  nameWithType.vb: JsonClient.PostFile(Of T)(String, Byte(), String, String, CancellationToken)
+- uid: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
+  name: PostFileString(String, Byte[], String, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
+  name.vb: PostFileString(String, Byte(), String, String, CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte[], System.String, System.String, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte(), System.String, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostFileString(String, Byte[], String, String, CancellationToken)
+  nameWithType.vb: JsonClient.PostFileString(String, Byte(), String, String, CancellationToken)
 - uid: Unosquare.Swan.Networking.JsonClient.PostFileString*
   name: PostFileString
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFileString_
