@@ -82,7 +82,7 @@
   
   <h1 id="Unosquare_Swan_Components_CacheRepository_2" data-uid="Unosquare.Swan.Components.CacheRepository`2" class="text-break">Class CacheRepository&lt;TType, T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>A thread-safe cache repository</p>
+  <div class="markdown level0 summary"><p>A thread-safe abstract cache repository</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -118,7 +118,7 @@
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
   <h5 id="Unosquare_Swan_Components_CacheRepository_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CacheRepository&lt;TType, T&gt;
+    <pre><code class="lang-csharp hljs">public abstract class CacheRepository&lt;TType, T&gt;
     where TType : class</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -245,7 +245,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T Retrieve(TType type)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual T Retrieve(TType type)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

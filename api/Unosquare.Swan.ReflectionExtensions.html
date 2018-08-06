@@ -501,7 +501,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethod(this Type type, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -515,7 +515,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">sourceType</span></td>
+        <td><span class="parametername">type</span></td>
         <td><p>Type of the source.</p>
 </td>
       </tr>
@@ -1291,7 +1291,7 @@ binding criteria. This class cannot be inherited</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo property, object[] value, object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1305,7 +1305,7 @@ binding criteria. This class cannot be inherited</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
-        <td><span class="parametername">property</span></td>
+        <td><span class="parametername">propertyInfo</span></td>
         <td><p>The property.</p>
 </td>
       </tr>
