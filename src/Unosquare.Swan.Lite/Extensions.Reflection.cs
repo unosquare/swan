@@ -443,7 +443,7 @@
 
             if (!cache.ContainsKey(propertyInfo))
             {
-                methodInfo = isGet ? propertyInfo.GetGetMethod(nonPublic) : propertyInfo.GetSetMethod(nonPublic);
+                methodInfo = isGet ? propertyInfo.GetGetMethod(true) : propertyInfo.GetSetMethod(true);
                 cache[propertyInfo] = methodInfo;
             }
             else

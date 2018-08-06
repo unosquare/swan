@@ -18,8 +18,7 @@
         }
 
         /// <inheritdoc/>
-        protected override bool FromLong(long backingValue) =>
-        backingValue != 0;
+        protected override bool FromLong(long backingValue) => backingValue != 0;
 
         /// <inheritdoc/>
         protected override long ToLong(bool value) => value ? 1 : 0;
