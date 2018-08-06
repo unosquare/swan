@@ -5,11 +5,11 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// A thread-safe cache repository
+    /// A thread-safe abstract cache repository
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of object to cache.</typeparam>
-    public class CacheRepository<TType, T>
+    public abstract class CacheRepository<TType, T>
         where TType : class
     {
         private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
@@ -57,7 +57,7 @@
         /// An object for the specified type
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        public T Retrieve(TType type)
+        public virtual T Retrieve(TType type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));

@@ -286,6 +286,7 @@
         [Test]
         public void NonPublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
         {
+            // TODO: Failing with dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.1
             Assert.Ignore("Fix");
             Assert.IsNotNull(NonPublicProperty.GetCacheGetMethod(true));
         }
