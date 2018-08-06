@@ -20,7 +20,7 @@ namespace Unosquare.Swan.Networking
     /// Represents a basic SMTP client that is capable of submitting messages to an SMTP server.
     /// </summary>
     /// <example>
-    /// The following code explains how to send a simple e-mail
+    /// The following code explains how to send a simple e-mail.
     /// <code>
     /// using System.Net.Mail;
     ///  
@@ -148,45 +148,14 @@ namespace Unosquare.Swan.Networking
         /// The client hostname.
         /// </value>
         public string ClientHostname { get; set; }
-
-        /// <summary>
-        /// Parses and verifies the server reply. If the reply is not positive or cannot be parsed,
-        /// it will throw an SmtpException
-        /// </summary>
-        /// <param name="replyText">The reply text.</param>
-        /// <param name="sessionId">The session id.</param>
-        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
-        private static void ValidateReply(string replyText, string sessionId)
-        {
-            if (replyText == null)
-                throw new SmtpException("There was no response from the server");
-
-            try
-            {
-                var response = SmtpServerReply.Parse(replyText);
-                $"  RX {replyText} - {response.IsPositive}".Debug(typeof(SmtpClient), sessionId);
-
-                if (response.IsPositive) return;
-
-                var responseContent = string.Empty;
-                if (response.Content.Count > 0)
-                    responseContent = string.Join(";", response.Content.ToArray());
-
-                throw new SmtpException((SmtpStatusCode) response.ReplyCode, responseContent);
-            }
-            catch
-            {
-                throw new SmtpException($"Could not parse server response: {replyText}");
-            }
-        }
-
+        
 #if !NETSTANDARD1_3
         /// <summary>
         /// Sends an email message asynchronously.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <returns>A task that represents the asynchronous of send email operation</returns>
+        /// <returns>A task that represents the asynchronous of send email operation.</returns>
         public Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
@@ -194,7 +163,7 @@ namespace Unosquare.Swan.Networking
                 AuthMode = Credentials == null ? string.Empty : SmtpDefinitions.SmtpAuthMethods.Login,
                 ClientHostname = ClientHostname,
                 IsChannelSecure = EnableSsl,
-                SenderAddress = message.From.Address
+                SenderAddress = message.From.Address,
             };
 
             if (Credentials != null)
@@ -223,7 +192,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A task that represents the asynchronous of send email operation
+        /// A task that represents the asynchronous of send email operation.
         /// </returns>
         /// <exception cref="ArgumentNullException">sessionState</exception>
         public Task SendMailAsync(
@@ -266,35 +235,33 @@ namespace Unosquare.Swan.Networking
                 await tcpClient.ConnectAsync(Host, Port);
                 using (var connection = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 1000))
                 {
-                    string requestText = null;
-                    string replyText = null;
+                    var sender = new SmtpSender(sessionId);
 
                     try
                     {
                         // Read the greeting message
-                        replyText = await connection.ReadLineAsync(ct);
+                        sender.ReplyText = await connection.ReadLineAsync(ct);
 
                         // EHLO 1
-                        requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
-                        $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
+                        sender.RequestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
 
-                        await connection.WriteLineAsync(requestText, ct);
+                        await connection.WriteLineAsync(sender.RequestText, ct);
                         do
                         {
-                            replyText = await connection.ReadLineAsync(ct);
-                        } while (replyText.StartsWith("250 ") == false);
+                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                        } 
+                        while (sender.ReplyText.StartsWith("250 ") == false);
 
-                        ValidateReply(replyText, sessionId);
+                        sender.ValidateReply();
 
                         // STARTTLS
                         if (EnableSsl)
                         {
-                            requestText = $"{SmtpCommandNames.STARTTLS}";
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
+                            sender.RequestText = $"{SmtpCommandNames.STARTTLS}";
 
-                            await connection.WriteLineAsync(requestText, ct);
-                            replyText = await connection.ReadLineAsync(ct);
-                            ValidateReply(replyText, sessionId);
+                            await connection.WriteLineAsync(sender.RequestText, ct);
+                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                            sender.ValidateReply();
 
                             if (await connection.UpgradeToSecureAsClientAsync() == false)
                                 throw new SecurityException("Could not upgrade the channel to SSL.");
@@ -302,67 +269,53 @@ namespace Unosquare.Swan.Networking
 
                         {
                             // EHLO 2
-                            requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
+                            sender.RequestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
 
-                            await connection.WriteLineAsync(requestText, ct);
+                            await connection.WriteLineAsync(sender.RequestText, ct);
                             do
                             {
-                                replyText = await connection.ReadLineAsync(ct);
-                            } while (replyText.StartsWith("250 ") == false);
+                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                            } 
+                            while (sender.ReplyText.StartsWith("250 ") == false);
 
-                            ValidateReply(replyText, sessionId);
+                            sender.ValidateReply();
                         }
 
                         // AUTH
                         if (Credentials != null)
                         {
-                            requestText =
-                                $"{SmtpCommandNames.AUTH} {SmtpDefinitions.SmtpAuthMethods.Login} {Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.UserName))}";
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                            await connection.WriteLineAsync(requestText, ct);
-                            replyText = await connection.ReadLineAsync(ct);
-                            ValidateReply(replyText, sessionId);
-                            requestText = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.Password));
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                            await connection.WriteLineAsync(requestText, ct);
-                            replyText = await connection.ReadLineAsync(ct);
-                            ValidateReply(replyText, sessionId);
+                            var auth = new ConnectionAuth(connection, sender, Credentials);
+                            await auth.AuthenticateAsync(ct);
                         }
 
                         foreach (var sessionState in sessionStates)
                         {
                             {
                                 // MAIL FROM
-                                requestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
-                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                                await connection.WriteLineAsync(requestText, ct);
-                                replyText = await connection.ReadLineAsync(ct);
-                                ValidateReply(replyText, sessionId);
+                                sender.RequestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
+                                
+                                await connection.WriteLineAsync(sender.RequestText, ct);
+                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ValidateReply();
                             }
 
                             // RCPT TO
                             foreach (var recipient in sessionState.Recipients)
                             {
-                                requestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
-                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                                await connection.WriteLineAsync(requestText, ct);
-                                replyText = await connection.ReadLineAsync(ct);
-                                ValidateReply(replyText, sessionId);
+                                sender.RequestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
+                                
+                                await connection.WriteLineAsync(sender.RequestText, ct);
+                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ValidateReply();
                             }
 
                             {
                                 // DATA
-                                requestText = $"{SmtpCommandNames.DATA}";
-                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                                await connection.WriteLineAsync(requestText, ct);
-                                replyText = await connection.ReadLineAsync(ct);
-                                ValidateReply(replyText, sessionId);
+                                sender.RequestText = $"{SmtpCommandNames.DATA}";
+                                
+                                await connection.WriteLineAsync(sender.RequestText, ct);
+                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ValidateReply();
                             }
 
                             {
@@ -370,36 +323,111 @@ namespace Unosquare.Swan.Networking
                                 var dataTerminator = sessionState.DataBuffer.Skip(sessionState.DataBuffer.Count - 5)
                                     .ToArray().ToText();
 
-                                requestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
-                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
+                                sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
+                                
                                 await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, ct);
                                 if (dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator) == false)
                                     await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, ct);
 
-                                replyText = await connection.ReadLineAsync(ct);
-                                ValidateReply(replyText, sessionId);
+                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ValidateReply();
                             }
                         }
 
                         {
                             // QUIT
-                            requestText = $"{SmtpCommandNames.QUIT}";
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-                            await connection.WriteLineAsync(requestText, ct);
-                            replyText = await connection.ReadLineAsync(ct);
-                            ValidateReply(replyText, sessionId);
+                            sender.RequestText = $"{SmtpCommandNames.QUIT}";
+                            
+                            await connection.WriteLineAsync(sender.RequestText, ct);
+                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                            sender.ValidateReply();
                         }
                     }
                     catch (Exception ex)
                     {
                         var errorMessage =
-                            $"Could not send email. {ex.Message}\r\n    Last Request: {requestText}\r\n    Last Reply: {replyText}";
+                            $"Could not send email. {ex.Message}\r\n    Last Request: {sender.RequestText}\r\n    Last Reply: {sender.ReplyText}";
                         errorMessage.Error(typeof(SmtpClient).FullName, sessionId);
 
                         throw new SmtpException(errorMessage);
                     }
                 }
+            }
+        }
+
+        private sealed class SmtpSender
+        {
+            private readonly string _sessionId;
+            private string _requestText;
+
+            public SmtpSender(string sessionId)
+            {
+                _sessionId = sessionId;
+            }
+
+            public string RequestText
+            {
+                get => _requestText;
+                set
+                {
+                    _requestText = value;
+                    $"  TX {_requestText}".Debug(typeof(SmtpClient), _sessionId);
+                }
+            }
+
+            public string ReplyText { get; set; }
+
+            public void ValidateReply()
+            {
+                if (ReplyText == null)
+                    throw new SmtpException("There was no response from the server");
+
+                try
+                {
+                    var response = SmtpServerReply.Parse(ReplyText);
+                    $"  RX {ReplyText} - {response.IsPositive}".Debug(typeof(SmtpClient), _sessionId);
+
+                    if (response.IsPositive) return;
+
+                    var responseContent = string.Empty;
+                    if (response.Content.Count > 0)
+                        responseContent = string.Join(";", response.Content.ToArray());
+
+                    throw new SmtpException((SmtpStatusCode) response.ReplyCode, responseContent);
+                }
+                catch
+                {
+                    throw new SmtpException($"Could not parse server response: {ReplyText}");
+                }
+            }
+        }
+
+        private class ConnectionAuth
+        {
+            private readonly SmtpSender _sender;
+            private readonly Connection _connection;
+            private readonly NetworkCredential _credentials;
+
+            public ConnectionAuth(Connection connection, SmtpSender sender, NetworkCredential credentials)
+            {
+                _connection = connection;
+                _sender = sender;
+                _credentials = credentials;
+            }
+
+            public async Task AuthenticateAsync(CancellationToken ct)
+            {
+                _sender.RequestText =
+                    $"{SmtpCommandNames.AUTH} {SmtpDefinitions.SmtpAuthMethods.Login} {Convert.ToBase64String(Encoding.UTF8.GetBytes(_credentials.UserName))}";
+
+                await _connection.WriteLineAsync(_sender.RequestText, ct);
+                _sender.ReplyText = await _connection.ReadLineAsync(ct);
+                _sender.ValidateReply();
+                _sender.RequestText = Convert.ToBase64String(Encoding.UTF8.GetBytes(_credentials.Password));
+
+                await _connection.WriteLineAsync(_sender.RequestText, ct);
+                _sender.ReplyText = await _connection.ReadLineAsync(ct);
+                _sender.ValidateReply();
             }
         }
     }

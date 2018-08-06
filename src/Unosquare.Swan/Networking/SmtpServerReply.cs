@@ -7,7 +7,7 @@
     using System.Text;
 
     /// <summary>
-    /// Represents an SMTP server response object
+    /// Represents an SMTP server response object.
     /// </summary>
     public class SmtpServerReply
     {
@@ -161,7 +161,7 @@
         public List<string> Content { get; }
 
         /// <summary>
-        /// Returns true if the response code is between 200 and 599
+        /// Returns true if the response code is between 200 and 599.
         /// </summary>
         public bool IsValid { get; }
 
