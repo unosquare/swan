@@ -196,7 +196,7 @@
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
 
-                Assert.IsNotNull(ldapAttributes.GetAttribute("email")?.StringValue);
+                Assert.IsNotNull(ldapAttributes["email"]?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -216,7 +216,7 @@
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
 
-                Assert.AreEqual("gperez@unosquare.com", ldapAttributes.GetAttribute("email")?.StringValue);
+                Assert.AreEqual("gperez@unosquare.com", ldapAttributes["email"]?.StringValue);
             }
 
             Assert.IsFalse(lsc.HasMore());
