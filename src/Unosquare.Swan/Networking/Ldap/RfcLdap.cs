@@ -24,10 +24,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (_entry != null) return _entry;
 
                 var attrs = new LdapAttributeSet();
-                var attrList = ((RfcSearchResultEntry)Message.Response).Attributes;
+                var entry = (RfcSearchResultEntry) Message.Response;
                 
-                foreach (Asn1Sequence seq in attrList.ToArray())
+                foreach (var o in entry.Attributes.ToArray())
                 {
+                    var seq = (Asn1Sequence) o;
                     var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
                     var set = (Asn1Set)seq.Get(1);
 
@@ -39,7 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     attrs.Add(attr);
                 }
 
-                _entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
+                _entry = new LdapEntry(entry.ObjectName, attrs);
 
                 return _entry;
             }

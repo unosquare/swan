@@ -372,7 +372,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        public Asn1OctetString ObjectName => (Asn1OctetString) Get(0);
+        public string ObjectName => ((Asn1OctetString) Get(0)).StringValue();
 
         public Asn1Sequence Attributes => (Asn1Sequence) Get(1);
 

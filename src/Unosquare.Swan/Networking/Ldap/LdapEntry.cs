@@ -641,16 +641,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary>
-        /// Returns true if the two specified arrays of bytes are equal to each
-        /// another. 
-        /// </summary>
-        /// <param name="e1">the first array to be tested</param>
-        /// <param name="e2">the second array to be tested</param>
-        /// <returns>
-        /// true if the two arrays are equal
-        /// </returns>
-        private bool Equals(sbyte[] e1, sbyte[] e2)
+        private static bool Equals(sbyte[] e1, sbyte[] e2)
         {
             // If same object, they compare true
             if (e1 == e2)
