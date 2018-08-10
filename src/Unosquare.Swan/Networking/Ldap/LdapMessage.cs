@@ -31,7 +31,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="op">The operation type of message.</param>
         /// <param name="controls">The controls to use with the operation.</param>
         /// <seealso cref="Type"></seealso>
-        internal LdapMessage(LdapOperation type, IRfcRequest op, LdapControl[] controls)
+        internal LdapMessage(LdapOperation type, IRfcRequest op, LdapControl[] controls = null)
         {
             // Get a unique number for this request message
             _messageType = type;

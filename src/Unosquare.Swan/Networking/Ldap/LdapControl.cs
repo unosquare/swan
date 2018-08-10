@@ -134,13 +134,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd)
-            : base(LdapOperation.BindRequest,
-                new RfcBindRequest(
-                    version,
-                    dn,
-                    new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd),
-                        false))),
-                null)
+            : base(LdapOperation.BindRequest, new RfcBindRequest(version, dn, passwd))
         {
         }
 
@@ -204,6 +198,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapConnection.Search"></seealso>
     internal class LdapUrl
     {
+        private const int DefaultPort = 389;
+        private const int DefaultSslPort = 636;
+
         private int _port;
 
         public LdapUrl(string url)
@@ -227,19 +224,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public string[] AttributeArray { get; private set; }
 
-        private string[] Extensions { get; set; }
-
-        private string Filter { get; set; }
-
-        private string Host { get; set; }
-
         /// <summary>
-        ///     Returns the port number of the Ldap server in the URL.
+        /// Returns the port number of the Ldap server in the URL.
         /// </summary>
-        /// <returns>
-        ///     The port number in the URL.
-        /// </returns>
-        public int Port => _port == 0 ? LdapConnection.DefaultPort : _port;
+        /// <value>
+        /// The port.
+        /// </value>
+        public int Port => _port == 0 ? DefaultPort : _port;
 
         /// <summary>
         ///     Returns the depth of search. It returns one of the following from
@@ -251,13 +242,19 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapScope Scope { get; private set; } = LdapScope.ScopeBase;
 
         /// <summary>
-        ///     Returns true if the URL is of the type ldaps (Ldap over SSL, a predecessor
-        ///     to startTls).
+        /// Returns true if the URL is of the type ldaps (Ldap over SSL, a predecessor
+        /// to startTls).
         /// </summary>
-        /// <returns>
-        ///     whether this is a secure Ldap url or not.
-        /// </returns>
+        /// <value>
+        ///   <c>true</c> if secure; otherwise, <c>false</c>.
+        /// </value>
         public bool Secure { get; private set; }
+        
+        private string[] Extensions { get; set; }
+
+        private string Filter { get; set; }
+
+        private string Host { get; set; }
 
         /// <summary>
         /// Returns a valid string representation of this Ldap URL.
@@ -423,13 +420,13 @@ namespace Unosquare.Swan.Networking.Ldap
             if (url.StartsWith("ldap://", StringComparison.OrdinalIgnoreCase))
             {
                 scanStart += 7;
-                _port = LdapConnection.DefaultPort;
+                _port = DefaultPort;
             }
             else if (url.StartsWith("ldaps://", StringComparison.OrdinalIgnoreCase))
             {
                 Secure = true;
                 scanStart += 8;
-                _port = LdapConnection.DefaultSslPort;
+                _port = DefaultSslPort;
             }
             else
             {
@@ -464,10 +461,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // Check for IPV6 "[ipaddress]:port"
             int portStart;
-            var hostEnd = hostPortEnd;
             if (url[scanStart] == '[')
             {
-                hostEnd = url.IndexOf(']', scanStart + 1);
+                var hostEnd = url.IndexOf(']', scanStart + 1);
                 if (hostEnd >= hostPortEnd || hostEnd == -1)
                 {
                     throw new UriFormatException("LdapUrl: \"]\" is missing on IPV6 host name");
@@ -780,12 +776,12 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         private static readonly Asn1Identifier Id = new Asn1Identifier(LdapOperation.BindRequest);
         
-        public RfcBindRequest(int version, string name, Asn1Object auth)
+        public RfcBindRequest(int version, string name, sbyte[] passwd)
             : base(3)
         {
             Add(new Asn1Integer(version));
             Add(name);
-            Add(auth);
+            Add(new RfcAuthenticationChoice(passwd));
         }
 
         public Asn1Integer Version

@@ -206,7 +206,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1OctetString(Stream stream, int len)
             : base(Id)
         {
-            _content = len > 0 ? (sbyte[]) LBERDecoder.DecodeOctetString(stream, len) : new sbyte[0];
+            _content = len > 0 ? (sbyte[]) LberDecoder.DecodeOctetString(stream, len) : new sbyte[0];
         }
         
         public sbyte[] ByteValue() => _content;
@@ -364,7 +364,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             while (len > 0)
             {
-                Add(LBERDecoder.Decode(stream, componentLen));
+                Add(LberDecoder.Decode(stream, componentLen));
                 len -= componentLen[0];
             }
         }
@@ -392,7 +392,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Boolean(Stream stream, int len)
             : base(Id)
         {
-            _content = LBERDecoder.DecodeBoolean(stream, len);
+            _content = LberDecoder.DecodeBoolean(stream, len);
         }
         
         public bool BooleanValue() => _content;
@@ -550,7 +550,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
         
         public Asn1Integer(Stream stream, int len)
-            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
+            : base(Id, LberDecoder.DecodeNumeric(stream, len))
         {
         }
 
@@ -585,7 +585,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public Asn1Enumerated(Stream stream, int len)
-            : base(Id, LBERDecoder.DecodeNumeric(stream, len))
+            : base(Id, LberDecoder.DecodeNumeric(stream, len))
         {
         }
         

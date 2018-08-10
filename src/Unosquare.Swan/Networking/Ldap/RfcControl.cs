@@ -13,10 +13,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcControl : Asn1Sequence
     {
-        public Asn1OctetString ControlType => (Asn1OctetString)Get(0);
-        
-        public Asn1Boolean Criticality => Size() > 1 && Get(1) is Asn1Boolean boolean ? boolean : new Asn1Boolean(false);
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
@@ -43,6 +39,10 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(seqObj.Get(i));
         }
         
+        public Asn1OctetString ControlType => (Asn1OctetString)Get(0);
+        
+        public Asn1Boolean Criticality => Size() > 1 && Get(1) is Asn1Boolean boolean ? boolean : new Asn1Boolean(false);
+
         public Asn1OctetString ControlValue
         {
             get
@@ -118,8 +118,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
     internal class RfcAuthenticationChoice : Asn1Choice
     {
-        public RfcAuthenticationChoice(Asn1Object choice)
-            : base(choice)
+        public RfcAuthenticationChoice(sbyte[] passwd)
+            : base(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd), false))
         {
         }
 

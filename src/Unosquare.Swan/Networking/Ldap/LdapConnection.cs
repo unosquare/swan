@@ -99,81 +99,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </example>
     public class LdapConnection : IDisposable
     {
-        /// <summary>
-        /// Used with search instead of an attribute list to indicate that no
-        /// attributes are to be returned.
-        /// NO_ATTRS = "1.1"
-        /// </summary>
-        public const string NoAttrs = "1.1";
-
-        /// <summary>
-        /// Used with search instead of an attribute list to indicate that all
-        /// attributes are to be returned.
-        /// ALL_USER_ATTRS = "*"
-        /// </summary>
-        public const string AllUserAttrs = "*";
-
-        /// <summary>
-        /// Specifies the Ldapv3 protocol version when performing a bind operation.
-        /// Specifies Ldap version V3 of the protocol, and is specified
-        /// when performing bind operations.
-        /// You can use this identifier in the version parameter
-        /// of the bind method to specify an Ldapv3 bind.
-        /// Ldap_V3 is the default protocol version
-        /// Ldap_V3 = 3
-        /// </summary>
-        public const int LdapV3 = 3;
-
-        /// <summary>
-        ///     The default port number for Ldap servers.
-        ///     You can use this identifier to specify the port when establishing
-        ///     a clear text connection to a server.  This the default port.
-        ///     DEFAULT_PORT = 389
-        /// </summary>
-        public const int DefaultPort = 389;
-
-        /// <summary>
-        ///     The default SSL port number for Ldap servers.
-        ///     DEFAULT_SSL_PORT = 636
-        ///     You can use this identifier to specify the port when establishing
-        ///     a an SSL connection to a server..
-        /// </summary>
-        public const int DefaultSslPort = 636;
-
-        /// <summary>
-        ///     A string that can be passed in to the getProperty method.
-        ///     Ldap_PROPERTY_SDK = "version.sdk"
-        ///     You can use this string to request the version of the SDK.
-        /// </summary>
-        public const string LdapPropertySdk = "version.sdk";
-
-        /// <summary>
-        ///     A string that can be passed in to the getProperty method.
-        ///     Ldap_PROPERTY_PROTOCOL = "version.protocol"
-        ///     You can use this string to request the version of the
-        ///     Ldap protocol.
-        /// </summary>
-        public const string LdapPropertyProtocol = "version.protocol";
-
-        /// <summary>
-        ///     A string that can be passed in to the getProperty method.
-        ///     Ldap_PROPERTY_SECURITY = "version.security"
-        ///     You can use this string to request the type of security
-        ///     being used.
-        /// </summary>
-        public const string LdapPropertySecurity = "version.security";
-
-        /// <summary>
-        ///     A string that corresponds to the server shutdown notification OID.
-        ///     This notification may be used by the server to advise the client that
-        ///     the server is about to close the connection due to an error
-        ///     condition.
-        ///     SERVER_SHUTDOWN_OID = "1.3.6.1.4.1.1466.20036"
-        /// </summary>
-        public const string ServerShutdownOid = "1.3.6.1.4.1.1466.20036";
-
-        /// <summary> The OID string that identifies a StartTLS request and response.</summary>
-        public const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
+        private const int LdapV3 = 3;
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
         private readonly object _responseCtlSemaphore = new object();
@@ -225,19 +151,16 @@ namespace Unosquare.Swan.Networking.Ldap
         public bool Connected => _conn?.IsConnected == true;
 
         /// <summary>
-        ///     Returns the Server Controls associated with the most recent response
-        ///     to a synchronous request on this connection object, or null
-        ///     if the latest response contained no Server Controls. The method
-        ///     always returns null for asynchronous requests. For asynchronous
-        ///     requests, the response controls are available in LdapMessage.
+        /// Returns the Server Controls associated with the most recent response
+        /// to a synchronous request on this connection object, or null
+        /// if the latest response contained no Server Controls. The method
+        /// always returns null for asynchronous requests. For asynchronous
+        /// requests, the response controls are available in LdapMessage.
         /// </summary>
-        /// <returns>
-        ///     The server controls associated with the most recent response
-        ///     to a synchronous request or null if the response contains no server
-        ///     controls.
-        /// </returns>
-        /// <seealso cref="LdapMessage.Controls">
-        /// </seealso>
+        /// <value>
+        /// The response controls.
+        /// </value>
+        /// <seealso cref="LdapMessage.Controls"></seealso>
         public LdapControl[] ResponseControls
         {
             get
@@ -399,9 +322,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrs">The names of the attributes to retrieve.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// the LdapEntry read from the server
+        /// the LdapEntry read from the server.
         /// </returns>
-        /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned</exception>
+        /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned.</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default)
         {
             var sr = await Search(dn, LdapScope.ScopeSub, null, attrs, false, ct);
@@ -426,12 +349,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// wait for search results).
         /// </summary>
         /// <param name="base">The base distinguished name to search from.</param>
-        /// <param name="scope">The scope of the entries to search. The following
-        /// are the valid options:
-        /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
-        /// SCOPE_SUB - searches the base DN and all entries
-        /// within its subtree
-        /// </li></ul></param>
+        /// <param name="scope">The scope of the entries to search.</param>
         /// <param name="filter">The search filter specifying the search criteria.</param>
         /// <param name="attrs">The names of attributes to retrieve.</param>
         /// <param name="typesOnly">If true, returns the names but not the values of
@@ -481,7 +399,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             using (var stream = new MemoryStream())
             {
-                LBEREncoder.Encode(msg.Asn1Object, stream);
+                LberEncoder.Encode(msg.Asn1Object, stream);
                 await _conn.WriteDataAsync(stream.ToArray(), true, ct);
 
                 try
