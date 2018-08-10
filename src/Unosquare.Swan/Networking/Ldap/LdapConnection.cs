@@ -512,7 +512,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 catch (ArgumentException)
                 {
                     // expected
-                    "Error".Error(nameof(RequestLdapMessage));
                 }
 
                 var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
