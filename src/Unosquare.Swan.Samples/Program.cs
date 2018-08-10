@@ -19,9 +19,7 @@
         /// <exception cref="SampleException"></exception>
         public static async Task Main(string[] args)
         {
-#if !NET46
             await TestLdapSearch();
-#endif
             TestApplicationInfo();
             await TestTerminalOutputs();
             TestNetworkUtilities();
@@ -35,7 +33,7 @@
             "Enter any key to exit . . .".ReadKey();
         }
 
-        static async Task TestLdapSearch()
+        private static async Task TestLdapSearch()
         {
             try
             {
@@ -43,7 +41,7 @@
                 {
                     await cn.Connect("ldap.forumsys.com", 389);
                     await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
+                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapScope.ScopeSub);
 
                     while (lsc.HasMore())
                     {
@@ -59,8 +57,8 @@
                 ex.Error(nameof(Main), "Error LDAP");
             }
         }
-        
-        static void TestExceptionLogging()
+
+        private static void TestExceptionLogging()
         {
             try
             {
@@ -72,14 +70,14 @@
             }
         }
 
-        static void TestApplicationInfo()
+        private static void TestApplicationInfo()
         {
             Runtime.WriteWelcomeBanner();
             $"Operating System Type: {Runtime.OS}    CLR Type: {(Runtime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {Runtime.LocalStoragePath}".Info();
         }
 
-        static void TestJson()
+        private static void TestJson()
         {
             var jsonText =
                 "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
@@ -94,7 +92,7 @@
             "test".Dump(typeof(Program));
         }
 
-        static void TestNetworkUtilities()
+        private static void TestNetworkUtilities()
         {
             const string domainName = "unosquare.com";
             const string ntpServer = "time.windows.com";
@@ -121,7 +119,7 @@
                 .Info(nameof(Network));
         }
 
-        static void TestContainerAndMessageHub()
+        private static void TestContainerAndMessageHub()
         {
             DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
             $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
@@ -137,7 +135,7 @@
             messageHub.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
-        static void TestFastOutputAndReadPrompt()
+        private static void TestFastOutputAndReadPrompt()
         {
             var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
@@ -155,7 +153,7 @@
             "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
         }
 
-        static async Task TestTerminalOutputs()
+        private static async Task TestTerminalOutputs()
         {
             for (var i = 0; i <= 100; i++)
             {
@@ -209,7 +207,7 @@
             "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
         }
 
-        static void TestCsvFormatters()
+        private static void TestCsvFormatters()
         {
             var action = new Action(() =>
             {

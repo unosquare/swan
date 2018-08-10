@@ -21,10 +21,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// several other tasks.
     /// An LdapConnection object is not connected on
     /// construction and can only be connected to one server at one
-    /// port. Multiple threads may share this single connection, typically
-    /// by cloning the connection object, one for each thread. An
-    /// application may have more than one LdapConnection object, connected
-    /// to the same or different directory servers.
+    /// port.
     /// 
     /// Based on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard.
     /// </summary>

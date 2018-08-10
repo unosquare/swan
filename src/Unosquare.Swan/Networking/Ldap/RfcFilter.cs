@@ -19,6 +19,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// More filters can be nested together into more complex filters with the
     /// following filter components: {AND}, {OR}, {NOT}
     /// Substrings can have three components:
+    /// 
     /// <pre>
     /// Filter ::= CHOICE {
     /// and             [0] SET OF Filter,
@@ -49,7 +50,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Creates and addes a substrings filter component.
         /// startSubstrings must be immediatly followed by at least one
-        /// <c>AddSubstring</c> method and one <c>EndSubstrings</c> method
+        /// <c>AddSubstring</c> method and one <c>EndSubstrings</c> method.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
         public void StartSubstrings(string attrName)
@@ -128,7 +129,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="LdapException">
         /// Empty substring filter
         /// or
-        /// Missmatched ending of substrings
+        /// Missmatched ending of substrings.
         /// </exception>
         public void EndSubstrings()
         {
@@ -160,7 +161,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="LdapException">
         /// Cannot insert an attribute assertion in a substring
         /// or
-        /// Invalid filter type for AttributeValueAssertion
+        /// Invalid filter type for AttributeValueAssertion.
         /// </exception>
         public void AddAttributeValueAssertion(FilterOp rfcType, string attrName, sbyte[] valueArray)
         {
@@ -206,7 +207,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="rfcType">Filter type:
         /// [AND | OR | NOT]</param>
-        /// <exception cref="LdapException">Attempt to create a nested filter other than AND, OR or NOT</exception>
+        /// <exception cref="LdapException">Attempt to create a nested filter other than AND, OR or NOT.</exception>
         public void StartNestedFilter(FilterOp rfcType)
         {
             Asn1Object current;
@@ -232,7 +233,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Completes a nested filter and checks for the valid filter type.
         /// </summary>
         /// <param name="rfcType">Type of filter to complete.</param>
-        /// <exception cref="LdapException">Mismatched ending of nested filter</exception>
+        /// <exception cref="LdapException">Mismatched ending of nested filter.</exception>
         public void EndNestedFilter(FilterOp rfcType)
         {
             if (rfcType == FilterOp.Not)
@@ -623,8 +624,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// octet-string encoding of the specified string.
         /// </returns>
         /// <exception cref="LdapException">Invalid Escape</exception>
-        /// <exception cref="Exception">UTF-8 String encoding not supported by JVM</exception>
-        /// <exception cref="LdapException">The exception.</exception>
         private static sbyte[] UnescapeString(string value)
         {
             var octets = new sbyte[value.Length * 3];
@@ -635,6 +634,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var length = value.Length;
             var ca = new char[1]; // used while converting multibyte UTF-8 char
             var temp = (char)0; // holds the value of the escaped sequence
+
             // loop through each character of the string and copy them into octets
             // converting escaped sequences when needed
             for (str = 0, octs = 0; str < length; str++)
@@ -793,7 +793,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// <value>
             /// The op or attribute.
             /// </value>
-            /// <exception cref="LdapException">Unexpect end</exception>
+            /// <exception cref="LdapException">Unexpect end.</exception>
             public int OpOrAttr
             {
                 get

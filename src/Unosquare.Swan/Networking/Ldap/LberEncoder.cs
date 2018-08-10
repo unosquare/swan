@@ -12,7 +12,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// high overhead involved in using certain elements of the BER, the
     /// following additional restrictions are placed on BER-encodings of Ldap
     /// protocol elements:
-    /// <li>(1) Only the definite form of length encoding will be used.</li><li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
+    /// <li>(1) Only the definite form of length encoding will be used.</li>
+    /// <li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
     /// (3) If the value of a BOOLEAN type is true, the encoding MUST have
     /// its contents octets set to hex "FF".
     /// </li><li>
@@ -33,7 +34,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// BER Encode an Asn1Boolean directly into the specified output stream.
         /// </summary>
-        /// <param name="b">The Asn1Boolean object to encode</param>
+        /// <param name="b">The Asn1Boolean object to encode.</param>
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Boolean b, Stream stream)
         {
@@ -48,8 +49,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// possible.
         /// Can be used to encode INTEGER and ENUMERATED values.
         /// </summary>
-        /// <param name="n">The Asn1Numeric object to encode</param>
-        /// <param name="stream">The stram</param>
+        /// <param name="n">The Asn1Numeric object to encode.</param>
+        /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Numeric n, Stream stream)
         {
             var octets = new sbyte[8];
@@ -76,7 +77,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Encode an Asn1OctetString directly into the specified outputstream.
         /// </summary>
-        /// <param name="os">The Asn1OctetString object to encode</param>
+        /// <param name="os">The Asn1OctetString object to encode.</param>
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1OctetString os, Stream stream)
         {
@@ -119,9 +120,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Encode an Asn1Structured into the specified outputstream.  This method
-        /// can be used to encode SET, SET_OF, SEQUENCE, SEQUENCE_OF
+        /// can be used to encode SET, SET_OF, SEQUENCE, SEQUENCE_OF.
         /// </summary>
-        /// <param name="c">The Asn1Structured object to encode</param>
+        /// <param name="c">The Asn1Structured object to encode.</param>
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Structured c, Stream stream)
         {
@@ -146,7 +147,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Encode an Asn1Tagged directly into the specified outputstream.
         /// </summary>
-        /// <param name="t">The Asn1Tagged object to encode</param>
+        /// <param name="t">The Asn1Tagged object to encode.</param>
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Tagged t, Stream stream)
         {
@@ -172,7 +173,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Encode an Asn1Identifier directly into the specified outputstream.
         /// </summary>
-        /// <param name="id">The Asn1Identifier object to encode</param>
+        /// <param name="id">The Asn1Identifier object to encode.</param>
         /// <param name="stream">The stream.</param>
         public static void Encode(Asn1Identifier id, Stream stream)
         {

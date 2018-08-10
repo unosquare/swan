@@ -189,7 +189,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 var ctlConstructor = respCtlClass.GetConstructor(argsClass);
 
-                return (LdapControl) ctlConstructor.Invoke(new object[] {oid, critical, values});
+                return (LdapControl) ctlConstructor?.Invoke(new object[] {oid, critical, values});
             }
             catch (Exception)
             {
