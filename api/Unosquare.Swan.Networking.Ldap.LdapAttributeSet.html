@@ -251,12 +251,25 @@ to be added to a directory.  </p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LdapAttributeSet : Dictionary&lt;string, LdapAttribute&gt;, IDictionary&lt;string, LdapAttribute&gt;, ICollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IDictionary, ICollection, IReadOnlyDictionary&lt;string, LdapAttribute&gt;, IReadOnlyCollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable, ISerializable, IDeserializationCallback</code></pre>
   </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor">LdapAttributeSet()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapAttributeSet()</code></pre>
+  </div>
   <h3 id="methods">Methods
   </h3>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(System.Object)">Add(Object)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(Unosquare.Swan.Networking.Ldap.LdapAttribute)">Add(LdapAttribute)</h4>
   <div class="markdown level1 summary"><p>Adds the specified attribute to this set if it is not already present.
 If an attribute with the same name already exists in the set then the
 specified attribute will not be added.</p>
@@ -264,7 +277,7 @@ specified attribute will not be added.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Add(object attr)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Add(LdapAttribute attr)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -277,7 +290,7 @@ specified attribute will not be added.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
         <td><span class="parametername">attr</span></td>
         <td><p>Object of type <code>LdapAttribute</code></p>
 </td>
@@ -296,33 +309,6 @@ specified attribute will not be added.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
         <td><p><code>true</code> if the attribute was added.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone">Clone()</h4>
-  <div class="markdown level1 summary"><p>Returns a deep copy of this attribute set.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object Clone()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><p>A deep copy of this attribute set.</p>
 </td>
       </tr>
     </tbody>
@@ -369,191 +355,6 @@ as the specified attribute.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
         <td><p>true if this set contains the specified attribute</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)">GetAttribute(String)</h4>
-  <div class="markdown level1 summary"><p>Returns the attribute matching the specified attrName.
-For example:
-<ul><li><code>getAttribute(&quot;cn&quot;)</code>      returns only the &quot;cn&quot; attribute</li><li><code>getAttribute(&quot;cn;lang-en&quot;)</code> returns only the &quot;cn;lang-en&quot;
-attribute.
-</li></ul>
-In both cases, null is returned if there is no exact match to
-the specified attrName.
-Note: Novell eDirectory does not currently support language subtypes.
-It does support the &quot;binary&quot; subtype.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttribute GetAttribute(string attrName)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">attrName</span></td>
-        <td><p>The name of an attribute to retrieve, with or without
-subtype specifications. For example, &quot;cn&quot;, &quot;cn;phonetic&quot;, and
-&quot;cn;binary&quot; are valid attribute names.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><p>The attribute matching the specified attrName, or null
-if there is no exact match.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String,System.String)">GetAttribute(String, String)</h4>
-  <div class="markdown level1 summary"><p>Returns a single best-match attribute, or null if no match is
-available in the entry.
-Ldap version 3 allows adding a subtype specification to an attribute
-name. For example, &quot;cn;lang-ja&quot; indicates a Japanese language
-subtype of the &quot;cn&quot; attribute and &quot;cn;lang-ja-JP-kanji&quot; may be a subtype
-of &quot;cn;lang-ja&quot;. This feature may be used to provide multiple
-localizations in the same directory. For attributes which do not vary
-among localizations, only the base attribute may be stored, whereas
-for others there may be varying degrees of specialization.
-For example, <code>getAttribute(attrName,lang)</code> returns the
-<code>LdapAttribute</code> that exactly matches attrName and that
-best matches lang.
-If there are subtypes other than &quot;lang&quot; subtypes included
-in attrName, for example, &quot;cn;binary&quot;, only attributes with all of
-those subtypes are returned. If lang is null or empty, the
-method behaves as getAttribute(attrName). If there are no matching
-attributes, null is returned.
-Assume the entry contains only the following attributes:
-<ul>
-<li>cn;lang-en</li>
-<li>cn;lang-ja-JP-kanji</li>
-<li>sn</li>
-</ul>
-Examples:
-<ul>
-<li><code>getAttribute( &quot;cn&quot; )</code>       returns null.</li>
-<li><code>getAttribute( &quot;sn&quot; )</code>       returns the &quot;sn&quot; attribute.</li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-en-us&quot; )</code>
-returns the &quot;cn;lang-en&quot; attribute.
-</li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-en&quot; )</code>
-returns the &quot;cn;lang-en&quot; attribute.
-</li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-ja&quot; )</code>
-returns null.
-</li>
-<li>
-<code>getAttribute( &quot;sn&quot;, &quot;lang-en&quot; )</code>
-returns the &quot;sn&quot; attribute.
-</li>
-</ul>
-Note: Novell eDirectory does not currently support language subtypes.
-It does support the &quot;binary&quot; subtype.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttribute GetAttribute(string attrName, string lang)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">attrName</span></td>
-        <td><p>The name of an attribute to retrieve, with or without
-subtype specifications. For example, &quot;cn&quot;, &quot;cn;phonetic&quot;, and
-cn;binary&quot; are valid attribute names.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">lang</span></td>
-        <td><p>A language specification with optional subtypes
-appended using &quot;-&quot; as separator. For example, &quot;lang-en&quot;, &quot;lang-en-us&quot;,
-&quot;lang-ja&quot;, and &quot;lang-ja-JP-kanji&quot; are valid language specification.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><p>A single best-match <code>LdapAttribute</code>, or null
-if no match is found in the entry.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator">GetEnumerator()</h4>
-  <div class="markdown level1 summary"><p>Returns an iterator over the attributes in this set.  The attributes
-returned from this iterator are not in any particular order.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerator GetEnumerator()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></td>
-        <td><p>iterator over the attributes in this set</p>
 </td>
       </tr>
     </tbody>
@@ -622,7 +423,7 @@ specified subtype.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)">Remove(Object)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(Unosquare.Swan.Networking.Ldap.LdapAttribute)">Remove(LdapAttribute)</h4>
   <div class="markdown level1 summary"><p>Removes the specified object from this set if it is present.
 If the specified object is of type <code>LdapAttribute</code>, the
 specified attribute will be removed.  If the specified object is of type
@@ -632,7 +433,7 @@ be removed.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Remove(object entry)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Remove(LdapAttribute entry)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -645,7 +446,7 @@ be removed.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
         <td><span class="parametername">entry</span></td>
         <td><p>The entry.</p>
 </td>

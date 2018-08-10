@@ -9353,12 +9353,25 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapAttributeSet
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet
   nameWithType: LdapAttributeSet
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(System.Object)
-  name: Add(Object)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(System.Object)
-  nameWithType: LdapAttributeSet.Add(Object)
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor
+  name: LdapAttributeSet()
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.LdapAttributeSet()
+  nameWithType: LdapAttributeSet.LdapAttributeSet()
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor*
+  name: LdapAttributeSet
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.LdapAttributeSet
+  nameWithType: LdapAttributeSet.LdapAttributeSet
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  name: Add(LdapAttribute)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_Unosquare_Swan_Networking_Ldap_LdapAttribute_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  nameWithType: LdapAttributeSet.Add(LdapAttribute)
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add*
   name: Add
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_
@@ -9366,19 +9379,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   nameWithType: LdapAttributeSet.Add
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
-  name: Clone()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone()
-  nameWithType: LdapAttributeSet.Clone()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone*
-  name: Clone
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
-  nameWithType: LdapAttributeSet.Clone
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains(System.Object)
   name: Contains(Object)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Contains_System_Object_
@@ -9392,38 +9392,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   nameWithType: LdapAttributeSet.Contains
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
-  name: GetAttribute(String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
-  nameWithType: LdapAttributeSet.GetAttribute(String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String,System.String)
-  name: GetAttribute(String, String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String,System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String, System.String)
-  nameWithType: LdapAttributeSet.GetAttribute(String, String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*
-  name: GetAttribute
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute
-  nameWithType: LdapAttributeSet.GetAttribute
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator
-  name: GetEnumerator()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator()
-  nameWithType: LdapAttributeSet.GetEnumerator()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator*
-  name: GetEnumerator
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator
-  nameWithType: LdapAttributeSet.GetEnumerator
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset(System.String)
   name: GetSubset(String)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetSubset_System_String_
@@ -9437,12 +9405,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   nameWithType: LdapAttributeSet.GetSubset
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
-  name: Remove(Object)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
-  nameWithType: LdapAttributeSet.Remove(Object)
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  name: Remove(LdapAttribute)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_Unosquare_Swan_Networking_Ldap_LdapAttribute_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(Unosquare.Swan.Networking.Ldap.LdapAttribute)
+  nameWithType: LdapAttributeSet.Remove(LdapAttribute)
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove*
   name: Remove
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_
