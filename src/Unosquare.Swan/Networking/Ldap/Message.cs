@@ -202,7 +202,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public RfcSearchRequest(
             string basePath,
-            int scope,
+            LdapScope scope,
             int derefAliases,
             int sizeLimit,
             int timeLimit,

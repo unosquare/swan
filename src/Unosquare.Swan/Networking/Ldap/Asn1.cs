@@ -567,6 +567,11 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1IdentifierTag.Universal, false, Tag);
         
+        public Asn1Enumerated(LdapScope content)
+            : base(Id, (int) content)
+        {
+        }
+
         public Asn1Enumerated(int content)
             : base(Id, content)
         {

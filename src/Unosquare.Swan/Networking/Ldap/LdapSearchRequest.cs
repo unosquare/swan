@@ -43,7 +43,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapConnection.Search"></seealso>
         public LdapSearchRequest(
             string ldapBase,
-            int scope,
+            LdapScope scope,
             string filter,
             string[] attrs,
             int dereference,

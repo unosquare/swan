@@ -26,10 +26,11 @@ namespace Unosquare.Swan.Networking.Ldap
     /// application may have more than one LdapConnection object, connected
     /// to the same or different directory servers.
     /// 
-    /// Based on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
+    /// Based on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard.
     /// </summary>
     /// <example>
-    /// The following code describes how to use the LdapConnection class
+    /// The following code describes how to use the LdapConnection class:
+    /// 
     /// <code>
     /// class Example
     /// {
@@ -98,27 +99,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </example>
     public class LdapConnection : IDisposable
     {
-        /// <summary>
-        /// Used with search to specify that the scope of entrys to search is to
-        /// search only the base object.
-        /// SCOPE_BASE = 0
-        /// </summary>
-        public const int ScopeBase = 0;
-
-        /// <summary>
-        /// Used with search to specify that the scope of entrys to search is to
-        /// search only the immediate subordinates of the base object.
-        /// SCOPE_ONE = 1
-        /// </summary>
-        public const int ScopeOne = 1;
-
-        /// <summary>
-        /// Used with search to specify that the scope of entrys to search is to
-        /// search the base object and all entries within its subtree.
-        /// SCOPE_ONE = 2
-        /// </summary>
-        public const int ScopeSub = 2;
-
         /// <summary>
         /// Used with search instead of an attribute list to indicate that no
         /// attributes are to be returned.
@@ -424,7 +404,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default)
         {
-            var sr = await Search(dn, ScopeSub, null, attrs, false, ct);
+            var sr = await Search(dn, LdapScope.ScopeSub, null, attrs, false, ct);
             LdapEntry ret = null;
 
             if (sr.HasMore())
@@ -463,7 +443,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public async Task<LdapSearchResults> Search(
             string @base, 
-            int scope, 
+            LdapScope scope, 
             string filter = "objectClass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
@@ -480,23 +460,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Modifies the specified dn.
         /// </summary>
-        /// <param name="dn">The dn.</param>
+        /// <param name="distinguishedName">Name of the distinguished.</param>
         /// <param name="mods">The mods.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
-        /// <exception cref="ArgumentNullException">dn</exception>
-        public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default)
+        /// <exception cref="ArgumentNullException">distinguishedName</exception>
+        public Task Modify(string distinguishedName, LdapModification[] mods, CancellationToken ct = default)
         {
-            if (dn == null)
+            if (distinguishedName == null)
             {
-                throw new ArgumentNullException(nameof(dn));
+                throw new ArgumentNullException(nameof(distinguishedName));
             }
-            
-            return RequestLdapMessage(new LdapModifyRequest(dn, mods, null), ct);
+
+            return RequestLdapMessage(new LdapModifyRequest(distinguishedName, mods, null), ct);
         }
-        
+
         internal async Task RequestLdapMessage(LdapMessage msg, CancellationToken ct = default)
         {
             using (var stream = new MemoryStream())

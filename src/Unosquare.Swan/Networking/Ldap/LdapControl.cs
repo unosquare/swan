@@ -248,7 +248,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The search scope.
         /// </returns>
-        public int Scope { get; private set; } = LdapConnection.ScopeBase;
+        public LdapScope Scope { get; private set; } = LdapScope.ScopeBase;
 
         /// <summary>
         ///     Returns true if the URL is of the type ldaps (Ldap over SSL, a predecessor
@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 url.Append(":" + _port);
             }
 
-            if (DN == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null &&
+            if (DN == null && AttributeArray == null && Scope == LdapScope.ScopeBase && Filter == null &&
                 Extensions == null)
             {
                 return url.ToString();
@@ -289,7 +289,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 url.Append(DN);
             }
 
-            if (AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
+            if (AttributeArray == null && Scope == LdapScope.ScopeBase && Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
@@ -309,16 +309,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
 
-            if (Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
+            if (Scope == LdapScope.ScopeBase && Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
 
             // scope
             url.Append("?");
-            if (Scope != LdapConnection.ScopeBase)
+            if (Scope != LdapScope.ScopeBase)
             {
-                url.Append(Scope == LdapConnection.ScopeOne ? "one" : "sub");
+                url.Append(Scope == LdapScope.ScopeOne ? "one" : "sub");
             }
 
             if (Filter == null && Extensions == null)
@@ -536,15 +536,15 @@ namespace Unosquare.Swan.Networking.Ldap
             if (string.IsNullOrWhiteSpace(scopeStr) ||
                 string.Equals(scopeStr, "base", StringComparison.OrdinalIgnoreCase))
             {
-                Scope = LdapConnection.ScopeBase;
+                Scope = LdapScope.ScopeBase;
             }
             else if (string.Equals(scopeStr, "one", StringComparison.OrdinalIgnoreCase))
             {
-                Scope = LdapConnection.ScopeOne;
+                Scope = LdapScope.ScopeOne;
             }
             else if (string.Equals(scopeStr, "sub", StringComparison.OrdinalIgnoreCase))
             {
-                Scope = LdapConnection.ScopeSub;
+                Scope = LdapScope.ScopeSub;
             }
             else
             {
