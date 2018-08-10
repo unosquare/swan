@@ -3,7 +3,6 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System.Linq;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Text;
 
@@ -296,7 +295,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Clones this instance.
         /// </summary>
         /// <returns>A cloned instance</returns>
-        public object Clone()
+        public LdapAttribute Clone()
         {
             var newObj = MemberwiseClone();
             if (_values != null)
@@ -304,7 +303,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Array.Copy(_values, 0, ((LdapAttribute)newObj)._values, 0, _values.Length);
             }
 
-            return newObj;
+            return (LdapAttribute) newObj;
         }
 
         /// <summary>
@@ -715,23 +714,14 @@ namespace Unosquare.Swan.Networking.Ldap
             // Create a new tempAttributeSet
             var tempAttributeSet = new LdapAttributeSet();
 
-            foreach (LdapAttribute attr in this)
+            foreach (var kvp in this)
             {
-                if (attr?.HasSubtype(subtype) == true)
-                    tempAttributeSet.Add(attr.Clone());
+                if (kvp.Value.HasSubtype(subtype))
+                    tempAttributeSet.Add(kvp.Value.Clone());
             }
 
             return tempAttributeSet;
         }
-
-        /// <summary>
-        /// Returns an iterator over the attributes in this set.  The attributes
-        /// returned from this iterator are not in any particular order.
-        /// </summary>
-        /// <returns>
-        /// iterator over the attributes in this set
-        /// </returns>
-        public new IEnumerator GetEnumerator() => Values.GetEnumerator();
 
         /// <summary>
         /// Returns <c>true</c> if this set contains an attribute of the same name
@@ -752,14 +742,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// <c>true</c> if the attribute was added.
         /// </returns>
-        public bool Add(object attr)
+        public bool Add(LdapAttribute attr)
         {
-            var attribute = (LdapAttribute)attr;
-            var name = attribute.Name;
+            var name = attr.Name;
+
             if (ContainsKey(name))
                 return false;
 
-            this[name] = attribute;
+            this[name] = attr;
             return true;
         }
 
@@ -774,20 +764,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// true if the object was removed.
         /// </returns>
-        public bool Remove(object entry)
-        {
-            var attributeName = entry is string s ? s : ((LdapAttribute)entry).Name;
-
-            if (attributeName == null)
-            {
-                return false;
-            }
-
-            var e = this[attributeName];
-            Remove(e);
-
-            return true;
-        }
+        public bool Remove(LdapAttribute entry) => Remove(entry.Name);
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -800,7 +777,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var retValue = new StringBuilder("LdapAttributeSet: ");
             var first = true;
 
-            foreach (LdapAttribute attr in this)
+            foreach (var attr in this)
             {
                 if (!first)
                 {
