@@ -67,8 +67,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     var valueArray = avalue.ToArray();
                     var attr = new LdapAttribute(name);
 
-                    foreach (Asn1OctetString t in valueArray)
+                    foreach (var o in valueArray)
                     {
+                        var t = (Asn1OctetString) o;
                         attr.AddValue(t.ByteValue());
                     }
 

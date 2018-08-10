@@ -13,17 +13,17 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapConnection.Search"></seealso>
     public sealed class LdapSearchResults
     {
-        private readonly LdapConnection _conn; // LdapConnection which started search
+        private readonly List<RfcLdapMessage> _messages;
         private readonly int _messageId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchResults"/> class.
+        /// Initializes a new instance of the <see cref="LdapSearchResults" /> class.
         /// </summary>
-        /// <param name="connection">The connection.</param>
+        /// <param name="messages">The messages.</param>
         /// <param name="messageId">The message identifier.</param>
-        internal LdapSearchResults(LdapConnection connection, int messageId)
+        internal LdapSearchResults(List<RfcLdapMessage> messages, int messageId)
         {
-            _conn = connection;
+            _messages = messages;
             _messageId = messageId;
         }
 
@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The count.
         /// </value>
-        public int Count => new List<RfcLdapMessage>(_conn.Messages)
+        public int Count => new List<RfcLdapMessage>(_messages)
             .Count(x => x.MessageId == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// true if there are more search results.
         /// </returns>
-        public bool HasMore() => new List<RfcLdapMessage>(_conn.Messages)
+        public bool HasMore() => new List<RfcLdapMessage>(_messages)
             .Any(x => x.MessageId == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
@@ -63,12 +63,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="ArgumentOutOfRangeException">Next - No more results</exception>
         public LdapEntry Next()
         {
-            var list = new List<RfcLdapMessage>(_conn.Messages)
+            var list = new List<RfcLdapMessage>(_messages)
                 .Where(x => x.MessageId == _messageId);
 
             foreach (var item in list)
             {
-                _conn.Messages.Remove(item);
+                _messages.Remove(item);
                 var response = GetResponse(item);
 
                 if (response is LdapSearchResult result)

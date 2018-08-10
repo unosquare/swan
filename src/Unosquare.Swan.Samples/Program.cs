@@ -50,7 +50,7 @@
                         var entry = lsc.Next();
                         var ldapAttributes = entry.GetAttributeSet();
 
-                        $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}".Info();
+                        $"{ldapAttributes["uniqueMember"]?.StringValue ?? string.Empty}".Info();
                     }
                 }
             }

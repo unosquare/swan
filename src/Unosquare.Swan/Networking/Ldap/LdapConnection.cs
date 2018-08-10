@@ -293,8 +293,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal BindProperties BindProperties { get; set; }
         
-        internal Connection Connection => _conn;
-
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
         /// <inheritdoc />
@@ -476,7 +474,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             await RequestLdapMessage(msg, ct);
             
-            return new LdapSearchResults(this, msg.MessageId);
+            return new LdapSearchResults(Messages, msg.MessageId);
         }
 
         /// <summary>
@@ -499,22 +497,22 @@ namespace Unosquare.Swan.Networking.Ldap
             return RequestLdapMessage(new LdapModifyRequest(dn, mods, null), ct);
         }
         
-        /// <summary>
-        /// Requests the LDAP message.
-        /// </summary>
-        /// <param name="msg">The MSG.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        internal async Task RequestLdapMessage(LdapMessage msg,
-            CancellationToken ct = default)
+        internal async Task RequestLdapMessage(LdapMessage msg, CancellationToken ct = default)
         {
             using (var stream = new MemoryStream())
             {
                 LBEREncoder.Encode(msg.Asn1Object, stream);
                 await _conn.WriteDataAsync(stream.ToArray(), true, ct);
 
-                while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
-                    await Task.Delay(100, ct);
+                try
+                {
+                    while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
+                        await Task.Delay(100, ct);
+                }
+                catch (ArgumentException)
+                {
+                    // expected
+                }
 
                 var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
 
