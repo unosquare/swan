@@ -91,11 +91,8 @@ Ldap server, set connection and search constraints, and perform
 several other tasks.
 An LdapConnection object is not connected on
 construction and can only be connected to one server at one
-port. Multiple threads may share this single connection, typically
-by cloning the connection object, one for each thread. An
-application may have more than one LdapConnection object, connected
-to the same or different directory servers.</p>
-<p>Based on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
+port.</p>
+<p>Based on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a>.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -137,7 +134,7 @@ to the same or different directory servers.</p>
     <pre><code class="lang-csharp hljs">public class LdapConnection : IDisposable</code></pre>
   </div>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_examples"><strong>Examples</strong></h5>
-  <p>The following code describes how to use the LdapConnection class</p>
+  <p>The following code describes how to use the LdapConnection class:</p>
 <pre><code>class Example
 {
     using Unosquare.Swan;
@@ -202,367 +199,6 @@ to the same or different directory servers.</p>
     }
 }</code></pre>
 
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AllUserAttrs" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AllUserAttrs">AllUserAttrs</h4>
-  <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that all
-attributes are to be returned.
-ALL_USER_ATTRS = &quot;*&quot;</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string AllUserAttrs = &quot;*&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DefaultPort" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DefaultPort">DefaultPort</h4>
-  <div class="markdown level1 summary"><p>The default port number for Ldap servers.
-You can use this identifier to specify the port when establishing
-a clear text connection to a server.  This the default port.
-DEFAULT_PORT = 389</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int DefaultPort = 389</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DefaultSslPort" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DefaultSslPort">DefaultSslPort</h4>
-  <div class="markdown level1 summary"><p>The default SSL port number for Ldap servers.
-DEFAULT_SSL_PORT = 636
-You can use this identifier to specify the port when establishing
-a an SSL connection to a server..</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int DefaultSslPort = 636</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertyProtocol" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertyProtocol">LdapPropertyProtocol</h4>
-  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
-Ldap_PROPERTY_PROTOCOL = &quot;version.protocol&quot;
-You can use this string to request the version of the
-Ldap protocol.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string LdapPropertyProtocol = &quot;version.protocol&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertySdk" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertySdk">LdapPropertySdk</h4>
-  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
-Ldap_PROPERTY_SDK = &quot;version.sdk&quot;
-You can use this string to request the version of the SDK.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string LdapPropertySdk = &quot;version.sdk&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertySecurity" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertySecurity">LdapPropertySecurity</h4>
-  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
-Ldap_PROPERTY_SECURITY = &quot;version.security&quot;
-You can use this string to request the type of security
-being used.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string LdapPropertySecurity = &quot;version.security&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapV3" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapV3">LdapV3</h4>
-  <div class="markdown level1 summary"><p>Specifies the Ldapv3 protocol version when performing a bind operation.
-Specifies Ldap version V3 of the protocol, and is specified
-when performing bind operations.
-You can use this identifier in the version parameter
-of the bind method to specify an Ldapv3 bind.
-Ldap_V3 is the default protocol version
-Ldap_V3 = 3</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int LdapV3 = 3</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_NoAttrs" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.NoAttrs">NoAttrs</h4>
-  <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that no
-attributes are to be returned.
-NO_ATTRS = &quot;1.1&quot;</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string NoAttrs = &quot;1.1&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeBase" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeBase">ScopeBase</h4>
-  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
-search only the base object.
-SCOPE_BASE = 0</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int ScopeBase = 0</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeOne" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeOne">ScopeOne</h4>
-  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
-search only the immediate subordinates of the base object.
-SCOPE_ONE = 1</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int ScopeOne = 1</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeSub" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeSub">ScopeSub</h4>
-  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
-search the base object and all entries within its subtree.
-SCOPE_ONE = 2</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int ScopeSub = 2</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ServerShutdownOid" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ServerShutdownOid">ServerShutdownOid</h4>
-  <div class="markdown level1 summary"><p>A string that corresponds to the server shutdown notification OID.
-This notification may be used by the server to advise the client that
-the server is about to close the connection due to an error
-condition.
-SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string ServerShutdownOid = &quot;1.3.6.1.4.1.1466.20036&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_StartTlsOid" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.StartTlsOid">StartTlsOid</h4>
-  <div class="markdown level1 summary"><p>The OID string that identifies a StartTLS request and response.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string StartTlsOid = &quot;1.3.6.1.4.1.1466.20037&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   
@@ -709,9 +345,7 @@ requests, the response controls are available in LdapMessage.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
-        <td><p>The server controls associated with the most recent response
-to a synchronous request or null if the response contains no server
-controls.</p>
+        <td><p>The response controls.</p>
 </td>
       </tr>
     </tbody>
@@ -954,7 +588,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Modify(string distinguishedName, LdapModification[] mods, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -968,8 +602,8 @@ unbind request to the server, and then closes the socket.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">dn</span></td>
-        <td><p>The dn.</p>
+        <td><span class="parametername">distinguishedName</span></td>
+        <td><p>Name of the distinguished.</p>
 </td>
       </tr>
       <tr>
@@ -1013,7 +647,7 @@ unbind request to the server, and then closes the socket.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>dn</p>
+        <td><p>distinguishedName</p>
 </td>
       </tr>
     </tbody>
@@ -1072,7 +706,7 @@ attributes from the entry.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a>&gt;</td>
-        <td><p>the LdapEntry read from the server</p>
+        <td><p>the LdapEntry read from the server.</p>
 </td>
       </tr>
     </tbody>
@@ -1088,7 +722,7 @@ attributes from the entry.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Exceptions.LdapException.html">LdapException</a></td>
-        <td><p>Read response is ambiguous, multiple entries returned</p>
+        <td><p>Read response is ambiguous, multiple entries returned.</p>
 </td>
       </tr>
     </tbody>
@@ -1096,7 +730,7 @@ attributes from the entry.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,System.Threading.CancellationToken)">Search(String, Int32, String, String[], Boolean, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_Unosquare_Swan_Networking_Ldap_LdapScope_System_String_System_String___System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,Unosquare.Swan.Networking.Ldap.LdapScope,System.String,System.String[],System.Boolean,System.Threading.CancellationToken)">Search(String, LdapScope, String, String[], Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Performs the search specified by the parameters,
 also allowing specification of constraints for the search (such
 as the maximum number of entries to find or the maximum time to
@@ -1105,7 +739,7 @@ wait for search results).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, int scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, LdapScope scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1124,14 +758,9 @@ wait for search results).</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapScope.html">LdapScope</a></td>
         <td><span class="parametername">scope</span></td>
-        <td><p>The scope of the entries to search. The following
-are the valid options:
-<ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
-SCOPE_SUB - searches the base DN and all entries
-within its subtree
-</li></ul></p>
+        <td><p>The scope of the entries to search.</p>
 </td>
       </tr>
       <tr>
