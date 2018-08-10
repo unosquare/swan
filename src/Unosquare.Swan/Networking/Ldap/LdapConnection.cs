@@ -293,8 +293,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal BindProperties BindProperties { get; set; }
         
-        internal Connection Connection => _conn;
-
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
         /// <inheritdoc />
@@ -476,7 +474,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             await RequestLdapMessage(msg, ct);
             
-            return new LdapSearchResults(this, msg.MessageId);
+            return new LdapSearchResults(Messages, msg.MessageId);
         }
 
         /// <summary>
