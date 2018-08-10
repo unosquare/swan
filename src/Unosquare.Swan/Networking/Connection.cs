@@ -20,7 +20,7 @@ namespace Unosquare.Swan.Networking
     /// and use the Read methods available. In continuous reading mode Read methods are not available and will throw
     /// an invalid operation exceptions if they are used.
     /// Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don't use Read methods
-    /// Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data
+    /// Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     /// <example>
@@ -549,7 +549,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="buffer">The buffer.</param>
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation</returns>
+        /// <returns>A task that represents the asynchronous write operation.</returns>
         public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default)
         {
             try
@@ -573,7 +573,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation</returns>
+        /// <returns>A task that represents the asynchronous write operation.</returns>
         public Task WriteTextAsync(string text, CancellationToken ct = default)
             => WriteTextAsync(text, TextEncoding, ct);
 
@@ -583,7 +583,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation</returns>
+        /// <returns>A task that represents the asynchronous write operation.</returns>
         public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default)
             => WriteDataAsync(encoding.GetBytes(text), true, ct);
 
@@ -594,7 +594,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation</returns>
+        /// <returns>A task that represents the asynchronous write operation.</returns>
         public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default)
         {
             var buffer = encoding.GetBytes($"{line}{_newLineSequence}");
@@ -650,7 +650,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="hostname">The hostname.</param>
         /// <param name="callback">The callback.</param>
-        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
+        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c>.</returns>
         public async Task<bool> UpgradeToSecureAsClientAsync(
             string hostname,
             RemoteCertificateValidationCallback callback)
@@ -677,9 +677,9 @@ namespace Unosquare.Swan.Networking
 
         /// <summary>
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
-        /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
+        /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them.
         /// </summary>
-        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
+        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c>.</returns>
         public Task<bool> UpgradeToSecureAsClientAsync()
             => UpgradeToSecureAsClientAsync(Network.HostName.ToLowerInvariant(), (a, b, c, d) => true);
 
@@ -850,7 +850,7 @@ namespace Unosquare.Swan.Networking
         }
 
         /// <summary>
-        /// This is the body of the thread when performing continuous reading
+        /// This is the body of the thread when performing continuous reading.
         /// </summary>
         /// <param name="threadContext">The thread context.</param>
         private void PerformContinuousReading(object threadContext)

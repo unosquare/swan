@@ -115,14 +115,13 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // decode optional implicitly tagged controls from Asn1Tagged type to
             // to RFC 2251 types.
-            if (Size() > 2)
-            {
-                var controls = (Asn1Tagged) Get(2);
-                content = ((Asn1OctetString) controls.TaggedValue).ByteValue();
+            if (Size() <= 2) return;
 
-                using (var ms = new MemoryStream(content.ToByteArray()))
-                    Set(2, new RfcControls(ms, content.Length));
-            }
+            var controls = (Asn1Tagged) Get(2);
+            content = ((Asn1OctetString) controls.TaggedValue).ByteValue();
+
+            using (var ms = new MemoryStream(content.ToByteArray()))
+                Set(2, new RfcControls(ms, content.Length));
         }
 
         public int MessageId => ((Asn1Integer) Get(0)).IntValue();
@@ -130,44 +129,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Returns this RfcLdapMessage's message type</summary>
         public LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
-        /// <summary>
-        /// Returns the response associated with this RfcLdapMessage.
-        /// Can be one of RfcLdapResult, RfcBindResponse, RfcExtendedResponse
-        /// all which extend RfcResponse. It can also be
-        /// RfcSearchResultEntry, or RfcSearchResultReference
-        /// </summary>
-        /// <value>
-        /// The response.
-        /// </value>
         public Asn1Object Response => Get(1);
 
-        /// <summary> Returns the optional Controls for this RfcLdapMessage.</summary>
         public RfcControls Controls => Size() > 2 ? (RfcControls) Get(2) : null;
 
-        /// <summary> Returns the dn of the request, may be null</summary>
         public string RequestDn => ((IRfcRequest) _op).GetRequestDN();
 
-        /// <summary>
-        /// returns the original request in this message
-        /// </summary>
-        /// <value>
-        /// The requesting message.
-        /// </value>
         public LdapMessage RequestingMessage { get; set; }
 
-        /// <summary>
-        /// Returns the request associated with this RfcLdapMessage.
-        /// Throws a class cast exception if the RfcLdapMessage is not a request.
-        /// </summary>
-        /// <returns>The RFC request</returns>
         public IRfcRequest GetRequest() => (IRfcRequest) Get(1);
 
-        /// <summary>
-        /// Determines whether this instance is request.
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance is request; otherwise, <c>false</c>.
-        /// </returns>
         public bool IsRequest() => Get(1) is IRfcRequest;
     }
 

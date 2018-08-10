@@ -189,7 +189,7 @@
         [Test]
         public async Task MultipleSearchResults()
         {
-            var lsc = await Connection.Search(DefaultOrgDn, LdapConnection.ScopeSub);
+            var lsc = await Connection.Search(DefaultOrgDn, LdapScope.ScopeSub);
 
             if (lsc.HasMore())
             {
@@ -208,7 +208,7 @@
         {
             var lsc = await Connection.Search(
                 DefaultOrgDn,
-                LdapConnection.ScopeSub,
+                LdapScope.ScopeSub,
                 "(email=gperez@unosquare.com)");
 
             if (lsc.HasMore())
@@ -227,7 +227,7 @@
         {
             Assert.ThrowsAsync<LdapException>(async () =>
             {
-                await Connection.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
+                await Connection.Search("ou=scientists,dc=com", LdapScope.ScopeSub);
             });
         }
 
@@ -238,7 +238,7 @@
             {
                 var lsc = await Connection.Search(
                     DefaultOrgDn,
-                    LdapConnection.ScopeSub,
+                    LdapScope.ScopeSub,
                     $"(uniqueMember={DefaultUserDn})");
 
                 while (lsc.HasMore())

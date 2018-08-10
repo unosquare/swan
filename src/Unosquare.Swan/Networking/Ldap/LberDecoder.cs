@@ -29,7 +29,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    internal static class LBERDecoder
+    internal static class LberDecoder
     {
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.
@@ -41,7 +41,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         /// <returns>
-        /// Decoded Asn1Obect
+        /// Decoded Asn1Obect.
         /// </returns>
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
         public static Asn1Object Decode(Stream stream, int[] len)
@@ -87,11 +87,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decode a boolean directly from a stream.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <param name="len">Length in bytes</param>
+        /// <param name="len">Length in bytes.</param>
         /// <returns>
-        /// Decoded boolean object
+        /// Decoded boolean object.
         /// </returns>
-        /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
+        /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF.</exception>
         public static bool DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
@@ -107,14 +107,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// and ENUMERATED types.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <param name="len">Length in bytes</param>
+        /// <param name="len">Length in bytes.</param>
         /// <returns>
-        /// Decoded numeric object
+        /// Decoded numeric object.
         /// </returns>
         /// <exception cref="EndOfStreamException">
         /// LBER: NUMERIC: decode error: EOF
         /// or
-        /// LBER: NUMERIC: decode error: EOF
+        /// LBER: NUMERIC: decode error: EOF.
         /// </exception>
         public static long DecodeNumeric(Stream stream, int len)
         {
@@ -147,9 +147,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Decode an OctetString directly from a stream.
         /// </summary>
-        /// <param name="stream">The stream</param>
-        /// <param name="len">Length in bytes</param>
-        /// <returns>Decoded octet </returns>
+        /// <param name="stream">The stream.</param>
+        /// <param name="len">Length in bytes.</param>
+        /// <returns>Decoded octet. </returns>
         public static object DecodeOctetString(Stream stream, int len)
         {
             var octets = new sbyte[len];
