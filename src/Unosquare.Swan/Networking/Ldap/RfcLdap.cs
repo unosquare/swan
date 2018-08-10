@@ -61,9 +61,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcSearchResultReference"/> class.
         /// The only time a client will create a SearchResultReference is when it is
-        /// decoding it from an InputStream
+        /// decoding it from an Stream.
         /// </summary>
-        /// <param name="stream">The in renamed.</param>
+        /// <param name="stream">The streab.</param>
         /// <param name="len">The length.</param>
         public RfcSearchResultReference(Stream stream, int len)
             : base(stream, len)
@@ -97,7 +97,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcExtendedResponse"/> class.
         /// The only time a client will create a ExtendedResponse is when it is
-        /// decoding it from an InputStream
+        /// decoding it from an stream.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
@@ -203,7 +203,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// COMPONENTS OF LDAPResult, note: only present on incorrectly
     /// encoded response from pre Falcon-sp1 server
     /// responseName     [10] LDAPOID OPTIONAL,
-    /// responseValue    [11] OCTET STRING OPTIONAL }
+    /// responseValue    [11] OCTET STRING OPTIONAL }.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />

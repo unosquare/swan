@@ -2,38 +2,6 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
-    /// Ldap Modification Operators
-    /// </summary>
-    public enum LdapModificationOp
-    {
-        /// <summary>
-        /// Adds the listed values to the given attribute, creating
-        /// the attribute if it does not already exist.
-        /// ADD = 0
-        /// </summary>
-        Add = 0,
-
-        /// <summary>
-        /// Deletes the listed values from the given attribute,
-        /// removing the entire attribute (1) if no values are listed or
-        /// (2) if all current values of the attribute are listed for
-        /// deletion.
-        /// DELETE = 1
-        /// </summary>
-        Delete = 1,
-
-        /// <summary>
-        /// Replaces all existing values of the given attribute
-        /// with the new values listed, creating the attribute if it
-        /// does not already exist.
-        /// A replace with no value deletes the entire attribute if it
-        /// exists, and is ignored if the attribute does not exist.
-        /// REPLACE = 2
-        /// </summary>
-        Replace = 2
-    }
-
-    /// <summary>
     /// A single add, delete, or replace operation to an LdapAttribute.
     /// An LdapModification contains information on the type of modification
     /// being performed, the name of the attribute to be replaced, and the new
@@ -72,19 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="LdapModification" /> class.
         /// Specifies a modification to be made to an attribute.
         /// </summary>
-        /// <param name="op">The type of modification to make, which can be
-        /// one of the following:
-        /// <ul><li>
-        /// LdapModification.ADD - The value should be added to
-        /// the attribute
-        /// </li><li>
-        /// LdapModification.DELETE - The value should be removed
-        /// from the attribute
-        /// </li><li>
-        /// LdapModification.REPLACE - The value should replace all
-        /// existing values of the
-        /// attribute
-        /// </li></ul></param>
+        /// <param name="op">The op.</param>
         /// <param name="attr">The attribute to modify.</param>
         public LdapModification(LdapModificationOp op, LdapAttribute attr)
         {
@@ -114,8 +70,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Returns the type of modification specified by this object.
-        /// The type is one of the following:
-        /// <ul><li>LdapModification.ADD</li><li>LdapModification.DELETE</li><li>LdapModification.REPLACE</li></ul>
         /// </summary>
         /// <value>
         /// The op.

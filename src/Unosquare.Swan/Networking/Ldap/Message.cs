@@ -5,7 +5,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Collections.Generic;
 
     /// <summary>
-    /// The class performs token processing from strings
+    /// The class performs token processing from strings.
     /// </summary>
     internal class Tokenizer
     {
@@ -21,7 +21,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// Initializes a new class instance with a specified string to process
-        /// and the specified token delimiters to use
+        /// and the specified token delimiters to use.
         /// </summary>
         /// <param name="source">String to tokenize</param>
         /// <param name="delimiters">String containing the delimiters</param>
@@ -221,15 +221,6 @@ namespace Unosquare.Swan.Networking.Ldap
             Add(new RfcAttributeDescriptionList(attributes));
         }
 
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// <pre>
-        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 3. (0x63)
-        /// </pre>
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchRequest);
 
         public string GetRequestDN() => ((Asn1OctetString) Get(0)).StringValue();
@@ -279,86 +270,6 @@ namespace Unosquare.Swan.Networking.Ldap
         public string AttributeDescription => ((Asn1OctetString) Get(0)).StringValue();
 
         public sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
-    }
-
-    /// <summary>
-    /// Substring Operators
-    /// </summary>
-    internal enum SubstringOp
-    {
-        /// <summary>
-        /// Search Filter Identifier for an INITIAL component of a SUBSTRING.
-        /// Note: An initial SUBSTRING is represented as "value*".
-        /// </summary>
-        Initial = 0,
-
-        /// <summary>
-        /// Search Filter Identifier for an ANY component of a SUBSTRING.
-        /// Note: An ANY SUBSTRING is represented as "*value*".
-        /// </summary>
-        Any = 1,
-
-        /// <summary>
-        /// Search Filter Identifier for a FINAL component of a SUBSTRING.
-        /// Note: A FINAL SUBSTRING is represented as "*value".
-        /// </summary>
-        Final = 2
-    }
-
-    /// <summary>
-    /// Filtering Operators
-    /// </summary>
-    internal enum FilterOp
-    {
-        /// <summary>
-        /// Identifier for AND component.
-        /// </summary>
-        And = 0,
-
-        /// <summary>
-        /// Identifier for OR component.
-        /// </summary>
-        Or = 1,
-
-        /// <summary>
-        /// Identifier for NOT component.
-        /// </summary>
-        Not = 2,
-
-        /// <summary>
-        /// Identifier for EQUALITY_MATCH component.
-        /// </summary>
-        EqualityMatch = 3,
-
-        /// <summary>
-        /// Identifier for SUBSTRINGS component.
-        /// </summary>
-        Substrings = 4,
-
-        /// <summary>
-        /// Identifier for GREATER_OR_EQUAL component.
-        /// </summary>
-        GreaterOrEqual = 5,
-
-        /// <summary>
-        /// Identifier for LESS_OR_EQUAL component.
-        /// </summary>
-        LessOrEqual = 6,
-
-        /// <summary>
-        /// Identifier for PRESENT component.
-        /// </summary>
-        Present = 7,
-
-        /// <summary>
-        /// Identifier for APPROX_MATCH component.
-        /// </summary>
-        ApproxMatch = 8,
-
-        /// <summary>
-        /// Identifier for EXTENSIBLE_MATCH component.
-        /// </summary>
-        ExtensibleMatch = 9
     }
 
     /// <summary> Encapsulates an Ldap Bind properties</summary>
