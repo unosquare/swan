@@ -9988,19 +9988,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.DN
   nameWithType: LdapModifyRequest.DN
-- uid: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications
-  name: Modifications
-  href: api/Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html#Unosquare_Swan_Networking_Ldap_LdapModifyRequest_Modifications
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications
-  fullName: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications
-  nameWithType: LdapModifyRequest.Modifications
-- uid: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications*
-  name: Modifications
-  href: api/Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html#Unosquare_Swan_Networking_Ldap_LdapModifyRequest_Modifications_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications
-  nameWithType: LdapModifyRequest.Modifications
 - uid: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString
   name: ToString()
   href: api/Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html#Unosquare_Swan_Networking_Ldap_LdapModifyRequest_ToString
