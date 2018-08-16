@@ -141,7 +141,7 @@
 
             private static string Escape(string str, bool quoted)
             {
-                if (string.IsNullOrEmpty(str))
+                if (str == null)
                     return string.Empty;
 
                 var builder = new StringBuilder(str.Length * 2);
