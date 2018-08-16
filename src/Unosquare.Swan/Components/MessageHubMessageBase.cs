@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Base class for messages that provides weak reference storage of the sender
+    /// Base class for messages that provides weak reference storage of the sender.
     /// </summary>
     public abstract class MessageHubMessageBase
         : IMessageHubMessage
@@ -18,7 +18,7 @@
         /// Initializes a new instance of the <see cref="MessageHubMessageBase"/> class.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <exception cref="System.ArgumentNullException">sender</exception>
+        /// <exception cref="System.ArgumentNullException">sender.</exception>
         protected MessageHubMessageBase(object sender)
         {
             if (sender == null)
@@ -34,9 +34,9 @@
     }
 
     /// <summary>
-    /// Generic message with user specified content
+    /// Generic message with user specified content.
     /// </summary>
-    /// <typeparam name="TContent">Content type to store</typeparam>
+    /// <typeparam name="TContent">Content type to store.</typeparam>
     public class MessageHubGenericMessage<TContent>
         : MessageHubMessageBase
     {
@@ -52,7 +52,7 @@
         }
 
         /// <summary>
-        /// Contents of the message
+        /// Contents of the message.
         /// </summary>
         public TContent Content { get; protected set; }
     }

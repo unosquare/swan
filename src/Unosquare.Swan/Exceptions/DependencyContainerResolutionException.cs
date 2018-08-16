@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// An exception for dependency resolutions
+    /// An exception for dependency resolutions.
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class DependencyContainerResolutionException : Exception

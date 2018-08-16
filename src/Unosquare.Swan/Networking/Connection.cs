@@ -24,7 +24,7 @@ namespace Unosquare.Swan.Networking
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     /// <example>
-    /// The following code explains how to create a TCP server
+    /// The following code explains how to create a TCP server.
     /// <code>
     /// using System.Text;
     /// using Unosquare.Swan.Networking;
@@ -50,7 +50,7 @@ namespace Unosquare.Swan.Networking
     ///     }
     /// }
     /// </code>
-    /// The following code describes how to create a TCP client
+    /// The following code describes how to create a TCP client.
     /// <code>
     /// using System.Net.Sockets;
     /// using System.Text;
@@ -215,7 +215,7 @@ namespace Unosquare.Swan.Networking
 
         /// <summary>
         /// Gets the unique identifier of this connection.
-        /// This field is filled out upon instantiation of this class
+        /// This field is filled out upon instantiation of this class.
         /// </summary>
         /// <value>
         /// The identifier.
@@ -224,7 +224,7 @@ namespace Unosquare.Swan.Networking
 
         /// <summary>
         /// Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns
-        /// the underlying NetworkStream
+        /// the underlying NetworkStream.
         /// </summary>
         /// <value>
         /// The active stream.
@@ -339,7 +339,7 @@ namespace Unosquare.Swan.Networking
         public DateTime DataSentLastTimeUtc { get; private set; }
 
         /// <summary>
-        /// Gets how long has elapsed since data was last sent
+        /// Gets how long has elapsed since data was last sent.
         /// </summary>
         /// <value>
         /// The duration of the data sent idle.
@@ -393,9 +393,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
-        /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</exception>
+        /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m.</exception>
         public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             if (IsContinuousReadingEnabled)
@@ -459,7 +459,7 @@ namespace Unosquare.Swan.Networking
         /// Reads data asynchronously from the remote stream with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results the specified sequence of bytes</returns>
+        /// <returns>A byte array containing the results the specified sequence of bytes.</returns>
         public Task<byte[]> ReadDataAsync(CancellationToken ct = default) 
             => ReadDataAsync(TimeSpan.FromSeconds(5), ct);
 
@@ -468,7 +468,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             var buffer = await ReadDataAsync(timeout, ct);
@@ -479,7 +479,7 @@ namespace Unosquare.Swan.Networking
         /// Asynchronously reads data as text with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>When this method completes successfully, it returns the contents of the file as a text string</returns>
+        /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
         public Task<string> ReadTextAsync(CancellationToken ct = default)
             => ReadTextAsync(TimeSpan.FromSeconds(5), ct);
 
@@ -489,7 +489,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
-        /// contains the next line from the stream, or is null if all the characters have been read
+        /// contains the next line from the stream, or is null if all the characters have been read.
         /// </returns>
         public Task<string> ReadLineAsync(CancellationToken ct = default)
             => ReadLineAsync(TimeSpan.FromSeconds(30), ct);
@@ -503,7 +503,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a string line from the queue</returns>
+        /// <returns>A task with a string line from the queue.</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct = default)
         {
@@ -607,7 +607,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation</returns>
+        /// <returns>A task that represents the asynchronous write operation.</returns>
         public Task WriteLineAsync(string line, CancellationToken ct = default)
             => WriteLineAsync(line, TextEncoding, ct);
 

@@ -107,7 +107,7 @@ namespace Unosquare.Swan.Components
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// The type of the result produced by this Task
+        /// The type of the result produced by this Task.
         /// </returns>
         public static async Task<string> GetProcessEncodedOutputAsync(
             string filename, 
@@ -130,7 +130,7 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance.
         /// </returns>
-        /// <exception cref="ArgumentNullException">filename</exception>
+        /// <exception cref="ArgumentNullException">filename.</exception>
         public static Task<ProcessResult> GetProcessResultAsync(
             string filename, 
             string arguments = "",
@@ -150,7 +150,7 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance.
         /// </returns>
-        /// <exception cref="ArgumentNullException">filename</exception>
+        /// <exception cref="ArgumentNullException">filename.</exception>
         /// <example>
         /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, string, Encoding, CancellationToken)" /> method.
         /// <code>
@@ -205,7 +205,7 @@ namespace Unosquare.Swan.Components
         /// capture binary data from the standard error and standard output streams.
         /// The callbacks contain a reference to the process so you can respond to output or
         /// error streams by writing to the process' input stream.
-        /// The exit code (return value) will be -1 for forceful termination of the process
+        /// The exit code (return value) will be -1 for forceful termination of the process.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -315,7 +315,7 @@ namespace Unosquare.Swan.Components
         /// capture binary data from the standard error and standard output streams.
         /// The callbacks contain a reference to the process so you can respond to output or
         /// error streams by writing to the process' input stream.
-        /// The exit code (return value) will be -1 for forceful termination of the process
+        /// The exit code (return value) will be -1 for forceful termination of the process.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -323,7 +323,7 @@ namespace Unosquare.Swan.Components
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Value type will be -1 for forceful termination of the process</returns>
+        /// <returns>Value type will be -1 for forceful termination of the process.</returns>
         /// <example>
         /// The following example illustrates how to run an external process using the 
         /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>

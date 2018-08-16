@@ -7,7 +7,7 @@ namespace Unosquare.Swan
     using System.Reflection;
 
     /// <summary>
-    /// Extension methods
+    /// Extension methods.
     /// </summary>
     public static class SmtpExtensions
     {

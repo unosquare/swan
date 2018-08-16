@@ -8,7 +8,7 @@
     /// A base implementation of an Application service containing a worker task that performs background processing.
     /// </summary>
     /// <example>
-    /// The following code describes how to implement the <see cref="AppWorkerBase"/> class
+    /// The following code describes how to implement the <see cref="AppWorkerBase"/> class.
     /// <code>
     /// using System;
     /// using System.Threading.Tasks;
@@ -114,7 +114,7 @@
         public CancellationToken CancellationToken => _tokenSource?.Token ?? default;
 
         /// <summary>
-        /// Gets a value indicating whether the thread is busy
+        /// Gets a value indicating whether the thread is busy.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
@@ -128,7 +128,7 @@
         /// <summary>
         /// Performs internal service initialization tasks required before starting the service.
         /// </summary>
-        /// <exception cref="InvalidOperationException">Service cannot be initialized because it seems to be currently running</exception>
+        /// <exception cref="InvalidOperationException">Service cannot be initialized because it seems to be currently running.</exception>
         public virtual void Initialize()
         {
             if (State != AppWorkerState.Stopped)
@@ -139,7 +139,7 @@
         }
 
         /// <inheritdoc/>
-        /// <exception cref="InvalidOperationException">Service cannot be started because it seems to be currently running</exception>
+        /// <exception cref="InvalidOperationException">Service cannot be started because it seems to be currently running.</exception>
         public virtual void Start()
         {
             if (State != AppWorkerState.Stopped)
@@ -178,7 +178,7 @@
             => "Service exception detected.".Debug(GetType().Name, ex);
 
         /// <summary>
-        /// This method is called when the user loop has exited
+        /// This method is called when the user loop has exited.
         /// </summary>
         protected virtual void OnWorkerThreadExit() => "Service thread is stopping.".Debug(GetType().Name);
 

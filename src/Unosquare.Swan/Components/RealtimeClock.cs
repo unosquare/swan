@@ -81,7 +81,7 @@
         }
 
         /// <summary>
-        /// Sets a new position value atomically
+        /// Sets a new position value atomically.
         /// </summary>
         /// <param name="value">The new value that the position porperty will hold.</param>
         public void Update(TimeSpan value)

@@ -227,7 +227,7 @@ namespace Unosquare.Swan.Networking
     }
 
     /// <summary>
-    /// Enumerates the reply code severities
+    /// Enumerates the reply code severities.
     /// </summary>
     public enum SmtpReplyCodeSeverities
     {
@@ -258,7 +258,7 @@ namespace Unosquare.Swan.Networking
     }
 
     /// <summary>
-    /// Enumerates the reply code categories
+    /// Enumerates the reply code categories.
     /// </summary>
     public enum SmtpReplyCodeCategories
     {

@@ -7,7 +7,7 @@
 
     /// <summary>
     /// The concrete implementation of a simple IoC container
-    /// based largely on TinyIoC
+    /// based largely on TinyIoC.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public partial class DependencyContainer
@@ -23,12 +23,12 @@
             public virtual bool AssumeConstruction => false;
 
             /// <summary>
-            /// The type the factory instantiates
+            /// The type the factory instantiates.
             /// </summary>
             public abstract Type CreatesType { get; }
 
             /// <summary>
-            /// Constructor to use, if specified
+            /// Constructor to use, if specified.
             /// </summary>
             public ConstructorInfo Constructor { get; private set; }
 
@@ -45,13 +45,13 @@
                 throw new DependencyContainerRegistrationException(GetType(), "weak reference");
 
             /// <summary>
-            /// Create the type
+            /// Create the type.
             /// </summary>
-            /// <param name="requestedType">Type user requested to be resolved</param>
-            /// <param name="container">Container that requested the creation</param>
-            /// <param name="parameters">Any user parameters passed</param>
+            /// <param name="requestedType">Type user requested to be resolved.</param>
+            /// <param name="container">Container that requested the creation.</param>
+            /// <param name="parameters">Any user parameters passed.</param>
             /// <param name="options">The options.</param>
-            /// <returns> Instance of type </returns>
+            /// <returns> Instance of type. </returns>
             public abstract object GetObject(
                 Type requestedType, 
                 DependencyContainer container,
@@ -68,7 +68,7 @@
         }
 
         /// <summary>
-        /// IObjectFactory that creates new instances of types for each resolution
+        /// IObjectFactory that creates new instances of types for each resolution.
         /// </summary>
         private class MultiInstanceFactory : ObjectFactoryBase
         {
@@ -120,7 +120,7 @@
         }
 
         /// <summary>
-        /// IObjectFactory that invokes a specified delegate to construct the object
+        /// IObjectFactory that invokes a specified delegate to construct the object.
         /// </summary>
         private class DelegateFactory : ObjectFactoryBase
         {
@@ -165,7 +165,7 @@
 
         /// <summary>
         /// IObjectFactory that invokes a specified delegate to construct the object
-        /// Holds the delegate using a weak reference
+        /// Holds the delegate using a weak reference.
         /// </summary>
         private class WeakDelegateFactory : ObjectFactoryBase
         {
@@ -222,7 +222,7 @@
         }
 
         /// <summary>
-        /// Stores an particular instance to return for a type
+        /// Stores an particular instance to return for a type.
         /// </summary>
         private class InstanceFactory : ObjectFactoryBase, IDisposable
         {
@@ -272,7 +272,7 @@
         /// <summary>
         /// Stores an particular instance to return for a type
         /// 
-        /// Stores the instance with a weak reference
+        /// Stores the instance with a weak reference.
         /// </summary>
         private class WeakInstanceFactory : ObjectFactoryBase, IDisposable
         {
@@ -333,7 +333,7 @@
         }
 
         /// <summary>
-        /// A factory that lazy instantiates a type and always returns the same instance
+        /// A factory that lazy instantiates a type and always returns the same instance.
         /// </summary>
         private class SingletonFactory : ObjectFactoryBase, IDisposable
         {

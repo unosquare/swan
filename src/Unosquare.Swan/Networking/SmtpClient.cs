@@ -100,7 +100,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="port">The port.</param>
-        /// <exception cref="ArgumentNullException">host</exception>
+        /// <exception cref="ArgumentNullException">host.</exception>
         public SmtpClient(string host, int port)
         {
             Host = host ?? throw new ArgumentNullException(nameof(host));
@@ -194,7 +194,7 @@ namespace Unosquare.Swan.Networking
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
-        /// <exception cref="ArgumentNullException">sessionState</exception>
+        /// <exception cref="ArgumentNullException">sessionState.</exception>
         public Task SendMailAsync(
             SmtpSessionState sessionState,
             string sessionId = null,
@@ -217,11 +217,11 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A task that represents the asynchronous of send email operation
+        /// A task that represents the asynchronous of send email operation.
         /// </returns>
-        /// <exception cref="ArgumentNullException">sessionStates</exception>
+        /// <exception cref="ArgumentNullException">sessionStates.</exception>
         /// <exception cref="SecurityException">Could not upgrade the channel to SSL.</exception>
-        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
+        /// <exception cref="SmtpException">Defines an SMTP Exceptions class.</exception>
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,

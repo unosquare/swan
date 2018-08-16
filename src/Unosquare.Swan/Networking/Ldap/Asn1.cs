@@ -76,7 +76,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre>
     /// Note: CONSTRUCTED types are made up of other CONSTRUCTED or PRIMITIVE
     /// types.
-    /// The tag is defined as:
+    /// The tag is defined as:.
     /// <pre>
     /// bit 5 4 3 2 1 TAG
     /// ------------- ---------------------------------------------

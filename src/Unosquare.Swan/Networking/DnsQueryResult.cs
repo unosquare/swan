@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents a response from a DNS server
+    /// Represents a response from a DNS server.
     /// </summary>
     public class DnsQueryResult
     {

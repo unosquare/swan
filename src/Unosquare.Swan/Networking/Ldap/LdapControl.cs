@@ -25,7 +25,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// the control is not supported. False if
         /// the operation can be processed without the control.</param>
         /// <param name="values">The control-specific data.</param>
-        /// <exception cref="ArgumentException">An OID must be specified</exception>
+        /// <exception cref="ArgumentException">An OID must be specified.</exception>
         public LdapControl(string oid, bool critical, sbyte[] values)
         {
             if (oid == null)

@@ -6,18 +6,18 @@
     using System.Net.Sockets;
 
     /// <summary>
-    /// Provides various extension methods for networking-related tasks
+    /// Provides various extension methods for networking-related tasks.
     /// </summary>
     public static class NetworkExtensions
     {
         /// <summary>
-        /// Determines whether the IP address is private
+        /// Determines whether the IP address is private.
         /// </summary>
         /// <param name="address">The IP address.</param>
         /// <returns>
-        /// True if the IP Address is private; otherwise, false
+        /// True if the IP Address is private; otherwise, false.
         /// </returns>
-        /// <exception cref="ArgumentNullException">address</exception>
+        /// <exception cref="ArgumentNullException">address.</exception>
         public static bool IsPrivateAddress(this IPAddress address)
         {
             if (address == null)
@@ -36,10 +36,10 @@
         /// </summary>
         /// <param name="address">The address.</param>
         /// <returns>
-        /// A 32-bit unsigned integer converted from four bytes at a specified position in a byte array
+        /// A 32-bit unsigned integer converted from four bytes at a specified position in a byte array.
         /// </returns>
-        /// <exception cref="ArgumentNullException">address</exception>
-        /// <exception cref="ArgumentException">InterNetwork - address</exception>
+        /// <exception cref="ArgumentNullException">address.</exception>
+        /// <exception cref="ArgumentException">InterNetwork - address.</exception>
         public static uint ToUInt32(this IPAddress address)
         {
             if (address == null)

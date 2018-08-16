@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Exceptions
         /// <param name="message">The message.</param>
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="serverMsg">Error message specifying additional information
-        /// from the server</param>
+        /// from the server.</param>
         /// <param name="matchedDN">The maximal subset of a specified DN which could
         /// be matched by the server on a search operation.</param>
         /// <param name="rootException">The root exception.</param>
@@ -97,7 +97,7 @@ namespace Unosquare.Swan.Exceptions
         /// If the exception was caused by a local error, such as no server
         /// available, the return value is null. If the exception resulted from
         /// an operation being executed on a server, the value is an empty string
-        /// except when the result of the operation was one of the following:
+        /// except when the result of the operation was one of the following:.
         /// <ul><li>NO_SUCH_OBJECT</li><li>ALIAS_PROBLEM</li><li>INVALID_DN_SYNTAX</li><li>ALIAS_DEREFERENCING_PROBLEM</li></ul>
         /// </summary>
         /// <value>

@@ -37,7 +37,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// upper and lower limit. There is never a case when a user should be
     /// able to specify the MessageID for an RfcLdapMessage. The MessageID()
     /// constructor should be package protected. (So the MessageID value
-    /// isn't arbitrarily run up.)
+    /// isn't arbitrarily run up.).
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal sealed class RfcLdapMessage : Asn1Sequence
@@ -69,7 +69,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        /// <exception cref="Exception">RfcLdapMessage: Invalid tag: " + protocolOpId.Tag</exception>
+        /// <exception cref="Exception">RfcLdapMessage: Invalid tag: " + protocolOpId.Tag.</exception>
         public RfcLdapMessage(Stream stream, int len)
             : base(stream, len)
         {
@@ -126,7 +126,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public int MessageId => ((Asn1Integer) Get(0)).IntValue();
 
-        /// <summary> Returns this RfcLdapMessage's message type</summary>
+        /// <summary> Returns this RfcLdapMessage's message type.</summary>
         public LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
         public Asn1Object Response => Get(1);
@@ -187,25 +187,25 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Gets the result code.
         /// </summary>
-        /// <returns>Asn1Enumerated</returns>
+        /// <returns>Asn1Enumerated.</returns>
         Asn1Enumerated GetResultCode();
 
         /// <summary>
         /// Gets the matched dn.
         /// </summary>
-        /// <returns>RfcLdapDN</returns>
+        /// <returns>RfcLdapDN.</returns>
         Asn1OctetString GetMatchedDN();
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
-        /// <returns>RfcLdapString</returns>
+        /// <returns>RfcLdapString.</returns>
         Asn1OctetString GetErrorMessage();
 
         /// <summary>
         /// Gets the referral.
         /// </summary>
-        /// <returns>Asn1SequenceOf</returns>
+        /// <returns>Asn1SequenceOf.</returns>
         Asn1SequenceOf GetReferral();
     }
 
@@ -218,7 +218,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Builds a new request using the data from the this object.
         /// </summary>
-        /// <returns>A <see cref="System.String" /></returns>
+        /// <returns>A <see cref="System.String" />.</returns>
         string GetRequestDN();
     }
 

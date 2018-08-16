@@ -60,7 +60,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// The next search result as an LdapEntry.
         /// </returns>
-        /// <exception cref="ArgumentOutOfRangeException">Next - No more results</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Next - No more results.</exception>
         public LdapEntry Next()
         {
             var list = new List<RfcLdapMessage>(_messages)

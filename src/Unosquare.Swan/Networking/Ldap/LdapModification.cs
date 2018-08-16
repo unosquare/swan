@@ -30,7 +30,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// A replace operation with no value will remove the entire attribute if it
     /// exists, and is ignored if the attribute does not exist.
     /// Additional information on Ldap modifications is available in section 4.6
-    /// of <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a>
+    /// of. <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a>
     /// </summary>
     /// <seealso cref="LdapConnection.Modify"></seealso>
     /// <seealso cref="LdapAttribute"></seealso>

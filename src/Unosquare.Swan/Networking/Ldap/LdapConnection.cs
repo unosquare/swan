@@ -127,7 +127,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Returns the method used to authenticate the connection. The return
-        /// value is one of the following:
+        /// value is one of the following:.
         /// <ul><li>"none" indicates the connection is not authenticated.</li><li>
         /// "simple" indicates simple authentication was used or that a null
         /// or empty authentication DN was specified.
@@ -381,7 +381,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
-        /// <exception cref="ArgumentNullException">distinguishedName</exception>
+        /// <exception cref="ArgumentNullException">distinguishedName.</exception>
         public Task Modify(string distinguishedName, LdapModification[] mods, CancellationToken ct = default)
         {
             if (distinguishedName == null)

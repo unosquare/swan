@@ -2,7 +2,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
-    /// LDAP Operation
+    /// LDAP Operation.
     /// </summary>
     internal enum LdapOperation
     {
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    /// ASN1 tags
+    /// ASN1 tags.
     /// </summary>
     internal enum Asn1IdentifierTag
     {

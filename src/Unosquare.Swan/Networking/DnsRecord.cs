@@ -5,7 +5,7 @@
     using System.Text;
 
     /// <summary>
-    /// Represents a DNS record entry
+    /// Represents a DNS record entry.
     /// </summary>
     public class DnsRecord
     {

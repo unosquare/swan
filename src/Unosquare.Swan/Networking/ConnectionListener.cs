@@ -64,7 +64,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionListener"/> class.
-        /// It uses the loopback address for listening
+        /// It uses the loopback address for listening.
         /// </summary>
         /// <param name="listenPort">The listen port.</param>
         public ConnectionListener(int listenPort)

@@ -178,7 +178,7 @@
         /// Parses the specified text into a Server Reply for thorough analysis.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <returns>A new instance of SMTP server response object</returns>
+        /// <returns>A new instance of SMTP server response object.</returns>
         public static SmtpServerReply Parse(string text)
         {
             var lines = text.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);

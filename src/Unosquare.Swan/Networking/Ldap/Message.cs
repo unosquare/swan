@@ -23,8 +23,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new class instance with a specified string to process
         /// and the specified token delimiters to use.
         /// </summary>
-        /// <param name="source">String to tokenize</param>
-        /// <param name="delimiters">String containing the delimiters</param>
+        /// <param name="source">String to tokenize.</param>
+        /// <param name="delimiters">String containing the delimiters.</param>
         /// <param name="retDel">if set to <c>true</c> [ret delete].</param>
         public Tokenizer(string source, string delimiters, bool retDel = false)
         {
@@ -272,7 +272,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
     }
 
-    /// <summary> Encapsulates an Ldap Bind properties</summary>
+    /// <summary> Encapsulates an Ldap Bind properties.</summary>
     internal class BindProperties
     {
         /// <summary>

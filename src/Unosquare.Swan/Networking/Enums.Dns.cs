@@ -4,7 +4,7 @@ namespace Unosquare.Swan.Networking
     #region DNS
 
     /// <summary>
-    /// Enumerates the different DNS record types
+    /// Enumerates the different DNS record types.
     /// </summary>
     public enum DnsRecordType
     {
@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Networking
     }
 
     /// <summary>
-    /// Enumerates the different DNS record classes
+    /// Enumerates the different DNS record classes.
     /// </summary>
     public enum DnsRecordClass
     {
@@ -81,7 +81,7 @@ namespace Unosquare.Swan.Networking
     }
 
     /// <summary>
-    /// Enumerates the different DNS operation codes
+    /// Enumerates the different DNS operation codes.
     /// </summary>
     public enum DnsOperationCode
     {
@@ -112,7 +112,7 @@ namespace Unosquare.Swan.Networking
     }
 
     /// <summary>
-    /// Enumerates the different DNS query response codes
+    /// Enumerates the different DNS query response codes.
     /// </summary>
     public enum DnsResponseCode
     {

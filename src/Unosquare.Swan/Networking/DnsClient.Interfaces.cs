@@ -4,7 +4,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// DnsClient public interfaces
+    /// DnsClient public interfaces.
     /// </summary>
     internal partial class DnsClient
     {

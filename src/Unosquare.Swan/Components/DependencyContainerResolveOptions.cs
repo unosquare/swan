@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Components
 {
     /// <summary>
-    /// Resolution settings
+    /// Resolution settings.
     /// </summary>
     public class DependencyContainerResolveOptions
     {
         /// <summary>
-        /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found)
+        /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found).
         /// </summary>
         public static DependencyContainerResolveOptions Default { get; } = new DependencyContainerResolveOptions();
 
@@ -30,7 +30,7 @@
     }
 
     /// <summary>
-    /// Defines Resolution actions
+    /// Defines Resolution actions.
     /// </summary>
     public enum DependencyContainerUnregisteredResolutionActions
     {
@@ -56,7 +56,7 @@
     }
 
     /// <summary>
-    /// Enumerates failure actions
+    /// Enumerates failure actions.
     /// </summary>
     public enum DependencyContainerNamedResolutionFailureActions
     {
@@ -72,7 +72,7 @@
     }
 
     /// <summary>
-    /// Enumerates duplicate definition actions
+    /// Enumerates duplicate definition actions.
     /// </summary>
     public enum DependencyContainerDuplicateImplementationActions
     {

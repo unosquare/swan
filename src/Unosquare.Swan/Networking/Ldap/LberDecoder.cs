@@ -43,7 +43,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Decoded Asn1Obect.
         /// </returns>
-        /// <exception cref="EndOfStreamException">Unknown tag</exception>
+        /// <exception cref="EndOfStreamException">Unknown tag.</exception>
         public static Asn1Object Decode(Stream stream, int[] len)
         {
             var asn1Id = new Asn1Identifier(stream);

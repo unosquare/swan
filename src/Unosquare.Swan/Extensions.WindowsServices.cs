@@ -12,7 +12,7 @@ namespace Unosquare.Swan
 #endif
 
     /// <summary>
-    /// Extension methods
+    /// Extension methods.
     /// </summary>
     public static class WindowsServicesExtensions
     {

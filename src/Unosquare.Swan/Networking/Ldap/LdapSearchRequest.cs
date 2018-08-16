@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="ldapBase">The base distinguished name to search from.</param>
         /// <param name="scope">The scope of the entries to search. The following
-        /// are the valid options:
+        /// are the valid options:.
         /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
         /// SCOPE_SUB - searches the base DN and all entries
         /// within its subtree
@@ -68,7 +68,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// filter.
         /// Values returned as a byte array may represent UTF-8 characters or may
         /// be binary values. The possible Integer components of a search filter
-        /// and the associated values that follow are:
+        /// and the associated values that follow are:.
         /// <ul><li>AND - followed by an Iterator value</li><li>OR - followed by an Iterator value</li><li>NOT - followed by an Iterator value</li><li>
         /// EQUALITY_MATCH - followed by the attribute name represented as a
         /// String, and by the attribute value represented as a byte array
@@ -101,7 +101,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Retrieves the Base DN for a search request.
         /// </summary>
         /// <returns>
-        ///     the base DN for a search request
+        ///     the base DN for a search request.
         /// </returns>
         public string DN => Asn1Object.RequestDn;
 
@@ -176,7 +176,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public string StringFilter => RfcFilter.FilterToString();
 
         /// <summary>
-        /// Retrieves an SearchFilter object representing a filter for a search request
+        /// Retrieves an SearchFilter object representing a filter for a search request.
         /// </summary>
         /// <value>
         /// The RFC filter.

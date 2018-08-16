@@ -7,13 +7,13 @@
 
     /// <summary>
     /// The concrete implementation of a simple IoC container
-    /// based largely on TinyIoC
+    /// based largely on TinyIoC.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public partial class DependencyContainer
     {
         /// <summary>
-        /// Registration options for "fluent" API
+        /// Registration options for "fluent" API.
         /// </summary>
         public sealed class RegisterOptions
         {
@@ -32,10 +32,10 @@
             }
 
             /// <summary>
-            /// Make registration a singleton (single instance) if possible
+            /// Make registration a singleton (single instance) if possible.
             /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
+            /// <returns>A registration options  for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception.</exception>
             public RegisterOptions AsSingleton()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -47,10 +47,10 @@
             }
 
             /// <summary>
-            /// Make registration multi-instance if possible
+            /// Make registration multi-instance if possible.
             /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
+            /// <returns>A registration options  for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception.</exception>
             public RegisterOptions AsMultiInstance()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -62,10 +62,10 @@
             }
 
             /// <summary>
-            /// Make registration hold a weak reference if possible
+            /// Make registration hold a weak reference if possible.
             /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
+            /// <returns>A registration options  for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception.</exception>
             public RegisterOptions WithWeakReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -77,10 +77,10 @@
             }
 
             /// <summary>
-            /// Make registration hold a strong reference if possible
+            /// Make registration hold a strong reference if possible.
             /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
+            /// <returns>A registration options  for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception.</exception>
             public RegisterOptions WithStrongReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -93,7 +93,7 @@
         }
 
         /// <summary>
-        /// Registration options for "fluent" API when registering multiple implementations
+        /// Registration options for "fluent" API when registering multiple implementations.
         /// </summary>
         public sealed class MultiRegisterOptions
         {
@@ -109,10 +109,10 @@
             }
 
             /// <summary>
-            /// Make registration a singleton (single instance) if possible
+            /// Make registration a singleton (single instance) if possible.
             /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
+            /// <returns>A registration multi-instance for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception.</exception>
             public MultiRegisterOptions AsSingleton()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
@@ -120,10 +120,10 @@
             }
 
             /// <summary>
-            /// Make registration multi-instance if possible
+            /// Make registration multi-instance if possible.
             /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
+            /// <returns>A registration multi-instance for fluent API.</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception.</exception>
             public MultiRegisterOptions AsMultiInstance()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());

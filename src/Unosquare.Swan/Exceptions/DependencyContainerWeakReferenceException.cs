@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Weak Reference Exception
+    /// Weak Reference Exception.
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class DependencyContainerWeakReferenceException : Exception

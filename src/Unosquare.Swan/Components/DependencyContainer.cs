@@ -533,7 +533,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Attempts to resolve a type using the default options and supplied constructor parameters
+        /// Attempts to resolve a type using the default options and supplied constructor parameters.
         /// </summary>
         /// <param name="resolveType">Type to resolve.</param>
         /// <param name="parameters">User specified constructor parameters.</param>
@@ -554,7 +554,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Attempts to resolve a type using the default options and supplied name and constructor parameters
+        /// Attempts to resolve a type using the default options and supplied name and constructor parameters.
         /// </summary>
         /// <param name="resolveType">Type to resolve.</param>
         /// <param name="name">Name of registration.</param>
@@ -646,7 +646,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Attempts to resolve a type using the given options
+        /// Attempts to resolve a type using the given options.
         /// </summary>
         /// <typeparam name="TResolveType">Type to resolve.</typeparam>
         /// <param name="options">Resolution options.</param>

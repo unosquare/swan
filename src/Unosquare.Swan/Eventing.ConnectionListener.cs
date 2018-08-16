@@ -5,7 +5,7 @@
     using System.Net.Sockets;
 
     /// <summary>
-    /// The event arguments for when connections are accepted
+    /// The event arguments for when connections are accepted.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class ConnectionAcceptedEventArgs : EventArgs
@@ -14,7 +14,7 @@
         /// Initializes a new instance of the <see cref="ConnectionAcceptedEventArgs" /> class.
         /// </summary>
         /// <param name="client">The client.</param>
-        /// <exception cref="ArgumentNullException">client</exception>
+        /// <exception cref="ArgumentNullException">client.</exception>
         public ConnectionAcceptedEventArgs(TcpClient client)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// Setting Cancel to true rejects the new TcpClient
+        /// Setting Cancel to true rejects the new TcpClient.
         /// </summary>
         /// <value>
         ///   <c>true</c> if cancel; otherwise, <c>false</c>.
@@ -54,7 +54,7 @@
     }
 
     /// <summary>
-    /// Event arguments for when a server listener is started
+    /// Event arguments for when a server listener is started.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class ConnectionListenerStartedEventArgs : EventArgs
@@ -63,7 +63,7 @@
         /// Initializes a new instance of the <see cref="ConnectionListenerStartedEventArgs" /> class.
         /// </summary>
         /// <param name="listenerEndPoint">The listener end point.</param>
-        /// <exception cref="ArgumentNullException">listenerEndPoint</exception>
+        /// <exception cref="ArgumentNullException">listenerEndPoint.</exception>
         public ConnectionListenerStartedEventArgs(IPEndPoint listenerEndPoint)
         {
             EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
@@ -79,7 +79,7 @@
     }
 
     /// <summary>
-    /// Event arguments for when a server listener fails to start
+    /// Event arguments for when a server listener fails to start.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class ConnectionListenerFailedEventArgs : EventArgs
@@ -92,7 +92,7 @@
         /// <exception cref="ArgumentNullException">
         /// listenerEndPoint
         /// or
-        /// ex
+        /// ex.
         /// </exception>
         public ConnectionListenerFailedEventArgs(IPEndPoint listenerEndPoint, Exception ex)
         {
@@ -118,7 +118,7 @@
     }
 
     /// <summary>
-    /// Event arguments for when a server listener stopped
+    /// Event arguments for when a server listener stopped.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class ConnectionListenerStoppedEventArgs : EventArgs
@@ -131,7 +131,7 @@
         /// <exception cref="ArgumentNullException">
         /// listenerEndPoint
         /// or
-        /// ex
+        /// ex.
         /// </exception>
         public ConnectionListenerStoppedEventArgs(IPEndPoint listenerEndPoint, Exception ex = null)
         {

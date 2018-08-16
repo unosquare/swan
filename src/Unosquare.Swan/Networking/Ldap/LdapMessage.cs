@@ -115,7 +115,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Indicates whether the message is a request or a response
+        /// Indicates whether the message is a request or a response.
         /// </summary>
         /// <value>
         ///   <c>true</c> if request; otherwise, <c>false</c>.

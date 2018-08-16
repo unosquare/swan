@@ -13,7 +13,7 @@
     using Attributes;
 
     /// <summary>
-    /// DnsClient Request inner class
+    /// DnsClient Request inner class.
     /// </summary>
     internal partial class DnsClient
     {
@@ -61,10 +61,10 @@
             /// Resolves this request into a response using the provided DNS information. The given
             /// request strategy is used to retrieve the response.
             /// </summary>
-            /// <exception cref="DnsQueryException">Throw if a malformed response is received from the server</exception>
-            /// <exception cref="IOException">Thrown if a IO error occurs</exception>
-            /// <exception cref="SocketException">Thrown if a the reading or writing to the socket fails</exception>
-            /// <returns>The response received from server</returns>
+            /// <exception cref="DnsQueryException">Throw if a malformed response is received from the server.</exception>
+            /// <exception cref="IOException">Thrown if a IO error occurs.</exception>
+            /// <exception cref="SocketException">Thrown if a the reading or writing to the socket fails.</exception>
+            /// <returns>The response received from server.</returns>
             public DnsClientResponse Resolve()
             {
                 try

@@ -22,7 +22,7 @@
         /// Discovers the specified SNMP time out.
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
-        /// <returns>An array of network endpoint as an IP address and a port number</returns>
+        /// <returns>An array of network endpoint as an IP address and a port number.</returns>
         public static IPEndPoint[] Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();

@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Generic Constraint Registration Exception
+    /// Generic Constraint Registration Exception.
     /// </summary>
     /// <seealso cref="Exception" />
     public class DependencyContainerRegistrationException : Exception

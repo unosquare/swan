@@ -44,7 +44,7 @@
         public string ClientHostname { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the session is currently receiving DATA
+        /// Gets or sets a value indicating whether the session is currently receiving DATA.
         /// </summary>
         public bool IsInDataMode { get; set; }
 

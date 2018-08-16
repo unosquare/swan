@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Components
         bool ShouldAttemptDelivery(IMessageHubMessage message);
 
         /// <summary>
-        /// Deliver the message
+        /// Deliver the message.
         /// </summary>
         /// <param name="message">Message to deliver.</param>
         void Deliver(IMessageHubMessage message);
@@ -125,7 +125,7 @@ namespace Unosquare.Swan.Components
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction.</param>
         /// <param name="proxy">Proxy to use when delivering the messages.</param>
         /// <returns>
-        /// MessageSubscription used to unsubscribing
+        /// MessageSubscription used to unsubscribing.
         /// </returns>
         MessageHubSubscriptionToken Subscribe<TMessage>(
             Action<TMessage> deliveryAction,
@@ -145,7 +145,7 @@ namespace Unosquare.Swan.Components
             where TMessage : class, IMessageHubMessage;
 
         /// <summary>
-        /// Publish a message to any subscribers
+        /// Publish a message to any subscribers.
         /// </summary>
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="message">Message to deliver.</param>
@@ -321,7 +321,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered.</param>
-        /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
+        /// <param name="useStrongReferences">Use strong references to destination and deliveryAction. </param>
         /// <param name="proxy">Proxy to use when delivering the messages.</param>
         /// <returns>MessageSubscription used to unsubscribing.</returns>
         public MessageHubSubscriptionToken Subscribe<TMessage>(
@@ -345,7 +345,7 @@ namespace Unosquare.Swan.Components
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction.</param>
         /// <param name="proxy">Proxy to use when delivering the messages.</param>
         /// <returns>
-        /// MessageSubscription used to unsubscribing
+        /// MessageSubscription used to unsubscribing.
         /// </returns>
         public MessageHubSubscriptionToken Subscribe<TMessage>(
             Action<TMessage> deliveryAction,
@@ -413,7 +413,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Publish a message to any subscribers
+        /// Publish a message to any subscribers.
         /// </summary>
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="message">Message to deliver.</param>
@@ -448,7 +448,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Publish a message to any subscribers asynchronously
+        /// Publish a message to any subscribers asynchronously.
         /// </summary>
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="message">Message to deliver.</param>

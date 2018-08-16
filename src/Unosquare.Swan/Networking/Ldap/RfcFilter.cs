@@ -18,7 +18,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// {PRESENT}, {APPROX_MATCH}, {EXTENSIBLE_MATCH}.
     /// More filters can be nested together into more complex filters with the
     /// following filter components: {AND}, {OR}, {NOT}
-    /// Substrings can have three components:
+    /// Substrings can have three components:.
     /// 
     /// <pre>
     /// Filter ::= CHOICE {
@@ -74,7 +74,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// 'FINAL' substrings either.  However, when a filter does contain a 'FINAL'
         /// substring only one can be added, and it must be the last substring added.
         /// </summary>
-        /// <param name="type">Substring type: INITIAL | ANY | FINAL]</param>
+        /// <param name="type">Substring type: INITIAL | ANY | FINAL].</param>
         /// <param name="values">The value renamed.</param>
         /// <exception cref="LdapException">
         /// Attempt to add an invalid " + "substring type
@@ -83,7 +83,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// Attempt to add a substring " + "match after a final substring match
         /// or
-        /// A call to addSubstring occured " + "without calling startSubstring
+        /// A call to addSubstring occured " + "without calling startSubstring.
         /// </exception>
         public void AddSubstring(SubstringOp type, sbyte[] values)
         {
@@ -155,9 +155,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Creates and adds an AttributeValueAssertion to the filter.
         /// </summary>
         /// <param name="rfcType">Filter type: EQUALITY_MATCH | GREATER_OR_EQUAL
-        /// | LESS_OR_EQUAL | APPROX_MATCH ]</param>
-        /// <param name="attrName">Name of the attribute to be asserted</param>
-        /// <param name="valueArray">Value of the attribute to be asserted</param>
+        /// | LESS_OR_EQUAL | APPROX_MATCH ].</param>
+        /// <param name="attrName">Name of the attribute to be asserted.</param>
+        /// <param name="valueArray">Value of the attribute to be asserted.</param>
         /// <exception cref="LdapException">
         /// Cannot insert an attribute assertion in a substring
         /// or
@@ -203,10 +203,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Creates and adds the Asn1Tagged value for a nestedFilter: AND, OR, or
         /// NOT.
         /// Note that a Not nested filter can only have one filter, where AND
-        /// and OR do not
+        /// and OR do not.
         /// </summary>
         /// <param name="rfcType">Filter type:
-        /// [AND | OR | NOT]</param>
+        /// [AND | OR | NOT].</param>
         /// <exception cref="LdapException">Attempt to create a nested filter other than AND, OR or NOT.</exception>
         public void StartNestedFilter(FilterOp rfcType)
         {
@@ -259,7 +259,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// returned is another iterator.  This iterator is used by ToString.
         /// </summary>
         /// <returns>
-        /// Iterator over filter segments
+        /// Iterator over filter segments.
         /// </returns>
         public IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged)ChoiceValue);
 
@@ -623,7 +623,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// octet-string encoding of the specified string.
         /// </returns>
-        /// <exception cref="LdapException">Invalid Escape</exception>
+        /// <exception cref="LdapException">Invalid Escape.</exception>
         private static sbyte[] UnescapeString(string value)
         {
             var octets = new sbyte[value.Length * 3];

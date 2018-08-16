@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Represents event arguments whenever the state of an application service changes
+    /// Represents event arguments whenever the state of an application service changes.
     /// </summary>
     public class AppWorkerStateChangedEventArgs : EventArgs
     {

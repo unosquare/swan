@@ -131,7 +131,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested type</returns>
+        /// <returns>A task with a result of the requested type.</returns>
         public static async Task<T> Put<T>(
             string url,
             object payload,
@@ -165,10 +165,10 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A task with a result of the requested string
+        /// A task with a result of the requested string.
         /// </returns>
-        /// <exception cref="ArgumentNullException">url</exception>
-        /// <exception cref="JsonRequestException">Error PUT JSON</exception>
+        /// <exception cref="ArgumentNullException">url.</exception>
+        /// <exception cref="JsonRequestException">Error PUT JSON.</exception>
         public static Task<string> PutString(
             string url,
             object payload,
@@ -182,10 +182,10 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A task with a result of the requested string
+        /// A task with a result of the requested string.
         /// </returns>
-        /// <exception cref="ArgumentNullException">url</exception>
-        /// <exception cref="JsonRequestException">Error GET JSON</exception>
+        /// <exception cref="ArgumentNullException">url.</exception>
+        /// <exception cref="JsonRequestException">Error GET JSON.</exception>
         public static async Task<string> GetString(
             string url,
             string authorization = null,
@@ -195,11 +195,11 @@
         /// Gets the specified URL and return the JSON data as object
         /// with optional authorization token.
         /// </summary>
-        /// <typeparam name="T">The response type</typeparam>
+        /// <typeparam name="T">The response type.</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested type</returns>
+        /// <returns>A task with a result of the requested type.</returns>
         public static async Task<T> Get<T>(
             string url,
             string authorization = null,
@@ -217,10 +217,10 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A task with a result of the requested byte array
+        /// A task with a result of the requested byte array.
         /// </returns>
-        /// <exception cref="ArgumentNullException">url</exception>
-        /// <exception cref="JsonRequestException">Error GET Binary</exception>
+        /// <exception cref="ArgumentNullException">url.</exception>
+        /// <exception cref="JsonRequestException">Error GET Binary.</exception>
         public static async Task<byte[]> GetBinary(
             string url,
             string authorization = null,
@@ -239,7 +239,7 @@
         /// <exception cref="ArgumentNullException">
         /// url
         /// or
-        /// username
+        /// username.
         /// </exception>
         /// <exception cref="SecurityException">Error Authenticating.</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
@@ -296,7 +296,7 @@
         /// <summary>
         /// Posts the file.
         /// </summary>
-        /// <typeparam name="T">The response type</typeparam>
+        /// <typeparam name="T">The response type.</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>

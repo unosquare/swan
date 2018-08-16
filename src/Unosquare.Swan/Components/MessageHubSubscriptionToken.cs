@@ -6,7 +6,7 @@
 #endif
 
     /// <summary>
-    /// Represents an active subscription to a message
+    /// Represents an active subscription to a message.
     /// </summary>
     public sealed class MessageHubSubscriptionToken
         : IDisposable
@@ -19,8 +19,8 @@
         /// </summary>
         /// <param name="hub">The hub.</param>
         /// <param name="messageType">Type of the message.</param>
-        /// <exception cref="System.ArgumentNullException">hub</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">messageType</exception>
+        /// <exception cref="System.ArgumentNullException">hub.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">messageType.</exception>
         public MessageHubSubscriptionToken(IMessageHub hub, Type messageType)
         {
             if (hub == null)

@@ -4,7 +4,7 @@
     using System.Text;
     
     /// <summary>
-    /// The event arguments for connection failure events
+    /// The event arguments for connection failure events.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class ConnectionFailureEventArgs : EventArgs
@@ -55,7 +55,7 @@
         public byte[] Buffer { get; }
 
         /// <summary>
-        /// Gets the cause as to why this event was thrown
+        /// Gets the cause as to why this event was thrown.
         /// </summary>
         /// <value>
         /// The trigger.
@@ -63,7 +63,7 @@
         public ConnectionDataReceivedTrigger Trigger { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the receive buffer has more bytes available
+        /// Gets a value indicating whether the receive buffer has more bytes available.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance has more available; otherwise, <c>false</c>.
@@ -75,7 +75,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
             => encoding.GetString(buffer).TrimEnd('\r', '\n');
 
@@ -83,7 +83,7 @@
         /// Gets the string from buffer.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public string GetStringFromBuffer(Encoding encoding) 
             => GetStringFromBuffer(Buffer, encoding);
     }

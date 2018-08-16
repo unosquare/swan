@@ -106,7 +106,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an attribute with no values.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
-        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute name cannot be null.</exception>
         public LdapAttribute(string attrName)
         {
             Name = attrName ?? throw new ArgumentNullException(nameof(attrName));
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
         /// <param name="attrString">Value of the attribute as a string.</param>
-        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute value cannot be null.</exception>
         public LdapAttribute(string attrName, string attrString)
             : this(attrName)
         {
@@ -245,7 +245,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// An array subtypes or null if the attribute has none.
         /// </returns>
-        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute name cannot be null.</exception>
         public static string[] GetSubtypes(string attrName)
         {
             if (attrName == null)
@@ -279,7 +279,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrName">Name of the attribute from which to extract the
         /// base name.</param>
         /// <returns> The base name of the attribute. </returns>
-        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute name cannot be null.</exception>
         public static string GetBaseName(string attrName)
         {
             if (attrName == null)
@@ -294,7 +294,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Clones this instance.
         /// </summary>
-        /// <returns>A cloned instance</returns>
+        /// <returns>A cloned instance.</returns>
         public LdapAttribute Clone()
         {
             var newObj = MemberwiseClone();
@@ -310,7 +310,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Adds a <see cref="System.String" /> value to the attribute.
         /// </summary>
         /// <param name="attrString">Value of the attribute as a String.</param>
-        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute value cannot be null.</exception>
         public void AddValue(string attrString)
         {
             if (attrString == null)
@@ -326,7 +326,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="attrBytes">Value of the attribute as raw bytes.
         /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
-        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute value cannot be null.</exception>
         public void AddValue(sbyte[] attrBytes)
         {
             if (attrBytes == null)
@@ -343,7 +343,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// data encoded as a base64 value must be UTF-8 characters.
         /// </summary>
         /// <param name="attrString">The base64 value of the attribute as a String.</param>
-        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        /// <exception cref="ArgumentException">Attribute value cannot be null.</exception>
         public void AddBase64Value(string attrString)
         {
             if (attrString == null)
@@ -362,7 +362,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrString">The base64 value of the attribute as a StringBuffer.</param>
         /// <param name="start">The start index of base64 encoded part, inclusive.</param>
         /// <param name="end">The end index of base encoded part, exclusive.</param>
-        /// <exception cref="ArgumentNullException">attrString</exception>
+        /// <exception cref="ArgumentNullException">attrString.</exception>
         public void AddBase64Value(StringBuilder attrString, int start, int end)
         {
             if (attrString == null)
@@ -380,7 +380,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="attrChars">The base64 value of the attribute as an array of
         /// characters.</param>
-        /// <exception cref="ArgumentNullException">attrChars</exception>
+        /// <exception cref="ArgumentNullException">attrChars.</exception>
         public void AddBase64Value(char[] attrChars)
         {
             if (attrChars == null)
@@ -479,7 +479,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrString">Value of the attribute as a string.
         /// Note: Removing a value which is not present in the attribute has
         /// no effect.</param>
-        /// <exception cref="ArgumentNullException">attrString</exception>
+        /// <exception cref="ArgumentNullException">attrString.</exception>
         public void RemoveValue(string attrString)
         {
             if (attrString == null)
@@ -496,8 +496,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrBytes">Value of the attribute as raw bytes.
         /// Note: If attrBytes represents a string it should be UTF-8 encoded.
         /// Note: Removing a value which is not present in the attribute has
-        /// no effect.</param>
-        /// <exception cref="ArgumentNullException">attrBytes</exception>
+        /// no effect.
+        /// </param>
+        /// <exception cref="ArgumentNullException">attrBytes.</exception>
         public void RemoveValue(sbyte[] attrBytes)
         {
             if (attrBytes == null)
@@ -563,12 +564,12 @@ namespace Unosquare.Swan.Networking.Ldap
             => string.Compare(Name, ((LdapAttribute)attribute).Name, StringComparison.Ordinal);
 
         /// <summary>
-        /// Returns a string representation of this LdapAttribute
+        /// Returns a string representation of this LdapAttribute.
         /// </summary>
         /// <returns>
-        /// a string representation of this LdapAttribute
+        /// a string representation of this LdapAttribute.
         /// </returns>
-        /// <exception cref="Exception">NullReferenceException</exception>
+        /// <exception cref="Exception">NullReferenceException.</exception>
         public override string ToString()
         {
             var result = new StringBuilder("LdapAttribute: ");
@@ -613,7 +614,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Adds an object to this object's list of attribute values
+        /// Adds an object to this object's list of attribute values.
         /// </summary>
         /// <param name="bytes">Ultimately all of this attribute's values are treated
         /// as binary data so we simplify the process by requiring
@@ -694,7 +695,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <ul><li>    cn</li><li>    cn;lang-ja</li><li>    sn;phonetic;lang-ja</li><li>    sn;lang-us</li></ul>
         /// Calling the <c>getSubset</c> method and passing lang-ja as the
         /// argument, the method returns an attribute set containing the following
-        /// attributes:
+        /// attributes:.
         /// <ul><li>cn;lang-ja</li><li>sn;phonetic;lang-ja</li></ul>
         /// </summary>
         /// <param name="subtype">Semi-colon delimited list of subtypes to include. For
@@ -727,9 +728,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Returns <c>true</c> if this set contains an attribute of the same name
         /// as the specified attribute.
         /// </summary>
-        /// <param name="attr">Object of type <c>LdapAttribute</c></param>
+        /// <param name="attr">Object of type <c>LdapAttribute</c>.</param>
         /// <returns>
-        /// true if this set contains the specified attribute
+        /// true if this set contains the specified attribute.
         /// </returns>
         public bool Contains(object attr) => ContainsKey(((LdapAttribute)attr).Name);
 
@@ -738,7 +739,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// If an attribute with the same name already exists in the set then the
         /// specified attribute will not be added.
         /// </summary>
-        /// <param name="attr">Object of type <c>LdapAttribute</c></param>
+        /// <param name="attr">Object of type <c>LdapAttribute</c>.</param>
         /// <returns>
         /// <c>true</c> if the attribute was added.
         /// </returns>

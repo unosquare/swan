@@ -8,7 +8,7 @@
     using System.Linq;
 
     /// <summary>
-    /// DnsClient Response inner class
+    /// DnsClient Response inner class.
     /// </summary>
     internal partial class DnsClient
     {

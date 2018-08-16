@@ -18,12 +18,12 @@
     public static class Network
     {
         /// <summary>
-        /// The DNS default port
+        /// The DNS default port.
         /// </summary>
         public const int DnsDefaultPort = 53;
 
         /// <summary>
-        /// The NTP default port
+        /// The NTP default port.
         /// </summary>
         public const int NtpDefaultPort = 123;
 
@@ -47,11 +47,11 @@
 
         /// <summary>
         /// Gets the active IPv4 interfaces.
-        /// Only those interfaces with a valid unicast address and a valid gateway will be returned in the collection
+        /// Only those interfaces with a valid unicast address and a valid gateway will be returned in the collection.
         /// </summary>
         /// <returns>
         /// A collection of NetworkInterface/IPInterfaceProperties pairs
-        /// that represents the active IPv4 interfaces
+        /// that represents the active IPv4 interfaces.
         /// </returns>
         public static Dictionary<NetworkInterface, IPInterfaceProperties> GetIPv4Interfaces()
         {
@@ -89,7 +89,7 @@
         /// Retrieves the local ip addresses.
         /// </summary>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns>An array of local ip addresses</returns>
+        /// <returns>An array of local ip addresses.</returns>
         public static IPAddress[] GetIPv4Addresses(bool includeLoopback = true) =>
             GetIPv4Addresses(NetworkInterfaceType.Unknown, true, includeLoopback);
 
@@ -99,7 +99,7 @@
         /// <param name="interfaceType">Type of the interface.</param>
         /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns>An array of local ip addresses</returns>
+        /// <returns>An array of local ip addresses.</returns>
         public static IPAddress[] GetIPv4Addresses(
             NetworkInterfaceType interfaceType,
             bool skipTypeFilter = false,
@@ -186,7 +186,7 @@
         /// </summary>
         /// <param name="fqdn">The FQDN.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>An array of local ip addresses of the result produced by this task</returns>
+        /// <returns>An array of local ip addresses of the result produced by this task.</returns>
         public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn,
             CancellationToken ct = default)
         {
@@ -200,9 +200,9 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <returns>
-        /// An array of local ip addresses
+        /// An array of local ip addresses.
         /// </returns>
-        /// <exception cref="ArgumentNullException">fqdn</exception>
+        /// <exception cref="ArgumentNullException">fqdn.</exception>
         public static IPAddress[] GetDnsHostEntry(string fqdn, IPAddress dnsServer, int port)
         {
             if (fqdn == null)
@@ -232,7 +232,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>An array of local ip addresses of the result produced by this task</returns>
+        /// <returns>An array of local ip addresses of the result produced by this task.</returns>
         public static Task<IPAddress[]> GetDnsHostEntryAsync(
             string fqdn,
             IPAddress dnsServer,
@@ -248,7 +248,7 @@
         /// <param name="query">The query.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port) => new DnsClient(dnsServer, port).Reverse(query);
 
         /// <summary>
@@ -258,7 +258,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static Task<string> GetDnsPointerEntryAsync(
             IPAddress query, 
             IPAddress dnsServer, 
@@ -272,7 +272,7 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string GetDnsPointerEntry(IPAddress query) => new DnsClient(GetIPv4DnsServers().FirstOrDefault()).Reverse(query);
 
         /// <summary>
@@ -280,7 +280,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static Task<string> GetDnsPointerEntryAsync(
             IPAddress query,
             CancellationToken ct = default)
@@ -296,7 +296,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <returns>
-        /// Appropriate DNS server for the specified record type
+        /// Appropriate DNS server for the specified record type.
         /// </returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
         {
@@ -315,7 +315,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Queries the DNS server for the specified record type of the result produced by this Task</returns>
+        /// <returns>Queries the DNS server for the specified record type of the result produced by this Task.</returns>
         public static Task<DnsQueryResult> QueryDnsAsync(
             string query,
             DnsRecordType recordType,
@@ -331,7 +331,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="recordType">Type of the record.</param>
-        /// <returns>Appropriate DNS server for the specified record type</returns>
+        /// <returns>Appropriate DNS server for the specified record type.</returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType) => QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), DnsDefaultPort);
 
         /// <summary>
@@ -340,7 +340,7 @@
         /// <param name="query">The query.</param>
         /// <param name="recordType">Type of the record.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Queries the DNS server for the specified record type of the result produced by this Task</returns>
+        /// <returns>Queries the DNS server for the specified record type of the result produced by this Task.</returns>
         public static Task<DnsQueryResult> QueryDnsAsync(
             string query,
             DnsRecordType recordType,
@@ -350,13 +350,13 @@
         }
 
         /// <summary>
-        /// Gets the UTC time by querying from an NTP server
+        /// Gets the UTC time by querying from an NTP server.
         /// </summary>
         /// <param name="ntpServerAddress">The NTP server address.</param>
         /// <param name="port">The port.</param>
         /// <returns>
         /// A new instance of the DateTime structure to 
-        /// the specified year, month, day, hour, minute and second
+        /// the specified year, month, day, hour, minute and second.
         /// </returns>
         public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = NtpDefaultPort)
         {
@@ -403,11 +403,11 @@
         }
 
         /// <summary>
-        /// Gets the UTC time by querying from an NTP server
+        /// Gets the UTC time by querying from an NTP server.
         /// </summary>
         /// <param name="ntpServerName">The NTP server, by default pool.ntp.org.</param>
         /// <param name="port">The port, by default NTP 123.</param>
-        /// <returns>The UTC time by querying from an NTP server</returns>
+        /// <returns>The UTC time by querying from an NTP server.</returns>
         public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org",
             int port = NtpDefaultPort)
         {
@@ -416,12 +416,12 @@
         }
 
         /// <summary>
-        /// Gets the UTC time by querying from an NTP server
+        /// Gets the UTC time by querying from an NTP server.
         /// </summary>
         /// <param name="ntpServerAddress">The NTP server address.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The UTC time by querying from an NTP server of the result produced by this Task</returns>
+        /// <returns>The UTC time by querying from an NTP server of the result produced by this Task.</returns>
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             IPAddress ntpServerAddress,
             int port = NtpDefaultPort,
@@ -431,12 +431,12 @@
         }
 
         /// <summary>
-        /// Gets the UTC time by querying from an NTP server
+        /// Gets the UTC time by querying from an NTP server.
         /// </summary>
         /// <param name="ntpServerName">Name of the NTP server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The UTC time by querying from an NTP server of the result produced by this Task</returns>
+        /// <returns>The UTC time by querying from an NTP server of the result produced by this Task.</returns>
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             string ntpServerName = "pool.ntp.org",
             int port = NtpDefaultPort,

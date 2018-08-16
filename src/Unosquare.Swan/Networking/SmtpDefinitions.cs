@@ -6,7 +6,7 @@
     public static class SmtpDefinitions
     {
         /// <summary>
-        /// The string sequence that delimits the end of the DATA command
+        /// The string sequence that delimits the end of the DATA command.
         /// </summary>
         public const string SmtpDataCommandTerminator = "\r\n.\r\n";
         

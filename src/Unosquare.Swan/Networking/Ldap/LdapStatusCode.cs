@@ -3,7 +3,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
-    /// LDAP Connection Sttus Code
+    /// LDAP Connection Sttus Code.
     /// </summary>
     public enum LdapStatusCode
     {
