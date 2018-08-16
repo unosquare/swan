@@ -13804,6 +13804,12 @@ references:
   commentId: T:Unosquare.Swan.ValueTypeExtensions
   fullName: Unosquare.Swan.ValueTypeExtensions
   nameWithType: ValueTypeExtensions
+- uid: Unosquare.Swan.ValueTypeExtensions.Clamp(System.Int32,System.Int32,System.Int32)
+  name: Clamp(Int32, Int32, Int32)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_Clamp_System_Int32_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.Clamp(System.Int32,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.ValueTypeExtensions.Clamp(System.Int32, System.Int32, System.Int32)
+  nameWithType: ValueTypeExtensions.Clamp(Int32, Int32, Int32)
 - uid: Unosquare.Swan.ValueTypeExtensions.Clamp*
   name: Clamp
   href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_Clamp_
