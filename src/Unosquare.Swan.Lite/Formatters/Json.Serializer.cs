@@ -60,7 +60,7 @@
                 // Handle circular references correctly and avoid them
                 if (options.IsObjectPresent(obj))
                 {
-                    _result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant())}\" }}";
+                    _result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant(), false)}\" }}";
                     return;
                 }
 
@@ -106,7 +106,7 @@
                     case null:
                         return NullLiteral;
                     case string s:
-                        return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
+                        return Escape(s, true);
                     case bool b:
                         return b ? TrueLiteral : FalseLiteral;
                     case Type _:
@@ -114,7 +114,7 @@
                     case MethodInfo _:
                     case PropertyInfo _:
                     case EventInfo _:
-                        return $"{StringQuotedChar}{Escape(obj.ToString())}{StringQuotedChar}";
+                        return Escape(obj.ToString(), true);
                     case DateTime d:
                         return $"{StringQuotedChar}{d:s}{StringQuotedChar}";
                     default:
@@ -123,7 +123,7 @@
                         if (!Definitions.BasicTypesInfo.ContainsKey(targetType))
                             return string.Empty;
 
-                        var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
+                        var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj), false);
 
                         return decimal.TryParse(escapedValue, out _)
                             ? $"{escapedValue}"
@@ -139,18 +139,20 @@
                 return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
             }
 
-            /// <summary>
-            /// Escapes the specified string as a JSON string.
-            /// </summary>
-            /// <param name="str">The string to escape.</param>
-            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-            private static string Escape(string str)
+            private static string Escape(string str, bool quoted)
             {
                 if (string.IsNullOrEmpty(str))
                     return string.Empty;
 
                 var builder = new StringBuilder(str.Length * 2);
+                if (quoted) builder.Append(StringQuotedChar);
+                Escape(str, builder);
+                if (quoted) builder.Append(StringQuotedChar);
+                return builder.ToString();
+            }
 
+            private static void Escape(string str, StringBuilder builder)
+            {
                 foreach (var currentChar in str)
                 {
                     switch (currentChar)
@@ -185,8 +187,8 @@
                                     Array.Reverse(escapeBytes);
 
                                 builder.Append("\\u")
-                                        .Append(escapeBytes[1].ToString("X").PadLeft(2, '0'))
-                                        .Append(escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                                    .Append(escapeBytes[1].ToString("X").PadLeft(2, '0'))
+                                    .Append(escapeBytes[0].ToString("X").PadLeft(2, '0'));
                             }
                             else
                             {
@@ -196,8 +198,6 @@
                             break;
                     }
                 }
-
-                return builder.ToString();
             }
 
             private Dictionary<string, object> CreateDictionary(
@@ -241,7 +241,8 @@
                 {
                     // Serialize and append the key (first char indented)
                     Append(StringQuotedChar, depth + 1);
-                    _builder.Append(Escape(entry.Key.ToString()))
+                    Escape(entry.Key.ToString(), _builder);
+                    _builder
                         .Append(StringQuotedChar)
                         .Append(ValueSeparatorChar)
                         .Append(" ");
