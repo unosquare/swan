@@ -35,7 +35,7 @@
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
         public static int Clamp(this int value, int min, int max)
-            => (value < min) ? min : ((value > max) ? max : value);
+            => value < min ? min : (value > max ? max : value);
 
         /// <summary>
         /// Determines whether the specified value is between a minimum and a maximum value.

@@ -53,7 +53,7 @@
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
-                
+
                 _options = options;
                 _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
@@ -89,7 +89,7 @@
                         break;
                 }
             }
-            
+
             internal static string Serialize(object obj, int depth, SerializerOptions options)
             {
                 return new Serializer(obj, depth, options)._result;
@@ -130,7 +130,7 @@
                             : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
                 }
             }
-            
+
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
                 if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
@@ -217,7 +217,7 @@
                     // Note: used to be: property.GetValue(target); but we would be reading private properties
                     try
                     {
-                        objectDictionary[field.Key] = field.Value is PropertyInfo property 
+                        objectDictionary[field.Key] = field.Value is PropertyInfo property
                             ? property.GetCacheGetMethod(_options.IncludeNonPublic).Invoke(target, null)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
@@ -239,10 +239,12 @@
                 var writeCount = 0;
                 foreach (DictionaryEntry entry in items)
                 {
-                    // Serialize and append the key
-                    Append(
-                        $"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ",
-                        depth + 1);
+                    // Serialize and append the key (first char indented)
+                    Append(StringQuotedChar, depth + 1);
+                    _builder.Append(Escape(entry.Key.ToString()))
+                        .Append(StringQuotedChar)
+                        .Append(ValueSeparatorChar)
+                        .Append(" ");
 
                     // Serialize and append the value
                     var serializedValue = Serialize(entry.Value, depth + 1, _options);
