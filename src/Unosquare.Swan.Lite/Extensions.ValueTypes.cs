@@ -12,13 +12,13 @@
     public static class ValueTypeExtensions
     {
         /// <summary>
-        /// Clamps the specified value between the minimum and the maximum
+        /// Clamps the specified value between the minimum and the maximum.
         /// </summary>
-        /// <typeparam name="T">The type of value to clamp</typeparam>
+        /// <typeparam name="T">The type of value to clamp.</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
-        /// <returns>A value that indicates the relative order of the objects being compared</returns>
+        /// <returns>A value that indicates the relative order of the objects being compared.</returns>
         public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
@@ -26,6 +26,16 @@
 
             return value.CompareTo(max) > 0 ? max : value;
         }
+
+        /// <summary>
+        /// Clamps the specified value between the minimum and the maximum.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <returns>A value that indicates the relative order of the objects being compared.</returns>
+        public static int Clamp(this int value, int min, int max)
+            => value < min ? min : (value > max ? max : value);
 
         /// <summary>
         /// Determines whether the specified value is between a minimum and a maximum value.

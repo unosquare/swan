@@ -289,7 +289,7 @@
         /// <summary>
         /// Gets a part of the string clamping the length and startIndex parameters to safe values.
         /// If the string is null it returns an empty string. This is basically just a safe version
-        /// of string.Substring
+        /// of string.Substring.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
