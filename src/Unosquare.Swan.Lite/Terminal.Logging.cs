@@ -6,7 +6,7 @@
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public partial class Terminal
     {
@@ -39,7 +39,7 @@
         #region Main Logging Method
 
         /// <summary>
-        /// Logs a message
+        /// Logs a message.
         /// </summary>
         /// <param name="messageType">Type of the message.</param>
         /// <param name="message">The text.</param>
@@ -219,7 +219,7 @@
         #region Debug
 
         /// <summary>
-        /// Logs a debug message to the console
+        /// Logs a debug message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -239,7 +239,7 @@
         }
 
         /// <summary>
-        /// Logs a debug message to the console
+        /// Logs a debug message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -259,7 +259,7 @@
         }
 
         /// <summary>
-        /// Logs a debug message to the console
+        /// Logs a debug message to the console.
         /// </summary>
         /// <param name="extendedData">The exception.</param>
         /// <param name="source">The source.</param>
@@ -283,7 +283,7 @@
         #region Trace
 
         /// <summary>
-        /// Logs a trace message to the console
+        /// Logs a trace message to the console.
         /// </summary>
         /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
@@ -303,7 +303,7 @@
         }
 
         /// <summary>
-        /// Logs a trace message to the console
+        /// Logs a trace message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -323,7 +323,7 @@
         }
 
         /// <summary>
-        /// Logs a trace message to the console
+        /// Logs a trace message to the console.
         /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
@@ -347,7 +347,7 @@
         #region Warn
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
@@ -367,7 +367,7 @@
         }
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -387,7 +387,7 @@
         }
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
@@ -411,7 +411,7 @@
         #region Fatal
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
@@ -431,7 +431,7 @@
         }
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -451,7 +451,7 @@
         }
 
         /// <summary>
-        /// Logs a warning message to the console
+        /// Logs a warning message to the console.
         /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
@@ -475,7 +475,7 @@
         #region Info
 
         /// <summary>
-        /// Logs an info message to the console
+        /// Logs an info message to the console.
         /// </summary>
         /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
@@ -495,7 +495,7 @@
         }
 
         /// <summary>
-        /// Logs an info message to the console
+        /// Logs an info message to the console.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -515,7 +515,7 @@
         }
 
         /// <summary>
-        /// Logs an info message to the console
+        /// Logs an info message to the console.
         /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
@@ -539,7 +539,7 @@
         #region Error
 
         /// <summary>
-        /// Logs an error message to the console's standard error
+        /// Logs an error message to the console's standard error.
         /// </summary>
         /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
@@ -559,7 +559,7 @@
         }
 
         /// <summary>
-        /// Logs an error message to the console's standard error
+        /// Logs an error message to the console's standard error.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
@@ -579,7 +579,7 @@
         }
 
         /// <summary>
-        /// Logs an error message to the console's standard error
+        /// Logs an error message to the console's standard error.
         /// </summary>
         /// <param name="ex">The exception.</param>
         /// <param name="source">The source.</param>
@@ -649,7 +649,7 @@
         }
 
         /// <summary>
-        /// Logs an error message to the console's standard error
+        /// Logs an error message to the console's standard error.
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="source">The source.</param>
@@ -669,7 +669,7 @@
         }
 
         /// <summary>
-        /// Logs an error message to the console's standard error
+        /// Logs an error message to the console's standard error.
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="source">The source.</param>
@@ -690,7 +690,7 @@
 
         /// <summary>
         /// Logs a trace message showing all possible non-null properties of the given object
-        /// This method is expensive as it uses Stringify internally
+        /// This method is expensive as it uses Stringify internally.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="source">The source.</param>
@@ -713,7 +713,7 @@
 
         /// <summary>
         /// Logs a trace message showing all possible non-null properties of the given object
-        /// This method is expensive as it uses Stringify internally
+        /// This method is expensive as it uses Stringify internally.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="source">The source.</param>

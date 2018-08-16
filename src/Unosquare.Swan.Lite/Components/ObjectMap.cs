@@ -7,7 +7,7 @@
     using System.Reflection;
 
     /// <summary>
-    /// Represents an object map
+    /// Represents an object map.
     /// </summary>
     /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TDestination">The type of the destination.</typeparam>
@@ -41,7 +41,7 @@
         /// <param name="sourceProperty">The source property.</param>
         /// <returns>
         /// An object map representation of type of the destination property 
-        /// and type of the source property
+        /// and type of the source property.
         /// </returns>
         public ObjectMap<TSource, TDestination> MapProperty
             <TDestinationProperty, TSourceProperty>(
@@ -76,9 +76,9 @@
         /// <param name="destinationProperty">The destination property.</param>
         /// <returns>
         /// An object map representation of type of the destination property 
-        /// and type of the source property 
+        /// and type of the source property. 
         /// </returns>
-        /// <exception cref="System.Exception">Invalid destination expression</exception>
+        /// <exception cref="System.Exception">Invalid destination expression.</exception>
         public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
         {

@@ -10,7 +10,7 @@
 #endif
 
     /// <summary>
-    /// Provides utility methods to retrieve information about the current application
+    /// Provides utility methods to retrieve information about the current application.
     /// </summary>
 #if !NETSTANDARD1_3 && !UWP
     public class Runtime : MarshalByRefObject
@@ -282,7 +282,7 @@
 #endif
 
         /// <summary>
-        /// Gets a local storage path with a version
+        /// Gets a local storage path with a version.
         /// </summary>
         /// <value>
         /// The local storage path.
@@ -349,17 +349,17 @@
         /// <summary>
         /// Gets all the loaded assemblies in the current application domain.
         /// </summary>
-        /// <returns>An array of assemblies</returns>
+        /// <returns>An array of assemblies.</returns>
         public static Assembly[] GetAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
 
         /// <summary>
-        /// Build a full path pointing to the current user's desktop with the given filename
+        /// Build a full path pointing to the current user's desktop with the given filename.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <returns>
-        /// The fully qualified location of path, such as "C:\MyFile.txt"
+        /// The fully qualified location of path, such as "C:\MyFile.txt".
         /// </returns>
-        /// <exception cref="ArgumentNullException">filename</exception>
+        /// <exception cref="ArgumentNullException">filename.</exception>
         public static string GetDesktopFilePath(string filename)
         {
             if (string.IsNullOrWhiteSpace(filename))

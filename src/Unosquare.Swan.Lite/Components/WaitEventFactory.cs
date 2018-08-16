@@ -6,10 +6,10 @@ namespace Unosquare.Swan.Components
     using Abstractions;
 
     /// <summary>
-    /// Provides a Manual Reset Event factory with a unified API
+    /// Provides a Manual Reset Event factory with a unified API.
     /// </summary>
     /// <example>
-    /// The following example shows how to use the WaitEventFactory class
+    /// The following example shows how to use the WaitEventFactory class.
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
@@ -58,25 +58,25 @@ namespace Unosquare.Swan.Components
         #region Factory Methods
 
         /// <summary>
-        /// Creates a Wait Event backed by a standard ManualResetEvent
+        /// Creates a Wait Event backed by a standard ManualResetEvent.
         /// </summary>
-        /// <param name="isCompleted">if initially set to completed. Generally true</param>
-        /// <returns>The Wait Event</returns>
+        /// <param name="isCompleted">if initially set to completed. Generally true.</param>
+        /// <returns>The Wait Event.</returns>
         public static IWaitEvent Create(bool isCompleted) => new WaitEvent(isCompleted);
 
         /// <summary>
-        /// Creates a Wait Event backed by a ManualResetEventSlim
+        /// Creates a Wait Event backed by a ManualResetEventSlim.
         /// </summary>
-        /// <param name="isCompleted">if initially set to completed. Generally true</param>
-        /// <returns>The Wait Event</returns>
+        /// <param name="isCompleted">if initially set to completed. Generally true.</param>
+        /// <returns>The Wait Event.</returns>
         public static IWaitEvent CreateSlim(bool isCompleted) => new WaitEventSlim(isCompleted);
 
         /// <summary>
-        /// Creates a Wait Event backed by a ManualResetEventSlim
+        /// Creates a Wait Event backed by a ManualResetEventSlim.
         /// </summary>
-        /// <param name="isCompleted">if initially set to completed. Generally true</param>
+        /// <param name="isCompleted">if initially set to completed. Generally true.</param>
         /// <param name="useSlim">if set to <c>true</c> creates a slim version of the wait event.</param>
-        /// <returns>The Wait Event</returns>
+        /// <returns>The Wait Event.</returns>
         public static IWaitEvent Create(bool isCompleted, bool useSlim) => useSlim ? CreateSlim(isCompleted) : Create(isCompleted);
 
         #endregion
@@ -84,7 +84,7 @@ namespace Unosquare.Swan.Components
         #region Backing Classes
 
         /// <summary>
-        /// Defines a WaitEvent backed by a ManualResetEvent
+        /// Defines a WaitEvent backed by a ManualResetEvent.
         /// </summary>
         private class WaitEvent : IWaitEvent
         {
@@ -152,7 +152,7 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
-        /// Defines a WaitEvent backed by a ManualResetEventSlim
+        /// Defines a WaitEvent backed by a ManualResetEventSlim.
         /// </summary>
         private class WaitEventSlim : IWaitEvent
         {

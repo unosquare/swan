@@ -9,12 +9,12 @@
     /// to teach Geo how things are done
     /// 
     /// This is an useful helper for small tasks but it doesn't represent a full-featured
-    /// serializer such as the beloved Json.NET
+    /// serializer such as the beloved Json.NET.
     /// </summary>
     public partial class Json
     {
         /// <summary>
-        /// A simple JSON Deserializer
+        /// A simple JSON Deserializer.
         /// </summary>
         private class Deserializer
         {
@@ -359,7 +359,7 @@
             }
 
             /// <summary>
-            /// Defines the different JSON read states
+            /// Defines the different JSON read states.
             /// </summary>
             private enum ReadState
             {

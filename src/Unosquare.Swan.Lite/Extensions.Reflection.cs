@@ -8,7 +8,7 @@
     using Attributes;
 
     /// <summary>
-    /// Provides various extension methods for Reflection and Types
+    /// Provides various extension methods for Reflection and Types.
     /// </summary>
     public static class ReflectionExtensions
     {
@@ -25,9 +25,9 @@
         /// </summary>
         /// <param name="assembly">The assembly.</param>
         /// <returns>
-        /// Array of Type objects representing the types specified by an assembly
+        /// Array of Type objects representing the types specified by an assembly.
         /// </returns>
-        /// <exception cref="ArgumentNullException">assembly</exception>
+        /// <exception cref="ArgumentNullException">assembly.</exception>
         public static Type[] GetAllTypes(this Assembly assembly)
         {
             if (assembly == null)
@@ -60,13 +60,13 @@
         #region Type Extensions
 
         /// <summary>
-        /// The closest programmatic equivalent of default(T)
+        /// The closest programmatic equivalent of default(T).
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// Default value of this type
+        /// Default value of this type.
         /// </returns>
-        /// <exception cref="ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException">type.</exception>
         public static object GetDefault(this Type type)
         {
             if (type == null)
@@ -82,7 +82,7 @@
         /// <returns>
         ///   <c>true</c> if the specified source type is collection; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">sourceType</exception>
+        /// <exception cref="ArgumentNullException">sourceType.</exception>
         public static bool IsCollection(this Type sourceType)
         {
             if (sourceType == null)
@@ -93,7 +93,7 @@
         }
 
         /// <summary>
-        /// Gets a method from a type given the method name, binding flags, generic types and parameter types
+        /// Gets a method from a type given the method name, binding flags, generic types and parameter types.
         /// </summary>
         /// <param name="type">Type of the source.</param>
         /// <param name="bindingFlags">The binding flags.</param>
@@ -101,11 +101,11 @@
         /// <param name="genericTypes">The generic types.</param>
         /// <param name="parameterTypes">The parameter types.</param>
         /// <returns>
-        /// An object that represents the method with the specified name
+        /// An object that represents the method with the specified name.
         /// </returns>
         /// <exception cref="System.Reflection.AmbiguousMatchException">
         /// The exception that is thrown when binding to a member results in more than one member matching the 
-        /// binding criteria. This class cannot be inherited
+        /// binding criteria. This class cannot be inherited.
         /// </exception>
         public static MethodInfo GetMethod(
             this Type type,
@@ -221,7 +221,7 @@
         /// <param name="attributeType">Type of the attribute.</param>
         /// <param name="inherit">if set to <c>true</c> [inherit].</param>
         /// <returns>
-        /// Attributes associated with the property represented by this PropertyInfo object
+        /// Attributes associated with the property represented by this PropertyInfo object.
         /// </returns>
         public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) =>
             type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
@@ -239,14 +239,14 @@
         /// Bases the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>returns a type of data</returns>
+        /// <returns>returns a type of data.</returns>
         public static Type BaseType(this Type type) => type.GetTypeInfo().BaseType;
 
         /// <summary>
         /// Assemblies the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>returns an Assembly object</returns>
+        /// <returns>returns an Assembly object.</returns>
         public static Assembly Assembly(this Type type) => type.GetTypeInfo().Assembly;
 
         /// <summary>
@@ -256,7 +256,7 @@
         /// <returns>
         ///   <c>true</c> if [is i enumerable request] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException">type.</exception>
         public static bool IsIEnumerable(this Type type)
         {
             return type == null
@@ -391,7 +391,7 @@
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="obj">The object.</param>
-        /// <returns>The property value or null</returns>
+        /// <returns>The property value or null.</returns>
         public static object GetValueOrNull(this PropertyInfo propertyInfo, object obj)
         {
             try

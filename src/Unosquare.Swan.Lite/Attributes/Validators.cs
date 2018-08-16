@@ -5,26 +5,26 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// A simple Validator interface
+    /// A simple Validator interface.
     /// </summary>
     public interface IValidator
     {
         /// <summary>
-        /// The error message
+        /// The error message.
         /// </summary>
         string ErrorMessage { get; }
 
         /// <summary>
-        /// Checks if a value is valid
+        /// Checks if a value is valid.
         /// </summary>
-        /// <typeparam name="T">The type</typeparam>
-        /// <param name="value"> The value</param>
-        /// <returns>True if it is valid.False if it is not</returns>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <param name="value"> The value.</param>
+        /// <returns>True if it is valid.False if it is not.</returns>
         bool IsValid<T>(T value);
     }
 
     /// <summary>
-    /// Regex validator
+    /// Regex validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class MatchAttribute : Attribute, IValidator
@@ -32,14 +32,14 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAttribute"/> class.
         /// </summary>
-        /// <param name="rgx"> A regex string</param>
+        /// <param name="rgx"> A regex string.</param>
         public MatchAttribute(string rgx)
         {
             Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
         }
         
         /// <summary>
-        /// The string regex used to find a match
+        /// The string regex used to find a match.
         /// </summary>
         public string Expression { get; }
 
@@ -60,7 +60,7 @@
     }
 
     /// <summary>
-    /// Email validator
+    /// Email validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class EmailAttribute : MatchAttribute
@@ -78,13 +78,13 @@
         }
         
         /// <summary>
-        /// The error message
+        /// The error message.
         /// </summary>
         public new string ErrorMessage => "String is not an email";
     }
 
     /// <summary>
-    /// A not null validator
+    /// A not null validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute, IValidator
@@ -97,17 +97,17 @@
     }
 
     /// <summary>
-    /// A range constraint validator
+    /// A range constraint validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class RangeAttribute : Attribute, IValidator
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
-        /// Constructor that takes integer minimum and maximum values
+        /// Constructor that takes integer minimum and maximum values.
         /// </summary>
-        /// <param name="min">The minimum value</param>
-        /// <param name="max">The maximum value</param>
+        /// <param name="min">The minimum value.</param>
+        /// <param name="max">The maximum value.</param>
         public RangeAttribute(int min, int max)
         {
             if (min >= max)
@@ -120,10 +120,10 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
-        /// Constructor that takes double minimum and maximum values
+        /// Constructor that takes double minimum and maximum values.
         /// </summary>
-        /// <param name="min">The minimum value</param>
-        /// <param name="max">The maximum value</param>
+        /// <param name="min">The minimum value.</param>
+        /// <param name="max">The maximum value.</param>
         public RangeAttribute(double min, double max)
         {
             if (min >= max)
@@ -138,17 +138,17 @@
         public string ErrorMessage => "Value is not within the specified range";
 
         /// <summary>
-        /// Maximum value for the range
+        /// Maximum value for the range.
         /// </summary>
         public object Maximum { get; }
 
         /// <summary>
-        /// Minimum value for the range
+        /// Minimum value for the range.
         /// </summary>
         public object Minimum { get; }
 
         /// <summary>
-        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values
+        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values.
         /// </summary>
         public Type OperandType { get; }
 

@@ -12,11 +12,11 @@
     /// Represents a reader designed for CSV text.
     /// It is capable of deserializing objects from individual lines of CSV text,
     /// transforming CSV lines of text into objects,
-    /// or simply reading the lines of CSV as an array of strings
+    /// or simply reading the lines of CSV as an array of strings.
     /// </summary>
     /// <seealso cref="System.IDisposable" /> 
     /// <example>
-    /// The following example describes how to load a list of objects from a CSV file
+    /// The following example describes how to load a list of objects from a CSV file.
     /// <code>
     /// using Unosquare.Swan.Formatters;
     ///  
@@ -42,7 +42,7 @@
     ///     }
     /// }
     /// </code>
-    /// The following code explains how to read a CSV formatted string
+    /// The following code explains how to read a CSV formatted string.
     /// <code>
     /// using Unosquare.Swan.Formatters;
     /// using System.Text;
@@ -87,7 +87,7 @@
         /// Initializes a new instance of the <see cref="CsvReader" /> class.
         /// </summary>
         /// <param name="inputStream">The stream.</param>
-        /// <param name="leaveOpen">if set to <c>true</c> leaves the input stream open</param>
+        /// <param name="leaveOpen">if set to <c>true</c> leaves the input stream open.</param>
         /// <param name="textEncoding">The text encoding.</param>
         public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)
         {
@@ -276,7 +276,7 @@
         /// <exception cref="System.InvalidOperationException">
         /// Reading headings is only supported as the first read operation.
         /// or
-        /// ReadHeadings
+        /// ReadHeadings.
         /// </exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public string[] ReadHeadings()
@@ -303,11 +303,11 @@
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings.
         /// </summary>
-        /// <param name="map">The mappings between CSV headings (keys) and object properties (values)</param>
+        /// <param name="map">The mappings between CSV headings (keys) and object properties (values).</param>
         /// <returns>Object of the type of the elements in the collection of key/value pairs.</returns>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        /// <exception cref="System.ArgumentNullException">map</exception>
+        /// <exception cref="System.ArgumentNullException">map.</exception>
         public IDictionary<string, object> ReadObject(IDictionary<string, string> map)
         {
             lock (_syncLock)
@@ -350,8 +350,8 @@
         /// <param name="result">The result.</param>
         /// <exception cref="System.ArgumentNullException">map
         /// or
-        /// result</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
+        /// result.</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
@@ -407,11 +407,11 @@
         /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type.
         /// </summary>
-        /// <typeparam name="T">The type of object to map</typeparam>
+        /// <typeparam name="T">The type of object to map.</typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
         /// <returns>The conversion of specific type of object.</returns>
-        /// <exception cref="System.ArgumentNullException">map</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
+        /// <exception cref="System.ArgumentNullException">map.</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public T ReadObject<T>(IDictionary<string, string> map)
             where T : new()

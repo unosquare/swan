@@ -7,14 +7,14 @@
     using System.Net;
 
     /// <summary>
-    /// Contains useful constants and definitions
+    /// Contains useful constants and definitions.
     /// </summary>
     public partial class Definitions
     {
         #region Main Dictionary Definition
 
         /// <summary>
-        /// The basic types information
+        /// The basic types information.
         /// </summary>
         public static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
             new Dictionary<Type, ExtendedTypeInfo>
@@ -65,7 +65,7 @@
         #endregion
 
         /// <summary>
-        /// Contains all basic types, including string, date time, and all of their nullable counterparts
+        /// Contains all basic types, including string, date time, and all of their nullable counterparts.
         /// </summary>
         /// <value>
         /// All basic types.
@@ -74,7 +74,7 @@
 
         /// <summary>
         /// Gets all numeric types including their nullable counterparts.
-        /// Note that Booleans and Guids are not considered numeric types
+        /// Note that Booleans and Guids are not considered numeric types.
         /// </summary>
         /// <value>
         /// All numeric types.
@@ -86,7 +86,7 @@
 
         /// <summary>
         /// Gets all numeric types without their nullable counterparts.
-        /// Note that Booleans and Guids are not considered numeric types
+        /// Note that Booleans and Guids are not considered numeric types.
         /// </summary>
         /// <value>
         /// All numeric value types.
@@ -97,7 +97,7 @@
                 .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
-        /// Contains all basic value types. i.e. excludes string and nullables
+        /// Contains all basic value types. i.e. excludes string and nullables.
         /// </summary>
         /// <value>
         /// All basic value types.
@@ -108,7 +108,7 @@
                 .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
-        /// Contains all basic value types including the string type. i.e. excludes nullables
+        /// Contains all basic value types including the string type. i.e. excludes nullables.
         /// </summary>
         /// <value>
         /// All basic value and string types.
@@ -119,7 +119,7 @@
                 .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
-        /// Gets all nullable value types. i.e. excludes string and all basic value types
+        /// Gets all nullable value types. i.e. excludes string and all basic value types.
         /// </summary>
         /// <value>
         /// All basic nullable value types.

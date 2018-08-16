@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Provides various extension methods for dates
+    /// Provides various extension methods for dates.
     /// </summary>
     public static class DateExtensions
     {
@@ -19,35 +19,35 @@
         };
 
         /// <summary>
-        /// Converts the date to a YYYY-MM-DD string
+        /// Converts the date to a YYYY-MM-DD string.
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns>The concatenation of date.Year, date.Month and date.Day</returns>
+        /// <returns>The concatenation of date.Year, date.Month and date.Day.</returns>
         public static string ToSortableDate(this DateTime date)
             => $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
 
         /// <summary>
-        /// Converts the date to a YYYY-MM-DD HH:II:SS string
+        /// Converts the date to a YYYY-MM-DD HH:II:SS string.
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns>The concatenation of date.Year, date.Month, date.Day, date.Hour, date.Minute and date.Second</returns>
+        /// <returns>The concatenation of date.Year, date.Month, date.Day, date.Hour, date.Minute and date.Second.</returns>
         public static string ToSortableDateTime(this DateTime date)
             => $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
 
         /// <summary>
-        /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime
+        /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime.
         /// </summary>
         /// <param name="sortableDate">The sortable date.</param>
         /// <returns>
         /// A new instance of the DateTime structure to 
-        /// the specified year, month, day, hour, minute and second
+        /// the specified year, month, day, hour, minute and second.
         /// </returns>
-        /// <exception cref="ArgumentNullException">sortableDate</exception>
+        /// <exception cref="ArgumentNullException">sortableDate.</exception>
         /// <exception cref="Exception">
-        /// Represents errors that occur during application execution
+        /// Represents errors that occur during application execution.
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// Unable to parse sortable date and time. - sortableDate
+        /// Unable to parse sortable date and time. - sortableDate.
         /// </exception>
         public static DateTime ToDateTime(this string sortableDate)
         {
@@ -133,7 +133,7 @@
         /// </summary>
         /// <param name="dateStart">The date start.</param>
         /// <param name="dateEnd">The date end.</param>
-        /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates</returns>
+        /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates.</returns>
         public static DateTimeSpan GetDateTimeSpan(this DateTime dateStart, DateTime dateEnd)
             => DateTimeSpan.CompareDates(dateStart, dateEnd);
 
@@ -142,11 +142,11 @@
         /// </summary>
         /// <param name="date">The date.</param>
         /// <param name="minute">The minute (0-59).</param>
-        /// <param name="hour">The hour. (0-23)</param>
-        /// <param name="dayOfMonth">The day of month. (1-31)</param>
-        /// <param name="month">The month. (1-12)</param>
-        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0)</param>
-        /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c></returns>
+        /// <param name="hour">The hour. (0-23).</param>
+        /// <param name="dayOfMonth">The day of month. (1-31).</param>
+        /// <param name="month">The month. (1-12).</param>
+        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0).</param>
+        /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c>.</returns>
         public static bool AsCronCanRun(this DateTime date, int? minute = null, int? hour = null, int? dayOfMonth = null, int? month = null, int? dayOfWeek = null)
         {
             var results = new List<bool?>
@@ -166,11 +166,11 @@
         /// </summary>
         /// <param name="date">The date.</param>
         /// <param name="minute">The minute (0-59).</param>
-        /// <param name="hour">The hour. (0-23)</param>
-        /// <param name="dayOfMonth">The day of month. (1-31)</param>
-        /// <param name="month">The month. (1-12)</param>
-        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0)</param>
-        /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c></returns>
+        /// <param name="hour">The hour. (0-23).</param>
+        /// <param name="dayOfMonth">The day of month. (1-31).</param>
+        /// <param name="month">The month. (1-12).</param>
+        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0).</param>
+        /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c>.</returns>
         public static bool AsCronCanRun(this DateTime date, string minute = "*", string hour = "*", string dayOfMonth = "*", string month = "*", string dayOfWeek = "*")
         {
             var results = new List<bool?>

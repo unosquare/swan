@@ -5,26 +5,26 @@
     using System.Linq;
 
     /// <summary>
-    /// Functional programming extension methods
+    /// Functional programming extension methods.
     /// </summary>
     public static class FunctionalExtensions
     {
         /// <summary>
         /// Whens the specified condition.
         /// </summary>
-        /// <typeparam name="T">The type of IQueryable</typeparam>
+        /// <typeparam name="T">The type of IQueryable.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
         /// <returns>
-        /// The IQueryable
+        /// The IQueryable.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// this
         /// or
         /// condition
         /// or
-        /// fn
+        /// fn.
         /// </exception>
         public static IQueryable<T> When<T>(
             this IQueryable<T> list,
@@ -46,19 +46,19 @@
         /// <summary>
         /// Whens the specified condition.
         /// </summary>
-        /// <typeparam name="T">The type of IEnumerable</typeparam>
+        /// <typeparam name="T">The type of IEnumerable.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
         /// <returns>
-        /// The IEnumerable
+        /// The IEnumerable.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// this
         /// or
         /// condition
         /// or
-        /// fn
+        /// fn.
         /// </exception>
         public static IEnumerable<T> When<T>(
             this IEnumerable<T> list,
@@ -80,19 +80,19 @@
         /// <summary>
         /// Adds the value when the condition is true.
         /// </summary>
-        /// <typeparam name="T">The type of IList element</typeparam>
+        /// <typeparam name="T">The type of IList element.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The IList
+        /// The IList.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// this
         /// or
         /// condition
         /// or
-        /// value
+        /// value.
         /// </exception>
         public static IList<T> AddWhen<T>(
             this IList<T> list,
@@ -117,7 +117,7 @@
         /// <summary>
         /// Adds the value when the condition is true.
         /// </summary>
-        /// <typeparam name="T">The type of IList element</typeparam>
+        /// <typeparam name="T">The type of IList element.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="condition">if set to <c>true</c> [condition].</param>
         /// <param name="value">The value.</param>
@@ -147,14 +147,14 @@
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The List
+        /// The List.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// this
         /// or
         /// condition
         /// or
-        /// value
+        /// value.
         /// </exception>
         public static List<T> AddRangeWhen<T>(
             this List<T> list,

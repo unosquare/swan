@@ -6,16 +6,16 @@
     using Abstractions;
 
     /// <summary>
-    /// Provide Enumerations helpers with internal cache
+    /// Provide Enumerations helpers with internal cache.
     /// </summary>
     public class EnumHelper
         : SingletonBase<CollectionCacheRepository<Type, Tuple<string, object>>>
     {
         /// <summary>
-        /// Gets all the names and enumerators from a specific Enum type
+        /// Gets all the names and enumerators from a specific Enum type.
         /// </summary>
-        /// <typeparam name="T">The type of the attribute to be retrieved</typeparam>
-        /// <returns>A tuple of enumarator names and their value stored for the specified type</returns>
+        /// <typeparam name="T">The type of the attribute to be retrieved.</typeparam>
+        /// <returns>A tuple of enumarator names and their value stored for the specified type.</returns>
         public static Tuple<string, object>[] Retrieve<T>()
             where T : struct, IConvertible
         {
@@ -28,11 +28,11 @@
         /// <summary>
         /// Gets the cached items with the enum item value.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <typeparam name="T">The type of enumeration.</typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
         /// A collection of Type/Tuple pairs 
-        /// that represents items with the enum item value
+        /// that represents items with the enum item value.
         /// </returns>
         public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
             where T : struct, IConvertible
@@ -49,7 +49,7 @@
         /// <param name="value">The value.</param>
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <returns>
-        /// A list of values in the flag
+        /// A list of values in the flag.
         /// </returns>
         public static List<int> GetFlagValues<TEnum>(int value, bool ignoreZero = false)
             where TEnum : struct, IConvertible
@@ -68,7 +68,7 @@
         /// <param name="value">The value.</param>
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <returns>
-        /// A list of values in the flag
+        /// A list of values in the flag.
         /// </returns>
         public static List<long> GetFlagValues<TEnum>(long value, bool ignoreZero = false)
             where TEnum : struct, IConvertible
@@ -87,7 +87,7 @@
         /// <param name="value">The value.</param>
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <returns>
-        /// A list of values in the flag
+        /// A list of values in the flag.
         /// </returns>
         public static List<byte> GetFlagValues<TEnum>(byte value, bool ignoreZero = false)
             where TEnum : struct, IConvertible
@@ -100,14 +100,14 @@
         }
 
         /// <summary>
-        /// Gets the flag names
+        /// Gets the flag names.
         /// </summary>
-        /// <typeparam name="TEnum">The type of the enum</typeparam>
-        /// <param name="value">the value</param>
+        /// <typeparam name="TEnum">The type of the enum.</typeparam>
+        /// <param name="value">the value.</param>
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A list of flag names
+        /// A list of flag names.
         /// </returns>
         public static List<string> GetFlagNames<TEnum>(int value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible
@@ -127,7 +127,7 @@
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A list of flag names
+        /// A list of flag names.
         /// </returns>
         public static List<string> GetFlagNames<TEnum>(long value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible
@@ -147,7 +147,7 @@
         /// <param name="ignoreZero">if set to <c>true</c> [ignore zero].</param>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A list of flag names
+        /// A list of flag names.
         /// </returns>
         public static List<string> GetFlagNames<TEnum>(byte value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible
@@ -162,10 +162,10 @@
         /// <summary>
         /// Gets the cached items with the enum item index.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <typeparam name="T">The type of enumeration.</typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A collection of Type/Tuple pairs that represents items with the enum item value
+        /// A collection of Type/Tuple pairs that represents items with the enum item value.
         /// </returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
             where T : struct, IConvertible

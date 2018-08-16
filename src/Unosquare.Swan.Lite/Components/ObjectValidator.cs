@@ -9,10 +9,10 @@
 #endif
 
     /// <summary>
-    /// Represents an object validator 
+    /// Represents an object validator. 
     /// </summary>
     /// <example>
-    /// The following code describes how to perform a simple object validation
+    /// The following code describes how to perform a simple object validation.
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
@@ -38,7 +38,7 @@
     /// }
     /// </code>
     /// 
-    /// The following code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton
+    /// The following code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton.
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
@@ -76,11 +76,11 @@
             new Dictionary<Type, List<Tuple<Delegate, string>>>();
 
         /// <summary>
-        /// Validates an object given the specified validators and attributes
+        /// Validates an object given the specified validators and attributes.
         /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="obj">The object</param>
-        /// <returns cref="ObjectValidationResult">A validation result </returns>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns cref="ObjectValidationResult">A validation result. </returns>
         public ObjectValidationResult Validate<T>(T obj)
         {
             var errorList = new ObjectValidationResult();
@@ -90,26 +90,26 @@
         }
 
         /// <summary>
-        /// Validates an object given the specified validators and attributes
+        /// Validates an object given the specified validators and attributes.
         /// </summary>
-        /// <typeparam name="T">The type</typeparam>
+        /// <typeparam name="T">The type.</typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>
         ///   <c>true</c> if the specified object is valid; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">obj</exception>
+        /// <exception cref="ArgumentNullException">obj.</exception>
         public bool IsValid<T>(T obj) => ValidateObject(obj);
 
         /// <summary>
-        /// Adds a validator to a specific class
+        /// Adds a validator to a specific class.
         /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="predicate">The predicate that will be evaluated</param>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="predicate">The predicate that will be evaluated.</param>
         /// <param name="message">The message.</param>
         /// <exception cref="ArgumentNullException">
         /// predicate
         /// or
-        /// message
+        /// message.
         /// </exception>
         public void AddValidator<T>(Predicate<T> predicate, string message)
             where T : class
@@ -165,12 +165,12 @@
     }
 
     /// <summary>
-    /// Defines a validation result containing all validation errors and their properties
+    /// Defines a validation result containing all validation errors and their properties.
     /// </summary>
     public class ObjectValidationResult
     {
         /// <summary>
-        /// A list of errors
+        /// A list of errors.
         /// </summary>
         public List<ValidationError> Errors { get; set; } = new List<ValidationError>();
 
@@ -180,25 +180,25 @@
         public bool IsValid => !Errors.Any();
 
         /// <summary>
-        /// Adds an error with a specified property name
+        /// Adds an error with a specified property name.
         /// </summary>
-        /// <param name="propertyName">The property name</param>
-        /// <param name="errorMessage">The error message</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="errorMessage">The error message.</param>
         public void Add(string propertyName, string errorMessage) =>
             Errors.Add(new ValidationError {ErrorMessage = errorMessage, PropertyName = propertyName});
 
         /// <summary>
-        /// Defines a validation error
+        /// Defines a validation error.
         /// </summary>
         public class ValidationError
         {
             /// <summary>
-            /// The property name
+            /// The property name.
             /// </summary>
             public string PropertyName { get; set; }
 
             /// <summary>
-            /// The message error
+            /// The message error.
             /// </summary>
             public string ErrorMessage { get; set; }
         }

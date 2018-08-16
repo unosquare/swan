@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Provides a generalized API for ManualResetEvent and ManualResetEventSlim
+    /// Provides a generalized API for ManualResetEvent and ManualResetEventSlim.
     /// </summary>
     /// <seealso cref="IDisposable" />
     public interface IWaitEvent : IDisposable

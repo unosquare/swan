@@ -6,7 +6,7 @@
     /// Represents a struct of DateTimeSpan to compare dates and get in 
     /// separate fields the amount of time between those dates.
     /// 
-    /// Based on https://stackoverflow.com/a/9216404/1096693
+    /// Based on https://stackoverflow.com/a/9216404/1096693.
     /// </summary>
     public struct DateTimeSpan
     {

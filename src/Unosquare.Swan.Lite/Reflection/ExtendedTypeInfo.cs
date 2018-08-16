@@ -125,14 +125,14 @@
 
         /// <summary>
         /// Gets a value indicating whether the type is value type.
-        /// Nullable value types have this property set to False
+        /// Nullable value types have this property set to False.
         /// </summary>
         public bool IsValueType { get; }
 
         /// <summary>
         /// When dealing with nullable value types, this property will
         /// return the underlying value type of the nullable,
-        /// Otherwise it will return the same type as the Type property
+        /// Otherwise it will return the same type as the Type property.
         /// </summary>
         /// <value>
         /// The type of the underlying.
@@ -150,7 +150,7 @@
 
         /// <summary>
         /// Gets the ToString method info
-        /// It will prefer the overload containing the IFormatProvider argument
+        /// It will prefer the overload containing the IFormatProvider argument.
         /// </summary>
         /// <value>
         /// To string method information.
@@ -173,13 +173,13 @@
         /// Gets the default value of this type. For reference types it return null.
         /// For value types it returns the default value.
         /// </summary>
-        /// <returns>Default value of this type</returns>
+        /// <returns>Default value of this type.</returns>
         public object GetDefault() => Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
 
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
-        /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any
+        /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any.
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
@@ -243,10 +243,10 @@
         /// <summary>
         /// Converts this instance to its string representation, 
         /// trying to use the CultureInfo.InvariantCulture
-        /// IFormat provider if the overload is available
+        /// IFormat provider if the overload is available.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public string ToStringInvariant(object instance)
         {
             if (instance == null)
@@ -266,7 +266,7 @@
     /// This class is mainly used to define sets of types within the Constants class
     /// and it is not meant for other than querying the BasicTypesInfo dictionary.
     /// </summary>
-    /// <typeparam name="T">The type of extended type infomation</typeparam>
+    /// <typeparam name="T">The type of extended type infomation.</typeparam>
     public class ExtendedTypeInfo<T> : ExtendedTypeInfo
     {
         /// <summary>
@@ -281,10 +281,10 @@
         /// <summary>
         /// Converts this instance to its string representation,
         /// trying to use the CultureInfo.InvariantCulture
-        /// IFormat provider if the overload is available
+        /// IFormat provider if the overload is available.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

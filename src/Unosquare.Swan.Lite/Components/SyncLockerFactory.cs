@@ -13,7 +13,7 @@
         #region Enums and Interfaces
 
         /// <summary>
-        /// Enumerates the locking operations
+        /// Enumerates the locking operations.
         /// </summary>
         private enum LockHolderType
         {
@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Defines methods for releasing locks
+        /// Defines methods for releasing locks.
         /// </summary>
         private interface ISyncReleasable
         {
@@ -43,9 +43,9 @@
         
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>
-        /// Creates a reader-writer lock backed by a standard ReaderWriterLock
+        /// Creates a reader-writer lock backed by a standard ReaderWriterLock.
         /// </summary>
-        /// <returns>The synchronized locker</returns>
+        /// <returns>The synchronized locker.</returns>
         public static ISyncLocker Create() => new SyncLocker();
 #else
         /// <summary>
@@ -57,16 +57,16 @@
 #endif
 
         /// <summary>
-        /// Creates a reader-writer lock backed by a ReaderWriterLockSlim
+        /// Creates a reader-writer lock backed by a ReaderWriterLockSlim.
         /// </summary>
-        /// <returns>The synchronized locker</returns>
+        /// <returns>The synchronized locker.</returns>
         public static ISyncLocker CreateSlim() => new SyncLockerSlim();
 
         /// <summary>
         /// Creates a reader-writer lock.
         /// </summary>
         /// <param name="useSlim">if set to <c>true</c> it uses the Slim version of a reader-writer lock.</param>
-        /// <returns>The Sync Locker</returns>
+        /// <returns>The Sync Locker.</returns>
         public static ISyncLocker Create(bool useSlim) => useSlim ? CreateSlim() : Create();
 
         #endregion
@@ -110,7 +110,7 @@
 
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>
-        /// The Sync Locker backed by a ReaderWriterLock
+        /// The Sync Locker backed by a ReaderWriterLock.
         /// </summary>
         /// <seealso cref="ISyncLocker" />
         /// <seealso cref="ISyncReleasable" />
@@ -151,7 +151,7 @@
 #endif
 
         /// <summary>
-        /// The Sync Locker backed by ReaderWriterLockSlim
+        /// The Sync Locker backed by ReaderWriterLockSlim.
         /// </summary>
         /// <seealso cref="ISyncLocker" />
         /// <seealso cref="ISyncReleasable" />

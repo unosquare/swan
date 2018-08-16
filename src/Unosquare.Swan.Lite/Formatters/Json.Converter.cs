@@ -13,7 +13,7 @@
     /// to teach Geo how things are done
     /// 
     /// This is an useful helper for small tasks but it doesn't represent a full-featured
-    /// serializer such as the beloved Json.NET
+    /// serializer such as the beloved Json.NET.
     /// </summary>
     public static partial class Json
     {

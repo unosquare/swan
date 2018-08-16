@@ -5,7 +5,7 @@
     using System.Reflection;
 
     /// <summary>
-    /// Interface object map
+    /// Interface object map.
     /// </summary>
     public interface IObjectMap
     {

@@ -7,7 +7,7 @@ namespace Unosquare.Swan
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user. 
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public static partial class Terminal
     {
@@ -27,7 +27,7 @@ namespace Unosquare.Swan
         #region Output Context
 
         /// <summary>
-        /// Represents an asynchronous output context
+        /// Represents an asynchronous output context.
         /// </summary>
         private class OutputContext
         {
@@ -151,7 +151,7 @@ namespace Unosquare.Swan
         #region Properties
 
         /// <summary>
-        /// Gets a value indicating whether the Console is present
+        /// Gets a value indicating whether the Console is present.
         /// </summary>
         /// <value>
         /// <c>true</c> if this instance is console present; otherwise, <c>false</c>.
@@ -274,14 +274,14 @@ namespace Unosquare.Swan
         /// Moves the output cursor one line up starting at left position 0
         /// Please note that backlining the cursor does not clear the contents of the 
         /// previous line so you might need to clear it by writing an empty string the 
-        /// length of the console width
+        /// length of the console width.
         /// </summary>
         public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
 
         /// <summary>
         /// Enqueues the output to be written to the console
         /// This is the only method that should enqueue to the output
-        /// Please note that if AvailableWriters is None, then no output will be enqueued
+        /// Please note that if AvailableWriters is None, then no output will be enqueued.
         /// </summary>
         /// <param name="context">The context.</param>
         private static void EnqueueOutput(OutputContext context)

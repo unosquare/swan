@@ -5,7 +5,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// A thread-safe abstract cache repository
+    /// A thread-safe abstract cache repository.
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of object to cache.</typeparam>
@@ -21,7 +21,7 @@
         /// The value of the cache.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns>The value of the cache</returns>
+        /// <returns>The value of the cache.</returns>
         public T this[TType type]
         {
             get => _cache.ContainsKey(type) ? _cache[type] : default;
@@ -54,9 +54,9 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// An object for the specified type
+        /// An object for the specified type.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="System.ArgumentNullException">type.</exception>
         public virtual T Retrieve(TType type)
         {
             if (type == null)

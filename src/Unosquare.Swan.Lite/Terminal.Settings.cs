@@ -4,12 +4,12 @@
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public partial class Terminal
     {
         /// <summary>
-        /// Terminal global settings
+        /// Terminal global settings.
         /// </summary>
         public static class Settings
         {
@@ -157,7 +157,7 @@
 
             /// <summary>
             /// Gets or sets the logging time format.
-            /// set to null or empty to prevent output
+            /// set to null or empty to prevent output.
             /// </summary>
             /// <value>
             /// The logging time format.

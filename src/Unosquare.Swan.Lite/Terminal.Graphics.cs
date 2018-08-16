@@ -4,12 +4,12 @@
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public partial class Terminal
     {
         /// <summary>
-        /// Represents a Table to print in console
+        /// Represents a Table to print in console.
         /// </summary>
         private static class Table
         {

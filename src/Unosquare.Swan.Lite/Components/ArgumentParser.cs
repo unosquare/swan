@@ -7,7 +7,7 @@ namespace Unosquare.Swan.Components
 
     /// <summary>
     /// Provides methods to parse command line arguments.
-    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
+    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).
     /// </summary>
     /// <example>
     /// The following example shows how to parse CLI arguments into objects.
@@ -137,7 +137,7 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
         /// </summary>
-        /// <typeparam name="T">The type of the options</typeparam>
+        /// <typeparam name="T">The type of the options.</typeparam>
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
         /// <returns>
@@ -145,10 +145,10 @@ namespace Unosquare.Swan.Components
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
-        /// is passed to a method that does not accept it as a valid argument
+        /// is passed to a method that does not accept it as a valid argument.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// The exception that is thrown when a method call is invalid for the object's current state
+        /// The exception that is thrown when a method call is invalid for the object's current state.
         /// </exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {

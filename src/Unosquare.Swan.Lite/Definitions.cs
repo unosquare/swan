@@ -3,19 +3,19 @@
     using System.Text;
 
     /// <summary>
-    /// Contains useful constants and definitions
+    /// Contains useful constants and definitions.
     /// </summary>
     public static partial class Definitions
     {
         /// <summary>
         /// The MS Windows codepage 1252 encoding used in some legacy scenarios
-        /// such as default CSV text encoding from Excel
+        /// such as default CSV text encoding from Excel.
         /// </summary>
         public static readonly Encoding Windows1252Encoding;
 
         /// <summary>
         /// The encoding associated with the default ANSI code page in the operating 
-        /// system's regional and language settings
+        /// system's regional and language settings.
         /// </summary>
         public static readonly Encoding CurrentAnsiEncoding;
 

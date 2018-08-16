@@ -5,7 +5,7 @@
     using Attributes;
 
     /// <summary>
-    /// Represents a Property object from a Object Reflection Property with extended values
+    /// Represents a Property object from a Object Reflection Property with extended values.
     /// </summary>
     public class ExtendedPropertyInfo
     {

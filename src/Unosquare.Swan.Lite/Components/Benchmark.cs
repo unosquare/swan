@@ -48,7 +48,7 @@
         /// <summary>
         /// Outputs the benchmark statistics.
         /// </summary>
-        /// <returns>A string containing human-readable statistics</returns>
+        /// <returns>A string containing human-readable statistics.</returns>
         public static string Dump()
         {
             var builder = new StringBuilder();

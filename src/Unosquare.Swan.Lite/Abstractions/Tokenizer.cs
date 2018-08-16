@@ -114,7 +114,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="startIndex">The start index.</param>
-        /// <returns><c>true</c> if the input is valid, otherwise <c>false</c></returns>
+        /// <returns><c>true</c> if the input is valid, otherwise <c>false</c>.</returns>
         public abstract bool ValidateInput(string input, out int startIndex);
 
         /// <summary>
@@ -129,7 +129,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="position">The position.</param>
-        /// <returns><c>true</c> if the input is a valid function or variable, otherwise <c>false</c></returns>
+        /// <returns><c>true</c> if the input is a valid function or variable, otherwise <c>false</c>.</returns>
         public virtual bool EvaluateFunctionOrMember(string input, int position) => false;
 
         /// <summary>
@@ -158,12 +158,12 @@
         /// </summary>
         /// <param name="includeFunctionStopper">if set to <c>true</c> [include function stopper] (Token type <c>Wall</c>).</param>
         /// <returns>
-        /// Enumerable of the token in in
+        /// Enumerable of the token in in.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Wrong token
         /// or
-        /// Mismatched parenthesis
+        /// Mismatched parenthesis.
         /// </exception>
         public virtual IEnumerable<Token> ShuntingYard(bool includeFunctionStopper = true)
         {

@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Provides settings for <see cref="ArgumentParser"/>.
-    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
+    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).
     /// </summary>
     public class ArgumentParserSettings
     {
@@ -37,7 +37,7 @@
 
         /// <summary>
         /// Gets or sets a value indicating whether the parser shall move on to the next argument and ignore the given argument if it
-        /// encounter an unknown arguments
+        /// encounter an unknown arguments.
         /// </summary>
         /// <value>
         ///   <c>true</c> to allow parsing the arguments with different class options that do not have all the arguments.

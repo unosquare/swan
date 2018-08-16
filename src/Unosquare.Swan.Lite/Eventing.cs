@@ -54,7 +54,7 @@
 
         /// <summary>
         /// Gets the type of the message.
-        /// It can be a combination as the enumeration is a set of bitwise flags
+        /// It can be a combination as the enumeration is a set of bitwise flags.
         /// </summary>
         /// <value>
         /// The type of the message.
@@ -112,7 +112,7 @@
 
         /// <summary>
         /// Gets an object representing extended data.
-        /// It could be an exception or anything else
+        /// It could be an exception or anything else.
         /// </summary>
         /// <value>
         /// The extended data.
@@ -121,7 +121,7 @@
 
         /// <summary>
         /// Gets the Extended Data properties cast as an Exception (if possible)
-        /// Otherwise, it return null
+        /// Otherwise, it return null.
         /// </summary>
         /// <value>
         /// The exception.

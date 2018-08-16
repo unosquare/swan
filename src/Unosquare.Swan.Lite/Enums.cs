@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     /// <summary>
-    /// Enumeration of Operating Systems
+    /// Enumeration of Operating Systems.
     /// </summary>
     public enum OperatingSystem
     {
@@ -27,7 +27,7 @@
     }
 
     /// <summary>
-    /// Enumerates the different Application Worker States
+    /// Enumerates the different Application Worker States.
     /// </summary>
     public enum AppWorkerState
     {
@@ -43,7 +43,7 @@
     }
     
     /// <summary>
-    /// Defines Endianness, big or little
+    /// Defines Endianness, big or little.
     /// </summary>
     public enum Endianness
     {

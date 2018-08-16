@@ -4,7 +4,7 @@
 
     /// <summary>
     /// An attribute used to include additional information to a Property for serialization.
-    /// Previously we used DisplayAttribute from DataAnnotation
+    /// Previously we used DisplayAttribute from DataAnnotation.
     /// </summary>
     /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Property)]

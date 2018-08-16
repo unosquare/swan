@@ -5,19 +5,19 @@
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public partial class Terminal
     {
         #region ReadKey
 
         /// <summary>
-        /// Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey
+        /// Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey.
         /// </summary>
         /// <param name="intercept">if set to <c>true</c> the pressed key will not be rendered to the output.</param>
         /// <param name="disableLocking">if set to <c>true</c> the output will continue to be shown.
         /// This is useful for services and daemons that are running as console applications and wait for a key to exit the program.</param>
-        /// <returns>The console key information</returns>
+        /// <returns>The console key information.</returns>
         public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
             if (IsConsolePresent == false) return default;
@@ -41,11 +41,11 @@
         }
 
         /// <summary>
-        /// Reads a key from the Terminal
+        /// Reads a key from the Terminal.
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
-        /// <returns>The console key information</returns>
+        /// <returns>The console key information.</returns>
         public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
             if (IsConsolePresent == false) return default;
@@ -69,7 +69,7 @@
         /// Reads a key from the terminal preventing the key from being echoed.
         /// </summary>
         /// <param name="prompt">The prompt.</param>
-        /// <returns>A value that identifies the console key</returns>
+        /// <returns>A value that identifies the console key.</returns>
         public static ConsoleKeyInfo ReadKey(this string prompt) => prompt.ReadKey(true);
 
         #endregion
@@ -77,9 +77,9 @@
         #region Other Terminal Read Methods
 
         /// <summary>
-        /// Reads a line of text from the console
+        /// Reads a line of text from the console.
         /// </summary>
-        /// <returns>The read line</returns>
+        /// <returns>The read line.</returns>
         public static string ReadLine()
         {
             if (IsConsolePresent == false) return default;
@@ -103,12 +103,12 @@
         }
 
         /// <summary>
-        /// Reads a number from the input. If unable to parse, it returns the default number
+        /// Reads a number from the input. If unable to parse, it returns the default number.
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <param name="defaultNumber">The default number.</param>
         /// <returns>
-        /// Conversions of string representation of a number to its 32-bit signed integer equivalent
+        /// Conversions of string representation of a number to its 32-bit signed integer equivalent.
         /// </returns>
         public static int ReadNumber(this string prompt, int defaultNumber)
         {
@@ -124,12 +124,12 @@
         }
 
         /// <summary>
-        /// Creates a table prompt where the user can enter an option based on the options dictionary provided
+        /// Creates a table prompt where the user can enter an option based on the options dictionary provided.
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
-        /// <returns>A value that identifies the console key that was pressed</returns>
+        /// <returns>A value that identifies the console key that was pressed.</returns>
         public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
             if (IsConsolePresent == false) return default;

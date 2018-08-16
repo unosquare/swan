@@ -10,62 +10,62 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides various extension methods for byte arrays and streams
+    /// Provides various extension methods for byte arrays and streams.
     /// </summary>
     public static class ByteArrayExtensions
     {
         /// <summary>
-        /// Converts an array of bytes to its lower-case, hexadecimal representation
+        /// Converts an array of bytes to its lower-case, hexadecimal representation.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> add the 0x prefix tot he output.</param>
         /// <returns>
-        /// The specified string instance; no actual conversion is performed
+        /// The specified string instance; no actual conversion is performed.
         /// </returns>
-        /// <exception cref="ArgumentNullException">bytes</exception>
+        /// <exception cref="ArgumentNullException">bytes.</exception>
         public static string ToLowerHex(this byte[] bytes, bool addPrefix = false)
             => ToHex(bytes, addPrefix, "x2");
 
         /// <summary>
-        /// Converts an array of bytes to its upper-case, hexadecimal representation
+        /// Converts an array of bytes to its upper-case, hexadecimal representation.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> [add prefix].</param>
         /// <returns>
-        /// The specified string instance; no actual conversion is performed
+        /// The specified string instance; no actual conversion is performed.
         /// </returns>
-        /// <exception cref="ArgumentNullException">bytes</exception>
+        /// <exception cref="ArgumentNullException">bytes.</exception>
         public static string ToUpperHex(this byte[] bytes, bool addPrefix = false)
             => ToHex(bytes, addPrefix, "X2");
 
         /// <summary>
         /// Converts an array of bytes to a sequence of dash-separated, hexadecimal,
-        /// uppercase characters
+        /// uppercase characters.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns>
         /// A string of hexadecimal pairs separated by hyphens, where each pair represents
-        /// the corresponding element in value; for example, "7F-2C-4A-00"
+        /// the corresponding element in value; for example, "7F-2C-4A-00".
         /// </returns>
         public static string ToDashedHex(this byte[] bytes) => BitConverter.ToString(bytes);
 
         /// <summary>
-        /// Converts an array of bytes to a base-64 encoded string
+        /// Converts an array of bytes to a base-64 encoded string.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns>A <see cref="System.String" /> converted from an array of bytes</returns>
+        /// <returns>A <see cref="System.String" /> converted from an array of bytes.</returns>
         public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
         /// Converts a set of hexadecimal characters (uppercase or lowercase)
         /// to a byte array. String length must be a multiple of 2 and
-        /// any prefix (such as 0x) has to be avoided for this to work properly
+        /// any prefix (such as 0x) has to be avoided for this to work properly.
         /// </summary>
         /// <param name="hex">The hexadecimal.</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set of characters
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        /// <exception cref="ArgumentNullException">hex</exception>
+        /// <exception cref="ArgumentNullException">hex.</exception>
         public static byte[] ConvertHexadecimalToBytes(this string hex)
         {
             if (string.IsNullOrWhiteSpace(hex))
@@ -84,7 +84,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>
-        /// Bit value at the given offset
+        /// Bit value at the given offset.
         /// </returns>
         public static byte GetBitValueAt(this byte b, byte offset, byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
 
@@ -95,7 +95,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Bit value at the given offset</returns>
+        /// <returns>Bit value at the given offset.</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
@@ -110,7 +110,7 @@
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Bit value at the given offset</returns>
+        /// <returns>Bit value at the given offset.</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte value) => b.SetBitValueAt(offset, 1, value);
 
         /// <summary>
@@ -123,12 +123,12 @@
         /// <param name="offset">The offset at which to start splitting bytes. Any bytes befor this will be discarded.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
-        /// A byte array containing the results the specified sequence of bytes
+        /// A byte array containing the results the specified sequence of bytes.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// buffer
         /// or
-        /// sequence
+        /// sequence.
         /// </exception>
         public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
         {
@@ -166,10 +166,10 @@
         }
 
         /// <summary>
-        /// Clones the specified buffer, byte by byte
+        /// Clones the specified buffer, byte by byte.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] DeepClone(this byte[] buffer)
         {
             if (buffer == null)
@@ -181,14 +181,14 @@
         }
 
         /// <summary>
-        /// Removes the specified sequence from the start of the buffer if the buffer begins with such sequence
+        /// Removes the specified sequence from the start of the buffer if the buffer begins with such sequence.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
-        /// A new trimmed byte array
+        /// A new trimmed byte array.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffer</exception>
+        /// <exception cref="ArgumentNullException">buffer.</exception>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
             if (buffer == null)
@@ -203,14 +203,14 @@
         }
 
         /// <summary>
-        /// Removes the specified sequence from the end of the buffer if the buffer ends with such sequence
+        /// Removes the specified sequence from the end of the buffer if the buffer ends with such sequence.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set of characters
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffer</exception>
+        /// <exception cref="ArgumentNullException">buffer.</exception>
         public static byte[] TrimEnd(this byte[] buffer, params byte[] sequence)
         {
             if (buffer == null)
@@ -226,11 +226,11 @@
 
         /// <summary>
         /// Removes the specified sequence from the end and the start of the buffer 
-        /// if the buffer ends and/or starts with such sequence
+        /// if the buffer ends and/or starts with such sequence.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] Trim(this byte[] buffer, params byte[] sequence)
         {
             var trimStart = buffer.TrimStart(sequence);
@@ -238,14 +238,14 @@
         }
 
         /// <summary>
-        /// Determines if the specified buffer ends with the given sequence of bytes
+        /// Determines if the specified buffer ends with the given sequence of bytes.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
         /// True if the specified buffer is ends; otherwise, false.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffer</exception>
+        /// <exception cref="ArgumentNullException">buffer.</exception>
         public static bool EndsWith(this byte[] buffer, params byte[] sequence)
         {
             if (buffer == null)
@@ -256,7 +256,7 @@
         }
 
         /// <summary>
-        /// Determines if the specified buffer starts with the given sequence of bytes
+        /// Determines if the specified buffer starts with the given sequence of bytes.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
@@ -264,7 +264,7 @@
         public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>
-        /// Determines whether the buffer contains the specified sequence
+        /// Determines whether the buffer contains the specified sequence.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
@@ -281,7 +281,7 @@
         /// <returns>
         ///   <c>true</c> if [is equal to] [the specified sequence]; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffer</exception>
+        /// <exception cref="ArgumentNullException">buffer.</exception>
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
             if (ReferenceEquals(buffer, sequence))
@@ -295,16 +295,16 @@
 
         /// <summary>
         /// Returns the first instance of the matched sequence based on the given offset.
-        /// If nomatches are found then this method returns -1
+        /// If nomatches are found then this method returns -1.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The index of the sequence</returns>
+        /// <returns>The index of the sequence.</returns>
         /// <exception cref="ArgumentNullException">
         /// buffer
         /// or
-        /// sequence
+        /// sequence.
         /// </exception>
         public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
         {
@@ -340,12 +340,12 @@
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
         /// <returns>
-        /// The same MemoryStream instance
+        /// The same MemoryStream instance.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// stream
         /// or
-        /// buffer
+        /// buffer.
         /// </exception>
         public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
         {
@@ -365,9 +365,9 @@
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
         /// <returns>
-        /// Block of bytes to the current stream using data read from a buffer
+        /// Block of bytes to the current stream using data read from a buffer.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffer</exception>
+        /// <exception cref="ArgumentNullException">buffer.</exception>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer) => Append(stream, buffer?.ToArray());
 
         /// <summary>
@@ -376,9 +376,9 @@
         /// <param name="stream">The stream.</param>
         /// <param name="buffers">The buffers.</param>
         /// <returns>
-        /// Block of bytes to the current stream using data read from a buffer
+        /// Block of bytes to the current stream using data read from a buffer.
         /// </returns>
-        /// <exception cref="ArgumentNullException">buffers</exception>
+        /// <exception cref="ArgumentNullException">buffers.</exception>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
         {
             if (buffers == null)
@@ -391,18 +391,18 @@
         }
 
         /// <summary>
-        /// Converts an array of bytes into text with the specified encoding
+        /// Converts an array of bytes into text with the specified encoding.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string ToText(this byte[] buffer, Encoding encoding) => encoding.GetString(buffer);
 
         /// <summary>
-        /// Converts an array of bytes into text with UTF8 encoding
+        /// Converts an array of bytes into text with UTF8 encoding.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string ToText(this byte[] buffer) => buffer.ToText(Encoding.UTF8);
 
         /// <summary>
@@ -475,9 +475,9 @@
         /// <param name="bufferLength">Length of the buffer.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set of characters
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        /// <exception cref="ArgumentNullException">stream</exception>
+        /// <exception cref="ArgumentNullException">stream.</exception>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default)
         {
             if (stream == null)
@@ -517,9 +517,9 @@
         /// <param name="length">The length.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set of characters
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        /// <exception cref="ArgumentNullException">stream</exception>
+        /// <exception cref="ArgumentNullException">stream.</exception>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default)
         {
             if (stream == null)
@@ -548,13 +548,13 @@
         }
 
         /// <summary>
-        /// Converts an array of sbytes to an array of bytes
+        /// Converts an array of sbytes to an array of bytes.
         /// </summary>
         /// <param name="sbyteArray">The sbyte array.</param>
         /// <returns>
-        /// The byte array from conversion
+        /// The byte array from conversion.
         /// </returns>
-        /// <exception cref="ArgumentNullException">sbyteArray</exception>
+        /// <exception cref="ArgumentNullException">sbyteArray.</exception>
         public static byte[] ToByteArray(this sbyte[] sbyteArray)
         {
             if (sbyteArray == null)
@@ -568,13 +568,13 @@
         }
 
         /// <summary>
-        /// Receives a byte array and returns it transformed in an sbyte array
+        /// Receives a byte array and returns it transformed in an sbyte array.
         /// </summary>
         /// <param name="byteArray">The byte array.</param>
         /// <returns>
-        /// The sbyte array from conversion
+        /// The sbyte array from conversion.
         /// </returns>
-        /// <exception cref="ArgumentNullException">byteArray</exception>
+        /// <exception cref="ArgumentNullException">byteArray.</exception>
         public static sbyte[] ToSByteArray(this byte[] byteArray)
         {
             if (byteArray == null)
@@ -591,7 +591,7 @@
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <param name="s">The s.</param>
-        /// <returns>The sbyte array from string</returns>
+        /// <returns>The sbyte array from string.</returns>
         public static sbyte[] GetSBytes(this Encoding encoding, string s)
             => encoding.GetBytes(s).ToSByteArray();
 
@@ -600,7 +600,7 @@
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <param name="data">The data.</param>
-        /// <returns>The string</returns>
+        /// <returns>The string.</returns>
         public static string GetString(this Encoding encoding, sbyte[] data)
             => encoding.GetString(data.ToByteArray());
 
@@ -613,12 +613,12 @@
         /// <param name="start">The start.</param>
         /// <param name="count">The count.</param>
         /// <returns>
-        /// The number of bytes read
+        /// The number of bytes read.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// sourceStream
         /// or
-        /// target
+        /// target.
         /// </exception>
         public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)
         {

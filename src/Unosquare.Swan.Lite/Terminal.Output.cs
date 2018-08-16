@@ -5,7 +5,7 @@
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :)
+    /// This class is thread-safe :).
     /// </summary>
     public partial class Terminal
     {
@@ -54,7 +54,7 @@
         #region Write Methods
 
         /// <summary>
-        /// Writes a character a number of times, optionally adding a new line at the end
+        /// Writes a character a number of times, optionally adding a new line at the end.
         /// </summary>
         /// <param name="charCode">The character code.</param>
         /// <param name="color">The color.</param>
@@ -111,7 +111,7 @@
         }
 
         /// <summary>
-        /// Writes the specified text in the given color
+        /// Writes the specified text in the given color.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
@@ -139,7 +139,7 @@
         #region WriteLine Methods
 
         /// <summary>
-        /// Writes a New Line Sequence to the standard output
+        /// Writes a New Line Sequence to the standard output.
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
         public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
@@ -147,7 +147,7 @@
 
         /// <summary>
         /// Writes a line of text in the current console foreground color
-        /// to the standard output
+        /// to the standard output.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>

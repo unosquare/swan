@@ -6,14 +6,14 @@
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Represents a generic expression parser
+    /// Represents a generic expression parser.
     /// </summary>
     public abstract class ExpressionParser
     {
         /// <summary>
         /// Resolves the expression.
         /// </summary>
-        /// <typeparam name="T">The type of expression result</typeparam>
+        /// <typeparam name="T">The type of expression result.</typeparam>
         /// <param name="tokens">The tokens.</param>
         /// <returns>The representation of the expression parsed.</returns>
         public virtual T ResolveExpression<T>(IEnumerable<Token> tokens)

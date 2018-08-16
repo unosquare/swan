@@ -3,9 +3,9 @@
     using System;
 
     /// <summary>
-    /// Represents a singleton pattern abstract class
+    /// Represents a singleton pattern abstract class.
     /// </summary>
-    /// <typeparam name="T">The type of class</typeparam>
+    /// <typeparam name="T">The type of class.</typeparam>
     public abstract class SingletonBase<T> : IDisposable
         where T : class
     {
@@ -33,7 +33,7 @@
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// Call the GC.SuppressFinalize if you override this method and use
-        /// a non-default class finalizer (destructor)
+        /// a non-default class finalizer (destructor).
         /// </summary>
         /// <param name="disposeManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeManaged)

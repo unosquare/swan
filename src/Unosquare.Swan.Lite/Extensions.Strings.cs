@@ -9,7 +9,7 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// String related extension methods
+    /// String related extension methods.
     /// </summary>
     public static class StringExtensions
     {
@@ -55,14 +55,14 @@
 
         /// <summary>
         /// Computes the MD5 hash of the given stream.
-        /// Do not use for large streams as this reads ALL bytes at once
+        /// Do not use for large streams as this reads ALL bytes at once.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
-        /// The computed hash code
+        /// The computed hash code.
         /// </returns>
-        /// <exception cref="ArgumentNullException">stream</exception>
+        /// <exception cref="ArgumentNullException">stream.</exception>
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
             if (stream == null)
@@ -107,7 +107,7 @@
         /// </summary>
         /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>The computed hash code</returns>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeMD5(this string value, bool createHasher = false) =>
             Encoding.UTF8.GetBytes(value).ComputeMD5(createHasher);
 
@@ -116,7 +116,7 @@
         /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>The computed hash code</returns>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeMD5(this byte[] data, bool createHasher = false) =>
             (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
 
@@ -127,7 +127,7 @@
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
-        /// using the SHA1 hash function
+        /// using the SHA1 hash function.
         /// </returns>
         public static byte[] ComputeSha1(this string value, bool createHasher = false)
         {
@@ -142,7 +142,7 @@
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
-        /// by using the SHA256 hash function
+        /// by using the SHA256 hash function.
         /// </returns>
         public static byte[] ComputeSha256(this string value, bool createHasher = false)
         {
@@ -157,7 +157,7 @@
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
-        /// using the SHA512 hash function
+        /// using the SHA512 hash function.
         /// </returns>
         public static byte[] ComputeSha512(this string value, bool createHasher = false)
         {
@@ -171,7 +171,7 @@
         /// overload exists.
         /// </summary>
         /// <param name="obj">The item.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string ToStringInvariant(this object obj)
         {
             if (obj == null)
@@ -192,9 +192,9 @@
         /// It tries to use InvariantCulture if the ToString(IFormatProvider)
         /// overload exists.
         /// </summary>
-        /// <typeparam name="T">The type to get the string</typeparam>
+        /// <typeparam name="T">The type to get the string.</typeparam>
         /// <param name="item">The item.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string ToStringInvariant<T>(this T item)
         {
             if (typeof(string) == typeof(T))
@@ -209,9 +209,9 @@
         /// <param name="value">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
         /// <returns>
-        /// A string that represents the current object
+        /// A string that represents the current object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">input</exception>
+        /// <exception cref="ArgumentNullException">input.</exception>
         public static string RemoveControlCharsExcept(this string value, params char[] excludeChars)
         {
             if (value == null)
@@ -229,16 +229,16 @@
         /// Removes all control characters from a string, including new line sequences.
         /// </summary>
         /// <param name="value">The input.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        /// <exception cref="ArgumentNullException">input</exception>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <exception cref="ArgumentNullException">input.</exception>
         public static string RemoveControlChars(this string value) => value.RemoveControlCharsExcept(null);
 
         /// <summary>
-        /// Outputs JSON string representing this object
+        /// Outputs JSON string representing this object.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string ToJson(this object obj, bool format = true) =>
             obj == null ? string.Empty : Json.Serialize(obj, format);
 
@@ -248,7 +248,7 @@
         /// examine objects.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string Stringify(this object obj)
         {
             if (obj == null)
@@ -270,12 +270,12 @@
         /// <summary>
         /// Retrieves a section of the string, inclusive of both, the start and end indexes.
         /// This behavior is unlike JavaScript's Slice behavior where the end index is non-inclusive
-        /// If the string is null it returns an empty string
+        /// If the string is null it returns an empty string.
         /// </summary>
         /// <param name="value">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
-        /// <returns>Retrieves a substring from this instance</returns>
+        /// <returns>Retrieves a substring from this instance.</returns>
         public static string Slice(this string value, int startIndex, int endIndex)
         {
             if (value == null)
@@ -294,7 +294,7 @@
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
-        /// <returns>Retrieves a substring from this instance</returns>
+        /// <returns>Retrieves a substring from this instance.</returns>
         public static string SliceLength(this string str, int startIndex, int length)
         {
             if (str == null)
@@ -307,12 +307,12 @@
         }
 
         /// <summary>
-        /// Splits the specified text into r, n or rn separated lines
+        /// Splits the specified text into r, n or rn separated lines.
         /// </summary>
         /// <param name="value">The text.</param>
         /// <returns>
         /// An array whose elements contain the substrings from this instance 
-        /// that are delimited by one or more characters in separator
+        /// that are delimited by one or more characters in separator.
         /// </returns>
         public static string[] ToLines(this string value) =>
             value == null ? new string[] { } : SplitLinesRegex.Value.Split(value);
@@ -323,7 +323,7 @@
         /// Camel Case and Snake_Case will be converted to Snake Case.
         /// </summary>
         /// <param name="value">The identifier-style string.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string Humanize(this string value)
         {
             if (value == null)
@@ -340,7 +340,7 @@
         /// </summary>
         /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         public static string Indent(this string value, int spaces = 4)
         {
             if (value == null) value = string.Empty;
@@ -363,11 +363,11 @@
         /// specified character index. Useful to locate text in a multi-line
         /// string the same way a text editor does.
         /// Please not that the tuple contains first the line number and then the
-        /// column number
+        /// column number.
         /// </summary>
         /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
-        /// <returns>A 2-tuple whose value is (item1, item2)</returns>
+        /// <returns>A 2-tuple whose value is (item1, item2).</returns>
         public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
         {
             if (value == null)
@@ -399,9 +399,9 @@
         /// </summary>
         /// <param name="value">The s.</param>
         /// <returns>
-        /// A string with a safe file name
+        /// A string with a safe file name.
         /// </returns>
-        /// <exception cref="ArgumentNullException">s</exception>
+        /// <exception cref="ArgumentNullException">s.</exception>
         public static string ToSafeFilename(this string value)
         {
             return value == null
@@ -414,19 +414,19 @@
         /// <summary>
         /// Formats a long into the closest bytes string.
         /// </summary>
-        /// <param name="bytes">The bytes length</param>
+        /// <param name="bytes">The bytes length.</param>
         /// <returns>
-        /// The string representation of the current Byte object, formatted as specified by the format parameter
+        /// The string representation of the current Byte object, formatted as specified by the format parameter.
         /// </returns>
         public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
         /// </summary>
-        /// <param name="bytes">The bytes length</param>
+        /// <param name="bytes">The bytes length.</param>
         /// <returns>
         /// A copy of format in which the format items have been replaced by the string 
-        /// representations of the corresponding arguments
+        /// representations of the corresponding arguments.
         /// </returns>
         public static string FormatBytes(this ulong bytes)
         {
@@ -448,7 +448,7 @@
         /// <param name="maximumLength">The maximum length.</param>
         /// <returns>
         /// Retrieves a substring from this instance.
-        /// The substring starts at a specified character position and has a specified length
+        /// The substring starts at a specified character position and has a specified length.
         /// </returns>
         public static string Truncate(this string value, int maximumLength) =>
             Truncate(value, maximumLength, string.Empty);
@@ -461,7 +461,7 @@
         /// <param name="omission">The omission.</param>
         /// <returns>
         /// Retrieves a substring from this instance.
-        /// The substring starts at a specified character position and has a specified length
+        /// The substring starts at a specified character position and has a specified length.
         /// </returns>
         public static string Truncate(this string value, int maximumLength, string omission)
         {
@@ -505,7 +505,7 @@
         /// other than a hex char.
         /// </summary>
         /// <param name="value">The c.</param>
-        /// <returns>Converted integer</returns>
+        /// <returns>Converted integer.</returns>
         public static int Hex2Int(this char value)
         {
             return value >= '0' && value <= '9'

@@ -10,18 +10,18 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Extension methods
+    /// Extension methods.
     /// </summary>
     public static partial class Extensions
     {
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination.
         /// </summary>
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful</returns>
+        /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
             where T : class
         {
@@ -33,25 +33,25 @@
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Number of properties that were successfully copied
+        /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null) 
             => Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination.
         /// </summary>
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful</returns>
+        /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyOnlyPropertiesTo<T>(this T source, object target)
             where T : class
         {
@@ -60,13 +60,13 @@
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="propertiesToCopy">Properties to copy.</param>
         /// <returns>
-        /// Number of properties that were successfully copied
+        /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
         {
@@ -76,13 +76,13 @@
         /// <summary>
         /// Copies the properties to new instance of T.
         /// </summary>
-        /// <typeparam name="T">The new object type</typeparam>
+        /// <typeparam name="T">The new object type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// The specified type with properties copied
+        /// The specified type with properties copied.
         /// </returns>
-        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="ArgumentNullException">source.</exception>
         public static T DeepClone<T>(this T source, string[] ignoreProperties = null)
             where T : class
         {
@@ -92,13 +92,13 @@
         /// <summary>
         /// Copies the properties to new instance of T.
         /// </summary>
-        /// <typeparam name="T">The new object type</typeparam>
+        /// <typeparam name="T">The new object type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// The specified type with properties copied
+        /// The specified type with properties copied.
         /// </returns>
-        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="ArgumentNullException">source.</exception>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
             where T : class
         {
@@ -119,13 +119,13 @@
         /// <summary>
         /// Copies the only properties to new instance of T.
         /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
+        /// <typeparam name="T">Object Type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <returns>
-        /// The specified type with properties copied
+        /// The specified type with properties copied.
         /// </returns>
-        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="ArgumentNullException">source.</exception>
         public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy)
             where T : class
         {
@@ -144,7 +144,7 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <param name="ignoreKeys">The ignore keys.</param>
-        /// <returns>Number of properties that was copied successful</returns>
+        /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyKeyValuePairTo(
             this IDictionary<string, object> source,
             object target,
@@ -159,9 +159,9 @@
         /// </summary>
         /// <param name="target">The target.</param>
         /// <returns>
-        /// A  time interval that represents a specified time, where the specification is in units of ticks
+        /// A  time interval that represents a specified time, where the specification is in units of ticks.
         /// </returns>
-        /// <exception cref="ArgumentNullException">target</exception>
+        /// <exception cref="ArgumentNullException">target.</exception>
         public static TimeSpan Benchmark(this Action target)
         {
             if (target == null)
@@ -217,10 +217,10 @@
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
         /// <returns>
-        /// The return value of the method that this delegate encapsulates
+        /// The return value of the method that this delegate encapsulates.
         /// </returns>
-        /// <exception cref="ArgumentNullException">action</exception>
-        /// <exception cref="AggregateException">Represents one or many errors that occur during application execution</exception>
+        /// <exception cref="ArgumentNullException">action.</exception>
+        /// <exception cref="AggregateException">Represents one or many errors that occur during application execution.</exception>
         public static T Retry<T>(
             this Func<T> action,
             TimeSpan retryInterval = default,
@@ -253,11 +253,11 @@
         }
 
         /// <summary>
-        /// Retrieves the exception message, plus all the inner exception messages separated by new lines
+        /// Retrieves the exception message, plus all the inner exception messages separated by new lines.
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="priorMessage">The prior message.</param>
-        /// <returns>A <see cref="System.String" /> that represents this instance</returns>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
             while (true)
@@ -284,7 +284,7 @@
         /// <returns>
         /// Array of properties.
         /// </returns>
-        /// <exception cref="ArgumentNullException">model</exception>
+        /// <exception cref="ArgumentNullException">model.</exception>
         public static string[] GetCopyableProperties(this object obj)
         {
             if (obj == null)

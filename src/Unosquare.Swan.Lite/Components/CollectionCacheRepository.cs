@@ -6,7 +6,7 @@
     using System.Linq;
 
     /// <summary>
-    /// A thread-safe collection cache repository
+    /// A thread-safe collection cache repository.
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of member to cache.</typeparam>
@@ -22,7 +22,7 @@
         /// The <see cref="IEnumerable{T}"/>.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns>The cache of the type</returns>
+        /// <returns>The cache of the type.</returns>
         public IEnumerable<T> this[TType type]
         {
             get => _cache.ContainsKey(type) ? _cache[type] : null;
@@ -53,14 +53,14 @@
         /// <summary>
         /// Retrieves the properties stored for the specified type.
         /// If the properties are not available, it calls the factory method to retrieve them
-        /// and returns them as an array of PropertyInfo
+        /// and returns them as an array of PropertyInfo.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="factory">The factory.</param>
         /// <returns>
-        /// An array of the properties stored for the specified type
+        /// An array of the properties stored for the specified type.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="System.ArgumentNullException">type.</exception>
         public T[] Retrieve(TType type, Func<IEnumerable<T>> factory)
         {
             if (type == null)

@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Models an option specification.
-    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
+    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ArgumentOptionAttribute
@@ -80,7 +80,7 @@
         /// <value>
         /// The name of the set.
         /// </value>
-        /// <exception cref="ArgumentNullException">value</exception>
+        /// <exception cref="ArgumentNullException">value.</exception>
         public string SetName
         {
             get => _setName;

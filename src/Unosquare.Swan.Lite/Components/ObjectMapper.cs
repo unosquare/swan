@@ -14,7 +14,7 @@
     /// The extension methods like CopyPropertiesTo use the default behaviour.
     /// </summary>
     /// <example>
-    /// The following code explains how to map an object's properties into an instance of type T 
+    /// The following code explains how to map an object's properties into an instance of type T. 
     /// <code>
     /// using Unosquare.Swan
     /// 
@@ -88,12 +88,12 @@
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Copied properties count
+        /// Copied properties count.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// source
         /// or
-        /// target
+        /// target.
         /// </exception>
         public static int Copy(
             object source,
@@ -122,12 +122,12 @@
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Copied properties count
+        /// Copied properties count.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// source
         /// or
-        /// target
+        /// target.
         /// </exception>
         public static int Copy(
             IDictionary<string, object> source,
@@ -157,12 +157,12 @@
         /// <typeparam name="TDestination">The type of the destination.</typeparam>
         /// <returns>
         /// An object map representation of type of the destination property 
-        /// and type of the source property
+        /// and type of the source property.
         /// </returns>
         /// <exception cref="System.InvalidOperationException">
         /// You can't create an existing map
         /// or
-        /// Types doesn't match
+        /// Types doesn't match.
         /// </exception>
         public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
@@ -195,10 +195,10 @@
         /// <param name="source">The source.</param>
         /// <param name="autoResolve">if set to <c>true</c> [automatic resolve].</param>
         /// <returns>
-        /// A new instance of the map
+        /// A new instance of the map.
         /// </returns>
-        /// <exception cref="ArgumentNullException">source</exception>
-        /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}</exception>
+        /// <exception cref="ArgumentNullException">source.</exception>
+        /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}.</exception>
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)

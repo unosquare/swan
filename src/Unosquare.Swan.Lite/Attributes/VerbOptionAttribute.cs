@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Models a verb option
+    /// Models a verb option.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class VerbOptionAttribute : Attribute
@@ -12,7 +12,7 @@
         /// Initializes a new instance of the <see cref="VerbOptionAttribute" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <exception cref="ArgumentNullException">name</exception>
+        /// <exception cref="ArgumentNullException">name.</exception>
         public VerbOptionAttribute(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));

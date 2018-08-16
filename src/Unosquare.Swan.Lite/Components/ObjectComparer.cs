@@ -8,17 +8,17 @@
 
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object
-    /// or the public members in a structure
+    /// or the public members in a structure.
     /// </summary>
     public static class ObjectComparer
     {
         /// <summary>
         /// Compare if two variables of the same type are equal.
         /// </summary>
-        /// <typeparam name="T">The type of objects to compare</typeparam>
+        /// <typeparam name="T">The type of objects to compare.</typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns><c>true</c> if the variables are equal; otherwise, <c>false</c></returns>
+        /// <returns><c>true</c> if the variables are equal; otherwise, <c>false</c>.</returns>
         public static bool AreEqual<T>(T left, T right) => AreEqual(left, right, typeof(T));
 
         /// <summary>
@@ -28,9 +28,9 @@
         /// <param name="right">The right.</param>
         /// <param name="targetType">Type of the target.</param>
         /// <returns>
-        ///   <c>true</c> if the variables are equal; otherwise, <c>false</c>
+        ///   <c>true</c> if the variables are equal; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">targetType</exception>
+        /// <exception cref="ArgumentNullException">targetType.</exception>
         public static bool AreEqual(object left, object right, Type targetType)
         {
             if (targetType == null)
@@ -48,10 +48,10 @@
         /// <summary>
         /// Compare if two objects of the same type are equal.
         /// </summary>
-        /// <typeparam name="T">The type of objects to compare</typeparam>
+        /// <typeparam name="T">The type of objects to compare.</typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns><c>true</c> if the objects are equal; otherwise, <c>false</c></returns>
+        /// <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
         public static bool AreObjectsEqual<T>(T left, T right)
             where T : class
         {
@@ -64,8 +64,8 @@
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns><c>true</c> if the objects are equal; otherwise, <c>false</c></returns>
-        /// <exception cref="ArgumentNullException">targetType</exception>
+        /// <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>.</returns>
+        /// <exception cref="ArgumentNullException">targetType.</exception>
         public static bool AreObjectsEqual(object left, object right, Type targetType)
         {
             if (targetType == null)
@@ -98,10 +98,10 @@
         /// <summary>
         /// Compare if two structures of the same type are equal.
         /// </summary>
-        /// <typeparam name="T">The type of structs to compare</typeparam>
+        /// <typeparam name="T">The type of structs to compare.</typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns><c>true</c> if the structs are equal; otherwise, <c>false</c></returns>
+        /// <returns><c>true</c> if the structs are equal; otherwise, <c>false</c>.</returns>
         public static bool AreStructsEqual<T>(T left, T right)
             where T : struct
         {
@@ -115,9 +115,9 @@
         /// <param name="right">The right.</param>
         /// <param name="targetType">Type of the target.</param>
         /// <returns>
-        ///   <c>true</c> if the structs are equal; otherwise, <c>false</c>
+        ///   <c>true</c> if the structs are equal; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">targetType</exception>
+        /// <exception cref="ArgumentNullException">targetType.</exception>
         public static bool AreStructsEqual(object left, object right, Type targetType)
         {
             if (targetType == null)
@@ -150,16 +150,16 @@
         /// <summary>
         /// Compare if two enumerables are equal.
         /// </summary>
-        /// <typeparam name="T">The type of enums to compare</typeparam>
+        /// <typeparam name="T">The type of enums to compare.</typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// True if two specified types are equal; otherwise, false
+        /// True if two specified types are equal; otherwise, false.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// left
         /// or
-        /// right
+        /// right.
         /// </exception>
         public static bool AreEnumerationsEquals<T>(T left, T right)
             where T : IEnumerable

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Defines a set of bitwise standard terminal writers
+    /// Defines a set of bitwise standard terminal writers.
     /// </summary>
     [Flags]
     public enum TerminalWriters
@@ -46,7 +46,7 @@
 
     /// <summary>
     /// Defines the bitwise flags to determine
-    /// which types of messages get printed on the current console
+    /// which types of messages get printed on the current console.
     /// </summary>
     [Flags]
     public enum LogMessageType

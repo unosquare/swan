@@ -10,10 +10,10 @@
     using System.Text;
 
     /// <summary>
-    /// A CSV writer useful for exporting a set of objects
+    /// A CSV writer useful for exporting a set of objects.
     /// </summary>
     /// <example>
-    /// The following code describes how to save a list of objects into a CSV file
+    /// The following code describes how to save a list of objects into a CSV file.
     /// <code>
     /// using System.Collections.Generic;
     /// using Unosquare.Swan.Formatters;
@@ -74,7 +74,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
-        /// It automatically closes the stream when disposing this writer
+        /// It automatically closes the stream when disposing this writer.
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         /// <param name="encoding">The encoding.</param>
@@ -87,7 +87,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
         /// It uses the Windows 1252 encoding and automatically closes
-        /// the stream upon disposing this writer
+        /// the stream upon disposing this writer.
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         public CsvWriter(Stream outputStream)
@@ -99,7 +99,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
         /// It opens the file given file, automatically closes the stream upon 
-        /// disposing of this writer, and uses the Windows 1252 encoding
+        /// disposing of this writer, and uses the Windows 1252 encoding.
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvWriter(string filename)
@@ -111,7 +111,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
         /// It opens the file given file, automatically closes the stream upon 
-        /// disposing of this writer, and uses the given text encoding for output
+        /// disposing of this writer, and uses the given text encoding for output.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="encoding">The encoding.</param>
@@ -134,7 +134,7 @@
         public char SeparatorCharacter { get; set; } = ',';
 
         /// <summary>
-        /// Gets or sets the escape character to use to escape field values
+        /// Gets or sets the escape character to use to escape field values.
         /// </summary>
         /// <value>
         /// The escape character.
@@ -150,7 +150,7 @@
         public string NewLineSequence { get; set; } = Environment.NewLine;
 
         /// <summary>
-        /// Defines a list of properties to ignore when outputting CSV lines
+        /// Defines a list of properties to ignore when outputting CSV lines.
         /// </summary>
         /// <value>
         /// The ignore property names.
@@ -158,7 +158,7 @@
         public List<string> IgnorePropertyNames { get; } = new List<string>();
 
         /// <summary>
-        /// Gets number of lines that have been written, including the headings line
+        /// Gets number of lines that have been written, including the headings line.
         /// </summary>
         /// <value>
         /// The count.
@@ -180,13 +180,13 @@
 
         /// <summary>
         /// Saves the items to a stream.
-        /// It uses the Windows 1252 text encoding for output
+        /// It uses the Windows 1252 text encoding for output.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <typeparam name="T">The type of enumeration.</typeparam>
         /// <param name="items">The items.</param>
         /// <param name="stream">The stream.</param>
         /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
-        /// <returns>Number of item saved</returns>
+        /// <returns>Number of item saved.</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
         {
             // truncate the file if it had data
@@ -204,12 +204,12 @@
         /// <summary>
         /// Saves the items to a CSV file.
         /// If the file exits, it overwrites it. If it does not, it creates it.
-        /// It uses the Windows 1252 text encoding for output
+        /// It uses the Windows 1252 text encoding for output.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <typeparam name="T">The type of enumeration.</typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item saved</returns>
+        /// <returns>Number of item saved.</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
             return SaveRecords(items, File.OpenWrite(filePath), true);
@@ -222,7 +222,7 @@
         /// <summary>
         /// Writes a line of CSV text. Items are converted to strings.
         /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToStringInvariant() method is called on them
+        /// If items are not string, the ToStringInvariant() method is called on them.
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
@@ -293,7 +293,7 @@
         /// method of this class and use the WriteLine method instead.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <exception cref="System.ArgumentNullException">item</exception>
+        /// <exception cref="System.ArgumentNullException">item.</exception>
         public void WriteObject(object item)
         {
             if (item == null)
@@ -332,7 +332,7 @@
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
-        /// <typeparam name="T">The type of object to write</typeparam>
+        /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="item">The item.</param>
         public void WriteObject<T>(T item) => WriteObject(item as object);
 
@@ -341,7 +341,7 @@
         /// WriteObject method. For more info check out the description of the WriteObject
         /// method.
         /// </summary>
-        /// <typeparam name="T">The type of object to write</typeparam>
+        /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="items">The items.</param>
         public void WriteObjects<T>(IEnumerable<T> items)
         {
@@ -360,7 +360,7 @@
         /// Writes the headings.
         /// </summary>
         /// <param name="type">The type of object to extract headings.</param>
-        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="System.ArgumentNullException">type.</exception>
         public void WriteHeadings(Type type)
         {
             if (type == null)
@@ -373,14 +373,14 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <typeparam name="T">The type of object to extract headings</typeparam>
+        /// <typeparam name="T">The type of object to extract headings.</typeparam>
         public void WriteHeadings<T>() => WriteHeadings(typeof(T));
 
         /// <summary>
         /// Writes the headings.
         /// </summary>
         /// <param name="dictionary">The dictionary to extract headings.</param>
-        /// <exception cref="System.ArgumentNullException">dictionary</exception>
+        /// <exception cref="System.ArgumentNullException">dictionary.</exception>
         public void WriteHeadings(IDictionary dictionary)
         {
             if (dictionary == null)
@@ -411,7 +411,7 @@
         /// Writes the headings.
         /// </summary>
         /// <param name="obj">The object to extract headings.</param>
-        /// <exception cref="ArgumentNullException">obj</exception>
+        /// <exception cref="ArgumentNullException">obj.</exception>
         public void WriteHeadings(object obj)
         {
             if (obj == null)
@@ -429,7 +429,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
+        /// <returns>An array containing copies of the elements of the dictionary.</returns>
         private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<string>();
@@ -450,7 +450,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
+        /// <returns>An array containing copies of the elements of the dictionary.</returns>
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
@@ -471,7 +471,7 @@
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>Filtered type properties using the IgnoreProperties list</returns>
+        /// <returns>Filtered type properties using the IgnoreProperties list.</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
             lock (_syncLock)

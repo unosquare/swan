@@ -10,7 +10,7 @@
     using System.Reflection;
 
     /// <summary>
-    /// Represents a provider to save and load settings using a plain JSON file
+    /// Represents a provider to save and load settings using a plain JSON file.
     /// </summary>
     /// <example>
     /// The following example shows how to save and load settings.
@@ -40,7 +40,7 @@
     /// }
     /// </code>
     /// </example>
-    /// <typeparam name="T">The type of settings model</typeparam>
+    /// <typeparam name="T">The type of settings model.</typeparam>
     public class SettingsProvider<T>
         : SingletonBase<SettingsProvider<T>>
     {
@@ -66,7 +66,7 @@
 #endif
 
         /// <summary>
-        /// Gets the global settings object
+        /// Gets the global settings object.
         /// </summary>
         /// <value>
         /// The global settings object.
@@ -120,9 +120,9 @@
         /// </summary>
         /// <param name="propertyList">The list.</param>
         /// <returns>
-        /// A list of settings of type ref="ExtendedPropertyInfo"
+        /// A list of settings of type ref="ExtendedPropertyInfo".
         /// </returns>
-        /// <exception cref="ArgumentNullException">propertyList</exception>
+        /// <exception cref="ArgumentNullException">propertyList.</exception>
         public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
             if (propertyList == null)

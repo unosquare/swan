@@ -7,7 +7,7 @@
     using Attributes;
 
     /// <summary>
-    /// Provides various extension methods for value types and structs
+    /// Provides various extension methods for value types and structs.
     /// </summary>
     public static class ValueTypeExtensions
     {
@@ -40,7 +40,7 @@
         /// <summary>
         /// Determines whether the specified value is between a minimum and a maximum value.
         /// </summary>
-        /// <typeparam name="T">The type of value to check</typeparam>
+        /// <typeparam name="T">The type of value to check.</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -54,11 +54,11 @@
         }
 
         /// <summary>
-        /// Converts an array of bytes into the given struct type
+        /// Converts an array of bytes into the given struct type.
         /// </summary>
-        /// <typeparam name="T">The type of structure to convert</typeparam>
+        /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="data">The data.</param>
-        /// <returns>a struct type derived from convert an array of bytes ref=ToStruct"</returns>
+        /// <returns>a struct type derived from convert an array of bytes ref=ToStruct".</returns>
         public static T ToStruct<T>(this byte[] data) 
             where T : struct
         {
@@ -66,16 +66,16 @@
         }
 
         /// <summary>
-        /// Converts an array of bytes into the given struct type
+        /// Converts an array of bytes into the given struct type.
         /// </summary>
-        /// <typeparam name="T">The type of structure to convert</typeparam>
+        /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>
-        /// A managed object containing the data pointed to by the ptr parameter
+        /// A managed object containing the data pointed to by the ptr parameter.
         /// </returns>
-        /// <exception cref="ArgumentNullException">data</exception>
+        /// <exception cref="ArgumentNullException">data.</exception>
         public static T ToStruct<T>(this byte[] data, int offset, int length) 
             where T : struct
         {
@@ -97,11 +97,11 @@
         }
 
         /// <summary>
-        /// Converts a struct to an array of bytes
+        /// Converts a struct to an array of bytes.
         /// </summary>
-        /// <typeparam name="T">The type of structure to convert</typeparam>
+        /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="obj">The object.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] ToBytes<T>(this T obj) 
             where T : struct
         {
@@ -125,7 +125,7 @@
         /// <param name="longBytes">The bytes contained in a long.</param>
         /// <returns>
         /// A 32-bit unsigned integer equivalent to the ulong 
-        /// contained in longBytes
+        /// contained in longBytes.
         /// </returns>
         public static uint SwapEndianness(this ulong longBytes)
         {

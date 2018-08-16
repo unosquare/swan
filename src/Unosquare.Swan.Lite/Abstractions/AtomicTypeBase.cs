@@ -7,9 +7,9 @@
     /// Provides a generic implementation of an Atomic (interlocked) type
     /// 
     /// Idea taken from Memory model and .NET operations in article:
-    /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/
+    /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/.
     /// </summary>
-    /// <typeparam name="T">The structure type backed by a 64-bit value</typeparam>
+    /// <typeparam name="T">The structure type backed by a 64-bit value.</typeparam>
     public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparable<AtomicTypeBase<T>>, IEquatable<T>, IEquatable<AtomicTypeBase<T>>
         where T : struct, IComparable, IComparable<T>, IEquatable<T>
     {
@@ -157,11 +157,11 @@
         }
 
         /// <summary>
-        /// Compares the value to the other instance
+        /// Compares the value to the other instance.
         /// </summary>
         /// <param name="other">The other instance.</param>
-        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than</returns>
-        /// <exception cref="ArgumentException">When types are incompatible</exception>
+        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
+        /// <exception cref="ArgumentException">When types are incompatible.</exception>
         public int CompareTo(object other)
         {
             switch (other)
@@ -178,17 +178,17 @@
         }
 
         /// <summary>
-        /// Compares the value to the other instance
+        /// Compares the value to the other instance.
         /// </summary>
         /// <param name="other">The other instance.</param>
-        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than</returns>
+        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
         public int CompareTo(T other) => Value.CompareTo(other);
 
         /// <summary>
-        /// Compares the value to the other instance
+        /// Compares the value to the other instance.
         /// </summary>
         /// <param name="other">The other instance.</param>
-        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than</returns>
+        /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
         public int CompareTo(AtomicTypeBase<T> other) => BackingValue.CompareTo(other?.BackingValue ?? default);
 
         /// <summary>
@@ -230,14 +230,14 @@
         /// Converts froma long value to the target type.
         /// </summary>
         /// <param name="backingValue">The backing value.</param>
-        /// <returns>The value converted form a long value</returns>
+        /// <returns>The value converted form a long value.</returns>
         protected abstract T FromLong(long backingValue);
 
         /// <summary>
-        /// Converts from the target type to a long value
+        /// Converts from the target type to a long value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The value converted to a long value</returns>
+        /// <returns>The value converted to a long value.</returns>
         protected abstract long ToLong(T value);
     }
 }
