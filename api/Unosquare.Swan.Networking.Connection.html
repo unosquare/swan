@@ -130,7 +130,7 @@ Manual Reading Mode: Data reception events are NEVER fired. No background thread
     <pre><code class="lang-csharp hljs">public sealed class Connection : IDisposable</code></pre>
   </div>
   <h5 id="Unosquare_Swan_Networking_Connection_examples"><strong>Examples</strong></h5>
-  <p>The following code explains how to create a TCP server</p>
+  <p>The following code explains how to create a TCP server.</p>
 <pre><code>using System.Text;
 using Unosquare.Swan.Networking;
 
@@ -154,7 +154,7 @@ class Example
         connectionListener.Start();
     }
 }</code></pre>
-<p>The following code describes how to create a TCP client</p>
+<p>The following code describes how to create a TCP client.</p>
 <pre><code>using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -307,7 +307,7 @@ It uses UTF8 encoding, disables line sequences, and uses a protocol block size i
   <a id="Unosquare_Swan_Networking_Connection_ActiveStream_" data-uid="Unosquare.Swan.Networking.Connection.ActiveStream*"></a>
   <h4 id="Unosquare_Swan_Networking_Connection_ActiveStream" data-uid="Unosquare.Swan.Networking.Connection.ActiveStream">ActiveStream</h4>
   <div class="markdown level1 summary"><p>Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns
-the underlying NetworkStream</p>
+the underlying NetworkStream.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -468,7 +468,7 @@ the underlying NetworkStream</p>
   
   <a id="Unosquare_Swan_Networking_Connection_DataSentIdleDuration_" data-uid="Unosquare.Swan.Networking.Connection.DataSentIdleDuration*"></a>
   <h4 id="Unosquare_Swan_Networking_Connection_DataSentIdleDuration" data-uid="Unosquare.Swan.Networking.Connection.DataSentIdleDuration">DataSentIdleDuration</h4>
-  <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last sent</p>
+  <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last sent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -523,7 +523,7 @@ the underlying NetworkStream</p>
   <a id="Unosquare_Swan_Networking_Connection_Id_" data-uid="Unosquare.Swan.Networking.Connection.Id*"></a>
   <h4 id="Unosquare_Swan_Networking_Connection_Id" data-uid="Unosquare.Swan.Networking.Connection.Id">Id</h4>
   <div class="markdown level1 summary"><p>Gets the unique identifier of this connection.
-This field is filled out upon instantiation of this class</p>
+This field is filled out upon instantiation of this class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -834,7 +834,7 @@ determined by this property has been received. Useful for fixed-length message p
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]&gt;</td>
-        <td><p>A byte array containing the results the specified sequence of bytes</p>
+        <td><p>A byte array containing the results the specified sequence of bytes.</p>
 </td>
       </tr>
     </tbody>
@@ -885,7 +885,7 @@ determined by this property has been received. Useful for fixed-length message p
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]&gt;</td>
-        <td><p>A byte array containing the results of encoding the specified set of characters</p>
+        <td><p>A byte array containing the results of encoding the specified set of characters.</p>
 </td>
       </tr>
     </tbody>
@@ -906,7 +906,7 @@ determined by this property has been received. Useful for fixed-length message p
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></td>
-        <td><p>Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</p>
+        <td><p>Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m.</p>
 </td>
       </tr>
     </tbody>
@@ -952,7 +952,7 @@ determined by this property has been received. Useful for fixed-length message p
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A task that represents the asynchronous read operation. The value of the TResult parameter 
-contains the next line from the stream, or is null if all the characters have been read</p>
+contains the next line from the stream, or is null if all the characters have been read.</p>
 </td>
       </tr>
     </tbody>
@@ -1007,7 +1007,7 @@ and the rest of the read methods are not called.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>A task with a string line from the queue</p>
+        <td><p>A task with a string line from the queue.</p>
 </td>
       </tr>
     </tbody>
@@ -1068,7 +1068,7 @@ and the rest of the read methods are not called.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>When this method completes successfully, it returns the contents of the file as a text string</p>
+        <td><p>When this method completes successfully, it returns the contents of the file as a text string.</p>
 </td>
       </tr>
     </tbody>
@@ -1119,7 +1119,7 @@ and the rest of the read methods are not called.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that contains the results of decoding the specified sequence of bytes</p>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that contains the results of decoding the specified sequence of bytes.</p>
 </td>
       </tr>
     </tbody>
@@ -1410,7 +1410,7 @@ The new line sequence is added automatically at the end of the line.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
-        <td><p>A task that represents the asynchronous write operation</p>
+        <td><p>A task that represents the asynchronous write operation.</p>
 </td>
       </tr>
     </tbody>
