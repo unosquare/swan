@@ -256,17 +256,14 @@ namespace Unosquare.Swan
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
-        public static void SetCursorPosition(int left, int top)
+        public static void SetCursorPosition(in int left, in int top)
         {
             if (IsConsolePresent == false) return;
-
-            if (left < 0) left = 0;
-            if (top < 0) top = 0;
 
             lock (SyncLock)
             {
                 Flush();
-                Console.SetCursorPosition(left, top);
+                Console.SetCursorPosition(left.Clamp(0, left), top.Clamp(0, top));
             }
         }
 

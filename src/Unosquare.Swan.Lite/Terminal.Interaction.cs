@@ -110,7 +110,7 @@
         /// <returns>
         /// Conversions of string representation of a number to its 32-bit signed integer equivalent.
         /// </returns>
-        public static int ReadNumber(this string prompt, int defaultNumber)
+        public static int ReadNumber(this string prompt, in int defaultNumber)
         {
             if (IsConsolePresent == false) return defaultNumber;
 

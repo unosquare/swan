@@ -276,14 +276,14 @@
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string Slice(this string value, int startIndex, int endIndex)
+        public static string Slice(this string value, in int startIndex, in int endIndex)
         {
             if (value == null)
                 return string.Empty;
 
-            endIndex = endIndex.Clamp(startIndex, value.Length - 1);
+            var end = endIndex.Clamp(startIndex, value.Length - 1);
 
-            return startIndex >= endIndex ? string.Empty : value.Substring(startIndex, (endIndex - startIndex) + 1);
+            return startIndex >= end ? string.Empty : value.Substring(startIndex, (end - startIndex) + 1);
         }
 
         /// <summary>
@@ -295,15 +295,15 @@
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string SliceLength(this string str, int startIndex, int length)
+        public static string SliceLength(this string str, in int startIndex, in int length)
         {
             if (str == null)
                 return string.Empty;
 
-            startIndex = startIndex.Clamp(0, str.Length - 1);
-            length = length.Clamp(0, str.Length - startIndex);
+            var start = startIndex.Clamp(0, str.Length - 1);
+            var len = length.Clamp(0, str.Length - start);
 
-            return length == 0 ? string.Empty : str.Substring(startIndex, length);
+            return len == 0 ? string.Empty : str.Substring(start, len);
         }
 
         /// <summary>
@@ -341,7 +341,7 @@
         /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public static string Indent(this string value, int spaces = 4)
+        public static string Indent(this string value, in int spaces = 4)
         {
             if (value == null) value = string.Empty;
             if (spaces <= 0) return value;
@@ -368,17 +368,17 @@
         /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
         /// <returns>A 2-tuple whose value is (item1, item2).</returns>
-        public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
+        public static Tuple<int, int> TextPositionAt(this string value, in int charIndex)
         {
             if (value == null)
                 return Tuple.Create(0, 0);
 
-            charIndex = charIndex.Clamp(0, value.Length - 1);
+            var index = charIndex.Clamp(0, value.Length - 1);
 
             var lineIndex = 0;
             var colNumber = 0;
 
-            for (var i = 0; i <= charIndex; i++)
+            for (var i = 0; i <= index; i++)
             {
                 if (value[i] == '\n')
                 {
@@ -450,7 +450,7 @@
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength) =>
+        public static string Truncate(this string value, in int maximumLength) =>
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
@@ -463,7 +463,7 @@
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength, string omission)
+        public static string Truncate(this string value, in int maximumLength, string omission)
         {
             if (value == null)
                 return null;

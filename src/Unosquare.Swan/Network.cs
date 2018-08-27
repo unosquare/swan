@@ -298,7 +298,7 @@
         /// <returns>
         /// Appropriate DNS server for the specified record type.
         /// </returns>
-        public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
+        public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, in int port)
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));

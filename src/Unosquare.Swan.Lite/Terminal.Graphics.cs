@@ -35,7 +35,7 @@
 
             public static void LeftTee() => ((byte)195).Write(BorderColor);
 
-            public static void Horizontal(int length) => ((byte)196).Write(BorderColor, length);
+            public static void Horizontal(in int length) => ((byte)196).Write(BorderColor, length);
 
             public static void Tee() => ((byte)197).Write(BorderColor);
 

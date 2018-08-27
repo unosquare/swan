@@ -86,7 +86,7 @@
         /// <returns>
         /// Bit value at the given offset.
         /// </returns>
-        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
+        public static byte GetBitValueAt(this byte b, in byte offset, in byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
 
         /// <summary>
         /// Sets the bit value at the given offset.
@@ -96,12 +96,12 @@
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
+        public static byte SetBitValueAt(this byte b, in byte offset, in byte length, in byte value)
         {
             var mask = ~(0xff << length);
-            value = (byte)(value & mask);
+            var valueAt = (byte)(value & mask);
 
-            return (byte)((value << offset) | (b & ~(mask << offset)));
+            return (byte)((valueAt << offset) | (b & ~(mask << offset)));
         }
 
         /// <summary>
@@ -111,7 +111,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, byte offset, byte value) => b.SetBitValueAt(offset, 1, value);
+        public static byte SetBitValueAt(this byte b, in byte offset, in byte value) => b.SetBitValueAt(offset, 1, value);
 
         /// <summary>
         /// Splits a byte array delimited by the specified sequence of bytes.
@@ -130,7 +130,7 @@
         /// or
         /// sequence.
         /// </exception>
-        public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
+        public static List<byte[]> Split(this byte[] buffer, in int offset, params byte[] sequence)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -138,25 +138,25 @@
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
-            offset = offset.Clamp(0, buffer.Length - 1);
+            var seqOffset = offset.Clamp(0, buffer.Length - 1);
 
             var result = new List<byte[]>();
 
-            while (offset < buffer.Length)
+            while (seqOffset < buffer.Length)
             {
-                var separatorStartIndex = buffer.GetIndexOf(sequence, offset);
+                var separatorStartIndex = buffer.GetIndexOf(sequence, seqOffset);
 
                 if (separatorStartIndex >= 0)
                 {
-                    var item = new byte[separatorStartIndex - offset + sequence.Length];
-                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    var item = new byte[separatorStartIndex - seqOffset + sequence.Length];
+                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
                     result.Add(item);
-                    offset += item.Length;
+                    seqOffset += item.Length;
                 }
                 else
                 {
-                    var item = new byte[buffer.Length - offset];
-                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    var item = new byte[buffer.Length - seqOffset];
+                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
                     result.Add(item);
                     break;
                 }
@@ -306,7 +306,7 @@
         /// or
         /// sequence.
         /// </exception>
-        public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
+        public static int GetIndexOf(this byte[] buffer, byte[] sequence, in int offset = 0)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -317,10 +317,10 @@
             if (sequence.Length > buffer.Length)
                 return -1;
 
-            if (offset < 0) offset = 0;
+            var seqOffset = offset < 0 ? 0 : offset;
 
             var matchedCount = 0;
-            for (var i = offset; i < buffer.Length; i++)
+            for (var i = seqOffset; i < buffer.Length; i++)
             {
                 if (buffer[i] == sequence[matchedCount])
                     matchedCount++;
@@ -620,7 +620,7 @@
         /// or
         /// target.
         /// </exception>
-        public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)
+        public static int ReadInput(this Stream sourceStream, ref sbyte[] target, in int start, in int count)
         {
             if (sourceStream == null)
                 throw new ArgumentNullException(nameof(sourceStream));

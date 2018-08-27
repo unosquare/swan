@@ -179,7 +179,7 @@
                 GetElementParts(hour, nameof(hour), date.Hour),
                 GetElementParts(dayOfMonth, nameof(dayOfMonth), date.Day),
                 GetElementParts(month, nameof(month), date.Month),
-                GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) date.DayOfWeek)
+                GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) date.DayOfWeek),
             };
 
             return results.Any(x => x != false);
@@ -187,7 +187,7 @@
 
         private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : (bool?) null;
 
-        private static bool? GetElementParts(string parts, string type, int value)
+        private static bool? GetElementParts(string parts, string type, in int value)
         {
             if (string.IsNullOrWhiteSpace(parts) || parts == "*") return null;
             
