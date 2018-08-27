@@ -553,13 +553,13 @@ any prefix (such as 0x) has to be avoided for this to work properly.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_" data-uid="Unosquare.Swan.ByteArrayExtensions.GetBitValueAt*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_System_Byte_System_Byte_System_Byte_" data-uid="Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)">GetBitValueAt(Byte, Byte, Byte)</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_System_Byte_System_Byte__System_Byte__" data-uid="Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte@,System.Byte@)">GetBitValueAt(Byte, Byte, Byte)</h4>
   <div class="markdown level1 summary"><p>Gets the bit value at the given offset.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte GetBitValueAt(this byte b, byte offset, byte length = 1)</code></pre>
+    <pre><code class="lang-csharp hljs">public static byte GetBitValueAt(this byte b, in byte offset, in byte length = 1)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -610,14 +610,14 @@ any prefix (such as 0x) has to be avoided for this to work properly.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_GetIndexOf_" data-uid="Unosquare.Swan.ByteArrayExtensions.GetIndexOf*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_GetIndexOf_System_Byte___System_Byte___System_Int32_" data-uid="Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)">GetIndexOf(Byte[], Byte[], Int32)</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_GetIndexOf_System_Byte___System_Byte___System_Int32__" data-uid="Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32@)">GetIndexOf(Byte[], Byte[], Int32)</h4>
   <div class="markdown level1 summary"><p>Returns the first instance of the matched sequence based on the given offset.
 If nomatches are found then this method returns -1.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int GetIndexOf(this byte[] buffer, byte[] sequence, in int offset = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1007,14 +1007,14 @@ sequence.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_ReadInput_" data-uid="Unosquare.Swan.ByteArrayExtensions.ReadInput*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_ReadInput_System_IO_Stream_System_SByte____System_Int32_System_Int32_" data-uid="Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)">ReadInput(Stream, ref SByte[], Int32, Int32)</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_ReadInput_System_IO_Stream_System_SByte____System_Int32__System_Int32__" data-uid="Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32@,System.Int32@)">ReadInput(Stream, ref SByte[], Int32, Int32)</h4>
   <div class="markdown level1 summary"><p>Reads a number of characters from the current source Stream and writes the data to the target array at the
 specified index.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int ReadInput(this Stream sourceStream, ref sbyte[] target, in int start, in int count)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1089,13 +1089,13 @@ target.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)">SetBitValueAt(Byte, Byte, Byte)</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte__System_Byte__" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@)">SetBitValueAt(Byte, Byte, Byte)</h4>
   <div class="markdown level1 summary"><p>Sets the bit value at the given offset.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte SetBitValueAt(this byte b, byte offset, byte value)</code></pre>
+    <pre><code class="lang-csharp hljs">public static byte SetBitValueAt(this byte b, in byte offset, in byte value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1146,13 +1146,13 @@ target.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_System_Byte_" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)">SetBitValueAt(Byte, Byte, Byte, Byte)</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte__System_Byte__System_Byte__" data-uid="Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@,System.Byte@)">SetBitValueAt(Byte, Byte, Byte, Byte)</h4>
   <div class="markdown level1 summary"><p>Sets the bit value at the given offset.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)</code></pre>
+    <pre><code class="lang-csharp hljs">public static byte SetBitValueAt(this byte b, in byte offset, in byte length, in byte value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1209,7 +1209,7 @@ target.</p>
   
   
   <a id="Unosquare_Swan_ByteArrayExtensions_Split_" data-uid="Unosquare.Swan.ByteArrayExtensions.Split*"></a>
-  <h4 id="Unosquare_Swan_ByteArrayExtensions_Split_System_Byte___System_Int32_System_Byte___" data-uid="Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32,System.Byte[])">Split(Byte[], Int32, Byte[])</h4>
+  <h4 id="Unosquare_Swan_ByteArrayExtensions_Split_System_Byte___System_Int32__System_Byte___" data-uid="Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32@,System.Byte[])">Split(Byte[], Int32, Byte[])</h4>
   <div class="markdown level1 summary"><p>Splits a byte array delimited by the specified sequence of bytes.
 Each individual element in the result will contain the split sequence terminator if it is found to be delimited by it.
 For example if you split [1,2,3,4] by a sequence of [2,3] this method will return a list with 2 byte arrays, one containing [1,2,3] and the
@@ -1218,7 +1218,7 @@ second one containing 4. Use the Trim extension methods to remove terminator seq
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static List&lt;byte[]&gt; Split(this byte[] buffer, int offset, params byte[] sequence)</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;byte[]&gt; Split(this byte[] buffer, in int offset, params byte[] sequence)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

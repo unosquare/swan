@@ -687,14 +687,14 @@ Camel Case and Snake_Case will be converted to Snake Case.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_Indent_" data-uid="Unosquare.Swan.StringExtensions.Indent*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_Indent_System_String_System_Int32_" data-uid="Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32)">Indent(String, Int32)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_Indent_System_String_System_Int32__" data-uid="Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32@)">Indent(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Indents the specified multi-line text with the given amount of leading spaces
 per line.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Indent(this string value, int spaces = 4)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Indent(this string value, in int spaces = 4)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -924,7 +924,7 @@ per line.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_Slice_" data-uid="Unosquare.Swan.StringExtensions.Slice*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32_System_Int32_" data-uid="Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)">Slice(String, Int32, Int32)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32__System_Int32__" data-uid="Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32@,System.Int32@)">Slice(String, Int32, Int32)</h4>
   <div class="markdown level1 summary"><p>Retrieves a section of the string, inclusive of both, the start and end indexes.
 This behavior is unlike JavaScript&apos;s Slice behavior where the end index is non-inclusive
 If the string is null it returns an empty string.</p>
@@ -932,7 +932,7 @@ If the string is null it returns an empty string.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Slice(this string value, int startIndex, int endIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Slice(this string value, in int startIndex, in int endIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -983,7 +983,7 @@ If the string is null it returns an empty string.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_SliceLength_" data-uid="Unosquare.Swan.StringExtensions.SliceLength*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_SliceLength_System_String_System_Int32_System_Int32_" data-uid="Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32,System.Int32)">SliceLength(String, Int32, Int32)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_SliceLength_System_String_System_Int32__System_Int32__" data-uid="Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32@,System.Int32@)">SliceLength(String, Int32, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets a part of the string clamping the length and startIndex parameters to safe values.
 If the string is null it returns an empty string. This is basically just a safe version
 of string.Substring.</p>
@@ -991,7 +991,7 @@ of string.Substring.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string SliceLength(this string str, int startIndex, int length)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string SliceLength(this string str, in int startIndex, in int length)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1089,7 +1089,7 @@ examine objects.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_TextPositionAt_" data-uid="Unosquare.Swan.StringExtensions.TextPositionAt*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_TextPositionAt_System_String_System_Int32_" data-uid="Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32)">TextPositionAt(String, Int32)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_TextPositionAt_System_String_System_Int32__" data-uid="Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32@)">TextPositionAt(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets the line and column number (i.e. not index) of the
 specified character index. Useful to locate text in a multi-line
 string the same way a text editor does.
@@ -1099,7 +1099,7 @@ column number.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, int&gt; TextPositionAt(this string value, int charIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, int&gt; TextPositionAt(this string value, in int charIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1412,13 +1412,13 @@ overload exists.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_Truncate_" data-uid="Unosquare.Swan.StringExtensions.Truncate*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_" data-uid="Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)">Truncate(String, Int32)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32__" data-uid="Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@)">Truncate(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Truncates the specified value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Truncate(this string value, int maximumLength)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Truncate(this string value, in int maximumLength)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1464,13 +1464,13 @@ The substring starts at a specified character position and has a specified lengt
   
   
   <a id="Unosquare_Swan_StringExtensions_Truncate_" data-uid="Unosquare.Swan.StringExtensions.Truncate*"></a>
-  <h4 id="Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_System_String_" data-uid="Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)">Truncate(String, Int32, String)</h4>
+  <h4 id="Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32__System_String_" data-uid="Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@,System.String)">Truncate(String, Int32, String)</h4>
   <div class="markdown level1 summary"><p>Truncates the specified value and append the ommision last.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Truncate(this string value, int maximumLength, string omission)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Truncate(this string value, in int maximumLength, string omission)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

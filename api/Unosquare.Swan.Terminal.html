@@ -1640,13 +1640,13 @@ This is useful for services and daemons that are running as console applications
   
   
   <a id="Unosquare_Swan_Terminal_ReadNumber_" data-uid="Unosquare.Swan.Terminal.ReadNumber*"></a>
-  <h4 id="Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32)">ReadNumber(String, Int32)</h4>
+  <h4 id="Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32__" data-uid="Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32@)">ReadNumber(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Reads a number from the input. If unable to parse, it returns the default number.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int ReadNumber(this string prompt, int defaultNumber)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int ReadNumber(this string prompt, in int defaultNumber)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1748,13 +1748,13 @@ This is useful for services and daemons that are running as console applications
   
   
   <a id="Unosquare_Swan_Terminal_SetCursorPosition_" data-uid="Unosquare.Swan.Terminal.SetCursorPosition*"></a>
-  <h4 id="Unosquare_Swan_Terminal_SetCursorPosition_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Terminal.SetCursorPosition(System.Int32,System.Int32)">SetCursorPosition(Int32, Int32)</h4>
+  <h4 id="Unosquare_Swan_Terminal_SetCursorPosition_System_Int32__System_Int32__" data-uid="Unosquare.Swan.Terminal.SetCursorPosition(System.Int32@,System.Int32@)">SetCursorPosition(Int32, Int32)</h4>
   <div class="markdown level1 summary"><p>Sets the cursor position.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void SetCursorPosition(int left, int top)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void SetCursorPosition(in int left, in int top)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
