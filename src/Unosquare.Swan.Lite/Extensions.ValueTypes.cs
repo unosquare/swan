@@ -19,7 +19,7 @@
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static T Clamp<T>(this T value, in T min, in T max)
+        public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
             if (value.CompareTo(min) < 0) return min;
@@ -34,7 +34,7 @@
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static int Clamp(this int value, in int min, in int max)
+        public static int Clamp(this int value, int min, int max)
             => value < min ? min : (value > max ? max : value);
 
         /// <summary>
