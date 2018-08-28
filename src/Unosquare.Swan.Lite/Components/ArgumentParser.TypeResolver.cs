@@ -4,11 +4,9 @@
     using System.Reflection;
     using Attributes;
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Provides methods to parse command line arguments.
-    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).
     /// </summary>
     public partial class ArgumentParser
     {

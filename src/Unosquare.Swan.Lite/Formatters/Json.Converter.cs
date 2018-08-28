@@ -43,14 +43,14 @@
                 }
 
                 var sourceType = source.GetType();
-                
+
                 if (_targetType == null || _targetType == typeof(object)) _targetType = sourceType;
                 if (sourceType == _targetType)
                 {
                     _target = source;
                     return;
                 }
-                
+
                 if (!TrySetInstance(targetInstance, source, ref _target))
                     return;
 
@@ -81,19 +81,12 @@
             }
 
             private static Type GetAddMethodParameterType(Type targetType)
-            {
-                if (!ListAddMethodCache.ContainsKey(targetType))
-                {
-                    ListAddMethodCache[targetType] = targetType
-                        .GetMethods()
+                => ListAddMethodCache.GetOrAdd(targetType,
+                    x => x.GetMethods()
                         .FirstOrDefault(
                             m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
                         .GetParameters()[0]
-                        .ParameterType;
-                }
-
-                return ListAddMethodCache[targetType];
-            }
+                        .ParameterType);
 
             private static void GetByteArray(string sourceString, ref object target)
             {
@@ -107,21 +100,14 @@
                 } // Get the string bytes in UTF8
             }
 
-            private static object GetSourcePropertyValue(Dictionary<string, object> sourceProperties,
+            private static object GetSourcePropertyValue(IDictionary<string, object> sourceProperties,
                 MemberInfo targetProperty)
             {
-                if (!MemberInfoNameCache.ContainsKey(targetProperty))
-                {
-                    MemberInfoNameCache[targetProperty] =
-                        targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
-                        targetProperty.Name;
-                }
+                var targetPropertyName = MemberInfoNameCache.GetOrAdd(
+                    targetProperty,
+                    x => x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name);
 
-                var targetPropertyName = MemberInfoNameCache[targetProperty];
-
-                return sourceProperties.ContainsKey(targetPropertyName)
-                    ? sourceProperties[targetPropertyName]
-                    : null;
+                return sourceProperties.GetValueOrDefault(targetPropertyName);
             }
 
             private bool TrySetInstance(object targetInstance, object source, ref object target)
@@ -294,7 +280,7 @@
             private void PopulateProperties(Dictionary<string, object> sourceProperties)
             {
                 var properties = PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite);
-                
+
                 foreach (var property in properties)
                 {
                     var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property);
@@ -312,7 +298,7 @@
                             ref currentPropertyValue,
                             _includeNonPublic);
 
-                        property.GetCacheSetMethod(_includeNonPublic).Invoke(_target, new[] {targetPropertyValue});
+                        property.GetCacheSetMethod(_includeNonPublic).Invoke(_target, new[] { targetPropertyValue });
                     }
                     catch
                     {
