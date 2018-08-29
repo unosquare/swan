@@ -2293,15 +2293,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.EndsWith
   nameWithType: ByteArrayExtensions.EndsWith
-- uid: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte@,System.Byte@)
+- uid: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
   name: GetBitValueAt(Byte, Byte, Byte)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_System_Byte_System_Byte__System_Byte__
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte@,System.Byte@)
-  name.vb: GetBitValueAt(Byte, ByRef Byte, ByRef Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
   fullName: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte, System.Byte, System.Byte)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte, ByRef System.Byte, ByRef System.Byte)
   nameWithType: ByteArrayExtensions.GetBitValueAt(Byte, Byte, Byte)
-  nameWithType.vb: ByteArrayExtensions.GetBitValueAt(Byte, ByRef Byte, ByRef Byte)
 - uid: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt*
   name: GetBitValueAt
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_
@@ -2309,15 +2306,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt
   nameWithType: ByteArrayExtensions.GetBitValueAt
-- uid: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32@)
+- uid: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
   name: GetIndexOf(Byte[], Byte[], Int32)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetIndexOf_System_Byte___System_Byte___System_Int32__
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32@)
-  name.vb: GetIndexOf(Byte(), Byte(), ByRef Int32)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetIndexOf_System_Byte___System_Byte___System_Int32_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
+  name.vb: GetIndexOf(Byte(), Byte(), Int32)
   fullName: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[], System.Byte[], System.Int32)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte(), System.Byte(), ByRef System.Int32)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte(), System.Byte(), System.Int32)
   nameWithType: ByteArrayExtensions.GetIndexOf(Byte[], Byte[], Int32)
-  nameWithType.vb: ByteArrayExtensions.GetIndexOf(Byte(), Byte(), ByRef Int32)
+  nameWithType.vb: ByteArrayExtensions.GetIndexOf(Byte(), Byte(), Int32)
 - uid: Unosquare.Swan.ByteArrayExtensions.GetIndexOf*
   name: GetIndexOf
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetIndexOf_
@@ -2389,15 +2386,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync
   nameWithType: ByteArrayExtensions.ReadBytesAsync
-- uid: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32@,System.Int32@)
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
   name: ReadInput(Stream, ref SByte[], Int32, Int32)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadInput_System_IO_Stream_System_SByte____System_Int32__System_Int32__
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32@,System.Int32@)
-  name.vb: ReadInput(Stream, ByRef SByte(), ByRef Int32, ByRef Int32)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadInput_System_IO_Stream_System_SByte____System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
+  name.vb: ReadInput(Stream, ByRef SByte(), Int32, Int32)
   fullName: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream, ref System.SByte[], System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream, ByRef System.SByte(), ByRef System.Int32, ByRef System.Int32)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream, ByRef System.SByte(), System.Int32, System.Int32)
   nameWithType: ByteArrayExtensions.ReadInput(Stream, ref SByte[], Int32, Int32)
-  nameWithType.vb: ByteArrayExtensions.ReadInput(Stream, ByRef SByte(), ByRef Int32, ByRef Int32)
+  nameWithType.vb: ByteArrayExtensions.ReadInput(Stream, ByRef SByte(), Int32, Int32)
 - uid: Unosquare.Swan.ByteArrayExtensions.ReadInput*
   name: ReadInput
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadInput_
@@ -2405,24 +2402,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.ReadInput
   nameWithType: ByteArrayExtensions.ReadInput
-- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@)
+- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
   name: SetBitValueAt(Byte, Byte, Byte)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte__System_Byte__
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@)
-  name.vb: SetBitValueAt(Byte, ByRef Byte, ByRef Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
   fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, System.Byte, System.Byte)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, ByRef System.Byte, ByRef System.Byte)
   nameWithType: ByteArrayExtensions.SetBitValueAt(Byte, Byte, Byte)
-  nameWithType.vb: ByteArrayExtensions.SetBitValueAt(Byte, ByRef Byte, ByRef Byte)
-- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@,System.Byte@)
+- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
   name: SetBitValueAt(Byte, Byte, Byte, Byte)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte__System_Byte__System_Byte__
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte@,System.Byte@,System.Byte@)
-  name.vb: SetBitValueAt(Byte, ByRef Byte, ByRef Byte, ByRef Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
   fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, System.Byte, System.Byte, System.Byte)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, ByRef System.Byte, ByRef System.Byte, ByRef System.Byte)
   nameWithType: ByteArrayExtensions.SetBitValueAt(Byte, Byte, Byte, Byte)
-  nameWithType.vb: ByteArrayExtensions.SetBitValueAt(Byte, ByRef Byte, ByRef Byte, ByRef Byte)
 - uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt*
   name: SetBitValueAt
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_
@@ -2430,15 +2421,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt
   nameWithType: ByteArrayExtensions.SetBitValueAt
-- uid: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32@,System.Byte[])
+- uid: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32,System.Byte[])
   name: Split(Byte[], Int32, Byte[])
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Split_System_Byte___System_Int32__System_Byte___
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32@,System.Byte[])
-  name.vb: Split(Byte(), ByRef Int32, Byte())
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Split_System_Byte___System_Int32_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32,System.Byte[])
+  name.vb: Split(Byte(), Int32, Byte())
   fullName: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[], System.Int32, System.Byte[])
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte(), ByRef System.Int32, System.Byte())
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte(), System.Int32, System.Byte())
   nameWithType: ByteArrayExtensions.Split(Byte[], Int32, Byte[])
-  nameWithType.vb: ByteArrayExtensions.Split(Byte(), ByRef Int32, Byte())
+  nameWithType.vb: ByteArrayExtensions.Split(Byte(), Int32, Byte())
 - uid: Unosquare.Swan.ByteArrayExtensions.Split*
   name: Split
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Split_
@@ -2950,15 +2941,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CircularBuffer.Length
   nameWithType: CircularBuffer.Length
-- uid: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32@)
+- uid: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
   name: Read(Int32, Byte[], Int32)
-  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Read_System_Int32_System_Byte___System_Int32__
-  commentId: M:Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32@)
-  name.vb: Read(Int32, Byte(), ByRef Int32)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Read_System_Int32_System_Byte___System_Int32_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
+  name.vb: Read(Int32, Byte(), Int32)
   fullName: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32, System.Byte[], System.Int32)
-  fullName.vb: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32, System.Byte(), ByRef System.Int32)
+  fullName.vb: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32, System.Byte(), System.Int32)
   nameWithType: CircularBuffer.Read(Int32, Byte[], Int32)
-  nameWithType.vb: CircularBuffer.Read(Int32, Byte(), ByRef Int32)
+  nameWithType.vb: CircularBuffer.Read(Int32, Byte(), Int32)
 - uid: Unosquare.Swan.Components.CircularBuffer.Read*
   name: Read
   href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Read_
@@ -3005,15 +2996,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CircularBuffer.WritableCount
   nameWithType: CircularBuffer.WritableCount
-- uid: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32@,System.TimeSpan)
+- uid: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
   name: Write(IntPtr, Int32, TimeSpan)
-  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Write_System_IntPtr_System_Int32__System_TimeSpan_
-  commentId: M:Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32@,System.TimeSpan)
-  name.vb: Write(IntPtr, ByRef Int32, TimeSpan)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Write_System_IntPtr_System_Int32_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
   fullName: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr, System.Int32, System.TimeSpan)
-  fullName.vb: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr, ByRef System.Int32, System.TimeSpan)
   nameWithType: CircularBuffer.Write(IntPtr, Int32, TimeSpan)
-  nameWithType.vb: CircularBuffer.Write(IntPtr, ByRef Int32, TimeSpan)
 - uid: Unosquare.Swan.Components.CircularBuffer.Write*
   name: Write
   href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Write_
@@ -7641,15 +7629,12 @@ references:
   commentId: M:Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType)
   fullName: Unosquare.Swan.Network.QueryDns(System.String, Unosquare.Swan.Networking.DnsRecordType)
   nameWithType: Network.QueryDns(String, DnsRecordType)
-- uid: Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32@)
+- uid: Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
   name: QueryDns(String, DnsRecordType, IPAddress, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32__
-  commentId: M:Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32@)
-  name.vb: QueryDns(String, DnsRecordType, IPAddress, ByRef Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_
+  commentId: M:Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
   fullName: Unosquare.Swan.Network.QueryDns(System.String, Unosquare.Swan.Networking.DnsRecordType, IPAddress, System.Int32)
-  fullName.vb: Unosquare.Swan.Network.QueryDns(System.String, Unosquare.Swan.Networking.DnsRecordType, IPAddress, ByRef System.Int32)
   nameWithType: Network.QueryDns(String, DnsRecordType, IPAddress, Int32)
-  nameWithType.vb: Network.QueryDns(String, DnsRecordType, IPAddress, ByRef Int32)
 - uid: Unosquare.Swan.Network.QueryDns*
   name: QueryDns
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_
@@ -12861,15 +12846,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.Humanize
   nameWithType: StringExtensions.Humanize
-- uid: Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32@)
+- uid: Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32)
   name: Indent(String, Int32)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Indent_System_String_System_Int32__
-  commentId: M:Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32@)
-  name.vb: Indent(String, ByRef Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Indent_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.Indent(System.String, System.Int32)
-  fullName.vb: Unosquare.Swan.StringExtensions.Indent(System.String, ByRef System.Int32)
   nameWithType: StringExtensions.Indent(String, Int32)
-  nameWithType.vb: StringExtensions.Indent(String, ByRef Int32)
 - uid: Unosquare.Swan.StringExtensions.Indent*
   name: Indent
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Indent_
@@ -12922,15 +12904,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.ReplaceAll
   nameWithType: StringExtensions.ReplaceAll
-- uid: Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32@,System.Int32@)
+- uid: Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
   name: Slice(String, Int32, Int32)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32__System_Int32__
-  commentId: M:Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32@,System.Int32@)
-  name.vb: Slice(String, ByRef Int32, ByRef Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.Slice(System.String, System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.StringExtensions.Slice(System.String, ByRef System.Int32, ByRef System.Int32)
   nameWithType: StringExtensions.Slice(String, Int32, Int32)
-  nameWithType.vb: StringExtensions.Slice(String, ByRef Int32, ByRef Int32)
 - uid: Unosquare.Swan.StringExtensions.Slice*
   name: Slice
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_
@@ -12938,15 +12917,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.Slice
   nameWithType: StringExtensions.Slice
-- uid: Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32@,System.Int32@)
+- uid: Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32,System.Int32)
   name: SliceLength(String, Int32, Int32)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_SliceLength_System_String_System_Int32__System_Int32__
-  commentId: M:Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32@,System.Int32@)
-  name.vb: SliceLength(String, ByRef Int32, ByRef Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_SliceLength_System_String_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.SliceLength(System.String, System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.StringExtensions.SliceLength(System.String, ByRef System.Int32, ByRef System.Int32)
   nameWithType: StringExtensions.SliceLength(String, Int32, Int32)
-  nameWithType.vb: StringExtensions.SliceLength(String, ByRef Int32, ByRef Int32)
 - uid: Unosquare.Swan.StringExtensions.SliceLength*
   name: SliceLength
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_SliceLength_
@@ -12967,15 +12943,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.Stringify
   nameWithType: StringExtensions.Stringify
-- uid: Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32@)
+- uid: Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
   name: TextPositionAt(String, Int32)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_TextPositionAt_System_String_System_Int32__
-  commentId: M:Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32@)
-  name.vb: TextPositionAt(String, ByRef Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_TextPositionAt_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.TextPositionAt(System.String, System.Int32)
-  fullName.vb: Unosquare.Swan.StringExtensions.TextPositionAt(System.String, ByRef System.Int32)
   nameWithType: StringExtensions.TextPositionAt(String, Int32)
-  nameWithType.vb: StringExtensions.TextPositionAt(String, ByRef Int32)
 - uid: Unosquare.Swan.StringExtensions.TextPositionAt*
   name: TextPositionAt
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_TextPositionAt_
@@ -13044,24 +13017,18 @@ references:
   fullName.vb: Unosquare.Swan.StringExtensions.ToStringInvariant(Of T)(T)
   nameWithType: StringExtensions.ToStringInvariant<T>(T)
   nameWithType.vb: StringExtensions.ToStringInvariant(Of T)(T)
-- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@)
+- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)
   name: Truncate(String, Int32)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32__
-  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@)
-  name.vb: Truncate(String, ByRef Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.Truncate(System.String, System.Int32)
-  fullName.vb: Unosquare.Swan.StringExtensions.Truncate(System.String, ByRef System.Int32)
   nameWithType: StringExtensions.Truncate(String, Int32)
-  nameWithType.vb: StringExtensions.Truncate(String, ByRef Int32)
-- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@,System.String)
+- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
   name: Truncate(String, Int32, String)
-  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32__System_String_
-  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32@,System.String)
-  name.vb: Truncate(String, ByRef Int32, String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
   fullName: Unosquare.Swan.StringExtensions.Truncate(System.String, System.Int32, System.String)
-  fullName.vb: Unosquare.Swan.StringExtensions.Truncate(System.String, ByRef System.Int32, System.String)
   nameWithType: StringExtensions.Truncate(String, Int32, String)
-  nameWithType.vb: StringExtensions.Truncate(String, ByRef Int32, String)
 - uid: Unosquare.Swan.StringExtensions.Truncate*
   name: Truncate
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_
@@ -13411,15 +13378,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Terminal.ReadLine
   nameWithType: Terminal.ReadLine
-- uid: Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32@)
+- uid: Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32)
   name: ReadNumber(String, Int32)
-  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32__
-  commentId: M:Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32@)
-  name.vb: ReadNumber(String, ByRef Int32)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32)
   fullName: Unosquare.Swan.Terminal.ReadNumber(System.String, System.Int32)
-  fullName.vb: Unosquare.Swan.Terminal.ReadNumber(System.String, ByRef System.Int32)
   nameWithType: Terminal.ReadNumber(String, Int32)
-  nameWithType.vb: Terminal.ReadNumber(String, ByRef Int32)
 - uid: Unosquare.Swan.Terminal.ReadNumber*
   name: ReadNumber
   href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadNumber_
@@ -13443,15 +13407,12 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Terminal.ReadPrompt
   nameWithType: Terminal.ReadPrompt
-- uid: Unosquare.Swan.Terminal.SetCursorPosition(System.Int32@,System.Int32@)
+- uid: Unosquare.Swan.Terminal.SetCursorPosition(System.Int32,System.Int32)
   name: SetCursorPosition(Int32, Int32)
-  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_SetCursorPosition_System_Int32__System_Int32__
-  commentId: M:Unosquare.Swan.Terminal.SetCursorPosition(System.Int32@,System.Int32@)
-  name.vb: SetCursorPosition(ByRef Int32, ByRef Int32)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_SetCursorPosition_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Terminal.SetCursorPosition(System.Int32,System.Int32)
   fullName: Unosquare.Swan.Terminal.SetCursorPosition(System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.Terminal.SetCursorPosition(ByRef System.Int32, ByRef System.Int32)
   nameWithType: Terminal.SetCursorPosition(Int32, Int32)
-  nameWithType.vb: Terminal.SetCursorPosition(ByRef Int32, ByRef Int32)
 - uid: Unosquare.Swan.Terminal.SetCursorPosition*
   name: SetCursorPosition
   href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_SetCursorPosition_
@@ -13942,15 +13903,15 @@ references:
   fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte())
   nameWithType: ValueTypeExtensions.ToStruct<T>(Byte[])
   nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte())
-- uid: Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32@,System.Int32@)
+- uid: Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
   name: ToStruct<T>(Byte[], Int32, Int32)
-  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToStruct__1_System_Byte___System_Int32__System_Int32__
-  commentId: M:Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32@,System.Int32@)
-  name.vb: ToStruct(Of T)(Byte(), ByRef Int32, ByRef Int32)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToStruct__1_System_Byte___System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
+  name.vb: ToStruct(Of T)(Byte(), Int32, Int32)
   fullName: Unosquare.Swan.ValueTypeExtensions.ToStruct<T>(System.Byte[], System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte(), ByRef System.Int32, ByRef System.Int32)
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte(), System.Int32, System.Int32)
   nameWithType: ValueTypeExtensions.ToStruct<T>(Byte[], Int32, Int32)
-  nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte(), ByRef Int32, ByRef Int32)
+  nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte(), Int32, Int32)
 - uid: Unosquare.Swan.WindowsServicesExtensions
   name: WindowsServicesExtensions
   href: api/Unosquare.Swan.WindowsServicesExtensions.html

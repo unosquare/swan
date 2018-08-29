@@ -415,13 +415,13 @@ Only for Windows.</p>
   
   
   <a id="Unosquare_Swan_Components_CircularBuffer_Read_" data-uid="Unosquare.Swan.Components.CircularBuffer.Read*"></a>
-  <h4 id="Unosquare_Swan_Components_CircularBuffer_Read_System_Int32_System_Byte___System_Int32__" data-uid="Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32@)">Read(Int32, Byte[], Int32)</h4>
+  <h4 id="Unosquare_Swan_Components_CircularBuffer_Read_System_Int32_System_Byte___System_Int32_" data-uid="Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)">Read(Int32, Byte[], Int32)</h4>
   <div class="markdown level1 summary"><p>Reads the specified number of bytes into the target array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Read(int requestedBytes, byte[] target, in int targetOffset)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Read(int requestedBytes, byte[] target, int targetOffset)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -472,14 +472,14 @@ Only for Windows.</p>
   
   
   <a id="Unosquare_Swan_Components_CircularBuffer_Write_" data-uid="Unosquare.Swan.Components.CircularBuffer.Write*"></a>
-  <h4 id="Unosquare_Swan_Components_CircularBuffer_Write_System_IntPtr_System_Int32__System_TimeSpan_" data-uid="Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32@,System.TimeSpan)">Write(IntPtr, Int32, TimeSpan)</h4>
+  <h4 id="Unosquare_Swan_Components_CircularBuffer_Write_System_IntPtr_System_Int32_System_TimeSpan_" data-uid="Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)">Write(IntPtr, Int32, TimeSpan)</h4>
   <div class="markdown level1 summary"><p>Writes data to the backing buffer using the specified pointer and length.
 and associating a write tag for this operation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Write(IntPtr source, in int length, TimeSpan writeTag)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Write(IntPtr source, int length, TimeSpan writeTag)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
