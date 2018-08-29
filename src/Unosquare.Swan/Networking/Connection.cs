@@ -761,9 +761,9 @@ namespace Unosquare.Swan.Networking
         {
             var moreAvailable = RemoteClient.Available > 0;
 
-            for (var i = 0; i < receivedData.Length; i++)
+            foreach (var data in receivedData)
             {
-                ProcessReceivedBlock(receivedData, i, moreAvailable);
+                ProcessReceivedBlock(data, moreAvailable);
             }
 
             // Check if we are left with some more stuff to handle
@@ -817,9 +817,9 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-        private void ProcessReceivedBlock(byte[] receivedData, int i, bool moreAvailable)
+        private void ProcessReceivedBlock(byte data, bool moreAvailable)
         {
-            _receiveBuffer[_receiveBufferPointer] = receivedData[i];
+            _receiveBuffer[_receiveBufferPointer] = data;
             _receiveBufferPointer++;
 
             // Block size reached
@@ -848,11 +848,7 @@ namespace Unosquare.Swan.Networking
                     moreAvailable));
             _receiveBufferPointer = 0;
         }
-
-        /// <summary>
-        /// This is the body of the thread when performing continuous reading.
-        /// </summary>
-        /// <param name="threadContext">The thread context.</param>
+        
         private void PerformContinuousReading(object threadContext)
         {
             _continuousReadingThread = Thread.CurrentThread;

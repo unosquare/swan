@@ -281,9 +281,9 @@
             if (value == null)
                 return string.Empty;
 
-            endIndex = endIndex.Clamp(startIndex, value.Length - 1);
+            var end = endIndex.Clamp(startIndex, value.Length - 1);
 
-            return startIndex >= endIndex ? string.Empty : value.Substring(startIndex, (endIndex - startIndex) + 1);
+            return startIndex >= end ? string.Empty : value.Substring(startIndex, (end - startIndex) + 1);
         }
 
         /// <summary>
@@ -300,10 +300,10 @@
             if (str == null)
                 return string.Empty;
 
-            startIndex = startIndex.Clamp(0, str.Length - 1);
-            length = length.Clamp(0, str.Length - startIndex);
+            var start = startIndex.Clamp(0, str.Length - 1);
+            var len = length.Clamp(0, str.Length - start);
 
-            return length == 0 ? string.Empty : str.Substring(startIndex, length);
+            return len == 0 ? string.Empty : str.Substring(start, len);
         }
 
         /// <summary>
@@ -373,12 +373,12 @@
             if (value == null)
                 return Tuple.Create(0, 0);
 
-            charIndex = charIndex.Clamp(0, value.Length - 1);
+            var index = charIndex.Clamp(0, value.Length - 1);
 
             var lineIndex = 0;
             var colNumber = 0;
 
-            for (var i = 0; i <= charIndex; i++)
+            for (var i = 0; i <= index; i++)
             {
                 if (value[i] == '\n')
                 {

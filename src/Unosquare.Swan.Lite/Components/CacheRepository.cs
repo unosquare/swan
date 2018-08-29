@@ -15,16 +15,18 @@
         private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
 
         /// <summary>
-        /// Gets or sets the <see cref="T"/> with the specified type.
+        /// Gets or sets the <see cref="T" /> with the specified type.
         /// </summary>
         /// <value>
         /// The value of the cache.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns>The value of the cache.</returns>
+        /// <returns>
+        /// The value in the cache repository.
+        /// </returns>
         public T this[TType type]
         {
-            get => _cache.ContainsKey(type) ? _cache[type] : default;
+            get => Contains(type) ? _cache[type] : default;
             set
             {
                 if (value == null)

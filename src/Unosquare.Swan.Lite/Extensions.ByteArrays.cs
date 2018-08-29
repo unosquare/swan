@@ -99,9 +99,9 @@
         public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
-            value = (byte)(value & mask);
+            var valueAt = (byte)(value & mask);
 
-            return (byte)((value << offset) | (b & ~(mask << offset)));
+            return (byte)((valueAt << offset) | (b & ~(mask << offset)));
         }
 
         /// <summary>
@@ -138,25 +138,25 @@
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
-            offset = offset.Clamp(0, buffer.Length - 1);
+            var seqOffset = offset.Clamp(0, buffer.Length - 1);
 
             var result = new List<byte[]>();
 
-            while (offset < buffer.Length)
+            while (seqOffset < buffer.Length)
             {
-                var separatorStartIndex = buffer.GetIndexOf(sequence, offset);
+                var separatorStartIndex = buffer.GetIndexOf(sequence, seqOffset);
 
                 if (separatorStartIndex >= 0)
                 {
-                    var item = new byte[separatorStartIndex - offset + sequence.Length];
-                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    var item = new byte[separatorStartIndex - seqOffset + sequence.Length];
+                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
                     result.Add(item);
-                    offset += item.Length;
+                    seqOffset += item.Length;
                 }
                 else
                 {
-                    var item = new byte[buffer.Length - offset];
-                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    var item = new byte[buffer.Length - seqOffset];
+                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
                     result.Add(item);
                     break;
                 }
@@ -317,10 +317,10 @@
             if (sequence.Length > buffer.Length)
                 return -1;
 
-            if (offset < 0) offset = 0;
+            var seqOffset = offset < 0 ? 0 : offset;
 
             var matchedCount = 0;
-            for (var i = offset; i < buffer.Length; i++)
+            for (var i = seqOffset; i < buffer.Length; i++)
             {
                 if (buffer[i] == sequence[matchedCount])
                     matchedCount++;

@@ -1203,9 +1203,7 @@ namespace Unosquare.Swan.Components
 
                 try
                 {
-                    args[parameterIndex] = parameters.ContainsKey(currentParam.Name)
-                        ? parameters[currentParam.Name]
-                        : ResolveInternal(new TypeRegistration(currentParam.ParameterType), null, options);
+                    args[parameterIndex] = parameters.GetValueOrDefault(currentParam.Name, ResolveInternal(new TypeRegistration(currentParam.ParameterType), null, options));
                 }
                 catch (DependencyContainerResolutionException ex)
                 {
@@ -1222,8 +1220,7 @@ namespace Unosquare.Swan.Components
 
             try
             {
-                var constructionDelegate = CreateObjectConstructionDelegateWithCache(constructor);
-                return constructionDelegate.Invoke(args);
+                return CreateObjectConstructionDelegateWithCache(constructor).Invoke(args);
             }
             catch (Exception ex)
             {

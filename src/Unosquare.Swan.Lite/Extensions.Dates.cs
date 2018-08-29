@@ -179,7 +179,7 @@
                 GetElementParts(hour, nameof(hour), date.Hour),
                 GetElementParts(dayOfMonth, nameof(dayOfMonth), date.Day),
                 GetElementParts(month, nameof(month), date.Month),
-                GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) date.DayOfWeek)
+                GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) date.DayOfWeek),
             };
 
             return results.Any(x => x != false);
