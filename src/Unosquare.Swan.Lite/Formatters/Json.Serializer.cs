@@ -315,10 +315,7 @@
             {
                 if (_options.Format == false || depth <= 0) return;
 
-                if (IndentStrings.ContainsKey(depth) == false)
-                    IndentStrings[depth] = new string(' ', depth * 4);
-
-                _builder.Append(IndentStrings[depth]);
+                _builder.Append(IndentStrings.GetOrAdd(depth, x => new string(' ', x * 4)));
             }
 
             /// <summary>

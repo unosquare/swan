@@ -256,7 +256,7 @@ namespace Unosquare.Swan
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
-        public static void SetCursorPosition(in int left, in int top)
+        public static void SetCursorPosition(int left, int top)
         {
             if (IsConsolePresent == false) return;
 

@@ -118,8 +118,8 @@
             foreach (var networkInterface in interfaces)
             {
                 var properties = networkInterface.GetIPProperties();
-                if (properties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork) ==
-                    false)
+                
+                if (properties.GatewayAddresses.All(g => g.Address.AddressFamily != AddressFamily.InterNetwork))
                     continue;
 
                 addressList.AddRange(properties.UnicastAddresses
@@ -137,7 +137,7 @@
         /// Gets the public IP address using ipify.org.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A public ip address of the result produced by this Task.</returns>
+        /// <returns>A public IP address of the result produced by this Task.</returns>
         public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default)
         {
             using (var client = new HttpClient())
@@ -298,7 +298,7 @@
         /// <returns>
         /// Appropriate DNS server for the specified record type.
         /// </returns>
-        public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, in int port)
+        public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));

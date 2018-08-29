@@ -102,7 +102,7 @@ namespace Unosquare.Swan.Components
         /// <exception cref="System.InvalidOperationException">
         /// Exception that is thrown when a method call is invalid for the object's current state.
         /// </exception>
-        public void Read(int requestedBytes, byte[] target, in int targetOffset)
+        public void Read(int requestedBytes, byte[] target, int targetOffset)
         {
             lock (_syncLock)
             {
@@ -137,7 +137,7 @@ namespace Unosquare.Swan.Components
         /// <param name="length">The length.</param>
         /// <param name="writeTag">The write tag.</param>
         /// <exception cref="System.InvalidOperationException">Unable to write to circular buffer. Call the Read method to make some additional room.</exception>
-        public void Write(IntPtr source, in int length, TimeSpan writeTag)
+        public void Write(IntPtr source, int length, TimeSpan writeTag)
         {
             lock (_syncLock)
             {

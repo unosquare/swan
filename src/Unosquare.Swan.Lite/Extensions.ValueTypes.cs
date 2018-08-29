@@ -76,7 +76,7 @@
         /// A managed object containing the data pointed to by the ptr parameter.
         /// </returns>
         /// <exception cref="ArgumentNullException">data.</exception>
-        public static T ToStruct<T>(this byte[] data, in int offset, in int length) 
+        public static T ToStruct<T>(this byte[] data, int offset, int length) 
             where T : struct
         {
             if (data == null)

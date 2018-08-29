@@ -276,7 +276,7 @@
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string Slice(this string value, in int startIndex, in int endIndex)
+        public static string Slice(this string value, int startIndex, int endIndex)
         {
             if (value == null)
                 return string.Empty;
@@ -295,7 +295,7 @@
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string SliceLength(this string str, in int startIndex, in int length)
+        public static string SliceLength(this string str, int startIndex, int length)
         {
             if (str == null)
                 return string.Empty;
@@ -341,7 +341,7 @@
         /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public static string Indent(this string value, in int spaces = 4)
+        public static string Indent(this string value, int spaces = 4)
         {
             if (value == null) value = string.Empty;
             if (spaces <= 0) return value;
@@ -368,7 +368,7 @@
         /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
         /// <returns>A 2-tuple whose value is (item1, item2).</returns>
-        public static Tuple<int, int> TextPositionAt(this string value, in int charIndex)
+        public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
         {
             if (value == null)
                 return Tuple.Create(0, 0);
@@ -450,7 +450,7 @@
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, in int maximumLength) =>
+        public static string Truncate(this string value, int maximumLength) =>
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
@@ -463,7 +463,7 @@
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, in int maximumLength, string omission)
+        public static string Truncate(this string value, int maximumLength, string omission)
         {
             if (value == null)
                 return null;

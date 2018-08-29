@@ -253,7 +253,7 @@
             return packet;
         }
 
-        private static void SendPacket(IPEndPoint host, byte[] packet, in int snmplen)
+        private static void SendPacket(IPEndPoint host, byte[] packet, int snmplen)
         {
             var sock = new Socket(
                 AddressFamily.InterNetwork,

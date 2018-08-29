@@ -848,11 +848,7 @@ namespace Unosquare.Swan.Networking
                     moreAvailable));
             _receiveBufferPointer = 0;
         }
-
-        /// <summary>
-        /// This is the body of the thread when performing continuous reading.
-        /// </summary>
-        /// <param name="threadContext">The thread context.</param>
+        
         private void PerformContinuousReading(object threadContext)
         {
             _continuousReadingThread = Thread.CurrentThread;

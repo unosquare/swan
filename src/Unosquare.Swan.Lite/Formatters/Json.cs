@@ -302,15 +302,10 @@
         {
             if (type == null) return excludedNames;
 
-            if (!IgnoredPropertiesCache.ContainsKey(type))
-            {
-                IgnoredPropertiesCache[type] = type.GetProperties()
-                    .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true)
-                    .Select(x => x.Name)
-                    .ToArray();
-            }
-
-            var excludedByAttr = IgnoredPropertiesCache[type];
+            var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
+                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true)
+                .Select(x => x.Name)
+                .ToArray());
 
             if (excludedByAttr?.Any() == true)
             {

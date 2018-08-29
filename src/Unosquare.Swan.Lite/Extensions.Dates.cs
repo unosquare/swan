@@ -187,7 +187,7 @@
 
         private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : (bool?) null;
 
-        private static bool? GetElementParts(string parts, string type, in int value)
+        private static bool? GetElementParts(string parts, string type, int value)
         {
             if (string.IsNullOrWhiteSpace(parts) || parts == "*") return null;
             

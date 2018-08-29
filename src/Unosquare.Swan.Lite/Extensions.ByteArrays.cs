@@ -86,7 +86,7 @@
         /// <returns>
         /// Bit value at the given offset.
         /// </returns>
-        public static byte GetBitValueAt(this byte b, in byte offset, in byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
+        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
 
         /// <summary>
         /// Sets the bit value at the given offset.
@@ -96,7 +96,7 @@
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, in byte offset, in byte length, in byte value)
+        public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
             var valueAt = (byte)(value & mask);
@@ -111,7 +111,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, in byte offset, in byte value) => b.SetBitValueAt(offset, 1, value);
+        public static byte SetBitValueAt(this byte b, byte offset, byte value) => b.SetBitValueAt(offset, 1, value);
 
         /// <summary>
         /// Splits a byte array delimited by the specified sequence of bytes.
@@ -130,7 +130,7 @@
         /// or
         /// sequence.
         /// </exception>
-        public static List<byte[]> Split(this byte[] buffer, in int offset, params byte[] sequence)
+        public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -306,7 +306,7 @@
         /// or
         /// sequence.
         /// </exception>
-        public static int GetIndexOf(this byte[] buffer, byte[] sequence, in int offset = 0)
+        public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -620,7 +620,7 @@
         /// or
         /// target.
         /// </exception>
-        public static int ReadInput(this Stream sourceStream, ref sbyte[] target, in int start, in int count)
+        public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)
         {
             if (sourceStream == null)
                 throw new ArgumentNullException(nameof(sourceStream));
