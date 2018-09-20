@@ -37,7 +37,7 @@
         {
             Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
         }
-        
+
         /// <summary>
         /// The string regex used to find a match.
         /// </summary>
@@ -53,7 +53,7 @@
                 return false;
 
             if (!(value is string))
-                throw new InvalidOperationException("Property is not a string");
+                throw new ArgumentException("Property is not a string");
 
             return Regex.IsMatch(value.ToString(), Expression);
         }
@@ -76,7 +76,7 @@
             : base(EmailRegExp)
         {
         }
-        
+
         /// <summary>
         /// The error message.
         /// </summary>
@@ -115,7 +115,6 @@
 
             Maximum = max;
             Minimum = min;
-            OperandType = typeof(int);
         }
 
         /// <summary>
@@ -131,50 +130,25 @@
 
             Maximum = max;
             Minimum = min;
-            OperandType = typeof(double);
         }
-        
+
         /// <inheritdoc/>
         public string ErrorMessage => "Value is not within the specified range";
 
         /// <summary>
         /// Maximum value for the range.
         /// </summary>
-        public object Maximum { get; }
+        public IComparable Maximum { get; }
 
         /// <summary>
         /// Minimum value for the range.
         /// </summary>
-        public object Minimum { get; }
-
-        /// <summary>
-        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values.
-        /// </summary>
-        public Type OperandType { get; }
+        public IComparable Minimum { get; }
 
         /// <inheritdoc/>
         public bool IsValid<T>(T value)
-        {
-            if (Equals(value, null))
-                throw new ArgumentNullException(nameof(value));
-
-            var max = (IComparable)Maximum;
-            var min = (IComparable)Minimum;
-
-            try
-            {
-                var val = (IComparable)Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
-                return min.CompareTo(val) <= 0 && max.CompareTo(val) >= 0;
-            }
-            catch (Exception ex)            
-            {                
-                if (ex is FormatException || ex is InvalidCastException|| ex is NotSupportedException)
-                {
-                    return false;
-                }
-
-                throw;
-            }
-        }
+            => value is IComparable comparable
+            ? comparable.CompareTo(Minimum) >= 0 && comparable.CompareTo(Maximum) <= 0
+            : throw new ArgumentException(nameof(value));
     }
 }

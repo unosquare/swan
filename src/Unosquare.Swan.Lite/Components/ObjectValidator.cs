@@ -21,14 +21,14 @@
     ///     public static void Main()
     ///     {
     ///         // create an instance of ObjectValidator
-    ///         vtor obj = new ObjectValidator();
+    ///         var obj = new ObjectValidator();
     ///         
     ///         // Add a validation to the 'Simple' class with a custom error message
-    ///         vtor.AddValidator&lt;Simple&gt;(x => 
+    ///         obj.AddValidator&lt;Simple&gt;(x => 
     ///             !string.IsNullOrEmpty(x.Name), "Name must not be empty");
     ///         
     ///         // check if object is valid
-    ///         var res = vtor.IsValid(new Simple { Name = "Name" });
+    ///         var res = obj.IsValid(new Simple { Name = "Name" });
     ///     }
     ///     
     ///     class Simple

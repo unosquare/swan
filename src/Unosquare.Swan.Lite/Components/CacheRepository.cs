@@ -15,7 +15,7 @@
         private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
 
         /// <summary>
-        /// Gets or sets the <see cref="T" /> with the specified type.
+        /// Gets or sets the value with the specified type.
         /// </summary>
         /// <value>
         /// The value of the cache.
