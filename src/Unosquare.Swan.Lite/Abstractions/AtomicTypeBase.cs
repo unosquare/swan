@@ -227,7 +227,7 @@
         public bool Equals(T other) => Equals(Value, other);
 
         /// <summary>
-        /// Converts froma long value to the target type.
+        /// Converts from a long value to the target type.
         /// </summary>
         /// <param name="backingValue">The backing value.</param>
         /// <returns>The value converted form a long value.</returns>

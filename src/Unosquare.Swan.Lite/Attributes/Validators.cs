@@ -30,12 +30,15 @@
     public class MatchAttribute : Attribute, IValidator
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MatchAttribute"/> class.
+        /// Initializes a new instance of the <see cref="MatchAttribute" /> class.
         /// </summary>
-        /// <param name="rgx"> A regex string.</param>
-        public MatchAttribute(string rgx)
+        /// <param name="rgx">A regex string.</param>
+        /// <param name="errorMessage">The error message.</param>
+        /// <exception cref="ArgumentNullException">Expression</exception>
+        public MatchAttribute(string rgx, string errorMessage = null)
         {
             Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
+            ErrorMessage = errorMessage ?? "String does not match the specified regular expression";
         }
 
         /// <summary>
@@ -44,7 +47,7 @@
         public string Expression { get; }
 
         /// <inheritdoc/>
-        public string ErrorMessage => "String does not match the specified regular expression";
+        public string ErrorMessage { get; internal set; }
 
         /// <inheritdoc/>
         public bool IsValid<T>(T value)
@@ -70,17 +73,13 @@
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
+        /// Initializes a new instance of the <see cref="EmailAttribute" /> class.
         /// </summary>
-        public EmailAttribute()
-            : base(EmailRegExp)
+        /// <param name="errorMessage">The error message.</param>
+        public EmailAttribute(string errorMessage = null)
+            : base(EmailRegExp, errorMessage ?? "String is not an email")
         {
         }
-
-        /// <summary>
-        /// The error message.
-        /// </summary>
-        public new string ErrorMessage => "String is not an email";
     }
 
     /// <summary>

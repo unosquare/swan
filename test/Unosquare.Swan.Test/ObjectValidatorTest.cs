@@ -48,7 +48,7 @@
         public void IsValidObject_ReturnsTrue()
         {
             var obj = new ObjectValidator();
-            Assert.IsTrue(obj.IsValid(new RangeMock {Age = 3, Kilograms = 0}));
+            Assert.IsTrue(obj.IsValid(new RangeMock {Age = 3, Kilograms = 1}));
         }
     }
 
@@ -125,6 +125,7 @@
         {
             var res = Runtime.ObjectValidator.Validate(new RegexMock { Salute = null });
             Assert.IsFalse(res.IsValid);
+            Assert.AreEqual(res.Errors.First().ErrorMessage, "String does not match the specified regular expression");
         }
 
         [Test]

@@ -106,9 +106,11 @@
         [TestCase("sample.csproj")]
         public void WithTempFileAndValidClass_ReturnsFileAndMetadata(string projectFilename)
         {
+            var tempFile = Path.Combine(Path.GetTempPath(),
+                $"{DateTime.Now.Second}_{DateTime.Now.Millisecond}_{projectFilename}");
             var currentDirectory = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Path.GetTempPath());
-            File.WriteAllText(Path.Combine(Path.GetTempPath(), $"{DateTime.Now.Second}_{DateTime.Now.Millisecond}_{projectFilename}"), Data);
+            File.WriteAllText(tempFile, Data);
 
             using (var csproj = new CsProjFile<CsMetadataMock>())
             {
@@ -118,6 +120,7 @@
             }
 
             Directory.SetCurrentDirectory(currentDirectory);
+            File.Delete(tempFile);
         }
     }
 }
