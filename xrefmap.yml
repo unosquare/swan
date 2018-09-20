@@ -9617,19 +9617,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Read
   nameWithType: LdapConnection.Read
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls
-  name: ResponseControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls
-  nameWithType: LdapConnection.ResponseControls
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls*
-  name: ResponseControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls
-  nameWithType: LdapConnection.ResponseControls
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,Unosquare.Swan.Networking.Ldap.LdapScope,System.String,System.String[],System.Boolean,System.Threading.CancellationToken)
   name: Search(String, LdapScope, String, String[], Boolean, CancellationToken)
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_Unosquare_Swan_Networking_Ldap_LdapScope_System_String_System_String___System_Boolean_System_Threading_CancellationToken_
@@ -9668,19 +9655,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Ldap.LdapControl.LdapControl
   nameWithType: LdapControl.LdapControl
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.Clone
-  name: Clone()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Clone
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapControl.Clone
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.Clone()
-  nameWithType: LdapControl.Clone()
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.Clone*
-  name: Clone
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Clone_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.Clone
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.Clone
-  nameWithType: LdapControl.Clone
 - uid: Unosquare.Swan.Networking.Ldap.LdapControl.Critical
   name: Critical
   href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Critical
@@ -9803,19 +9777,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapMessage
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage
   nameWithType: LdapMessage
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
-  name: Controls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
-  nameWithType: LdapMessage.Controls
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls*
-  name: Controls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
-  nameWithType: LdapMessage.Controls
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
   name: MessageId
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId

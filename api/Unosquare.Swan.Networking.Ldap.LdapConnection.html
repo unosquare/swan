@@ -319,41 +319,6 @@ at this time.</p>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls">ResponseControls</h4>
-  <div class="markdown level1 summary"><p>Returns the Server Controls associated with the most recent response
-to a synchronous request on this connection object, or null
-if the latest response contained no Server Controls. The method
-always returns null for asynchronous requests. For asynchronous
-requests, the response controls are available in LdapMessage.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapControl[] ResponseControls { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
-        <td><p>The response controls.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls_seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">Controls</a></div>
-  </div>
   <h3 id="methods">Methods
   </h3>
   
@@ -370,7 +335,7 @@ has already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, string passwd)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, string password)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -400,7 +365,7 @@ name.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">passwd</span></td>
+        <td><span class="parametername">password</span></td>
         <td><p>If non-null and non-empty, specifies that the
 connection and all operations through it should
 be authenticated with dn as the distinguished
@@ -444,7 +409,7 @@ has already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Bind(string dn, string passwd)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Bind(string dn, string password)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -467,11 +432,11 @@ name.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">passwd</span></td>
+        <td><span class="parametername">password</span></td>
         <td><p>If non-null and non-empty, specifies that the
 connection and all operations through it should
 be authenticated with dn as the distinguished
-name and passwd as password.
+name and password.
 Note: the application should use care in the use
 of String password objects.  These are long lived
 objects, and may expose a security risk, especially
