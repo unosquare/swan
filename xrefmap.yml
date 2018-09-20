@@ -1736,12 +1736,12 @@ references:
   commentId: T:Unosquare.Swan.Attributes.EmailAttribute
   fullName: Unosquare.Swan.Attributes.EmailAttribute
   nameWithType: EmailAttribute
-- uid: Unosquare.Swan.Attributes.EmailAttribute.#ctor
-  name: EmailAttribute()
-  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute__ctor
-  commentId: M:Unosquare.Swan.Attributes.EmailAttribute.#ctor
-  fullName: Unosquare.Swan.Attributes.EmailAttribute.EmailAttribute()
-  nameWithType: EmailAttribute.EmailAttribute()
+- uid: Unosquare.Swan.Attributes.EmailAttribute.#ctor(System.String)
+  name: EmailAttribute(String)
+  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute__ctor_System_String_
+  commentId: M:Unosquare.Swan.Attributes.EmailAttribute.#ctor(System.String)
+  fullName: Unosquare.Swan.Attributes.EmailAttribute.EmailAttribute(System.String)
+  nameWithType: EmailAttribute.EmailAttribute(String)
 - uid: Unosquare.Swan.Attributes.EmailAttribute.#ctor*
   name: EmailAttribute
   href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute__ctor_
@@ -1749,19 +1749,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.EmailAttribute.EmailAttribute
   nameWithType: EmailAttribute.EmailAttribute
-- uid: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
-  name: ErrorMessage
-  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage
-  commentId: P:Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
-  fullName: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
-  nameWithType: EmailAttribute.ErrorMessage
-- uid: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage*
-  name: ErrorMessage
-  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage_
-  commentId: Overload:Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
-  nameWithType: EmailAttribute.ErrorMessage
 - uid: Unosquare.Swan.Attributes.IValidator
   name: IValidator
   href: api/Unosquare.Swan.Attributes.IValidator.html
@@ -1848,12 +1835,12 @@ references:
   commentId: T:Unosquare.Swan.Attributes.MatchAttribute
   fullName: Unosquare.Swan.Attributes.MatchAttribute
   nameWithType: MatchAttribute
-- uid: Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String)
-  name: MatchAttribute(String)
-  href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute__ctor_System_String_
-  commentId: M:Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String)
-  fullName: Unosquare.Swan.Attributes.MatchAttribute.MatchAttribute(System.String)
-  nameWithType: MatchAttribute.MatchAttribute(String)
+- uid: Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String,System.String)
+  name: MatchAttribute(String, String)
+  href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute__ctor_System_String_System_String_
+  commentId: M:Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String,System.String)
+  fullName: Unosquare.Swan.Attributes.MatchAttribute.MatchAttribute(System.String, System.String)
+  nameWithType: MatchAttribute.MatchAttribute(String, String)
 - uid: Unosquare.Swan.Attributes.MatchAttribute.#ctor*
   name: MatchAttribute
   href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute__ctor_

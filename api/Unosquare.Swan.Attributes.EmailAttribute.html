@@ -103,6 +103,9 @@
       <a class="xref" href="Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_Expression">MatchAttribute.Expression</a>
     </div>
     <div>
+      <a class="xref" href="Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_ErrorMessage">MatchAttribute.ErrorMessage</a>
+    </div>
+    <div>
       <a class="xref" href="Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_IsValid__1___0_">MatchAttribute.IsValid&lt;T&gt;(T)</a>
     </div>
     <div>
@@ -255,39 +258,29 @@ public class EmailAttribute : MatchAttribute, _Attribute, IValidator</code></pre
   
   
   <a id="Unosquare_Swan_Attributes_EmailAttribute__ctor_" data-uid="Unosquare.Swan.Attributes.EmailAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Attributes_EmailAttribute__ctor" data-uid="Unosquare.Swan.Attributes.EmailAttribute.#ctor">EmailAttribute()</h4>
+  <h4 id="Unosquare_Swan_Attributes_EmailAttribute__ctor_System_String_" data-uid="Unosquare.Swan.Attributes.EmailAttribute.#ctor(System.String)">EmailAttribute(String)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Attributes.EmailAttribute.html">EmailAttribute</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EmailAttribute()</code></pre>
+    <pre><code class="lang-csharp hljs">public EmailAttribute(string errorMessage = null)</code></pre>
   </div>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage_" data-uid="Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage*"></a>
-  <h4 id="Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage" data-uid="Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage">ErrorMessage</h4>
-  <div class="markdown level1 summary"><p>The error message.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string ErrorMessage { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
+        <td><span class="parametername">errorMessage</span></td>
+        <td><p>The error message.</p>
+</td>
       </tr>
     </tbody>
   </table>

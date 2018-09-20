@@ -249,13 +249,13 @@ public class MatchAttribute : Attribute, _Attribute, IValidator</code></pre>
   
   
   <a id="Unosquare_Swan_Attributes_MatchAttribute__ctor_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Attributes_MatchAttribute__ctor_System_String_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String)">MatchAttribute(String)</h4>
+  <h4 id="Unosquare_Swan_Attributes_MatchAttribute__ctor_System_String_System_String_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String,System.String)">MatchAttribute(String, String)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Attributes.MatchAttribute.html">MatchAttribute</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MatchAttribute(string rgx)</code></pre>
+    <pre><code class="lang-csharp hljs">public MatchAttribute(string rgx, string errorMessage = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -271,6 +271,28 @@ public class MatchAttribute : Attribute, _Attribute, IValidator</code></pre>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">rgx</span></td>
         <td><p>A regex string.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">errorMessage</span></td>
+        <td><p>The error message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Expression</p>
 </td>
       </tr>
     </tbody>
