@@ -128,14 +128,14 @@ class Example
     public static void Main()
     {
         // create an instance of ObjectValidator
-        vtor obj = new ObjectValidator();
+        var obj = new ObjectValidator();
 
         // Add a validation to the &apos;Simple&apos; class with a custom error message
-        vtor.AddValidator&lt;Simple>(x => 
+        obj.AddValidator&lt;Simple>(x => 
             !string.IsNullOrEmpty(x.Name), &quot;Name must not be empty&quot;);
 
         // check if object is valid
-        var res = vtor.IsValid(new Simple { Name = &quot;Name&quot; });
+        var res = obj.IsValid(new Simple { Name = &quot;Name&quot; });
     }
 
     class Simple

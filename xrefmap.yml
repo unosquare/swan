@@ -2102,19 +2102,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.RangeAttribute.Minimum
   nameWithType: RangeAttribute.Minimum
-- uid: Unosquare.Swan.Attributes.RangeAttribute.OperandType
-  name: OperandType
-  href: api/Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_OperandType
-  commentId: P:Unosquare.Swan.Attributes.RangeAttribute.OperandType
-  fullName: Unosquare.Swan.Attributes.RangeAttribute.OperandType
-  nameWithType: RangeAttribute.OperandType
-- uid: Unosquare.Swan.Attributes.RangeAttribute.OperandType*
-  name: OperandType
-  href: api/Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_OperandType_
-  commentId: Overload:Unosquare.Swan.Attributes.RangeAttribute.OperandType
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.RangeAttribute.OperandType
-  nameWithType: RangeAttribute.OperandType
 - uid: Unosquare.Swan.Attributes.StructEndiannessAttribute
   name: StructEndiannessAttribute
   href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html
