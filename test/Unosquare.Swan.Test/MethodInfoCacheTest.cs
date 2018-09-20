@@ -22,6 +22,14 @@
 
             Assert.NotNull(methodInfo);
         }
+        
+        [Test]
+        public void MultiMethodWithGenericTypeAndParamType_ReturnsMethodInfo()
+        {
+            var methodInfo = Runtime.MethodInfoCache.Retrieve<MethodCacheMock>(nameof(MethodCacheMock.MultiMethod), typeof(int));
+
+            Assert.NotNull(methodInfo);
+        }
 
         [Test]
         public void AmbiguousMethodWithTypeNoParamType_ThrowsAmbiguousMatchException()
@@ -38,6 +46,15 @@
 
             Assert.AreEqual(methodInfoIntParam, methodInfoDecimalParam);
         }
+        
+        [Test]
+        public void MultiMethodWithAliasWithTypeAndWithDifferentParamType_ReturnDifferentMethodInfo()
+        {
+            var methodInfoIntParam = Runtime.MethodInfoCache.Retrieve<MethodCacheMock>(nameof(MethodCacheMock.MultiMethod), "multiintgeneric", typeof(int));
+            var methodInfoDecimalParam = Runtime.MethodInfoCache.Retrieve<MethodCacheMock>(nameof(MethodCacheMock.MultiMethod), "multidecimalgeneric", typeof(decimal));
+
+            Assert.AreNotEqual(methodInfoIntParam, methodInfoDecimalParam);
+        }
 
         [Test]
         public void MultiMethodWithAliasWithGenericTypeAndWithDifferentParamType_ReturnDifferentMethodInfo()
@@ -51,7 +68,6 @@
         [Test]
         public void ContainsWithNullType_ThrowsError()
         {
-            // TODO: Move this and test blwo to another implementation CacheRepository
             Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Contains(null));
         }
         

@@ -43,6 +43,13 @@
             Assert.AreEqual(res.Errors.First().PropertyName, nameof(RangeMock.Kilograms));
             Assert.AreEqual(res.Errors.First().ErrorMessage, "Value is not within the specified range");
         }
+
+        [Test]
+        public void IsValidObject_ReturnsTrue()
+        {
+            var obj = new ObjectValidator();
+            Assert.IsTrue(obj.IsValid(new RangeMock {Age = 3, Kilograms = 0}));
+        }
     }
 
     [TestFixture]
@@ -144,6 +151,7 @@
         {
             var res = Runtime.ObjectValidator.Validate(new EmailMock { To = null });
             Assert.IsFalse(res.IsValid);
+            Assert.AreEqual(res.Errors.First().ErrorMessage, "String is not an email");
         }
     }
 }
