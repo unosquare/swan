@@ -13,7 +13,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// on an LdapConnection or with a specific operation request, it is
     /// sent to the server along with operation requests.
     /// </summary>
-    /// <seealso cref="LdapConnection.ResponseControls"></seealso>
     public class LdapControl
     {
         /// <summary>
@@ -57,7 +56,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal static RespControlVector RegisteredControls { get; } = new RespControlVector(5);
 
-        internal RfcControl Asn1Object { get; private set; }
+        internal RfcControl Asn1Object { get; }
 
         /// <summary>
         /// Registers a class to be instantiated on receipt of a control with the
@@ -69,35 +68,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
         public static void Register(string oid, Type controlClass)
             => RegisteredControls.RegisterResponseControl(oid, controlClass);
-
-        /// <summary>
-        /// Returns a copy of the current LdapControl object.
-        /// </summary>
-        /// <returns>
-        /// A copy of the current LdapControl object.
-        /// </returns>
-        public object Clone()
-        {
-            var cont = (LdapControl) MemberwiseClone();
-            var vals = GetValue();
-
-            if (vals == null) return cont;
-
-            // is this necessary?
-            // Yes even though the contructor above allocates a
-            // new Asn1OctetString, vals in that constuctor
-            // is only copied by reference
-            var twin = new sbyte[vals.Length];
-            for (var i = 0; i < vals.Length; i++)
-            {
-                twin[i] = vals[i];
-            }
-
-            cont.Asn1Object = new RfcControl(Id, new Asn1Boolean(Critical), new Asn1OctetString(twin));
-
-            return cont;
-        }
-
+        
         /// <summary>
         ///     Returns the control-specific data of the object.
         /// </summary>
@@ -714,32 +685,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(new RegisteredControl(this, oid, controlClass));
             }
         }
-
-        public Type FindResponseControl(string searchOid)
-        {
-            lock (this)
-            {
-                // loop through the contents of the vector
-                for (var i = 0; i < Count; i++)
-                {
-                    // Get next registered control
-                    RegisteredControl ctl;
-                    if ((ctl = ToArray()[i]) == null)
-                    {
-                        throw new FieldAccessException();
-                    }
-
-                    // Does the stored OID match with whate we are looking for
-                    if (string.Compare(ctl.MyOid, searchOid, StringComparison.Ordinal) == 0)
-                    {
-                        return ctl.MyClass;
-                    }
-                }
-
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// Inner class defined to create a temporary object to encapsulate
         /// all registration information about a response control.

@@ -130,9 +130,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
         public Asn1Object Response => Get(1);
-
-        public RfcControls Controls => Size() > 2 ? (RfcControls) Get(2) : null;
-
+        
         public string RequestDn => ((IRfcRequest) _op).GetRequestDN();
 
         public LdapMessage RequestingMessage { get; set; }
@@ -151,7 +149,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcControls : Asn1SequenceOf
     {
-        public const int CONTROLS = 0;
+        public const int Controls = 0;
 
         public RfcControls()
             : base(5)
@@ -173,7 +171,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public void Set(int index, RfcControl control) => base.Set(index, control);
 
-        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(CONTROLS, true);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(Controls, true);
     }
 
     /// <summary>
@@ -283,7 +281,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
     internal class RfcLdapResult : Asn1Sequence, IRfcResponse
     {
-        public const int REFERRAL = 3;
+        public const int Referral = 3;
 
         public RfcLdapResult(Stream stream, int len)
             : base(stream, len)
@@ -294,11 +292,10 @@ namespace Unosquare.Swan.Networking.Ldap
             var obj = (Asn1Tagged) Get(3);
             var id = obj.GetIdentifier();
 
-            if (id.Tag != REFERRAL) return;
+            if (id.Tag != Referral) return;
 
             var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-            var bais = new MemoryStream(content.ToByteArray());
-            Set(3, new Asn1SequenceOf(bais, content.Length));
+            Set(3, new Asn1SequenceOf(new MemoryStream(content.ToByteArray()), content.Length));
         }
 
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
@@ -366,7 +363,7 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcMessageID : Asn1Integer
     {
         private static int _messageId;
-        private static readonly object LockObj = new object();
+        private static readonly object SyncRoot = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcMessageID"/> class.
@@ -384,7 +381,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                lock (LockObj)
+                lock (SyncRoot)
                 {
                     return _messageId < int.MaxValue ? ++_messageId : (_messageId = 1);
                 }

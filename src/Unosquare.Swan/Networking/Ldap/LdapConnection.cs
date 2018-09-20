@@ -99,9 +99,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private const int LdapV3 = 3;
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
-        private readonly object _responseCtlSemaphore = new object();
-
-        private LdapControl[] _responseCtls;
+        
         private Connection _conn;
         private bool _isDisposing;
 
@@ -146,51 +144,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     True if connection is open; false if the connection is closed.
         /// </returns>
         public bool Connected => _conn?.IsConnected == true;
-
-        /// <summary>
-        /// Returns the Server Controls associated with the most recent response
-        /// to a synchronous request on this connection object, or null
-        /// if the latest response contained no Server Controls. The method
-        /// always returns null for asynchronous requests. For asynchronous
-        /// requests, the response controls are available in LdapMessage.
-        /// </summary>
-        /// <value>
-        /// The response controls.
-        /// </value>
-        /// <seealso cref="LdapMessage.Controls"></seealso>
-        public LdapControl[] ResponseControls
-        {
-            get
-            {
-                if (_responseCtls == null)
-                {
-                    return null;
-                }
-
-                // We have to clone the control just in case
-                // we have two client threads that end up retreiving the
-                // same control.
-                var clonedControl = new LdapControl[_responseCtls.Length];
-
-                // Also note we synchronize access to the local response
-                // control object just in case another message containing controls
-                // comes in from the server while we are busy duplicating
-                // this one.
-                lock (_responseCtlSemaphore)
-                {
-                    for (var i = 0; i < _responseCtls.Length; i++)
-                    {
-                        clonedControl[i] = (LdapControl)_responseCtls[i].Clone();
-                    }
-                }
-
-                // Return the cloned copy.  Note we have still left the
-                // control in the local responseCtls variable just in case
-                // somebody requests it again.
-                return clonedControl;
-            }
-        }
-
+        
         internal BindProperties BindProperties { get; set; }
         
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
@@ -217,10 +171,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name.</param>
-        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// <param name="password">If non-null and non-empty, specifies that the
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
-        /// name and passwd as password.
+        /// name and password.
         /// Note: the application should use care in the use
         /// of String password objects.  These are long lived
         /// objects, and may expose a security risk, especially
@@ -229,7 +183,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
-        public Task Bind(string dn, string passwd) => Bind(LdapV3, dn, passwd);
+        public Task Bind(string dn, string password) => Bind(LdapV3, dn, password);
 
         /// <summary>
         /// Synchronously authenticates to the Ldap server (that the object is
@@ -245,7 +199,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name.</param>
-        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// <param name="password">If non-null and non-empty, specifies that the
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.
@@ -255,22 +209,22 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in objects that are serialized.  The LdapConnection
         /// keeps no long lived instances of these objects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task Bind(int version, string dn, string passwd)
+        public Task Bind(int version, string dn, string password)
         {
             dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
-            var passwdData = string.IsNullOrWhiteSpace(passwd) ? new sbyte[] { } : Encoding.UTF8.GetSBytes(passwd);
+            var passwordData = string.IsNullOrWhiteSpace(password) ? new sbyte[] { } : Encoding.UTF8.GetSBytes(password);
 
             var anonymous = false;
 
-            if (passwdData.Length == 0)
+            if (passwordData.Length == 0)
             {
-                anonymous = true; // anonymous, passwd length zero with simple bind
+                anonymous = true; // anonymous, password length zero with simple bind
                 dn = string.Empty; // set to null if anonymous
             }
             
             BindProperties = new BindProperties(version, dn, "simple", anonymous);
 
-            return RequestLdapMessage(new LdapBindRequest(version, dn, passwdData));
+            return RequestLdapMessage(new LdapBindRequest(version, dn, passwordData));
         }
         
         /// <summary>

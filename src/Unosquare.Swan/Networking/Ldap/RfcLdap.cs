@@ -113,7 +113,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 switch (id.Tag)
                 {
-                    case RfcLdapResult.REFERRAL:
+                    case RfcLdapResult.Referral:
                         var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
 
                         using (var bais = new MemoryStream(content.ToByteArray()))
@@ -178,7 +178,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var obj = (Asn1Tagged) Get(3);
 
-            if (obj.GetIdentifier().Tag != RfcLdapResult.REFERRAL) return;
+            if (obj.GetIdentifier().Tag != RfcLdapResult.Referral) return;
 
             var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
 

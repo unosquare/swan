@@ -119,17 +119,7 @@
             Assert.AreEqual("simple", Connection.AuthenticationMethod, "The default Authentication Method is simple");
         }
     }
-
-    [TestFixture]
-    public class Controls : LdapTest
-    {
-        [Test]
-        public void Controls_Null()
-        {
-            Assert.IsNull(Connection.ResponseControls);
-        }
-    }
-
+    
     [TestFixture]
     public class Modify : LdapTest
     {
