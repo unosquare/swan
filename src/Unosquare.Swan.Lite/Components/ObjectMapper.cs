@@ -222,7 +222,7 @@
             }
             else
             {
-                if (autoResolve == false)
+                if (!autoResolve)
                 {
                     throw new InvalidOperationException(
                         $"You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}");

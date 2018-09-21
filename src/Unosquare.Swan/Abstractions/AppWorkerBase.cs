@@ -218,7 +218,7 @@
                     ex.Log(GetType().Name);
                     OnWorkerThreadLoopException(ex);
 
-                    if (_tokenSource.IsCancellationRequested == false)
+                    if (!_tokenSource.IsCancellationRequested)
                         _tokenSource.Cancel();
                 }
             }, _tokenSource.Token);

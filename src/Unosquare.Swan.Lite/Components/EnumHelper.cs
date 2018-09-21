@@ -15,7 +15,7 @@
         /// Gets all the names and enumerators from a specific Enum type.
         /// </summary>
         /// <typeparam name="T">The type of the attribute to be retrieved.</typeparam>
-        /// <returns>A tuple of enumarator names and their value stored for the specified type.</returns>
+        /// <returns>A tuple of enumerator names and their value stored for the specified type.</returns>
         public static Tuple<string, object>[] Retrieve<T>()
             where T : struct, IConvertible
         {
