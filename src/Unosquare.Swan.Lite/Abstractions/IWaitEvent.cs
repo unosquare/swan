@@ -48,10 +48,10 @@
 
         /// <summary>
         /// Waits for the event to be completed.
-        /// Returns <c>true</c> when there was no timeout. False if the tiemout was reached.
+        /// Returns <c>true</c> when there was no timeout. False if the timeout was reached.
         /// </summary>
         /// <param name="timeout">The maximum amount of time to wait for.</param>
-        /// <returns><c>true</c> when there was no timeout. <c>false</c> if the tiemout was reached.</returns>
+        /// <returns><c>true</c> when there was no timeout. <c>false</c> if the timeout was reached.</returns>
         bool Wait(TimeSpan timeout);
     }
 }

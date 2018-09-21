@@ -75,19 +75,6 @@
         public string ShortName { get; }
 
         /// <summary>
-        /// Gets or sets the option's mutually exclusive set name.
-        /// </summary>
-        /// <value>
-        /// The name of the set.
-        /// </value>
-        /// <exception cref="ArgumentNullException">value.</exception>
-        public string SetName
-        {
-            get => _setName;
-            set => _setName = value ?? throw new ArgumentNullException(nameof(value));
-        }
-
-        /// <summary>
         /// When applying attribute to <see cref="System.Collections.Generic.IEnumerable{T}"/> target properties,
         /// it allows you to split an argument and consume its content as a sequence.
         /// </summary>

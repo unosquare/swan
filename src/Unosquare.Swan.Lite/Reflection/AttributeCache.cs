@@ -72,13 +72,13 @@
         public T RetrieveOne<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
         {
-            var attrib = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
+            var attr = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
 
-            if (attrib == null || attrib.Length == 0)
+            if (attr == null || attr.Length == 0)
                 return default;
 
-            if (attrib.Length == 1)
-                return (T) Convert.ChangeType(attrib[0], typeof(T));
+            if (attr.Length == 1)
+                return (T) Convert.ChangeType(attr[0], typeof(T));
 
             throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }

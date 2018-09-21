@@ -4,7 +4,7 @@
     using Abstractions;
 
     /// <summary>
-    /// Represents an atomically readabl;e or writable integer.
+    /// Represents an atomically readable or writable integer.
     /// </summary>
     public class AtomicInteger : AtomicTypeBase<int>
     {

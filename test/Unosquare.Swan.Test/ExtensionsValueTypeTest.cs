@@ -7,10 +7,17 @@
     public class Clamp
     {
         [Test]
-        public void WithValidParams_ClampsValue()
+        public void WithValidInt_ClampsValue()
         {
             Assert.AreEqual(3, 3.Clamp(1, 3));
             Assert.AreEqual(-1, -1.Clamp(1, 5));
+        }
+
+        [Test]
+        public void WithValidDecimal_ClampsValue()
+        {
+            Assert.AreEqual(3m, 3m.Clamp(1m, 3m));
+            Assert.AreEqual(-1m, -1m.Clamp(1m, 5m));
         }
     }
 

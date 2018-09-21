@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan.Attributes
 {
     using System;
-    using System.Globalization;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -34,7 +33,7 @@
         /// </summary>
         /// <param name="rgx">A regex string.</param>
         /// <param name="errorMessage">The error message.</param>
-        /// <exception cref="ArgumentNullException">Expression</exception>
+        /// <exception cref="ArgumentNullException">Expression.</exception>
         public MatchAttribute(string rgx, string errorMessage = null)
         {
             Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));

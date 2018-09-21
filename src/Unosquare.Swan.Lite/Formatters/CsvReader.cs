@@ -36,8 +36,8 @@
     ///         
     ///         // loadedRecords = 
     ///         //  [
-    ///         //      { Age = 20, Name = "Artyom" }
-    ///         //      { Age = 18, Name = "Aloy" }
+    ///         //      { Age = 20, Name = "George" }
+    ///         //      { Age = 18, Name = "Juan" }
     ///         //  ]
     ///     }
     /// }

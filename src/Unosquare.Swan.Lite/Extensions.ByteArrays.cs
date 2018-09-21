@@ -120,7 +120,7 @@
         /// second one containing 4. Use the Trim extension methods to remove terminator sequences.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <param name="offset">The offset at which to start splitting bytes. Any bytes befor this will be discarded.</param>
+        /// <param name="offset">The offset at which to start splitting bytes. Any bytes before this will be discarded.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
         /// A byte array containing the results the specified sequence of bytes.

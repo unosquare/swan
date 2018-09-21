@@ -31,8 +31,8 @@
     ///         // create a list of people 
     ///         var people = new List&lt;Person&gt;
     ///         {
-    ///             new Person { Name = "Artyom", Age = 20 },
-    ///             new Person { Name = "Aloy", Age = 18 }
+    ///             new Person { Name = "George", Age = 20 },
+    ///             new Person { Name = "Juan", Age = 18 }
     ///         }
     ///         
     ///         // write items inside file.csv
@@ -40,8 +40,8 @@
     ///         
     ///         // output
     ///         // | Name   | Age |
-    ///         // | Artyom | 20  |
-    ///         // | Aloy   | 18  |
+    ///         // | George | 20  |
+    ///         // | Juan   | 18  |
     ///     }
     /// }
     /// </code>
