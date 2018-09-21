@@ -83,7 +83,7 @@
   <h1 id="Unosquare_Swan_Components_DependencyContainer" data-uid="Unosquare.Swan.Components.DependencyContainer" class="text-break">Class DependencyContainer
   </h1>
   <div class="markdown level0 summary"><p>The concrete implementation of a simple IoC container
-based largely on TinyIoC.</p>
+based largely on TinyIoC (<a href="https://github.com/grumpydev/TinyIoC">https://github.com/grumpydev/TinyIoC</a>).</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -469,7 +469,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, object&gt; factory, string name = &quot;&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, object&gt; factory, string name = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -496,7 +496,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
-        <td><p>Name of registation.</p>
+        <td><p>Name of registration.</p>
 </td>
       </tr>
     </tbody>
@@ -511,7 +511,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -526,7 +526,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, object instance, string name = &quot;&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, object instance, string name = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -568,7 +568,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -583,7 +583,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, string name = &quot;&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, string name = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -619,7 +619,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -634,7 +634,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, object instance, string name = &quot;&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Type registerImplementation, object instance, string name = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -682,7 +682,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -697,7 +697,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, string name = &quot;&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Type registerImplementation, string name = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -739,7 +739,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -754,7 +754,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(TRegister instance, string name = &quot;&quot;)
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(TRegister instance, string name = &quot;&quot;)
     where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -791,7 +791,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -822,7 +822,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, TRegister&gt; factory, string name = &quot;&quot;)
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, TRegister&gt; factory, string name = &quot;&quot;)
     where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -844,7 +844,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
-        <td><p>Name of registation.</p>
+        <td><p>Name of registration.</p>
 </td>
       </tr>
     </tbody>
@@ -859,7 +859,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -890,7 +890,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(string name = &quot;&quot;)
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(string name = &quot;&quot;)
     where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -921,7 +921,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -952,7 +952,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation instance, string name = &quot;&quot;)
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation instance, string name = &quot;&quot;)
     where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -989,7 +989,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -1025,7 +1025,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(string name = &quot;&quot;)
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(string name = &quot;&quot;)
     where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1056,7 +1056,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
         <td><p>RegisterOptions for fluent API.</p>
 </td>
       </tr>
@@ -1093,7 +1093,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1129,7 +1129,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html">DependencyContainer.MultiRegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
         <td><p>MultiRegisterOptions for the fluent API.</p>
 </td>
       </tr>
@@ -1145,7 +1145,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.MultiRegisterOptions RegisterMultiple&lt;TRegister&gt;(IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions RegisterMultiple&lt;TRegister&gt;(IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1175,7 +1175,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html">DependencyContainer.MultiRegisterOptions</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
         <td><p>MultiRegisterOptions for the fluent API.</p>
 </td>
       </tr>
@@ -2649,8 +2649,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
   </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
-      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
       <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
   </div>
 

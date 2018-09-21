@@ -3472,54 +3472,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.DependencyContainer.GetChildContainer
   nameWithType: DependencyContainer.GetChildContainer
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions
-  name: DependencyContainer.MultiRegisterOptions
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html
-  commentId: T:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions
-  nameWithType: DependencyContainer.MultiRegisterOptions
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.#ctor(System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.DependencyContainer.RegisterOptions})
-  name: MultiRegisterOptions(IEnumerable<DependencyContainer.RegisterOptions>)
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions__ctor_System_Collections_Generic_IEnumerable_Unosquare_Swan_Components_DependencyContainer_RegisterOptions__
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.#ctor(System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.DependencyContainer.RegisterOptions})
-  name.vb: MultiRegisterOptions(IEnumerable(Of DependencyContainer.RegisterOptions))
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.MultiRegisterOptions(System.Collections.Generic.IEnumerable<Unosquare.Swan.Components.DependencyContainer.RegisterOptions>)
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.MultiRegisterOptions(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Components.DependencyContainer.RegisterOptions))
-  nameWithType: DependencyContainer.MultiRegisterOptions.MultiRegisterOptions(IEnumerable<DependencyContainer.RegisterOptions>)
-  nameWithType.vb: DependencyContainer.MultiRegisterOptions.MultiRegisterOptions(IEnumerable(Of DependencyContainer.RegisterOptions))
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.#ctor*
-  name: MultiRegisterOptions
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions__ctor_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.#ctor
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.MultiRegisterOptions
-  nameWithType: DependencyContainer.MultiRegisterOptions.MultiRegisterOptions
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance
-  name: AsMultiInstance()
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_AsMultiInstance
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance()
-  nameWithType: DependencyContainer.MultiRegisterOptions.AsMultiInstance()
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance*
-  name: AsMultiInstance
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_AsMultiInstance_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsMultiInstance
-  nameWithType: DependencyContainer.MultiRegisterOptions.AsMultiInstance
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
-  name: AsSingleton()
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_AsSingleton
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton()
-  nameWithType: DependencyContainer.MultiRegisterOptions.AsSingleton()
-- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton*
-  name: AsSingleton
-  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_AsSingleton_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
-  nameWithType: DependencyContainer.MultiRegisterOptions.AsSingleton
 - uid: Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Func{Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},System.Object},System.String)
   name: Register(Type, Func<DependencyContainer, Dictionary<String, Object>, Object>, String)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Func_Unosquare_Swan_Components_DependencyContainer_System_Collections_Generic_Dictionary_System_String_System_Object__System_Object__System_String_
@@ -3630,77 +3582,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.RegisterMultiple(Of TRegister)(System.Collections.Generic.IEnumerable(Of System.Type))
   nameWithType: DependencyContainer.RegisterMultiple<TRegister>(IEnumerable<Type>)
   nameWithType.vb: DependencyContainer.RegisterMultiple(Of TRegister)(IEnumerable(Of Type))
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions
-  name: DependencyContainer.RegisterOptions
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html
-  commentId: T:Unosquare.Swan.Components.DependencyContainer.RegisterOptions
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions
-  nameWithType: DependencyContainer.RegisterOptions
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor(Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
-  name: RegisterOptions(DependencyContainer, DependencyContainer.TypeRegistration)
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions__ctor_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainer_TypeRegistration_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor(Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.RegisterOptions(Unosquare.Swan.Components.DependencyContainer, Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
-  nameWithType: DependencyContainer.RegisterOptions.RegisterOptions(DependencyContainer, DependencyContainer.TypeRegistration)
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor*
-  name: RegisterOptions
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions__ctor_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.RegisterOptions
-  nameWithType: DependencyContainer.RegisterOptions.RegisterOptions
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance
-  name: AsMultiInstance()
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsMultiInstance
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance()
-  nameWithType: DependencyContainer.RegisterOptions.AsMultiInstance()
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance*
-  name: AsMultiInstance
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsMultiInstance_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance
-  nameWithType: DependencyContainer.RegisterOptions.AsMultiInstance
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
-  name: AsSingleton()
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsSingleton
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton()
-  nameWithType: DependencyContainer.RegisterOptions.AsSingleton()
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton*
-  name: AsSingleton
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsSingleton_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
-  nameWithType: DependencyContainer.RegisterOptions.AsSingleton
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference
-  name: WithStrongReference()
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference()
-  nameWithType: DependencyContainer.RegisterOptions.WithStrongReference()
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference*
-  name: WithStrongReference
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference
-  nameWithType: DependencyContainer.RegisterOptions.WithStrongReference
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference
-  name: WithWeakReference()
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithWeakReference
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference()
-  nameWithType: DependencyContainer.RegisterOptions.WithWeakReference()
-- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference*
-  name: WithWeakReference
-  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithWeakReference_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference
-  nameWithType: DependencyContainer.RegisterOptions.WithWeakReference
 - uid: Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: Resolve(Type, String, Dictionary<String, Object>, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -4650,6 +4531,54 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.MessageHubSubscriptionToken.Dispose
   nameWithType: MessageHubSubscriptionToken.Dispose
+- uid: Unosquare.Swan.Components.MultiRegisterOptions
+  name: MultiRegisterOptions
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html
+  commentId: T:Unosquare.Swan.Components.MultiRegisterOptions
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions
+  nameWithType: MultiRegisterOptions
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.#ctor(System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.RegisterOptions})
+  name: MultiRegisterOptions(IEnumerable<RegisterOptions>)
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions__ctor_System_Collections_Generic_IEnumerable_Unosquare_Swan_Components_RegisterOptions__
+  commentId: M:Unosquare.Swan.Components.MultiRegisterOptions.#ctor(System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.RegisterOptions})
+  name.vb: MultiRegisterOptions(IEnumerable(Of RegisterOptions))
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.MultiRegisterOptions(System.Collections.Generic.IEnumerable<Unosquare.Swan.Components.RegisterOptions>)
+  fullName.vb: Unosquare.Swan.Components.MultiRegisterOptions.MultiRegisterOptions(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Components.RegisterOptions))
+  nameWithType: MultiRegisterOptions.MultiRegisterOptions(IEnumerable<RegisterOptions>)
+  nameWithType.vb: MultiRegisterOptions.MultiRegisterOptions(IEnumerable(Of RegisterOptions))
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.#ctor*
+  name: MultiRegisterOptions
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions__ctor_
+  commentId: Overload:Unosquare.Swan.Components.MultiRegisterOptions.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.MultiRegisterOptions
+  nameWithType: MultiRegisterOptions.MultiRegisterOptions
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance
+  name: AsMultiInstance()
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions_AsMultiInstance
+  commentId: M:Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance()
+  nameWithType: MultiRegisterOptions.AsMultiInstance()
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance*
+  name: AsMultiInstance
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions_AsMultiInstance_
+  commentId: Overload:Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance
+  nameWithType: MultiRegisterOptions.AsMultiInstance
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton
+  name: AsSingleton()
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions_AsSingleton
+  commentId: M:Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton()
+  nameWithType: MultiRegisterOptions.AsSingleton()
+- uid: Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton*
+  name: AsSingleton
+  href: api/Unosquare.Swan.Components.MultiRegisterOptions.html#Unosquare_Swan_Components_MultiRegisterOptions_AsSingleton_
+  commentId: Overload:Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton
+  nameWithType: MultiRegisterOptions.AsSingleton
 - uid: Unosquare.Swan.Components.ObjectComparer
   name: ObjectComparer
   href: api/Unosquare.Swan.Components.ObjectComparer.html
@@ -4738,6 +4667,132 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(Of T)(T, T)
   nameWithType: ObjectComparer.AreStructsEqual<T>(T, T)
   nameWithType.vb: ObjectComparer.AreStructsEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectFactoryBase
+  name: ObjectFactoryBase
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html
+  commentId: T:Unosquare.Swan.Components.ObjectFactoryBase
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase
+  nameWithType: ObjectFactoryBase
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction
+  name: AssumeConstruction
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_AssumeConstruction
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction
+  nameWithType: ObjectFactoryBase.AssumeConstruction
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction*
+  name: AssumeConstruction
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_AssumeConstruction_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.AssumeConstruction
+  nameWithType: ObjectFactoryBase.AssumeConstruction
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.Constructor
+  name: Constructor
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_Constructor
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.Constructor
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.Constructor
+  nameWithType: ObjectFactoryBase.Constructor
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.Constructor*
+  name: Constructor
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_Constructor_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.Constructor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.Constructor
+  nameWithType: ObjectFactoryBase.Constructor
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.CreatesType
+  name: CreatesType
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_CreatesType
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.CreatesType
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.CreatesType
+  nameWithType: ObjectFactoryBase.CreatesType
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.CreatesType*
+  name: CreatesType
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_CreatesType_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.CreatesType
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.CreatesType
+  nameWithType: ObjectFactoryBase.CreatesType
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer(System.Type,Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainer)
+  name: GetFactoryForChildContainer(Type, DependencyContainer, DependencyContainer)
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_GetFactoryForChildContainer_System_Type_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainer_
+  commentId: M:Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer(System.Type,Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainer)
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer(System.Type, Unosquare.Swan.Components.DependencyContainer, Unosquare.Swan.Components.DependencyContainer)
+  nameWithType: ObjectFactoryBase.GetFactoryForChildContainer(Type, DependencyContainer, DependencyContainer)
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer*
+  name: GetFactoryForChildContainer
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_GetFactoryForChildContainer_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.GetFactoryForChildContainer
+  nameWithType: ObjectFactoryBase.GetFactoryForChildContainer
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type,Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name: GetObject(Type, DependencyContainer, Dictionary<String, Object>, DependencyContainerResolveOptions)
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_GetObject_System_Type_Unosquare_Swan_Components_DependencyContainer_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_
+  commentId: M:Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type,Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name.vb: GetObject(Type, DependencyContainer, Dictionary(Of String, Object), DependencyContainerResolveOptions)
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type, Unosquare.Swan.Components.DependencyContainer, System.Collections.Generic.Dictionary<System.String, System.Object>, Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  fullName.vb: Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type, Unosquare.Swan.Components.DependencyContainer, System.Collections.Generic.Dictionary(Of System.String, System.Object), Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  nameWithType: ObjectFactoryBase.GetObject(Type, DependencyContainer, Dictionary<String, Object>, DependencyContainerResolveOptions)
+  nameWithType.vb: ObjectFactoryBase.GetObject(Type, DependencyContainer, Dictionary(Of String, Object), DependencyContainerResolveOptions)
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.GetObject*
+  name: GetObject
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_GetObject_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.GetObject
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.GetObject
+  nameWithType: ObjectFactoryBase.GetObject
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant
+  name: MultiInstanceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_MultiInstanceVariant
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant
+  nameWithType: ObjectFactoryBase.MultiInstanceVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant*
+  name: MultiInstanceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_MultiInstanceVariant_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.MultiInstanceVariant
+  nameWithType: ObjectFactoryBase.MultiInstanceVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant
+  name: SingletonVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_SingletonVariant
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant
+  nameWithType: ObjectFactoryBase.SingletonVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant*
+  name: SingletonVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_SingletonVariant_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.SingletonVariant
+  nameWithType: ObjectFactoryBase.SingletonVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant
+  name: StrongReferenceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_StrongReferenceVariant
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant
+  nameWithType: ObjectFactoryBase.StrongReferenceVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant*
+  name: StrongReferenceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_StrongReferenceVariant_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.StrongReferenceVariant
+  nameWithType: ObjectFactoryBase.StrongReferenceVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant
+  name: WeakReferenceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_WeakReferenceVariant
+  commentId: P:Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant
+  nameWithType: ObjectFactoryBase.WeakReferenceVariant
+- uid: Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant*
+  name: WeakReferenceVariant
+  href: api/Unosquare.Swan.Components.ObjectFactoryBase.html#Unosquare_Swan_Components_ObjectFactoryBase_WeakReferenceVariant_
+  commentId: Overload:Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ObjectFactoryBase.WeakReferenceVariant
+  nameWithType: ObjectFactoryBase.WeakReferenceVariant
 - uid: Unosquare.Swan.Components.ObjectMap`2
   name: ObjectMap<TSource, TDestination>
   href: api/Unosquare.Swan.Components.ObjectMap-2.html
@@ -5174,6 +5229,77 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync
   nameWithType: ProcessRunner.RunProcessAsync
+- uid: Unosquare.Swan.Components.RegisterOptions
+  name: RegisterOptions
+  href: api/Unosquare.Swan.Components.RegisterOptions.html
+  commentId: T:Unosquare.Swan.Components.RegisterOptions
+  fullName: Unosquare.Swan.Components.RegisterOptions
+  nameWithType: RegisterOptions
+- uid: Unosquare.Swan.Components.RegisterOptions.#ctor(Unosquare.Swan.Components.TypesConcurrentDictionary,Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
+  name: RegisterOptions(TypesConcurrentDictionary, DependencyContainer.TypeRegistration)
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions__ctor_Unosquare_Swan_Components_TypesConcurrentDictionary_Unosquare_Swan_Components_DependencyContainer_TypeRegistration_
+  commentId: M:Unosquare.Swan.Components.RegisterOptions.#ctor(Unosquare.Swan.Components.TypesConcurrentDictionary,Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
+  fullName: Unosquare.Swan.Components.RegisterOptions.RegisterOptions(Unosquare.Swan.Components.TypesConcurrentDictionary, Unosquare.Swan.Components.DependencyContainer.TypeRegistration)
+  nameWithType: RegisterOptions.RegisterOptions(TypesConcurrentDictionary, DependencyContainer.TypeRegistration)
+- uid: Unosquare.Swan.Components.RegisterOptions.#ctor*
+  name: RegisterOptions
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions__ctor_
+  commentId: Overload:Unosquare.Swan.Components.RegisterOptions.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.RegisterOptions.RegisterOptions
+  nameWithType: RegisterOptions.RegisterOptions
+- uid: Unosquare.Swan.Components.RegisterOptions.AsMultiInstance
+  name: AsMultiInstance()
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_AsMultiInstance
+  commentId: M:Unosquare.Swan.Components.RegisterOptions.AsMultiInstance
+  fullName: Unosquare.Swan.Components.RegisterOptions.AsMultiInstance()
+  nameWithType: RegisterOptions.AsMultiInstance()
+- uid: Unosquare.Swan.Components.RegisterOptions.AsMultiInstance*
+  name: AsMultiInstance
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_AsMultiInstance_
+  commentId: Overload:Unosquare.Swan.Components.RegisterOptions.AsMultiInstance
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.RegisterOptions.AsMultiInstance
+  nameWithType: RegisterOptions.AsMultiInstance
+- uid: Unosquare.Swan.Components.RegisterOptions.AsSingleton
+  name: AsSingleton()
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_AsSingleton
+  commentId: M:Unosquare.Swan.Components.RegisterOptions.AsSingleton
+  fullName: Unosquare.Swan.Components.RegisterOptions.AsSingleton()
+  nameWithType: RegisterOptions.AsSingleton()
+- uid: Unosquare.Swan.Components.RegisterOptions.AsSingleton*
+  name: AsSingleton
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_AsSingleton_
+  commentId: Overload:Unosquare.Swan.Components.RegisterOptions.AsSingleton
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.RegisterOptions.AsSingleton
+  nameWithType: RegisterOptions.AsSingleton
+- uid: Unosquare.Swan.Components.RegisterOptions.WithStrongReference
+  name: WithStrongReference()
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_WithStrongReference
+  commentId: M:Unosquare.Swan.Components.RegisterOptions.WithStrongReference
+  fullName: Unosquare.Swan.Components.RegisterOptions.WithStrongReference()
+  nameWithType: RegisterOptions.WithStrongReference()
+- uid: Unosquare.Swan.Components.RegisterOptions.WithStrongReference*
+  name: WithStrongReference
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_WithStrongReference_
+  commentId: Overload:Unosquare.Swan.Components.RegisterOptions.WithStrongReference
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.RegisterOptions.WithStrongReference
+  nameWithType: RegisterOptions.WithStrongReference
+- uid: Unosquare.Swan.Components.RegisterOptions.WithWeakReference
+  name: WithWeakReference()
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_WithWeakReference
+  commentId: M:Unosquare.Swan.Components.RegisterOptions.WithWeakReference
+  fullName: Unosquare.Swan.Components.RegisterOptions.WithWeakReference()
+  nameWithType: RegisterOptions.WithWeakReference()
+- uid: Unosquare.Swan.Components.RegisterOptions.WithWeakReference*
+  name: WithWeakReference
+  href: api/Unosquare.Swan.Components.RegisterOptions.html#Unosquare_Swan_Components_RegisterOptions_WithWeakReference_
+  commentId: Overload:Unosquare.Swan.Components.RegisterOptions.WithWeakReference
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.RegisterOptions.WithWeakReference
+  nameWithType: RegisterOptions.WithWeakReference
 - uid: Unosquare.Swan.Components.SyncLockerFactory
   name: SyncLockerFactory
   href: api/Unosquare.Swan.Components.SyncLockerFactory.html
@@ -5212,6 +5338,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.SyncLockerFactory.CreateSlim
   nameWithType: SyncLockerFactory.CreateSlim
+- uid: Unosquare.Swan.Components.TypesConcurrentDictionary
+  name: TypesConcurrentDictionary
+  href: api/Unosquare.Swan.Components.TypesConcurrentDictionary.html
+  commentId: T:Unosquare.Swan.Components.TypesConcurrentDictionary
+  fullName: Unosquare.Swan.Components.TypesConcurrentDictionary
+  nameWithType: TypesConcurrentDictionary
+- uid: Unosquare.Swan.Components.TypesConcurrentDictionary.ObjectConstructor
+  name: TypesConcurrentDictionary.ObjectConstructor
+  href: api/Unosquare.Swan.Components.TypesConcurrentDictionary.ObjectConstructor.html
+  commentId: T:Unosquare.Swan.Components.TypesConcurrentDictionary.ObjectConstructor
+  fullName: Unosquare.Swan.Components.TypesConcurrentDictionary.ObjectConstructor
+  nameWithType: TypesConcurrentDictionary.ObjectConstructor
 - uid: Unosquare.Swan.Components.WaitEventFactory
   name: WaitEventFactory
   href: api/Unosquare.Swan.Components.WaitEventFactory.html
@@ -12452,19 +12590,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Runtime.EntryAssemblyVersion
   nameWithType: Runtime.EntryAssemblyVersion
-- uid: Unosquare.Swan.Runtime.EnumHelper
-  name: EnumHelper
-  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper
-  commentId: P:Unosquare.Swan.Runtime.EnumHelper
-  fullName: Unosquare.Swan.Runtime.EnumHelper
-  nameWithType: Runtime.EnumHelper
-- uid: Unosquare.Swan.Runtime.EnumHelper*
-  name: EnumHelper
-  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper_
-  commentId: Overload:Unosquare.Swan.Runtime.EnumHelper
-  isSpec: "True"
-  fullName: Unosquare.Swan.Runtime.EnumHelper
-  nameWithType: Runtime.EnumHelper
 - uid: Unosquare.Swan.Runtime.FieldTypeCache
   name: FieldTypeCache
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_FieldTypeCache

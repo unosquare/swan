@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DependencyContainer.RegisterOptions
+    <title>Class MultiRegisterOptions
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DependencyContainer.RegisterOptions
+    <meta name="title" content="Class MultiRegisterOptions
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.39.2.0">
     
@@ -77,18 +77,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.MultiRegisterOptions">
   
   
-  <h1 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions" class="text-break">Class DependencyContainer.RegisterOptions
+  <h1 id="Unosquare_Swan_Components_MultiRegisterOptions" data-uid="Unosquare.Swan.Components.MultiRegisterOptions" class="text-break">Class MultiRegisterOptions
   </h1>
-  <div class="markdown level0 summary"><p>Registration options for &quot;fluent&quot; API.</p>
+  <div class="markdown level0 summary"><p>Registration options for &quot;fluent&quot; API when registering multiple implementations.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">DependencyContainer.RegisterOptions</span></div>
+    <div class="level1"><span class="xref">MultiRegisterOptions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -115,22 +115,22 @@
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
-  <h5 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_MultiRegisterOptions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class RegisterOptions</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class MultiRegisterOptions</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions__ctor_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions__ctor_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainer_TypeRegistration_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.#ctor(Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainer.TypeRegistration)">RegisterOptions(DependencyContainer, DependencyContainer.TypeRegistration)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a> class.</p>
+  <a id="Unosquare_Swan_Components_MultiRegisterOptions__ctor_" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_MultiRegisterOptions__ctor_System_Collections_Generic_IEnumerable_Unosquare_Swan_Components_RegisterOptions__" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.#ctor(System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.RegisterOptions})">MultiRegisterOptions(IEnumerable&lt;RegisterOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RegisterOptions(DependencyContainer container, DependencyContainer.TypeRegistration registration)</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions(IEnumerable&lt;RegisterOptions&gt; registerOptions)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,15 +143,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a></td>
-        <td><span class="parametername">container</span></td>
-        <td><p>The container.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.TypeRegistration.html">DependencyContainer.TypeRegistration</a></td>
-        <td><span class="parametername">registration</span></td>
-        <td><p>The registration.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a>&gt;</td>
+        <td><span class="parametername">registerOptions</span></td>
+        <td><p>The register options.</p>
 </td>
       </tr>
     </tbody>
@@ -160,14 +154,14 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsMultiInstance_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsMultiInstance" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsMultiInstance">AsMultiInstance()</h4>
+  <a id="Unosquare_Swan_Components_MultiRegisterOptions_AsMultiInstance_" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance*"></a>
+  <h4 id="Unosquare_Swan_Components_MultiRegisterOptions_AsMultiInstance" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.AsMultiInstance">AsMultiInstance()</h4>
   <div class="markdown level1 summary"><p>Make registration multi-instance if possible.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions AsMultiInstance()</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions AsMultiInstance()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -179,8 +173,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-        <td><p>A registration options  for fluent API.</p>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
+        <td><p>A registration multi-instance for fluent API.</p>
 </td>
       </tr>
     </tbody>
@@ -196,21 +190,21 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html">DependencyContainerRegistrationException</a></td>
-        <td><p>Generic constraint registration exception.</p>
+        <td><p>Generic Constraint Registration Exception.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsSingleton_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_AsSingleton" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton">AsSingleton()</h4>
+  <a id="Unosquare_Swan_Components_MultiRegisterOptions_AsSingleton_" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton*"></a>
+  <h4 id="Unosquare_Swan_Components_MultiRegisterOptions_AsSingleton" data-uid="Unosquare.Swan.Components.MultiRegisterOptions.AsSingleton">AsSingleton()</h4>
   <div class="markdown level1 summary"><p>Make registration a singleton (single instance) if possible.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions AsSingleton()</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions AsSingleton()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -222,8 +216,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-        <td><p>A registration options  for fluent API.</p>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
+        <td><p>A registration multi-instance for fluent API.</p>
 </td>
       </tr>
     </tbody>
@@ -239,93 +233,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html">DependencyContainerRegistrationException</a></td>
-        <td><p>Generic constraint registration exception.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference">WithStrongReference()</h4>
-  <div class="markdown level1 summary"><p>Make registration hold a strong reference if possible.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions WithStrongReference()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-        <td><p>A registration options  for fluent API.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html">DependencyContainerRegistrationException</a></td>
-        <td><p>Generic constraint registration exception.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithWeakReference_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithWeakReference" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithWeakReference">WithWeakReference()</h4>
-  <div class="markdown level1 summary"><p>Make registration hold a weak reference if possible.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions WithWeakReference()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-        <td><p>A registration options  for fluent API.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html">DependencyContainerRegistrationException</a></td>
-        <td><p>Generic constraint registration exception.</p>
+        <td><p>Generic Constraint Registration Exception.</p>
 </td>
       </tr>
     </tbody>
