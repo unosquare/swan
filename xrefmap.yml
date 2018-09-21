@@ -1698,19 +1698,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
   nameWithType: ArgumentOptionAttribute.Separator
-- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
-  name: SetName
-  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_SetName
-  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
-  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
-  nameWithType: ArgumentOptionAttribute.SetName
-- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName*
-  name: SetName
-  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_SetName_
-  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
-  nameWithType: ArgumentOptionAttribute.SetName
 - uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
   name: ShortName
   href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_ShortName
