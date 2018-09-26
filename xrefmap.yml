@@ -11606,6 +11606,15 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne(Of T)(System.Reflection.MemberInfo, System.Boolean)
   nameWithType: AttributeCache.RetrieveOne<T>(MemberInfo, Boolean)
   nameWithType.vb: AttributeCache.RetrieveOne(Of T)(MemberInfo, Boolean)
+- uid: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne``2(System.Boolean)
+  name: RetrieveOne<TAttribute, T>(Boolean)
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_RetrieveOne__2_System_Boolean_
+  commentId: M:Unosquare.Swan.Reflection.AttributeCache.RetrieveOne``2(System.Boolean)
+  name.vb: RetrieveOne(Of TAttribute, T)(Boolean)
+  fullName: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne<TAttribute, T>(System.Boolean)
+  fullName.vb: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne(Of TAttribute, T)(System.Boolean)
+  nameWithType: AttributeCache.RetrieveOne<TAttribute, T>(Boolean)
+  nameWithType.vb: AttributeCache.RetrieveOne(Of TAttribute, T)(Boolean)
 - uid: Unosquare.Swan.Reflection.ExtendedPropertyInfo
   name: ExtendedPropertyInfo
   href: api/Unosquare.Swan.Reflection.ExtendedPropertyInfo.html

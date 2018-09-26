@@ -82,8 +82,8 @@
   
   <h1 id="Unosquare_Swan_Reflection_AttributeCache" data-uid="Unosquare.Swan.Reflection.AttributeCache" class="text-break">Class AttributeCache
   </h1>
-  <div class="markdown level0 summary"><p>A thread-safe cache of attributes belonging to a given type
-The Retrieve method is the most useful one in this class as it
+  <div class="markdown level0 summary"><p>A thread-safe cache of attributes belonging to a given object (MemberInfo or Type).</p>
+<p>The Retrieve method is the most useful one in this class as it
 calls the retrieval process if the type is not contained
 in the cache.</p>
 </div>
@@ -91,19 +91,19 @@ in the cache.</p>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html">CollectionCacheRepository</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html">CollectionCacheRepository</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</div>
     <div class="level2"><span class="xref">AttributeCache</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item__0_">CollectionCacheRepository&lt;MemberInfo, Object&gt;.Item[MemberInfo]</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item__0_">CollectionCacheRepository&lt;Object, Object&gt;.Item[Object]</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains__0_">CollectionCacheRepository&lt;MemberInfo, Object&gt;.Contains(MemberInfo)</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains__0_">CollectionCacheRepository&lt;Object, Object&gt;.Contains(Object)</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CollectionCacheRepository&lt;MemberInfo, Object&gt;.Retrieve(MemberInfo, Func&lt;IEnumerable&lt;Object&gt;&gt;)</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CollectionCacheRepository&lt;Object, Object&gt;.Retrieve(Object, Func&lt;IEnumerable&lt;Object&gt;&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
@@ -130,7 +130,7 @@ in the cache.</p>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
   <h5 id="Unosquare_Swan_Reflection_AttributeCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AttributeCache : CollectionCacheRepository&lt;MemberInfo, object&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class AttributeCache : CollectionCacheRepository&lt;object, object&gt;</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -517,6 +517,73 @@ in the cache.</p>
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The attribute type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_AttributeCache_RetrieveOne_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveOne*"></a>
+  <h4 id="Unosquare_Swan_Reflection_AttributeCache_RetrieveOne__2_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveOne``2(System.Boolean)">RetrieveOne&lt;TAttribute, T&gt;(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Gets one attribute of a specific type from a generic type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TAttribute RetrieveOne&lt;TAttribute, T&gt;(bool inherit = false)
+    where TAttribute : Attribute</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">inherit</span></td>
+        <td><p>if set to <code>true</code> [inherit].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TAttribute</span></td>
+        <td><p>An attribute stored for the specified type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAttribute</span></td>
+        <td><p>The type of the attribute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type to retrieve the attribute.</p>
 </td>
       </tr>
     </tbody>
