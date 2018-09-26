@@ -49,14 +49,14 @@
     public class CsvWriter : IDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-        
+
         private readonly object _syncLock = new object();
         private readonly Stream _outputStream;
         private readonly Encoding _encoding;
         private readonly bool _leaveStreamOpen;
         private bool _isDisposing;
         private ulong _mCount;
-        
+
         #region Constructors
 
         /// <summary>
@@ -210,10 +210,7 @@
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
-        {
-            return SaveRecords(items, File.OpenWrite(filePath), true);
-        }
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) => SaveRecords(items, File.OpenWrite(filePath), true);
 
         #endregion
 
@@ -289,6 +286,7 @@
         /// <summary>
         /// Writes a row of CSV text. It handles the special cases where the object is
         /// a dynamic object or and array. It also handles non-collection objects fine.
+        /// 
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
@@ -329,6 +327,7 @@
         /// <summary>
         /// Writes a row of CSV text. It handles the special cases where the object is
         /// a dynamic object or and array. It also handles non-collection objects fine.
+        /// 
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
@@ -338,8 +337,9 @@
 
         /// <summary>
         /// Writes a set of items, one per line and atomically by repeatedly calling the
-        /// WriteObject method. For more info check out the description of the WriteObject
-        /// method.
+        /// WriteObject method.
+        ///
+        /// For more info check out the description of the WriteObject method.
         /// </summary>
         /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="items">The items.</param>
@@ -445,7 +445,7 @@
 
             return keys.ToArray();
         }
-        
+
         /// <summary>
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
@@ -466,26 +466,19 @@
 
             return values.ToArray();
         }
-        
+
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>Filtered type properties using the IgnoreProperties list.</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
-        {
-            lock (_syncLock)
-            {
-                return TypeCache.Retrieve(type, () =>
-                    {
-                        return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                            .Where(p => p.CanRead)
-                            .ToArray();
-                    })
-                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
-                    .ToArray();
-            }
-        }
+            => TypeCache.Retrieve(type, () =>
+                type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(p => p.CanRead)
+                    .ToArray())
+            .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
+            .ToArray();
 
         #endregion
 
@@ -506,7 +499,7 @@
         /// Writes the collection values.
         /// </summary>
         /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem) 
+        private void WriteCollectionValues(ICollection typedItem)
             => WriteLine(typedItem.Cast<object>().ToArray());
 
         /// <summary>
