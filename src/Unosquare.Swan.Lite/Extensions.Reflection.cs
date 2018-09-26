@@ -32,27 +32,15 @@
         {
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
-
-            Type[] assemblyTypes;
-
+            
             try
             {
-                assemblyTypes = assembly.GetTypes();
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                assemblyTypes = new Type[] { };
-            }
-            catch (NotSupportedException)
-            {
-                assemblyTypes = new Type[] { };
+                return assembly.GetTypes();
             }
             catch (ReflectionTypeLoadException e)
             {
-                assemblyTypes = e.Types.Where(t => t != null).ToArray();
+                return e.Types.Where(t => t != null).ToArray();
             }
-
-            return assemblyTypes;
         }
 
         #endregion
@@ -387,24 +375,28 @@
         }
 
         /// <summary>
-        /// Gets property value or null.
+        /// Gets property actual value or <c>PropertyDisplayAttribute.DefaultValue</c> if presented.
+        ///
+        /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
+        /// will be formatted accordingly.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="obj">The object.</param>
         /// <returns>The property value or null.</returns>
-        public static object GetValueOrNull(this PropertyInfo propertyInfo, object obj)
+        public static string ToFormattedString(this PropertyInfo propertyInfo, object obj)
         {
             try
             {
                 var value = propertyInfo.GetValue(obj);
                 var attr = Runtime.AttributeCache.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
 
-                if (attr == null) return value;
-                if (value == null) return attr.NullValue;
+                if (attr == null) return value.ToString();
+
+                var valueToFormat = value ?? attr.DefaultValue;
 
                 return string.IsNullOrEmpty(attr.Format)
-                    ? value
-                    : ConvertObjectAndFormat(propertyInfo, value, attr.Format);
+                    ? valueToFormat.ToString()
+                    : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
             }
             catch
             {
@@ -455,20 +447,20 @@
             return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
-        private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)
+        private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
-            if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+            if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
                 return Convert.ToDateTime(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
+            if (propertyType == typeof(int) || propertyType == typeof(int?))
                 return Convert.ToInt32(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
+            if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
                 return Convert.ToDecimal(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(double) || propertyInfo.PropertyType == typeof(double?))
+            if (propertyType == typeof(double) || propertyType == typeof(double?))
                 return Convert.ToDouble(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(byte) || propertyInfo.PropertyType == typeof(byte?))
+            if (propertyType == typeof(byte) || propertyType == typeof(byte?))
                 return Convert.ToByte(value).ToString(format);
 
-            return value;
+            return value.ToString();
         }
     }
 }

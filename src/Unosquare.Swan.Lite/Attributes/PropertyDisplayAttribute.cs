@@ -4,6 +4,7 @@
 
     /// <summary>
     /// An attribute used to include additional information to a Property for serialization.
+    /// 
     /// Previously we used DisplayAttribute from DataAnnotation.
     /// </summary>
     /// <seealso cref="System.Attribute" />
@@ -49,13 +50,5 @@
         /// The format.
         /// </value>
         public string Format { get; set; }
-
-        /// <summary>
-        /// Gets or sets the null value representation.
-        /// </summary>
-        /// <value>
-        /// The null value.
-        /// </value>
-        public string NullValue { get; set; }
     }
 }

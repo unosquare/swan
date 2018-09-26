@@ -178,6 +178,42 @@
     }
 
     [TestFixture]
+    public class ToFormattedString
+    {
+        private readonly PropertyInfoMock _mock = new PropertyInfoMock { BirthDate = new DateTime(2018, 1, 1) };
+
+        [Test]
+        public void WithPropertyNullWithoutDefaultValue_ReturnsNull()
+        {
+            Assert.IsNull(typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Name)).ToFormattedString(_mock));
+        }
+
+        [Test]
+        public void WithPropertyNullWithDefaultValue_ReturnDefaultValue()
+        {
+            Assert.AreEqual(
+                "Unknown",
+                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Alias)).ToFormattedString(_mock));
+        }
+
+        [Test]
+        public void WithIntPropertyNotNullWithFormat_ReturnFormattedValue()
+        {
+            Assert.AreEqual(
+                _mock.Age.ToString("P"),
+                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Age)).ToFormattedString(_mock));
+        }
+        
+        [Test]
+        public void WithDatePropertyNotNullWithFormat_ReturnFormattedValue()
+        {
+            Assert.AreEqual(
+                _mock.BirthDate.ToString("YYYY"),
+                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.BirthDate)).ToFormattedString(_mock));
+        }
+    }
+
+    [TestFixture]
     public class GetAllTypes
     {
         [Test]
@@ -189,20 +225,13 @@
         }
 
         [Test]
-        public void WithInvalidAssmblyFromFile_ThrowsFileNotFoundException()
-        {
-            Assert.Throws<FileNotFoundException>(() =>
-                Assembly.LoadFrom("invalid.dll").GetAllTypes());
-        }
-
-        [Test]
         public void WithAssembly_ReturnsTypeObjects()
         {
             var assembly = typeof(string).Assembly();
 
-            var assem = assembly.GetAllTypes();
+            var data = assembly.GetAllTypes();
 
-            Assert.AreEqual("System.Type[]", assem.ToString());
+            Assert.AreEqual("System.Type[]", data.ToString());
         }
     }
 
@@ -211,8 +240,8 @@
     {
         private readonly string _methodName = nameof(MethodCacheMock.GetMethodTest);
         private readonly Type _type = typeof(MethodCacheMock);
-        private readonly Type[] _genericTypes = {typeof(Task<string>)};
-        private readonly Type[] _parameterTypes = {typeof(string)};
+        private readonly Type[] _genericTypes = { typeof(Task<string>) };
+        private readonly Type[] _parameterTypes = { typeof(string) };
 
         private const BindingFlags Flags = BindingFlags.Public | BindingFlags.Static;
 
@@ -260,7 +289,7 @@
 
         public PropertyInfo NonPublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
     }
-    
+
     [TestFixture]
     public class GetCacheGetMethod : GetCacheMethodInfo
     {
@@ -296,7 +325,7 @@
             Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
         }
     }
-    
+
     [TestFixture]
     public class GetCacheSetMethod : GetCacheMethodInfo
     {
@@ -311,7 +340,7 @@
         {
             Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
         }
-        
+
         [Test]
         public void NonPublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
         {

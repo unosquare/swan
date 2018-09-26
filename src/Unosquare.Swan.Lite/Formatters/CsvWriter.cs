@@ -496,7 +496,7 @@
         private void WriteObjectValues(object item)
         {
             var values = GetFilteredTypeProperties(item.GetType())
-                .Select(x => x.GetValueOrNull(item))
+                .Select(x => x.ToFormattedString(item))
                 .ToArray();
 
             WriteLine(values);
