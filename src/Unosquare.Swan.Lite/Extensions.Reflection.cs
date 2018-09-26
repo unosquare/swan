@@ -379,6 +379,8 @@
         ///
         /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
         /// will be formatted accordingly.
+        ///
+        /// If the object contains a null value, a empty string will be returned.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="obj">The object.</param>
@@ -390,12 +392,12 @@
                 var value = propertyInfo.GetValue(obj);
                 var attr = Runtime.AttributeCache.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
 
-                if (attr == null) return value.ToString();
+                if (attr == null) return value?.ToString() ?? string.Empty;
 
                 var valueToFormat = value ?? attr.DefaultValue;
 
                 return string.IsNullOrEmpty(attr.Format)
-                    ? valueToFormat.ToString()
+                    ? (valueToFormat?.ToString() ?? string.Empty)
                     : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
             }
             catch
@@ -460,7 +462,7 @@
             if (propertyType == typeof(byte) || propertyType == typeof(byte?))
                 return Convert.ToByte(value).ToString(format);
 
-            return value.ToString();
+            return value?.ToString() ?? string.Empty;
         }
     }
 }
