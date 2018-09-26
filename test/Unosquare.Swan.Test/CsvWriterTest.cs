@@ -67,9 +67,8 @@
         public void TempFileFilled_SetStreamLengthToZero()
         {
             var tempFile = Path.GetTempFileName();
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
 
-            var dictionaryheaders = new Dictionary<string, string>
+            var data = new Dictionary<string, string>
             {
                 {"AccessDate", "20171107"},
                 {"AlternateId", "1"},
@@ -79,24 +78,20 @@
                 {"IsValidated", "true"},
                 {"Name", "Alexey Turpalov"},
                 {"Score", "1245F"},
-                {"ValidationResult", "true"}
+                {"ValidationResult", "true"},
             };
-
-            var stringHeaders = dictionaryheaders.Select(k => k.Key).ToList();
 
             using (var stream = File.OpenWrite(tempFile))
             {
                 using (var writer = new CsvWriter(stream))
                 {
-                    writer.WriteHeadings(dictionaryheaders);
-                    writer.WriteObjects(stringHeaders);
+                    writer.WriteHeadings(data);
+                    writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
                 }
             }
 
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-
-            var valuesInFile = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-            Assert.AreEqual(generatedRecords.Count, valuesInFile.Count, "Same length");
+            var valuesInFile = CsvReader.LoadRecords<object>(tempFile);
+            Assert.AreEqual(1, valuesInFile.Count, "Same length");
         }
 
         [Test]

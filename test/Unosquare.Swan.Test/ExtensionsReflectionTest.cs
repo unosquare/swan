@@ -183,9 +183,11 @@
         private readonly PropertyInfoMock _mock = new PropertyInfoMock { BirthDate = new DateTime(2018, 1, 1) };
 
         [Test]
-        public void WithPropertyNullWithoutDefaultValue_ReturnsNull()
+        public void WithPropertyNullWithoutDefaultValue_ReturnsStringEmpty()
         {
-            Assert.IsNull(typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Name)).ToFormattedString(_mock));
+            Assert.AreEqual(
+                string.Empty,
+                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Name)).ToFormattedString(_mock));
         }
 
         [Test]

@@ -3,7 +3,6 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using Exceptions;
 
     /// <summary>
@@ -100,12 +99,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name.</param>
-        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// <param name="password">If non-null and non-empty, specifies that the
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
-        public LdapBindRequest(int version, string dn, sbyte[] passwd)
-            : base(LdapOperation.BindRequest, new RfcBindRequest(version, dn, passwd))
+        public LdapBindRequest(int version, string dn, sbyte[] password)
+            : base(LdapOperation.BindRequest, new RfcBindRequest(version, dn, password))
         {
         }
 
@@ -127,8 +126,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
     internal class LdapSearchResultReference : LdapMessage
     {
-        private string[] _srefs;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapSearchResultReference"/> class.
         /// Constructs an LdapSearchResultReference object.
@@ -150,13 +147,13 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 var references = ((RfcSearchResultReference) Message.Response).ToArray();
-                _srefs = new string[references.Length];
+                var srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    _srefs[i] = ((Asn1OctetString) references[i]).StringValue();
+                    srefs[i] = ((Asn1OctetString) references[i]).StringValue();
                 }
 
-                return _srefs;
+                return srefs;
             }
         }
     }
