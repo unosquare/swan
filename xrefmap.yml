@@ -1983,19 +1983,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
   nameWithType: PropertyDisplayAttribute.Name
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  name: NullValue
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_NullValue
-  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  nameWithType: PropertyDisplayAttribute.NullValue
-- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue*
-  name: NullValue
-  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_NullValue_
-  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.NullValue
-  nameWithType: PropertyDisplayAttribute.NullValue
 - uid: Unosquare.Swan.Attributes.RangeAttribute
   name: RangeAttribute
   href: api/Unosquare.Swan.Attributes.RangeAttribute.html
@@ -12257,19 +12244,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.GetMethod
   nameWithType: ReflectionExtensions.GetMethod
-- uid: Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo,System.Object)
-  name: GetValueOrNull(PropertyInfo, Object)
-  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetValueOrNull_System_Reflection_PropertyInfo_System_Object_
-  commentId: M:Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo,System.Object)
-  fullName: Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo, System.Object)
-  nameWithType: ReflectionExtensions.GetValueOrNull(PropertyInfo, Object)
-- uid: Unosquare.Swan.ReflectionExtensions.GetValueOrNull*
-  name: GetValueOrNull
-  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetValueOrNull_
-  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetValueOrNull
-  isSpec: "True"
-  fullName: Unosquare.Swan.ReflectionExtensions.GetValueOrNull
-  nameWithType: ReflectionExtensions.GetValueOrNull
 - uid: Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)
   name: IsAbstract(Type)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsAbstract_System_Type_
@@ -12413,6 +12387,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.IsValueType
   nameWithType: ReflectionExtensions.IsValueType
+- uid: Unosquare.Swan.ReflectionExtensions.ToFormattedString(System.Reflection.PropertyInfo,System.Object)
+  name: ToFormattedString(PropertyInfo, Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToFormattedString_System_Reflection_PropertyInfo_System_Object_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.ToFormattedString(System.Reflection.PropertyInfo,System.Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.ToFormattedString(System.Reflection.PropertyInfo, System.Object)
+  nameWithType: ReflectionExtensions.ToFormattedString(PropertyInfo, Object)
+- uid: Unosquare.Swan.ReflectionExtensions.ToFormattedString*
+  name: ToFormattedString
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToFormattedString_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.ToFormattedString
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.ToFormattedString
+  nameWithType: ReflectionExtensions.ToFormattedString
 - uid: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.Object,System.Object@)
   name: TryParseBasicType(Type, Object, out Object)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TryParseBasicType_System_Type_System_Object_System_Object__

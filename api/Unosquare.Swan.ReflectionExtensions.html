@@ -580,57 +580,6 @@ binding criteria. This class cannot be inherited.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_ReflectionExtensions_GetValueOrNull_" data-uid="Unosquare.Swan.ReflectionExtensions.GetValueOrNull*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_GetValueOrNull_System_Reflection_PropertyInfo_System_Object_" data-uid="Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo,System.Object)">GetValueOrNull(PropertyInfo, Object)</h4>
-  <div class="markdown level1 summary"><p>Gets property value or null.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static object GetValueOrNull(this PropertyInfo propertyInfo, object obj)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
-        <td><span class="parametername">propertyInfo</span></td>
-        <td><p>The property information.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">obj</span></td>
-        <td><p>The object.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><p>The property value or null.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Unosquare_Swan_ReflectionExtensions_IsAbstract_" data-uid="Unosquare.Swan.ReflectionExtensions.IsAbstract*"></a>
   <h4 id="Unosquare_Swan_ReflectionExtensions_IsAbstract_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)">IsAbstract(Type)</h4>
   <div class="markdown level1 summary"><p>Determines whether this instance is abstract.</p>
@@ -1164,6 +1113,59 @@ binding criteria. This class cannot be inherited.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
         <td><p><code>true</code> if [is value type] [the specified type]; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_ReflectionExtensions_ToFormattedString_" data-uid="Unosquare.Swan.ReflectionExtensions.ToFormattedString*"></a>
+  <h4 id="Unosquare_Swan_ReflectionExtensions_ToFormattedString_System_Reflection_PropertyInfo_System_Object_" data-uid="Unosquare.Swan.ReflectionExtensions.ToFormattedString(System.Reflection.PropertyInfo,System.Object)">ToFormattedString(PropertyInfo, Object)</h4>
+  <div class="markdown level1 summary"><p>Gets property actual value or <code>PropertyDisplayAttribute.DefaultValue</code> if presented.</p>
+<p>If the <code>PropertyDisplayAttribute.Format</code> value is presented, the property value
+will be formatted accordingly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToFormattedString(this PropertyInfo propertyInfo, object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
+        <td><span class="parametername">propertyInfo</span></td>
+        <td><p>The property information.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The property value or null.</p>
 </td>
       </tr>
     </tbody>
