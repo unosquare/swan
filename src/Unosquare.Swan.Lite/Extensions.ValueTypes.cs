@@ -59,7 +59,7 @@
         /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>a struct type derived from convert an array of bytes ref=ToStruct".</returns>
-        public static T ToStruct<T>(this byte[] data) 
+        public static T ToStruct<T>(this byte[] data)
             where T : struct
         {
             return ToStruct<T>(data, 0, data.Length);
@@ -76,7 +76,7 @@
         /// A managed object containing the data pointed to by the ptr parameter.
         /// </returns>
         /// <exception cref="ArgumentNullException">data.</exception>
-        public static T ToStruct<T>(this byte[] data, int offset, int length) 
+        public static T ToStruct<T>(this byte[] data, int offset, int length)
             where T : struct
         {
             if (data == null)
@@ -102,7 +102,7 @@
         /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] ToBytes<T>(this T obj) 
+        public static byte[] ToBytes<T>(this T obj)
             where T : struct
         {
             var data = new byte[Marshal.SizeOf(obj)];
@@ -118,7 +118,7 @@
                 handle.Free();
             }
         }
-        
+
         /// <summary>
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
@@ -128,12 +128,10 @@
         /// contained in longBytes.
         /// </returns>
         public static uint SwapEndianness(this ulong longBytes)
-        {
-            return (uint)(((longBytes & 0x000000ff) << 24) +
-                           ((longBytes & 0x0000ff00) << 8) +
-                           ((longBytes & 0x00ff0000) >> 8) +
-                           ((longBytes & 0xff000000) >> 24));
-        }
+            => (uint) (((longBytes & 0x000000ff) << 24) +
+                       ((longBytes & 0x0000ff00) << 8) +
+                       ((longBytes & 0x00ff0000) >> 8) +
+                       ((longBytes & 0xff000000) >> 24));
 
         private static byte[] GetStructBytes<T>(byte[] data)
         {
@@ -141,16 +139,12 @@
                 throw new ArgumentNullException(nameof(data));
 
 #if !NETSTANDARD1_3 && !UWP
-            var fields = typeof(T).GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var fields = typeof(T).GetTypeInfo()
+                .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 #else
             var fields = typeof(T).GetTypeInfo().DeclaredFields;
 #endif
-            StructEndiannessAttribute endian = null;
-
-            if (typeof(T).IsDefined(typeof(StructEndiannessAttribute), false))
-            {
-                endian = typeof(T).GetCustomAttributes(typeof(StructEndiannessAttribute), false)[0] as StructEndiannessAttribute;
-            }
+            var endian = Runtime.AttributeCache.RetrieveOne<StructEndiannessAttribute, T>();
 
             foreach (var field in fields)
             {
@@ -160,7 +154,7 @@
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
                 var length = Marshal.SizeOf(field.FieldType);
 
-                endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
+                endian = endian ?? Runtime.AttributeCache.RetrieveOne<StructEndiannessAttribute>(field);
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))

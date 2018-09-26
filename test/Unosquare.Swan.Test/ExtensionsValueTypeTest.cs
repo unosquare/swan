@@ -10,6 +10,7 @@
         public void WithValidInt_ClampsValue()
         {
             Assert.AreEqual(3, 3.Clamp(1, 3));
+
             Assert.AreEqual(-1, -1.Clamp(1, 5));
         }
 
@@ -17,7 +18,10 @@
         public void WithValidDecimal_ClampsValue()
         {
             Assert.AreEqual(3m, 3m.Clamp(1m, 3m));
+
             Assert.AreEqual(-1m, -1m.Clamp(1m, 5m));
+            
+            Assert.AreEqual(2m, 1m.Clamp(2m, 5m));
         }
     }
 

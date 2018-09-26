@@ -7,12 +7,13 @@
     using Components;
 
     /// <summary>
-    /// A thread-safe cache of attributes belonging to a given type
+    /// A thread-safe cache of attributes belonging to a given object (MemberInfo or Type).
+    /// 
     /// The Retrieve method is the most useful one in this class as it
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class AttributeCache : CollectionCacheRepository<MemberInfo, object>
+    public class AttributeCache : CollectionCacheRepository<object, object>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.
@@ -74,13 +75,22 @@
         {
             var attr = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
 
-            if (attr == null || attr.Length == 0)
-                return default;
+            return ConvertToAttribute<T>(attr);
+        }
 
-            if (attr.Length == 1)
-                return (T) Convert.ChangeType(attr[0], typeof(T));
-
-            throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
+        /// <summary>
+        /// Gets one attribute of a specific type from a generic type.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+        /// <typeparam name="T">The type to retrieve the attribute.</typeparam>
+        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
+        /// <returns>An attribute stored for the specified type.</returns>
+        public TAttribute RetrieveOne<TAttribute, T>(bool inherit = false)
+            where TAttribute : Attribute
+        {
+            var attr = Retrieve(typeof(T), () => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
+            
+            return ConvertToAttribute<TAttribute>(attr);
         }
 
         /// <summary>
@@ -116,6 +126,18 @@
 
             return PropertyTypeCache.RetrieveAllProperties<T>(true)
                 .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
+        }
+
+        private static T ConvertToAttribute<T>(object[] attr) 
+            where T : Attribute
+        {
+            if (attr == null || attr.Length == 0)
+                return default;
+
+            if (attr.Length == 1)
+                return (T) Convert.ChangeType(attr[0], typeof(T));
+
+            throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }
     }
 }
