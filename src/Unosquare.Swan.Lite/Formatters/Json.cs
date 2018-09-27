@@ -300,21 +300,20 @@
 
         private static string[] GeExcludedNames(Type type, string[] excludedNames)
         {
-            if (type == null) return excludedNames;
+            if (type == null) 
+                return excludedNames;
 
             var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
-                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true)
+                .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
                 .Select(x => x.Name)
                 .ToArray());
 
-            if (excludedByAttr?.Any() == true)
-            {
-                excludedNames = excludedNames == null
-                    ? excludedByAttr.ToArray()
-                    : excludedByAttr.Intersect(excludedNames).ToArray();
-            }
-
-            return excludedNames;
+            if (excludedByAttr?.Any() != true)
+                return excludedNames;
+            
+            return excludedNames == null
+                ? excludedByAttr.ToArray()
+                : excludedByAttr.Intersect(excludedNames).ToArray();
         }
 
         private static string SerializePrimitiveValue(object obj)

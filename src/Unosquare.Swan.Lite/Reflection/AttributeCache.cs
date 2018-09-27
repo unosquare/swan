@@ -13,7 +13,7 @@
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class AttributeCache : CollectionCacheRepository<object, object>
+    public class AttributeCache : CollectionCacheRepository<Tuple<object, Type>, object>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.
@@ -29,6 +29,8 @@
         /// </summary>
         public PropertyTypeCache PropertyTypeCache { get; }
 
+        public bool Contains<T>(MemberInfo member) => Contains(new Tuple<object, Type>(member, typeof(T)));
+
         /// <summary>
         /// Gets specific attributes from a member constrained to an attribute.
         /// </summary>
@@ -42,7 +44,7 @@
             if (member == null)
                 throw new ArgumentNullException(nameof(member));
 
-            return Retrieve(member, () => member.GetCustomAttributes<T>(inherit));
+            return Retrieve(new Tuple<object, Type>(member, typeof(T)), () => member.GetCustomAttributes<T>(inherit));
         }
 
         /// <summary>
@@ -60,7 +62,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return Retrieve(member, () => member.GetCustomAttributes(type, inherit));
+            return Retrieve(new Tuple<object, Type>(member, type), () => member.GetCustomAttributes(type, inherit));
         }
 
         /// <summary>
@@ -73,7 +75,10 @@
         public T RetrieveOne<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
         {
-            var attr = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
+            if (member == null)
+                return default;
+
+            var attr = Retrieve(new Tuple<object, Type>(member, typeof(T)), () => member.GetCustomAttributes(typeof(T), inherit));
 
             return ConvertToAttribute<T>(attr);
         }
@@ -88,7 +93,7 @@
         public TAttribute RetrieveOne<TAttribute, T>(bool inherit = false)
             where TAttribute : Attribute
         {
-            var attr = Retrieve(typeof(T), () => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
+            var attr = Retrieve(new Tuple<object, Type>(typeof(T), typeof(TAttribute)), () => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
             
             return ConvertToAttribute<TAttribute>(attr);
         }

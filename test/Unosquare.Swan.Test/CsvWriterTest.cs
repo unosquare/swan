@@ -220,7 +220,7 @@
                 {"IsValidated", "true"},
                 {"Name", "Alexey Turpalov"},
                 {"Score", "1245F"},
-                {"ValidationResult", "true"}
+                {"ValidationResult", "true"},
             };
 
             var stringHeaders = dictionaryHeaders.Select(k => k.Key).ToList();

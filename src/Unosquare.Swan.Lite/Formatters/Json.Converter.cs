@@ -105,7 +105,7 @@
             {
                 var targetPropertyName = MemberInfoNameCache.GetOrAdd(
                     targetProperty,
-                    x => x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name);
+                    x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name);
 
                 return sourceProperties.GetValueOrDefault(targetPropertyName);
             }
