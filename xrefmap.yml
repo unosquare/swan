@@ -2140,6 +2140,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.Name
   nameWithType: VerbOptionAttribute.Name
+- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.ToString
+  name: ToString()
+  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_ToString
+  commentId: M:Unosquare.Swan.Attributes.VerbOptionAttribute.ToString
+  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.ToString()
+  nameWithType: VerbOptionAttribute.ToString()
+- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.ToString*
+  name: ToString
+  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_ToString_
+  commentId: Overload:Unosquare.Swan.Attributes.VerbOptionAttribute.ToString
+  isSpec: "True"
+  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.ToString
+  nameWithType: VerbOptionAttribute.ToString
 - uid: Unosquare.Swan.ByteArrayExtensions
   name: ByteArrayExtensions
   href: api/Unosquare.Swan.ByteArrayExtensions.html
