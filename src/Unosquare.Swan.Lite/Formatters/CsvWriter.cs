@@ -197,7 +197,7 @@
             {
                 writer.WriteHeadings<T>();
                 writer.WriteObjects(items);
-                return (int)writer.Count;
+                return (int) writer.Count;
             }
         }
 
@@ -210,7 +210,8 @@
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) => SaveRecords(items, File.OpenWrite(filePath), true);
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) =>
+            SaveRecords(items, File.OpenWrite(filePath), true);
 
         #endregion
 
@@ -235,7 +236,7 @@
             lock (_syncLock)
             {
                 var length = items.Length;
-                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
+                var separatorBytes = _encoding.GetBytes(new[] {SeparatorCharacter});
                 var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
 
                 // Declare state variables here to avoid recreation, allocation and
@@ -299,27 +300,18 @@
 
             lock (_syncLock)
             {
+                switch (item)
                 {
-                    // Handling as Dictionary
-                    if (item is IDictionary typedItem)
-                    {
+                    case IDictionary typedItem:
                         WriteDictionaryValues(typedItem);
                         return;
-                    }
-                }
-
-                {
-                    // Handling as array
-                    if (item is ICollection typedItem)
-                    {
+                    case ICollection typedItem:
                         WriteCollectionValues(typedItem);
                         return;
-                    }
-                }
-
-                {
-                    // Handling as a regular type
-                    WriteObjectValues(item);
+                    default:
+                        // Handling as a regular type
+                        WriteObjectValues(item);
+                        break;
                 }
             }
         }
@@ -386,7 +378,7 @@
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));
 
-            WriteLine(GetFilteredDictionaryKeys(dictionary));
+            WriteLine(GetFilteredDictionary(dictionary));
         }
 
 #if NET452
@@ -407,11 +399,11 @@
             WriteHeadings(dictionary);
         }
 #else
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="obj">The object to extract headings.</param>
-        /// <exception cref="ArgumentNullException">obj.</exception>
+/// <summary>
+/// Writes the headings.
+/// </summary>
+/// <param name="obj">The object to extract headings.</param>
+/// <exception cref="ArgumentNullException">obj.</exception>
         public void WriteHeadings(object obj)
         {
             if (obj == null)
@@ -425,47 +417,17 @@
 
         #region Support Methods
 
-        /// <summary>
-        /// Gets the filtered dictionary keys using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary.</returns>
-        private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
-        {
-            var keys = new List<string>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                keys.Add(stringKey);
-            }
-
-            return keys.ToArray();
-        }
-
-        /// <summary>
-        /// Gets the filtered dictionary values using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary.</returns>
-        private object[] GetFilteredDictionaryValues(IDictionary dictionary)
-        {
-            var values = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                values.Add(dictionary[stringKey]);
-            }
-
-            return values.ToArray();
-        }
+        private string[] GetFilteredDictionary(IDictionary dictionary, bool filterKeys = false)
+            => dictionary
+                .Keys
+                .Cast<object>()
+                .Select(key => key == null ? string.Empty : key.ToStringInvariant())
+                .Where(stringKey => !IgnorePropertyNames.Contains(stringKey))
+                .Select(stringKey =>
+                    filterKeys
+                        ? stringKey
+                        : (dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant()))
+                .ToArray();
 
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
@@ -474,11 +436,11 @@
         /// <returns>Filtered type properties using the IgnoreProperties list.</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
             => TypeCache.Retrieve(type, () =>
-                type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead)
-                    .ToArray())
-            .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
-            .ToArray();
+                    type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(p => p.CanRead)
+                        .ToArray())
+                .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
+                .ToArray();
 
         #endregion
 
@@ -507,7 +469,7 @@
         /// </summary>
         /// <param name="typedItem">The typed item.</param>
         private void WriteDictionaryValues(IDictionary typedItem)
-            => WriteLine(GetFilteredDictionaryValues(typedItem));
+            => WriteLine(GetFilteredDictionary(typedItem, true));
 
         #region IDisposable Support
 

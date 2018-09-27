@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Abstractions;
 
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type

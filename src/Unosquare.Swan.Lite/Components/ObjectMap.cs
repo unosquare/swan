@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Abstractions;
 
     /// <summary>
     /// Represents an object map.

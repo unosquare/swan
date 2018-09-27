@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using Abstractions;
-#if NETSTANDARD1_3 || UWP
-    using System.Reflection;
-#endif
 
     /// <summary>
     /// Represents an object validator. 
@@ -72,8 +70,8 @@
     /// </example>
     public class ObjectValidator
     {
-        private readonly Dictionary<Type, List<Tuple<Delegate, string>>> _predicates =
-            new Dictionary<Type, List<Tuple<Delegate, string>>>();
+        private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
+            new ConcurrentDictionary<Type, List<Tuple<Delegate, string>>>();
 
         /// <summary>
         /// Validates an object given the specified validators and attributes.
