@@ -352,19 +352,22 @@
         /// <returns>
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)
+        public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object> value, object obj)
         {
             var elementType = propertyInfo.PropertyType.GetElementType();
 
             if (elementType == null)
                 return false;
 
-            var targetArray = Array.CreateInstance(elementType, value.Length);
+            var targetArray = Array.CreateInstance(elementType, value.Count());
 
             var i = 0;
+
             foreach (var sourceElement in value)
             {
-                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+                var result = elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+
+                if (!result) return false;
             }
 
             propertyInfo.SetValue(obj, targetArray);

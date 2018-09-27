@@ -46,7 +46,7 @@
         /// <param name="member">The member.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An array of the attributes stored for the specified type.</returns>
-        public object[] Retrieve<T>(MemberInfo member, bool inherit = false)
+        public IEnumerable<object> Retrieve<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
         {
             if (member == null)
@@ -62,7 +62,7 @@
         /// <param name="type">The attribute type.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An array of the attributes stored for the specified type.</returns>
-        public object[] Retrieve(MemberInfo member, Type type, bool inherit = false)
+        public IEnumerable<object> Retrieve(MemberInfo member, Type type, bool inherit = false)
         {
             if (member == null)
                 throw new ArgumentNullException(nameof(member));
@@ -113,7 +113,7 @@
         /// <param name="type">The type of the object.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>A dictionary of the properties and their attributes stored for the specified type.</returns>
-        public Dictionary<PropertyInfo, object[]> Retrieve<T>(Type type, bool inherit = false)
+        public Dictionary<PropertyInfo, IEnumerable<object>> Retrieve<T>(Type type, bool inherit = false)
             where T : Attribute
         {
             if (type == null)
@@ -132,7 +132,7 @@
         /// <returns>
         /// A dictionary of the properties and their attributes stored for the specified type.
         /// </returns>
-        public Dictionary<PropertyInfo, object[]> RetrieveFromType<T>(Type attributeType, bool inherit = false)
+        public Dictionary<PropertyInfo, IEnumerable<object>> RetrieveFromType<T>(Type attributeType, bool inherit = false)
         {
             if (attributeType == null)
                 throw new ArgumentNullException(nameof(attributeType));
@@ -141,14 +141,14 @@
                 .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
         }
 
-        private static T ConvertToAttribute<T>(object[] attr) 
+        private static T ConvertToAttribute<T>(IEnumerable<object> attr) 
             where T : Attribute
         {
-            if (attr == null || attr.Length == 0)
+            if (attr?.Any() != true)
                 return default;
 
-            if (attr.Length == 1)
-                return (T) Convert.ChangeType(attr[0], typeof(T));
+            if (attr.Count() == 1)
+                return (T) Convert.ChangeType(attr.First(), typeof(T));
 
             throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }

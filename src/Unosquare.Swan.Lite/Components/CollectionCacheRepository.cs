@@ -10,7 +10,7 @@
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of member to cache.</typeparam>
-    public class CollectionCacheRepository<TType, T> : ConcurrentDictionary<TType, T[]>
+    public class CollectionCacheRepository<TType, T> : ConcurrentDictionary<TType, IEnumerable<T>>
         where TType : class
     {
         /// <summary>
@@ -29,7 +29,8 @@
                 if (value == null)
                     return;
 
-                TryAdd(type, value.ToArray());
+                if (!TryAdd(type, value))
+                    throw new ArgumentException(nameof(value));
             }
         }
 
@@ -59,7 +60,7 @@
         /// An array of the properties stored for the specified type.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type.</exception>
-        public T[] Retrieve(TType type, Func<IEnumerable<T>> factory)
+        public IEnumerable<T> Retrieve(TType type, Func<IEnumerable<T>> factory)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -67,12 +68,7 @@
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            if (TryGetValue(type, out var value)) return value;
-
-            var factoryValue = factory.Invoke().Where(item => item != null);
-            this[type] = factoryValue;
-
-            return factoryValue.ToArray();
+            return TryGetValue(type, out var value) ? value : this[type] = factory.Invoke().Where(item => item != null);
         }
     }
 }

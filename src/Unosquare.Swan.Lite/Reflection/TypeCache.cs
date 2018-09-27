@@ -33,7 +33,7 @@
         /// <typeparam name="TOut">The type of the out.</typeparam>
         /// <param name="factory">The factory.</param>
         /// <returns>An array of the properties stored for the specified type.</returns>
-        public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
+        public IEnumerable<T> Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
     }
 
     /// <summary>

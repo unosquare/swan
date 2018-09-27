@@ -140,7 +140,7 @@
 
                 var originalValue = propertyInfo.GetValue(Global);
                 var isChanged = propertyInfo.PropertyType.IsArray
-                    ? SetIEnumerable(property.Value, propertyInfo)
+                    ? property.Value is IEnumerable enumerable && propertyInfo.TrySetArray(enumerable.Cast<object>(), Global)
                     : SetValue(property.Value, originalValue, propertyInfo);
 
                 if (!isChanged) continue;
@@ -150,38 +150,6 @@
             }
 
             return changedSettings;
-        }
-
-        private bool SetValue(object property, object originalValue, PropertyInfo propertyInfo)
-        {
-            switch (property)
-            {
-                case null when originalValue == null:
-                    break;
-                case null:
-                    propertyInfo.SetValue(Global, null);
-                    return true;
-                default:
-                    if (propertyInfo.PropertyType.TryParseBasicType(property, out var propertyValue) &&
-                        !propertyValue.Equals(originalValue))
-                    {
-                        propertyInfo.SetValue(Global, propertyValue);
-                        return true;
-                    }
-
-                    break;
-            }
-
-            return false;
-        }
-
-        private bool SetIEnumerable(object property, PropertyInfo propertyInfo)
-        {
-            if (property is IEnumerable == false)
-                return false;
-            
-            var sourceArray = ((IEnumerable)property).Cast<object>().ToArray();
-            return propertyInfo.TrySetArray(sourceArray, Global);
         }
 
         /// <summary>
@@ -207,6 +175,29 @@
                 var stringData = Json.Serialize(Activator.CreateInstance<T>());
                 File.WriteAllText(ConfigurationFilePath, stringData);
             }
+        }
+        
+        private bool SetValue(object property, object originalValue, PropertyInfo propertyInfo)
+        {
+            switch (property)
+            {
+                case null when originalValue == null:
+                    break;
+                case null:
+                    propertyInfo.SetValue(Global, null);
+                    return true;
+                default:
+                    if (propertyInfo.PropertyType.TryParseBasicType(property, out var propertyValue) &&
+                        !propertyValue.Equals(originalValue))
+                    {
+                        propertyInfo.SetValue(Global, propertyValue);
+                        return true;
+                    }
+
+                    break;
+            }
+
+            return false;
         }
     }
 }
