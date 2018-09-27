@@ -91,19 +91,19 @@ in the cache.</p>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html">CollectionCacheRepository</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html">CollectionCacheRepository</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.tuple-2">Tuple</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</div>
     <div class="level2"><span class="xref">AttributeCache</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item__0_">CollectionCacheRepository&lt;Object, Object&gt;.Item[Object]</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Item__0_">CollectionCacheRepository&lt;Tuple&lt;Object, Type&gt;, Object&gt;.Item[Tuple&lt;Object, Type&gt;]</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains__0_">CollectionCacheRepository&lt;Object, Object&gt;.Contains(Object)</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Contains__0_">CollectionCacheRepository&lt;Tuple&lt;Object, Type&gt;, Object&gt;.Contains(Tuple&lt;Object, Type&gt;)</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CollectionCacheRepository&lt;Object, Object&gt;.Retrieve(Object, Func&lt;IEnumerable&lt;Object&gt;&gt;)</a>
+      <a class="xref" href="Unosquare.Swan.Components.CollectionCacheRepository-2.html#Unosquare_Swan_Components_CollectionCacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CollectionCacheRepository&lt;Tuple&lt;Object, Type&gt;, Object&gt;.Retrieve(Tuple&lt;Object, Type&gt;, Func&lt;IEnumerable&lt;Object&gt;&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
@@ -130,7 +130,7 @@ in the cache.</p>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
   <h5 id="Unosquare_Swan_Reflection_AttributeCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AttributeCache : CollectionCacheRepository&lt;object, object&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class AttributeCache : CollectionCacheRepository&lt;Tuple&lt;object, Type&gt;, object&gt;</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -193,6 +193,63 @@ in the cache.</p>
   </table>
   <h3 id="methods">Methods
   </h3>
+  
+  
+  <a id="Unosquare_Swan_Reflection_AttributeCache_Contains_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Contains*"></a>
+  <h4 id="Unosquare_Swan_Reflection_AttributeCache_Contains__1_System_Reflection_MemberInfo_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Contains``1(System.Reflection.MemberInfo)">Contains&lt;T&gt;(MemberInfo)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains&lt;T&gt;(MemberInfo member)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a></td>
+        <td><span class="parametername">member</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve*"></a>

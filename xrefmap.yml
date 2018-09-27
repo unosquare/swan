@@ -11530,6 +11530,22 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Reflection.AttributeCache.AttributeCache
   nameWithType: AttributeCache.AttributeCache
+- uid: Unosquare.Swan.Reflection.AttributeCache.Contains*
+  name: Contains
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_Contains_
+  commentId: Overload:Unosquare.Swan.Reflection.AttributeCache.Contains
+  isSpec: "True"
+  fullName: Unosquare.Swan.Reflection.AttributeCache.Contains
+  nameWithType: AttributeCache.Contains
+- uid: Unosquare.Swan.Reflection.AttributeCache.Contains``1(System.Reflection.MemberInfo)
+  name: Contains<T>(MemberInfo)
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_Contains__1_System_Reflection_MemberInfo_
+  commentId: M:Unosquare.Swan.Reflection.AttributeCache.Contains``1(System.Reflection.MemberInfo)
+  name.vb: Contains(Of T)(MemberInfo)
+  fullName: Unosquare.Swan.Reflection.AttributeCache.Contains<T>(System.Reflection.MemberInfo)
+  fullName.vb: Unosquare.Swan.Reflection.AttributeCache.Contains(Of T)(System.Reflection.MemberInfo)
+  nameWithType: AttributeCache.Contains<T>(MemberInfo)
+  nameWithType.vb: AttributeCache.Contains(Of T)(MemberInfo)
 - uid: Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache
   name: PropertyTypeCache
   href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_PropertyTypeCache
