@@ -4,16 +4,15 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
 
+    /// <inheritdoc />
     /// <summary>
     /// A thread-safe abstract cache repository.
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of object to cache.</typeparam>
-    public abstract class CacheRepository<TType, T>
+    public abstract class CacheRepository<TType, T> : ConcurrentDictionary<TType, T>
         where TType : class
     {
-        private readonly ConcurrentDictionary<TType, T> _cache = new ConcurrentDictionary<TType, T>();
-
         /// <summary>
         /// Gets or sets the value with the specified type.
         /// </summary>
@@ -24,15 +23,15 @@
         /// <returns>
         /// The value in the cache repository.
         /// </returns>
-        public T this[TType type]
+        public new T this[TType type]
         {
-            get => Contains(type) ? _cache[type] : default;
+            get => Contains(type) && TryGetValue(type, out var value) ? value : default;
             set
             {
                 if (value == null)
                     return;
 
-                _cache.TryAdd(type, value);
+                TryAdd(type, value);
             }
         }
 
@@ -48,7 +47,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return _cache.ContainsKey(type);
+            return ContainsKey(type);
         }
         
         /// <summary>
@@ -64,7 +63,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return _cache.TryGetValue(type, out var value) ? value : throw new KeyNotFoundException();
+            return TryGetValue(type, out var value) ? value : throw new KeyNotFoundException();
         }
     }
 }
