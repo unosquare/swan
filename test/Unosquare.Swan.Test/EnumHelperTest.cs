@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.EnumHelperTest
 {
     using NUnit.Framework;
+    using System.Linq;
     using System;
     using Components;
     using Mocks;
@@ -11,7 +12,7 @@
         [Test]
         public void WithValidIndexEnum_ReturnsTuple()
         {
-            var items = EnumHelper.GetItemsWithIndex<MyEnum>();
+            var items = EnumHelper.GetItemsWithIndex<MyEnum>().ToArray();
 
             Assert.AreEqual("(0, One)", items[0].ToString());
             Assert.AreEqual("(1, Two)", items[1].ToString());
@@ -25,7 +26,7 @@
         [Test]
         public void WithValidValueEnum_ReturnsTuple()
         {
-            var items = EnumHelper.GetItemsWithValue<MyEnum>();
+            var items = EnumHelper.GetItemsWithValue<MyEnum>().ToArray();
 
             Assert.AreEqual("(1, One)", items[0].ToString());
             Assert.AreEqual("(2, Two)", items[1].ToString());
@@ -105,7 +106,7 @@
         [TestCase(true, false, "One", "Two")]
         public void WithIntFlag_ReturnsListOfStrings(bool ignoreZero, bool humanize, string zeroIndexValue, string oneIndexValue)
         {
-            var names = EnumHelper.GetFlagNames<MyFlag>((int)MyFlag.All, ignoreZero, humanize);
+            var names = EnumHelper.GetFlagNames<MyFlag>((int)MyFlag.All, ignoreZero, humanize).ToArray();
 
             Assert.AreEqual(zeroIndexValue, names[0]);
             Assert.AreEqual(oneIndexValue, names[1]);
@@ -116,7 +117,7 @@
         [TestCase(true, false, "One", "Two")]
         public void WithByteFlag_ReturnsListOfStrings(bool ignoreZero, bool humanize, string zeroIndexValue, string oneIndexValue)
         {
-            var names = EnumHelper.GetFlagNames<MyFlagByte>((byte)MyFlagByte.All, ignoreZero, humanize);
+            var names = EnumHelper.GetFlagNames<MyFlagByte>((byte)MyFlagByte.All, ignoreZero, humanize).ToArray();
 
             Assert.AreEqual(zeroIndexValue, names[0]);
             Assert.AreEqual(oneIndexValue, names[1]);
@@ -127,7 +128,7 @@
         [TestCase(true, false, "One", "Two")]
         public void WithLongFlag_ReturnsListOfStrings(bool ignoreZero, bool humanize, string zeroIndexValue, string oneIndexValue)
         {
-            var names = EnumHelper.GetFlagNames<MyFlagLong>((long)MyFlagLong.All, ignoreZero, humanize);
+            var names = EnumHelper.GetFlagNames<MyFlagLong>((long)MyFlagLong.All, ignoreZero, humanize).ToArray();
 
             Assert.AreEqual(zeroIndexValue, names[0]);
             Assert.AreEqual(oneIndexValue, names[1]);
