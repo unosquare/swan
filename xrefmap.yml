@@ -690,6 +690,41 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.ISyncLocker.AcquireWriterLock
   nameWithType: ISyncLocker.AcquireWriterLock
+- uid: Unosquare.Swan.Abstractions.IValidator
+  name: IValidator
+  href: api/Unosquare.Swan.Abstractions.IValidator.html
+  commentId: T:Unosquare.Swan.Abstractions.IValidator
+  fullName: Unosquare.Swan.Abstractions.IValidator
+  nameWithType: IValidator
+- uid: Unosquare.Swan.Abstractions.IValidator.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Abstractions.IValidator.html#Unosquare_Swan_Abstractions_IValidator_ErrorMessage
+  commentId: P:Unosquare.Swan.Abstractions.IValidator.ErrorMessage
+  fullName: Unosquare.Swan.Abstractions.IValidator.ErrorMessage
+  nameWithType: IValidator.ErrorMessage
+- uid: Unosquare.Swan.Abstractions.IValidator.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Abstractions.IValidator.html#Unosquare_Swan_Abstractions_IValidator_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Abstractions.IValidator.ErrorMessage
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IValidator.ErrorMessage
+  nameWithType: IValidator.ErrorMessage
+- uid: Unosquare.Swan.Abstractions.IValidator.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Abstractions.IValidator.html#Unosquare_Swan_Abstractions_IValidator_IsValid_
+  commentId: Overload:Unosquare.Swan.Abstractions.IValidator.IsValid
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IValidator.IsValid
+  nameWithType: IValidator.IsValid
+- uid: Unosquare.Swan.Abstractions.IValidator.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Abstractions.IValidator.html#Unosquare_Swan_Abstractions_IValidator_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Abstractions.IValidator.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Abstractions.IValidator.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Abstractions.IValidator.IsValid(Of T)(T)
+  nameWithType: IValidator.IsValid<T>(T)
+  nameWithType.vb: IValidator.IsValid(Of T)(T)
 - uid: Unosquare.Swan.Abstractions.IWaitEvent
   name: IWaitEvent
   href: api/Unosquare.Swan.Abstractions.IWaitEvent.html
@@ -1736,41 +1771,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Attributes.EmailAttribute.EmailAttribute
   nameWithType: EmailAttribute.EmailAttribute
-- uid: Unosquare.Swan.Attributes.IValidator
-  name: IValidator
-  href: api/Unosquare.Swan.Attributes.IValidator.html
-  commentId: T:Unosquare.Swan.Attributes.IValidator
-  fullName: Unosquare.Swan.Attributes.IValidator
-  nameWithType: IValidator
-- uid: Unosquare.Swan.Attributes.IValidator.ErrorMessage
-  name: ErrorMessage
-  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_ErrorMessage
-  commentId: P:Unosquare.Swan.Attributes.IValidator.ErrorMessage
-  fullName: Unosquare.Swan.Attributes.IValidator.ErrorMessage
-  nameWithType: IValidator.ErrorMessage
-- uid: Unosquare.Swan.Attributes.IValidator.ErrorMessage*
-  name: ErrorMessage
-  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_ErrorMessage_
-  commentId: Overload:Unosquare.Swan.Attributes.IValidator.ErrorMessage
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.IValidator.ErrorMessage
-  nameWithType: IValidator.ErrorMessage
-- uid: Unosquare.Swan.Attributes.IValidator.IsValid*
-  name: IsValid
-  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_IsValid_
-  commentId: Overload:Unosquare.Swan.Attributes.IValidator.IsValid
-  isSpec: "True"
-  fullName: Unosquare.Swan.Attributes.IValidator.IsValid
-  nameWithType: IValidator.IsValid
-- uid: Unosquare.Swan.Attributes.IValidator.IsValid``1(``0)
-  name: IsValid<T>(T)
-  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_IsValid__1___0_
-  commentId: M:Unosquare.Swan.Attributes.IValidator.IsValid``1(``0)
-  name.vb: IsValid(Of T)(T)
-  fullName: Unosquare.Swan.Attributes.IValidator.IsValid<T>(T)
-  fullName.vb: Unosquare.Swan.Attributes.IValidator.IsValid(Of T)(T)
-  nameWithType: IValidator.IsValid<T>(T)
-  nameWithType.vb: IValidator.IsValid(Of T)(T)
 - uid: Unosquare.Swan.Attributes.JsonPropertyAttribute
   name: JsonPropertyAttribute
   href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html
