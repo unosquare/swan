@@ -36,15 +36,16 @@
                 SetDefaultValues();
                 GetRequiredList();
             }
+
             public List<string> UnknownList { get; } = new List<string>();
-            public List<string> RequiredList  { get; } = new List<string>();
+            public List<string> RequiredList { get; } = new List<string>();
 
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 
             public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions()
                 => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
                     .Where(x => x != null);
-            
+
             private void GetRequiredList()
             {
                 foreach (var targetProperty in _properties)
@@ -127,8 +128,8 @@
             }
 
             private bool SetPropertyValue(
-                PropertyInfo targetProperty, 
-                string propertyValueString, 
+                PropertyInfo targetProperty,
+                string propertyValueString,
                 object result,
                 ArgumentOptionAttribute optionAttr = null)
             {

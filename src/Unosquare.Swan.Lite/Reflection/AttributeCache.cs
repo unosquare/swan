@@ -29,6 +29,14 @@
         /// </summary>
         public PropertyTypeCache PropertyTypeCache { get; }
 
+        /// <summary>
+        /// Determines whether [contains] [the specified member].
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute to be retrieved.</typeparam>
+        /// <param name="member">The member.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified member]; otherwise, <c>false</c>.
+        /// </returns>
         public bool Contains<T>(MemberInfo member) => Contains(new Tuple<object, Type>(member, typeof(T)));
 
         /// <summary>

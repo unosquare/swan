@@ -211,7 +211,7 @@
             var source = new ObjectEnum
             {
                 Id = 1,
-                MyEnum = MyEnum.Two
+                MyEnum = MyEnum.Two,
             };
 
             var result = source.CopyPropertiesToNew<ObjectEnum>();

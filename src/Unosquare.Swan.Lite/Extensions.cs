@@ -292,7 +292,7 @@
 
             return Runtime.PropertyTypeCache
                 .RetrieveAllProperties(obj.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = Runtime.AttributeCache.Contains<CopyableAttribute>(x) })
+                .Select(x => new { x.Name, HasAttribute = Runtime.AttributeCache.RetrieveOne<CopyableAttribute>(x) != null})
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
                 .ToArray();
