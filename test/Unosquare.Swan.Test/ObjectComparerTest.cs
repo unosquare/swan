@@ -26,7 +26,7 @@
                 IntData = 1,
                 NegativeInt = -1,
                 StringData = "A",
-                StringNull = null
+                StringNull = null,
             };
 
             var right = new BasicJson
@@ -36,7 +36,7 @@
                 IntData = 1,
                 NegativeInt = -1,
                 StringData = "A",
-                StringNull = null
+                StringNull = null,
             };
 
             Assert.IsTrue(ObjectComparer.AreObjectsEqual(left, right));
@@ -79,8 +79,8 @@
         {
             var rightStruct = new SampleStruct
             {
-                Name = "Kadosh",
-                Value = 2
+                Name = nameof(SampleStruct),
+                Value = 2,
             };
 
             Assert.IsFalse(ObjectComparer.AreStructsEqual(DefaultStruct, rightStruct));
@@ -177,14 +177,14 @@
             {
                 StudentId = 1,
                 Average = 98.10,
-                Notes = "Good"
+                Notes = "Good",
             };
 
             var rightStruct = new SampleStructWithProps
             {
                 StudentId = 1,
                 Average = 98.10,
-                Notes = "Good"
+                Notes = "Good",
             };
 
             Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
@@ -197,14 +197,14 @@
             {
                 StudentId = 1,
                 Average = 98.10,
-                Notes = "Good"
+                Notes = "Good",
             };
 
             var rightStruct = new SampleStructWithProps
             {
                 StudentId = 2,
                 Average = 79.78,
-                Notes = "Ehmm, it could be better"
+                Notes = "Ehmm, it could be better",
             };
 
             Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
@@ -219,14 +219,14 @@
         {
             var leftStruct = new SampleStruct
             {
-                Name = "ArCiGo",
-                Value = 1
+                Name = nameof(SampleStruct),
+                Value = 1,
             };
 
             var rightStruct = new SampleStruct
             {
-                Name = "ArCiGo",
-                Value = 1
+                Name = nameof(SampleStruct),
+                Value = 1,
             };
 
             Assert.IsTrue(ObjectComparer.AreEqual(leftStruct, rightStruct));

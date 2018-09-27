@@ -124,7 +124,7 @@
         /// <returns>
         /// The IList.
         /// </returns>
-        /// <exception cref="ArgumentNullException">list</exception>
+        /// <exception cref="ArgumentNullException">list.</exception>
         public static IList<T> AddWhen<T>(
             this IList<T> list,
             bool condition,

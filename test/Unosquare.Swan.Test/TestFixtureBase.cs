@@ -29,13 +29,13 @@
             NegativeInt = -1,
             DecimalData = 10.33M,
             BoolData = true,
-            Date = new DateTime(2017, 10, 10)
+            Date = new DateTime(2017, 10, 10),
         };
 
         protected SampleStruct DefaultStruct => new SampleStruct
         {
-            Name = "string",
-            Value = 1
+            Name = nameof(DefaultStruct),
+            Value = 1,
         };
 
         protected List<string> DefaultStringList => new List<string> { "A", "B", "C" };
@@ -46,7 +46,7 @@
             {2, "B"},
             {3, "C"},
             {4, "D"},
-            {5, "E"}
+            {5, "E"},
         };
     }
 }

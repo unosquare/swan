@@ -321,8 +321,9 @@ namespace Unosquare.Swan.Networking
 
                             {
                                 // CONTENT
-                                var dataTerminator = sessionState.DataBuffer.Skip(sessionState.DataBuffer.Count - 5)
-                                    .ToArray().ToText();
+                                var dataTerminator = sessionState.DataBuffer
+                                    .Skip(sessionState.DataBuffer.Count - 5)
+                                    .ToText();
 
                                 sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
                                 

@@ -396,14 +396,14 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this byte[] buffer, Encoding encoding) => encoding.GetString(buffer);
+        public static string ToText(this IEnumerable<byte> buffer, Encoding encoding) => encoding.GetString(buffer.ToArray());
 
         /// <summary>
         /// Converts an array of bytes into text with UTF8 encoding.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this byte[] buffer) => buffer.ToText(Encoding.UTF8);
+        public static string ToText(this IEnumerable<byte> buffer) => buffer.ToText(Encoding.UTF8);
 
         /// <summary>
         /// Retrieves a sub-array from the specified <paramref name="array"/>. A sub-array starts at
