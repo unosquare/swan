@@ -175,7 +175,7 @@
                 {nameof(UserDto.Name), "Thrall"},
                 {nameof(UserDto.Email), "Warchief.Thrall@horde.com"},
                 {nameof(UserDto.Role), "Warchief"},
-                {nameof(UserDto.IsAdmin), 1}
+                {nameof(UserDto.IsAdmin), 1},
             };
 
             var target = new UserDto();

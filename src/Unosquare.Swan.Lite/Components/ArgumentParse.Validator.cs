@@ -14,9 +14,6 @@
     {
         private sealed class Validator
         {
-            public readonly List<string> UnknownList = new List<string>();
-            public readonly List<string> RequiredList = new List<string>();
-
             private readonly object _instance;
             private readonly IEnumerable<string> _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
@@ -39,13 +36,15 @@
                 SetDefaultValues();
                 GetRequiredList();
             }
+            public List<string> UnknownList { get; } = new List<string>();
+            public List<string> RequiredList  { get; } = new List<string>();
 
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 
             public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions()
                 => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
                     .Where(x => x != null);
-
+            
             private void GetRequiredList()
             {
                 foreach (var targetProperty in _properties)
@@ -66,12 +65,14 @@
             {
                 foreach (var targetProperty in _properties.Except(_updatedList))
                 {
-                    var defaultValue = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty)?.DefaultValue;
+                    var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+
+                    var defaultValue = optionAttr?.DefaultValue;
 
                     if (defaultValue == null)
                         continue;
 
-                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), _instance))
+                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), _instance, optionAttr))
                         _updatedList.Add(targetProperty);
                 }
             }
@@ -125,7 +126,11 @@
                 }
             }
 
-            private bool SetPropertyValue(PropertyInfo targetProperty, string propertyValueString, object result)
+            private bool SetPropertyValue(
+                PropertyInfo targetProperty, 
+                string propertyValueString, 
+                object result,
+                ArgumentOptionAttribute optionAttr = null)
             {
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
@@ -140,19 +145,8 @@
                 }
 
                 return targetProperty.PropertyType.IsArray
-                    ? PopulateArray(targetProperty, propertyValueString, result)
+                    ? targetProperty.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
                     : targetProperty.TrySetBasicType(propertyValueString, result);
-            }
-
-            private static bool PopulateArray(
-                PropertyInfo targetProperty,
-                string propertyValueString,
-                object result)
-            {
-                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
-
-                var source = propertyValueString.Split(optionAttr.Separator);
-                return targetProperty.TrySetArray(source, result);
             }
 
             private PropertyInfo TryGetProperty(string propertyName)

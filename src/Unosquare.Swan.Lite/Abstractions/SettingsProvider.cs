@@ -53,7 +53,7 @@
 
         /// <summary>
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
-        /// and the filename is appsettings.json.
+        /// and the filename is 'appsettings.json'.
         /// </summary>
         /// <value>
         /// The configuration file path.

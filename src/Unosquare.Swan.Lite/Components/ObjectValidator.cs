@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Collections.Generic;
-    using Attributes;
+    using Abstractions;
 #if NETSTANDARD1_3 || UWP
     using System.Reflection;
 #endif

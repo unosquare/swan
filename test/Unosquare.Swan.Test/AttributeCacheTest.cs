@@ -1,11 +1,12 @@
 ﻿namespace Unosquare.Swan.Test
 {
+    using Abstractions;
+    using Attributes;
+    using Mocks;
     using NUnit.Framework;
+    using Reflection;
     using System;
     using System.Reflection;
-    using Attributes;
-    using Reflection;
-    using Mocks;
 
     public abstract class AttributeCacheTest
     {
@@ -79,17 +80,17 @@
         public void ValidParams_ReturnsAttributes()
         {
             var member = typeof(RegexMock).GetProperty(nameof(RegexMock.Salute));
-            var attribs = AttributeCache.Retrieve(member, typeof(IValidator));
-            Assert.That(attribs.Length, Is.EqualTo(1));
+            var attributes = AttributeCache.Retrieve(member, typeof(IValidator));
+            Assert.That(attributes.Length, Is.EqualTo(1));
         }
 
         [Test]
         public void PropertyWithNoMatchingAttributes_ReturnsZeroProperties()
         {
             var member = typeof(NotNullMock).GetProperty(nameof(NotNullMock.Number));
-            var attribs = AttributeCache.Retrieve(member, typeof(IReflect));
+            var attributes = AttributeCache.Retrieve(member, typeof(IReflect));
 
-            Assert.That(attribs.Length, Is.EqualTo(0));
+            Assert.That(attributes.Length, Is.EqualTo(0));
         }
 
         [Test]

@@ -2,25 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
-
-    /// <summary>
-    /// A simple Validator interface.
-    /// </summary>
-    public interface IValidator
-    {
-        /// <summary>
-        /// The error message.
-        /// </summary>
-        string ErrorMessage { get; }
-
-        /// <summary>
-        /// Checks if a value is valid.
-        /// </summary>
-        /// <typeparam name="T">The type.</typeparam>
-        /// <param name="value"> The value.</param>
-        /// <returns>True if it is valid.False if it is not.</returns>
-        bool IsValid<T>(T value);
-    }
+    using Abstractions;
 
     /// <summary>
     /// Regex validator.
@@ -31,12 +13,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAttribute" /> class.
         /// </summary>
-        /// <param name="rgx">A regex string.</param>
+        /// <param name="regex">A regex string.</param>
         /// <param name="errorMessage">The error message.</param>
         /// <exception cref="ArgumentNullException">Expression.</exception>
-        public MatchAttribute(string rgx, string errorMessage = null)
+        public MatchAttribute(string regex, string errorMessage = null)
         {
-            Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
+            Expression = regex ?? throw new ArgumentNullException(nameof(Expression));
             ErrorMessage = errorMessage ?? "String does not match the specified regular expression";
         }
 
@@ -71,8 +53,9 @@
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmailAttribute" /> class.
+        /// Initializes a new instance of the <see cref="T:Unosquare.Swan.Attributes.EmailAttribute" /> class.
         /// </summary>
         /// <param name="errorMessage">The error message.</param>
         public EmailAttribute(string errorMessage = null)

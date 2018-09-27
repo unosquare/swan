@@ -32,7 +32,7 @@
         {
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
-            
+
             try
             {
                 return assembly.GetTypes();
@@ -115,14 +115,14 @@
                 throw new ArgumentNullException(nameof(parameterTypes));
 
             var methods = type
-                    .GetMethods(bindingFlags)
-                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
-                    .Where(mi => mi.ContainsGenericParameters)
-                    .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
-                    .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
-                    .Select(mi => mi.MakeGenericMethod(genericTypes))
-                    .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
-                    .ToList();
+                .GetMethods(bindingFlags)
+                .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
+                .Where(mi => mi.ContainsGenericParameters)
+                .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
+                .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
+                .Select(mi => mi.MakeGenericMethod(genericTypes))
+                .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
+                .ToList();
 
             return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
@@ -246,11 +246,9 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
         public static bool IsIEnumerable(this Type type)
-        {
-            return type == null
+            => type == null
                 ? throw new ArgumentNullException(nameof(type))
                 : type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-        }
 
         #endregion
 
