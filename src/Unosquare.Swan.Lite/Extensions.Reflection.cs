@@ -334,6 +334,12 @@
                     array.SetValue(propertyValue, index);
                     return true;
                 }
+                
+                if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    array.SetValue(null, index);
+                    return true;
+                }
             }
             catch
             {
