@@ -658,6 +658,51 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.ExpressionParser.ResolveVariable
   nameWithType: ExpressionParser.ResolveVariable
+- uid: Unosquare.Swan.Abstractions.IObjectMap
+  name: IObjectMap
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html
+  commentId: T:Unosquare.Swan.Abstractions.IObjectMap
+  fullName: Unosquare.Swan.Abstractions.IObjectMap
+  nameWithType: IObjectMap
+- uid: Unosquare.Swan.Abstractions.IObjectMap.DestinationType
+  name: DestinationType
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_DestinationType
+  commentId: P:Unosquare.Swan.Abstractions.IObjectMap.DestinationType
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.DestinationType
+  nameWithType: IObjectMap.DestinationType
+- uid: Unosquare.Swan.Abstractions.IObjectMap.DestinationType*
+  name: DestinationType
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_DestinationType_
+  commentId: Overload:Unosquare.Swan.Abstractions.IObjectMap.DestinationType
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.DestinationType
+  nameWithType: IObjectMap.DestinationType
+- uid: Unosquare.Swan.Abstractions.IObjectMap.Map
+  name: Map
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_Map
+  commentId: P:Unosquare.Swan.Abstractions.IObjectMap.Map
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.Map
+  nameWithType: IObjectMap.Map
+- uid: Unosquare.Swan.Abstractions.IObjectMap.Map*
+  name: Map
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_Map_
+  commentId: Overload:Unosquare.Swan.Abstractions.IObjectMap.Map
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.Map
+  nameWithType: IObjectMap.Map
+- uid: Unosquare.Swan.Abstractions.IObjectMap.SourceType
+  name: SourceType
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_SourceType
+  commentId: P:Unosquare.Swan.Abstractions.IObjectMap.SourceType
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.SourceType
+  nameWithType: IObjectMap.SourceType
+- uid: Unosquare.Swan.Abstractions.IObjectMap.SourceType*
+  name: SourceType
+  href: api/Unosquare.Swan.Abstractions.IObjectMap.html#Unosquare_Swan_Abstractions_IObjectMap_SourceType_
+  commentId: Overload:Unosquare.Swan.Abstractions.IObjectMap.SourceType
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IObjectMap.SourceType
+  nameWithType: IObjectMap.SourceType
 - uid: Unosquare.Swan.Abstractions.ISyncLocker
   name: ISyncLocker
   href: api/Unosquare.Swan.Abstractions.ISyncLocker.html
@@ -2519,24 +2564,24 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.ToSByteArray
   nameWithType: ByteArrayExtensions.ToSByteArray
-- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
-  name: ToText(Byte[])
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Byte___
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
-  name.vb: ToText(Byte())
-  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte())
-  nameWithType: ByteArrayExtensions.ToText(Byte[])
-  nameWithType.vb: ByteArrayExtensions.ToText(Byte())
-- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[],System.Text.Encoding)
-  name: ToText(Byte[], Encoding)
-  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Byte___System_Text_Encoding_
-  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[],System.Text.Encoding)
-  name.vb: ToText(Byte(), Encoding)
-  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[], System.Text.Encoding)
-  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte(), System.Text.Encoding)
-  nameWithType: ByteArrayExtensions.ToText(Byte[], Encoding)
-  nameWithType.vb: ByteArrayExtensions.ToText(Byte(), Encoding)
+- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable{System.Byte})
+  name: ToText(IEnumerable<Byte>)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Collections_Generic_IEnumerable_System_Byte__
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable{System.Byte})
+  name.vb: ToText(IEnumerable(Of Byte))
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable<System.Byte>)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable(Of System.Byte))
+  nameWithType: ByteArrayExtensions.ToText(IEnumerable<Byte>)
+  nameWithType.vb: ByteArrayExtensions.ToText(IEnumerable(Of Byte))
+- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable{System.Byte},System.Text.Encoding)
+  name: ToText(IEnumerable<Byte>, Encoding)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Collections_Generic_IEnumerable_System_Byte__System_Text_Encoding_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable{System.Byte},System.Text.Encoding)
+  name.vb: ToText(IEnumerable(Of Byte), Encoding)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable<System.Byte>, System.Text.Encoding)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Collections.Generic.IEnumerable(Of System.Byte), System.Text.Encoding)
+  nameWithType: ByteArrayExtensions.ToText(IEnumerable<Byte>, Encoding)
+  nameWithType.vb: ByteArrayExtensions.ToText(IEnumerable(Of Byte), Encoding)
 - uid: Unosquare.Swan.ByteArrayExtensions.ToText*
   name: ToText
   href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_
@@ -4255,51 +4300,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.IMessageHubSubscription.SubscriptionToken
   nameWithType: IMessageHubSubscription.SubscriptionToken
-- uid: Unosquare.Swan.Components.IObjectMap
-  name: IObjectMap
-  href: api/Unosquare.Swan.Components.IObjectMap.html
-  commentId: T:Unosquare.Swan.Components.IObjectMap
-  fullName: Unosquare.Swan.Components.IObjectMap
-  nameWithType: IObjectMap
-- uid: Unosquare.Swan.Components.IObjectMap.DestinationType
-  name: DestinationType
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_DestinationType
-  commentId: P:Unosquare.Swan.Components.IObjectMap.DestinationType
-  fullName: Unosquare.Swan.Components.IObjectMap.DestinationType
-  nameWithType: IObjectMap.DestinationType
-- uid: Unosquare.Swan.Components.IObjectMap.DestinationType*
-  name: DestinationType
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_DestinationType_
-  commentId: Overload:Unosquare.Swan.Components.IObjectMap.DestinationType
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.IObjectMap.DestinationType
-  nameWithType: IObjectMap.DestinationType
-- uid: Unosquare.Swan.Components.IObjectMap.Map
-  name: Map
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_Map
-  commentId: P:Unosquare.Swan.Components.IObjectMap.Map
-  fullName: Unosquare.Swan.Components.IObjectMap.Map
-  nameWithType: IObjectMap.Map
-- uid: Unosquare.Swan.Components.IObjectMap.Map*
-  name: Map
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_Map_
-  commentId: Overload:Unosquare.Swan.Components.IObjectMap.Map
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.IObjectMap.Map
-  nameWithType: IObjectMap.Map
-- uid: Unosquare.Swan.Components.IObjectMap.SourceType
-  name: SourceType
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_SourceType
-  commentId: P:Unosquare.Swan.Components.IObjectMap.SourceType
-  fullName: Unosquare.Swan.Components.IObjectMap.SourceType
-  nameWithType: IObjectMap.SourceType
-- uid: Unosquare.Swan.Components.IObjectMap.SourceType*
-  name: SourceType
-  href: api/Unosquare.Swan.Components.IObjectMap.html#Unosquare_Swan_Components_IObjectMap_SourceType_
-  commentId: Overload:Unosquare.Swan.Components.IObjectMap.SourceType
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.IObjectMap.SourceType
-  nameWithType: IObjectMap.SourceType
 - uid: Unosquare.Swan.Components.MessageHub
   name: MessageHub
   href: api/Unosquare.Swan.Components.MessageHub.html
@@ -6929,6 +6929,46 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(Of T)()
   nameWithType: CsvWriter.WriteHeadings<T>()
   nameWithType.vb: CsvWriter.WriteHeadings(Of T)()
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type,CancellationToken)
+  name: WriteHeadingsAsync(Type, CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_System_Type_CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type,CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type, CancellationToken)
+  nameWithType: CsvWriter.WriteHeadingsAsync(Type, CancellationToken)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync*
+  name: WriteHeadingsAsync
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_
+  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync
+  nameWithType: CsvWriter.WriteHeadingsAsync
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync``1(CancellationToken)
+  name: WriteHeadingsAsync<T>(CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync__1_CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync``1(CancellationToken)
+  name.vb: WriteHeadingsAsync(Of T)(CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync<T>(CancellationToken)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(Of T)(CancellationToken)
+  nameWithType: CsvWriter.WriteHeadingsAsync<T>(CancellationToken)
+  nameWithType.vb: CsvWriter.WriteHeadingsAsync(Of T)(CancellationToken)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})
+  name: WriteLine(IEnumerable<Object>)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_Object__
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})
+  name.vb: WriteLine(IEnumerable(Of Object))
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable<System.Object>)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable(Of System.Object))
+  nameWithType: CsvWriter.WriteLine(IEnumerable<Object>)
+  nameWithType.vb: CsvWriter.WriteLine(IEnumerable(Of Object))
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})
+  name: WriteLine(IEnumerable<String>)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_String__
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})
+  name.vb: WriteLine(IEnumerable(Of String))
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable<System.String>)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable(Of System.String))
+  nameWithType: CsvWriter.WriteLine(IEnumerable<String>)
+  nameWithType.vb: CsvWriter.WriteLine(IEnumerable(Of String))
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])
   name: WriteLine(Object[])
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___
@@ -6954,6 +6994,31 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine
   nameWithType: CsvWriter.WriteLine
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.Object},CancellationToken)
+  name: WriteLineAsync(IEnumerable<Object>, CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_Object__CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.Object},CancellationToken)
+  name.vb: WriteLineAsync(IEnumerable(Of Object), CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable<System.Object>, CancellationToken)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable(Of System.Object), CancellationToken)
+  nameWithType: CsvWriter.WriteLineAsync(IEnumerable<Object>, CancellationToken)
+  nameWithType.vb: CsvWriter.WriteLineAsync(IEnumerable(Of Object), CancellationToken)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.String},CancellationToken)
+  name: WriteLineAsync(IEnumerable<String>, CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_String__CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.String},CancellationToken)
+  name.vb: WriteLineAsync(IEnumerable(Of String), CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable<System.String>, CancellationToken)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable(Of System.String), CancellationToken)
+  nameWithType: CsvWriter.WriteLineAsync(IEnumerable<String>, CancellationToken)
+  nameWithType.vb: CsvWriter.WriteLineAsync(IEnumerable(Of String), CancellationToken)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync*
+  name: WriteLineAsync
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_
+  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync
+  nameWithType: CsvWriter.WriteLineAsync
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteObject(System.Object)
   name: WriteObject(Object)
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObject_System_Object_
@@ -6976,6 +7041,28 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteObject(Of T)(T)
   nameWithType: CsvWriter.WriteObject<T>(T)
   nameWithType.vb: CsvWriter.WriteObject(Of T)(T)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object,CancellationToken)
+  name: WriteObjectAsync(Object, CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_System_Object_CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object,CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object, CancellationToken)
+  nameWithType: CsvWriter.WriteObjectAsync(Object, CancellationToken)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync*
+  name: WriteObjectAsync
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_
+  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync
+  nameWithType: CsvWriter.WriteObjectAsync
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync``1(``0,CancellationToken)
+  name: WriteObjectAsync<T>(T, CancellationToken)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync__1___0_CancellationToken_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync``1(``0,CancellationToken)
+  name.vb: WriteObjectAsync(Of T)(T, CancellationToken)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync<T>(T, CancellationToken)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(Of T)(T, CancellationToken)
+  nameWithType: CsvWriter.WriteObjectAsync<T>(T, CancellationToken)
+  nameWithType.vb: CsvWriter.WriteObjectAsync(Of T)(T, CancellationToken)
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjects*
   name: WriteObjects
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjects_
@@ -12463,15 +12550,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType
   nameWithType: ReflectionExtensions.TryParseBasicType
-- uid: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Object[],System.Object)
-  name: TrySetArray(PropertyInfo, Object[], Object)
-  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArray_System_Reflection_PropertyInfo_System_Object___System_Object_
-  commentId: M:Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Object[],System.Object)
-  name.vb: TrySetArray(PropertyInfo, Object(), Object)
-  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Object[], System.Object)
-  fullName.vb: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Object(), System.Object)
-  nameWithType: ReflectionExtensions.TrySetArray(PropertyInfo, Object[], Object)
-  nameWithType.vb: ReflectionExtensions.TrySetArray(PropertyInfo, Object(), Object)
+- uid: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Collections.Generic.IEnumerable{System.Object},System.Object)
+  name: TrySetArray(PropertyInfo, IEnumerable<Object>, Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArray_System_Reflection_PropertyInfo_System_Collections_Generic_IEnumerable_System_Object__System_Object_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Collections.Generic.IEnumerable{System.Object},System.Object)
+  name.vb: TrySetArray(PropertyInfo, IEnumerable(Of Object), Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Collections.Generic.IEnumerable<System.Object>, System.Object)
+  fullName.vb: Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo, System.Collections.Generic.IEnumerable(Of System.Object), System.Object)
+  nameWithType: ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable<Object>, Object)
+  nameWithType.vb: ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable(Of Object), Object)
 - uid: Unosquare.Swan.ReflectionExtensions.TrySetArray*
   name: TrySetArray
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TrySetArray_

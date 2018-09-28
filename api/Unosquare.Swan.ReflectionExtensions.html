@@ -1288,13 +1288,13 @@ will be formatted accordingly.</p>
   
   
   <a id="Unosquare_Swan_ReflectionExtensions_TrySetArray_" data-uid="Unosquare.Swan.ReflectionExtensions.TrySetArray*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_TrySetArray_System_Reflection_PropertyInfo_System_Object___System_Object_" data-uid="Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Object[],System.Object)">TrySetArray(PropertyInfo, Object[], Object)</h4>
+  <h4 id="Unosquare_Swan_ReflectionExtensions_TrySetArray_System_Reflection_PropertyInfo_System_Collections_Generic_IEnumerable_System_Object__System_Object_" data-uid="Unosquare.Swan.ReflectionExtensions.TrySetArray(System.Reflection.PropertyInfo,System.Collections.Generic.IEnumerable{System.Object},System.Object)">TrySetArray(PropertyInfo, IEnumerable&lt;Object&gt;, Object)</h4>
   <div class="markdown level1 summary"><p>Tries to set a property array with another array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable&lt;object&gt; value, object obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1313,7 +1313,7 @@ will be formatted accordingly.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>The value.</p>
 </td>

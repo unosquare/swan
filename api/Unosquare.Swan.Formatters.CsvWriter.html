@@ -818,10 +818,199 @@ It uses the Windows 1252 text encoding for output.</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_System_Type_CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type,CancellationToken)">WriteHeadingsAsync(Type, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteHeadingsAsync(Type type, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type of object to extract headings.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync__1_CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync``1(CancellationToken)">WriteHeadingsAsync&lt;T&gt;(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteHeadingsAsync&lt;T&gt;(CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of object to extract headings.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_Object__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})">WriteLine(IEnumerable&lt;Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.</p>
+<p>If items are found to be null, empty strings are written out.
+If items are not string, the ToStringInvariant() method is called on them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteLine(IEnumerable&lt;object&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_String__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})">WriteLine(IEnumerable&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text.</p>
+<p>If items are found to be null, empty strings are written out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteLine(IEnumerable&lt;string&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
   <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])">WriteLine(Object[])</h4>
-  <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.
-If items are found to be null, empty strings are written out.
+  <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.</p>
+<p>If items are found to be null, empty strings are written out.
 If items are not string, the ToStringInvariant() method is called on them.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -873,6 +1062,110 @@ If items are found to be null, empty strings are written out.</p>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
         <td><span class="parametername">items</span></td>
         <td><p>The items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_Object__CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.Object},CancellationToken)">WriteLineAsync(IEnumerable&lt;Object&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text asynchronous. Items are converted to strings.
+If items are found to be null, empty strings are written out.
+If items are not string, the ToStringInvariant() method is called on them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(IEnumerable&lt;object&gt; items, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_String__CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.String},CancellationToken)">WriteLineAsync(IEnumerable&lt;String&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(IEnumerable&lt;string&gt; items, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The ct.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
 </td>
       </tr>
     </tbody>
@@ -953,6 +1246,141 @@ method of this class and use the WriteLine method instead.</p>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">item</span></td>
         <td><p>The item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of object to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_System_Object_CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object,CancellationToken)">WriteObjectAsync(Object, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a row of CSV text asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteObjectAsync(object item, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync__1___0_CancellationToken_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync``1(``0,CancellationToken)">WriteObjectAsync&lt;T&gt;(T, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a row of CSV text asynchronous. It handles the special cases where the object is
+a dynamic object or and array. It also handles non-collection objects fine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteObjectAsync&lt;T&gt;(T item, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
 </td>
       </tr>
     </tbody>
