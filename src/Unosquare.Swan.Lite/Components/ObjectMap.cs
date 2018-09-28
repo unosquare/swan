@@ -12,7 +12,7 @@
     /// </summary>
     /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TDestination">The type of the destination.</typeparam>
-    /// <seealso cref="Unosquare.Swan.Components.IObjectMap" />
+    /// <seealso cref="Unosquare.Swan.Abstractions.IObjectMap" />
     public class ObjectMap<TSource, TDestination> : IObjectMap
     {
         internal ObjectMap(IEnumerable<PropertyInfo> intersect)

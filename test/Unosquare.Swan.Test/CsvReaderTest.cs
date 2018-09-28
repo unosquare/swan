@@ -260,7 +260,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     public class Count : CsvReaderTest
     {
         [Test]
-        public void WithValidStream_ReturnsNumberOfLinesReaded()
+        public void WithValidStream_ReturnsNumberOfLines()
         {
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
             {

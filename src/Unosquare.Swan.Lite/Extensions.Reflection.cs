@@ -28,7 +28,7 @@
         /// Array of Type objects representing the types specified by an assembly.
         /// </returns>
         /// <exception cref="ArgumentNullException">assembly.</exception>
-        public static Type[] GetAllTypes(this Assembly assembly)
+        public static IEnumerable<Type> GetAllTypes(this Assembly assembly)
         {
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
@@ -39,7 +39,7 @@
             }
             catch (ReflectionTypeLoadException e)
             {
-                return e.Types.Where(t => t != null).ToArray();
+                return e.Types.Where(t => t != null);
             }
         }
 
@@ -275,11 +275,9 @@
         /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
         {
-            if (Definitions.BasicTypesInfo.ContainsKey(type))
-                return Definitions.BasicTypesInfo[type].TryParse(value, out result);
-
             result = null;
-            return false;
+
+            return Definitions.BasicTypesInfo.ContainsKey(type) && Definitions.BasicTypesInfo[type].TryParse(value, out result);
         }
 
         /// <summary>

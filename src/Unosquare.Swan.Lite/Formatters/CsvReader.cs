@@ -290,11 +290,7 @@
                     throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
                 
                 _headings = ReadLine();
-                _defaultMap = new Dictionary<string, string>();
-                foreach (var heading in _headings)
-                {
-                    _defaultMap[heading] = heading;
-                }
+                _defaultMap = _headings.ToDictionary(x => x, x => x);
 
                 return _headings.ToArray();
             }

@@ -10,8 +10,6 @@
     public sealed class ArgumentOptionAttribute
         : Attribute
     {
-        private string _setName;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// The default long name will be inferred from target property.
@@ -53,9 +51,6 @@
         {
             ShortName = shortName ?? throw new ArgumentNullException(nameof(shortName));
             LongName = longName ?? throw new ArgumentNullException(nameof(longName));
-
-            _setName = string.Empty;
-            Separator = '\0';
         }
 
         /// <summary>
@@ -78,7 +73,7 @@
         /// When applying attribute to <see cref="System.Collections.Generic.IEnumerable{T}"/> target properties,
         /// it allows you to split an argument and consume its content as a sequence.
         /// </summary>
-        public char Separator { get; set; }
+        public char Separator { get; set; } = '\0';
 
         /// <summary>
         /// Gets or sets mapped property default value.

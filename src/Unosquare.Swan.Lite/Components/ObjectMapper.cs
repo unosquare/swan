@@ -252,8 +252,7 @@
                 .Select(p => p.ToLowerInvariant());
 
             var properties = Runtime.PropertyTypeCache
-                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
-                .ToArray();
+                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite);
 
             return properties
                 .Select(x => x.Name)

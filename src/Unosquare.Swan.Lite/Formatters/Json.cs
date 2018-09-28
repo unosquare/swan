@@ -42,7 +42,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly Dictionary<Type, string[]> IgnoredPropertiesCache = new Dictionary<Type, string[]>();
+        private static readonly Dictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new Dictionary<Type, IEnumerable<string>>();
 
         #region Public API
 
@@ -305,8 +305,7 @@
 
             var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
                 .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
-                .Select(x => x.Name)
-                .ToArray());
+                .Select(x => x.Name));
 
             if (excludedByAttr?.Any() != true)
                 return excludedNames;

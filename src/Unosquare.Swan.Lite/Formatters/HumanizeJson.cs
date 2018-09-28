@@ -134,7 +134,7 @@
                 stringValue.IndexOf('\n') >= 0)
             {
                 _builder.AppendLine();
-                var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
+                var stringLines = stringValue.ToLines().Select(l => l.Trim());
 
                 foreach (var line in stringLines)
                 {

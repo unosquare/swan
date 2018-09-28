@@ -284,7 +284,7 @@
             private string ResolveEnumerable(IEnumerable target, int depth)
             {
                 // Cast the items as a generic object array
-                var items = target.Cast<object>().ToArray();
+                var items = target.Cast<object>();
 
                 Append(OpenArrayChar, depth);
                 AppendLine();
