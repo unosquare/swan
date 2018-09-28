@@ -266,7 +266,7 @@
     /// This class is mainly used to define sets of types within the Constants class
     /// and it is not meant for other than querying the BasicTypesInfo dictionary.
     /// </summary>
-    /// <typeparam name="T">The type of extended type infomation.</typeparam>
+    /// <typeparam name="T">The type of extended type information.</typeparam>
     public class ExtendedTypeInfo<T> : ExtendedTypeInfo
     {
         /// <summary>

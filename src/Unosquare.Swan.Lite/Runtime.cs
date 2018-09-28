@@ -22,8 +22,6 @@
         
         private static readonly Lazy<AttributeCache> _attributeCache = new Lazy<AttributeCache>(() => new AttributeCache());
 
-        private static readonly Lazy<EnumHelper> _enumHelper = new Lazy<EnumHelper>(() => new EnumHelper());
-
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
         private static readonly Lazy<FieldTypeCache> _fieldTypeCache = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
@@ -186,14 +184,6 @@
         /// </value>
         public static AttributeCache AttributeCache => _attributeCache.Value;
 
-        /// <summary>
-        /// Gets the enum helper.
-        /// </summary>
-        /// <value>
-        /// The enum helper.
-        /// </value>
-        public static EnumHelper EnumHelper => _enumHelper.Value;
-        
         /// <summary>
         /// Gets the object validator.
         /// </summary>

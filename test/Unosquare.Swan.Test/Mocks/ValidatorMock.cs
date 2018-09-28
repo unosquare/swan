@@ -40,4 +40,10 @@
         [Match(@"hi|hello")]
         public int Salute { get; set; }
     }
+
+    public class EmailMock
+    {
+        [Email]
+        public string To { get; set; }
+    }
 }

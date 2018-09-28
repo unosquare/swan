@@ -17,7 +17,7 @@
         /// </summary>
         public static void PrintCurrentCodePage()
         {
-            if (IsConsolePresent == false) return;
+            if (!IsConsolePresent) return;
 
             lock (SyncLock)
             {
@@ -82,7 +82,7 @@
                 {
                     OutputColor = color ?? Settings.DefaultColor,
                     OutputText = buffer,
-                    OutputWriters = writerFlags
+                    OutputWriters = writerFlags,
                 };
 
                 EnqueueOutput(context);
@@ -103,7 +103,7 @@
                 {
                     OutputColor = color ?? Settings.DefaultColor,
                     OutputText = new[] { charCode },
-                    OutputWriters = writerFlags
+                    OutputWriters = writerFlags,
                 };
 
                 EnqueueOutput(context);
@@ -127,7 +127,7 @@
                 {
                     OutputColor = color ?? Settings.DefaultColor,
                     OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriters = writerFlags
+                    OutputWriters = writerFlags,
                 };
 
                 EnqueueOutput(context);
@@ -152,10 +152,8 @@
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
-        {
-            Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
-        }
+        public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
+            => Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
 
         /// <summary>
         /// As opposed to WriteLine methods, it prepends a Carriage Return character to the text

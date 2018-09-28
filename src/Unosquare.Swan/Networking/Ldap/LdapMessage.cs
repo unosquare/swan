@@ -1,9 +1,6 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-    using System;
-    using System.Reflection;
-
     /// <summary>
     /// The base class for Ldap request and response messages.
     /// Subclassed by response messages used in asynchronous operations.
@@ -59,41 +56,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="message">A response message.</param>
         internal LdapMessage(RfcLdapMessage message) => Message = message;
-
-        /// <summary>
-        /// Returns any controls in the message.
-        /// </summary>
-        /// <value>
-        /// The controls.
-        /// </value>
-        public virtual LdapControl[] Controls
-        {
-            get
-            {
-                var asn1Ctrls = Message.Controls;
-
-                // convert from RFC 2251 Controls to LDAPControl[].
-                if (asn1Ctrls == null) return null;
-
-                var controls = new LdapControl[asn1Ctrls.Size()];
-
-                for (var i = 0; i < asn1Ctrls.Size(); i++)
-                {
-                    var rfcCtl = (RfcControl) asn1Ctrls.Get(i);
-                    var oid = rfcCtl.ControlType.StringValue();
-                    var arrayValue = rfcCtl.ControlValue.ByteValue();
-                    var critical = rfcCtl.Criticality.BooleanValue();
-
-                    // Return from this call should return either an LDAPControl
-                    // or a class extending LDAPControl that implements the
-                    // appropriate registered response control
-                    controls[i] = ControlFactory(oid, critical, arrayValue);
-                }
-
-                return controls;
-            }
-        }
-
+        
         /// <summary>
         /// Returns the message ID.  The message ID is an integer value
         /// identifying the Ldap request and its response.
@@ -174,33 +137,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Name}({MessageId}): {Message}";
-
-        private static LdapControl ControlFactory(string oid, bool critical, sbyte[] values)
-        {
-            try
-            {
-                var respCtlClass = LdapControl.RegisteredControls.FindResponseControl(oid);
-
-                // Did not find a match so return default LDAPControl
-                if (respCtlClass == null)
-                    return new LdapControl(oid, critical, values);
-
-                Type[] argsClass = {typeof(string), typeof(bool), typeof(sbyte[])};
-
-                var ctlConstructor = respCtlClass.GetConstructor(argsClass);
-
-                return (LdapControl) ctlConstructor?.Invoke(new object[] {oid, critical, values});
-            }
-            catch (Exception)
-            {
-                // No match with the OID
-                // Do nothing. Fall through and construct a default LDAPControl object.
-            }
-
-            // If we get here we did not have a registered response control
-            // for this oid.  Return a default LDAPControl object.
-            return new LdapControl(oid, critical, values);
-        }
     }
 }
 #endif

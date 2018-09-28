@@ -68,7 +68,7 @@
         /// <summary>
         /// The fail
         /// </summary>
-        Fail
+        Fail,
     }
 
     /// <summary>
@@ -89,6 +89,6 @@
         /// <summary>
         /// The fail
         /// </summary>
-        Fail
+        Fail,
     }
 }

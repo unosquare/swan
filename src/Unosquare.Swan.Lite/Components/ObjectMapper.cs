@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Abstractions;
 
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
@@ -222,7 +223,7 @@
             }
             else
             {
-                if (autoResolve == false)
+                if (!autoResolve)
                 {
                     throw new InvalidOperationException(
                         $"You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}");
@@ -251,8 +252,7 @@
                 .Select(p => p.ToLowerInvariant());
 
             var properties = Runtime.PropertyTypeCache
-                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite)
-                .ToArray();
+                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite);
 
             return properties
                 .Select(x => x.Name)

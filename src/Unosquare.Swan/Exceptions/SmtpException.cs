@@ -20,8 +20,8 @@ namespace Unosquare.Swan.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="SmtpException"/> class.
         /// </summary>
-        /// <param name="replyCode">The SmtpStatusCode reply</param>
-        /// <param name="message">The exception message</param>
+        /// <param name="replyCode">The SmtpStatusCode reply.</param>
+        /// <param name="message">The exception message.</param>
         public SmtpException(SmtpStatusCode replyCode, string message) 
             : base($"{message} ReplyCode: {replyCode}")
         {

@@ -1,9 +1,10 @@
 ﻿namespace Unosquare.Swan.Test.ObjectComparerTests
 {
-    using NUnit.Framework;
-    using System;
     using Components;
     using Mocks;
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
 
     [TestFixture]
     public class ObjectValidatorInstance
@@ -36,8 +37,18 @@
         {
             var obj = new ObjectValidator();
             var res = obj.Validate(new RangeMock { Age = 3, Kilograms = 0 });
+
             Assert.IsFalse(res.IsValid);
             Assert.That(res.Errors.Count, Is.EqualTo(1));
+            Assert.AreEqual(res.Errors.First().PropertyName, nameof(RangeMock.Kilograms));
+            Assert.AreEqual(res.Errors.First().ErrorMessage, "Value is not within the specified range");
+        }
+
+        [Test]
+        public void IsValidObject_ReturnsTrue()
+        {
+            var obj = new ObjectValidator();
+            Assert.IsTrue(obj.IsValid(new RangeMock {Age = 3, Kilograms = 1}));
         }
     }
 
@@ -55,6 +66,7 @@
     [TestFixture]
     public class NotNullAttribute
     {        
+        [Test]
         public void NullProperty_ReturnsErrors()
         {
             var res = Runtime.ObjectValidator.Validate(new NotNullMock());
@@ -90,11 +102,9 @@
         }
 
         [Test]
-        public void InvalidType_ReturnsErrors()
+        public void InvalidType_ThrowsArgumentException()
         {
-            var res = Runtime.ObjectValidator.Validate(new InvalidRangeMock { Invalid = "inv" });
-            Assert.IsFalse(res.IsValid);
-            Assert.That(res.Errors.Count, Is.EqualTo(1));
+            Assert.Throws<ArgumentException>(() => Runtime.ObjectValidator.Validate(new InvalidRangeMock { Invalid = "inv" }));
         }
     }
 
@@ -115,12 +125,34 @@
         {
             var res = Runtime.ObjectValidator.Validate(new RegexMock { Salute = null });
             Assert.IsFalse(res.IsValid);
+            Assert.AreEqual(res.Errors.First().ErrorMessage, "String does not match the specified regular expression");
         }
 
         [Test]
         public void NotStringType_ThrowsInvalidOperationException()
         {
-            Assert.Throws<InvalidOperationException>(() => Runtime.ObjectValidator.Validate(new InvalidRegexMock { Salute = 1 }));
+            Assert.Throws<ArgumentException>(() => Runtime.ObjectValidator.Validate(new InvalidRegexMock { Salute = 1 }));
+        }
+    }
+
+    [TestFixture]
+    public class EmailAttribute
+    {
+        [TestCase("test@test.com", true, 0)]
+        [TestCase("test", false, 1)]
+        public void StringValidation(string to, bool valid, int count)
+        {
+            var res = Runtime.ObjectValidator.Validate(new EmailMock { To = to });
+            Assert.That(valid, Is.EqualTo(res.IsValid));
+            Assert.That(res.Errors.Count, Is.EqualTo(count));
+        }
+
+        [Test]
+        public void NullString_ReturnsErrors()
+        {
+            var res = Runtime.ObjectValidator.Validate(new EmailMock { To = null });
+            Assert.IsFalse(res.IsValid);
+            Assert.AreEqual(res.Errors.First().ErrorMessage, "String is not an email");
         }
     }
 }

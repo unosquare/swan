@@ -11,17 +11,20 @@
     [TestFixture]
     public class CsProjFileConstructor
     {
-        private const string Data = @"<Project Sdk=""Microsoft.NET.Sdk"">
-                                  <PropertyGroup>
-                                    <Description>Unit Testing project</Description>
-                                    <Copyright>Copyright(c) 2016-2018 - Unosquare</Copyright>
-                                    <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-                                    <TargetFrameworks>net46;netcoreapp2.1</TargetFrameworks>
-                                    <AssemblyName>Unosquare.Swan.Test</AssemblyName>
-                                    <DebugType>Full</DebugType>
-                                  </PropertyGroup></Project>";
+        private const string Data =
+            @"<Project Sdk=""Microsoft.NET.Sdk"">
+              <PropertyGroup>
+                <Description>Unit Testing project</Description>
+                <Copyright>Copyright(c) 2016-2018 - Unosquare</Copyright>
+                <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
+                <TargetFrameworks>net46;netcoreapp2.1</TargetFrameworks>
+                <AssemblyName>Unosquare.Swan.Test</AssemblyName>
+                <PackageId>Unosquare.Swan</PackageId>
+              </PropertyGroup>
+            </Project>";
 
-        private const string WrongSdk = @"<Project Sdk=""Microhard.NET.Sdk""></Project>";
+        private const string WrongSdk = 
+            @"<Project Sdk=""Microhard.NET.Sdk""></Project>";
 
         [Test]
         public void WithValidFileAndValidClass_ReturnsFileAndMetadata()
@@ -31,7 +34,11 @@
             {
                 Assert.IsNotNull(csproj);
                 Assert.IsNotNull(csproj.Metadata);
-                Assert.IsNotNull(csproj.Metadata.Copyright);
+
+                Assert.AreEqual(csproj.Metadata.PackageId, "Unosquare.Swan");
+                Assert.AreEqual(csproj.Metadata.Copyright, "Copyright(c) 2016-2018 - Unosquare");
+                Assert.AreEqual(csproj.Metadata.AssemblyName, "Unosquare.Swan.Test");
+                Assert.AreEqual(csproj.Metadata.TargetFrameworks, "net46;netcoreapp2.1");
             }
         }
 
@@ -106,9 +113,11 @@
         [TestCase("sample.csproj")]
         public void WithTempFileAndValidClass_ReturnsFileAndMetadata(string projectFilename)
         {
+            var tempFile = Path.Combine(Path.GetTempPath(),
+                $"{DateTime.Now.Second}_{DateTime.Now.Millisecond}_{projectFilename}");
             var currentDirectory = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Path.GetTempPath());
-            File.WriteAllText(Path.Combine(Path.GetTempPath(), $"{DateTime.Now.Minute}_{DateTime.Now.Millisecond}_{projectFilename}"), Data);
+            File.WriteAllText(tempFile, Data);
 
             using (var csproj = new CsProjFile<CsMetadataMock>())
             {
@@ -118,6 +127,7 @@
             }
 
             Directory.SetCurrentDirectory(currentDirectory);
+            File.Delete(tempFile);
         }
     }
 }

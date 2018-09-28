@@ -22,6 +22,22 @@
             Assert.IsNotEmpty(data);
             Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
         }
+
+        [Test]
+        public async Task WithValidParamsAndTempDirectory_ReturnsProcessOutput()
+        {
+            var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help", System.IO.Path.GetTempPath());
+            Assert.IsNotEmpty(data);
+            Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
+        }
+        
+        [Test]
+        public async Task WithInvalidParams_ReturnsProcessError()
+        {
+            var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "lol");
+            Assert.IsNotEmpty(data);
+            Assert.IsTrue(data.StartsWith("No executable found"));
+        }
     }
 
     [TestFixture]
@@ -52,9 +68,9 @@
         }
 
         [Test]
-        public async Task WithNullonErrorData_ValidRunProcess()
+        public async Task WithNullOnErrorData_ValidRunProcess()
         {
-            const int okCode = 0;
+            const int resultCode = 0;
             string output = null;
 
             var result = await ProcessRunner.RunProcessAsync(
@@ -67,7 +83,7 @@
                 },
                 null);
 
-            Assert.IsTrue(result == okCode);
+            Assert.IsTrue(result == resultCode);
             Assert.IsNotNull(output);
         }
 

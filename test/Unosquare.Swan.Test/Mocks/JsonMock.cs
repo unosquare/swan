@@ -143,6 +143,24 @@
         Two = 2,
         All = One | Two,
     }
+    
+    [Flags]
+    public enum MyFlagByte : byte
+    {
+        NoneOrZero = 0,
+        One = 1,
+        Two = 2,
+        All = One | Two,
+    }
+    
+    [Flags]
+    public enum MyFlagLong : long
+    {
+        NoneOrZero = 0,
+        One = 1,
+        Two = 2,
+        All = One | Two,
+    }
 
     [Flags]
     public enum MyFlag2

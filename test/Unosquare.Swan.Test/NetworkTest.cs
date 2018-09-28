@@ -223,11 +223,27 @@
         {
             Assert.Throws<ArgumentNullException>(() => Network.GetNetworkTimeUtc(NullIP));
         }
+
+        [Test]
+        public void WithIPAddressAndPort_ReturnsDateTime()
+        {
+            var ntpServerAddress = IPAddress.Parse("127.0.0.1");
+
+            var publicIPAddress = Network.GetNetworkTimeUtc(ntpServerAddress, 1203);
+
+            Assert.AreEqual(publicIPAddress, new DateTime(1900, 1, 1));
+        }
     }
 
     [TestFixture]
     public class GetNetworkTimeUtcAsync : NetworkTest
     {
+        [Test]
+        public async Task WithInvalidNtpServerName_ThrowsDnsQueryException()
+        {
+            Assert.ThrowsAsync<DnsQueryException>(async () => await Network.GetNetworkTimeUtcAsync("www"));
+        }
+
         [Test]
         public async Task WithIPAddressAndPort_ReturnsDateTime()
         {

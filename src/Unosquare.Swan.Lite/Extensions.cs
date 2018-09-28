@@ -27,7 +27,7 @@
         {
             var copyable = GetCopyableProperties(target);
             return copyable.Any()
-                ? CopyOnlyPropertiesTo(source, target, copyable)
+                ? CopyOnlyPropertiesTo(source, target, copyable.ToArray())
                 : CopyPropertiesTo(source, target, null);
         }
 
@@ -41,7 +41,7 @@
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null) 
+        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
             => Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
@@ -109,7 +109,7 @@
             var copyable = target.GetCopyableProperties();
 
             if (copyable.Any())
-                source.CopyOnlyPropertiesTo(target, copyable);
+                source.CopyOnlyPropertiesTo(target, copyable.ToArray());
             else
                 source.CopyPropertiesTo(target, ignoreProperties);
 
@@ -285,17 +285,16 @@
         /// Array of properties.
         /// </returns>
         /// <exception cref="ArgumentNullException">model.</exception>
-        public static string[] GetCopyableProperties(this object obj)
+        public static IEnumerable<string> GetCopyableProperties(this object obj)
         {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
 
             return Runtime.PropertyTypeCache
                 .RetrieveAllProperties(obj.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
+                .Select(x => new { x.Name, HasAttribute = Runtime.AttributeCache.RetrieveOne<CopyableAttribute>(x) != null})
                 .Where(x => x.HasAttribute)
-                .Select(x => x.Name)
-                .ToArray();
+                .Select(x => x.Name);
         }
 
         /// <summary>

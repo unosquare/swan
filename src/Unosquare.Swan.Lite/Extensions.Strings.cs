@@ -454,7 +454,7 @@
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
-        /// Truncates the specified value and append the ommision last.
+        /// Truncates the specified value and append the omission last.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>

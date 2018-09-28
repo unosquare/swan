@@ -10,11 +10,9 @@
     /// </summary>
     /// <typeparam name="TType">The type of parent class.</typeparam>
     /// <typeparam name="T">The type of member to cache.</typeparam>
-    public class CollectionCacheRepository<TType, T>
+    public class CollectionCacheRepository<TType, T> : ConcurrentDictionary<TType, IEnumerable<T>>
         where TType : class
     {
-        private readonly ConcurrentDictionary<TType, T[]> _cache = new ConcurrentDictionary<TType, T[]>();
-
         /// <summary>
         /// Gets or sets the <see cref="IEnumerable{T}"/> with the specified type.
         /// </summary>
@@ -23,15 +21,16 @@
         /// </value>
         /// <param name="type">The type.</param>
         /// <returns>The cache of the type.</returns>
-        public IEnumerable<T> this[TType type]
+        public new IEnumerable<T> this[TType type]
         {
-            get => _cache.ContainsKey(type) ? _cache[type] : null;
+            get => Contains(type) && TryGetValue(type, out var value) ? value : default;
             private set
             {
                 if (value == null)
                     return;
 
-                _cache.TryAdd(type, value.Where(item => item != null).ToArray());
+                if (!TryAdd(type, value))
+                    throw new ArgumentException(nameof(value));
             }
         }
 
@@ -47,7 +46,7 @@
             if (Equals(default(TType), type))
                 throw new ArgumentNullException(nameof(type));
 
-            return _cache.ContainsKey(type);
+            return ContainsKey(type);
         }
 
         /// <summary>
@@ -61,7 +60,7 @@
         /// An array of the properties stored for the specified type.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type.</exception>
-        public T[] Retrieve(TType type, Func<IEnumerable<T>> factory)
+        public IEnumerable<T> Retrieve(TType type, Func<IEnumerable<T>> factory)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -69,12 +68,7 @@
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            if (_cache.TryGetValue(type, out var value)) return value;
-
-            var factoryValue = factory.Invoke();
-            this[type] = factoryValue;
-
-            return factoryValue.Where(item => item != null).ToArray();
+            return TryGetValue(type, out var value) ? value : this[type] = factory.Invoke().Where(item => item != null);
         }
     }
 }

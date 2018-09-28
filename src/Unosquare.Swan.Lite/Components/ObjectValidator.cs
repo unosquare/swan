@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using Attributes;
-#if NETSTANDARD1_3 || UWP
-    using System.Reflection;
-#endif
+    using Abstractions;
 
     /// <summary>
     /// Represents an object validator. 
@@ -21,14 +19,14 @@
     ///     public static void Main()
     ///     {
     ///         // create an instance of ObjectValidator
-    ///         vtor obj = new ObjectValidator();
+    ///         var obj = new ObjectValidator();
     ///         
     ///         // Add a validation to the 'Simple' class with a custom error message
-    ///         vtor.AddValidator&lt;Simple&gt;(x => 
+    ///         obj.AddValidator&lt;Simple&gt;(x => 
     ///             !string.IsNullOrEmpty(x.Name), "Name must not be empty");
     ///         
     ///         // check if object is valid
-    ///         var res = vtor.IsValid(new Simple { Name = "Name" });
+    ///         var res = obj.IsValid(new Simple { Name = "Name" });
     ///     }
     ///     
     ///     class Simple
@@ -72,8 +70,8 @@
     /// </example>
     public class ObjectValidator
     {
-        private readonly Dictionary<Type, List<Tuple<Delegate, string>>> _predicates =
-            new Dictionary<Type, List<Tuple<Delegate, string>>>();
+        private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
+            new ConcurrentDictionary<Type, List<Tuple<Delegate, string>>>();
 
         /// <summary>
         /// Validates an object given the specified validators and attributes.

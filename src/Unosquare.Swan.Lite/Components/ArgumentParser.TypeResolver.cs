@@ -35,24 +35,22 @@
                     : _properties.FirstOrDefault(x =>
                         Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(_selectedVerb));
 
-                if (selectedVerb == null)
-                {
-                    return null;
-                }
+                if (selectedVerb == null) return null;
 
                 var type = instance.GetType();
-                var verbName = selectedVerb.Name;
 
-                if (type.GetProperty(verbName).GetValue(instance) == null)
+                var verbProperty = type.GetProperty(selectedVerb.Name);
+
+                if (verbProperty?.GetValue(instance) == null)
                 {
                     var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
-                    type.GetProperty(verbName).SetValue(instance, propertyInstance);
+                    verbProperty?.SetValue(instance, propertyInstance);
                 }
 
                 _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true)
                     .ToArray();
 
-                return type.GetProperty(verbName).GetValue(instance);
+                return verbProperty?.GetValue(instance);
             }
         }
     }

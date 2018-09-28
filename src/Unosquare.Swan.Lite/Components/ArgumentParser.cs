@@ -180,6 +180,18 @@ namespace Unosquare.Swan.Components
             ReportIssues(validator);
             return false;
         }
+        
+        private static void ReportUnknownVerb<T>()
+        {
+            "No verb was specified".WriteLine(ConsoleColor.Red);
+            "Valid verbs:".WriteLine(ConsoleColor.Cyan);
+
+            Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true)
+                .Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x))
+                .Where(x => x != null)
+                .ToList()
+                .ForEach(x => x.ToString().WriteLine(ConsoleColor.Cyan));
+        }
 
         private void ReportIssues(Validator validator)
         {
@@ -213,19 +225,6 @@ namespace Unosquare.Swan.Components
 
             if (validator.RequiredList.Any())
                 $"Required arguments: {string.Join(", ", validator.RequiredList)}".WriteLine(ConsoleColor.Red);
-        }
-        
-        private static void ReportUnknownVerb<T>()
-        {
-            "No verb was specified".WriteLine(ConsoleColor.Red);
-            "Valid verbs:".WriteLine(ConsoleColor.Cyan);
-
-            Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true)
-                .Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x))
-                .Where(x => x != null)
-                .Select(x => $"  {x.Name}\t\t{x.HelpText}")
-                .ToList()
-                .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
         }
     }
 }

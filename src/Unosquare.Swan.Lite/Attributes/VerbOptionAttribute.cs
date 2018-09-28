@@ -33,5 +33,8 @@
         /// The help text.
         /// </value>
         public string HelpText { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString() => $"  {Name}\t\t{HelpText}";
     }
 }

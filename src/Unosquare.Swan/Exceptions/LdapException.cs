@@ -24,7 +24,6 @@ namespace Unosquare.Swan.Exceptions
         internal const string ExpectingLeftParen = "Expecting left parenthesis, found \"{0}\"";
 
         private readonly string _serverMessage;
-        private string[] _referrals;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapException" /> class.
@@ -33,7 +32,7 @@ namespace Unosquare.Swan.Exceptions
         /// Additional parameters specify the result code, the message returned
         /// from the server, and a matchedDN returned from the server.
         /// The String is used either as a message key to obtain a localized
-        /// messsage from ExceptionMessages, or if there is no key in the
+        /// message from ExceptionMessages, or if there is no key in the
         /// resource matching the text, it is used as the detailed message itself.
         /// </summary>
         /// <param name="message">The message.</param>
@@ -133,13 +132,8 @@ namespace Unosquare.Swan.Exceptions
                 msg += $"\r\n{Cause}";
             }
 
-            // Add referral information, display all the referrals in the list
-            return _referrals != null
-                ? _referrals.Aggregate(msg, (current, referral) => current + $"\r\nServer Message: {referral}")
-                : msg;
+            return msg;
         }
-
-        internal void SetReferrals(string[] urls) => _referrals = urls;
     }
 }
 #endif

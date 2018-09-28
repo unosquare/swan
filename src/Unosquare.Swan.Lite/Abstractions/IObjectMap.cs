@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Collections.Generic;

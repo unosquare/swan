@@ -91,7 +91,7 @@
                 }
 
                 // then incorporate the properties
-                fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead).ToArray());
+                fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead));
 
                 TypeCache[targetType] = fields
                     .ToDictionary(

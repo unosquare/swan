@@ -28,31 +28,19 @@
         /// Array of Type objects representing the types specified by an assembly.
         /// </returns>
         /// <exception cref="ArgumentNullException">assembly.</exception>
-        public static Type[] GetAllTypes(this Assembly assembly)
+        public static IEnumerable<Type> GetAllTypes(this Assembly assembly)
         {
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
 
-            Type[] assemblyTypes;
-
             try
             {
-                assemblyTypes = assembly.GetTypes();
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                assemblyTypes = new Type[] { };
-            }
-            catch (NotSupportedException)
-            {
-                assemblyTypes = new Type[] { };
+                return assembly.GetTypes();
             }
             catch (ReflectionTypeLoadException e)
             {
-                assemblyTypes = e.Types.Where(t => t != null).ToArray();
+                return e.Types.Where(t => t != null);
             }
-
-            return assemblyTypes;
         }
 
         #endregion
@@ -127,14 +115,14 @@
                 throw new ArgumentNullException(nameof(parameterTypes));
 
             var methods = type
-                    .GetMethods(bindingFlags)
-                    .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
-                    .Where(mi => mi.ContainsGenericParameters)
-                    .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
-                    .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
-                    .Select(mi => mi.MakeGenericMethod(genericTypes))
-                    .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
-                    .ToList();
+                .GetMethods(bindingFlags)
+                .Where(mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal))
+                .Where(mi => mi.ContainsGenericParameters)
+                .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
+                .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
+                .Select(mi => mi.MakeGenericMethod(genericTypes))
+                .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
+                .ToList();
 
             return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
@@ -258,11 +246,9 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
         public static bool IsIEnumerable(this Type type)
-        {
-            return type == null
+            => type == null
                 ? throw new ArgumentNullException(nameof(type))
                 : type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-        }
 
         #endregion
 
@@ -289,11 +275,9 @@
         /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
         {
-            if (Definitions.BasicTypesInfo.ContainsKey(type))
-                return Definitions.BasicTypesInfo[type].TryParse(value, out result);
-
             result = null;
-            return false;
+
+            return Definitions.BasicTypesInfo.ContainsKey(type) && Definitions.BasicTypesInfo[type].TryParse(value, out result);
         }
 
         /// <summary>
@@ -348,6 +332,12 @@
                     array.SetValue(propertyValue, index);
                     return true;
                 }
+                
+                if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    array.SetValue(null, index);
+                    return true;
+                }
             }
             catch
             {
@@ -366,19 +356,22 @@
         /// <returns>
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArray(this PropertyInfo propertyInfo, object[] value, object obj)
+        public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object> value, object obj)
         {
             var elementType = propertyInfo.PropertyType.GetElementType();
 
             if (elementType == null)
                 return false;
 
-            var targetArray = Array.CreateInstance(elementType, value.Length);
+            var targetArray = Array.CreateInstance(elementType, value.Count());
 
             var i = 0;
+
             foreach (var sourceElement in value)
             {
-                elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+                var result = elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);
+
+                if (!result) return false;
             }
 
             propertyInfo.SetValue(obj, targetArray);
@@ -387,24 +380,30 @@
         }
 
         /// <summary>
-        /// Gets property value or null.
+        /// Gets property actual value or <c>PropertyDisplayAttribute.DefaultValue</c> if presented.
+        ///
+        /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
+        /// will be formatted accordingly.
+        ///
+        /// If the object contains a null value, a empty string will be returned.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="obj">The object.</param>
         /// <returns>The property value or null.</returns>
-        public static object GetValueOrNull(this PropertyInfo propertyInfo, object obj)
+        public static string ToFormattedString(this PropertyInfo propertyInfo, object obj)
         {
             try
             {
                 var value = propertyInfo.GetValue(obj);
                 var attr = Runtime.AttributeCache.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
 
-                if (attr == null) return value;
-                if (value == null) return attr.NullValue;
+                if (attr == null) return value?.ToString() ?? string.Empty;
+
+                var valueToFormat = value ?? attr.DefaultValue;
 
                 return string.IsNullOrEmpty(attr.Format)
-                    ? value
-                    : ConvertObjectAndFormat(propertyInfo, value, attr.Format);
+                    ? (valueToFormat?.ToString() ?? string.Empty)
+                    : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
             }
             catch
             {
@@ -455,20 +454,20 @@
             return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
-        private static object ConvertObjectAndFormat(PropertyInfo propertyInfo, object value, string format)
+        private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
-            if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+            if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
                 return Convert.ToDateTime(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
+            if (propertyType == typeof(int) || propertyType == typeof(int?))
                 return Convert.ToInt32(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
+            if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
                 return Convert.ToDecimal(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(double) || propertyInfo.PropertyType == typeof(double?))
+            if (propertyType == typeof(double) || propertyType == typeof(double?))
                 return Convert.ToDouble(value).ToString(format);
-            if (propertyInfo.PropertyType == typeof(byte) || propertyInfo.PropertyType == typeof(byte?))
+            if (propertyType == typeof(byte) || propertyType == typeof(byte?))
                 return Convert.ToByte(value).ToString(format);
 
-            return value;
+            return value?.ToString() ?? string.Empty;
         }
     }
 }

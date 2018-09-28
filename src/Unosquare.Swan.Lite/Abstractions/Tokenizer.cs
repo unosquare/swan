@@ -27,7 +27,7 @@
         /// <list type="table">
         ///     <listheader>
         ///     <term>Operator</term>
-        ///     <description>Precendence</description>
+        ///     <description>Precedence</description>
         ///     </listheader>
         /// <item>
         /// <term>=</term>
@@ -154,7 +154,7 @@
         };
 
         /// <summary>
-        /// Shuntings the yard.
+        /// Shunting the yard.
         /// </summary>
         /// <param name="includeFunctionStopper">if set to <c>true</c> [include function stopper] (Token type <c>Wall</c>).</param>
         /// <returns>

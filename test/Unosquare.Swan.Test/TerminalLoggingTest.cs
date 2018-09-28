@@ -237,6 +237,19 @@
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Fatal), messages.First(x => x.ExtendedData != null).Message);
         }
+
+        [Test]
+        public void MessageWithString_MessageLogged()
+        {
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
+
+            nameof(LogMessageType.Fatal).Fatal();
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any());
+        }
     }
 
     [TestFixture]

@@ -49,14 +49,14 @@
     public class CsvWriter : IDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-        
+
         private readonly object _syncLock = new object();
         private readonly Stream _outputStream;
         private readonly Encoding _encoding;
         private readonly bool _leaveStreamOpen;
         private bool _isDisposing;
         private ulong _mCount;
-        
+
         #region Constructors
 
         /// <summary>
@@ -210,10 +210,7 @@
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
-        {
-            return SaveRecords(items, File.OpenWrite(filePath), true);
-        }
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) => SaveRecords(items, File.OpenWrite(filePath), true);
 
         #endregion
 
@@ -226,18 +223,34 @@
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
-            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()).ToArray());
+            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
+        
+        /// <summary>
+        /// Writes a line of CSV text. Items are converted to strings.
+        /// If items are found to be null, empty strings are written out.
+        /// If items are not string, the ToStringInvariant() method is called on them.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        public void WriteLine(IEnumerable<object> items)
+            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
 
         /// <summary>
         /// Writes a line of CSV text.
         /// If items are found to be null, empty strings are written out.
         /// </summary>
         /// <param name="items">The items.</param>
-        public void WriteLine(params string[] items)
+        public void WriteLine(params string[] items) => WriteLine((IEnumerable<string>) items);
+
+        /// <summary>
+        /// Writes a line of CSV text.
+        /// If items are found to be null, empty strings are written out.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        public void WriteLine(IEnumerable<string> items)
         {
             lock (_syncLock)
-            {
-                var length = items.Length;
+            {   
+                var length = items.Count();
                 var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
                 var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
 
@@ -249,7 +262,7 @@
 
                 for (var i = 0; i < length; i++)
                 {
-                    textValue = items[i];
+                    textValue = items.ElementAt(i);
 
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
@@ -301,27 +314,18 @@
 
             lock (_syncLock)
             {
+                switch (item)
                 {
-                    // Handling as Dictionary
-                    if (item is IDictionary typedItem)
-                    {
-                        WriteDictionaryValues(typedItem);
+                    case IDictionary typedItem:
+                        WriteLine(GetFilteredDictionary(typedItem));
                         return;
-                    }
-                }
-
-                {
-                    // Handling as array
-                    if (item is ICollection typedItem)
-                    {
-                        WriteCollectionValues(typedItem);
+                    case ICollection typedItem:
+                        WriteLine(typedItem.Cast<object>());
                         return;
-                    }
-                }
-
-                {
-                    // Handling as a regular type
-                    WriteObjectValues(item);
+                    default:
+                        WriteLine(GetFilteredTypeProperties(item.GetType())
+                            .Select(x => x.ToFormattedString(item)));
+                        break;
                 }
             }
         }
@@ -366,7 +370,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>().ToArray();
+            var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>();
             WriteLine(properties);
         }
 
@@ -386,7 +390,7 @@
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));
 
-            WriteLine(GetFilteredDictionaryKeys(dictionary));
+            WriteLine(GetFilteredDictionary(dictionary, true));
         }
 
 #if NET452
@@ -423,99 +427,6 @@
 
         #endregion
 
-        #region Support Methods
-
-        /// <summary>
-        /// Gets the filtered dictionary keys using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary.</returns>
-        private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
-        {
-            var keys = new List<string>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                keys.Add(stringKey);
-            }
-
-            return keys.ToArray();
-        }
-        
-        /// <summary>
-        /// Gets the filtered dictionary values using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary.</returns>
-        private object[] GetFilteredDictionaryValues(IDictionary dictionary)
-        {
-            var values = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                values.Add(dictionary[stringKey]);
-            }
-
-            return values.ToArray();
-        }
-        
-        /// <summary>
-        /// Gets the filtered type properties using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Filtered type properties using the IgnoreProperties list.</returns>
-        private PropertyInfo[] GetFilteredTypeProperties(Type type)
-        {
-            lock (_syncLock)
-            {
-                return TypeCache.Retrieve(type, () =>
-                    {
-                        return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                            .Where(p => p.CanRead)
-                            .ToArray();
-                    })
-                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
-                    .ToArray();
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Writes the object values.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        private void WriteObjectValues(object item)
-        {
-            var values = GetFilteredTypeProperties(item.GetType())
-                .Select(x => x.GetValueOrNull(item))
-                .ToArray();
-
-            WriteLine(values);
-        }
-
-        /// <summary>
-        /// Writes the collection values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem) 
-            => WriteLine(typedItem.Cast<object>().ToArray());
-
-        /// <summary>
-        /// Writes the dictionary values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteDictionaryValues(IDictionary typedItem)
-            => WriteLine(GetFilteredDictionaryValues(typedItem));
-
         #region IDisposable Support
 
         /// <inheritdoc />
@@ -541,5 +452,27 @@
         }
 
         #endregion
+
+        #region Support Methods
+        
+        private IEnumerable<string> GetFilteredDictionary(IDictionary dictionary, bool filterKeys = false)
+            => dictionary
+                .Keys
+                .Cast<object>()
+                .Select(key => key == null ? string.Empty : key.ToStringInvariant())
+                .Where(stringKey => !IgnorePropertyNames.Contains(stringKey))
+                .Select(stringKey =>
+                    filterKeys
+                        ? stringKey
+                        : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
+
+        private IEnumerable<PropertyInfo> GetFilteredTypeProperties(Type type)
+            => TypeCache.Retrieve(type, () =>
+                    type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(p => p.CanRead))
+                .Where(p => !IgnorePropertyNames.Contains(p.Name));
+
+        #endregion
+
     }
 }

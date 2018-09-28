@@ -182,7 +182,7 @@
         [Test]
         public void WithStructure_ReturnsStructureSerialized()
         {
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"string\"}", Json.Serialize(DefaultStruct));
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"DefaultStruct\"}", Json.Serialize(DefaultStruct));
         }
     }
 

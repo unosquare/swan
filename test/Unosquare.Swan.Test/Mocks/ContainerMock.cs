@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using Attributes;
     using System.Collections.Generic;
 
     public interface IAnimal
@@ -98,5 +99,19 @@
         public string GetName() => "Lenny";
 
         public override string GetFeeding() => "Seals";
+    }
+
+    public class PropertyInfoMock
+    {
+        public string Name { get; set; }
+        
+        [PropertyDisplay(DefaultValue = "Unknown")]
+        public string Alias { get; set; }
+
+        [PropertyDisplay(DefaultValue = "Unknown", Format = "P")]
+        public int Age { get; set; }
+
+        [PropertyDisplay(Format = "YYYY")]
+        public DateTime BirthDate { get; set; }
     }
 }

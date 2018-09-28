@@ -8,7 +8,7 @@
     public class OkOrError<T, TError>
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is ok.
+        /// Gets or sets a value indicating whether this instance is Ok.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is ok; otherwise, <c>false</c>.
@@ -21,7 +21,7 @@
         /// <value>
         /// The ok.
         /// </value>
-        public T Ok { get; set; } = default;
+        public T Ok { get; set; }
 
         /// <summary>
         /// Gets or sets the error.
@@ -29,17 +29,17 @@
         /// <value>
         /// The error.
         /// </value>
-        public TError Error { get; set; } = default;
+        public TError Error { get; set; }
 
         /// <summary>
-        /// Creates a new OkOrError froms the Ok object specified.
+        /// Creates a new OkOrError from the specified Ok object.
         /// </summary>
         /// <param name="ok">The ok.</param>
         /// <returns>OkOrError instance.</returns>
         public static OkOrError<T, TError> FromOk(T ok) => new OkOrError<T, TError> { Ok = ok };
 
         /// <summary>
-        /// Creates a new OkOrError froms the Error object specified.
+        /// Creates a new OkOrError from the specified Error object.
         /// </summary>
         /// <param name="error">The error.</param>
         /// <returns>OkOrError instance.</returns>

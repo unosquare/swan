@@ -595,11 +595,8 @@ namespace Unosquare.Swan.Networking
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default)
-        {
-            var buffer = encoding.GetBytes($"{line}{_newLineSequence}");
-            await WriteDataAsync(buffer, true, ct);
-        }
+        public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default) 
+            => WriteDataAsync(encoding.GetBytes($"{line}{_newLineSequence}"), true, ct);
 
         /// <summary>
         /// Writes a line of text asynchronously.

@@ -42,7 +42,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly Dictionary<Type, string[]> IgnoredPropertiesCache = new Dictionary<Type, string[]>();
+        private static readonly Dictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new Dictionary<Type, IEnumerable<string>>();
 
         #region Public API
 
@@ -300,21 +300,19 @@
 
         private static string[] GeExcludedNames(Type type, string[] excludedNames)
         {
-            if (type == null) return excludedNames;
+            if (type == null) 
+                return excludedNames;
 
             var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
-                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true)
-                .Select(x => x.Name)
-                .ToArray());
+                .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
+                .Select(x => x.Name));
 
-            if (excludedByAttr?.Any() == true)
-            {
-                excludedNames = excludedNames == null
-                    ? excludedByAttr.ToArray()
-                    : excludedByAttr.Intersect(excludedNames).ToArray();
-            }
-
-            return excludedNames;
+            if (excludedByAttr?.Any() != true)
+                return excludedNames;
+            
+            return excludedNames == null
+                ? excludedByAttr.ToArray()
+                : excludedByAttr.Intersect(excludedNames).ToArray();
         }
 
         private static string SerializePrimitiveValue(object obj)
