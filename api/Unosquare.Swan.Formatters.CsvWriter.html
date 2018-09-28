@@ -819,6 +819,67 @@ It uses the Windows 1252 text encoding for output.</p>
   
   
   <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_Object__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})">WriteLine(IEnumerable&lt;Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.
+If items are found to be null, empty strings are written out.
+If items are not string, the ToStringInvariant() method is called on them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteLine(IEnumerable&lt;object&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_String__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})">WriteLine(IEnumerable&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of CSV text.
+If items are found to be null, empty strings are written out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteLine(IEnumerable&lt;string&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
   <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])">WriteLine(Object[])</h4>
   <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.
 If items are found to be null, empty strings are written out.
