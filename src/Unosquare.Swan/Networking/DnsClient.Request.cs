@@ -104,7 +104,7 @@
                 {
                     OperationCode = DnsOperationCode.Query,
                     Response = false,
-                    Id = Random.Next(UInt16.MaxValue)
+                    Id = Random.Next(UInt16.MaxValue),
                 };
             }
 
@@ -122,10 +122,7 @@
 
             public IList<DnsQuestion> Questions => questions;
 
-            public int Size
-            {
-                get { return header.Size + questions.Sum(q => q.Size); }
-            }
+            public int Size => header.Size + questions.Sum(q => q.Size);
 
             public int Id
             {
