@@ -6929,46 +6929,6 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(Of T)()
   nameWithType: CsvWriter.WriteHeadings<T>()
   nameWithType.vb: CsvWriter.WriteHeadings(Of T)()
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type,CancellationToken)
-  name: WriteHeadingsAsync(Type, CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_System_Type_CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type,CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(System.Type, CancellationToken)
-  nameWithType: CsvWriter.WriteHeadingsAsync(Type, CancellationToken)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync*
-  name: WriteHeadingsAsync
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync_
-  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync
-  isSpec: "True"
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync
-  nameWithType: CsvWriter.WriteHeadingsAsync
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync``1(CancellationToken)
-  name: WriteHeadingsAsync<T>(CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadingsAsync__1_CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync``1(CancellationToken)
-  name.vb: WriteHeadingsAsync(Of T)(CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync<T>(CancellationToken)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteHeadingsAsync(Of T)(CancellationToken)
-  nameWithType: CsvWriter.WriteHeadingsAsync<T>(CancellationToken)
-  nameWithType.vb: CsvWriter.WriteHeadingsAsync(Of T)(CancellationToken)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})
-  name: WriteLine(IEnumerable<Object>)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_Object__
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.Object})
-  name.vb: WriteLine(IEnumerable(Of Object))
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable<System.Object>)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable(Of System.Object))
-  nameWithType: CsvWriter.WriteLine(IEnumerable<Object>)
-  nameWithType.vb: CsvWriter.WriteLine(IEnumerable(Of Object))
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})
-  name: WriteLine(IEnumerable<String>)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Collections_Generic_IEnumerable_System_String__
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable{System.String})
-  name.vb: WriteLine(IEnumerable(Of String))
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable<System.String>)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Collections.Generic.IEnumerable(Of System.String))
-  nameWithType: CsvWriter.WriteLine(IEnumerable<String>)
-  nameWithType.vb: CsvWriter.WriteLine(IEnumerable(Of String))
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])
   name: WriteLine(Object[])
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___
@@ -6994,31 +6954,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine
   nameWithType: CsvWriter.WriteLine
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.Object},CancellationToken)
-  name: WriteLineAsync(IEnumerable<Object>, CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_Object__CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.Object},CancellationToken)
-  name.vb: WriteLineAsync(IEnumerable(Of Object), CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable<System.Object>, CancellationToken)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable(Of System.Object), CancellationToken)
-  nameWithType: CsvWriter.WriteLineAsync(IEnumerable<Object>, CancellationToken)
-  nameWithType.vb: CsvWriter.WriteLineAsync(IEnumerable(Of Object), CancellationToken)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.String},CancellationToken)
-  name: WriteLineAsync(IEnumerable<String>, CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_System_Collections_Generic_IEnumerable_System_String__CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable{System.String},CancellationToken)
-  name.vb: WriteLineAsync(IEnumerable(Of String), CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable<System.String>, CancellationToken)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync(System.Collections.Generic.IEnumerable(Of System.String), CancellationToken)
-  nameWithType: CsvWriter.WriteLineAsync(IEnumerable<String>, CancellationToken)
-  nameWithType.vb: CsvWriter.WriteLineAsync(IEnumerable(Of String), CancellationToken)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync*
-  name: WriteLineAsync
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLineAsync_
-  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync
-  isSpec: "True"
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLineAsync
-  nameWithType: CsvWriter.WriteLineAsync
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteObject(System.Object)
   name: WriteObject(Object)
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObject_System_Object_
@@ -7041,28 +6976,6 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteObject(Of T)(T)
   nameWithType: CsvWriter.WriteObject<T>(T)
   nameWithType.vb: CsvWriter.WriteObject(Of T)(T)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object,CancellationToken)
-  name: WriteObjectAsync(Object, CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_System_Object_CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object,CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(System.Object, CancellationToken)
-  nameWithType: CsvWriter.WriteObjectAsync(Object, CancellationToken)
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync*
-  name: WriteObjectAsync
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync_
-  commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync
-  isSpec: "True"
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync
-  nameWithType: CsvWriter.WriteObjectAsync
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync``1(``0,CancellationToken)
-  name: WriteObjectAsync<T>(T, CancellationToken)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjectAsync__1___0_CancellationToken_
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync``1(``0,CancellationToken)
-  name.vb: WriteObjectAsync(Of T)(T, CancellationToken)
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync<T>(T, CancellationToken)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteObjectAsync(Of T)(T, CancellationToken)
-  nameWithType: CsvWriter.WriteObjectAsync<T>(T, CancellationToken)
-  nameWithType.vb: CsvWriter.WriteObjectAsync(Of T)(T, CancellationToken)
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteObjects*
   name: WriteObjects
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteObjects_

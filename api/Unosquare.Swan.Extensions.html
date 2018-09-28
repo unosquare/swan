@@ -879,7 +879,7 @@ tries to write a compatible value to a public, instance, writable property in th
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string[] GetCopyableProperties(this object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;string&gt; GetCopyableProperties(this object obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -909,7 +909,7 @@ tries to write a compatible value to a public, instance, writable property in th
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>Array of properties.</p>
 </td>
       </tr>
