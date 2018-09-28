@@ -151,7 +151,7 @@
         /// Gets the public IP address using ipify.org.
         /// </summary>
         /// <returns>A public ip address.</returns>
-        public static IPAddress GetPublicIPAddress() => GetPublicIPAddressAsync().GetAwaiter().GetResult();
+        public static IPAddress GetPublicIPAddress() => GetPublicIPAddressAsync().Result;
 
         /// <summary>
         /// Gets the configured IPv4 DNS servers for the active network interfaces.
