@@ -443,7 +443,7 @@
             // Zero (Reserved)
             private byte Z
             {
-                get { return Flag1.GetBitValueAt(4, 3); }
+                get => Flag1.GetBitValueAt(4, 3);
                 set { }
             }
 

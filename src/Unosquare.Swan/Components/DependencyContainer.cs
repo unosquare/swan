@@ -897,7 +897,7 @@
                 t => t.IsPrimitive(),
                 t => t.IsGenericTypeDefinition(),
                 t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) &&
-                     !(t.IsInterface() || t.IsAbstract())
+                     !(t.IsInterface() || t.IsAbstract()),
             };
 
             if (registrationPredicate != null)
