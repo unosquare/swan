@@ -1,9 +1,6 @@
-﻿using System.Threading;
-
-namespace Unosquare.Swan.Formatters
+﻿namespace Unosquare.Swan.Formatters
 {
     using Reflection;
-    using System.Threading.Tasks;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -34,8 +31,8 @@ namespace Unosquare.Swan.Formatters
     ///         // create a list of people 
     ///         var people = new List&lt;Person&gt;
     ///         {
-    ///             new Person { Name = "George", Age = 20 },
-    ///             new Person { Name = "Juan", Age = 18 }
+    ///             new Person { Name = "Artyom", Age = 20 },
+    ///             new Person { Name = "Aloy", Age = 18 }
     ///         }
     ///         
     ///         // write items inside file.csv
@@ -43,8 +40,8 @@ namespace Unosquare.Swan.Formatters
     ///         
     ///         // output
     ///         // | Name   | Age |
-    ///         // | George | 20  |
-    ///         // | Juan   | 18  |
+    ///         // | Artyom | 20  |
+    ///         // | Aloy   | 18  |
     ///     }
     /// }
     /// </code>
@@ -213,110 +210,73 @@ namespace Unosquare.Swan.Formatters
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) =>
-            SaveRecords(items, File.OpenWrite(filePath), true);
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) => SaveRecords(items, File.OpenWrite(filePath), true);
 
         #endregion
 
         #region Generic, main Write Line Method
 
         /// <summary>
-        /// Writes a line of CSV text.
-        /// If items are found to be null, empty strings are written out.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(params string[] items) => WriteLine((IEnumerable<string>)items);
-
-        /// <summary>
         /// Writes a line of CSV text. Items are converted to strings.
-        /// 
         /// If items are found to be null, empty strings are written out.
         /// If items are not string, the ToStringInvariant() method is called on them.
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
-            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
-
-        /// <summary>
-        /// Writes a line of CSV text. Items are converted to strings.
-        /// 
-        /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToStringInvariant() method is called on them.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(IEnumerable<object> items) => WriteLineAsync(items).GetAwaiter().GetResult();
+            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()).ToArray());
 
         /// <summary>
         /// Writes a line of CSV text.
-        /// 
         /// If items are found to be null, empty strings are written out.
         /// </summary>
         /// <param name="items">The items.</param>
-        public void WriteLine(IEnumerable<string> items) => WriteLineAsync(items).GetAwaiter().GetResult();
-
-        /// <summary>
-        /// Writes a line of CSV text asynchronous. Items are converted to strings.
-        /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToStringInvariant() method is called on them.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteLineAsync(IEnumerable<object> items, CancellationToken ct = default)
-            => WriteLineAsync(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()), ct);
-
-        /// <summary>
-        /// Writes a line of CSV text asynchronous.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        /// <param name="ct">The ct.</param>
-        /// <returns>A task that represents the asynchronous write operation.</returns>
-        public async Task WriteLineAsync(IEnumerable<string> items, CancellationToken ct = default)
+        public void WriteLine(params string[] items)
         {
-            var length = items.Count();
-            var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
-            var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
-
-            // Declare state variables here to avoid recreation, allocation and
-            // reassignment in every loop
-            bool needsEnclosing;
-            string textValue;
-            byte[] output;
-
-            for (var i = 0; i < length; i++)
-            {
-                textValue = items.ElementAt(i);
-
-                // Determine if we need the string to be enclosed 
-                // (it either contains an escape, new line, or separator char)
-                needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                                 || textValue.IndexOf(EscapeCharacter) >= 0
-                                 || textValue.IndexOf('\r') >= 0
-                                 || textValue.IndexOf('\n') >= 0;
-
-                // Escape the escape characters by repeating them twice for every instance
-                textValue = textValue.Replace($"{EscapeCharacter}",
-                    $"{EscapeCharacter}{EscapeCharacter}");
-
-                // Enclose the text value if we need to
-                if (needsEnclosing)
-                    textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
-
-                // Get the bytes to write to the stream and write them
-                output = _encoding.GetBytes(textValue);
-                await _outputStream.WriteAsync(output, 0, output.Length, ct);
-
-                // only write a separator if we are moving in between values.
-                // the last value should not be written.
-                if (i < length - 1)
-                    await _outputStream.WriteAsync(separatorBytes, 0, separatorBytes.Length, ct);
-            }
-
-            // output the newline sequence
-            await _outputStream.WriteAsync(endOfLineBytes, 0, endOfLineBytes.Length, ct);
-
             lock (_syncLock)
+            {
+                var length = items.Length;
+                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
+                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
+
+                // Declare state variables here to avoid recreation, allocation and
+                // reassignment in every loop
+                bool needsEnclosing;
+                string textValue;
+                byte[] output;
+
+                for (var i = 0; i < length; i++)
+                {
+                    textValue = items[i];
+
+                    // Determine if we need the string to be enclosed 
+                    // (it either contains an escape, new line, or separator char)
+                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
+                                     || textValue.IndexOf(EscapeCharacter) >= 0
+                                     || textValue.IndexOf('\r') >= 0
+                                     || textValue.IndexOf('\n') >= 0;
+
+                    // Escape the escape characters by repeating them twice for every instance
+                    textValue = textValue.Replace($"{EscapeCharacter}",
+                        $"{EscapeCharacter}{EscapeCharacter}");
+
+                    // Enclose the text value if we need to
+                    if (needsEnclosing)
+                        textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
+
+                    // Get the bytes to write to the stream and write them
+                    output = _encoding.GetBytes(textValue);
+                    _outputStream.Write(output, 0, output.Length);
+
+                    // only write a separator if we are moving in between values.
+                    // the last value should not be written.
+                    if (i < length - 1)
+                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                }
+
+                // output the newline sequence
+                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
                 _mCount += 1;
+            }
         }
 
         #endregion
@@ -326,69 +286,47 @@ namespace Unosquare.Swan.Formatters
         /// <summary>
         /// Writes a row of CSV text. It handles the special cases where the object is
         /// a dynamic object or and array. It also handles non-collection objects fine.
-        /// 
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <exception cref="System.ArgumentNullException">item.</exception>
-        public void WriteObject(object item) => WriteObjectAsync(item).GetAwaiter().GetResult();
-
-        /// <summary>
-        /// Writes a row of CSV text asynchronous.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// A task that represents the asynchronous write operation.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">item.</exception>
-        public Task WriteObjectAsync(object item, CancellationToken ct = default)
+        public void WriteObject(object item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            switch (item)
+            lock (_syncLock)
             {
-                case IDictionary typedItem:
-                    return WriteLineAsync(GetFilteredDictionary(typedItem, true), ct);
-                case IEnumerable typedItem:
-                    return WriteLineAsync(typedItem.Cast<object>(), ct);
-                default:
-                    // Handling as a regular type
-                    return WriteLineAsync(GetFilteredTypeProperties(item.GetType())
-                        .Select(x => x.ToFormattedString(item)), ct);
+                switch (item)
+                {
+                    case IDictionary typedItem:
+                        WriteDictionaryValues(typedItem);
+                        return;
+                    case ICollection typedItem:
+                        WriteCollectionValues(typedItem);
+                        return;
+                    default:
+                        WriteObjectValues(item);
+                        break;
+                }
             }
         }
 
         /// <summary>
         /// Writes a row of CSV text. It handles the special cases where the object is
         /// a dynamic object or and array. It also handles non-collection objects fine.
-        /// 
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
         /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="item">The item.</param>
         public void WriteObject<T>(T item) => WriteObject(item as object);
-        
-        /// <summary>
-        /// Writes a row of CSV text asynchronous. It handles the special cases where the object is
-        /// a dynamic object or and array. It also handles non-collection objects fine.
-        /// </summary>
-        /// <typeparam name="T">The type of object to write.</typeparam>
-        /// <param name="item">The item.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// A task that represents the asynchronous write operation.
-        /// </returns>
-        public Task WriteObjectAsync<T>(T item, CancellationToken ct = default) => WriteObjectAsync(item as object, ct);
 
         /// <summary>
         /// Writes a set of items, one per line and atomically by repeatedly calling the
-        /// WriteObject method.
-        ///
-        /// For more info check out the description of the WriteObject method.
+        /// WriteObject method. For more info check out the description of the WriteObject
+        /// method.
         /// </summary>
         /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="items">The items.</param>
@@ -410,25 +348,13 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         /// <param name="type">The type of object to extract headings.</param>
         /// <exception cref="System.ArgumentNullException">type.</exception>
-        public void WriteHeadings(Type type) => WriteHeadingsAsync(type).GetAwaiter().GetResult();
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="type">The type of object to extract headings.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// A task that represents the asynchronous write operation.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">type.</exception>
-        public Task WriteHeadingsAsync(Type type, CancellationToken ct = default)
+        public void WriteHeadings(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return WriteLineAsync(
-                GetFilteredTypeProperties(type).Select(p => p.Name), 
-                ct);
+            var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>().ToArray();
+            WriteLine(properties);
         }
 
         /// <summary>
@@ -447,26 +373,16 @@ namespace Unosquare.Swan.Formatters
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));
 
-            WriteLine(GetFilteredDictionary(dictionary));
+            WriteLine(GetFilteredDictionaryKeys(dictionary));
         }
-        
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <typeparam name="T">The type of object to extract headings.</typeparam>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// A task that represents the asynchronous write operation.
-        /// </returns>
-        public Task WriteHeadingsAsync<T>(CancellationToken ct = default) => WriteHeadingsAsync(typeof(T), ct);
 
 #if NET452
         /// <summary>
         /// Writes the headings.
         /// </summary>
         /// <param name="item">The object to extract headings.</param>
-        /// <exception cref="ArgumentNullException">item.</exception>
-        /// <exception cref="ArgumentException">Unable to cast dynamic object to a suitable dictionary - item.</exception>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
         public void WriteHeadings(dynamic item)
         {
             if (item == null)
@@ -496,24 +412,84 @@ namespace Unosquare.Swan.Formatters
 
         #region Support Methods
 
-        private IEnumerable<string> GetFilteredDictionary(IDictionary dictionary, bool filterKeys = false)
-            => dictionary
-                .Keys
-                .Cast<object>()
-                .Select(key => key == null ? string.Empty : key.ToStringInvariant())
-                .Where(stringKey => !IgnorePropertyNames.Contains(stringKey))
-                .Select(stringKey =>
-                    filterKeys
-                        ? stringKey
-                        : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
+        /// <summary>
+        /// Gets the filtered dictionary keys using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns>An array containing copies of the elements of the dictionary.</returns>
+        private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
+        {
+            var keys = new List<string>();
 
-        private IEnumerable<PropertyInfo> GetFilteredTypeProperties(Type type)
-            => TypeCache.Retrieve(type, () =>
-                    type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(p => p.CanRead))
-                .Where(p => !IgnorePropertyNames.Contains(p.Name));
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                keys.Add(stringKey);
+            }
+
+            return keys.ToArray();
+        }
+
+        /// <summary>
+        /// Gets the filtered dictionary values using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns>An array containing copies of the elements of the dictionary.</returns>
+        private object[] GetFilteredDictionaryValues(IDictionary dictionary)
+        {
+            var values = new List<object>();
+
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                values.Add(dictionary[stringKey]);
+            }
+
+            return values.ToArray();
+        }
+
+        /// <summary>
+        /// Gets the filtered type properties using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Filtered type properties using the IgnoreProperties list.</returns>
+        private PropertyInfo[] GetFilteredTypeProperties(Type type)
+        {
+            lock (_syncLock)
+            {
+                return TypeCache.Retrieve(type, () =>
+                    {
+                        return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                            .Where(p => p.CanRead)
+                            .ToArray();
+                    })
+                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
+                    .ToArray();
+            }
+        }
 
         #endregion
+
+        private void WriteObjectValues(object item)
+        {
+            var values = GetFilteredTypeProperties(item.GetType())
+                .Select(x => x.ToFormattedString(item))
+                .ToArray();
+
+            WriteLine(values);
+        }
+
+        private void WriteCollectionValues(ICollection typedItem)
+            => WriteLine(typedItem.Cast<object>().ToArray());
+
+        private void WriteDictionaryValues(IDictionary typedItem)
+            => WriteLine(GetFilteredDictionaryValues(typedItem));
 
         #region IDisposable Support
 
