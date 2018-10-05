@@ -59,6 +59,9 @@
         {
             lock (SyncLock)
             {
+                if (!Settings.GlobalLoggingMessageType.HasFlag(messageType))
+                    return;
+
                 var prefix = GetConsoleColorAndPrefix(messageType, out var color);
                 
                 #region Create and Format the Output
@@ -90,7 +93,7 @@
 
                 if (OnLogMessageReceived != null)
                 {
-                    Task.Factory.StartNew(() =>
+                    Task.Run(() =>
                     {
                         try
                         {
@@ -108,7 +111,7 @@
                 #region Display the Message by Writing to the Output Queue
 
                 // Check if we are skipping these messages to be displayed based on settings
-                if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
+                if (!Settings.DisplayLoggingMessageType.HasFlag(messageType))
                     return;
 
                 Write(messageType, sourceName, eventArgs, outputMessage, color);

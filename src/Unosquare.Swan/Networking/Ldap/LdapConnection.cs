@@ -246,7 +246,7 @@ namespace Unosquare.Swan.Networking.Ldap
             _conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
             
 #pragma warning disable 4014
-            Task.Factory.StartNew(RetrieveMessages, _cts.Token);
+            Task.Run(RetrieveMessages, _cts.Token);
 #pragma warning restore 4014
         }
         

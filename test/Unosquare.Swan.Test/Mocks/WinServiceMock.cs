@@ -1,7 +1,6 @@
 ﻿#if !NETSTANDARD1_3 && !UWP
 namespace Unosquare.Swan.Test.Mocks
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 #if NET46
