@@ -61,14 +61,14 @@ namespace Unosquare.Swan.Networking
     /// {
     ///     static async Task Main()
     ///     {
-    ///         // create a new TcpCLient object
+    ///         // create a new TcpClient object
     ///         var client = new TcpClient();
     ///         
     ///         // connect to a specific address and port
     ///         client.Connect("localhost", 1337);
     ///         
     ///         //create a new connection with specific encoding,
-    ///         //new line sequence and continous reading disabled
+    ///         //new line sequence and continuous reading disabled
     ///         using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
     ///         {               
     ///            var response = await cn.ReadTextAsync();

@@ -16,6 +16,14 @@
 
         protected void InitLog(List<LoggingEntryMock> messages)
         {
+            Terminal.Settings.GlobalLoggingMessageType = 
+                LogMessageType.Debug |
+                LogMessageType.Error |
+                LogMessageType.Info |
+                LogMessageType.Trace |
+                LogMessageType.Warning |
+                LogMessageType.Fatal;
+
             Terminal.OnLogMessageReceived += (s, e) =>
             {
                 messages.Add(new LoggingEntryMock
@@ -25,7 +33,7 @@
                     Message = e.Message,
                     Source = e.Source,
                     Type = e.MessageType,
-                    ExtendedData = e.ExtendedData
+                    ExtendedData = e.ExtendedData,
                 });
             };
         }
