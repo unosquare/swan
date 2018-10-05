@@ -13620,6 +13620,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Terminal.Settings.FatalPrefix
   nameWithType: Terminal.Settings.FatalPrefix
+- uid: Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType
+  name: GlobalLoggingMessageType
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_GlobalLoggingMessageType
+  commentId: P:Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType
+  fullName: Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType
+  nameWithType: Terminal.Settings.GlobalLoggingMessageType
+- uid: Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType*
+  name: GlobalLoggingMessageType
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_GlobalLoggingMessageType_
+  commentId: Overload:Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType
+  isSpec: "True"
+  fullName: Unosquare.Swan.Terminal.Settings.GlobalLoggingMessageType
+  nameWithType: Terminal.Settings.GlobalLoggingMessageType
 - uid: Unosquare.Swan.Terminal.Settings.InfoColor
   name: InfoColor
   href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_InfoColor
