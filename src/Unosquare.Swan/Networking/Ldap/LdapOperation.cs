@@ -79,15 +79,15 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         ///     An extended response operation.
-        ///     EXTENDED_RESONSE = 24
+        ///     EXTENDED_RESPONSE = 24
         /// </summary>
         ExtendedResponse = 24,
 
         /// <summary>
         ///     An intermediate response operation.
-        ///     INTERMEDIATE_RESONSE = 25
+        ///     INTERMEDIATE_RESPONSE = 25
         /// </summary>
-        IntermediateResponse = 25
+        IntermediateResponse = 25,
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         ///     Private-use tag class.
         /// </summary>
-        Private = 3
+        Private = 3,
     }
 }
 #endif

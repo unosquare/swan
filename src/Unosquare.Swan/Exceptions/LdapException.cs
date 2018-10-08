@@ -2,7 +2,6 @@
 namespace Unosquare.Swan.Exceptions
 {
     using System;
-    using System.Linq;
     using Networking.Ldap;
 
     /// <summary>
@@ -104,15 +103,13 @@ namespace Unosquare.Swan.Exceptions
         /// </value>
         public string MatchedDN { get; }
 
-        /// <summary>
-        /// Gets a message that describes the current exception.
-        /// </summary>
+        /// <inheritdoc />
         public override string Message => ResultCode.ToString().Humanize();
 
         /// <inheritdoc />
         public override string ToString()
         {
-            // Craft a string from the resouce file
+            // Craft a string from the resource file
             var msg = $"{nameof(LdapException)}: {base.Message} ({ResultCode}) {ResultCode.ToString().Humanize()}";
 
             // Add server message

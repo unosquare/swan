@@ -48,8 +48,8 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Creates and addes a substrings filter component.
-        /// startSubstrings must be immediatly followed by at least one
+        /// Creates and adds a substrings filter component.
+        /// startSubstrings must be immediately followed by at least one
         /// <c>AddSubstring</c> method and one <c>EndSubstrings</c> method.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
@@ -129,7 +129,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="LdapException">
         /// Empty substring filter
         /// or
-        /// Missmatched ending of substrings.
+        /// Mismatched ending of substrings.
         /// </exception>
         public void EndSubstrings()
         {
@@ -145,7 +145,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             catch (InvalidCastException)
             {
-                throw new LdapException("Missmatched ending of substrings", LdapStatusCode.FilterError);
+                throw new LdapException("Mismatched ending of substrings", LdapStatusCode.FilterError);
             }
 
             _filterStack.Pop();
@@ -251,16 +251,6 @@ namespace Unosquare.Swan.Networking.Ldap
             _filterStack.Pop();
         }
 
-        /// <summary>
-        /// Creates an iterator over the preparsed segments of a filter.
-        /// The first object returned by an iterator is an integer indicating the
-        /// type of filter components.  Subseqence values are returned.  If a
-        /// component is of type 'AND' or 'OR' or 'NOT' then the value
-        /// returned is another iterator.  This iterator is used by ToString.
-        /// </summary>
-        /// <returns>
-        /// Iterator over filter segments.
-        /// </returns>
         public IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged)ChoiceValue);
 
         /// <summary>
@@ -280,6 +270,7 @@ namespace Unosquare.Swan.Networking.Ldap
             while (itr.MoveNext())
             {
                 var filterpart = itr.Current;
+
                 if (filterpart is int i)
                 {
                     var op = (FilterOp)i;
@@ -993,7 +984,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// This inner class wrappers the Search Filter with an iterator.
         /// This iterator will give access to all the individual components
-        /// preparsed.  The first call to next will return an Integer identifying
+        /// pre-parsed.  The first call to next will return an Integer identifying
         /// the type of filter component.  Then the component values will be returned
         /// AND, NOT, and OR components values will be returned as Iterators.
         /// </summary>

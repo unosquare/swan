@@ -190,7 +190,7 @@
         public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn), ct);
+            return Task.Run(() => GetDnsHostEntry(fqdn), ct);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@
             int port,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
+            return Task.Run(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
         }
 
         /// <summary>
@@ -265,7 +265,7 @@
             int port,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
+            return Task.Run(() => GetDnsPointerEntry(query, dnsServer, port), ct);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@
             IPAddress query,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);
+            return Task.Run(() => GetDnsPointerEntry(query), ct);
         }
 
         /// <summary>
@@ -323,7 +323,7 @@
             int port,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => QueryDns(query, recordType, dnsServer, port), ct);
+            return Task.Run(() => QueryDns(query, recordType, dnsServer, port), ct);
         }
 
         /// <summary>
@@ -346,7 +346,7 @@
             DnsRecordType recordType,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => QueryDns(query, recordType), ct);
+            return Task.Run(() => QueryDns(query, recordType), ct);
         }
 
         /// <summary>
@@ -427,7 +427,7 @@
             int port = NtpDefaultPort,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
+            return Task.Run(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
         }
 
         /// <summary>
@@ -442,7 +442,7 @@
             int port = NtpDefaultPort,
             CancellationToken ct = default)
         {
-            return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerName, port), ct);
+            return Task.Run(() => GetNetworkTimeUtc(ntpServerName, port), ct);
         }
 
         #endregion

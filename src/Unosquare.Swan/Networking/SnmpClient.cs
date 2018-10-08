@@ -29,7 +29,7 @@
 
             Task[] tasks =
             {
-                Task.Factory.StartNew(async () =>
+                Task.Run(async () =>
                 {
                     using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
                     {
@@ -58,7 +58,7 @@
 #endif
                     }
                 }),
-                Task.Delay(snmpTimeOut)
+                Task.Delay(snmpTimeOut),
             };
 
             Task.WaitAny(tasks);
@@ -77,17 +77,17 @@
         public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
 
         /// <summary>
-        /// Gets the uptime.
+        /// Gets the up-time.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <param name="mibstring">The mibstring.</param>
+        /// <param name="mibString">The mibString.</param>
         /// <returns>
         ///  A time interval that represents a specified number of seconds, 
         ///  where the specification is accurate to the nearest millisecond.
         ///  </returns>
-        public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
+        public static TimeSpan GetUptime(IPEndPoint host, string mibString = "1.3.6.1.2.1.1.3.0")
         {
-            var response = Get(host, mibstring);
+            var response = Get(host, mibString);
             if (response[0] == 0xff) return TimeSpan.Zero;
 
             // If response, get the community name and MIB lengths
@@ -113,11 +113,11 @@
         /// Gets the string.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <param name="mibstring">The mibstring.</param>
+        /// <param name="mibString">The mibString.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string GetString(IPEndPoint host, string mibstring)
+        public static string GetString(IPEndPoint host, string mibString)
         {
-            var response = Get(host, mibstring);
+            var response = Get(host, mibString);
             if (response[0] == 0xff) return string.Empty;
 
             // If response, get the community name and MIB lengths
@@ -135,9 +135,9 @@
         /// Gets the specified host.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <param name="mibstring">The mibstring.</param>
+        /// <param name="mibString">The mibString.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] Get(IPEndPoint host, string mibstring) => Get("get", host, "public", mibstring);
+        public static byte[] Get(IPEndPoint host, string mibString) => Get("get", host, "public", mibString);
 
         /// <summary>
         /// Gets the specified request.
@@ -145,14 +145,14 @@
         /// <param name="request">The request.</param>
         /// <param name="host">The host.</param>
         /// <param name="community">The community.</param>
-        /// <param name="mibstring">The mibstring.</param>
+        /// <param name="mibString">The mibString.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)
+        public static byte[] Get(string request, IPEndPoint host, string community, string mibString)
         {
             var packet = new byte[1024];
             var mib = new byte[1024];
             var comlen = community.Length;
-            var mibvals = mibstring.Split('.');
+            var mibvals = mibString.Split('.');
             var miblen = mibvals.Length;
             var cnt = 0;
             var orgmiblen = miblen;
@@ -253,7 +253,7 @@
             return packet;
         }
 
-        private static void SendPacket(IPEndPoint host, byte[] packet, int snmplen)
+        private static void SendPacket(IPEndPoint host, byte[] packet, int length)
         {
             var sock = new Socket(
                 AddressFamily.InterNetwork,
@@ -264,7 +264,7 @@
                 SocketOptionName.ReceiveTimeout,
                 5000);
             var ep = (EndPoint) host;
-            sock.SendTo(packet, snmplen, SocketFlags.None, host);
+            sock.SendTo(packet, length, SocketFlags.None, host);
 
             // Receive response from packet
             try

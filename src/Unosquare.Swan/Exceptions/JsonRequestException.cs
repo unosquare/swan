@@ -9,18 +9,21 @@
 #if !NETSTANDARD1_3 && !UWP
     [Serializable]
 #endif
-    public class JsonRequestException 
+    public class JsonRequestException
         : Exception
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonRequestException"/> class.
+        /// Initializes a new instance of the <see cref="T:Unosquare.Swan.Exceptions.JsonRequestException" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="httpErrorCode">The HTTP error code.</param>
-        public JsonRequestException(string message, int httpErrorCode = 500)
+        /// <param name="errorContent">Content of the error.</param>
+        public JsonRequestException(string message, int httpErrorCode = 500, string errorContent = null)
             : base(message)
         {
             HttpErrorCode = httpErrorCode;
+            HttpErrorContent = errorContent;
         }
 
         /// <summary>
@@ -30,5 +33,16 @@
         /// The HTTP error code.
         /// </value>
         public int HttpErrorCode { get; }
+
+        /// <summary>
+        /// Gets the content of the HTTP error.
+        /// </summary>
+        /// <value>
+        /// The content of the HTTP error.
+        /// </value>
+        public string HttpErrorContent { get; }
+
+        /// <inheritdoc />
+        public override string ToString() => string.IsNullOrEmpty(HttpErrorContent) ? $"HTTP Response Status Code {HttpErrorCode} Error Message: {HttpErrorContent}" : base.ToString();
     }
 }

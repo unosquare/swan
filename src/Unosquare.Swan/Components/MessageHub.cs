@@ -456,7 +456,7 @@ namespace Unosquare.Swan.Components
         public Task PublishAsync<TMessage>(TMessage message)
             where TMessage : class, IMessageHubMessage
         {
-            return Task.Factory.StartNew(() => Publish(message));
+            return Task.Run(() => Publish(message));
         }
 
         #endregion

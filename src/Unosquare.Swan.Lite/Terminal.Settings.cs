@@ -33,6 +33,8 @@
                         LogMessageType.Warning |
                         LogMessageType.Fatal;
                 }
+
+                GlobalLoggingMessageType = DisplayLoggingMessageType;
             }
 
             /// <summary>
@@ -172,6 +174,14 @@
             /// The console options.
             /// </value>
             public static LogMessageType DisplayLoggingMessageType { get; set; }
+
+            /// <summary>
+            /// Gets or sets the logging message types (in a bitwise mask) to global logging.
+            /// </summary>
+            /// <value>
+            /// The type of the global logging message.
+            /// </value>
+            public static LogMessageType GlobalLoggingMessageType { get; set; }
 
             /// <summary>
             /// Gets or sets a value indicating whether [override is console present].

@@ -212,7 +212,7 @@
             var action = new Action(() =>
             {
                 var test01FilePath = Runtime.GetDesktopFilePath("csv-writer-test-01.csv");
-                var test02FilePath = Runtime.GetDesktopFilePath("csv-witer-test-02.csv");
+                var test02FilePath = Runtime.GetDesktopFilePath("csv-writer-test-02.csv");
 
                 var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
