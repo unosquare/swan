@@ -338,7 +338,7 @@
                 var response = await httpClient.SendAsync(new HttpRequestMessage(method, url) { Content = payloadJson }, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException($"Error {method} JSON", (int)response.StatusCode);
+                    throw new JsonRequestException($"Error {method} JSON", (int)response.StatusCode, await response.Content.ReadAsStringAsync());
 
                 return await response.Content.ReadAsStringAsync();
             }
