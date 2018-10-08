@@ -102,9 +102,6 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.getbaseexception#System_Exception_GetBaseException">Exception.GetBaseException()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.tostring#System_Exception_ToString">Exception.ToString()</a>
-    </div>
-    <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.getobjectdata#System_Exception_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_">Exception.GetObjectData(SerializationInfo, StreamingContext)</a>
     </div>
     <div>
@@ -164,13 +161,13 @@ public class JsonRequestException : Exception, ISerializable, _Exception</code><
   
   
   <a id="Unosquare_Swan_Exceptions_JsonRequestException__ctor_" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Exceptions_JsonRequestException__ctor_System_String_System_Int32_" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32)">JsonRequestException(String, Int32)</h4>
+  <h4 id="Unosquare_Swan_Exceptions_JsonRequestException__ctor_System_String_System_Int32_System_String_" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32,System.String)">JsonRequestException(String, Int32, String)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JsonRequestException(string message, int httpErrorCode = 500)</code></pre>
+    <pre><code class="lang-csharp hljs">public JsonRequestException(string message, int httpErrorCode = 500, string errorContent = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -192,6 +189,12 @@ public class JsonRequestException : Exception, ISerializable, _Exception</code><
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
         <td><span class="parametername">httpErrorCode</span></td>
         <td><p>The HTTP error code.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">errorContent</span></td>
+        <td><p>Content of the error.</p>
 </td>
       </tr>
     </tbody>
@@ -225,6 +228,62 @@ public class JsonRequestException : Exception, ISerializable, _Exception</code><
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorContent_" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorContent" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent">HttpErrorContent</h4>
+  <div class="markdown level1 summary"><p>Gets the content of the HTTP error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string HttpErrorContent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The content of the HTTP error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Exceptions_JsonRequestException_ToString_" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.ToString*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_JsonRequestException_ToString" data-uid="Unosquare.Swan.Exceptions.JsonRequestException.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.tostring#System_Exception_ToString">Exception.ToString()</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.iserializable">System.Runtime.Serialization.ISerializable</a>

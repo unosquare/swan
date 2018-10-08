@@ -6145,12 +6145,12 @@ references:
   commentId: T:Unosquare.Swan.Exceptions.JsonRequestException
   fullName: Unosquare.Swan.Exceptions.JsonRequestException
   nameWithType: JsonRequestException
-- uid: Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32)
-  name: JsonRequestException(String, Int32)
-  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException__ctor_System_String_System_Int32_
-  commentId: M:Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32)
-  fullName: Unosquare.Swan.Exceptions.JsonRequestException.JsonRequestException(System.String, System.Int32)
-  nameWithType: JsonRequestException.JsonRequestException(String, Int32)
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32,System.String)
+  name: JsonRequestException(String, Int32, String)
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException__ctor_System_String_System_Int32_System_String_
+  commentId: M:Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32,System.String)
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.JsonRequestException(System.String, System.Int32, System.String)
+  nameWithType: JsonRequestException.JsonRequestException(String, Int32, String)
 - uid: Unosquare.Swan.Exceptions.JsonRequestException.#ctor*
   name: JsonRequestException
   href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException__ctor_
@@ -6171,6 +6171,32 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
   nameWithType: JsonRequestException.HttpErrorCode
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent
+  name: HttpErrorContent
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorContent
+  commentId: P:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent
+  nameWithType: JsonRequestException.HttpErrorContent
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent*
+  name: HttpErrorContent
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorContent_
+  commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent
+  isSpec: "True"
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorContent
+  nameWithType: JsonRequestException.HttpErrorContent
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.ToString
+  name: ToString()
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_ToString
+  commentId: M:Unosquare.Swan.Exceptions.JsonRequestException.ToString
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.ToString()
+  nameWithType: JsonRequestException.ToString()
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.ToString*
+  name: ToString
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_ToString_
+  commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.ToString
+  isSpec: "True"
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.ToString
+  nameWithType: JsonRequestException.ToString
 - uid: Unosquare.Swan.Exceptions.LdapException
   name: LdapException
   href: api/Unosquare.Swan.Exceptions.LdapException.html
