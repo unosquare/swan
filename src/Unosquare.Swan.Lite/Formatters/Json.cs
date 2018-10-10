@@ -58,7 +58,6 @@
         /// <returns>
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
-        /// <exception cref="ArgumentException">You need to provide an object or array.</exception>
         /// <example>
         /// The following example describes how to serialize a simple object.
         /// <code>
@@ -124,7 +123,6 @@
         /// <returns>
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
-        /// <exception cref="ArgumentException">You need to provide an object or array.</exception>
         public static string Serialize(
             object obj,
             bool format,
