@@ -5,6 +5,9 @@
     using System.Reflection;
     using Exceptions;
 
+    /// <summary>
+    /// Represents an abstract class for Object Factory.
+    /// </summary>
     public abstract class ObjectFactoryBase
     {
         /// <summary>
@@ -25,15 +28,43 @@
         /// </summary>
         public ConstructorInfo Constructor { get; private set; }
 
+        /// <summary>
+        /// Gets the singleton variant.
+        /// </summary>
+        /// <value>
+        /// The singleton variant.
+        /// </value>
+        /// <exception cref="DependencyContainerRegistrationException">singleton</exception>
         public virtual ObjectFactoryBase SingletonVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "singleton");
 
+        /// <summary>
+        /// Gets the multi instance variant.
+        /// </summary>
+        /// <value>
+        /// The multi instance variant.
+        /// </value>
+        /// <exception cref="DependencyContainerRegistrationException">multi-instance</exception>
         public virtual ObjectFactoryBase MultiInstanceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
 
+        /// <summary>
+        /// Gets the strong reference variant.
+        /// </summary>
+        /// <value>
+        /// The strong reference variant.
+        /// </value>
+        /// <exception cref="DependencyContainerRegistrationException">strong reference</exception>
         public virtual ObjectFactoryBase StrongReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "strong reference");
 
+        /// <summary>
+        /// Gets the weak reference variant.
+        /// </summary>
+        /// <value>
+        /// The weak reference variant.
+        /// </value>
+        /// <exception cref="DependencyContainerRegistrationException">weak reference</exception>
         public virtual ObjectFactoryBase WeakReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "weak reference");
 
@@ -51,6 +82,13 @@
             Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options);
 
+        /// <summary>
+        /// Gets the factory for child container.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="child">The child.</param>
+        /// <returns></returns>
         public virtual ObjectFactoryBase GetFactoryForChildContainer(
             Type type,
             DependencyContainer parent,
@@ -60,6 +98,7 @@
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// IObjectFactory that creates new instances of types for each resolution.
     /// </summary>
@@ -112,6 +151,7 @@
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// IObjectFactory that invokes a specified delegate to construct the object.
     /// </summary>
@@ -156,6 +196,7 @@
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// IObjectFactory that invokes a specified delegate to construct the object
     /// Holds the delegate using a weak reference.
@@ -263,8 +304,6 @@
     }
 
     /// <summary>
-    /// Stores an particular instance to return for a type
-    /// 
     /// Stores the instance with a weak reference.
     /// </summary>
     internal class WeakInstanceFactory : ObjectFactoryBase, IDisposable

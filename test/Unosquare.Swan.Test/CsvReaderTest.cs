@@ -22,7 +22,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             {"Company", "Warsong Clan"},
             {"OpenPositions", "Wolfrider"},
             {"MainTechnology", "Axe"},
-            {"Revenue", "$190000G"}
+            {"Revenue", "$190000G"},
         };
     }
 
