@@ -120,8 +120,12 @@
             }
         }
 
-        private static void Write(LogMessageType messageType, string sourceName, LogMessageReceivedEventArgs eventArgs,
-            string outputMessage, ConsoleColor color)
+        private static void Write(
+            LogMessageType messageType, 
+            string sourceName, 
+            LogMessageReceivedEventArgs eventArgs,
+            string outputMessage, 
+            ConsoleColor color)
         {
             // Select the writer based on the message type
             var writer = IsConsolePresent
