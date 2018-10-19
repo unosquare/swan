@@ -117,20 +117,20 @@ namespace Unosquare.Swan.Networking
         public NetworkCredential Credentials { get; set; }
 
         /// <summary>
-        /// Gets or sets the hostname to connect to.
+        /// Gets the host.
         /// </summary>
         /// <value>
         /// The host.
         /// </value>
-        public string Host { get; set; }
+        public string Host { get; }
 
         /// <summary>
-        /// Gets or sets the port on which the server expects the connection.
+        /// Gets the port.
         /// </summary>
         /// <value>
         /// The port.
         /// </value>
-        public int Port { get; set; }
+        public int Port { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the SSL is enabled.
@@ -155,9 +155,17 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous of send email operation.</returns>
-        public Task SendMailAsync(MailMessage message, string sessionId = null)
+        /// <exception cref="ArgumentNullException">message.</exception>
+        public Task SendMailAsync(
+            MailMessage message, 
+            string sessionId = null,
+            CancellationToken ct = default)
         {
+            if (message == null)
+                throw new ArgumentNullException(nameof(message));
+
             var state = new SmtpSessionState
             {
                 AuthMode = Credentials == null ? string.Empty : SmtpDefinitions.SmtpAuthMethods.Login,
@@ -179,7 +187,7 @@ namespace Unosquare.Swan.Networking
 
             state.DataBuffer.AddRange(message.ToMimeMessage().ToArray());
 
-            return SendMailAsync(state, sessionId);
+            return SendMailAsync(state, sessionId, ct);
         }
 #endif
 
@@ -203,8 +211,6 @@ namespace Unosquare.Swan.Networking
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
 
-            $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
-                typeof(SmtpClient));
             return SendMailAsync(new[] {sessionState}, sessionId, ct);
         }
 
