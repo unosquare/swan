@@ -328,12 +328,12 @@ If set to false, communication between client and server will not be secured.</p
   
   <a id="Unosquare_Swan_Networking_SmtpClient_Host_" data-uid="Unosquare.Swan.Networking.SmtpClient.Host*"></a>
   <h4 id="Unosquare_Swan_Networking_SmtpClient_Host" data-uid="Unosquare.Swan.Networking.SmtpClient.Host">Host</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the hostname to connect to.</p>
+  <div class="markdown level1 summary"><p>Gets the host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Host { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Host { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -355,12 +355,12 @@ If set to false, communication between client and server will not be secured.</p
   
   <a id="Unosquare_Swan_Networking_SmtpClient_Port_" data-uid="Unosquare.Swan.Networking.SmtpClient.Port*"></a>
   <h4 id="Unosquare_Swan_Networking_SmtpClient_Port" data-uid="Unosquare.Swan.Networking.SmtpClient.Port">Port</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the port on which the server expects the connection.</p>
+  <div class="markdown level1 summary"><p>Gets the port.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Port { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int Port { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -383,13 +383,13 @@ If set to false, communication between client and server will not be secured.</p
   
   
   <a id="Unosquare_Swan_Networking_SmtpClient_SendMailAsync_" data-uid="Unosquare.Swan.Networking.SmtpClient.SendMailAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_SmtpClient_SendMailAsync_MailMessage_System_String_" data-uid="Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String)">SendMailAsync(MailMessage, String)</h4>
+  <h4 id="Unosquare_Swan_Networking_SmtpClient_SendMailAsync_MailMessage_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String,System.Threading.CancellationToken)">SendMailAsync(MailMessage, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends an email message asynchronously.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task SendMailAsync(MailMessage message, string sessionId = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task SendMailAsync(MailMessage message, string sessionId = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -413,6 +413,12 @@ If set to false, communication between client and server will not be secured.</p
         <td><p>The session identifier.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -427,6 +433,22 @@ If set to false, communication between client and server will not be secured.</p
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td><p>A task that represents the asynchronous of send email operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>message.</p>
 </td>
       </tr>
     </tbody>
