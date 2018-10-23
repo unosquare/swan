@@ -115,7 +115,7 @@ namespace Unosquare.Swan.Components
             Encoding encoding = null, 
             CancellationToken ct = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, encoding: encoding, ct: ct);
+            var result = await GetProcessResultAsync(filename, arguments, null, encoding, ct);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -173,8 +173,8 @@ namespace Unosquare.Swan.Components
         /// </code></example>
         public static async Task<ProcessResult> GetProcessResultAsync(
             string filename, 
-            string arguments = "",
-            string workingDirectory = null, 
+            string arguments,
+            string workingDirectory, 
             Encoding encoding = null, 
             CancellationToken ct = default)
         {
@@ -248,9 +248,9 @@ namespace Unosquare.Swan.Components
                         StandardOutputEncoding = encoding,
                         UseShellExecute = false,
 #if NET452
-                        WindowStyle = ProcessWindowStyle.Hidden
+                        WindowStyle = ProcessWindowStyle.Hidden,
 #endif
-                    }
+                    },
                 };
 
                 if (!string.IsNullOrWhiteSpace(workingDirectory))
@@ -263,9 +263,18 @@ namespace Unosquare.Swan.Components
 
                 // Launch the asynchronous stream reading tasks
                 var readTasks = new Task[2];
-                readTasks[0] = CopyStreamAsync(process, process.StandardOutput.BaseStream, onOutputData, syncEvents,
+                readTasks[0] = CopyStreamAsync(
+                    process, 
+                    process.StandardOutput.BaseStream, 
+                    onOutputData, 
+                    syncEvents,
                     ct);
-                readTasks[1] = CopyStreamAsync(process, process.StandardError.BaseStream, onErrorData, syncEvents, ct);
+                readTasks[1] = CopyStreamAsync(
+                    process, 
+                    process.StandardError.BaseStream, 
+                    onErrorData, 
+                    syncEvents, 
+                    ct);
 
                 try
                 {
@@ -353,11 +362,22 @@ namespace Unosquare.Swan.Components
         /// }
         /// </code>
         /// </example>
-        public static Task<int> RunProcessAsync(string filename, string arguments,
-            ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true,
+        public static Task<int> RunProcessAsync(
+            string filename, 
+            string arguments,
+            ProcessDataReceivedCallback onOutputData, 
+            ProcessDataReceivedCallback onErrorData, 
+            bool syncEvents = true,
             CancellationToken ct = default)
-            => RunProcessAsync(filename, arguments, null, onOutputData, onErrorData, Definitions.CurrentAnsiEncoding,
-                syncEvents, ct);
+            => RunProcessAsync(
+                filename, 
+                arguments, 
+                null, 
+                onOutputData, 
+                onErrorData, 
+                Definitions.CurrentAnsiEncoding,
+                syncEvents, 
+                ct);
 
         /// <summary>
         /// Copies the stream asynchronously.
