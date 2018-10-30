@@ -138,13 +138,13 @@ class Worker : AppWorkerBase
 
     // override the base loop method, this is the code that&apos;ll
     // be run once the worker is started     
-    protected override void WorkerThreadLoop()
+    protected override Task WorkerThreadLoop()
     {
         // while the worker hasn&apos;t been stopped
         while (!CancellationToken.IsCancellationRequested)
         {
             // delay a second and then proceed
-            Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();
+            await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
 
             // just print out this
             $&quot;Working...&quot;.WriteLine();
@@ -402,8 +402,24 @@ If so, immediately exit the loop.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void WorkerThreadLoop()</code></pre>
+    <pre><code class="lang-csharp hljs">protected abstract Task WorkerThreadLoop()</code></pre>
   </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task representing the execution of the worker.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="events">Events
   </h3>
   

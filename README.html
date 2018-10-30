@@ -857,7 +857,7 @@ data.StandardError.WriteLine();
 <ul>
 <li><strong>OnWorkerThreadLoopException</strong>: which is called when an unhandled exception is thrown</li>
 <li><strong>OnWorkerThreadExit</strong>: executed when the user loop has exited</li>
-<li><strong>WorkerThreadLoop</strong>: a custom loop that checks whether a cancellation has been requested if so it exits the loop</li>
+<li><strong>WorkerThreadLoop</strong>: a custom async loop that checks whether a cancellation has been requested if so it exits the loop</li>
 </ul>
 <pre><code class="lang-csharp"> class Worker : AppWorkerBase
     {
@@ -865,13 +865,13 @@ data.StandardError.WriteLine();
         public Action OnExit { get; set; }
 
         // Override the base loop method, this is the code that&#39;ll be run once the worker is started
-        protected override void WorkerThreadLoop()
+        protected override async Task WorkerThreadLoop()
         {
             // While the worker hasn&#39;t been stopped
             while (CancellationToken.IsCancellationRequested == false)
             {
                // Delay a second and then proceed
-                Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
+                await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);                    
 
                 // Just print this
                 $&quot;Working...&quot;.WriteLine();
