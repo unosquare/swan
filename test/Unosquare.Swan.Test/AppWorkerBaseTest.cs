@@ -9,14 +9,14 @@
     public class AppWorkerBaseTest
     {
         [Test]
-        public void CanStartAndStopTest()
+        public async Task CanStartAndStopTest()
         {
             var mock = new AppWorkerMock();
             var exit = false;
             mock.OnExit = () => exit = true;
             Assert.AreEqual(AppWorkerState.Stopped, mock.State);
             mock.Start();
-            Task.Delay(TimeSpan.FromMilliseconds(100)).Wait();
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
 
             Assert.IsTrue(mock.IsBusy, "Worker is busy");
             Assert.AreEqual(AppWorkerState.Running, mock.State);
@@ -64,8 +64,15 @@
 
             mock.StateChanged += (s, e) =>
             {
-                if (e.NewState == AppWorkerState.Running) start = true;
-                if (e.NewState == AppWorkerState.Stopped) stop = true;
+                switch (e.NewState)
+                {
+                    case AppWorkerState.Running:
+                        start = true;
+                        break;
+                    case AppWorkerState.Stopped:
+                        stop = true;
+                        break;
+                }
             };
 
             mock.Start();
