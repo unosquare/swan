@@ -864,20 +864,16 @@ data.StandardError.WriteLine();
         // An action that will be executed if the worker is stopped
         public Action OnExit { get; set; }
 
-        // Override the base loop method, this is the code that&#39;ll be run once the worker is started
-        protected override async Task WorkerThreadLoop()
-        {
-            // While the worker hasn&#39;t been stopped
-            while (CancellationToken.IsCancellationRequested == false)
-            {
-               // Delay a second and then proceed
-                await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);                    
+        // override the base loop method, this is the code will
+        // execute until the cancellation token is canceled.
+         protected override Task WorkerThreadLoop()
+         {
+             // delay a second and then proceed
+             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
 
-                // Just print this
-                $&quot;Working...&quot;.WriteLine();
-            }
-
-        }
+             // just print out this
+             $&quot;Working...&quot;.WriteLine();
+         }
 
         // Once the worker is stopped this code will be executed
         protected override void OnWorkerThreadExit()
