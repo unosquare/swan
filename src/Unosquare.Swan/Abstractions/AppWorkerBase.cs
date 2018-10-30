@@ -117,16 +117,13 @@
         /// Performs internal service initialization tasks required before starting the service.
         /// </summary>
         /// <exception cref="InvalidOperationException">Service cannot be initialized because it seems to be currently running.</exception>
-        public virtual void Initialize()
-        {
-            ValidateState();
-        }
+        public virtual void Initialize() => CheckIsRunning();
 
         /// <inheritdoc/>
         /// <exception cref="InvalidOperationException">Service cannot be started because it seems to be currently running.</exception>
         public virtual void Start()
         {
-            ValidateState();
+            CheckIsRunning();
 
             CreateWorker();
             State = AppWorkerState.Running;
@@ -170,7 +167,7 @@
         /// <returns>A task representing the execution of the worker.</returns>
         protected abstract Task WorkerThreadLoop();
 
-        private void ValidateState()
+        private void CheckIsRunning()
         {
             if (State != AppWorkerState.Stopped)
                 throw new InvalidOperationException("Service cannot be initialized because it seems to be currently running.");
