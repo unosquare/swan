@@ -136,7 +136,7 @@
         /// <exception cref="InvalidOperationException">Service cannot be stopped because it is not running.</exception>
         public virtual void Stop()
         {
-            if (State != AppWorkerState.Running) 
+            if (State != AppWorkerState.Running)
                 return;
 
             _tokenSource?.Cancel();
@@ -173,7 +173,7 @@
         private void ValidateState()
         {
             if (State != AppWorkerState.Stopped)
-                throw new InvalidOperationException("Service cannot be initialized because it seems to be currently running");
+                throw new InvalidOperationException("Service cannot be initialized because it seems to be currently running.");
         }
 
         private void CreateWorker()
@@ -185,33 +185,31 @@
                 OnWorkerThreadExit();
             });
 
-            Task.Factory.StartNew(async () =>
-            {
-                IsBusy = true;
-
-                try
+            Task.Run(async () =>
                 {
-                    while (!CancellationToken.IsCancellationRequested)
+                    IsBusy = true;
+
+                    try
                     {
-                        await WorkerThreadLoop().ConfigureAwait(false);
+                        while (!CancellationToken.IsCancellationRequested)
+                        {
+                            await WorkerThreadLoop().ConfigureAwait(false);
+                        }
                     }
-                }
-                catch (AggregateException)
-                {
-                    // Ignored
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(GetType().Name);
-                    OnWorkerThreadLoopException(ex);
+                    catch (AggregateException)
+                    {
+                        // Ignored
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Log(GetType().Name);
+                        OnWorkerThreadLoopException(ex);
 
-                    if (!_tokenSource.IsCancellationRequested)
-                        _tokenSource.Cancel();
-                }
-            },
-                _tokenSource.Token,
-                TaskCreationOptions.LongRunning,
-                TaskScheduler.Default);
+                        if (!_tokenSource.IsCancellationRequested)
+                            _tokenSource.Cancel();
+                    }
+                },
+                _tokenSource.Token);
         }
 
         #endregion
