@@ -193,7 +193,7 @@
                 {
                     while (!CancellationToken.IsCancellationRequested)
                     {
-                        await WorkerThreadLoop();
+                        await WorkerThreadLoop().ConfigureAwait(false);
                     }
                 }
                 catch (AggregateException)
