@@ -860,7 +860,7 @@ The `AppWorkerBase` class has many methods that can be overwritten such as:
 
 * **OnWorkerThreadLoopException**: which is called when an unhandled exception is thrown
 * **OnWorkerThreadExit**: executed when the user loop has exited
-* **WorkerThreadLoop**: a custom loop that checks whether a cancellation has been requested if so it exits the loop
+* **WorkerThreadLoop**: a custom async loop that checks whether a cancellation has been requested if so it exits the loop
 
 ```csharp
  class Worker : AppWorkerBase
@@ -868,20 +868,16 @@ The `AppWorkerBase` class has many methods that can be overwritten such as:
         // An action that will be executed if the worker is stopped
         public Action OnExit { get; set; }
         
-        // Override the base loop method, this is the code that'll be run once the worker is started
-        protected override void WorkerThreadLoop()
-        {
-            // While the worker hasn't been stopped
-            while (CancellationToken.IsCancellationRequested == false)
-            {
-               // Delay a second and then proceed
-                Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
-
-                // Just print this
-                $"Working...".WriteLine();
-            }
-           
-        }
+        // override the base loop method, this is the code will
+		// execute until the cancellation token is canceled.
+         protected override Task WorkerThreadLoop()
+         {
+             // delay a second and then proceed
+             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
+                 
+             // just print out this
+             $"Working...".WriteLine();
+         }
         
         // Once the worker is stopped this code will be executed
         protected override void OnWorkerThreadExit()

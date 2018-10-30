@@ -20,19 +20,15 @@
     ///     // an action that will be executed if the worker is stopped
     ///     public Action OnExit { get; set; }
     ///      
-    ///     // override the base loop method, this is the code that'll
-    ///     // be run once the worker is started     
-    ///     protected override void WorkerThreadLoop()
+    ///     // override the base loop method, this is the code will
+    ///     // execute until the cancellation token is canceled.
+    ///     protected override Task WorkerThreadLoop()
     ///     {
-    ///         // while the worker hasn't been stopped
-    ///         while (!CancellationToken.IsCancellationRequested)
-    ///         {
-    ///             // delay a second and then proceed
-    ///             Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();
+    ///         // delay a second and then proceed
+    ///         await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
     ///             
-    ///             // just print out this
-    ///             $"Working...".WriteLine();
-    ///         }
+    ///         // just print out this
+    ///         $"Working...".WriteLine();
     ///     }
     ///     
     ///     // Once the worker is stopped this code will be executed
@@ -47,18 +43,12 @@
     /// }
     /// </code>
     /// </example>
-    public abstract class AppWorkerBase 
+    public abstract class AppWorkerBase
         : IWorker, IDisposable
     {
-        #region Property Backing
-
         private readonly object _syncLock = new object();
-        private AppWorkerState _workerState = AppWorkerState.Stopped;        
+        private AppWorkerState _workerState = AppWorkerState.Stopped;
         private CancellationTokenSource _tokenSource;
-
-        #endregion
-
-        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppWorkerBase"/> class.
@@ -68,8 +58,6 @@
             State = AppWorkerState.Stopped;
             IsBusy = false;
         }
-
-        #endregion
 
         /// <summary>
         /// Occurs when [state changed].
@@ -129,21 +117,13 @@
         /// Performs internal service initialization tasks required before starting the service.
         /// </summary>
         /// <exception cref="InvalidOperationException">Service cannot be initialized because it seems to be currently running.</exception>
-        public virtual void Initialize()
-        {
-            if (State != AppWorkerState.Stopped)
-            {
-                throw new InvalidOperationException(
-                    "Service cannot be initialized because it seems to be currently running");
-            }
-        }
+        public virtual void Initialize() => CheckIsRunning();
 
         /// <inheritdoc/>
         /// <exception cref="InvalidOperationException">Service cannot be started because it seems to be currently running.</exception>
         public virtual void Start()
         {
-            if (State != AppWorkerState.Stopped)
-                throw new InvalidOperationException("Service cannot be started because it seems to be currently running");
+            CheckIsRunning();
 
             CreateWorker();
             State = AppWorkerState.Running;
@@ -153,18 +133,16 @@
         /// <exception cref="InvalidOperationException">Service cannot be stopped because it is not running.</exception>
         public virtual void Stop()
         {
-            if (State != AppWorkerState.Running) return;
+            if (State != AppWorkerState.Running)
+                return;
 
             _tokenSource?.Cancel();
             "Service stop requested.".Debug(GetType().Name);
             State = AppWorkerState.Stopped;
         }
-        
+
         /// <inheritdoc />
-        public void Dispose()
-        {
-            _tokenSource?.Dispose();
-        }
+        public void Dispose() => _tokenSource?.Dispose();
 
         #endregion
 
@@ -186,12 +164,15 @@
         /// Implement this method as a loop that checks whether CancellationPending has been set to true
         /// If so, immediately exit the loop.
         /// </summary>
-        protected abstract void WorkerThreadLoop();
+        /// <returns>A task representing the execution of the worker.</returns>
+        protected abstract Task WorkerThreadLoop();
 
-        /// <summary>
-        /// Creates the worker task.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
+        private void CheckIsRunning()
+        {
+            if (State != AppWorkerState.Stopped)
+                throw new InvalidOperationException("Service cannot be initialized because it seems to be currently running.");
+        }
+
         private void CreateWorker()
         {
             _tokenSource = new CancellationTokenSource();
@@ -201,27 +182,31 @@
                 OnWorkerThreadExit();
             });
 
-            Task.Factory.StartNew(() =>
-            {
-                IsBusy = true;
+            Task.Run(async () =>
+                {
+                    IsBusy = true;
 
-                try
-                {
-                    WorkerThreadLoop();
-                }
-                catch (AggregateException)
-                {
-                    // Ignored
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(GetType().Name);
-                    OnWorkerThreadLoopException(ex);
+                    try
+                    {
+                        while (!CancellationToken.IsCancellationRequested)
+                        {
+                            await WorkerThreadLoop().ConfigureAwait(false);
+                        }
+                    }
+                    catch (AggregateException)
+                    {
+                        // Ignored
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Log(GetType().Name);
+                        OnWorkerThreadLoopException(ex);
 
-                    if (!_tokenSource.IsCancellationRequested)
-                        _tokenSource.Cancel();
-                }
-            }, _tokenSource.Token);
+                        if (!_tokenSource.IsCancellationRequested)
+                            _tokenSource.Cancel();
+                    }
+                },
+                _tokenSource.Token);
         }
 
         #endregion

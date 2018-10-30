@@ -12,19 +12,14 @@
 
         public Action OnExit { get; set; }
 
-        protected override void WorkerThreadLoop()
+        protected override async Task WorkerThreadLoop()
         {
-            while (CancellationToken.IsCancellationRequested == false)
-            {
-                Task.Delay(TimeSpan.FromMilliseconds(100), CancellationToken).Wait();
-                Count++;
+            await Task.Delay(TimeSpan.FromMilliseconds(100), CancellationToken);
 
-                if (Count == 6)
-                {
-                    ExitBecauseCancellation = false;
-                    throw new InvalidOperationException("Expected exception");
-                }
-            }
+            if (++Count != 6) return;
+
+            ExitBecauseCancellation = false;
+            throw new InvalidOperationException("Expected exception");
         }
 
         protected override void OnWorkerThreadExit()
