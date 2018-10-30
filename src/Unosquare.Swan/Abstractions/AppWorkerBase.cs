@@ -20,19 +20,15 @@
     ///     // an action that will be executed if the worker is stopped
     ///     public Action OnExit { get; set; }
     ///      
-    ///     // override the base loop method, this is the code that'll
-    ///     // be run once the worker is started     
+    ///     // override the base loop method, this is the code will
+    ///     // execute until the cancellation token is canceled.
     ///     protected override Task WorkerThreadLoop()
     ///     {
-    ///         // while the worker hasn't been stopped
-    ///         while (!CancellationToken.IsCancellationRequested)
-    ///         {
-    ///             // delay a second and then proceed
-    ///             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
+    ///         // delay a second and then proceed
+    ///         await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
     ///             
-    ///             // just print out this
-    ///             $"Working...".WriteLine();
-    ///         }
+    ///         // just print out this
+    ///         $"Working...".WriteLine();
     ///     }
     ///     
     ///     // Once the worker is stopped this code will be executed
@@ -195,7 +191,10 @@
 
                 try
                 {
-                    await WorkerThreadLoop();
+                    while (!CancellationToken.IsCancellationRequested)
+                    {
+                        await WorkerThreadLoop();
+                    }
                 }
                 catch (AggregateException)
                 {

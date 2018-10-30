@@ -868,20 +868,16 @@ The `AppWorkerBase` class has many methods that can be overwritten such as:
         // An action that will be executed if the worker is stopped
         public Action OnExit { get; set; }
         
-        // Override the base loop method, this is the code that'll be run once the worker is started
-        protected override async Task WorkerThreadLoop()
-        {
-            // While the worker hasn't been stopped
-            while (CancellationToken.IsCancellationRequested == false)
-            {
-               // Delay a second and then proceed
-				await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);                    
-
-                // Just print this
-                $"Working...".WriteLine();
-            }
-           
-        }
+        // override the base loop method, this is the code will
+		// execute until the cancellation token is canceled.
+         protected override Task WorkerThreadLoop()
+         {
+             // delay a second and then proceed
+             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
+                 
+             // just print out this
+             $"Working...".WriteLine();
+         }
         
         // Once the worker is stopped this code will be executed
         protected override void OnWorkerThreadExit()
