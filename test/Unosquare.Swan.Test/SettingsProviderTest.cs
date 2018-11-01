@@ -49,6 +49,7 @@
             list[2].Value = arraySample;
 
             var updateList = SettingsProvider<AppSettingMock>.Instance.RefreshFromList(list);
+
             Assert.IsNotNull(updateList);
             Assert.AreEqual(2, updateList.Count);
             Assert.AreEqual(list[0].Value, SettingsProvider<AppSettingMock>.Instance.Global.WebServerPort);

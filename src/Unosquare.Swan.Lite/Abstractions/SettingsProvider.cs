@@ -34,7 +34,7 @@
     ///     public class Settings
     ///     {
     ///         public int Port { get; set; } = 9696;
-    ///              
+    ///         
     ///         public string User { get; set; } = "User";
     ///     }
     /// }
@@ -44,9 +44,6 @@
     public class SettingsProvider<T>
         : SingletonBase<SettingsProvider<T>>
     {
-        /// <summary>
-        /// A synchronization root that is commonly used for cross-thread operations.
-        /// </summary>
         private readonly object _syncRoot = new object();
 
         private T _global;
@@ -90,30 +87,20 @@
         /// </summary>
         public void ReloadGlobalSettings()
         {
-            lock (_syncRoot)
+            if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
             {
-                if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
-                {
-                    _global = Activator.CreateInstance<T>();
-                    PersistGlobalSettings();
-                }
-                else
-                {
-                    _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
-                }
+                ResetGlobalSettings();
+                return;
             }
+
+            lock (_syncRoot)
+                _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
         }
 
         /// <summary>
         /// Persists the global settings.
         /// </summary>
-        public void PersistGlobalSettings()
-        {
-            lock (_syncRoot)
-            {
-                File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global));
-            }
-        }
+        public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global));
 
         /// <summary>
         /// Updates settings from list.
@@ -129,8 +116,7 @@
                 throw new ArgumentNullException(nameof(propertyList));
 
             var changedSettings = new List<string>();
-            var globalType = Global.GetType();
-            var globalProps = Runtime.PropertyTypeCache.RetrieveAllProperties(globalType);
+            var globalProps = Runtime.PropertyTypeCache.RetrieveAllProperties<T>();
 
             foreach (var property in propertyList)
             {
@@ -171,12 +157,11 @@
         public void ResetGlobalSettings()
         {
             lock (_syncRoot)
-            {
-                var stringData = Json.Serialize(Activator.CreateInstance<T>());
-                File.WriteAllText(ConfigurationFilePath, stringData);
-            }
+                _global = Activator.CreateInstance<T>();
+
+            PersistGlobalSettings();
         }
-        
+
         private bool SetValue(object property, object originalValue, PropertyInfo propertyInfo)
         {
             switch (property)
