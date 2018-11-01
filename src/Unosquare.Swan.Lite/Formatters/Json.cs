@@ -2,6 +2,7 @@
 {
     using Reflection;
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -42,7 +43,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly Dictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new Dictionary<Type, IEnumerable<string>>();
+        private static readonly ConcurrentDictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new ConcurrentDictionary<Type, IEnumerable<string>>();
 
         #region Public API
 
@@ -301,14 +302,14 @@
             if (type == null)
                 return excludedNames;
 
-            var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t =>
+            if (!IgnoredPropertiesCache.TryGetValue(type, out var excludedByAttr))
             {
-                var props = t.GetProperties()
-                .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
-                .Select(x => x.Name);
+                excludedByAttr = type.GetProperties()
+                    .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
+                    .Select(x => x.Name);
 
-                return props.Any() ? props : new List<string>(0);
-            });
+                IgnoredPropertiesCache.TryAdd(type, excludedByAttr);
+            }
 
             if (excludedByAttr?.Any() != true)
                 return excludedNames;
