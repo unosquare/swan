@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Concurrent;
     using System.Linq;
     using System.Reflection;
     using Attributes;
@@ -17,8 +18,8 @@
     {
         private class SerializerOptions
         {
-            private static readonly Dictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
-                TypeCache = new Dictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
+            private static readonly ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
+                TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
 
             private readonly string[] _includeProperties;
             private readonly string[] _excludeProperties;
@@ -79,10 +80,11 @@
 
             private static Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
             {
-                if (TypeCache.ContainsKey(targetType))
-                    return TypeCache[targetType];
+                if (TypeCache.TryGetValue(targetType, out var current))
+                    return current;
 
-                var fields = new List<MemberInfo>();
+                var fields =
+                    new List<MemberInfo>(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead));
 
                 // If the target is a struct (value type) navigate the fields.
                 if (targetType.IsValueType())
@@ -90,16 +92,15 @@
                     fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
                 }
 
-                // then incorporate the properties
-                fields.AddRange(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead));
-
-                TypeCache[targetType] = fields
+                var value = fields
                     .ToDictionary(
                         x => new Tuple<string, string>(x.Name,
                             x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name),
                         x => x);
 
-                return TypeCache[targetType];
+                TypeCache.TryAdd(targetType, value);
+
+                return value;
             }
         }
     }
