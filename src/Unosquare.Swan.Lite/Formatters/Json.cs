@@ -141,7 +141,7 @@
                 format,
                 typeSpecifier,
                 includedNames,
-                GeExcludedNames(obj?.GetType(), excludedNames),
+                GetExcludedNames(obj?.GetType(), excludedNames),
                 includeNonPublic,
                 parentReferences);
 
@@ -296,7 +296,7 @@
 
         #region Private API
 
-        private static string[] GeExcludedNames(Type type, string[] excludedNames)
+        private static string[] GetExcludedNames(Type type, string[] excludedNames)
         {
             if (type == null) 
                 return excludedNames;

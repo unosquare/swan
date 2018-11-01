@@ -9,7 +9,7 @@
     public partial class Extensions
     {
         /// <summary>
-        /// Gets the value or default.
+        /// Gets the value if exists or default.
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
@@ -17,7 +17,7 @@
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns>
-        /// A dictionary of generic types.
+        /// The value of the provided key or default.
         /// </returns>
         /// <exception cref="ArgumentNullException">dict.</exception>
         public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default)
@@ -29,8 +29,8 @@
         }
 
         /// <summary>
-        /// Adds a key/value pair to the Dictionary
-        /// if the key does not already exist.
+        /// Adds a key/value pair to the Dictionary if the key does not already exist.
+        /// If the value is null, the key will not be updated.
         ///
         /// Based on <c>ConcurrentDictionary.GetOrAdd</c> method.
         /// </summary>
@@ -48,6 +48,7 @@
             if (!dict.ContainsKey(key))
             {
                 var value = valueFactory(key);
+                if (value == null) return default;
                 dict[key] = value;
             }
 
