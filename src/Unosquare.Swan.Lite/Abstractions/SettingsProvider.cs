@@ -100,7 +100,7 @@
         /// <summary>
         /// Persists the global settings.
         /// </summary>
-        public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global));
+        public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global, true));
 
         /// <summary>
         /// Updates settings from list.
