@@ -48,7 +48,7 @@
             if (!dict.ContainsKey(key))
             {
                 var value = valueFactory(key);
-                if (value == null) return default;
+                if (Equals(value, default)) return default;
                 dict[key] = value;
             }
 
