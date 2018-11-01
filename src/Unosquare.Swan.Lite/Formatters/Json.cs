@@ -298,16 +298,21 @@
 
         private static string[] GetExcludedNames(Type type, string[] excludedNames)
         {
-            if (type == null) 
+            if (type == null)
                 return excludedNames;
 
-            var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
+            var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t =>
+            {
+                var props = t.GetProperties()
                 .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
-                .Select(x => x.Name));
+                .Select(x => x.Name);
+
+                return props.Any() ? props : new List<string>(0);
+            });
 
             if (excludedByAttr?.Any() != true)
                 return excludedNames;
-            
+
             return excludedNames == null
                 ? excludedByAttr.ToArray()
                 : excludedByAttr.Intersect(excludedNames).ToArray();
