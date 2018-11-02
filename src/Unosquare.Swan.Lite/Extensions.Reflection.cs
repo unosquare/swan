@@ -16,8 +16,8 @@
         private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>> CacheGetMethods =
             new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>(), true);
 
-        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
-            new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
+        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>> CacheSetMethods =
+            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>(), true);
 
         #region Assembly Extensions
 
@@ -439,20 +439,17 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value, false);
-
-        private static MethodInfo GetMethodInfoCache(
-            PropertyInfo propertyInfo,
-            bool nonPublic,
-            ConcurrentDictionary<PropertyInfo, MethodInfo> cache,
-            bool isGet)
+        public static Action<object, object[]> GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
         {
-            var methodInfo = cache.GetOrAdd(propertyInfo, x => isGet ? x.GetGetMethod(true) : x.GetSetMethod(true));
+            var key = Tuple.Create(!nonPublic, propertyInfo);
 
-            return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
+            return !nonPublic && !CacheSetMethods.Value.ContainsKey(key) && !propertyInfo.GetSetMethod(true).IsPublic
+                ? null
+                : CacheSetMethods.Value
+                    .GetOrAdd(key,
+                        x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
         }
-
+        
         private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
