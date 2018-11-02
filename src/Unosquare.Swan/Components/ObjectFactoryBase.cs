@@ -34,7 +34,7 @@
         /// <value>
         /// The singleton variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">singleton</exception>
+        /// <exception cref="DependencyContainerRegistrationException">singleton.</exception>
         public virtual ObjectFactoryBase SingletonVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "singleton");
 
@@ -44,7 +44,7 @@
         /// <value>
         /// The multi instance variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">multi-instance</exception>
+        /// <exception cref="DependencyContainerRegistrationException">multi-instance.</exception>
         public virtual ObjectFactoryBase MultiInstanceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
 
@@ -54,7 +54,7 @@
         /// <value>
         /// The strong reference variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">strong reference</exception>
+        /// <exception cref="DependencyContainerRegistrationException">strong reference.</exception>
         public virtual ObjectFactoryBase StrongReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "strong reference");
 
@@ -64,7 +64,7 @@
         /// <value>
         /// The weak reference variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">weak reference</exception>
+        /// <exception cref="DependencyContainerRegistrationException">weak reference.</exception>
         public virtual ObjectFactoryBase WeakReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "weak reference");
 
