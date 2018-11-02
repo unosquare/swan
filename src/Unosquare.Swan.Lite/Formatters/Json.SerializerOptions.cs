@@ -94,7 +94,7 @@
 
                 var value = fields
                     .ToDictionary(
-                        x => new Tuple<string, string>(x.Name,
+                        x => Tuple.Create(x.Name,
                             x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name),
                         x => x);
 

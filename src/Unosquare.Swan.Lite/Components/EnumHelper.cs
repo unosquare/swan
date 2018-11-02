@@ -21,7 +21,7 @@
         {
             return Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
                 .Cast<object>()
-                .Select(item => new Tuple<string, object>(Enum.GetName(t, item), item)));
+                .Select(item => Tuple.Create(Enum.GetName(t, item), item)));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@
             where T : struct, IConvertible
         {
             return Retrieve<T>()
-                .Select(x => new Tuple<int, string>((int) x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
+                .Select(x => Tuple.Create((int) x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
         }
 
         /// <summary>
@@ -165,7 +165,7 @@
             var i = 0;
 
             return Retrieve<T>()
-                .Select(x => new Tuple<int, string>(i++, humanize ? x.Item1.Humanize() : x.Item1));
+                .Select(x => Tuple.Create(i++, humanize ? x.Item1.Humanize() : x.Item1));
         }
     }
 }

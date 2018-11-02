@@ -39,7 +39,8 @@
     }
 
     /// <summary>
-    /// A thread-safe cache of properties belonging to a given type
+    /// A thread-safe cache of properties belonging to a given type.
+    /// 
     /// The Retrieve method is the most useful one in this class as it
     /// calls the retrieval process if the type is not contained
     /// in the cache.
@@ -77,15 +78,12 @@
         /// <returns>
         /// A collection with all the properties in the given type.
         /// </returns>
-        public IEnumerable<PropertyInfo> RetrieveFilteredProperties(Type type, bool onlyPublic,
+        public IEnumerable<PropertyInfo> RetrieveFilteredProperties(
+            Type type,
+            bool onlyPublic,
             Func<PropertyInfo, bool> filter)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return Retrieve(type,
-                onlyPublic ? GetAllPublicPropertiesFunc(filter) : GetAllPropertiesFunc(filter));
-        }
+            => Retrieve(type,
+            onlyPublic ? GetAllPublicPropertiesFunc(filter) : GetAllPropertiesFunc(filter));
 
         private static Func<Type, IEnumerable<PropertyInfo>> GetAllPropertiesFunc(
             Func<PropertyInfo, bool> filter = null)
@@ -128,13 +126,8 @@
         /// <returns>
         /// A collection with all the fields in the given type.
         /// </returns>
-        public IEnumerable<FieldInfo> RetrieveAllFields(Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return Retrieve(type, GetAllFieldsFunc());
-        }
+        public IEnumerable<FieldInfo> RetrieveAllFields(Type type) 
+            => Retrieve(type, GetAllFieldsFunc());
 
         private static Func<Type, IEnumerable<FieldInfo>> GetAllFieldsFunc()
             => t => t.GetFields(BindingFlags.Public | BindingFlags.Instance);
