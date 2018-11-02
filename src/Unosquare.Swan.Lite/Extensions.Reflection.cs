@@ -420,11 +420,16 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
-            => CacheGetMethods.Value
-            .GetOrAdd(
-                    Tuple.Create(!nonPublic, propertyInfo), 
-                    x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
+        public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        {
+            var key = Tuple.Create(!nonPublic, propertyInfo);
+
+            return !nonPublic && !CacheGetMethods.Value.ContainsKey(key) && !propertyInfo.GetGetMethod(true).IsPublic
+                ? null
+                : CacheGetMethods.Value
+                    .GetOrAdd(key,
+                        x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
+        }
 
         /// <summary>
         /// Gets a MethodInfo from a Property Set method.
