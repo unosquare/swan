@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections;
     using System.Linq;
     using System.Reflection;
@@ -12,11 +13,11 @@
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
-            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
+            new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
 
-        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
-            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
+            new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
 
         #region Assembly Extensions
 
@@ -436,21 +437,11 @@
         private static MethodInfo GetMethodInfoCache(
             PropertyInfo propertyInfo,
             bool nonPublic,
-            Dictionary<PropertyInfo, MethodInfo> cache,
+            ConcurrentDictionary<PropertyInfo, MethodInfo> cache,
             bool isGet)
         {
-            MethodInfo methodInfo;
-
-            if (!cache.ContainsKey(propertyInfo))
-            {
-                methodInfo = isGet ? propertyInfo.GetGetMethod(true) : propertyInfo.GetSetMethod(true);
-                cache[propertyInfo] = methodInfo;
-            }
-            else
-            {
-                methodInfo = cache[propertyInfo];
-            }
-
+            var methodInfo = cache.GetOrAdd(propertyInfo, x => isGet ? x.GetGetMethod(true) : x.GetSetMethod(true));
+            
             return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 
