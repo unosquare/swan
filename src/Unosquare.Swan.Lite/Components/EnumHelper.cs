@@ -19,9 +19,9 @@
         public static IEnumerable<Tuple<string, object>> Retrieve<T>()
             where T : struct, IConvertible
         {
-            return Instance.Retrieve(typeof(T), () => Enum.GetValues(typeof(T))
+            return Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
                 .Cast<object>()
-                .Select(item => new Tuple<string, object>(Enum.GetName(typeof(T), item), item)));
+                .Select(item => new Tuple<string, object>(Enum.GetName(t, item), item)));
         }
 
         /// <summary>

@@ -2,12 +2,12 @@
 {
     using System;
     using System.Reflection;
-    using Components;
+    using System.Collections.Concurrent;
 
     /// <summary>
     /// Represents a Method Info Cache.
     /// </summary>
-    public class MethodInfoCache : CacheRepository<string, MethodInfo>
+    public class MethodInfoCache : ConcurrentDictionary<string, MethodInfo>
     {
         /// <summary>
         /// Retrieves the properties stored for the specified type.
@@ -73,10 +73,9 @@
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
 
-            if (!Contains(alias))
-                this[alias] = type.GetMethod(name, types ?? new Type[0]);
-
-            return Retrieve(alias);
+            return GetOrAdd(
+                alias,
+                x => type.GetMethod(name, types ?? new Type[0]));
         }
 
         /// <summary>
@@ -110,11 +109,10 @@
 
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
-
-            if (!Contains(name))
-                this[name] = type.GetMethod(name);
-
-            return this[name];
+            
+            return GetOrAdd(
+                name,
+                type.GetMethod);
         }
     }
 }

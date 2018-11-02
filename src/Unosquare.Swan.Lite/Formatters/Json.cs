@@ -3,6 +3,7 @@
     using Reflection;
     using System;
     using System.Collections.Concurrent;
+    using Components;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -43,7 +44,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly ConcurrentDictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new ConcurrentDictionary<Type, IEnumerable<string>>();
+        private static readonly CollectionCacheRepository<Type, string> IgnoredPropertiesCache = new CollectionCacheRepository<Type, string>();
 
         #region Public API
 
@@ -302,14 +303,9 @@
             if (type == null)
                 return excludedNames;
 
-            if (!IgnoredPropertiesCache.TryGetValue(type, out var excludedByAttr))
-            {
-                excludedByAttr = type.GetProperties()
-                    .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
-                    .Select(x => x.Name);
-
-                IgnoredPropertiesCache.TryAdd(type, excludedByAttr);
-            }
+            var excludedByAttr = IgnoredPropertiesCache.Retrieve(type, t => t.GetProperties()
+                .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
+                .Select(x => x.Name));
 
             if (excludedByAttr?.Any() != true)
                 return excludedNames;

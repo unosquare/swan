@@ -66,15 +66,9 @@
         }
         
         [Test]
-        public void ContainsWithNullType_ThrowsError()
-        {
-            Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Contains(null));
-        }
-        
-        [Test]
         public void RetrieveWithNullType_ThrowsError()
         {
-            Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Retrieve(null));
+            Assert.Catch<ArgumentNullException>(() => Runtime.MethodInfoCache.Retrieve<MethodCacheMock>(null));
         }
     }
 }

@@ -467,8 +467,8 @@
                         : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
 
         private IEnumerable<PropertyInfo> GetFilteredTypeProperties(Type type)
-            => TypeCache.Retrieve(type, () =>
-                    type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            => TypeCache.Retrieve(type, t =>
+                    t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(p => p.CanRead))
                 .Where(p => !IgnorePropertyNames.Contains(p.Name));
 
