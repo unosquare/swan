@@ -283,7 +283,7 @@ Types will only be registered if they pass the supplied registration predicate.<
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_Collections_Generic_Dictionary_System_String_System_Object__System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, Dictionary&lt;String, Object&gt;, String, DependencyContainerResolveOptions)</h4>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, String, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
 Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
 All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
@@ -292,7 +292,7 @@ Note: Resolution may still fail if user defined factory registrations fail to co
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, Dictionary&lt;string, object&gt; parameters = null, string name = null, DependencyContainerResolveOptions options = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, string name = null, DependencyContainerResolveOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -308,12 +308,6 @@ Note: Resolution may still fail if user defined factory registrations fail to co
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
         <td><span class="parametername">resolveType</span></td>
         <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User supplied named parameter overloads.</p>
 </td>
       </tr>
       <tr>
@@ -349,7 +343,7 @@ Note: Resolution may still fail if user defined factory registrations fail to co
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
 All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
@@ -358,7 +352,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name = null, DependencyContainerResolveOptions options = null)
     where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -375,12 +369,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
         <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User supplied named parameter overloads.</p>
 </td>
       </tr>
       <tr>
@@ -1200,7 +1188,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, String, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
 All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
@@ -1208,7 +1196,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name = null, DependencyContainerResolveOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1230,12 +1218,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
         <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
 </td>
       </tr>
       <tr>
@@ -1281,7 +1263,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
 All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
@@ -1289,7 +1271,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name = null, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name = null, DependencyContainerResolveOptions options = null)
     where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1306,12 +1288,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
         <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
 </td>
       </tr>
       <tr>
@@ -1486,126 +1462,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_Collections_Generic_Dictionary_System_String_System_Object__System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object},System.Object@)">TryResolve(Type, Dictionary&lt;String, Object&gt;, out Object)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and supplied constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, Dictionary&lt;string, object&gt; parameters, out object resolvedType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">resolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions,System.Object@)">TryResolve(Type, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions, out Object)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the supplied options and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out object resolvedType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">resolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.Object@)">TryResolve(Type, out Object)</h4>
   <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options.</p>
 </div>
@@ -1628,138 +1484,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
         <td><span class="parametername">resolveType</span></td>
         <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Object@)">TryResolve(Type, String, Dictionary&lt;String, Object&gt;, out Object)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and supplied name and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, string name, Dictionary&lt;string, object&gt; parameters, out object resolvedType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">resolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions,System.Object@)">TryResolve(Type, String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions, out Object)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the supplied name, options and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out object resolvedType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">resolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options.</p>
 </td>
       </tr>
       <tr>
@@ -2028,148 +1752,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_Collections_Generic_Dictionary_System_String_System_Object____0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.Collections.Generic.Dictionary{System.String,System.Object},``0@)">TryResolve&lt;TResolveType&gt;(Dictionary&lt;String, Object&gt;, out TResolveType)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and supplied constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions,``0@)">TryResolve&lt;TResolveType&gt;(Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions, out TResolveType)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the supplied options and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_String___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.String,``0@)">TryResolve&lt;TResolveType&gt;(String, out TResolveType)</h4>
   <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and given name.</p>
 </div>
@@ -2193,160 +1775,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">name</span></td>
         <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_String_System_Collections_Generic_Dictionary_System_String_System_Object____0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},``0@)">TryResolve&lt;TResolveType&gt;(String, Dictionary&lt;String, Object&gt;, out TResolveType)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and supplied name and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TResolveType</span></td>
-        <td><span class="parametername">resolvedType</span></td>
-        <td><p>Resolved type or default if resolve fails.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResolveType</span></td>
-        <td><p>Type to resolve.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
-  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions,``0@)">TryResolve&lt;TResolveType&gt;(String, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions, out TResolveType)</h4>
-  <div class="markdown level1 summary"><p>Attempts to resolve a type using the supplied name, options and constructor parameters.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
-    where TResolveType : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of registration.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>User specified constructor parameters.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Resolution options.</p>
 </td>
       </tr>
       <tr>

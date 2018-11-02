@@ -434,13 +434,13 @@ into the delegates they contain.</p>
   
   
   <a id="Unosquare_Swan_Components_ObjectFactoryBase_GetObject_" data-uid="Unosquare.Swan.Components.ObjectFactoryBase.GetObject*"></a>
-  <h4 id="Unosquare_Swan_Components_ObjectFactoryBase_GetObject_System_Type_Unosquare_Swan_Components_DependencyContainer_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type,Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">GetObject(Type, DependencyContainer, Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
+  <h4 id="Unosquare_Swan_Components_ObjectFactoryBase_GetObject_System_Type_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.ObjectFactoryBase.GetObject(System.Type,Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerResolveOptions)">GetObject(Type, DependencyContainer, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Create the type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract object GetObject(Type requestedType, DependencyContainer container, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options)</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerResolveOptions options)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -462,12 +462,6 @@ into the delegates they contain.</p>
         <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a></td>
         <td><span class="parametername">container</span></td>
         <td><p>Container that requested the creation.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
-        <td><span class="parametername">parameters</span></td>
-        <td><p>Any user parameters passed.</p>
 </td>
       </tr>
       <tr>
