@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Collections.Concurrent;
     using System.Linq;
-    using Components;
 
     /// <summary>
     /// A thread-safe cache of attributes belonging to a given key (MemberInfo or Type).
@@ -13,8 +13,12 @@
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class AttributeCache : CollectionCacheRepository<Tuple<object, Type>, object>
+    public class AttributeCache
     {
+        private readonly Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>> _data =
+            new Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>>(() =>
+                new ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>(), true);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.
         /// </summary>
@@ -37,7 +41,7 @@
         /// <returns>
         ///   <c>true</c> if [contains] [the specified member]; otherwise, <c>false</c>.
         /// </returns>
-        public bool Contains<T>(MemberInfo member) => ContainsKey(new Tuple<object, Type>(member, typeof(T)));
+        public bool Contains<T>(MemberInfo member) => _data.Value.ContainsKey(new Tuple<object, Type>(member, typeof(T)));
         
         /// <summary>
         /// Gets specific attributes from a member constrained to an attribute.
@@ -157,6 +161,17 @@
                 return (T) Convert.ChangeType(attr.First(), typeof(T));
 
             throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
+        }
+
+        private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object>> factory)
+        {
+            if (key == null)
+                throw new ArgumentNullException(nameof(key));
+
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
+
+            return _data.Value.GetOrAdd(key, k => factory.Invoke(k).Where(item => item != null));
         }
     }
 }

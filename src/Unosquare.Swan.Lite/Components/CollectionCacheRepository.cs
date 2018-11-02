@@ -6,23 +6,21 @@
     using System.Linq;
 
     /// <summary>
-    /// A thread-safe collection cache repository.
+    /// A thread-safe collection cache repository for types.
     /// </summary>
-    /// <typeparam name="TKey">The type of parent class.</typeparam>
     /// <typeparam name="TValue">The type of member to cache.</typeparam>
-    public class CollectionCacheRepository<TKey, TValue>
-        where TKey : class
+    public class CollectionCacheRepository<TValue>
     {
-        private readonly Lazy<ConcurrentDictionary<TKey, IEnumerable<TValue>>> _data =
-            new Lazy<ConcurrentDictionary<TKey, IEnumerable<TValue>>>(() =>
-                new ConcurrentDictionary<TKey, IEnumerable<TValue>>(), true);
+        private readonly Lazy<ConcurrentDictionary<Type, IEnumerable<TValue>>> _data =
+            new Lazy<ConcurrentDictionary<Type, IEnumerable<TValue>>>(() =>
+                new ConcurrentDictionary<Type, IEnumerable<TValue>>(), true);
 
         /// <summary>
         /// Determines whether the cache contains the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns><c>true</c> if the cache contains the key, otherwise <c>false</c>.</returns>
-        public bool ContainsKey(TKey key) => _data.Value.ContainsKey(key);
+        public bool ContainsKey(Type key) => _data.Value.ContainsKey(key);
 
         /// <summary>
         /// Retrieves the properties stored for the specified type.
@@ -35,7 +33,7 @@
         /// An array of the properties stored for the specified type.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">type.</exception>
-        public IEnumerable<TValue> Retrieve(TKey key, Func<TKey, IEnumerable<TValue>> factory)
+        public IEnumerable<TValue> Retrieve(Type key, Func<Type, IEnumerable<TValue>> factory)
         {
             if (key == null)
                 throw new ArgumentNullException(nameof(key));

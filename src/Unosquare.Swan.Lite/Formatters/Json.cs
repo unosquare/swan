@@ -44,7 +44,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly CollectionCacheRepository<Type, string> IgnoredPropertiesCache = new CollectionCacheRepository<Type, string>();
+        private static readonly CollectionCacheRepository<string> IgnoredPropertiesCache = new CollectionCacheRepository<string>();
 
         #region Public API
 

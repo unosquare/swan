@@ -9,7 +9,7 @@
     /// Provide Enumerations helpers with internal cache.
     /// </summary>
     public class EnumHelper
-        : SingletonBase<CollectionCacheRepository<Type, Tuple<string, object>>>
+        : SingletonBase<CollectionCacheRepository<Tuple<string, object>>>
     {
         /// <summary>
         /// Gets all the names and enumerators from a specific Enum type.

@@ -7,13 +7,14 @@
     using Components;
 
     /// <summary>
-    /// A thread-safe cache of members belonging to a given type
+    /// A thread-safe cache of members belonging to a given type.
+    /// 
     /// The Retrieve method is the most useful one in this class as it
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
     /// <typeparam name="T">The type of Member to be cached.</typeparam>
-    public abstract class TypeCache<T> : CollectionCacheRepository<Type, T>
+    public abstract class TypeCache<T> : CollectionCacheRepository<T>
         where T : MemberInfo
     {
         /// <summary>
