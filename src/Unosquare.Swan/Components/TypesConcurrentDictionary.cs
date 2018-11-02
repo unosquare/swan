@@ -34,7 +34,7 @@
                 registrations = registrations.Where(tr => tr.Name != string.Empty);
 
             return registrations.Select(registration =>
-                ResolveInternal(registration, null, DependencyContainerResolveOptions.Default));
+                ResolveInternal(registration, DependencyContainerResolveOptions.Default));
         }
         
         internal ObjectFactoryBase GetCurrentFactory(DependencyContainer.TypeRegistration registration)
@@ -69,12 +69,8 @@
 
         internal object ResolveInternal(
             DependencyContainer.TypeRegistration registration,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options = null)
         {
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
             if (options == null)
                 options = DependencyContainerResolveOptions.Default;
 
@@ -83,7 +79,7 @@
             {
                 try
                 {
-                    return factory.GetObject(registration.Type, _dependencyContainer, parameters, options);
+                    return factory.GetObject(registration.Type, _dependencyContainer, options);
                 }
                 catch (DependencyContainerResolutionException)
                 {
@@ -101,7 +97,7 @@
             {
                 try
                 {
-                    return bubbledObjectFactory.GetObject(registration.Type, _dependencyContainer, parameters, options);
+                    return bubbledObjectFactory.GetObject(registration.Type, _dependencyContainer, options);
                 }
                 catch (DependencyContainerResolutionException)
                 {
@@ -126,7 +122,7 @@
                 {
                     try
                     {
-                        return factory.GetObject(registration.Type, _dependencyContainer, parameters, options);
+                        return factory.GetObject(registration.Type, _dependencyContainer, options);
                     }
                     catch (DependencyContainerResolutionException)
                     {
@@ -146,18 +142,14 @@
                            DependencyContainerUnregisteredResolutionActions.GenericsOnly);
 
             return isValid && !registration.Type.IsAbstract() && !registration.Type.IsInterface()
-                ? ConstructType(registration.Type, null, parameters, options)
+                ? ConstructType(registration.Type, null, options)
                 : throw new DependencyContainerResolutionException(registration.Type);
         }
         
         internal bool CanResolve(
             DependencyContainer.TypeRegistration registration,
-            Dictionary<string, object> parameters = null,
             DependencyContainerResolveOptions options = null)
         {
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
             if (options == null)
                 options = DependencyContainerResolveOptions.Default;
 
@@ -170,16 +162,16 @@
                     return true;
 
                 if (factory.Constructor == null)
-                    return GetBestConstructor(factory.CreatesType, parameters, options) != null;
+                    return GetBestConstructor(factory.CreatesType, options) != null;
 
-                return CanConstruct(factory.Constructor, parameters, options);
+                return CanConstruct(factory.Constructor, options);
             }
 
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction ==
                 DependencyContainerNamedResolutionFailureActions.Fail)
-                return _dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, parameters, options) ?? false;
+                return _dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, options.Clone()) ?? false;
 
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction ==
@@ -190,7 +182,7 @@
                     if (factory.AssumeConstruction)
                         return true;
 
-                    return GetBestConstructor(factory.CreatesType, parameters, options) != null;
+                    return GetBestConstructor(factory.CreatesType, options) != null;
                 }
             }
 
@@ -205,73 +197,17 @@
                 (checkType.IsGenericType() && options.UnregisteredResolutionAction ==
                  DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
-                return (GetBestConstructor(checkType, parameters, options) != null) ||
-                       (_dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, parameters, options) ?? false);
+                return (GetBestConstructor(checkType, options) != null) ||
+                       (_dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, options.Clone()) ?? false);
             }
 
             // Bubble resolution up the container tree if we have a parent
-            return _dependencyContainer.Parent != null && _dependencyContainer.Parent.RegisteredTypes.CanResolve(registration, parameters, options);
+            return _dependencyContainer.Parent != null && _dependencyContainer.Parent.RegisteredTypes.CanResolve(registration, options.Clone());
         }
         
-        private static bool IsAutomaticLazyFactoryRequest(Type type)
-        {
-            if (!type.IsGenericType())
-                return false;
-
-            var genericType = type.GetGenericTypeDefinition();
-
-            // Just a func
-            if (genericType == typeof(Func<>))
-                return true;
-
-            // 2 parameter func with string as first parameter (name)
-            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
-                return true;
-
-            // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            return genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
-                   type.GetGenericArguments()[1] == typeof(IDictionary<string, object>);
-        }
-
-        private bool CanConstruct(
-            ConstructorInfo ctor,
-            Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options)
-        {
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
-
-            foreach (var parameter in ctor.GetParameters())
-            {
-                if (string.IsNullOrEmpty(parameter.Name))
-                    return false;
-
-                var isParameterOverload = parameters.ContainsKey(parameter.Name);
-
-                if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
-                    return false;
-
-                if (!isParameterOverload &&
-                    !CanResolve(new DependencyContainer.TypeRegistration(parameter.ParameterType), null, options))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private ConstructorInfo GetBestConstructor(
-            Type type,
-            Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options)
-            => type.IsValueType() ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, parameters, options));
-        
-        private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
-            => type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
-
         internal object ConstructType(
             Type implementationType,
             ConstructorInfo constructor,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options = null)
         {
             var typeToConstruct = implementationType;
@@ -282,7 +218,7 @@
                 // if we can't construct any then get the constructor
                 // with the least number of parameters so we can throw a meaningful
                 // resolve exception
-                constructor = GetBestConstructor(typeToConstruct, parameters, options) ??
+                constructor = GetBestConstructor(typeToConstruct, options) ??
                               GetTypeConstructors(typeToConstruct).LastOrDefault();
             }
 
@@ -298,7 +234,7 @@
 
                 try
                 {
-                    args[parameterIndex] = parameters.GetValueOrDefault(currentParam.Name, ResolveInternal(new DependencyContainer.TypeRegistration(currentParam.ParameterType), null, options));
+                    args[parameterIndex] = options?.ConstructorParameters.GetValueOrDefault(currentParam.Name, ResolveInternal(new DependencyContainer.TypeRegistration(currentParam.ParameterType), options.Clone()));
                 }
                 catch (DependencyContainerResolutionException ex)
                 {
@@ -351,6 +287,56 @@
 
             ObjectConstructorCache[constructor] = objectConstructor;
             return objectConstructor;
+        }
+        
+        private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
+            => type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
+        
+        private static bool IsAutomaticLazyFactoryRequest(Type type)
+        {
+            if (!type.IsGenericType())
+                return false;
+
+            var genericType = type.GetGenericTypeDefinition();
+
+            // Just a func
+            if (genericType == typeof(Func<>))
+                return true;
+
+            // 2 parameter func with string as first parameter (name)
+            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
+                return true;
+
+            // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
+            return genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
+                   type.GetGenericArguments()[1] == typeof(IDictionary<string, object>);
+        }
+
+        private ConstructorInfo GetBestConstructor(
+            Type type,
+            DependencyContainerResolveOptions options)
+            => type.IsValueType() ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
+        
+        private bool CanConstruct(
+            ConstructorInfo ctor,
+            DependencyContainerResolveOptions options)
+        {
+            foreach (var parameter in ctor.GetParameters())
+            {
+                if (string.IsNullOrEmpty(parameter.Name))
+                    return false;
+
+                var isParameterOverload = options.ConstructorParameters.ContainsKey(parameter.Name);
+
+                if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
+                    return false;
+
+                if (!isParameterOverload &&
+                    !CanResolve(new DependencyContainer.TypeRegistration(parameter.ParameterType), options.Clone()))
+                    return false;
+            }
+
+            return true;
         }
 
         private IEnumerable<DependencyContainer.TypeRegistration> GetParentRegistrationsForType(Type resolveType)

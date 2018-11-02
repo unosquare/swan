@@ -117,12 +117,12 @@
         [Test]
         public void WithListOfArraysAsParam_ReturnsStringifiedArray()
         {
-            var arrayInt = new[] {1234, 4321};
+            var arrayInt = new[] { 1234, 4321 };
 
             var arrayList = new List<int[]>
             {
                 arrayInt,
-                arrayInt
+                arrayInt,
             };
 
             var objectInfoLines = arrayList.Stringify().ToLines();
@@ -136,7 +136,7 @@
         public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
         {
             var wordDictionary =
-                new Dictionary<string, string[][]> {{"Horde Capitals", new[] { DefaultStringList.ToArray(), DefaultStringList.ToArray() } }};
+                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { DefaultStringList.ToArray(), DefaultStringList.ToArray() } } };
 
             var objectInfoLines = wordDictionary.Stringify().ToLines();
 
@@ -152,7 +152,7 @@
             {
                 {"Tyrande", DefaultDictionary },
                 {"Jaina", DefaultDictionary },
-                {"Liadrin", DefaultDictionary }
+                {"Liadrin", DefaultDictionary },
             };
 
             var objectInfoLines = persons.Stringify().ToLines();
@@ -187,10 +187,10 @@
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
-        [TestCase("\0Test", "\0Test", new[] {'\0'})]
-        [TestCase("\0Test", "\0Test\t", new[] {'\0'})]
+        [TestCase("\0Test", "\0Test", new[] { '\0' })]
+        [TestCase("\0Test", "\0Test\t", new[] { '\0' })]
         public void WithValidString_ReturnsStringWithoutControlCharacters(
-            string expected, 
+            string expected,
             string input,
             char[] excludeChars)
         {
@@ -297,16 +297,16 @@
         [TestCase("97.66 KB", 100000)]
         [TestCase("3.38 MB", 3546346)]
         [TestCase("4.94 TB", 5432675475323)]
-        public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
+        public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input)
         {
-            Assert.AreEqual(expected, ((ulong) input).FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, ((ulong)input).FormatBytes(), $"Testing with {input}");
         }
 
         [TestCase("3 KB", 3072)]
         [TestCase("52.2 KB", 53453)]
         [TestCase("639.32 KB", 654664)]
         [TestCase("80.72 MB", 84645653)]
-        public void WithLongParam_ReturnsFormatedBytes(string expected, long input)
+        public void WithLongParam_ReturnsFormattedBytes(string expected, long input)
         {
             Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
         }
@@ -327,8 +327,8 @@
     [TestFixture]
     public class Contains
     {
-        [TestCase(new[] {'l'})]
-        [TestCase(new[] {'l', 'W'})]
+        [TestCase(new[] { 'l' })]
+        [TestCase(new[] { 'l', 'W' })]
         public void WithValid_ReturnsTrue(params char[] chars)
         {
             Assert.IsTrue("Hello World".Contains(chars));
