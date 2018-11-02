@@ -218,7 +218,7 @@
                     try
                     {
                         objectDictionary[field.Key] = field.Value is PropertyInfo property
-                            ? property.GetCacheGetMethod(_options.IncludeNonPublic).Invoke(target, null)
+                            ? property.GetCacheGetMethod(_options.IncludeNonPublic)(target)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
                     catch

@@ -13,8 +13,8 @@
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
-            new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
+        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>> CacheGetMethods =
+            new Lazy<ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>>(() => new ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>(), true);
 
         private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
             new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
@@ -333,7 +333,7 @@
                     array.SetValue(propertyValue, index);
                     return true;
                 }
-                
+
                 if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     array.SetValue(null, index);
@@ -420,8 +420,9 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value, true);
+        public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
+            => CacheGetMethods.Value
+            .GetOrAdd(propertyInfo, x => Tuple.Create<bool, Func<object, object>>(!nonPublic, y => x.GetGetMethod(nonPublic).Invoke(y, null)))?.Item2;
 
         /// <summary>
         /// Gets a MethodInfo from a Property Set method.
@@ -441,7 +442,7 @@
             bool isGet)
         {
             var methodInfo = cache.GetOrAdd(propertyInfo, x => isGet ? x.GetGetMethod(true) : x.GetSetMethod(true));
-            
+
             return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
         }
 

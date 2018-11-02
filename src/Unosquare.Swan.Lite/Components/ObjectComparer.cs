@@ -79,15 +79,15 @@
                 
                 if (propertyTarget.PropertyType.IsArray)
                 {
-                    var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;
-                    var rightObj = targetPropertyGetMethod.Invoke(right, null) as IEnumerable;
+                    var leftObj = targetPropertyGetMethod(left) as IEnumerable;
+                    var rightObj = targetPropertyGetMethod(right) as IEnumerable;
 
                     if (!AreEnumerationsEquals(leftObj, rightObj))
                         return false;
                 }
                 else
                 {
-                    if (Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                    if (!Equals(targetPropertyGetMethod(left), targetPropertyGetMethod(right)))
                         return false;
                 }
             }
@@ -138,7 +138,7 @@
                         var targetPropertyGetMethod = property.GetCacheGetMethod();
 
                         if (targetPropertyGetMethod != null &&
-                            Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                            !Equals(targetPropertyGetMethod(left), targetPropertyGetMethod(right)))
                             return false;
                         break;
                 }
