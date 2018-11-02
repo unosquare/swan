@@ -13,8 +13,8 @@
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>> CacheGetMethods =
-            new Lazy<ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>>(() => new ConcurrentDictionary<PropertyInfo, Tuple<bool, Func<object, object>>>(), true);
+        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>> CacheGetMethods =
+            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>(), true);
 
         private static readonly Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
             new Lazy<ConcurrentDictionary<PropertyInfo, MethodInfo>>(() => new ConcurrentDictionary<PropertyInfo, MethodInfo>(), true);
@@ -422,7 +422,9 @@
         /// </returns>
         public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false) 
             => CacheGetMethods.Value
-            .GetOrAdd(propertyInfo, x => Tuple.Create<bool, Func<object, object>>(!nonPublic, y => x.GetGetMethod(nonPublic).Invoke(y, null)))?.Item2;
+            .GetOrAdd(
+                    Tuple.Create(!nonPublic, propertyInfo), 
+                    x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
 
         /// <summary>
         /// Gets a MethodInfo from a Property Set method.
