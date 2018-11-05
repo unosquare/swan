@@ -19,7 +19,7 @@
             NegativeInt = -1,
             DecimalData = 10.33M,
             BoolData = true,
-            InnerChild = BasicJson.GetDefault()
+            InnerChild = BasicJson.GetDefault(),
         };
 
         protected static string BasicStr => "{" + BasicJson.GetControlValue() + "}";
@@ -36,13 +36,13 @@
         protected BasicArrayJson BasicAObj => new BasicArrayJson
         {
             Id = 1,
-            Properties = new[] {"One", "Two", "Babu"}
+            Properties = new[] {"One", "Two", "Babu"},
         };
 
         protected AdvArrayJson AdvAObj => new AdvArrayJson
         {
             Id = 1,
-            Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()}
+            Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()},
         };
 
         protected string BasicAObjStr => "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
@@ -110,7 +110,7 @@
             var data = Json.Serialize(new List<BasicJson>
             {
                 BasicJson.GetDefault(),
-                BasicJson.GetDefault()
+                BasicJson.GetDefault(),
             });
 
             Assert.IsNotNull(data);
@@ -130,7 +130,7 @@
         }
 
         [TestCase("1", 1)]
-        [TestCase("1", (float)1)]
+        [TestCase("1", 1F)]
         [TestCase("string", "string")]
         [TestCase("true", true)]
         [TestCase("false", false)]
@@ -356,7 +356,7 @@
         }
 
         [Test]
-        public void WithClasswithoutPublicCtor_ReturnDefault()
+        public void WithClassWithoutPublicCtor_ReturnDefault()
         {
             // Default value is null
             Assert.IsNull(Json.Deserialize<BasicJsonWithoutCtor>(BasicStr));
@@ -400,7 +400,7 @@
             {
                 nameof(BasicJson.StringData),
                 nameof(BasicJson.IntData),
-                nameof(BasicJson.NegativeInt)
+                nameof(BasicJson.NegativeInt),
             };
 
             var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
@@ -455,13 +455,13 @@
         {
             var persons = new Dictionary<string, Dictionary<int, string>>
             {
-                {"Tyrande", new Dictionary<int, string>()},
-                {"Jaina", DefaultDictionary }
+                {"A", new Dictionary<int, string>()},
+                {"B", DefaultDictionary },
             };
 
             var dataSerialized = Json.SerializeOnly(persons, false, null);
 
-            Assert.AreEqual("{\"Tyrande\": { },\"Jaina\": {\"1\": \"A\",\"2\": \"B\",\"3\": \"C\",\"4\": \"D\",\"5\": \"E\"}}",
+            Assert.AreEqual("{\"A\": { },\"B\": {\"1\": \"A\",\"2\": \"B\",\"3\": \"C\",\"4\": \"D\",\"5\": \"E\"}}",
                 dataSerialized);
         }
 
@@ -471,12 +471,12 @@
             var wordDictionary =
                 new Dictionary<string, string[][]>
                 {
-                    {"Horde Capitals", new[] {new string[] { }, DefaultStringList.ToArray() }}
+                    {"A", new[] {new string[] { }, DefaultStringList.ToArray() }},
                 };
 
             var dataSerialized = Json.SerializeOnly(wordDictionary, false, null);
 
-            Assert.AreEqual("{\"Horde Capitals\": [[ ],[\"A\",\"B\",\"C\"]]}", dataSerialized);
+            Assert.AreEqual("{\"A\": [[ ],[\"A\",\"B\",\"C\"]]}", dataSerialized);
         }
     }
 
@@ -490,7 +490,7 @@
             {
                 nameof(BasicJson.StringData),
                 nameof(BasicJson.IntData),
-                nameof(BasicJson.NegativeInt)
+                nameof(BasicJson.NegativeInt),
             };
 
             var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), false, excludeNames);
