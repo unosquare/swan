@@ -254,7 +254,7 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// The permanent negative severity
         /// </summary>
-        PermanentNegative = 500
+        PermanentNegative = 500,
     }
 
     /// <summary>

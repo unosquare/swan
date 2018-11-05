@@ -35,9 +35,6 @@
         /// <exception cref="System.ArgumentNullException">type.</exception>
         public IEnumerable<TValue> Retrieve(Type key, Func<Type, IEnumerable<TValue>> factory)
         {
-            if (key == null)
-                throw new ArgumentNullException(nameof(key));
-
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 

@@ -48,6 +48,21 @@
         internal DependencyContainer Parent { get; }
 
         internal TypesConcurrentDictionary RegisteredTypes { get; }
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            if (_disposed) return;
+
+            _disposed = true;
+
+            foreach (var disposable in RegisteredTypes.Values.Select(item => item as IDisposable))
+            {
+                disposable?.Dispose();
+            }
+
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Gets the child container.
@@ -669,6 +684,25 @@
         #endregion
 
         #region Internal Methods
+        
+        internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
+        {
+            if (!registerType.IsGenericTypeDefinition())
+            {
+                if (!registerType.IsAssignableFrom(registerImplementation))
+                    return false;
+            }
+            else
+            {
+                if (registerType.IsInterface() && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
+                    return false;
+
+                if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
+                    return false;
+            }
+
+            return true;
+        }
 
 #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
@@ -715,40 +749,6 @@
             ? (ObjectFactoryBase)new SingletonFactory(registerType, registerImplementation)
             : new MultiInstanceFactory(registerType, registerImplementation);
 
-        internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
-        {
-            if (!registerType.IsGenericTypeDefinition())
-            {
-                if (!registerType.IsAssignableFrom(registerImplementation))
-                    return false;
-            }
-            else
-            {
-                if (registerType.IsInterface() && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
-                    return false;
-
-                if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
-                    return false;
-            }
-
-            return true;
-        }
-
         #endregion
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            if (_disposed) return;
-
-            _disposed = true;
-
-            foreach (var disposable in RegisteredTypes.Values.Select(item => item as IDisposable))
-            {
-                disposable?.Dispose();
-            }
-
-            GC.SuppressFinalize(this);
-        }
     }
 }

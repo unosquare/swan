@@ -165,9 +165,6 @@
 
         private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object>> factory)
         {
-            if (key == null)
-                throw new ArgumentNullException(nameof(key));
-
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 

@@ -22,7 +22,12 @@
         {
             _dependencyContainer = dependencyContainer;
         }
-        
+
+        /// <summary>
+        /// Represents a delegate to build an object with the parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The built object.</returns>
         public delegate object ObjectConstructor(params object[] parameters);
 
         internal IEnumerable<object> Resolve(Type resolveType, bool includeUnnamed)
@@ -57,16 +62,6 @@
         internal bool RemoveRegistration(DependencyContainer.TypeRegistration typeRegistration)
             => TryRemove(typeRegistration, out _);
         
-        private ObjectFactoryBase GetParentObjectFactory(DependencyContainer.TypeRegistration registration)
-        {
-            if (_dependencyContainer.Parent == null)
-                return null;
-
-            return _dependencyContainer.Parent.RegisteredTypes.TryGetValue(registration, out var factory)
-                ? factory.GetFactoryForChildContainer(registration.Type, _dependencyContainer.Parent, _dependencyContainer)
-                : _dependencyContainer.Parent.RegisteredTypes.GetParentObjectFactory(registration);
-        }
-
         internal object ResolveInternal(
             DependencyContainer.TypeRegistration registration,
             DependencyContainerResolveOptions options = null)
@@ -310,6 +305,16 @@
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
             return genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
                    type.GetGenericArguments()[1] == typeof(IDictionary<string, object>);
+        }
+        
+        private ObjectFactoryBase GetParentObjectFactory(DependencyContainer.TypeRegistration registration)
+        {
+            if (_dependencyContainer.Parent == null)
+                return null;
+
+            return _dependencyContainer.Parent.RegisteredTypes.TryGetValue(registration, out var factory)
+                ? factory.GetFactoryForChildContainer(registration.Type, _dependencyContainer.Parent, _dependencyContainer)
+                : _dependencyContainer.Parent.RegisteredTypes.GetParentObjectFactory(registration);
         }
 
         private ConstructorInfo GetBestConstructor(
