@@ -218,7 +218,7 @@
                     try
                     {
                         objectDictionary[field.Key] = field.Value is PropertyInfo property
-                            ? property.GetCacheGetMethod(_options.IncludeNonPublic).Invoke(target, null)
+                            ? property.GetCacheGetMethod(_options.IncludeNonPublic)(target)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
                     catch
@@ -237,18 +237,18 @@
 
                 // Iterate through the elements and output recursively
                 var writeCount = 0;
-                foreach (DictionaryEntry entry in items)
+                foreach (var key in items.Keys)
                 {
                     // Serialize and append the key (first char indented)
                     Append(StringQuotedChar, depth + 1);
-                    Escape(entry.Key.ToString(), _builder);
+                    Escape(key.ToString(), _builder);
                     _builder
                         .Append(StringQuotedChar)
                         .Append(ValueSeparatorChar)
                         .Append(" ");
 
                     // Serialize and append the value
-                    var serializedValue = Serialize(entry.Value, depth + 1, _options);
+                    var serializedValue = Serialize(items[key], depth + 1, _options);
 
                     if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
                     Append(serializedValue, 0);

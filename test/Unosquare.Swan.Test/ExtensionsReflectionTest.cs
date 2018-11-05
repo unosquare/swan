@@ -1,13 +1,11 @@
 ﻿namespace Unosquare.Swan.Test.ExtensionsReflectionTest
 {
+    using Mocks;
     using NUnit.Framework;
-    using System.Reflection;
     using System;
     using System.Collections.Generic;
-    using System.IO;
+    using System.Reflection;
     using System.Threading.Tasks;
-    using Networking;
-    using Mocks;
 
     [TestFixture]
     public class GetDefault : TestFixtureBase

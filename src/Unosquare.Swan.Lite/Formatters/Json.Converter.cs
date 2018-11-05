@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -19,10 +20,10 @@
     {
         private class Converter
         {
-            private static readonly Dictionary<MemberInfo, string> MemberInfoNameCache =
-                new Dictionary<MemberInfo, string>();
+            private static readonly ConcurrentDictionary<MemberInfo, string> MemberInfoNameCache =
+                new ConcurrentDictionary<MemberInfo, string>();
 
-            private static readonly Dictionary<Type, Type> ListAddMethodCache = new Dictionary<Type, Type>();
+            private static readonly ConcurrentDictionary<Type, Type> ListAddMethodCache = new ConcurrentDictionary<Type, Type>();
 
             private readonly object _target;
             private readonly Type _targetType;
@@ -176,7 +177,7 @@
                 }
             }
 
-            private void PopulateIList(List<object> objects, IList list)
+            private void PopulateIList(IList<object> objects, IList list)
             {
                 var parameterType = GetAddMethodParameterType(_targetType);
                 if (parameterType == null) return;
@@ -197,7 +198,7 @@
                 }
             }
 
-            private void PopulateArray(List<object> objects, Array array)
+            private void PopulateArray(IList<object> objects, Array array)
             {
                 var elementType = _targetType.GetElementType();
 
@@ -234,7 +235,7 @@
                 }
             }
 
-            private void PopulateDictionary(Dictionary<string, object> sourceProperties, IDictionary targetDictionary)
+            private void PopulateDictionary(IDictionary<string, object> sourceProperties, IDictionary targetDictionary)
             {
                 // find the add method of the target dictionary
                 var addMethod = _targetType.GetMethods()
@@ -267,7 +268,7 @@
                 }
             }
 
-            private void PopulateObject(Dictionary<string, object> sourceProperties)
+            private void PopulateObject(IDictionary<string, object> sourceProperties)
             {
                 if (_targetType.IsValueType())
                 {
@@ -277,7 +278,7 @@
                 PopulateProperties(sourceProperties);
             }
 
-            private void PopulateProperties(Dictionary<string, object> sourceProperties)
+            private void PopulateProperties(IDictionary<string, object> sourceProperties)
             {
                 var properties = PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite);
 
@@ -289,7 +290,7 @@
                     try
                     {
                         var currentPropertyValue = !property.PropertyType.IsArray
-                            ? property.GetCacheGetMethod(_includeNonPublic).Invoke(_target, null)
+                            ? property.GetCacheGetMethod(_includeNonPublic)(_target)
                             : null;
 
                         var targetPropertyValue = FromJsonResult(
@@ -298,7 +299,7 @@
                             ref currentPropertyValue,
                             _includeNonPublic);
 
-                        property.GetCacheSetMethod(_includeNonPublic).Invoke(_target, new[] { targetPropertyValue });
+                        property.GetCacheSetMethod(_includeNonPublic)(_target, new[] { targetPropertyValue });
                     }
                     catch
                     {
@@ -307,7 +308,7 @@
                 }
             }
 
-            private void PopulateFields(Dictionary<string, object> sourceProperties)
+            private void PopulateFields(IDictionary<string, object> sourceProperties)
             {
                 foreach (var field in FieldTypeCache.RetrieveAllFields(_targetType))
                 {

@@ -102,11 +102,11 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
             };
 
             Assert.IsNotNull(container.Resolve(
-                typeof(Shark), new Shark().GetName(), new Dictionary<string, object>(), resolveOptions));
+                typeof(Shark), new Shark().GetName(), resolveOptions));
         }
 
         [Test]
@@ -122,7 +122,7 @@
             };
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve(typeof(Human), "B. B. King", new Dictionary<string, object>(), resolveOptions));
+                container.Resolve(typeof(Human), "B. B. King", resolveOptions));
         }
 
         [Test]
@@ -153,12 +153,12 @@
         }
 
         [Test]
-        public void WithDictionaryAndString_ThrowsDependencyContainerResolutionException()
+        public void WithName_ThrowsDependencyContainerResolutionException()
         {
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>("Carlos Santana", new Dictionary<string, object>()));
+                container.Resolve<IAnimal>(nameof(IAnimal)));
         }
     }
 
@@ -230,51 +230,27 @@
         {
             var container = new DependencyContainer();
 
-            Assert.AreEqual(expected, container.TryResolve(resolveType, out var obj));
+            Assert.AreEqual(expected, container.TryResolve(resolveType, out _));
         }
-
-        [TestCase(typeof(Shark), true)]
-        [TestCase(typeof(IAnimal), false)]
-        public void WithTypeAndResolveOptions_ResolveType(Type resolveType, bool expected)
-        {
-            var container = new DependencyContainer();
-
-            Assert.AreEqual(expected, container.TryResolve(
-                resolveType, DependencyContainerResolveOptions.Default, out var obj));
-        }
-
+        
         [TestCase(typeof(Shark), "", true)]
-        [TestCase(typeof(Shark), "Warsong", false)]
+        [TestCase(typeof(Shark), "Mario", false)]
         [TestCase(typeof(IAnimal), "", false)]
-        [TestCase(typeof(IAnimal), "Warsong", false)]
+        [TestCase(typeof(IAnimal), "Mario", false)]
         public void WithTypeAndString_ResolveType(Type resolveType, string name, bool expected)
         {
             var container = new DependencyContainer();
 
-            Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, out var obj));
+            Assert.AreEqual(expected, container.TryResolve(resolveType, name, out _));
         }
-
-        [TestCase(typeof(Shark), "", true)]
-        [TestCase(typeof(Shark), "Warsong", false)]
-        [TestCase(typeof(IAnimal), "", false)]
-        [TestCase(typeof(IAnimal), "Warsong", false)]
-        public void WithTypeAndStringAndResolveOptions_ResolveType(Type resolveType, string name, bool expected)
-        {
-            var container = new DependencyContainer();
-
-            Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, DependencyContainerResolveOptions.Default, out var obj));
-        }
-
+        
         [TestCase(typeof(Shark), true)]
         [TestCase(typeof(IAnimal), false)]
-        public void WithObjectAndDictionary_ResolveType(Type resolveType, bool expected)
+        public void WithObject_ResolveType(Type resolveType, bool expected)
         {
             var container = new DependencyContainer();
 
-            Assert.AreEqual(expected, container.TryResolve(
-                resolveType, new Dictionary<string, object>(), out var obj));
+            Assert.AreEqual(expected, container.TryResolve(resolveType, out _));
         }
 
         [TestCase(typeof(Human), typeof(Human), false)]
@@ -290,40 +266,28 @@
             var container = containerParent.GetChildContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                resolveType, out var obj));
+                resolveType, out _));
         }
-
-        [TestCase(typeof(IAnimal), "Warsong", false)]
-        [TestCase(typeof(Shark), "", true)]
-        [TestCase(typeof(Shark), "Warsong", false)]
-        public void WithTypeAndStringAndDictionary_ResolveType(Type resolveType, string name, bool expected)
-        {
-            var container = new DependencyContainer();
-
-            Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, new Dictionary<string, object>(), out var obj));
-        }
-
+        
         [TestCase(typeof(Shark), true)]
         [TestCase(typeof(IAnimal), false)]
-        public void WithObjectAndDictionaryAndResolveOptions_ResolveType(Type resolveType, bool expected)
+        public void WithObjectAndResolveOptions_ResolveType(Type resolveType, bool expected)
         {
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                resolveType, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out var obj));
+                resolveType, DependencyContainerResolveOptions.Default, out _));
         }
 
-        [TestCase(typeof(IAnimal), "Warsong", false)]
+        [TestCase(typeof(IAnimal), "Mario", false)]
         [TestCase(typeof(Shark), "", true)]
-        [TestCase(typeof(Shark), "Warsong", false)]
-        public void WithStringAndDictionaryAndResolveOptions_ResolveType(Type resolveType, string name, bool expected)
+        [TestCase(typeof(Shark), "Mario", false)]
+        public void WithStringAndResolveOptions_ResolveType(Type resolveType, string name, bool expected)
         {
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default,
-                out var obj));
+                resolveType, name, DependencyContainerResolveOptions.Default, out _));
         }
 
         [Test]
@@ -365,13 +329,13 @@
         }
 
         [TestCase("", true)]
-        [TestCase("Warsong", false)]
+        [TestCase("Mario", false)]
         public void WithRegisterAndEmptyString_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
             container.Register<IAnimal, Fish>();
 
-            Assert.AreEqual(expected, container.TryResolve(name, out IAnimal instance));
+            Assert.AreEqual(expected, container.TryResolve(name, out IAnimal _));
         }
 
         [Test]
@@ -393,92 +357,75 @@
         }
 
         [TestCase("", true)]
-        [TestCase("Warsong", false)]
+        [TestCase("Mario", false)]
         public void WithRegisterAndStringAndResolveOptions_FailResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
             container.Register<IAnimal, Fish>();
 
             Assert.AreEqual(expected, container.TryResolve(
-                name, DependencyContainerResolveOptions.Default, out IAnimal instance));
+                name, DependencyContainerResolveOptions.Default, out IAnimal _));
         }
 
         [Test]
-        public void WithDictionaryAndValidType_ResolveType()
+        public void WithValidType_ResolveType()
         {
             var container = new DependencyContainer();
 
-            Assert.IsTrue(container.TryResolve<Fish>(
-                new Dictionary<string, object>(), out var instance));
+            Assert.IsTrue(container.TryResolve<Fish>(out _));
         }
 
         [Test]
-        public void WithDictionaryAndInvalidType_FailResolveType()
+        public void WithInvalidType_FailResolveType()
         {
             var container = new DependencyContainer();
 
-            Assert.IsFalse(container.TryResolve<IAnimal>(
-                new Dictionary<string, object>(), out var instance));
+            Assert.IsFalse(container.TryResolve<IAnimal>(out _));
         }
 
         [TestCase("", false)]
-        [TestCase("Warsong", false)]
-        public void WithStringAndWithDictionary_ResolveType(string name, bool expected)
+        [TestCase("Mario", false)]
+        public void WithString_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
 
-            Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), out Human instance));
+            Assert.AreEqual(expected, container.TryResolve(name, out Human _));
         }
 
         [TestCase("", false)]
-        [TestCase("Warsong", false)]
-        public void WithRegisterAndStringAndDictionary_ResolveType(string name, bool expected)
+        [TestCase("Mario", false)]
+        public void WithRegisterAndString_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
 
             container.Register(typeof(Human), name);
 
-            Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), out Human instance));
+            Assert.AreEqual(expected, container.TryResolve(name, out Human _));
         }
 
         [Test]
-        public void WithInvalidTypeAndDictionaryAndResolveOptions_FailResolveType()
+        public void WithInvalidTypeAndResolveOptions_FailResolveType()
         {
             var container = new DependencyContainer();
 
-            Assert.IsFalse(container.TryResolve(
-                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out IAnimal instance));
+            Assert.IsFalse(container.TryResolve(DependencyContainerResolveOptions.Default, out IAnimal _));
         }
 
         [Test]
-        public void WithValidTypeAndDictionaryAndResolveOptions_ResolveType()
+        public void WithValidTypeAndResolveOptions_ResolveType()
         {
             var container = new DependencyContainer();
 
-            Assert.IsTrue(container.TryResolve(
-                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out Fish instance));
+            Assert.IsTrue(container.TryResolve(DependencyContainerResolveOptions.Default, out Fish _));
         }
 
         [TestCase("", true)]
-        [TestCase("Warsong", false)]
-        public void WithResolveOptionsAndStringAndDictionary_ResolveType(string name, bool expected)
+        [TestCase("Mario", false)]
+        public void WithResolveOptionsAndString_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
 
-            Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out Shark instance));
-        }
-
-        [TestCase("", true)]
-        [TestCase("Warsong", false)]
-        public void WithStringAndDictionary_ResolveType(string name, bool expected)
-        {
-            var container = new DependencyContainer();
-
-            Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), out Shark instance));
+            Assert.AreEqual(expected, container.TryResolve(name, DependencyContainerResolveOptions.Default, out Shark _));
         }
     }
 
@@ -685,7 +632,7 @@
     [TestFixture]
     public class CanResolve
     {
-        [TestCase("Turalyon", "Turalyon")]
+        [TestCase("Babu", "Babu")]
         [TestCase("", "Alleria")]
         public void WithInstanceAndRegister_ResolveContainer(string registerName, string resolveName)
         {
@@ -693,12 +640,12 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
             };
 
             container.Register<IAnimal>(new Human("George"), registerName);
 
-            Assert.IsTrue(container.CanResolve<IAnimal>(resolveName, null, resolveOptions));
+            Assert.IsTrue(container.CanResolve<IAnimal>(resolveName, resolveOptions));
         }
 
         [Test]
@@ -711,28 +658,7 @@
 
             Assert.AreEqual(typeof(StringEnumerable), container.Resolve<IEnumerable<string>>().GetType());
         }
-
-        [Test]
-        public void WithDictionary_ResolveContainer()
-        {
-            var container = new DependencyContainer();
-
-            Assert.IsTrue(container.CanResolve<Shark>(parameters: new Dictionary<string, object>()));
-        }
-
-        [Test]
-        public void WithFailUnregisteredResolutionActions_FailResolveContainer()
-        {
-            var container = new DependencyContainer();
-
-            var resolveOptions = new DependencyContainerResolveOptions
-            {
-                UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail
-            };
-
-            Assert.IsFalse(container.CanResolve<Shark>(parameters: new Dictionary<string, object>(), options: resolveOptions));
-        }
-
+        
         [Test]
         public void WithoutRegister_FailResolveContainer()
         {
@@ -759,11 +685,10 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
             };
 
-            Assert.IsTrue(container.CanResolve(
-                typeof(Shark), new Dictionary<string, object>(), new Shark().Name, resolveOptions));
+            Assert.IsTrue(container.CanResolve(typeof(Shark), new Shark().Name, resolveOptions));
         }
 
         [TestCase(typeof(Func<>))]
@@ -773,7 +698,7 @@
         {
             var container = new DependencyContainer();
 
-            Assert.IsTrue(container.CanResolve(resolveType, new Dictionary<string, object>()));
+            Assert.IsTrue(container.CanResolve(resolveType));
         }
     }
 
@@ -787,7 +712,7 @@
             var container = new DependencyContainer();
             container.Register(typeof(Fish), typeof(Shark), new Shark().GetName());
             container.Register(typeof(Fish), typeof(Clown));
-            container.Register(typeof(Fish), typeof(Shark), "Kisame");
+            container.Register(typeof(Fish), typeof(Shark), "Geo");
 
             var resolve = container.ResolveAll<Fish>(includeUnnamed);
 
@@ -801,7 +726,7 @@
         {
             var containerParent = new DependencyContainer();
             containerParent.Register(typeof(Fish), typeof(Shark), new Shark().GetName());
-            containerParent.Register(typeof(Fish), typeof(Shark), "Kisame");
+            containerParent.Register(typeof(Fish), typeof(Shark), "Geo");
             containerParent.Register(typeof(Fish), typeof(Clown));
 
             var container = containerParent.GetChildContainer();

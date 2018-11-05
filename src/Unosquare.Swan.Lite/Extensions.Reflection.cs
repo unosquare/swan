@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections;
     using System.Linq;
     using System.Reflection;
@@ -12,11 +13,11 @@
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheGetMethods =
-            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>> CacheGetMethods =
+            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>(), true);
 
-        private static readonly Lazy<Dictionary<PropertyInfo, MethodInfo>> CacheSetMethods =
-            new Lazy<Dictionary<PropertyInfo, MethodInfo>>(() => new Dictionary<PropertyInfo, MethodInfo>());
+        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>> CacheSetMethods =
+            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>(), true);
 
         #region Assembly Extensions
 
@@ -332,7 +333,7 @@
                     array.SetValue(propertyValue, index);
                     return true;
                 }
-                
+
                 if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     array.SetValue(null, index);
@@ -419,8 +420,16 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheGetMethods.Value, true);
+        public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        {
+            var key = Tuple.Create(!nonPublic, propertyInfo);
+
+            return !nonPublic && !CacheGetMethods.Value.ContainsKey(key) && !propertyInfo.GetGetMethod(true).IsPublic
+                ? null
+                : CacheGetMethods.Value
+                    .GetOrAdd(key,
+                        x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
+        }
 
         /// <summary>
         /// Gets a MethodInfo from a Property Set method.
@@ -430,30 +439,17 @@
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static MethodInfo GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-            => GetMethodInfoCache(propertyInfo, nonPublic, CacheSetMethods.Value, false);
-
-        private static MethodInfo GetMethodInfoCache(
-            PropertyInfo propertyInfo,
-            bool nonPublic,
-            Dictionary<PropertyInfo, MethodInfo> cache,
-            bool isGet)
+        public static Action<object, object[]> GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
         {
-            MethodInfo methodInfo;
+            var key = Tuple.Create(!nonPublic, propertyInfo);
 
-            if (!cache.ContainsKey(propertyInfo))
-            {
-                methodInfo = isGet ? propertyInfo.GetGetMethod(true) : propertyInfo.GetSetMethod(true);
-                cache[propertyInfo] = methodInfo;
-            }
-            else
-            {
-                methodInfo = cache[propertyInfo];
-            }
-
-            return methodInfo?.IsPublic != false ? methodInfo : (nonPublic ? methodInfo : null);
+            return !nonPublic && !CacheSetMethods.Value.ContainsKey(key) && !propertyInfo.GetSetMethod(true).IsPublic
+                ? null
+                : CacheSetMethods.Value
+                    .GetOrAdd(key,
+                        x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
         }
-
+        
         private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))

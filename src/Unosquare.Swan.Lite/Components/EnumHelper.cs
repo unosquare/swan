@@ -9,7 +9,7 @@
     /// Provide Enumerations helpers with internal cache.
     /// </summary>
     public class EnumHelper
-        : SingletonBase<CollectionCacheRepository<Type, Tuple<string, object>>>
+        : SingletonBase<CollectionCacheRepository<Tuple<string, object>>>
     {
         /// <summary>
         /// Gets all the names and enumerators from a specific Enum type.
@@ -19,9 +19,9 @@
         public static IEnumerable<Tuple<string, object>> Retrieve<T>()
             where T : struct, IConvertible
         {
-            return Instance.Retrieve(typeof(T), () => Enum.GetValues(typeof(T))
+            return Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
                 .Cast<object>()
-                .Select(item => new Tuple<string, object>(Enum.GetName(typeof(T), item), item)));
+                .Select(item => Tuple.Create(Enum.GetName(t, item), item)));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@
             where T : struct, IConvertible
         {
             return Retrieve<T>()
-                .Select(x => new Tuple<int, string>((int) x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
+                .Select(x => Tuple.Create((int) x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
         }
 
         /// <summary>
@@ -165,7 +165,7 @@
             var i = 0;
 
             return Retrieve<T>()
-                .Select(x => new Tuple<int, string>(i++, humanize ? x.Item1.Humanize() : x.Item1));
+                .Select(x => Tuple.Create(i++, humanize ? x.Item1.Humanize() : x.Item1));
         }
     }
 }

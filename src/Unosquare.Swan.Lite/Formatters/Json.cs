@@ -2,6 +2,8 @@
 {
     using Reflection;
     using System;
+    using System.Collections.Concurrent;
+    using Components;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -42,7 +44,7 @@
 
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-        private static readonly Dictionary<Type, IEnumerable<string>> IgnoredPropertiesCache = new Dictionary<Type, IEnumerable<string>>();
+        private static readonly CollectionCacheRepository<string> IgnoredPropertiesCache = new CollectionCacheRepository<string>();
 
         #region Public API
 
@@ -141,7 +143,7 @@
                 format,
                 typeSpecifier,
                 includedNames,
-                GeExcludedNames(obj?.GetType(), excludedNames),
+                GetExcludedNames(obj?.GetType(), excludedNames),
                 includeNonPublic,
                 parentReferences);
 
@@ -296,18 +298,18 @@
 
         #region Private API
 
-        private static string[] GeExcludedNames(Type type, string[] excludedNames)
+        private static string[] GetExcludedNames(Type type, string[] excludedNames)
         {
-            if (type == null) 
+            if (type == null)
                 return excludedNames;
 
-            var excludedByAttr = IgnoredPropertiesCache.GetOrAdd(type, t => t.GetProperties()
+            var excludedByAttr = IgnoredPropertiesCache.Retrieve(type, t => t.GetProperties()
                 .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
                 .Select(x => x.Name));
 
             if (excludedByAttr?.Any() != true)
                 return excludedNames;
-            
+
             return excludedNames == null
                 ? excludedByAttr.ToArray()
                 : excludedByAttr.Intersect(excludedNames).ToArray();

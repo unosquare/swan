@@ -48,6 +48,21 @@
         internal DependencyContainer Parent { get; }
 
         internal TypesConcurrentDictionary RegisteredTypes { get; }
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            if (_disposed) return;
+
+            _disposed = true;
+
+            foreach (var disposable in RegisteredTypes.Values.Select(item => item as IDisposable))
+            {
+                disposable?.Dispose();
+            }
+
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Gets the child container.
@@ -329,7 +344,8 @@
                     $"types: The same implementation type cannot be specified multiple times for {registrationType.FullName}\n\n{fullNamesOfDuplicatedTypes}");
             }
 
-            var registerOptions = implementationTypes.Select(type => Register(registrationType, type, type.FullName))
+            var registerOptions = implementationTypes
+                .Select(type => Register(registrationType, type, type.FullName))
                 .ToList();
 
             return new MultiRegisterOptions(registerOptions);
@@ -368,16 +384,14 @@
         /// </summary>
         /// <param name="resolveType">Type to resolve.</param>
         /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
         /// <param name="options">Resolution options.</param>
         /// <returns>Instance of type.</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
         public object Resolve(
             Type resolveType, 
             string name = null, 
-            Dictionary<string, object> parameters = null,
             DependencyContainerResolveOptions options = null)
-            => RegisteredTypes.ResolveInternal(new TypeRegistration(resolveType, name), parameters, options ?? DependencyContainerResolveOptions.Default);
+            => RegisteredTypes.ResolveInternal(new TypeRegistration(resolveType, name), options ?? DependencyContainerResolveOptions.Default);
 
         /// <summary>
         /// Attempts to resolve a named type using specified options and the supplied constructor parameters.
@@ -387,17 +401,15 @@
         /// </summary>
         /// <typeparam name="TResolveType">Type to resolve.</typeparam>
         /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
         /// <param name="options">Resolution options.</param>
         /// <returns>Instance of type.</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
         public TResolveType Resolve<TResolveType>(
             string name = null,
-            Dictionary<string, object> parameters = null,
             DependencyContainerResolveOptions options = null)
             where TResolveType : class
         {
-            return (TResolveType)Resolve(typeof(TResolveType), name, parameters, options);
+            return (TResolveType)Resolve(typeof(TResolveType), name, options);
         }
 
         /// <summary>
@@ -407,7 +419,6 @@
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve.</param>
-        /// <param name="parameters">User supplied named parameter overloads.</param>
         /// <param name="name">The name.</param>
         /// <param name="options">Resolution options.</param>
         /// <returns>
@@ -415,10 +426,9 @@
         /// </returns>
         public bool CanResolve(
             Type resolveType,
-            Dictionary<string, object> parameters = null,
             string name = null,
             DependencyContainerResolveOptions options = null) =>
-            RegisteredTypes.CanResolve(new TypeRegistration(resolveType, name), parameters, options);
+            RegisteredTypes.CanResolve(new TypeRegistration(resolveType, name), options);
 
         /// <summary>
         /// Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.
@@ -430,16 +440,14 @@
         /// </summary>
         /// <typeparam name="TResolveType">Type to resolve.</typeparam>
         /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User supplied named parameter overloads.</param>
         /// <param name="options">Resolution options.</param>
         /// <returns>Bool indicating whether the type can be resolved.</returns>
         public bool CanResolve<TResolveType>(
             string name = null, 
-            Dictionary<string, object> parameters = null,
             DependencyContainerResolveOptions options = null)
             where TResolveType : class
         {
-            return CanResolve(typeof(TResolveType), parameters, name, options);
+            return CanResolve(typeof(TResolveType), name, options);
         }
 
         /// <summary>
@@ -512,104 +520,15 @@
         /// <param name="options">Resolution options.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(Type resolveType, string name, DependencyContainerResolveOptions options,
-            out object resolvedType)
-        {
-            try
-            {
-                resolvedType = Resolve(resolveType, name, null, options);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = null;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the default options and supplied constructor parameters.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(Type resolveType, Dictionary<string, object> parameters, out object resolvedType)
-        {
-            try
-            {
-                resolvedType = Resolve(resolveType, parameters: parameters);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = null;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the default options and supplied name and constructor parameters.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve.</param>
-        /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
         public bool TryResolve(
-            Type resolveType,
-            string name,
-            Dictionary<string, object> parameters,
-            out object resolvedType)
-        {
-            try
-            {
-                resolvedType = Resolve(resolveType, name, parameters);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = null;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the supplied options and constructor parameters.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="options">Resolution options.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(
-            Type resolveType,
-            Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options,
-            out object resolvedType)
-        {
-            return TryResolve(resolveType, null, parameters, options, out resolvedType);
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the supplied name, options and constructor parameters.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve.</param>
-        /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="options">Resolution options.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(
-            Type resolveType,
-            string name,
-            Dictionary<string, object> parameters,
+            Type resolveType, 
+            string name, 
             DependencyContainerResolveOptions options,
             out object resolvedType)
         {
             try
             {
-                resolvedType = Resolve(resolveType, name, parameters, options);
+                resolvedType = Resolve(resolveType, name, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
@@ -618,7 +537,7 @@
                 return false;
             }
         }
-
+        
         /// <summary>
         /// Attempts to resolve a type using the default options.
         /// </summary>
@@ -700,7 +619,7 @@
         {
             try
             {
-                resolvedType = Resolve<TResolveType>(name, null, options);
+                resolvedType = Resolve<TResolveType>(name, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
@@ -709,108 +628,7 @@
                 return false;
             }
         }
-
-        /// <summary>
-        /// Attempts to resolve a type using the default options and supplied constructor parameters.
-        /// </summary>
-        /// <typeparam name="TResolveType">Type to resolve.</typeparam>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(Dictionary<string, object> parameters, out TResolveType resolvedType)
-            where TResolveType : class
-        {
-            try
-            {
-                resolvedType = Resolve<TResolveType>(parameters: parameters);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = default;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the default options and supplied name and constructor parameters.
-        /// </summary>
-        /// <typeparam name="TResolveType">Type to resolve.</typeparam>
-        /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(
-            string name,
-            Dictionary<string, object> parameters,
-            out TResolveType resolvedType)
-            where TResolveType : class
-        {
-            try
-            {
-                resolvedType = Resolve<TResolveType>(name, parameters);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = default;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the supplied options and constructor parameters.
-        /// </summary>
-        /// <typeparam name="TResolveType">Type to resolve.</typeparam>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="options">Resolution options.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(
-            Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options,
-            out TResolveType resolvedType)
-            where TResolveType : class
-        {
-            try
-            {
-                resolvedType = Resolve<TResolveType>(null, parameters, options);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = default;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to resolve a type using the supplied name, options and constructor parameters.
-        /// </summary>
-        /// <typeparam name="TResolveType">Type to resolve.</typeparam>
-        /// <param name="name">Name of registration.</param>
-        /// <param name="parameters">User specified constructor parameters.</param>
-        /// <param name="options">Resolution options.</param>
-        /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
-        /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(string name,
-            Dictionary<string, object> parameters,
-            DependencyContainerResolveOptions options,
-            out TResolveType resolvedType)
-            where TResolveType : class
-        {
-            try
-            {
-                resolvedType = Resolve<TResolveType>(name, parameters, options);
-                return true;
-            }
-            catch (DependencyContainerResolutionException)
-            {
-                resolvedType = default;
-                return false;
-            }
-        }
-
+        
         /// <summary>
         /// Returns all registrations of a type.
         /// </summary>
@@ -853,7 +671,7 @@
                 {
                     property.SetValue(
                         input,
-                        RegisteredTypes.ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions),
+                        RegisteredTypes.ResolveInternal(new TypeRegistration(property.PropertyType), resolveOptions),
                         null);
                 }
                 catch (DependencyContainerResolutionException)
@@ -866,6 +684,25 @@
         #endregion
 
         #region Internal Methods
+        
+        internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
+        {
+            if (!registerType.IsGenericTypeDefinition())
+            {
+                if (!registerType.IsAssignableFrom(registerImplementation))
+                    return false;
+            }
+            else
+            {
+                if (registerType.IsInterface() && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
+                    return false;
+
+                if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
+                    return false;
+            }
+
+            return true;
+        }
 
 #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
@@ -912,40 +749,6 @@
             ? (ObjectFactoryBase)new SingletonFactory(registerType, registerImplementation)
             : new MultiInstanceFactory(registerType, registerImplementation);
 
-        internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
-        {
-            if (!registerType.IsGenericTypeDefinition())
-            {
-                if (!registerType.IsAssignableFrom(registerImplementation))
-                    return false;
-            }
-            else
-            {
-                if (registerType.IsInterface() && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
-                    return false;
-
-                if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
-                    return false;
-            }
-
-            return true;
-        }
-
         #endregion
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            if (_disposed) return;
-
-            _disposed = true;
-
-            foreach (var disposable in RegisteredTypes.Values.Select(item => item as IDisposable))
-            {
-                disposable?.Dispose();
-            }
-
-            GC.SuppressFinalize(this);
-        }
     }
 }

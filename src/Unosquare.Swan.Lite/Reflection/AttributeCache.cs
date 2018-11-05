@@ -3,18 +3,22 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Collections.Concurrent;
     using System.Linq;
-    using Components;
 
     /// <summary>
-    /// A thread-safe cache of attributes belonging to a given object (MemberInfo or Type).
+    /// A thread-safe cache of attributes belonging to a given key (MemberInfo or Type).
     /// 
     /// The Retrieve method is the most useful one in this class as it
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class AttributeCache : CollectionCacheRepository<Tuple<object, Type>, object>
+    public class AttributeCache
     {
+        private readonly Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>> _data =
+            new Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>>(() =>
+                new ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>(), true);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.
         /// </summary>
@@ -37,8 +41,8 @@
         /// <returns>
         ///   <c>true</c> if [contains] [the specified member]; otherwise, <c>false</c>.
         /// </returns>
-        public bool Contains<T>(MemberInfo member) => Contains(new Tuple<object, Type>(member, typeof(T)));
-
+        public bool Contains<T>(MemberInfo member) => _data.Value.ContainsKey(new Tuple<object, Type>(member, typeof(T)));
+        
         /// <summary>
         /// Gets specific attributes from a member constrained to an attribute.
         /// </summary>
@@ -52,7 +56,7 @@
             if (member == null)
                 throw new ArgumentNullException(nameof(member));
 
-            return Retrieve(new Tuple<object, Type>(member, typeof(T)), () => member.GetCustomAttributes<T>(inherit));
+            return Retrieve(new Tuple<object, Type>(member, typeof(T)), t => member.GetCustomAttributes<T>(inherit));
         }
 
         /// <summary>
@@ -70,7 +74,9 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return Retrieve(new Tuple<object, Type>(member, type), () => member.GetCustomAttributes(type, inherit));
+            return Retrieve(
+                new Tuple<object, Type>(member, type), 
+                t => member.GetCustomAttributes(type, inherit));
         }
 
         /// <summary>
@@ -86,7 +92,9 @@
             if (member == null)
                 return default;
 
-            var attr = Retrieve(new Tuple<object, Type>(member, typeof(T)), () => member.GetCustomAttributes(typeof(T), inherit));
+            var attr = Retrieve(
+                new Tuple<object, Type>(member, typeof(T)), 
+                t => member.GetCustomAttributes(typeof(T), inherit));
 
             return ConvertToAttribute<T>(attr);
         }
@@ -101,7 +109,9 @@
         public TAttribute RetrieveOne<TAttribute, T>(bool inherit = false)
             where TAttribute : Attribute
         {
-            var attr = Retrieve(new Tuple<object, Type>(typeof(T), typeof(TAttribute)), () => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
+            var attr = Retrieve(
+                new Tuple<object, Type>(typeof(T), typeof(TAttribute)), 
+                t => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
             
             return ConvertToAttribute<TAttribute>(attr);
         }
@@ -151,6 +161,14 @@
                 return (T) Convert.ChangeType(attr.First(), typeof(T));
 
             throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
+        }
+
+        private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object>> factory)
+        {
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
+
+            return _data.Value.GetOrAdd(key, k => factory.Invoke(k).Where(item => item != null));
         }
     }
 }

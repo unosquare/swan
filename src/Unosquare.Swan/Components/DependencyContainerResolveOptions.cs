@@ -1,5 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Resolution settings.
     /// </summary>
@@ -27,6 +29,24 @@
         /// </value>
         public DependencyContainerNamedResolutionFailureActions NamedResolutionFailureAction { get; set; } =
             DependencyContainerNamedResolutionFailureActions.Fail;
+
+        /// <summary>
+        /// Gets the constructor parameters.
+        /// </summary>
+        /// <value>
+        /// The constructor parameters.
+        /// </value>
+        public Dictionary<string, object> ConstructorParameters { get; } = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns></returns>
+        public DependencyContainerResolveOptions Clone() => new DependencyContainerResolveOptions
+        {
+            NamedResolutionFailureAction = NamedResolutionFailureAction,
+            UnregisteredResolutionAction = UnregisteredResolutionAction,
+        };
     }
 
     /// <summary>
@@ -52,7 +72,7 @@
         /// 
         /// Registered types/options will always take precedence.
         /// </summary>
-        GenericsOnly
+        GenericsOnly,
     }
 
     /// <summary>

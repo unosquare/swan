@@ -13,13 +13,6 @@
     public class Contains : TypeCacheTest
     {
         [Test]
-        public void WithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Contains(null));
-        }
-
-        [Test]
         public void WithInvalidType_ReturnsFalse()
         {
             Assert.IsFalse(TypeCache.Contains<string>());
@@ -33,14 +26,14 @@
         public void WithFactoryReturnsNull_ThrowsKeyNotFoundException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(typeof(string), () => null));
+                TypeCache.Retrieve(typeof(string), t => null));
         }
 
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(null, () => null));
+                TypeCache.Retrieve(null, t => null));
         }
 
         [Test]

@@ -34,7 +34,7 @@
         /// <value>
         /// The singleton variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">singleton</exception>
+        /// <exception cref="DependencyContainerRegistrationException">singleton.</exception>
         public virtual ObjectFactoryBase SingletonVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "singleton");
 
@@ -44,7 +44,7 @@
         /// <value>
         /// The multi instance variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">multi-instance</exception>
+        /// <exception cref="DependencyContainerRegistrationException">multi-instance.</exception>
         public virtual ObjectFactoryBase MultiInstanceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
 
@@ -54,7 +54,7 @@
         /// <value>
         /// The strong reference variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">strong reference</exception>
+        /// <exception cref="DependencyContainerRegistrationException">strong reference.</exception>
         public virtual ObjectFactoryBase StrongReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "strong reference");
 
@@ -64,7 +64,7 @@
         /// <value>
         /// The weak reference variant.
         /// </value>
-        /// <exception cref="DependencyContainerRegistrationException">weak reference</exception>
+        /// <exception cref="DependencyContainerRegistrationException">weak reference.</exception>
         public virtual ObjectFactoryBase WeakReferenceVariant =>
             throw new DependencyContainerRegistrationException(GetType(), "weak reference");
 
@@ -73,13 +73,11 @@
         /// </summary>
         /// <param name="requestedType">Type user requested to be resolved.</param>
         /// <param name="container">Container that requested the creation.</param>
-        /// <param name="parameters">Any user parameters passed.</param>
         /// <param name="options">The options.</param>
         /// <returns> Instance of type. </returns>
         public abstract object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options);
 
         /// <summary>
@@ -137,12 +135,11 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
             try
             {
-                return container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, parameters, options);
+                return container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, options);
             }
             catch (DependencyContainerResolutionException ex)
             {
@@ -182,12 +179,11 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
             try
             {
-                return _factory.Invoke(container, parameters);
+                return _factory.Invoke(container, options.ConstructorParameters);
             }
             catch (Exception ex)
             {
@@ -238,7 +234,6 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
             if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
@@ -246,7 +241,7 @@
 
             try
             {
-                return factory.Invoke(container, parameters);
+                return factory.Invoke(container, options.ConstructorParameters);
             }
             catch (Exception ex)
             {
@@ -289,7 +284,6 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
             return _instance;
@@ -350,7 +344,6 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
             var instance = _instance.Target;
@@ -400,16 +393,15 @@
         public override object GetObject(
             Type requestedType,
             DependencyContainer container,
-            Dictionary<string, object> parameters,
             DependencyContainerResolveOptions options)
         {
-            if (parameters.Count != 0)
+            if (options.ConstructorParameters.Count != 0)
                 throw new ArgumentException("Cannot specify parameters for singleton types");
 
             lock (_singletonLock)
             {
                 if (_current == null)
-                    _current = container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, null, options);
+                    _current = container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, options);
             }
 
             return _current;
@@ -423,7 +415,7 @@
             // We make sure that the singleton is constructed before the child container takes the factory.
             // Otherwise the results would vary depending on whether or not the parent container had resolved
             // the type before the child container does.
-            GetObject(type, parent, null, DependencyContainerResolveOptions.Default);
+            GetObject(type, parent, DependencyContainerResolveOptions.Default);
             return this;
         }
 

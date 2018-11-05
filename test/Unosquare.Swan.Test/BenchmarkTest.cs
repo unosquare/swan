@@ -25,7 +25,7 @@
         }
         
         [Test]
-        public void WithDiferentIdentifiers_DumpMultipleResults()
+        public void WithDifferentIdentifiers_DumpMultipleResults()
         {
             using (Benchmark.Start("Benchmark")) { }
 
