@@ -442,7 +442,7 @@ namespace Unosquare.Swan.Networking
                     }
                     else
                     {
-                        await Task.Delay(_continuousReadingInterval, ct);
+                        await Task.Delay(_continuousReadingInterval, ct).ConfigureAwait(false);
                     }
                 }
             }
@@ -471,7 +471,7 @@ namespace Unosquare.Swan.Networking
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default)
         {
-            var buffer = await ReadDataAsync(timeout, ct);
+            var buffer = await ReadDataAsync(timeout, ct).ConfigureAwait(false);
             return buffer == null ? null : TextEncoding.GetString(buffer);
         }
 
@@ -520,7 +520,7 @@ namespace Unosquare.Swan.Networking
 
             while (true)
             {
-                var text = await ReadTextAsync(timeout, ct);
+                var text = await ReadTextAsync(timeout, ct).ConfigureAwait(false);
                 if (text.Length == 0)
                     break;
 
@@ -556,9 +556,9 @@ namespace Unosquare.Swan.Networking
             {
                 _writeDone.WaitOne();
                 _writeDone.Reset();
-                await ActiveStream.WriteAsync(buffer, 0, buffer.Length, ct);
+                await ActiveStream.WriteAsync(buffer, 0, buffer.Length, ct).ConfigureAwait(false);
                 if (forceFlush)
-                    await ActiveStream.FlushAsync(ct);
+                    await ActiveStream.FlushAsync(ct).ConfigureAwait(false);
 
                 DataSentLastTimeUtc = DateTime.UtcNow;
             }
@@ -629,7 +629,7 @@ namespace Unosquare.Swan.Networking
             try
             {
                 secureStream = new SslStream(NetworkStream, true);
-                await secureStream.AuthenticateAsServerAsync(serverCertificate);
+                await secureStream.AuthenticateAsServerAsync(serverCertificate).ConfigureAwait(false);
                 SecureStream = secureStream;
                 return true;
             }
@@ -659,7 +659,7 @@ namespace Unosquare.Swan.Networking
 
             try
             {
-                await secureStream.AuthenticateAsClientAsync(hostname);
+                await secureStream.AuthenticateAsClientAsync(hostname).ConfigureAwait(false);
                 SecureStream = secureStream;
             }
             catch (Exception ex)

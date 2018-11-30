@@ -142,8 +142,8 @@
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync("https://api.ipify.org", ct);
-                return IPAddress.Parse(await response.Content.ReadAsStringAsync());
+                var response = await client.GetAsync("https://api.ipify.org", ct).ConfigureAwait(false);
+                return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
         }
 

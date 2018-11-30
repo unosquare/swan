@@ -353,7 +353,7 @@
             var exceptions = new List<Exception>
             {
                 new TimeoutException("It timed out", new ArgumentException("ID missing")),
-                new NotImplementedException("Somethings not implemented", new ArgumentNullException())
+                new NotImplementedException("Somethings not implemented", new ArgumentNullException()),
             };
 
             var ex = new AggregateException(exceptions);

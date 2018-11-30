@@ -34,7 +34,7 @@
                 {"*", x => Expression.Multiply(x.First(), x.Last())},
                 {"/", x => Expression.Divide(x.First(), x.Last())},
                 {"<", x => Expression.LessThan(x.First(), x.Last())},
-                {">", x => Expression.GreaterThan(x.First(), x.Last())}
+                {">", x => Expression.GreaterThan(x.First(), x.Last())},
             };
 
         private readonly Dictionary<string, object> _variables;

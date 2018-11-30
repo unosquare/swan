@@ -195,7 +195,8 @@ namespace Unosquare.Swan.Components
                 (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
                 encoding,
                 true,
-                ct);
+                ct)
+                .ConfigureAwait(false);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
         }
@@ -231,7 +232,7 @@ namespace Unosquare.Swan.Components
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            return Task.Factory.StartNew(() =>
+            return Task.Run(() =>
             {
                 // Setup the process and its corresponding start info
                 var process = new Process

@@ -493,7 +493,7 @@
                         if (length < bufferLength)
                             bufferLength = (int)length;
 
-                        var nread = await stream.ReadAsync(buff, 0, bufferLength, ct);
+                        var nread = await stream.ReadAsync(buff, 0, bufferLength, ct).ConfigureAwait(false);
                         if (nread == 0)
                             break;
 
@@ -531,7 +531,7 @@
             {
                 while (length > 0)
                 {
-                    var nread = await stream.ReadAsync(buff, offset, length, ct);
+                    var nread = await stream.ReadAsync(buff, offset, length, ct).ConfigureAwait(false);
                     if (nread == 0)
                         break;
 

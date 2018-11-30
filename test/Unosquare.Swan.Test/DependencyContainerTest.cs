@@ -118,7 +118,7 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
             };
 
             Assert.Throws<DependencyContainerResolutionException>(() =>

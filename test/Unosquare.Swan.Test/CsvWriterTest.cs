@@ -250,7 +250,7 @@
             var stringHeaders = new[]
             {
                 "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
-                "AccessDate"
+                "AccessDate",
             };
 
             var stringHeadersOutput = string.Join(",", stringHeaders);

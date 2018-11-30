@@ -242,7 +242,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public async Task Connect(string host, int port)
         {
             var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
+            await tcpClient.ConnectAsync(host, port).ConfigureAwait(false);
             _conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
             
 #pragma warning disable 4014
@@ -321,7 +321,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // TODO: Add Search options
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, 0, 1000, 0, typesOnly, null);
 
-            await RequestLdapMessage(msg, ct);
+            await RequestLdapMessage(msg, ct).ConfigureAwait(false);;
             
             return new LdapSearchResults(Messages, msg.MessageId);
         }
@@ -351,12 +351,12 @@ namespace Unosquare.Swan.Networking.Ldap
             using (var stream = new MemoryStream())
             {
                 LberEncoder.Encode(msg.Asn1Object, stream);
-                await _conn.WriteDataAsync(stream.ToArray(), true, ct);
+                await _conn.WriteDataAsync(stream.ToArray(), true, ct).ConfigureAwait(false);;
 
                 try
                 {
                     while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
-                        await Task.Delay(100, ct);
+                        await Task.Delay(100, ct).ConfigureAwait(false);;
                 }
                 catch (ArgumentException)
                 {

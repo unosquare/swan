@@ -238,7 +238,8 @@ namespace Unosquare.Swan.Networking
 
             using (var tcpClient = new TcpClient())
             {
-                await tcpClient.ConnectAsync(Host, Port);
+                await tcpClient.ConnectAsync(Host, Port).ConfigureAwait(false);
+
                 using (var connection = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 1000))
                 {
                     var sender = new SmtpSender(sessionId);
@@ -246,15 +247,15 @@ namespace Unosquare.Swan.Networking
                     try
                     {
                         // Read the greeting message
-                        sender.ReplyText = await connection.ReadLineAsync(ct);
+                        sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
 
                         // EHLO 1
                         sender.RequestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
 
-                        await connection.WriteLineAsync(sender.RequestText, ct);
+                        await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
                         do
                         {
-                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                            sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                         } 
                         while (!sender.IsReplyOk);
 
@@ -265,11 +266,11 @@ namespace Unosquare.Swan.Networking
                         {
                             sender.RequestText = $"{SmtpCommandNames.STARTTLS}";
 
-                            await connection.WriteLineAsync(sender.RequestText, ct);
-                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+                            sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                             sender.ValidateReply();
 
-                            if (await connection.UpgradeToSecureAsClientAsync() == false)
+                            if (await connection.UpgradeToSecureAsClientAsync().ConfigureAwait(false) == false)
                                 throw new SecurityException("Could not upgrade the channel to SSL.");
                         }
 
@@ -277,11 +278,11 @@ namespace Unosquare.Swan.Networking
                             // EHLO 2
                             sender.RequestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
 
-                            await connection.WriteLineAsync(sender.RequestText, ct);
+                            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
 
                             do
                             {
-                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                             } 
                             while (!sender.IsReplyOk);
 
@@ -292,7 +293,7 @@ namespace Unosquare.Swan.Networking
                         if (Credentials != null)
                         {
                             var auth = new ConnectionAuth(connection, sender, Credentials);
-                            await auth.AuthenticateAsync(ct);
+                            await auth.AuthenticateAsync(ct).ConfigureAwait(false);
                         }
 
                         foreach (var sessionState in sessionStates)
@@ -301,8 +302,8 @@ namespace Unosquare.Swan.Networking
                                 // MAIL FROM
                                 sender.RequestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
                                 
-                                await connection.WriteLineAsync(sender.RequestText, ct);
-                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -311,8 +312,8 @@ namespace Unosquare.Swan.Networking
                             {
                                 sender.RequestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
                                 
-                                await connection.WriteLineAsync(sender.RequestText, ct);
-                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -320,8 +321,8 @@ namespace Unosquare.Swan.Networking
                                 // DATA
                                 sender.RequestText = $"{SmtpCommandNames.DATA}";
                                 
-                                await connection.WriteLineAsync(sender.RequestText, ct);
-                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -333,11 +334,11 @@ namespace Unosquare.Swan.Networking
 
                                 sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
                                 
-                                await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, ct);
+                                await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, ct).ConfigureAwait(false);
                                 if (dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator) == false)
-                                    await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, ct);
+                                    await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, ct).ConfigureAwait(false);
 
-                                sender.ReplyText = await connection.ReadLineAsync(ct);
+                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
                         }
@@ -346,8 +347,8 @@ namespace Unosquare.Swan.Networking
                             // QUIT
                             sender.RequestText = $"{SmtpCommandNames.QUIT}";
                             
-                            await connection.WriteLineAsync(sender.RequestText, ct);
-                            sender.ReplyText = await connection.ReadLineAsync(ct);
+                            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+                            sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                             sender.ValidateReply();
                         }
                     }
@@ -381,13 +382,13 @@ namespace Unosquare.Swan.Networking
                 _sender.RequestText =
                     $"{SmtpCommandNames.AUTH} {SmtpDefinitions.SmtpAuthMethods.Login} {Convert.ToBase64String(Encoding.UTF8.GetBytes(_credentials.UserName))}";
 
-                await _connection.WriteLineAsync(_sender.RequestText, ct);
-                _sender.ReplyText = await _connection.ReadLineAsync(ct);
+                await _connection.WriteLineAsync(_sender.RequestText, ct).ConfigureAwait(false);
+                _sender.ReplyText = await _connection.ReadLineAsync(ct).ConfigureAwait(false);
                 _sender.ValidateReply();
                 _sender.RequestText = Convert.ToBase64String(Encoding.UTF8.GetBytes(_credentials.Password));
 
-                await _connection.WriteLineAsync(_sender.RequestText, ct);
-                _sender.ReplyText = await _connection.ReadLineAsync(ct);
+                await _connection.WriteLineAsync(_sender.RequestText, ct).ConfigureAwait(false);
+                _sender.ReplyText = await _connection.ReadLineAsync(ct).ConfigureAwait(false);
                 _sender.ValidateReply();
             }
         }
