@@ -6,7 +6,7 @@
     /// A console terminal helper to create nicer output and receive input from the user
     /// This class is thread-safe :).
     /// </summary>
-    public partial class Terminal
+    public static partial class Terminal
     {
         /// <summary>
         /// Terminal global settings.

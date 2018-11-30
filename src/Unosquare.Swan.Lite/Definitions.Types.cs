@@ -9,7 +9,7 @@
     /// <summary>
     /// Contains useful constants and definitions.
     /// </summary>
-    public partial class Definitions
+    public static partial class Definitions
     {
         #region Main Dictionary Definition
 

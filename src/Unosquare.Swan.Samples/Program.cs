@@ -10,7 +10,7 @@
     using System.Linq;
     using Networking;
 
-    public partial class Program
+    public static partial class Program
     {
         /// <summary>
         /// Mains the specified arguments.

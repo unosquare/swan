@@ -10,7 +10,7 @@
     /// <summary>
     /// Represents a little SNMP client based on http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm.
     /// </summary>
-    public class SnmpClient
+    public static class SnmpClient
     {
         private static readonly byte[] DiscoverMessage =
         {
