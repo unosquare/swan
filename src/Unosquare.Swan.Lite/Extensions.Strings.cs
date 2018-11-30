@@ -198,7 +198,7 @@
         public static string ToStringInvariant<T>(this T item)
         {
             if (typeof(string) == typeof(T))
-                return item == null ? string.Empty : item as string;
+                return Equals(item, default(T)) ? string.Empty : item as string;
 
             return ToStringInvariant(item as object);
         }

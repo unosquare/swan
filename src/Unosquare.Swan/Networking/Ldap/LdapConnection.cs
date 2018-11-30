@@ -321,7 +321,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // TODO: Add Search options
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, 0, 1000, 0, typesOnly, null);
 
-            await RequestLdapMessage(msg, ct).ConfigureAwait(false);;
+            await RequestLdapMessage(msg, ct).ConfigureAwait(false);
             
             return new LdapSearchResults(Messages, msg.MessageId);
         }
@@ -351,12 +351,12 @@ namespace Unosquare.Swan.Networking.Ldap
             using (var stream = new MemoryStream())
             {
                 LberEncoder.Encode(msg.Asn1Object, stream);
-                await _conn.WriteDataAsync(stream.ToArray(), true, ct).ConfigureAwait(false);;
+                await _conn.WriteDataAsync(stream.ToArray(), true, ct).ConfigureAwait(false);
 
                 try
                 {
                     while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
-                        await Task.Delay(100, ct).ConfigureAwait(false);;
+                        await Task.Delay(100, ct).ConfigureAwait(false);
                 }
                 catch (ArgumentException)
                 {

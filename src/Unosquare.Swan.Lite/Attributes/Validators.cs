@@ -33,13 +33,12 @@
         /// <inheritdoc/>
         public bool IsValid<T>(T value)
         {
-            if (value == null)
+            if (Equals(value, default(T)))
                 return false;
 
-            if (!(value is string))
-                throw new ArgumentException("Property is not a string");
-
-            return Regex.IsMatch(value.ToString(), Expression);
+            return !(value is string)
+                ? throw new ArgumentException("Property is not a string")
+                : Regex.IsMatch(value.ToString(), Expression);
         }
     }
 

@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Components
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
 
-            if (instance == null)
+            if (Equals(instance, default(T)))
                 throw new ArgumentNullException(nameof(instance));
 
             var typeResolver = new TypeResolver<T>(args.FirstOrDefault());

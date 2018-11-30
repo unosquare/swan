@@ -13,7 +13,7 @@
         /// <value>
         ///   <c>true</c> if this instance is ok; otherwise, <c>false</c>.
         /// </value>
-        public bool IsOk => Ok != null;
+        public bool IsOk => Equals(Ok, default(T));
 
         /// <summary>
         /// Gets or sets the ok.

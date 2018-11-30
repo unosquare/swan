@@ -155,8 +155,12 @@
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default) =>
-            (await Put<object>(url, payload, authorization, ct).ConfigureAwait(false)) as IDictionary<string, object>;
+            CancellationToken ct = default)
+        {
+            var response = await Put<object>(url, payload, authorization, ct).ConfigureAwait(false);
+
+            return response as IDictionary<string, object>;
+        }
 
         /// <summary>
         /// Puts as string.
@@ -233,6 +237,7 @@
             CancellationToken ct = default)
         {
             var response = await GetHttpContent(url, authorization, ct).ConfigureAwait(false);
+
             return await response.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
@@ -349,8 +354,10 @@
                     .SendAsync(new HttpRequestMessage(method, url) {Content = payloadJson}, ct).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode == false)
+                {
                     throw new JsonRequestException($"Error {method} JSON", (int) response.StatusCode,
                         await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                }
 
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }

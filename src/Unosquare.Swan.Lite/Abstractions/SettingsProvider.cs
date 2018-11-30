@@ -74,7 +74,7 @@
             {
                 lock (_syncRoot)
                 {
-                    if (_global == null)
+                    if (Equals(_global, default(T)))
                         ReloadGlobalSettings();
 
                     return _global;
