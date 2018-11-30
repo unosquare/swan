@@ -67,7 +67,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
         public static void Register(string oid, Type controlClass)
             => RegisteredControls.RegisterResponseControl(oid, controlClass);
-        
+
         /// <summary>
         ///     Returns the control-specific data of the object.
         /// </summary>
@@ -146,11 +146,11 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference) Message.Response).ToArray();
+                var references = ((RfcSearchResultReference)Message.Response).ToArray();
                 var srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    srefs[i] = ((Asn1OctetString) references[i]).StringValue();
+                    srefs[i] = ((Asn1OctetString)references[i]).StringValue();
                 }
 
                 return srefs;
@@ -165,17 +165,17 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        public string ErrorMessage => ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
 
-        public string MatchedDN => ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
-        
+        public string MatchedDN => ((IRfcResponse)Message.Response).GetMatchedDN().StringValue();
+
         public LdapStatusCode ResultCode => Message.Response is RfcSearchResultEntry ||
-                                            (IRfcResponse) Message.Response is RfcIntermediateResponse
+                                            (IRfcResponse)Message.Response is RfcIntermediateResponse
             ? LdapStatusCode.Success
-            : (LdapStatusCode) ((IRfcResponse) Message.Response).GetResultCode().IntValue();
+            : (LdapStatusCode)((IRfcResponse)Message.Response).GetResultCode().IntValue();
 
         internal LdapException Exception { get; set; }
-        
+
         internal void ChkResultCode()
         {
             if (Exception != null)
@@ -207,6 +207,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RespControlVector : List<RespControlVector.RegisteredControl>
     {
+        private readonly object _syncLock = new object();
+
         public RespControlVector(int cap)
             : base(cap)
         {
@@ -214,12 +216,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public void RegisterResponseControl(string oid, Type controlClass)
         {
-            lock (this)
+            lock (_syncLock)
             {
                 Add(new RegisteredControl(this, oid, controlClass));
             }
         }
-        
+
         /// <summary>
         /// Inner class defined to create a temporary object to encapsulate
         /// all registration information about a response control.
@@ -256,7 +258,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         private readonly sbyte[] _password;
         private static readonly Asn1Identifier Id = new Asn1Identifier(LdapOperation.BindRequest);
-        
+
         public RfcBindRequest(int version, string name, sbyte[] password)
             : base(3)
         {
@@ -268,25 +270,25 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public Asn1Integer Version
         {
-            get => (Asn1Integer) Get(0);
+            get => (Asn1Integer)Get(0);
             set => Set(0, value);
         }
 
         public Asn1OctetString Name
         {
-            get => (Asn1OctetString) Get(1);
+            get => (Asn1OctetString)Get(1);
             set => Set(1, value);
         }
 
         public RfcAuthenticationChoice AuthenticationChoice
         {
-            get => (RfcAuthenticationChoice) Get(2);
+            get => (RfcAuthenticationChoice)Get(2);
             set => Set(2, value);
         }
 
         public override Asn1Identifier GetIdentifier() => Id;
 
-        public string GetRequestDN() => ((Asn1OctetString) Get(1)).StringValue();
+        public string GetRequestDN() => ((Asn1OctetString)Get(1)).StringValue();
     }
 }
 #endif

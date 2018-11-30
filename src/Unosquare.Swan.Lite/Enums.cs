@@ -23,7 +23,7 @@
         /// <summary>
         /// macOS (OSX)
         /// </summary>
-        Osx
+        Osx,
     }
 
     /// <summary>

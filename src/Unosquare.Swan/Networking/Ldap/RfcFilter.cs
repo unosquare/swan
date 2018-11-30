@@ -618,23 +618,24 @@ namespace Unosquare.Swan.Networking.Ldap
         private static sbyte[] UnescapeString(string value)
         {
             var octets = new sbyte[value.Length * 3];
-            int str, octs;
+            var octs = 0;
             var escape = false;
             var escStart = false;
-
             var length = value.Length;
             var ca = new char[1]; // used while converting multibyte UTF-8 char
             var temp = (char)0; // holds the value of the escaped sequence
 
             // loop through each character of the string and copy them into octets
             // converting escaped sequences when needed
-            for (str = 0, octs = 0; str < length; str++)
+            for (var str = 0; str < length; str++)
             {
                 var ch = value[str]; // Character we are adding to the octet string
+
                 if (escape)
                 {
-                    int ival;
-                    if ((ival = ch.Hex2Int()) < 0)
+                    var ival = ch.Hex2Int();
+
+                    if (ival < 0)
                     {
                         throw new LdapException($"Invalid value in escape sequence \"{ch}\"",
                             LdapStatusCode.FilterError);
@@ -744,7 +745,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     default:
                         if (value.GetIdentifier().Tag == (int)FilterOp.Not)
                         {
-                            throw new LdapException("Attemp to create more than one 'not' sub-filter",
+                            throw new LdapException("Attempt to create more than one 'not' sub-filter",
                                 LdapStatusCode.FilterError);
                         }
 
@@ -784,7 +785,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// <value>
             /// The op or attribute.
             /// </value>
-            /// <exception cref="LdapException">Unexpect end.</exception>
+            /// <exception cref="LdapException">Unexpected end.</exception>
             public int OpOrAttr
             {
                 get

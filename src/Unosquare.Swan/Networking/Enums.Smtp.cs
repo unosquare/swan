@@ -74,7 +74,7 @@ namespace Unosquare.Swan.Networking
         ClientNotPermitted = 454,
         
         /// <summary>
-        /// 
+        /// Command Unrecognized
         /// </summary>
         CommandUnrecognized = 500,
         
@@ -84,32 +84,32 @@ namespace Unosquare.Swan.Networking
         SyntaxError = 501,
         
         /// <summary>
-        /// 
+        /// Command Not Implemented
         /// </summary>
         CommandNotImplemented = 502,
         
         /// <summary>
-        /// 
+        /// Bad Command Sequence
         /// </summary>
         BadCommandSequence = 503,
         
         /// <summary>
-        /// 
+        /// Must Issue Start Tls First
         /// </summary>
         MustIssueStartTlsFirst = 530,
         
         /// <summary>
-        /// 
+        /// Command Parameter Not Implemented
         /// </summary>
         CommandParameterNotImplemented = 504,
         
         /// <summary>
-        /// 
+        /// Mailbox Unavailable
         /// </summary>
         MailboxUnavailable = 550,
         
         /// <summary>
-        /// 
+        /// User Not Local Try Alternate Path
         /// </summary>
         UserNotLocalTryAlternatePath = 551,
 

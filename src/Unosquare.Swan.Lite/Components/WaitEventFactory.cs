@@ -134,7 +134,7 @@ namespace Unosquare.Swan.Components
             public void Complete() => _event?.Set();
 
             /// <inheritdoc />
-            public void Dispose()
+            void IDisposable.Dispose()
             {
                 if (IsDisposed) return;
                 IsDisposed = true;
@@ -194,7 +194,7 @@ namespace Unosquare.Swan.Components
             public void Complete() => _event?.Set();
 
             /// <inheritdoc />
-            public void Dispose()
+            void IDisposable.Dispose()
             {
                 if (IsDisposed) return;
                 IsDisposed = true;

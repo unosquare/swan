@@ -10,7 +10,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// identical type. This class inherits from the Asn1Structured class
     /// which already provides functionality to hold multiple Asn1 components.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
+    /// <seealso cref="Asn1Structured" />
     internal class Asn1SetOf
         : Asn1Structured
     {
@@ -30,7 +30,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// The Asn1Choice object represents the choice of any Asn1Object. All
     /// Asn1Object methods are delegated to the object this Asn1Choice contains.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal class Asn1Choice
         : Asn1Object
     {
@@ -108,6 +108,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var r = stream.ReadByte();
             EncodedLength++;
+
             if (r < 0)
                 throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
 
@@ -187,9 +188,9 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public const int Tag = 0x04;
 
-        private readonly sbyte[] _content;
-
         private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1IdentifierTag.Universal, false, Tag);
+
+        private readonly sbyte[] _content;
         
         public Asn1OctetString(sbyte[] content)
             : base(Id)
@@ -227,7 +228,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// If the type is to be encoded EXPLICITLY, the base type will be encoded as
     /// usual after the Asn1Tagged identifier has been encoded.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal class Asn1Tagged : Asn1Object
     {
         private Asn1Object _content;
@@ -286,7 +287,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class serves as the base type for all ASN.1
     /// structured types.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal abstract class Asn1Structured : Asn1Object
     {
         private Asn1Object[] _content;
@@ -373,7 +374,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// This class encapsulates the ASN.1 BOOLEAN type.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal class Asn1Boolean
         : Asn1Object
     {
@@ -403,7 +404,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// This class represents the ASN.1 NULL type.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal sealed class Asn1Null
         : Asn1Object
     {
@@ -424,7 +425,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// for all Asn1 numeric (integral) types. These include
     /// Asn1Integer and Asn1Enumerated.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal abstract class Asn1Numeric : Asn1Object
     {
         private readonly long _content;
@@ -489,7 +490,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class inherits from the Asn1Structured class which
     /// provides functionality to hold multiple Asn1 components.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
+    /// <seealso cref="Asn1Structured" />
     internal class Asn1Sequence
         : Asn1Structured
     {
@@ -516,7 +517,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// distinct type. This class inherits from the Asn1Structured class
     /// which already provides functionality to hold multiple Asn1 components.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
+    /// <seealso cref="Asn1Structured" />
     internal sealed class Asn1Set
         : Asn1Structured
     {
@@ -536,7 +537,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// This class encapsulates the ASN.1 INTEGER type.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Numeric" />
+    /// <seealso cref="Asn1Numeric" />
     internal class Asn1Integer
         : Asn1Numeric
     {
@@ -560,7 +561,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// This class encapsulates the ASN.1 ENUMERATED type.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Numeric" />
+    /// <seealso cref="Asn1Numeric" />
     internal sealed class Asn1Enumerated : Asn1Numeric
     {
         public const int Tag = 0x0a;
@@ -598,7 +599,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// from the Asn1Structured class which already provides
     /// functionality to hold multiple Asn1 components.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
+    /// <seealso cref="Asn1Structured" />
     internal class Asn1SequenceOf : Asn1Structured
     {
         public const int Tag = 0x10;
