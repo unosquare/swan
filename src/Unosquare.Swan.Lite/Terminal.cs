@@ -1,5 +1,6 @@
 namespace Unosquare.Swan
 {
+    using Lite.Abstractions;
     using System;
     using System.Collections.Concurrent;
     using System.Text;
@@ -13,7 +14,7 @@ namespace Unosquare.Swan
     {
         #region Private Declarations
 
-        private static readonly Thread DequeueOutputTask;
+        private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
@@ -24,44 +25,16 @@ namespace Unosquare.Swan
 
         #endregion
 
-        #region Output Context
-
-        /// <summary>
-        /// Represents an asynchronous output context.
-        /// </summary>
-        private class OutputContext
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="OutputContext"/> class.
-            /// </summary>
-            public OutputContext()
-            {
-                OriginalColor = Settings.DefaultColor;
-                OutputWriters = IsConsolePresent
-                    ? TerminalWriters.StandardOutput
-                    : IsDebuggerAttached
-                        ? TerminalWriters.Diagnostics
-                        : TerminalWriters.None;
-            }
-
-            public ConsoleColor OriginalColor { get; }
-            public ConsoleColor OutputColor { get; set; }
-            public char[] OutputText { get; set; }
-            public TerminalWriters OutputWriters { get; set; }
-        }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
-        /// Initializes the <see cref="Terminal"/> class.
+        /// Initializes static members of the <see cref="Terminal"/> class.
         /// </summary>
         static Terminal()
         {
             lock (SyncLock)
             {
-                if (DequeueOutputTask != null) return;
+                if (DequeueOutputTimer != null) return;
 
                 if (IsConsolePresent)
                 {
@@ -72,16 +45,8 @@ namespace Unosquare.Swan
                 }
 
                 // Here we start the output task, fire-and-forget
-                DequeueOutputTask = new Thread(DequeueOutputAsync)
-                {
-                    IsBackground = true,
-                    Name = nameof(DequeueOutputTask),
-#if NET452
-                    Priority = ThreadPriority.BelowNormal
-#endif
-                };
-
-                DequeueOutputTask.Start();
+                DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
+                DequeueOutputTimer.Resume(15);
             }
         }
 
@@ -302,9 +267,9 @@ namespace Unosquare.Swan
         }
 
         /// <summary>
-        /// Dequeues the output asynchronously.
+        /// Runs a Terminal I/O cycle in the <see cref="ThreadPool"/> trhead.
         /// </summary>
-        private static void DequeueOutputAsync()
+        private static void DequeueOutputCycle()
         {
             if (AvailableWriters == TerminalWriters.None)
             {
@@ -312,55 +277,76 @@ namespace Unosquare.Swan
                 return;
             }
 
-            using (var tickLock = new ManualResetEvent(false))
-            {
-                while (true)
-                {
-                    InputDone.WaitOne();
+            InputDone.WaitOne();
 
-                    if (OutputQueue.Count <= 0)
+            if (OutputQueue.Count <= 0)
+            {
+                OutputDone.Set();
+                return;
+            }
+
+            OutputDone.Reset();
+
+            while (OutputQueue.Count > 0)
+            {
+                if (OutputQueue.TryDequeue(out var context) == false) continue;
+
+                // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
+                if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
+                {
+                    // Output to the standard output
+                    if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
                     {
-                        OutputDone.Set();
-                        tickLock.WaitOne(10);
-                        continue;
+                        Console.ForegroundColor = context.OutputColor;
+                        Console.Out.Write(context.OutputText);
+                        Console.ResetColor();
+                        Console.ForegroundColor = context.OriginalColor;
                     }
 
-                    OutputDone.Reset();
-
-                    while (OutputQueue.Count > 0)
+                    // output to the standard error
+                    if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
                     {
-                        if (OutputQueue.TryDequeue(out var context) == false) continue;
-
-                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                        if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
-                        {
-                            // Output to the standard output
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Out.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-
-                            // output to the standard error
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Error.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-                        }
-
-                        // Process Debugger output
-                        if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
-                        {
-                            System.Diagnostics.Debug.Write(new string(context.OutputText));
-                        }
+                        Console.ForegroundColor = context.OutputColor;
+                        Console.Error.Write(context.OutputText);
+                        Console.ResetColor();
+                        Console.ForegroundColor = context.OriginalColor;
                     }
                 }
+
+                // Process Debugger output
+                if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                {
+                    System.Diagnostics.Debug.Write(new string(context.OutputText));
+                }
             }
+        }
+
+        #endregion
+
+        #region Output Context
+
+        /// <summary>
+        /// Represents an asynchronous output context.
+        /// </summary>
+        private sealed class OutputContext
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="OutputContext"/> class.
+            /// </summary>
+            public OutputContext()
+            {
+                OriginalColor = Settings.DefaultColor;
+                OutputWriters = IsConsolePresent
+                    ? TerminalWriters.StandardOutput
+                    : IsDebuggerAttached
+                        ? TerminalWriters.Diagnostics
+                        : TerminalWriters.None;
+            }
+
+            public ConsoleColor OriginalColor { get; }
+            public ConsoleColor OutputColor { get; set; }
+            public char[] OutputText { get; set; }
+            public TerminalWriters OutputWriters { get; set; }
         }
 
         #endregion
