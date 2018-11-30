@@ -53,9 +53,8 @@
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
-        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Unosquare.Swan.Attributes.EmailAttribute" /> class.
+        /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
         /// </summary>
         /// <param name="errorMessage">The error message.</param>
         public EmailAttribute(string errorMessage = null)
