@@ -31,9 +31,10 @@
     public sealed class DelayProvider : IDisposable
     {
         private readonly object _syncRoot = new object();
+        private readonly Stopwatch _delayStopwatch = new Stopwatch();
+
         private bool _isDisposed;
         private IWaitEvent _delayEvent;
-        private readonly Stopwatch _delayStopwatch = new Stopwatch();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
