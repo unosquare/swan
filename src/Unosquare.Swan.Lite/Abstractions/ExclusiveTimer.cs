@@ -141,7 +141,7 @@
         {
             lock (_syncLock)
             {
-                if (_isDisposed == true || _isDisposed == true)
+                if (_isDisposed == true || _isDisposing == true)
                     return;
 
                 _isDisposing.Value = true;
