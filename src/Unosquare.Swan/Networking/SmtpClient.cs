@@ -250,7 +250,7 @@ namespace Unosquare.Swan.Networking
                         sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
 
                         // EHLO 1
-                        await SendEhlo(ct, sender, connection);
+                        await SendEhlo(ct, sender, connection).ConfigureAwait(false);
 
                         // STARTTLS
                         if (EnableSsl)
@@ -266,7 +266,7 @@ namespace Unosquare.Swan.Networking
                         }
 
                         // EHLO 2
-                        await SendEhlo(ct, sender, connection);
+                        await SendEhlo(ct, sender, connection).ConfigureAwait(false);
 
                         // AUTH
                         if (Credentials != null)
