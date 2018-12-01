@@ -1295,11 +1295,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html",
+          "hash": "Onun+VMIFbC4NLoCwaAlgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Lite.Abstractions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Lite.Abstractions.html",
-          "hash": "L24D37AFX2FNphknD7c6Ag=="
+          "hash": "sIbiQL/n0WXKxJ5l6bKSCA=="
         }
       },
       "is_incremental": false,
@@ -2031,7 +2043,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "mHQQlLhEVzhAFqYjnlOU+Q=="
+          "hash": "4E7/ZpQ7pAGRhU3kRM5LKg=="
         }
       },
       "is_incremental": false,
@@ -2081,17 +2093,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {

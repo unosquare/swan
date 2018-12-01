@@ -7219,6 +7219,69 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume
   nameWithType: ExclusiveTimer.Resume
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase
+  name: ViewModelBase
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html
+  commentId: T:Unosquare.Swan.Lite.Abstractions.ViewModelBase
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase
+  nameWithType: ViewModelBase
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor
+  name: ViewModelBase()
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase__ctor
+  commentId: M:Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.ViewModelBase()
+  nameWithType: ViewModelBase.ViewModelBase()
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor(System.Boolean)
+  name: ViewModelBase(Boolean)
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase__ctor_System_Boolean_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor(System.Boolean)
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.ViewModelBase(System.Boolean)
+  nameWithType: ViewModelBase.ViewModelBase(Boolean)
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor*
+  name: ViewModelBase
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ViewModelBase.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.ViewModelBase
+  nameWithType: ViewModelBase.ViewModelBase
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged(System.String[])
+  name: NotifyPropertyChanged(String[])
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase_NotifyPropertyChanged_System_String___
+  commentId: M:Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged(System.String[])
+  name.vb: NotifyPropertyChanged(String())
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged(System.String[])
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged(System.String())
+  nameWithType: ViewModelBase.NotifyPropertyChanged(String[])
+  nameWithType.vb: ViewModelBase.NotifyPropertyChanged(String())
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged*
+  name: NotifyPropertyChanged
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase_NotifyPropertyChanged_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.NotifyPropertyChanged
+  nameWithType: ViewModelBase.NotifyPropertyChanged
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.PropertyChanged
+  name: PropertyChanged
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase_PropertyChanged
+  commentId: E:Unosquare.Swan.Lite.Abstractions.ViewModelBase.PropertyChanged
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.PropertyChanged
+  nameWithType: ViewModelBase.PropertyChanged
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty*
+  name: SetProperty
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase_SetProperty_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty
+  nameWithType: ViewModelBase.SetProperty
+- uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty``1(``0@,``0,System.String,System.String[])
+  name: SetProperty<T>(ref T, T, String, String[])
+  href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html#Unosquare_Swan_Lite_Abstractions_ViewModelBase_SetProperty__1___0____0_System_String_System_String___
+  commentId: M:Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty``1(``0@,``0,System.String,System.String[])
+  name.vb: SetProperty(Of T)(ByRef T, T, String, String())
+  fullName: Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty<T>(ref T, T, System.String, System.String[])
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.ViewModelBase.SetProperty(Of T)(ByRef T, T, System.String, System.String())
+  nameWithType: ViewModelBase.SetProperty<T>(ref T, T, String, String[])
+  nameWithType.vb: ViewModelBase.SetProperty(Of T)(ByRef T, T, String, String())
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
