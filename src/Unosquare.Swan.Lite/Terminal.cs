@@ -14,12 +14,13 @@ namespace Unosquare.Swan
     {
         #region Private Declarations
 
+        private const int OutputFlushInterval = 15;
         private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
-        private static readonly ManualResetEvent OutputDone = new ManualResetEvent(false);
-        private static readonly ManualResetEvent InputDone = new ManualResetEvent(true);
+        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
+        private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
         private static bool? _isConsolePresent;
 
@@ -46,7 +47,7 @@ namespace Unosquare.Swan
 
                 // Here we start the output task, fire-and-forget
                 DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
-                DequeueOutputTimer.Resume(15);
+                DequeueOutputTimer.Resume(OutputFlushInterval);
             }
         }
 
@@ -199,18 +200,23 @@ namespace Unosquare.Swan
         /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
         public static void Flush(TimeSpan? timeout = null)
         {
-            if (OutputDone.WaitOne(0)) return;
             if (timeout == null) timeout = TimeSpan.Zero;
             var startTime = DateTime.UtcNow;
 
-            while (true)
+            while (OutputQueue.Count > 0)
             {
-                if (OutputDone.WaitOne(1))
+                // Manually trigger a timer cycle to run immediately
+                DequeueOutputTimer.Change(0, OutputFlushInterval);
+
+                // Wait for the output to finish
+                if (OutputDone.Wait(OutputFlushInterval))
                     break;
 
+                // inifnite timeout
                 if (timeout.Value == TimeSpan.Zero)
                     continue;
 
+                // break if we have reached a timeout condition
                 if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
                     break;
             }
@@ -277,7 +283,7 @@ namespace Unosquare.Swan
                 return;
             }
 
-            InputDone.WaitOne();
+            InputDone.Wait();
 
             if (OutputQueue.Count <= 0)
             {
