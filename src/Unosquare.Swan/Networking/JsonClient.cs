@@ -15,7 +15,7 @@
     /// Represents a HttpClient with extended methods to use with JSON payloads 
     /// and bearer tokens authentication.
     /// </summary>
-    public class JsonClient
+    public static class JsonClient
     {
         private const string JsonMimeType = "application/json";
 
@@ -355,7 +355,9 @@
 
                 if (response.IsSuccessStatusCode == false)
                 {
-                    throw new JsonRequestException($"Error {method} JSON", (int) response.StatusCode,
+                    throw new JsonRequestException(
+                        $"Error {method} JSON", 
+                        (int) response.StatusCode,
                         await response.Content.ReadAsStringAsync().ConfigureAwait(false));
                 }
 
