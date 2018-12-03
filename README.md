@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master)](https://coveralls.io/github/unosquare/swan?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c588287f33694935a4d061e82baf62f5)](https://www.codacy.com/project/UnosquareLabs/swan/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=unosquare/swan&amp;utm_campaign=Badge_Grade_Dashboard)
 
-# <img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"></img> SWAN: Stuff We All Need
+# <img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"></img> SWAN: Stuff We All Need (Unosquare's collection of C# extension methods and classes)
 
 *:star: Please star this project if you find it useful!*
 
@@ -12,9 +12,9 @@ SWAN stands for Stuff We All Need
 
 Repeating code and reinventing the wheel is generally considered bad practice. At [Unosquare](https://www.unosquare.com) we are committed to beautiful code and great software. Swan is a collection of classes and extension methods that we (and other good developers) have written and evolved over the years. We found ourselves copying and pasting the same code for every project every time we started them. We decided to kill that cycle once and for all. This is the result of that idea. Our philosophy is that Swan should have no external dependencies, it should be cross-platform, and it should be useful.
 
- Table of contents
+ 📖Table of contents
 =================
-  * [Libraries](#libraries)
+  * [📚 Libraries](#📚-libraries)
   * [Installation](#installation)
   * [What's in the library](#whats-in-the-library)
     * [The Runtime component](#the-runtime-component)
@@ -41,7 +41,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The WaitEventFactory component](#the-waiteventfactory-component)
     * [Atomic Types](#atomic-types)
     
-## Libraries
+## 📚 Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
 
 | Component | Swan Lite | Swan Standard |
