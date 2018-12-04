@@ -38,7 +38,7 @@
                 IntData = 1,
                 NegativeInt = -1,
                 DecimalData = 10.33M,
-                BoolData = true
+                BoolData = true,
             };
         }
 
@@ -132,7 +132,7 @@
     {
         One = 1,
         Two,
-        Three
+        Three,
     }
 
     [Flags]
@@ -167,7 +167,7 @@
     {
         None = 0,
         One = 1,
-        Two = 2
+        Two = 2,
     }
 
     public class ObjectAttr
@@ -189,7 +189,7 @@
                 Id = 1,
                 IsActive = true,
                 Name = "swan",
-                Owner = "UnoLabs"
+                Owner = "UnoLabs",
             };
         }
     }

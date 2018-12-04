@@ -66,7 +66,7 @@
                     IsValidated = random.NextDouble() > 0.5d,
                     Name = RandomNames[random.Next(0, RandomNames.Length - 1)],
                     Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
-                    ValidationResult = random.NextDouble() > 0.5d
+                    ValidationResult = random.NextDouble() > 0.5d,
                 };
 
                 result.Add(record);
@@ -81,18 +81,18 @@
                 new[]
                 {
                     "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
-                    "ValidationResult"
+                    "ValidationResult",
+                },
+                new[]
+                {
+                    "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532",
+                    "true",
                 },
                 new[]
                 {
                     "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532",
                     "true"
                 },
-                new[]
-                {
-                    "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532",
-                    "true"
-                }
             };
     }
 }

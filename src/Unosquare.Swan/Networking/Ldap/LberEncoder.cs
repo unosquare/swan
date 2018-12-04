@@ -221,7 +221,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Encodes the provided tag into the outputstream.
+        /// Encodes the provided tag into the stream.
         /// </summary>
         /// <param name="val">The value.</param>
         /// <param name="stream">The stream.</param>

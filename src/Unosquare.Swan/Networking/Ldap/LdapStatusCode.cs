@@ -536,7 +536,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Indicates that SSL Provider could not be found.
         ///     SSL_PROVIDER_NOT_FOUND = 114
         /// </summary>
-        SslProviderNotFound = 114
+        SslProviderNotFound = 114,
     }
 }
 #endif

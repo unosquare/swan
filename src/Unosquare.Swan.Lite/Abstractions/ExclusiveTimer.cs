@@ -8,7 +8,7 @@
     /// in a <see cref="ThreadPool"/> thread. Callback execution is NOT guaranteed to be carried out
     /// on the same <see cref="ThreadPool"/> thread every time the timer fires.
     /// </summary>
-    public sealed class ExclusiveTimer
+    public sealed class ExclusiveTimer : IDisposable
     {
         private readonly object _syncLock = new object();
         private readonly ManualResetEventSlim _cycleDoneEvent = new ManualResetEventSlim(true);
@@ -134,9 +134,7 @@
         /// </summary>
         public void Pause() => Change(Timeout.Infinite, Timeout.Infinite);
 
-        /// <summary>
-        /// Releases resources held by this class.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             lock (_syncLock)

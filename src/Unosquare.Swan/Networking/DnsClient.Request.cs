@@ -594,6 +594,10 @@
 
         public class DnsQuestion : IDnsMessageEntry
         {
+            private readonly DnsDomain _domain;
+            private readonly DnsRecordType _type;
+            private readonly DnsRecordClass _klass;
+
             public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount) =>
                 GetAllFromArray(message, offset, questionCount, out offset);
 
@@ -623,10 +627,6 @@
 
                 return new DnsQuestion(domain, tail.Type, tail.Class);
             }
-
-            private readonly DnsDomain _domain;
-            private readonly DnsRecordType _type;
-            private readonly DnsRecordClass _klass;
 
             public DnsQuestion(
                 DnsDomain domain,

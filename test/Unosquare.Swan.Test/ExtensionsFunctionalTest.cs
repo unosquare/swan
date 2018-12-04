@@ -17,7 +17,7 @@
             "Gimli",
             "Legolas",
             "Gandalf",
-            AdditionalName
+            AdditionalName,
         };
 
         protected IQueryable<string> Queryable => Enumerable.AsQueryable();

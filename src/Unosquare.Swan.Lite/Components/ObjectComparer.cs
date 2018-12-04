@@ -164,10 +164,10 @@
         public static bool AreEnumerationsEquals<T>(T left, T right)
             where T : IEnumerable
         {
-            if (left == null)
+            if (Equals(left, default(T)))
                 throw new ArgumentNullException(nameof(left));
 
-            if (right == null)
+            if (Equals(right, default(T)))
                 throw new ArgumentNullException(nameof(right));
 
             var leftEnumerable = left.Cast<object>().ToArray();

@@ -364,7 +364,7 @@
                     if (_headings == null)
                         throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
                     
-                    if (result == null)
+                    if (Equals(result, default(T)))
                         throw new ArgumentNullException(nameof(result));
                 }
 

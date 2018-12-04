@@ -71,7 +71,7 @@ namespace Unosquare.Swan.Components
             string arguments,
             CancellationToken ct = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, ct);
+            var result = await GetProcessResultAsync(filename, arguments, ct).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Components
             string workingDirectory,
             CancellationToken ct = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, workingDirectory, ct: ct);
+            var result = await GetProcessResultAsync(filename, arguments, workingDirectory, ct: ct).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -100,7 +100,7 @@ namespace Unosquare.Swan.Components
         /// returns all of the standard output text. If the exit code is something other than 0
         /// it returns the contents of standard error.
         /// This method is meant to be used for programs that output a relatively small amount 
-        /// of text using a differente encoder.
+        /// of text using a different encoder.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -115,7 +115,7 @@ namespace Unosquare.Swan.Components
             Encoding encoding = null, 
             CancellationToken ct = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, null, encoding, ct);
+            var result = await GetProcessResultAsync(filename, arguments, null, encoding, ct).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -195,7 +195,8 @@ namespace Unosquare.Swan.Components
                 (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
                 encoding,
                 true,
-                ct);
+                ct)
+                .ConfigureAwait(false);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
         }
@@ -231,7 +232,7 @@ namespace Unosquare.Swan.Components
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            return Task.Factory.StartNew(() =>
+            return Task.Run(() =>
             {
                 // Setup the process and its corresponding start info
                 var process = new Process

@@ -13,7 +13,7 @@
         /// <summary>
         /// Lists the AUTH methods supported by default.
         /// </summary>
-        public class SmtpAuthMethods
+        public static class SmtpAuthMethods
         {
             /// <summary>
             /// The plain method.

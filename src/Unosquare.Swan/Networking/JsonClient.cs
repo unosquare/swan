@@ -15,10 +15,10 @@
     /// Represents a HttpClient with extended methods to use with JSON payloads 
     /// and bearer tokens authentication.
     /// </summary>
-    public class JsonClient
+    public static class JsonClient
     {
         private const string JsonMimeType = "application/json";
-        
+
         /// <summary>
         /// Post a object as JSON with optional authorization token.
         /// </summary>
@@ -34,7 +34,7 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await PostString(url, payload, authorization, ct);
+            var jsonString = await PostString(url, payload, authorization, ct).ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -62,9 +62,9 @@
             {
                 var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
 
-                var response = await httpClient.PostAsync(url, payloadJson, ct);
+                var response = await httpClient.PostAsync(url, payloadJson, ct).ConfigureAwait(false);
 
-                var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -73,10 +73,10 @@
                         : default);
                 }
 
-                if ((int)response.StatusCode == httpStatusError)
+                if ((int) response.StatusCode == httpStatusError)
                 {
-                    return OkOrError<T, TE>.FromError(!string.IsNullOrEmpty(jsonString) 
-                        ? Json.Deserialize<TE>(jsonString) 
+                    return OkOrError<T, TE>.FromError(!string.IsNullOrEmpty(jsonString)
+                        ? Json.Deserialize<TE>(jsonString)
                         : default);
                 }
 
@@ -98,7 +98,7 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await PostString(url, payload, authorization, ct);
+            var jsonString = await PostString(url, payload, authorization, ct).ConfigureAwait(false);
 
             return string.IsNullOrWhiteSpace(jsonString)
                 ? default
@@ -155,7 +155,12 @@
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default) => (await Put<object>(url, payload, authorization, ct)) as IDictionary<string, object>;
+            CancellationToken ct = default)
+        {
+            var response = await Put<object>(url, payload, authorization, ct).ConfigureAwait(false);
+
+            return response as IDictionary<string, object>;
+        }
 
         /// <summary>
         /// Puts as string.
@@ -189,7 +194,12 @@
         public static async Task<string> GetString(
             string url,
             string authorization = null,
-            CancellationToken ct = default) => await (await GetHttpContent(url, authorization, ct)).ReadAsStringAsync();
+            CancellationToken ct = default)
+        {
+            var response = await GetHttpContent(url, authorization, ct).ConfigureAwait(false);
+
+            return await response.ReadAsStringAsync().ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Gets the specified URL and return the JSON data as object
@@ -205,7 +215,7 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await GetString(url, authorization, ct);
+            var jsonString = await GetString(url, authorization, ct).ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -224,7 +234,12 @@
         public static async Task<byte[]> GetBinary(
             string url,
             string authorization = null,
-            CancellationToken ct = default) => await (await GetHttpContent(url, authorization, ct)).ReadAsByteArrayAsync();
+            CancellationToken ct = default)
+        {
+            var response = await GetHttpContent(url, authorization, ct).ConfigureAwait(false);
+
+            return await response.ReadAsByteArrayAsync().ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Authenticate against a web server using Bearer Token.
@@ -261,12 +276,12 @@
                     $"grant_type=password&username={username}&password={password}",
                     Encoding.UTF8,
                     "application/x-www-form-urlencoded");
-                var response = await httpClient.PostAsync(url, requestContent, ct);
+                var response = await httpClient.PostAsync(url, requestContent, ct).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode == false)
                     throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
 
-                var jsonPayload = await response.Content.ReadAsStringAsync();
+                var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
             }
@@ -290,7 +305,7 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            return PostString(url, new { Filename = fileName, Data = buffer }, authorization, ct);
+            return PostString(url, new {Filename = fileName, Data = buffer}, authorization, ct);
         }
 
         /// <summary>
@@ -304,15 +319,15 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested string.</returns>
         public static Task<T> PostFile<T>(
-            string url, 
-            byte[] buffer, 
-            string fileName, 
+            string url,
+            byte[] buffer,
+            string fileName,
             string authorization = null,
             CancellationToken ct = default)
         {
-            return Post<T>(url, new { Filename = fileName, Data = buffer }, authorization, ct);
+            return Post<T>(url, new {Filename = fileName, Data = buffer}, authorization, ct);
         }
-        
+
         /// <summary>
         /// Sends the asynchronous request.
         /// </summary>
@@ -335,15 +350,21 @@
             {
                 var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
 
-                var response = await httpClient.SendAsync(new HttpRequestMessage(method, url) { Content = payloadJson }, ct);
+                var response = await httpClient
+                    .SendAsync(new HttpRequestMessage(method, url) {Content = payloadJson}, ct).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException($"Error {method} JSON", (int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                {
+                    throw new JsonRequestException(
+                        $"Error {method} JSON", 
+                        (int) response.StatusCode,
+                        await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                }
 
-                return await response.Content.ReadAsStringAsync();
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
-        
+
         private static HttpClient GetHttpClientWithAuthorizationHeader(string authorization)
         {
             var httpClient = new HttpClient();
@@ -367,10 +388,10 @@
 
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                var response = await httpClient.GetAsync(url, ct);
+                var response = await httpClient.GetAsync(url, ct).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error GET", (int)response.StatusCode);
+                    throw new JsonRequestException("Error GET", (int) response.StatusCode);
 
                 return response.Content;
             }

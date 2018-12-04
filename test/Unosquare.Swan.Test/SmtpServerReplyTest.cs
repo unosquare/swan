@@ -43,7 +43,7 @@
             new object[] { SmtpServerReply.SystemStatusHelp, 221, "Refer to RFC 5321" },
             new object[] { SmtpServerReply.BadSyntaxCommandEmpty, 400, "Error: bad syntax" },
             new object[] { SmtpServerReply.Ok, 250, "OK" },
-            new object[] { SmtpServerReply.AuthorizationRequired, 530, "Authorization Required" }
+            new object[] { SmtpServerReply.AuthorizationRequired, 530, "Authorization Required" },
         };
 
         [Test]

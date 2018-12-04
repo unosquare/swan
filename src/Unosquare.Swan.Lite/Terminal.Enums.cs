@@ -41,7 +41,7 @@
         /// <summary>
         /// The output and debug writers
         /// </summary>
-        OutputAndDebug = StandardOutput | Diagnostics
+        OutputAndDebug = StandardOutput | Diagnostics,
     }
 
     /// <summary>

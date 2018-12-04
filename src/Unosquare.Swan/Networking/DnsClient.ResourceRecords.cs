@@ -116,7 +116,7 @@
                         Type = Type,
                         Class = Class,
                         TimeToLive = TimeToLive,
-                        DataLength = Data.Length
+                        DataLength = Data.Length,
                     }.ToBytes())
                     .Append(Data)
                     .ToArray();
@@ -243,7 +243,7 @@
 
             protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
             {
-                nameof(CanonicalDomainName)
+                nameof(CanonicalDomainName),
             }.ToArray();
         }
 
@@ -278,7 +278,7 @@
             protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
             {
                 nameof(Preference),
-                nameof(ExchangeDomainName)
+                nameof(ExchangeDomainName),
             }.ToArray();
         }
 
@@ -424,17 +424,17 @@
 
                 for (var i = 0; i < count; i++)
                 {
-                    result.Add(FromArray(message, offset, out offset));
+                    result.Add(GetFromArray(message, offset, out offset));
                 }
 
                 endOffset = offset;
                 return result;
             }
 
-            private static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)
+            private static IDnsResourceRecord GetFromArray(byte[] message, int offset, out int endOffset)
             {
-                var record = DnsResourceRecord.FromArray(message, offset, out endOffest);
-                var dataOffset = endOffest - record.DataLength;
+                var record = DnsResourceRecord.FromArray(message, offset, out endOffset);
+                var dataOffset = endOffset - record.DataLength;
 
                 switch (record.Type)
                 {

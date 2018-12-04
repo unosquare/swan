@@ -31,9 +31,10 @@
     public sealed class DelayProvider : IDisposable
     {
         private readonly object _syncRoot = new object();
+        private readonly Stopwatch _delayStopwatch = new Stopwatch();
+
         private bool _isDisposed;
         private IWaitEvent _delayEvent;
-        private readonly Stopwatch _delayStopwatch = new Stopwatch();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
@@ -50,7 +51,7 @@
         public enum DelayStrategy
         {
             /// <summary>
-            /// Using the Thread.Sleep(1) mechanism.
+            /// Using the Thread.Sleep(15) mechanism.
             /// </summary>
             ThreadSleep,
 
@@ -61,7 +62,7 @@
 
 #if !UWP
             /// <summary>
-            /// Using a wait event that completes in a background threadpool thread.
+            /// Using a wait event that completes in a background ThreadPool thread.
             /// </summary>
             ThreadPool,
 #endif
@@ -75,7 +76,7 @@
         /// <summary>
         /// Creates the smallest possible, synchronous delay based on the selected strategy.
         /// </summary>
-        /// <returns>The elamped time of the delay.</returns>
+        /// <returns>The elapsed time of the delay.</returns>
         public TimeSpan WaitOne()
         {
             lock (_syncRoot)

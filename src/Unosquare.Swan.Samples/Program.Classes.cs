@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    partial class Program
+    public static partial class Program
     {
         #region Message Hub and DI
 
@@ -32,7 +32,7 @@
         }
 
         #endregion
-        
+
         internal class SampleCopyTarget
         {
             public float Id { get; set; }
@@ -73,7 +73,7 @@
                 "\n \n \n \n \n \n \n \n \n \n \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"quoted\""
                 +
                 "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like."
-                + "SWAN also provides helpful extension methods for string manipulation").Split(new[] {" "},
+                + "SWAN also provides helpful extension methods for string manipulation").Split(new[] { " " },
                 StringSplitOptions.None);
 
             public static List<SampleCsvRecord> CreateSampleSet(int size)
@@ -100,7 +100,7 @@
                         Id = i,
                         IsValidated = random.NextDouble() > 0.5d,
                         Name = RandomWords[random.Next(0, RandomWords.Length - 1)],
-                        Score = Convert.ToSingle(random.NextDouble()*random.Next(10, 1000)),
+                        Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
                         ValidationResult = random.NextDouble() > 0.5d
                     };
 
@@ -123,7 +123,7 @@
                     new Exception("EXCEPTION 3"), new Exception("EXCEPTION 4"));
             }
 
-            public List<int> IntList { get; } = new List<int>(new[] {1, 2, 3, 4, 5, 6});
+            public List<int> IntList { get; } = new List<int>(new[] { 1, 2, 3, 4, 5, 6 });
 
             public DateTime ThrownDateUtc { get; } = DateTime.UtcNow;
 

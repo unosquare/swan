@@ -12,14 +12,14 @@
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
-            Role = new Role {Name = "Admin"}
+            Role = new Role {Name = "Admin"},
         };
 
         protected Dictionary<string, object> SourceDict => new Dictionary<string, object>
         {
             {"Name", "Armando"},
             {"Email", "armando.cifuentes@unosquare.com"},
-            {"Role", "Intern tester"}
+            {"Role", "Intern tester"},
         };
     }
 

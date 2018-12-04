@@ -213,7 +213,7 @@
                 {
                     try
                     {
-                        var client = await Task.Run(() => _listenerSocket.AcceptTcpClientAsync(), _cancelListening.Token);
+                        var client = await Task.Run(() => _listenerSocket.AcceptTcpClientAsync(), _cancelListening.Token).ConfigureAwait(false);
                         var acceptingArgs = new ConnectionAcceptingEventArgs(client);
                         OnConnectionAccepting(this, acceptingArgs);
 

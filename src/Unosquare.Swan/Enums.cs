@@ -23,6 +23,6 @@
         /// <summary>
         /// The block size reached
         /// </summary>
-        BlockSizeReached
+        BlockSizeReached,
     }
 }
