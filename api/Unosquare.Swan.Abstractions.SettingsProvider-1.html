@@ -134,7 +134,7 @@
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
   <h5 id="Unosquare_Swan_Abstractions_SettingsProvider_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SettingsProvider&lt;T&gt; : SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class SettingsProvider&lt;T&gt; : SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;, IDisposable</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -190,7 +190,7 @@ and the filename is &apos;appsettings.json&apos;.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string ConfigurationFilePath { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string ConfigurationFilePath { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
