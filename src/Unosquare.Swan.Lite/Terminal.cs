@@ -212,7 +212,7 @@ namespace Unosquare.Swan
                 if (OutputDone.Wait(OutputFlushInterval))
                     break;
 
-                // inifnite timeout
+                // infinite timeout
                 if (timeout.Value == TimeSpan.Zero)
                     continue;
 
@@ -273,7 +273,7 @@ namespace Unosquare.Swan
         }
 
         /// <summary>
-        /// Runs a Terminal I/O cycle in the <see cref="ThreadPool"/> trhead.
+        /// Runs a Terminal I/O cycle in the <see cref="ThreadPool"/> thread.
         /// </summary>
         private static void DequeueOutputCycle()
         {

@@ -41,7 +41,7 @@
     /// </code>
     /// </example>
     /// <typeparam name="T">The type of settings model.</typeparam>
-    public class SettingsProvider<T>
+    public sealed class SettingsProvider<T>
         : SingletonBase<SettingsProvider<T>>
     {
         private readonly object _syncRoot = new object();
@@ -55,7 +55,7 @@
         /// <value>
         /// The configuration file path.
         /// </value>
-        public virtual string ConfigurationFilePath { get; set; } =
+        public string ConfigurationFilePath { get; set; } =
 #if NETSTANDARD1_3 || UWP
             Path.Combine(Runtime.LocalStoragePath, "appsettings.json");
 #else
