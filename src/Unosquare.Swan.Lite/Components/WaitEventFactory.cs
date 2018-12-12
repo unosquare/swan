@@ -107,8 +107,11 @@ namespace Unosquare.Swan.Components
             {
                 get
                 {
-                    if (IsDisposed || _event == null) return false;
-                    if (_event?.SafeWaitHandle?.IsClosed ?? true) return false;
+                    if (IsDisposed || _event == null) 
+                        return false;
+
+                    if (_event?.SafeWaitHandle?.IsClosed ?? true) 
+                        return false;
 
                     return !(_event?.SafeWaitHandle?.IsInvalid ?? true);
                 }
@@ -119,7 +122,9 @@ namespace Unosquare.Swan.Components
             {
                 get
                 {
-                    if (IsValid == false) return true;
+                    if (IsValid == false) 
+                        return true;
+
                     return _event?.WaitOne(0) ?? true;
                 }
             }

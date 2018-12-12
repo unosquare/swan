@@ -8,7 +8,9 @@
         private const char OpenExpressionChar = '=';
 
         private static readonly string[] OperatorStrings =
-            {"mod", "like", "and", "not", "or", "xor", "andalso", "orelse", "is"};
+        {
+            "mod", "like", "and", "not", "or", "xor", "andalso", "orelse", "is"
+        };
 
         public RdlTokenizer(string input)
             : base(input)
