@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SyncLockerFactory
+    <title>Class RunnerBase
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SyncLockerFactory
+    <meta name="title" content="Class RunnerBase
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.40.4.0">
     
@@ -76,19 +76,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.SyncLockerFactory">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.RunnerBase">
   
   
-  <h1 id="Unosquare_Swan_Components_SyncLockerFactory" data-uid="Unosquare.Swan.Components.SyncLockerFactory" class="text-break">Class SyncLockerFactory
+  <h1 id="Unosquare_Swan_Abstractions_RunnerBase" data-uid="Unosquare.Swan.Abstractions.RunnerBase" class="text-break">Class RunnerBase
   </h1>
-  <div class="markdown level0 summary"><p>Provides factory methods to create synchronized reader-writer locks
-that support a generalized locking and releasing api and syntax.</p>
+  <div class="markdown level0 summary"><p>Represents an background worker abstraction with a life cycle and running at a independent thread.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">SyncLockerFactory</span></div>
+    <div class="level1"><span class="xref">RunnerBase</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,50 +113,23 @@ that support a generalized locking and releasing api and syntax.</p>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
-  <h5 id="Unosquare_Swan_Components_SyncLockerFactory_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_RunnerBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class SyncLockerFactory</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class RunnerBase</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_SyncLockerFactory_Create_" data-uid="Unosquare.Swan.Components.SyncLockerFactory.Create*"></a>
-  <h4 id="Unosquare_Swan_Components_SyncLockerFactory_Create" data-uid="Unosquare.Swan.Components.SyncLockerFactory.Create">Create()</h4>
-  <div class="markdown level1 summary"><p>Creates a reader-writer lock backed by a standard ReaderWriterLock.</p>
+  <a id="Unosquare_Swan_Abstractions_RunnerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase__ctor_System_Boolean_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.#ctor(System.Boolean)">RunnerBase(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.RunnerBase.html">RunnerBase</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ISyncLocker Create()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></td>
-        <td><p>The synchronized locker.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_SyncLockerFactory_Create_" data-uid="Unosquare.Swan.Components.SyncLockerFactory.Create*"></a>
-  <h4 id="Unosquare_Swan_Components_SyncLockerFactory_Create_System_Boolean_" data-uid="Unosquare.Swan.Components.SyncLockerFactory.Create(System.Boolean)">Create(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Creates a reader-writer lock.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ISyncLocker Create(bool useSlim)</code></pre>
+    <pre><code class="lang-csharp hljs">protected RunnerBase(bool isEnabled)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -171,40 +143,26 @@ that support a generalized locking and releasing api and syntax.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">useSlim</span></td>
-        <td><p>if set to <code>true</code> it uses the Slim version of a reader-writer lock.</p>
+        <td><span class="parametername">isEnabled</span></td>
+        <td><p>if set to <code>true</code> [is enabled].</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></td>
-        <td><p>The Sync Locker.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+  <h3 id="properties">Properties
+  </h3>
   
   
-  <a id="Unosquare_Swan_Components_SyncLockerFactory_CreateSlim_" data-uid="Unosquare.Swan.Components.SyncLockerFactory.CreateSlim*"></a>
-  <h4 id="Unosquare_Swan_Components_SyncLockerFactory_CreateSlim" data-uid="Unosquare.Swan.Components.SyncLockerFactory.CreateSlim">CreateSlim()</h4>
-  <div class="markdown level1 summary"><p>Creates a reader-writer lock backed by a ReaderWriterLockSlim.</p>
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_ErrorMessages_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.ErrorMessages*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_ErrorMessages" data-uid="Unosquare.Swan.Abstractions.RunnerBase.ErrorMessages">ErrorMessages</h4>
+  <div class="markdown level1 summary"><p>Gets the error messages.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ISyncLocker CreateSlim()</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; ErrorMessages { get; }</code></pre>
   </div>
-  <h5 class="returns">Returns</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -214,12 +172,168 @@ that support a generalized locking and releasing api and syntax.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></td>
-        <td><p>The synchronized locker.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>The error messages.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_IsEnabled_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsEnabled*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_IsEnabled" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsEnabled">IsEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEnabled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is enabled; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_IsRunning_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsRunning*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_IsRunning" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsRunning">IsRunning</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRunning { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is running; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_Name_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Name*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Name" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_Cleanup_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Cleanup*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Cleanup" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Cleanup">Cleanup()</h4>
+  <div class="markdown level1 summary"><p>Cleanups this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Cleanup()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_DoBackgroundWork_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.DoBackgroundWork*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_DoBackgroundWork_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.DoBackgroundWork(System.Threading.CancellationToken)">DoBackgroundWork(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Does the background work.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void DoBackgroundWork(CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The ct.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_Setup_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Setup*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Setup" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Setup">Setup()</h4>
+  <div class="markdown level1 summary"><p>Setups this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Setup()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_Start_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Start*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Start" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Start">Start()</h4>
+  <div class="markdown level1 summary"><p>Starts this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Start()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_RunnerBase_Stop_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Stop*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Stop" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Stop">Stop()</h4>
+  <div class="markdown level1 summary"><p>Stops this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
+  </div>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>
