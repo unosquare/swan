@@ -80,15 +80,14 @@
         [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
+            var hub = new MessageHub();
             var message = new SimpleMessageMock(this);
-            var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
+            var token = hub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
 
-            Assert.IsNotNull(token);
+            hub.Unsubscribe<SimpleMessageMock>(token);
+            hub.Publish(message);
 
-            _messageHub.Unsubscribe<SimpleMessageMock>(token);
-            _messageHub.Publish(message);
-
-            Assert.IsTrue(_messagesToSend.Any());
+            Assert.IsFalse(_messagesToSend.Any());
         }
 
         [Test]

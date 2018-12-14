@@ -15,7 +15,7 @@ namespace Unosquare.Swan.Components
     public class TimerControl : SingletonBase<TimerControl>
     {
         private readonly Timer _innerTimer;
-        private readonly IWaitEvent _delayLock = WaitEventFactory.CreateSlim(true);
+        private readonly IWaitEvent _delayLock = WaitEventFactory.Create(true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimerControl"/> class.

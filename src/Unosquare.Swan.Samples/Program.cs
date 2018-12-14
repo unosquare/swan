@@ -19,6 +19,14 @@
         /// <exception cref="SampleException"></exception>
         public static async Task Main(string[] args)
         {
+            var timeSpan = TimeSpan.FromSeconds(1);
+            
+            TimerControl.Instance.Wait(timeSpan);
+
+            TimerControl.Instance.Wait(timeSpan);
+
+            TimerControl.Instance.Wait(timeSpan);
+
             await TestLdapSearch();
             TestApplicationInfo();
             await TestTerminalOutputs();
