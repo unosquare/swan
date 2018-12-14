@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SingletonBase&lt;T&gt;
+    <title>Class TimerControl
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SingletonBase&lt;T&gt;
+    <meta name="title" content="Class TimerControl
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.40.4.0">
     
@@ -76,21 +76,21 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.TimerControl">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_SingletonBase_1" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1" class="text-break">Class SingletonBase&lt;T&gt;
+  <h1 id="Unosquare_Swan_Components_TimerControl" data-uid="Unosquare.Swan.Components.TimerControl" class="text-break">Class TimerControl
   </h1>
-  <div class="markdown level0 summary"><p>Represents a singleton pattern abstract class.</p>
+  <div class="markdown level0 summary"><p>Use this singleton to wait for a specific <code>TimeSpan</code> or time.</p>
+<p>Internally this class will use a <code>Timer</code> and a <code>ManualResetEvent</code> to block until
+the time condition is satisfied.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">SingletonBase&lt;T&gt;</span></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Components.EnumHelper.html">EnumHelper</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Components.TimerControl.html">TimerControl</a></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase</a>&lt;<a class="xref" href="Unosquare.Swan.Components.TimerControl.html">TimerControl</a>&gt;</div>
+    <div class="level2"><span class="xref">TimerControl</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -98,6 +98,18 @@
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_LazyInstance">SingletonBase&lt;TimerControl&gt;.LazyInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Instance">SingletonBase&lt;TimerControl&gt;.Instance</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Dispose">SingletonBase&lt;TimerControl&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_System_Boolean_">SingletonBase&lt;TimerControl&gt;.Dispose(Boolean)</a>
+    </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
     </div>
@@ -120,108 +132,36 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_SingletonBase_1_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_TimerControl_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class SingletonBase&lt;T&gt; : IDisposable where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public class TimerControl : SingletonBase&lt;TimerControl&gt;, IDisposable</code></pre>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type of class.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="fields">Fields
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_LazyInstance" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.LazyInstance">LazyInstance</h4>
-  <div class="markdown level1 summary"><p>The static, singleton instance reference.</p>
+  <a id="Unosquare_Swan_Components_TimerControl__ctor_" data-uid="Unosquare.Swan.Components.TimerControl.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_TimerControl__ctor" data-uid="Unosquare.Swan.Components.TimerControl.#ctor">TimerControl()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.TimerControl.html">TimerControl</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected static readonly Lazy&lt;T&gt; LazyInstance</code></pre>
+    <pre><code class="lang-csharp hljs">protected TimerControl()</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.lazy-1">Lazy</a>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Instance_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Instance*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Instance" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Instance">Instance</h4>
-  <div class="markdown level1 summary"><p>Gets the instance that this singleton represents.
-If the instance is null, it is constructed and assigned when this member is accessed.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T Instance { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><p>The instance.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose(System.Boolean)">Dispose(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.
-Call the GC.SuppressFinalize if you override this method and use
-a non-default class finalizer (destructor).</p>
+  <a id="Unosquare_Swan_Components_TimerControl_Wait_" data-uid="Unosquare.Swan.Components.TimerControl.Wait*"></a>
+  <h4 id="Unosquare_Swan_Components_TimerControl_Wait_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.TimerControl.Wait(System.TimeSpan,System.Threading.CancellationToken)">Wait(TimeSpan, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Waits the specified wait time.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposeManaged)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Wait(TimeSpan waitTime, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -234,9 +174,50 @@ a non-default class finalizer (destructor).</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">disposeManaged</span></td>
-        <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">waitTime</span></td>
+        <td><p>The wait time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_TimerControl_WaitUntil_" data-uid="Unosquare.Swan.Components.TimerControl.WaitUntil*"></a>
+  <h4 id="Unosquare_Swan_Components_TimerControl_WaitUntil_System_DateTime_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.TimerControl.WaitUntil(System.DateTime,System.Threading.CancellationToken)">WaitUntil(DateTime, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Waits until the time is elapsed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WaitUntil(DateTime untilDate, CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">untilDate</span></td>
+        <td><p>The until date.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -244,6 +225,10 @@ a non-default class finalizer (destructor).</p>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase</a>&lt;T&gt;</div>
   </div>
 
 <h3 id="disqus_thread">Comments</h3>

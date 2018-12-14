@@ -5327,6 +5327,51 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.SyncLockerFactory.CreateSlim
   nameWithType: SyncLockerFactory.CreateSlim
+- uid: Unosquare.Swan.Components.TimerControl
+  name: TimerControl
+  href: api/Unosquare.Swan.Components.TimerControl.html
+  commentId: T:Unosquare.Swan.Components.TimerControl
+  fullName: Unosquare.Swan.Components.TimerControl
+  nameWithType: TimerControl
+- uid: Unosquare.Swan.Components.TimerControl.#ctor
+  name: TimerControl()
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl__ctor
+  commentId: M:Unosquare.Swan.Components.TimerControl.#ctor
+  fullName: Unosquare.Swan.Components.TimerControl.TimerControl()
+  nameWithType: TimerControl.TimerControl()
+- uid: Unosquare.Swan.Components.TimerControl.#ctor*
+  name: TimerControl
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl__ctor_
+  commentId: Overload:Unosquare.Swan.Components.TimerControl.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.TimerControl.TimerControl
+  nameWithType: TimerControl.TimerControl
+- uid: Unosquare.Swan.Components.TimerControl.Wait(System.TimeSpan,System.Threading.CancellationToken)
+  name: Wait(TimeSpan, CancellationToken)
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl_Wait_System_TimeSpan_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.TimerControl.Wait(System.TimeSpan,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.TimerControl.Wait(System.TimeSpan, System.Threading.CancellationToken)
+  nameWithType: TimerControl.Wait(TimeSpan, CancellationToken)
+- uid: Unosquare.Swan.Components.TimerControl.Wait*
+  name: Wait
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl_Wait_
+  commentId: Overload:Unosquare.Swan.Components.TimerControl.Wait
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.TimerControl.Wait
+  nameWithType: TimerControl.Wait
+- uid: Unosquare.Swan.Components.TimerControl.WaitUntil(System.DateTime,System.Threading.CancellationToken)
+  name: WaitUntil(DateTime, CancellationToken)
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl_WaitUntil_System_DateTime_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Components.TimerControl.WaitUntil(System.DateTime,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Components.TimerControl.WaitUntil(System.DateTime, System.Threading.CancellationToken)
+  nameWithType: TimerControl.WaitUntil(DateTime, CancellationToken)
+- uid: Unosquare.Swan.Components.TimerControl.WaitUntil*
+  name: WaitUntil
+  href: api/Unosquare.Swan.Components.TimerControl.html#Unosquare_Swan_Components_TimerControl_WaitUntil_
+  commentId: Overload:Unosquare.Swan.Components.TimerControl.WaitUntil
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.TimerControl.WaitUntil
+  nameWithType: TimerControl.WaitUntil
 - uid: Unosquare.Swan.Components.TypesConcurrentDictionary
   name: TypesConcurrentDictionary
   href: api/Unosquare.Swan.Components.TypesConcurrentDictionary.html

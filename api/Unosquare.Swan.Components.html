@@ -187,6 +187,11 @@ standard error and standard output streams.</p>
       <section><p>Provides factory methods to create synchronized reader-writer locks
 that support a generalized locking and releasing api and syntax.</p>
 </section>
+      <h4><a class="xref" href="Unosquare.Swan.Components.TimerControl.html">TimerControl</a></h4>
+      <section><p>Use this singleton to wait for a specific <code>TimeSpan</code> or time.</p>
+<p>Internally this class will use a <code>Timer</code> and a <code>ManualResetEvent</code> to block until
+the time condition is satisfied.</p>
+</section>
       <h4><a class="xref" href="Unosquare.Swan.Components.TypesConcurrentDictionary.html">TypesConcurrentDictionary</a></h4>
       <section><p>Represents a Concurrent Dictionary for TypeRegistration.</p>
 </section>
