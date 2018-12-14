@@ -81,13 +81,14 @@
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
             var hub = new MessageHub();
+            var list = new List<SimpleMessageMock>();
             var message = new SimpleMessageMock(this);
-            var token = hub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
+            var token = hub.Subscribe<SimpleMessageMock>(list.Add);
 
             hub.Unsubscribe<SimpleMessageMock>(token);
             hub.Publish(message);
 
-            Assert.IsFalse(_messagesToSend.Any());
+            Assert.IsFalse(list.Any());
         }
 
         [Test]
