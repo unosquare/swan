@@ -16,7 +16,6 @@
         private readonly TimerCallback _userCallback;
         private readonly AtomicBoolean _isDisposing = new AtomicBoolean();
         private readonly AtomicBoolean _isDisposed = new AtomicBoolean();
-        private int _dueTime;
         private int _period;
 
         /// <summary>
@@ -28,7 +27,6 @@
         /// <param name="period">The period.</param>
         public ExclusiveTimer(TimerCallback timerCallback, object state, int dueTime, int period)
         {
-            _dueTime = dueTime;
             _period = period;
             _userCallback = timerCallback;
             _backingTimer = new Timer(InternalCallback, state ?? this, dueTime, Timeout.Infinite);
@@ -114,7 +112,6 @@
         /// <param name="period">The period.</param>
         public void Change(int dueTime, int period)
         {
-            _dueTime = dueTime;
             _period = period;
 
             _backingTimer.Change(dueTime, Timeout.Infinite);
