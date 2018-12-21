@@ -16,6 +16,8 @@
         private readonly TimerCallback _userCallback;
         private readonly AtomicBoolean _isDisposing = new AtomicBoolean();
         private readonly AtomicBoolean _isDisposed = new AtomicBoolean();
+        private int _dueTime;
+        private int _period;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExclusiveTimer"/> class.
@@ -26,8 +28,10 @@
         /// <param name="period">The period.</param>
         public ExclusiveTimer(TimerCallback timerCallback, object state, int dueTime, int period)
         {
+            _dueTime = dueTime;
+            _period = period;
             _userCallback = timerCallback;
-            _backingTimer = new Timer(InternalCallback, state ?? this, dueTime, period);
+            _backingTimer = new Timer(InternalCallback, state ?? this, dueTime, Timeout.Infinite);
         }
 
         /// <summary>
@@ -108,14 +112,21 @@
         /// </summary>
         /// <param name="dueTime">The due time.</param>
         /// <param name="period">The period.</param>
-        public void Change(int dueTime, int period) => _backingTimer.Change(dueTime, period);
+        public void Change(int dueTime, int period)
+        {
+            _dueTime = dueTime;
+            _period = period;
+
+            _backingTimer.Change(dueTime, Timeout.Infinite);
+        }
 
         /// <summary>
         /// Changes the start time and the interval between method invocations for the internal timer.
         /// </summary>
         /// <param name="dueTime">The due time.</param>
         /// <param name="period">The period.</param>
-        public void Change(TimeSpan dueTime, TimeSpan period) => _backingTimer.Change(dueTime, period);
+        public void Change(TimeSpan dueTime, TimeSpan period)
+            => Change(Convert.ToInt32(dueTime.TotalMilliseconds), Convert.ToInt32(period.TotalMilliseconds));
 
         /// <summary>
         /// Changes the interval between method invocations for the internal timer.
@@ -182,6 +193,7 @@
             finally
             {
                 _cycleDoneEvent.Set();
+                _backingTimer.Change(_period, Timeout.Infinite);
             }
         }
     }
