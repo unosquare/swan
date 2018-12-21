@@ -1,6 +1,6 @@
 namespace Unosquare.Swan
 {
-    using Lite.Abstractions;
+    using Abstractions;
     using System;
     using System.Collections.Concurrent;
     using System.Text;
