@@ -96,6 +96,11 @@
 <p>Idea taken from Memory model and .NET operations in article:
 <a href="http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/">http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/</a>.</p>
 </section>
+      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a></h4>
+      <section><p>A threading <span class="xref">Unosquare.Swan.Abstractions.ExclusiveTimer._backingTimer</span> implementation that executes at most one cycle at a time
+in a <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread. Callback execution is NOT guaranteed to be carried out
+on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread every time the timer fires.</p>
+</section>
       <h4><a class="xref" href="Unosquare.Swan.Abstractions.ExpressionParser.html">ExpressionParser</a></h4>
       <section><p>Represents a generic expression parser.</p>
 </section>

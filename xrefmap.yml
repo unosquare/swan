@@ -572,6 +572,145 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer
+  name: ExclusiveTimer
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html
+  commentId: T:Unosquare.Swan.Abstractions.ExclusiveTimer
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer
+  nameWithType: ExclusiveTimer
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action)
+  name: ExclusiveTimer(Action)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(Action)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)
+  name: ExclusiveTimer(Action, Int32, Int32)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action, System.Int32, System.Int32)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(Action, Int32, Int32)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)
+  name: ExclusiveTimer(Action, TimeSpan, TimeSpan)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_System_TimeSpan_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action, System.TimeSpan, System.TimeSpan)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(Action, TimeSpan, TimeSpan)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)
+  name: ExclusiveTimer(TimerCallback)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)
+  name: ExclusiveTimer(TimerCallback, Object, Int32, Int32)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback, System.Object, System.Int32, System.Int32)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback, Object, Int32, Int32)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)
+  name: ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_TimeSpan_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback, System.Object, System.TimeSpan, System.TimeSpan)
+  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*
+  name: ExclusiveTimer
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.ExclusiveTimer
+  nameWithType: ExclusiveTimer.ExclusiveTimer
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)
+  name: Change(Int32, Int32)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Change_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.Int32, System.Int32)
+  nameWithType: ExclusiveTimer.Change(Int32, Int32)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)
+  name: Change(TimeSpan, TimeSpan)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Change_System_TimeSpan_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.TimeSpan, System.TimeSpan)
+  nameWithType: ExclusiveTimer.Change(TimeSpan, TimeSpan)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Change*
+  name: Change
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Change_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.Change
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Change
+  nameWithType: ExclusiveTimer.Change
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose
+  name: Dispose()
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Dispose
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose()
+  nameWithType: ExclusiveTimer.Dispose()
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose*
+  name: Dispose
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Dispose_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose
+  nameWithType: ExclusiveTimer.Dispose
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed
+  name: IsDisposed
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposed
+  commentId: P:Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed
+  nameWithType: ExclusiveTimer.IsDisposed
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed*
+  name: IsDisposed
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposed_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed
+  nameWithType: ExclusiveTimer.IsDisposed
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing
+  name: IsDisposing
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposing
+  commentId: P:Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing
+  nameWithType: ExclusiveTimer.IsDisposing
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing*
+  name: IsDisposing
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposing_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing
+  nameWithType: ExclusiveTimer.IsDisposing
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Pause
+  name: Pause()
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Pause
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Pause
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Pause()
+  nameWithType: ExclusiveTimer.Pause()
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Pause*
+  name: Pause
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Pause_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.Pause
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Pause
+  nameWithType: ExclusiveTimer.Pause
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.Int32)
+  name: Resume(Int32)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_System_Int32_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.Int32)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.Int32)
+  nameWithType: ExclusiveTimer.Resume(Int32)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
+  name: Resume(TimeSpan)
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
+  nameWithType: ExclusiveTimer.Resume(TimeSpan)
+- uid: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume*
+  name: Resume
+  href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExclusiveTimer.Resume
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExclusiveTimer.Resume
+  nameWithType: ExclusiveTimer.Resume
 - uid: Unosquare.Swan.Abstractions.ExpressionParser
   name: ExpressionParser
   href: api/Unosquare.Swan.Abstractions.ExpressionParser.html
@@ -7261,145 +7400,6 @@ references:
   commentId: N:Unosquare.Swan.Lite.Abstractions
   fullName: Unosquare.Swan.Lite.Abstractions
   nameWithType: Unosquare.Swan.Lite.Abstractions
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer
-  name: ExclusiveTimer
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html
-  commentId: T:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer
-  nameWithType: ExclusiveTimer
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action)
-  name: ExclusiveTimer(Action)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(Action)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)
-  name: ExclusiveTimer(Action, Int32, Int32)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action, System.Int32, System.Int32)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(Action, Int32, Int32)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)
-  name: ExclusiveTimer(Action, TimeSpan, TimeSpan)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_System_TimeSpan_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Action, System.TimeSpan, System.TimeSpan)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(Action, TimeSpan, TimeSpan)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)
-  name: ExclusiveTimer(TimerCallback)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)
-  name: ExclusiveTimer(TimerCallback, Object, Int32, Int32)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback, System.Object, System.Int32, System.Int32)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback, Object, Int32, Int32)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)
-  name: ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_TimeSpan_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer(System.Threading.TimerCallback, System.Object, System.TimeSpan, System.TimeSpan)
-  nameWithType: ExclusiveTimer.ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*
-  name: ExclusiveTimer
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.ExclusiveTimer
-  nameWithType: ExclusiveTimer.ExclusiveTimer
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)
-  name: Change(Int32, Int32)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.Int32, System.Int32)
-  nameWithType: ExclusiveTimer.Change(Int32, Int32)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)
-  name: Change(TimeSpan, TimeSpan)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_System_TimeSpan_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.TimeSpan, System.TimeSpan)
-  nameWithType: ExclusiveTimer.Change(TimeSpan, TimeSpan)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change*
-  name: Change
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change
-  nameWithType: ExclusiveTimer.Change
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose
-  name: Dispose()
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Dispose
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose()
-  nameWithType: ExclusiveTimer.Dispose()
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose*
-  name: Dispose
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Dispose_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose
-  nameWithType: ExclusiveTimer.Dispose
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed
-  name: IsDisposed
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposed
-  commentId: P:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed
-  nameWithType: ExclusiveTimer.IsDisposed
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed*
-  name: IsDisposed
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposed_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed
-  nameWithType: ExclusiveTimer.IsDisposed
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing
-  name: IsDisposing
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposing
-  commentId: P:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing
-  nameWithType: ExclusiveTimer.IsDisposing
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing*
-  name: IsDisposing
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposing_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing
-  nameWithType: ExclusiveTimer.IsDisposing
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause
-  name: Pause()
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Pause
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause()
-  nameWithType: ExclusiveTimer.Pause()
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause*
-  name: Pause
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Pause_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause
-  nameWithType: ExclusiveTimer.Pause
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.Int32)
-  name: Resume(Int32)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_System_Int32_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.Int32)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.Int32)
-  nameWithType: ExclusiveTimer.Resume(Int32)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
-  name: Resume(TimeSpan)
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)
-  nameWithType: ExclusiveTimer.Resume(TimeSpan)
-- uid: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume*
-  name: Resume
-  href: api/Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html#Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_
-  commentId: Overload:Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume
-  isSpec: "True"
-  fullName: Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume
-  nameWithType: ExclusiveTimer.Resume
 - uid: Unosquare.Swan.Lite.Abstractions.ViewModelBase
   name: ViewModelBase
   href: api/Unosquare.Swan.Lite.Abstractions.ViewModelBase.html

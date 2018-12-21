@@ -76,12 +76,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer">
   
   
-  <h1 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer" class="text-break">Class ExclusiveTimer
+  <h1 id="Unosquare_Swan_Abstractions_ExclusiveTimer" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer" class="text-break">Class ExclusiveTimer
   </h1>
-  <div class="markdown level0 summary"><p>A threading <span class="xref">Unosquare.Swan.Lite.Abstractions.ExclusiveTimer._backingTimer</span> implementation that executes at most one cycle at a time
+  <div class="markdown level0 summary"><p>A threading <span class="xref">Unosquare.Swan.Abstractions.ExclusiveTimer._backingTimer</span> implementation that executes at most one cycle at a time
 in a <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread. Callback execution is NOT guaranteed to be carried out
 on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread every time the timer fires.</p>
 </div>
@@ -119,8 +119,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Lite.Abstractions.html">Unosquare.Swan.Lite.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_ExclusiveTimer_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class ExclusiveTimer : IDisposable</code></pre>
   </div>
@@ -128,9 +128,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action)">ExclusiveTimer(Action)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action)">ExclusiveTimer(Action)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -157,9 +157,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)">ExclusiveTimer(Action, Int32, Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.Int32,System.Int32)">ExclusiveTimer(Action, Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -198,9 +198,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Action_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)">ExclusiveTimer(Action, TimeSpan, TimeSpan)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Action_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Action,System.TimeSpan,System.TimeSpan)">ExclusiveTimer(Action, TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -239,9 +239,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)">ExclusiveTimer(TimerCallback)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback)">ExclusiveTimer(TimerCallback)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -268,9 +268,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)">ExclusiveTimer(TimerCallback, Object, Int32, Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.Int32,System.Int32)">ExclusiveTimer(TimerCallback, Object, Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -315,9 +315,9 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)">ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer__ctor_System_Threading_TimerCallback_System_Object_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.#ctor(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)">ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -364,8 +364,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposed_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposed" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposed">IsDisposed</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposed_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposed" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposed">IsDisposed</h4>
   <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is disposed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -391,8 +391,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposing_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_IsDisposing" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.IsDisposing">IsDisposing</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposing_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_IsDisposing" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.IsDisposing">IsDisposing</h4>
   <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is disposing.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -420,8 +420,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)">Change(Int32, Int32)</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Change_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Change*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Change_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.Int32,System.Int32)">Change(Int32, Int32)</h4>
   <div class="markdown level1 summary"><p>Changes the start time and the interval between method invocations for the internal timer.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -455,8 +455,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Change_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)">Change(TimeSpan, TimeSpan)</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Change_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Change*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Change_System_TimeSpan_System_TimeSpan_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Change(System.TimeSpan,System.TimeSpan)">Change(TimeSpan, TimeSpan)</h4>
   <div class="markdown level1 summary"><p>Changes the start time and the interval between method invocations for the internal timer.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -490,8 +490,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Dispose_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Dispose" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Dispose">Dispose()</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Dispose_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Dispose" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Dispose">Dispose()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -500,8 +500,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </div>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Pause_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Pause" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Pause">Pause()</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Pause_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Pause*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Pause" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Pause">Pause()</h4>
   <div class="markdown level1 summary"><p>Pauses this instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -511,8 +511,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </div>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_System_Int32_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.Int32)">Resume(Int32)</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Resume*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_System_Int32_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.Int32)">Resume(Int32)</h4>
   <div class="markdown level1 summary"><p>Changes the interval between method invocations for the internal timer.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -540,8 +540,8 @@ on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.t
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume*"></a>
-  <h4 id="Unosquare_Swan_Lite_Abstractions_ExclusiveTimer_Resume_System_TimeSpan_" data-uid="Unosquare.Swan.Lite.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)">Resume(TimeSpan)</h4>
+  <a id="Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Resume*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExclusiveTimer_Resume_System_TimeSpan_" data-uid="Unosquare.Swan.Abstractions.ExclusiveTimer.Resume(System.TimeSpan)">Resume(TimeSpan)</h4>
   <div class="markdown level1 summary"><p>Changes the interval between method invocations for the internal timer.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
