@@ -15,7 +15,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
 Table of contents
 =================
   * [📚 Libraries](#-libraries)
-  * [Installation](#installation)
+  * [💾Installation](#-installation)
   * [What's in the library](#whats-in-the-library)
     * [The Runtime component](#the-runtime-component)
     * [The Terminal class](#the-terminal-class)
@@ -85,7 +85,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
  
 If you are developing an ASP.NET Core application, we recommend to use [SWAN AspNet.Core](https://github.com/unosquare/swan-aspnetcore).
 
-## Installation:
+## 💾 Installation:
 
 Swan Standard Installation:
 
