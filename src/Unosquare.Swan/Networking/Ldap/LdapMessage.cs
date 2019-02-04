@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// The base class for Ldap request and response messages.
@@ -139,4 +138,3 @@ namespace Unosquare.Swan.Networking.Ldap
         public override string ToString() => $"{Name}({MessageId}): {Message}";
     }
 }
-#endif

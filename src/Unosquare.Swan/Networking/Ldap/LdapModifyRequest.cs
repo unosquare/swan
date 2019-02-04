@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// Represents a LDAP Modification Request Message.
@@ -67,4 +66,3 @@ namespace Unosquare.Swan.Networking.Ldap
         }
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking
+﻿namespace Unosquare.Swan.Networking
 {
 #if !NETSTANDARD1_3
     using System.Net.Mail;
@@ -59,4 +58,3 @@ namespace Unosquare.Swan.Networking
         }
     }
 }
-#endif

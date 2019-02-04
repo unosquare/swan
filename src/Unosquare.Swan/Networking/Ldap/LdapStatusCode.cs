@@ -1,6 +1,4 @@
-﻿#if !UWP
-
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// LDAP Connection Status Code.
@@ -539,4 +537,3 @@ namespace Unosquare.Swan.Networking.Ldap
         SslProviderNotFound = 114,
     }
 }
-#endif

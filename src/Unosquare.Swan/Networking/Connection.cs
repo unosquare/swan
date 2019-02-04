@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking
+﻿namespace Unosquare.Swan.Networking
 {
     using System;
     using System.Collections.Generic;
@@ -897,4 +896,3 @@ namespace Unosquare.Swan.Networking
         #endregion
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Exceptions
+﻿namespace Unosquare.Swan.Exceptions
 {
     using System;
     using Networking.Ldap;
@@ -133,4 +132,3 @@ namespace Unosquare.Swan.Exceptions
         }
     }
 }
-#endif

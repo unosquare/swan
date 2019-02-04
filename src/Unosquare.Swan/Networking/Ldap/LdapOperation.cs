@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// LDAP Operation.
@@ -116,4 +115,3 @@ namespace Unosquare.Swan.Networking.Ldap
         Private = 3,
     }
 }
-#endif

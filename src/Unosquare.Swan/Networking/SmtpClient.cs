@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking
+﻿namespace Unosquare.Swan.Networking
 {
     using System.Threading;
     using System;
@@ -387,5 +386,3 @@ namespace Unosquare.Swan.Networking
         }
     }
 }
-
-#endif

@@ -137,7 +137,7 @@
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
             var fields = typeof(T).GetTypeInfo()
                 .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 #else

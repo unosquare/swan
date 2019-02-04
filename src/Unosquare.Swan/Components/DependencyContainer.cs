@@ -72,7 +72,7 @@
 
         #region Registration
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
         /// Types will only be registered if they pass the supplied registration predicate.
@@ -704,7 +704,7 @@
             return true;
         }
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
             // TODO - find a better way to remove "system" assemblies from the auto registration

@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     using System.Collections;
 
@@ -184,5 +183,3 @@ namespace Unosquare.Swan.Networking.Ldap
         private RfcFilter RfcFilter => (RfcFilter)((RfcSearchRequest)Asn1Object.Get(1)).Get(6);
     }
 }
-
-#endif

@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Diagnostics;
@@ -473,4 +472,3 @@ namespace Unosquare.Swan.Components
         }
     }
 }
-#endif

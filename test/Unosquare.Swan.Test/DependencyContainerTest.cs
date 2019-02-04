@@ -11,7 +11,7 @@
     [TestFixture]
     public class AutoRegister
     {
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         [Test]
         public void WithFailDependencyContainer_ThrowsDependencyContainerRegistrationException()
         {

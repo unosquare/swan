@@ -1,4 +1,3 @@
-#if !UWP
 namespace Unosquare.Swan.Components
 {
     using System;
@@ -203,4 +202,3 @@ namespace Unosquare.Swan.Components
         #endregion
     }
 }
-#endif

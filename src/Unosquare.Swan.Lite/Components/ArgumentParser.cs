@@ -195,7 +195,7 @@ namespace Unosquare.Swan.Components
 
         private void ReportIssues(Validator validator)
         {
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
             if (Settings.WriteBanner)
                 Runtime.WriteWelcomeBanner();
 #endif
