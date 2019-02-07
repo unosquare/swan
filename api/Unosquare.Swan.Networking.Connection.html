@@ -1126,41 +1126,13 @@ and the rest of the read methods are not called.</p>
   
   
   <a id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync">UpgradeToSecureAsClientAsync()</h4>
-  <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
-Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
-        <td><p>A tasks with <code>true</code> if the upgrade to SSL was successful; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync*"></a>
   <h4 id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_System_String_RemoteCertificateValidationCallback_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)">UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)</h4>
   <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string hostname, RemoteCertificateValidationCallback callback)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string hostname = null, RemoteCertificateValidationCallback callback = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

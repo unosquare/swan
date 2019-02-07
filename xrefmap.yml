@@ -8450,12 +8450,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.Connection.TextEncoding
   nameWithType: Connection.TextEncoding
-- uid: Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync
-  name: UpgradeToSecureAsClientAsync()
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync
-  commentId: M:Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync
-  fullName: Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync()
-  nameWithType: Connection.UpgradeToSecureAsClientAsync()
 - uid: Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)
   name: UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_System_String_RemoteCertificateValidationCallback_
@@ -10907,27 +10901,27 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.SmtpClient.Port
   nameWithType: SmtpClient.Port
-- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String,System.Threading.CancellationToken)
-  name: SendMailAsync(MailMessage, String, CancellationToken)
-  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_MailMessage_System_String_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage, System.String, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(MailMessage, String, CancellationToken)
-- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken)
-  name: SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken)
-  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Unosquare_Swan_Networking_SmtpSessionState__System_String_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken)
-  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken)
-  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Unosquare.Swan.Networking.SmtpSessionState>, System.String, System.Threading.CancellationToken)
-  fullName.vb: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Networking.SmtpSessionState), System.String, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken)
-  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken)
-- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken)
-  name: SendMailAsync(SmtpSessionState, String, CancellationToken)
-  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_Unosquare_Swan_Networking_SmtpSessionState_System_String_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState, System.String, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, String, CancellationToken)
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  name: SendMailAsync(MailMessage, String, CancellationToken, RemoteCertificateValidationCallback)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_MailMessage_System_String_System_Threading_CancellationToken_RemoteCertificateValidationCallback_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage, System.String, System.Threading.CancellationToken, RemoteCertificateValidationCallback)
+  nameWithType: SmtpClient.SendMailAsync(MailMessage, String, CancellationToken, RemoteCertificateValidationCallback)
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  name: SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken, RemoteCertificateValidationCallback)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Unosquare_Swan_Networking_SmtpSessionState__System_String_System_Threading_CancellationToken_RemoteCertificateValidationCallback_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken, RemoteCertificateValidationCallback)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Unosquare.Swan.Networking.SmtpSessionState>, System.String, System.Threading.CancellationToken, RemoteCertificateValidationCallback)
+  fullName.vb: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Networking.SmtpSessionState), System.String, System.Threading.CancellationToken, RemoteCertificateValidationCallback)
+  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken, RemoteCertificateValidationCallback)
+  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken, RemoteCertificateValidationCallback)
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  name: SendMailAsync(SmtpSessionState, String, CancellationToken, RemoteCertificateValidationCallback)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_Unosquare_Swan_Networking_SmtpSessionState_System_String_System_Threading_CancellationToken_RemoteCertificateValidationCallback_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken,RemoteCertificateValidationCallback)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState, System.String, System.Threading.CancellationToken, RemoteCertificateValidationCallback)
+  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, String, CancellationToken, RemoteCertificateValidationCallback)
 - uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync*
   name: SendMailAsync
   href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_
