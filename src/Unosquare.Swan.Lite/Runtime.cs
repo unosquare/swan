@@ -5,14 +5,14 @@
     using System.IO;
     using System.Threading;
     using Reflection;
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
     using System.Reflection;
 #endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
     /// </summary>
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
     public class Runtime : MarshalByRefObject
 #else
     public static class Runtime
@@ -40,7 +40,7 @@
         private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
         {
             var attribute =
@@ -68,7 +68,7 @@
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
         
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 #else
         private const string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
@@ -208,7 +208,7 @@
         /// </value>
         public static MethodInfoCache MethodInfoCache => _methodInfoCache.Value;
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
@@ -281,7 +281,7 @@
         {
             get
             {
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
                 var localAppDataPath =
 #if NET452
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -324,7 +324,7 @@
 
         #region Methods
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         /// <summary>
         /// Writes a standard banner to the standard output
         /// containing the company name, product name, assembly version and trademark.

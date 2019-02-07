@@ -41,7 +41,7 @@
 
         #region Factory Methods
         
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         /// <summary>
         /// Creates a reader-writer lock backed by a standard ReaderWriterLock.
         /// </summary>
@@ -50,7 +50,7 @@
 #else
         /// <summary>
         /// Creates a reader-writer lock backed by a standard ReaderWriterLockSlim when
-        /// running at NETSTANDARD 1.3 or UWP.
+        /// running at NETSTANDARD 1.3.
         /// </summary>
         /// <returns>The synchronized locker</returns>
         public static ISyncLocker Create() => new SyncLockerSlim();
@@ -108,7 +108,7 @@
             }
         }
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         /// <summary>
         /// The Sync Locker backed by a ReaderWriterLock.
         /// </summary>

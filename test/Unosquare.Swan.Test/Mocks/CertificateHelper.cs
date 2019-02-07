@@ -1,4 +1,3 @@
-#if NET46
 namespace Unosquare.Swan.Test.Mocks
 {
     using System;
@@ -121,4 +120,3 @@ namespace Unosquare.Swan.Test.Mocks
         }
     }
 }
-#endif

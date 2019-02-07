@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// Represents an Ldap Control.
@@ -130,4 +129,3 @@ namespace Unosquare.Swan.Networking.Ldap
         }
     }
 }
-#endif

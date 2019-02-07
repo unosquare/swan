@@ -56,7 +56,7 @@
         /// The configuration file path.
         /// </value>
         public string ConfigurationFilePath { get; set; } =
-#if NETSTANDARD1_3 || UWP
+#if NETSTANDARD1_3
             Path.Combine(Runtime.LocalStoragePath, "appsettings.json");
 #else
             Path.Combine(Runtime.EntryAssemblyDirectory, "appsettings.json");

@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
-#if NETSTANDARD1_3 || UWP
+#if NETSTANDARD1_3
     using System.Reflection;
 #endif
 

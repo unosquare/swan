@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>Some usage samples of the Swan library</Description>
-    <Copyright>Copyright (c) 2016-2018 - Unosquare</Copyright>
+    <Copyright>Copyright (c) 2016-2019 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
-    <TargetFrameworks>net46;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>net462;netcoreapp2.2</TargetFrameworks>
     <AssemblyName>Unosquare.Swan.Samples</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Unosquare.Swan.Samples</PackageId>

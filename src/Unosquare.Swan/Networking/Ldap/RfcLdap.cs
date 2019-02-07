@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     using System.IO;
 
@@ -245,4 +244,3 @@ namespace Unosquare.Swan.Networking.Ldap
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.IntermediateResponse);
     }
 }
-#endif

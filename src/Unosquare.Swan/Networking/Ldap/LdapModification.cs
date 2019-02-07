@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// A single add, delete, or replace operation to an LdapAttribute.
@@ -77,4 +76,3 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapModificationOp Op { get; }
     }
 }
-#endif

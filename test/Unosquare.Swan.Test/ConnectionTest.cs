@@ -291,7 +291,6 @@
         public override int Port { get; } = 12449;
     }
 
-#if NET46
     [TestFixture]
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
@@ -325,5 +324,4 @@
 
         public override int Port { get; } = 12450;
     }
-#endif
 }

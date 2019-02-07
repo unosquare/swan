@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace Unosquare.Swan.Networking
 {
-#if NETSTANDARD1_3 || UWP
+#if NETSTANDARD1_3
 
     /// <summary>
     /// Defines the different SMTP status codes

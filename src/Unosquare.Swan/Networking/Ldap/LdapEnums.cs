@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
     /// Ldap Modification Operators.
@@ -134,4 +133,3 @@ namespace Unosquare.Swan.Networking.Ldap
         ExtensibleMatch = 9,
     }
 }
-#endif

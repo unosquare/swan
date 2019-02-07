@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking
+﻿namespace Unosquare.Swan.Networking
 {
     using System.Threading;
     using System;
@@ -8,6 +7,7 @@ namespace Unosquare.Swan.Networking
     using System.Net.Sockets;
     using System.Security;
     using System.Text;
+    using System.Net.Security;
     using System.Threading.Tasks;
     using System.Collections.Generic;
 #if !NETSTANDARD1_3
@@ -156,12 +156,16 @@ namespace Unosquare.Swan.Networking
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous of send email operation.</returns>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// A task that represents the asynchronous of send email operation.
+        /// </returns>
         /// <exception cref="ArgumentNullException">message.</exception>
         public Task SendMailAsync(
             MailMessage message,
             string sessionId = null,
-            CancellationToken ct = default)
+            CancellationToken ct = default,
+            RemoteCertificateValidationCallback callback = null)
         {
             if (message == null)
                 throw new ArgumentNullException(nameof(message));
@@ -187,7 +191,7 @@ namespace Unosquare.Swan.Networking
 
             state.DataBuffer.AddRange(message.ToMimeMessage().ToArray());
 
-            return SendMailAsync(state, sessionId, ct);
+            return SendMailAsync(state, sessionId, ct, callback);
         }
 #endif
 
@@ -199,6 +203,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionState">The state.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
+        /// <param name="callback">The callback.</param>
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
@@ -206,12 +211,13 @@ namespace Unosquare.Swan.Networking
         public Task SendMailAsync(
             SmtpSessionState sessionState,
             string sessionId = null,
-            CancellationToken ct = default)
+            CancellationToken ct = default,
+            RemoteCertificateValidationCallback callback = null)
         {
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
 
-            return SendMailAsync(new[] { sessionState }, sessionId, ct);
+            return SendMailAsync(new[] { sessionState }, sessionId, ct, callback);
         }
 
         /// <summary>
@@ -222,6 +228,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionStates">The session states.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
+        /// <param name="callback">The callback.</param>
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
@@ -231,7 +238,8 @@ namespace Unosquare.Swan.Networking
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,
-            CancellationToken ct = default)
+            CancellationToken ct = default,
+            RemoteCertificateValidationCallback callback = null)
         {
             if (sessionStates == null)
                 throw new ArgumentNullException(nameof(sessionStates));
@@ -261,7 +269,7 @@ namespace Unosquare.Swan.Networking
                             sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
                             sender.ValidateReply();
 
-                            if (await connection.UpgradeToSecureAsClientAsync().ConfigureAwait(false) == false)
+                            if (await connection.UpgradeToSecureAsClientAsync(callback: callback).ConfigureAwait(false) == false)
                                 throw new SecurityException("Could not upgrade the channel to SSL.");
                         }
 
@@ -387,5 +395,3 @@ namespace Unosquare.Swan.Networking
         }
     }
 }
-
-#endif

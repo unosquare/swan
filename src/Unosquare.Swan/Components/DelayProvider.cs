@@ -60,12 +60,10 @@
             /// </summary>
             TaskDelay,
 
-#if !UWP
             /// <summary>
             /// Using a wait event that completes in a background ThreadPool thread.
             /// </summary>
             ThreadPool,
-#endif
         }
 
         /// <summary>
@@ -93,7 +91,7 @@
                     case DelayStrategy.TaskDelay:
                         DelayTask();
                         break;
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
                     case DelayStrategy.ThreadPool:
                         DelayThreadPool();
                         break;
@@ -125,7 +123,7 @@
 
         private static void DelayTask() => Task.Delay(1).Wait();
 
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 
         private void DelayThreadPool()
         {
             if (_delayEvent == null)

@@ -189,8 +189,8 @@
             }
             finally
             {
-                _cycleDoneEvent.Set();
-                _backingTimer.Change(_period, Timeout.Infinite);
+                _cycleDoneEvent?.Set();
+                _backingTimer?.Change(_period, Timeout.Infinite);
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿#if !UWP
-namespace Unosquare.Swan.Networking.Ldap
+﻿namespace Unosquare.Swan.Networking.Ldap
 {
     using System.Linq;
     using System;
@@ -793,4 +792,3 @@ namespace Unosquare.Swan.Networking.Ldap
         }
     }
 }
-#endif
