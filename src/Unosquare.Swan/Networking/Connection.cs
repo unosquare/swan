@@ -128,7 +128,7 @@
             _newLineSequence = newLineSequence;
             _newLineSequenceBytes = TextEncoding.GetBytes(_newLineSequence);
             _newLineSequenceChars = _newLineSequence.ToCharArray();
-            _newLineSequenceLineSplitter = new[] {_newLineSequence};
+            _newLineSequenceLineSplitter = new[] { _newLineSequence };
 
             // Setup Connection timers
             ConnectionStartTimeUtc = DateTime.UtcNow;
@@ -163,7 +163,7 @@
             }
             else
             {
-                new Thread(PerformContinuousReading) {IsBackground = true}.Start();
+                new Thread(PerformContinuousReading) { IsBackground = true }.Start();
             }
 #endif
         }
@@ -459,7 +459,7 @@
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A byte array containing the results the specified sequence of bytes.</returns>
-        public Task<byte[]> ReadDataAsync(CancellationToken ct = default) 
+        public Task<byte[]> ReadDataAsync(CancellationToken ct = default)
             => ReadDataAsync(TimeSpan.FromSeconds(5), ct);
 
         /// <summary>
@@ -594,7 +594,7 @@
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default) 
+        public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default)
             => WriteDataAsync(encoding.GetBytes($"{line}{_newLineSequence}"), true, ct);
 
         /// <summary>
@@ -648,17 +648,19 @@
         /// <param name="callback">The callback.</param>
         /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c>.</returns>
         public async Task<bool> UpgradeToSecureAsClientAsync(
-            string hostname,
-            RemoteCertificateValidationCallback callback)
+            string hostname = null,
+            RemoteCertificateValidationCallback callback = null)
         {
             if (IsActiveStreamSecure)
                 return true;
 
-            var secureStream = new SslStream(NetworkStream, true, callback);
+            var secureStream = callback == null
+                ? new SslStream(NetworkStream, true)
+                : new SslStream(NetworkStream, true, callback);
 
             try
             {
-                await secureStream.AuthenticateAsClientAsync(hostname).ConfigureAwait(false);
+                await secureStream.AuthenticateAsClientAsync(hostname ?? Network.HostName.ToLowerInvariant()).ConfigureAwait(false);
                 SecureStream = secureStream;
             }
             catch (Exception ex)
@@ -670,14 +672,6 @@
 
             return true;
         }
-
-        /// <summary>
-        /// Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
-        /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them.
-        /// </summary>
-        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c>.</returns>
-        public Task<bool> UpgradeToSecureAsClientAsync()
-            => UpgradeToSecureAsClientAsync(Network.HostName.ToLowerInvariant(), (a, b, c, d) => true);
 
         /// <summary>
         /// Disconnects this connection.
@@ -844,7 +838,7 @@
                     moreAvailable));
             _receiveBufferPointer = 0;
         }
-        
+
         private void PerformContinuousReading(object threadContext)
         {
             _continuousReadingThread = Thread.CurrentThread;

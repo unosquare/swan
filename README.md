@@ -14,6 +14,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
 
 Table of contents
 =================
+
   * [📚 Libraries](#-libraries)
   * [💾Installation](#-installation)
   * [What's in the library](#whats-in-the-library)
@@ -40,7 +41,7 @@ Table of contents
     * [The DelayProvider component](#the-delayprovider-component)
     * [The WaitEventFactory component](#the-waiteventfactory-component)
     * [Atomic Types](#atomic-types)
-    
+
 ## 📚 Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
 
