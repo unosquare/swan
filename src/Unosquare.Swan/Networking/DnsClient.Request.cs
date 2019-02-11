@@ -83,9 +83,12 @@
 
                     return response;
                 }
-                catch (ArgumentException e)
+                catch (Exception e)
                 {
-                    throw new DnsQueryException("Invalid response", e);
+                    if (e is ArgumentException || e is SocketException)
+                        throw new DnsQueryException("Invalid response", e);
+
+                    throw;
                 }
             }
         }
@@ -646,13 +649,11 @@
 
             public int Size => _domain.Size + Tail.SIZE;
 
-            public byte[] ToArray()
-            {
-                return new MemoryStream(Size)
+            public byte[] ToArray() =>
+                new MemoryStream(Size)
                     .Append(_domain.ToArray())
                     .Append(new Tail {Type = Type, Class = Class}.ToBytes())
                     .ToArray();
-            }
 
             public override string ToString()
                 => Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
