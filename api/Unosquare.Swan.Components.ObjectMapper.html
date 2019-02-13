@@ -191,7 +191,7 @@ class Example
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int Copy(IDictionary&lt;string, object&gt; source, object target, string[] propertiesToCopy = null, string[] ignoreProperties = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int Copy(IDictionary&lt;string, object&gt; source, object target, string[] propertiesToCopy = null, params string[] ignoreProperties)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -272,7 +272,7 @@ target.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int Copy(object source, object target, string[] propertiesToCopy = null, string[] ignoreProperties = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int Copy(object source, object target, string[] propertiesToCopy = null, params string[] ignoreProperties)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
