@@ -20,11 +20,8 @@ namespace Unosquare.Swan.Components
     ///     
     ///     static void Main(string[] args)
     ///     {
-    ///         // create an instance of the Options class
-    ///         var options = new Options();
-    ///         
     ///         // parse the supplied command-line arguments into the options object
-    ///         var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    ///         var res = Runtime.ArgumentParser.ParseArguments(args, out var options);
     ///     }
     ///     
     ///     class Options
@@ -133,6 +130,28 @@ namespace Unosquare.Swan.Components
         /// The settings.
         /// </value>
         public ArgumentParserSettings Settings { get; }
+        
+        /// <summary>
+        /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">The type of the options.</typeparam>
+        /// <param name="args">The arguments.</param>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        /// <c>true</c> if was converted successfully; otherwise,  <c>false</c>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
+        /// is passed to a method that does not accept it as a valid argument.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The exception that is thrown when a method call is invalid for the object's current state.
+        /// </exception>
+        public bool ParseArguments<T>(IEnumerable<string> args, out T instance)
+        {
+            instance = Activator.CreateInstance<T>();
+            return ParseArguments(args, instance);
+        }
 
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.

@@ -12,11 +12,8 @@
         [Test]
         public void BasicArguments_ReturnsEquals()
         {
-            var options = new OptionMock();
-            Assert.IsFalse(options.Verbose);
-
             var dumpArgs = new[] { "-n", "babu", "--verbose" };
-            var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
+            var result = Runtime.ArgumentParser.ParseArguments<OptionMock>(dumpArgs, out var options);
 
             Assert.IsTrue(result);
             Assert.IsTrue(options.Verbose);
