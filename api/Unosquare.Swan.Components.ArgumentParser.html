@@ -129,11 +129,8 @@ Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributor
 
     static void Main(string[] args)
     {
-        // create an instance of the Options class
-        var options = new Options();
-
         // parse the supplied command-line arguments into the options object
-        var res = Runtime.ArgumentParser.ParseArguments(args, options);
+        var res = Runtime.ArgumentParser.ParseArguments(args, out var options);
     }
 
     class Options
@@ -296,6 +293,95 @@ configurable with <a class="xref" href="Unosquare.Swan.Components.ArgumentParser
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public bool ParseArguments&lt;T&gt;(IEnumerable&lt;string&gt; args, T instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if was converted successfully; otherwise,  <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>The exception that is thrown when a null reference (Nothing in Visual Basic) 
+is passed to a method that does not accept it as a valid argument.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>The exception that is thrown when a method call is invalid for the object&apos;s current state.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ArgumentParser_ParseArguments_" data-uid="Unosquare.Swan.Components.ArgumentParser.ParseArguments*"></a>
+  <h4 id="Unosquare_Swan_Components_ArgumentParser_ParseArguments__1_System_Collections_Generic_IEnumerable_System_String____0__" data-uid="Unosquare.Swan.Components.ArgumentParser.ParseArguments``1(System.Collections.Generic.IEnumerable{System.String},``0@)">ParseArguments&lt;T&gt;(IEnumerable&lt;String&gt;, out T)</h4>
+  <div class="markdown level1 summary"><p>Parses a string array of command line arguments constructing values in an instance of type <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ParseArguments&lt;T&gt;(IEnumerable&lt;string&gt; args, out T instance)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

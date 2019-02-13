@@ -2975,6 +2975,15 @@ references:
   fullName.vb: Unosquare.Swan.Components.ArgumentParser.ParseArguments(Of T)(System.Collections.Generic.IEnumerable(Of System.String), T)
   nameWithType: ArgumentParser.ParseArguments<T>(IEnumerable<String>, T)
   nameWithType.vb: ArgumentParser.ParseArguments(Of T)(IEnumerable(Of String), T)
+- uid: Unosquare.Swan.Components.ArgumentParser.ParseArguments``1(System.Collections.Generic.IEnumerable{System.String},``0@)
+  name: ParseArguments<T>(IEnumerable<String>, out T)
+  href: api/Unosquare.Swan.Components.ArgumentParser.html#Unosquare_Swan_Components_ArgumentParser_ParseArguments__1_System_Collections_Generic_IEnumerable_System_String____0__
+  commentId: M:Unosquare.Swan.Components.ArgumentParser.ParseArguments``1(System.Collections.Generic.IEnumerable{System.String},``0@)
+  name.vb: ParseArguments(Of T)(IEnumerable(Of String), ByRef T)
+  fullName: Unosquare.Swan.Components.ArgumentParser.ParseArguments<T>(System.Collections.Generic.IEnumerable<System.String>, out T)
+  fullName.vb: Unosquare.Swan.Components.ArgumentParser.ParseArguments(Of T)(System.Collections.Generic.IEnumerable(Of System.String), ByRef T)
+  nameWithType: ArgumentParser.ParseArguments<T>(IEnumerable<String>, out T)
+  nameWithType.vb: ArgumentParser.ParseArguments(Of T)(IEnumerable(Of String), ByRef T)
 - uid: Unosquare.Swan.Components.ArgumentParser.Settings
   name: Settings
   href: api/Unosquare.Swan.Components.ArgumentParser.html#Unosquare_Swan_Components_ArgumentParser_Settings
