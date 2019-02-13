@@ -8,7 +8,8 @@
 
     /// <summary>
     /// Provides methods to parse command line arguments.
-    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).
+    /// 
+    /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors).
     /// </summary>
     public partial class ArgumentParser
     {
@@ -133,21 +134,21 @@
                 object result,
                 ArgumentOptionAttribute optionAttr = null)
             {
-                if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
+                if (!targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    var parsedValue = Enum.Parse(
-                        targetProperty.PropertyType,
-                        propertyValueString,
-                        _settings.CaseInsensitiveEnumValues);
-
-                    targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
-
-                    return true;
+                    return targetProperty.PropertyType.IsArray
+                        ? targetProperty.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
+                        : targetProperty.TrySetBasicType(propertyValueString, result);
                 }
 
-                return targetProperty.PropertyType.IsArray
-                    ? targetProperty.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
-                    : targetProperty.TrySetBasicType(propertyValueString, result);
+                var parsedValue = Enum.Parse(
+                    targetProperty.PropertyType,
+                    propertyValueString,
+                    _settings.CaseInsensitiveEnumValues);
+
+                targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
+
+                return true;
             }
 
             private PropertyInfo TryGetProperty(string propertyName)

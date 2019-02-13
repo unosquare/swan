@@ -29,7 +29,7 @@
     ///     
     ///     static void Main()
     ///     {
-    ///         var obj = new { Name = "Søren", Age = 42 };
+    ///         var obj = new { Name = "John", Age = 42 };
     ///         
     ///         var person = Runtime.ObjectMapper.Map&lt;Person&gt;(obj);
     ///     }
@@ -77,7 +77,7 @@
     /// }
     /// </code>
     /// </example>
-    public class ObjectMapper
+    public partial class ObjectMapper
     {
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
 
@@ -384,28 +384,6 @@
                     x => x.ToLowerInvariant(),
                     x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
                         sourceProperties.First(y => y.Name == x).GetValue(source)));
-        }
-
-        internal class TypeValuePair
-        {
-            public TypeValuePair(Type type, object value)
-            {
-                Type = type;
-                Value = value;
-            }
-
-            public Type Type { get; }
-
-            public object Value { get; }
-        }
-
-        internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
-        {
-            public bool Equals(PropertyInfo x, PropertyInfo y)
-                => x != null && y != null && x.Name == y.Name && x.PropertyType == y.PropertyType;
-
-            public int GetHashCode(PropertyInfo obj)
-                => obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();
         }
     }
 }
