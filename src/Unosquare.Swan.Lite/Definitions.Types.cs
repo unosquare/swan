@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using Reflection;
+    using System.Collections.ObjectModel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,7 +17,7 @@
         /// <summary>
         /// The basic types information.
         /// </summary>
-        public static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
+        public static readonly Lazy<Dictionary<Type, ExtendedTypeInfo>> BasicTypesInfo = new Lazy<Dictionary<Type, ExtendedTypeInfo>>(() =>
             new Dictionary<Type, ExtendedTypeInfo>
             {
                 // Non-Nullables
@@ -60,7 +61,7 @@
                 {typeof(TimeSpan), new ExtendedTypeInfo<TimeSpan>()},
                 {typeof(TimeSpan?), new ExtendedTypeInfo<TimeSpan?>()},
                 {typeof(IPAddress), new ExtendedTypeInfo<IPAddress>()},
-            };
+            });
 
         #endregion
 
@@ -70,7 +71,7 @@
         /// <value>
         /// All basic types.
         /// </value>
-        public static List<Type> AllBasicTypes { get; } = new List<Type>(BasicTypesInfo.Keys.ToArray());
+        public static IReadOnlyCollection<Type> AllBasicTypes { get; } = new ReadOnlyCollection<Type>(BasicTypesInfo.Value.Keys.ToArray());
 
         /// <summary>
         /// Gets all numeric types including their nullable counterparts.
@@ -79,8 +80,9 @@
         /// <value>
         /// All numeric types.
         /// </value>
-        public static List<Type> AllNumericTypes { get; } = new List<Type>(
+        public static IReadOnlyCollection<Type> AllNumericTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
+                .Value
                 .Where(kvp => kvp.Value.IsNumeric)
                 .Select(kvp => kvp.Key).ToArray());
 
@@ -91,8 +93,9 @@
         /// <value>
         /// All numeric value types.
         /// </value>
-        public static List<Type> AllNumericValueTypes { get; } = new List<Type>(
+        public static IReadOnlyCollection<Type> AllNumericValueTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
+                .Value
                 .Where(kvp => kvp.Value.IsNumeric && kvp.Value.IsNullableValueType == false)
                 .Select(kvp => kvp.Key).ToArray());
 
@@ -102,8 +105,9 @@
         /// <value>
         /// All basic value types.
         /// </value>
-        public static List<Type> AllBasicValueTypes { get; } = new List<Type>(
+        public static IReadOnlyCollection<Type> AllBasicValueTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
+                .Value
                 .Where(kvp => kvp.Value.IsValueType)
                 .Select(kvp => kvp.Key).ToArray());
 
@@ -113,8 +117,9 @@
         /// <value>
         /// All basic value and string types.
         /// </value>
-        public static List<Type> AllBasicValueAndStringTypes { get; } = new List<Type>(
+        public static IReadOnlyCollection<Type> AllBasicValueAndStringTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
+                .Value
                 .Where(kvp => kvp.Value.IsValueType || kvp.Key == typeof(string))
                 .Select(kvp => kvp.Key).ToArray());
 
@@ -124,8 +129,9 @@
         /// <value>
         /// All basic nullable value types.
         /// </value>
-        public static List<Type> AllBasicNullableValueTypes { get; } = new List<Type>(
+        public static IReadOnlyCollection<Type> AllBasicNullableValueTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
+                .Value
                 .Where(kvp => kvp.Value.IsNullableValueType)
                 .Select(kvp => kvp.Key).ToArray());
     }

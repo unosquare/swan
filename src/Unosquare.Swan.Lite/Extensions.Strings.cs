@@ -182,8 +182,8 @@
             if (itemType == typeof(string))
                 return obj as string;
 
-            return Definitions.BasicTypesInfo.ContainsKey(itemType)
-                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(obj)
+            return Definitions.BasicTypesInfo.Value.ContainsKey(itemType)
+                ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(obj)
                 : obj.ToString();
         }
 

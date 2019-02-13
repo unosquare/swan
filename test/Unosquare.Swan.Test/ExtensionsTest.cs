@@ -160,7 +160,7 @@
             var source = BasicJson.GetDefault();
             var destination = new BasicJson();
 
-            source.CopyPropertiesTo(destination, new[] {nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
+            source.CopyPropertiesTo(destination, nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData));
 
             Assert.AreNotEqual(source.BoolData, destination.BoolData);
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
@@ -269,7 +269,7 @@
         {
             var source = BasicJson.GetDefault();
             var destination = new BasicJson {NegativeInt = 800, BoolData = false};
-            source.CopyOnlyPropertiesTo(destination, new[] {nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
+            source.CopyOnlyPropertiesTo(destination, nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData));
 
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
@@ -296,7 +296,7 @@
         public void WithValidParams_CopyOnlyPropertiesToNewObject()
         {
             var source = ObjectAttr.GetDefault();
-            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)});
+            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(nameof(ObjectAttr.Name));
             Assert.AreEqual(source.Name, target.Name);
         }
 
@@ -304,15 +304,14 @@
         public void WithNullSource_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullObj.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)}));
+                NullObj.CopyOnlyPropertiesToNew<ObjectAttr>(nameof(ObjectAttr.Name)));
         }
 
         [Test]
         public void WithValidBasicJson_CopyOnlyPropertiesToNewBasicJson()
         {
             var source = BasicJson.GetDefault();
-            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(new[]
-                {nameof(BasicJson.BoolData), nameof(BasicJson.DecimalData)});
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(nameof(BasicJson.BoolData), nameof(BasicJson.DecimalData));
 
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());

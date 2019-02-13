@@ -106,7 +106,7 @@
             string typeSpecifier = null,
             bool includeNonPublic = false,
             string[] includedNames = null,
-            string[] excludedNames = null)
+            params string[] excludedNames)
         {
             return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null);
         }

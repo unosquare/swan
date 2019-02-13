@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Abstractions
             if (IsEnabled == false)
                 return;
 
-            $"Start Requested".Debug(Name);
+            "Start Requested".Debug(Name);
             _cancelTokenSource = new CancellationTokenSource();
             _workFinished = new ManualResetEvent(false);
 
@@ -110,7 +110,7 @@ namespace Unosquare.Swan.Abstractions
             if (IsEnabled == false || IsRunning == false)
                 return;
 
-            $"Stop Requested".Debug(Name);
+            "Stop Requested".Debug(Name);
             _cancelTokenSource.Cancel();
             var waitRetries = 5;
             while (waitRetries >= 1)

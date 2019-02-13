@@ -14,8 +14,8 @@
     /// <seealso cref="INotifyPropertyChanged" />
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        private readonly ConcurrentDictionary<string, bool> QueuedNotifications = new ConcurrentDictionary<string, bool>();
-        private readonly bool UseDeferredNotifications;
+        private readonly ConcurrentDictionary<string, bool> _queuedNotifications = new ConcurrentDictionary<string, bool>();
+        private readonly bool _useDeferredNotifications;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
@@ -23,7 +23,7 @@
         /// <param name="useDeferredNotifications">Set to <c>true</c> to use deferred notifications in the background.</param>
         protected ViewModelBase(bool useDeferredNotifications)
         {
-            UseDeferredNotifications = useDeferredNotifications;
+            _useDeferredNotifications = useDeferredNotifications;
         }
 
         /// <summary>
@@ -35,10 +35,7 @@
             // placeholder
         }
 
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>Checks if a property already matches a desired value.  Sets the property and
@@ -77,7 +74,7 @@
         {
             // Queue property notification
             if (string.IsNullOrWhiteSpace(mainProperty) == false)
-                QueuedNotifications[mainProperty] = true;
+                _queuedNotifications[mainProperty] = true;
 
             // Set the state for notification properties
             if (auxiliaryProperties != null)
@@ -85,13 +82,13 @@
                 foreach (var property in auxiliaryProperties)
                 {
                     if (string.IsNullOrWhiteSpace(property) == false)
-                        QueuedNotifications[property] = true;
+                        _queuedNotifications[property] = true;
                 }
             }
 
             // Depending on operation mode, either fire the notifications in the background
             // or fire them immediately
-            if (UseDeferredNotifications)
+            if (_useDeferredNotifications)
                 Task.Run(NotifyQueuedProperties);
             else
                 NotifyQueuedProperties();
@@ -103,17 +100,17 @@
         private void NotifyQueuedProperties()
         {
             // get a snapshot of property names.
-            var propertyNames = QueuedNotifications.Keys.ToArray();
+            var propertyNames = _queuedNotifications.Keys.ToArray();
 
             // Iterate through the properties
             foreach (var property in propertyNames)
             {
                 // don't notify if we don't have a change
-                if (!QueuedNotifications[property]) continue;
+                if (!_queuedNotifications[property]) continue;
 
                 // notify and reset queued state to false
                 try { OnPropertyChanged(property); }
-                finally { QueuedNotifications[property] = false; }
+                finally { _queuedNotifications[property] = false; }
             }
         }
 

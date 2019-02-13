@@ -62,7 +62,7 @@ namespace Unosquare.Swan.Test.Mocks
             certGenerator.AddExtension(
                 X509Extensions.ExtendedKeyUsage.Id,
                 false,
-                new ExtendedKeyUsage(new[] {KeyPurposeID.IdKPServerAuth}));
+                new ExtendedKeyUsage(KeyPurposeID.IdKPServerAuth));
 
             var signatureFactory = new Asn1SignatureFactory("SHA256withRSA", keyPair.Private);
             var generatedCertificate = certGenerator.Generate(signatureFactory);

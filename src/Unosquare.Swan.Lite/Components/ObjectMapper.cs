@@ -100,7 +100,7 @@
             object source,
             object target,
             string[] propertiesToCopy = null,
-            string[] ignoreProperties = null)
+            params string[] ignoreProperties)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -110,9 +110,9 @@
 
             return Copy(
                 target,
-                propertiesToCopy,
-                ignoreProperties,
-                GetSourceMap(source));
+                GetSourceMap(source),
+                (IEnumerable<string>)propertiesToCopy,
+                ignoreProperties);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@
             IDictionary<string, object> source,
             object target,
             string[] propertiesToCopy = null,
-            string[] ignoreProperties = null)
+            params string[] ignoreProperties)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -144,11 +144,11 @@
 
             return Copy(
                 target,
-                propertiesToCopy,
-                ignoreProperties,
                 source.ToDictionary(
                     x => x.Key.ToLowerInvariant(),
-                    x => new TypeValuePair(typeof(object), x.Value)));
+                    x => new TypeValuePair(typeof(object), x.Value)),
+                (IEnumerable<string>)propertiesToCopy,
+                ignoreProperties);
         }
 
         /// <summary>
@@ -236,11 +236,10 @@
             return destination;
         }
 
-        private static int Copy(
-            object target,
+        private static int Copy(object target,
+            Dictionary<string, TypeValuePair> sourceProperties,
             IEnumerable<string> propertiesToCopy,
-            IEnumerable<string> ignoreProperties,
-            Dictionary<string, TypeValuePair> sourceProperties)
+            IEnumerable<string> ignoreProperties)
         {
             // Filter properties
             var requiredProperties = propertiesToCopy?

@@ -36,7 +36,7 @@
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            if (Definitions.BasicTypesInfo.ContainsKey(targetType))
+            if (Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
                 return Equals(left, right);
 
             if (targetType.IsValueType() || targetType.IsArray)

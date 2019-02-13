@@ -190,19 +190,7 @@
         ///   <c>true</c> if [is generic parameter] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGenericParameter(this Type type) => type.IsGenericParameter;
-
-        /// <summary>
-        /// Determines whether the specified attribute type is defined.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attributeType">Type of the attribute.</param>
-        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
-        /// <returns>
-        ///   <c>true</c> if the specified attribute type is defined; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
-            type.GetTypeInfo().IsDefined(attributeType, inherit);
-
+        
         /// <summary>
         /// Gets the custom attributes.
         /// </summary>
@@ -278,7 +266,7 @@
         {
             result = null;
 
-            return Definitions.BasicTypesInfo.ContainsKey(type) && Definitions.BasicTypesInfo[type].TryParse(value, out result);
+            return Definitions.BasicTypesInfo.Value.ContainsKey(type) && Definitions.BasicTypesInfo.Value[type].TryParse(value, out result);
         }
 
         /// <summary>

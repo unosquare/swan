@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -41,7 +40,7 @@
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
+        public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)
             => Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
@@ -68,13 +67,11 @@
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
-        {
-            return Components.ObjectMapper.Copy(source, target, propertiesToCopy);
-        }
+        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy) 
+            => Components.ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
-        /// Copies the properties to new instance of T.
+        /// Deep clone an object, this is just an alias for <c>CopyPropertiesToNew</c>.
         /// </summary>
         /// <typeparam name="T">The new object type.</typeparam>
         /// <param name="source">The source.</param>
@@ -83,7 +80,7 @@
         /// The specified type with properties copied.
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
-        public static T DeepClone<T>(this T source, string[] ignoreProperties = null)
+        public static T DeepClone<T>(this T source, params string[] ignoreProperties)
             where T : class
         {
             return source.CopyPropertiesToNew<T>(ignoreProperties);
@@ -126,7 +123,7 @@
         /// The specified type with properties copied.
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
-        public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy)
+        public static T CopyOnlyPropertiesToNew<T>(this object source, params string[] propertiesToCopy)
             where T : class
         {
             if (source == null)
@@ -148,7 +145,7 @@
         public static int CopyKeyValuePairTo(
             this IDictionary<string, object> source,
             object target,
-            string[] ignoreKeys = null)
+            params string[] ignoreKeys)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
         }

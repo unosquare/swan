@@ -120,10 +120,10 @@
                     default:
                         var targetType = obj.GetType();
 
-                        if (!Definitions.BasicTypesInfo.ContainsKey(targetType))
+                        if (!Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
                             return string.Empty;
 
-                        var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj), false);
+                        var escapedValue = Escape(Definitions.BasicTypesInfo.Value[targetType].ToStringInvariant(obj), false);
 
                         return decimal.TryParse(escapedValue, out _)
                             ? $"{escapedValue}"

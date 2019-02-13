@@ -123,7 +123,7 @@
                     new Exception("EXCEPTION 3"), new Exception("EXCEPTION 4"));
             }
 
-            public List<int> IntList { get; } = new List<int>(new[] { 1, 2, 3, 4, 5, 6 });
+            public List<int> IntList { get; } = new List<int> { 1, 2, 3, 4, 5, 6 };
 
             public DateTime ThrownDateUtc { get; } = DateTime.UtcNow;
 

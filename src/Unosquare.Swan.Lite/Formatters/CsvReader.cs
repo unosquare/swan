@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
 
     /// <summary>
@@ -373,7 +372,7 @@
 
                 // Extract properties from cache
                 var properties = TypeCache
-                    .RetrieveFilteredProperties(typeof(T), true, x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
+                    .RetrieveFilteredProperties(typeof(T), true, x => x.CanWrite && Definitions.BasicTypesInfo.Value.ContainsKey(x.PropertyType));
 
                 // Assign property values for each heading
                 for (var i = 0; i < _headings.Length; i++)
