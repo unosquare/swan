@@ -309,9 +309,9 @@
             if (excludedByAttr?.Any() != true)
                 return excludedNames;
 
-            return excludedNames == null
-                ? excludedByAttr.ToArray()
-                : excludedByAttr.Intersect(excludedNames).ToArray();
+            return excludedNames?.Any(string.IsNullOrWhiteSpace) == true
+                ? excludedByAttr.Intersect(excludedNames.Where(y => !string.IsNullOrWhiteSpace(y))).ToArray()
+                : excludedByAttr.ToArray();
         }
 
         private static string SerializePrimitiveValue(object obj)
