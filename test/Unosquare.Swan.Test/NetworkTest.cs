@@ -43,10 +43,8 @@
             if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
-            var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
             var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
 
-            Assert.AreNotEqual(records.Id, record.Id, $"Id, Testing with {dnsRecordType}");
             Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
             Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
             Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
@@ -59,6 +57,15 @@
             Assert.AreEqual(dnsRecordType == DnsRecordType.TXT, 
                 records.AnswerRecords.Any(),
                 $"AnswerRecords, Testing with {dnsRecordType}");
+        }
+
+        [Test]
+        public void ValidDnsMultipleCalls_ReturnsDifferentId()
+        {
+            var record = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+            var records = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+
+            Assert.AreNotEqual(records.Id, record.Id, "Different Id");
         }
 
         [Test]
