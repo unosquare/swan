@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class CollectionCacheRepository&lt;TValue&gt;
+    <title>Class Paginator
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class CollectionCacheRepository&lt;TValue&gt;
+    <meta name="title" content="Class Paginator
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.40.11.0">
     
@@ -76,19 +76,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.Paginator">
   
   
-  <h1 id="Unosquare_Swan_Components_CollectionCacheRepository_1" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1" class="text-break">Class CollectionCacheRepository&lt;TValue&gt;
+  <h1 id="Unosquare_Swan_Components_Paginator" data-uid="Unosquare.Swan.Components.Paginator" class="text-break">Class Paginator
   </h1>
-  <div class="markdown level0 summary"><p>A thread-safe collection cache repository for types.</p>
+  <div class="markdown level0 summary"><p>A utility class to compute paging or batching offsets.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">CollectionCacheRepository&lt;TValue&gt;</span></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.TypeCache-1.html">TypeCache&lt;T&gt;</a></div>
+    <div class="level1"><span class="xref">Paginator</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -115,23 +114,124 @@
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
-  <h5 id="Unosquare_Swan_Components_CollectionCacheRepository_1_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_Paginator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CollectionCacheRepository&lt;TValue&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class Paginator</code></pre>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_Paginator__ctor_" data-uid="Unosquare.Swan.Components.Paginator.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator__ctor_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Components.Paginator.#ctor(System.Int32,System.Int32)">Paginator(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.Paginator.html">Paginator</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Paginator(int totalCount, int pageSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
+        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TValue</span></td>
-        <td><p>The type of member to cache.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">totalCount</span></td>
+        <td><p>The total count of items to page over.</p>
 </td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">pageSize</span></td>
+        <td><p>The desired size of individual pages.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_Paginator_PageCount_" data-uid="Unosquare.Swan.Components.Paginator.PageCount*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_PageCount" data-uid="Unosquare.Swan.Components.Paginator.PageCount">PageCount</h4>
+  <div class="markdown level1 summary"><p>Gets the computed number of pages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PageCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_Paginator_PageSize_" data-uid="Unosquare.Swan.Components.Paginator.PageSize*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_PageSize" data-uid="Unosquare.Swan.Components.Paginator.PageSize">PageSize</h4>
+  <div class="markdown level1 summary"><p>Gets the desired number of items per page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PageSize { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_Paginator_TotalCount_" data-uid="Unosquare.Swan.Components.Paginator.TotalCount*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_TotalCount" data-uid="Unosquare.Swan.Components.Paginator.TotalCount">TotalCount</h4>
+  <div class="markdown level1 summary"><p>Gets the total number of items to page over.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TotalCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -139,14 +239,14 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_CollectionCacheRepository_1_ContainsKey_" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1.ContainsKey*"></a>
-  <h4 id="Unosquare_Swan_Components_CollectionCacheRepository_1_ContainsKey_System_Type_" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1.ContainsKey(System.Type)">ContainsKey(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified key.</p>
+  <a id="Unosquare_Swan_Components_Paginator_GetFirstItemIndex_" data-uid="Unosquare.Swan.Components.Paginator.GetFirstItemIndex*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_GetFirstItemIndex_System_Int32_" data-uid="Unosquare.Swan.Components.Paginator.GetFirstItemIndex(System.Int32)">GetFirstItemIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets the start item index of the given page.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ContainsKey(Type key)</code></pre>
+    <pre><code class="lang-csharp hljs">public int GetFirstItemIndex(int pageIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,9 +259,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">key</span></td>
-        <td><p>The key.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">pageIndex</span></td>
+        <td><p>Zero-based index of the page.</p>
 </td>
       </tr>
     </tbody>
@@ -176,24 +276,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if the cache contains the key, otherwise <code>false</code>.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The start item index.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Components_CollectionCacheRepository_1_Retrieve_" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1.Retrieve*"></a>
-  <h4 id="Unosquare_Swan_Components_CollectionCacheRepository_1_Retrieve_System_Type_System_Func_System_Type_System_Collections_Generic_IEnumerable__0___" data-uid="Unosquare.Swan.Components.CollectionCacheRepository`1.Retrieve(System.Type,System.Func{System.Type,System.Collections.Generic.IEnumerable{`0}})">Retrieve(Type, Func&lt;Type, IEnumerable&lt;TValue&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
-If the properties are not available, it calls the factory method to retrieve them
-and returns them as an array of PropertyInfo.</p>
+  <a id="Unosquare_Swan_Components_Paginator_GetItemCount_" data-uid="Unosquare.Swan.Components.Paginator.GetItemCount*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_GetItemCount_System_Int32_" data-uid="Unosquare.Swan.Components.Paginator.GetItemCount(System.Int32)">GetItemCount(Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets the item count of the given page index.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TValue&gt; Retrieve(Type key, Func&lt;Type, IEnumerable&lt;TValue&gt;&gt; factory)</code></pre>
+    <pre><code class="lang-csharp hljs">public int GetItemCount(int pageIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -206,15 +304,9 @@ and returns them as an array of PropertyInfo.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">key</span></td>
-        <td><p>The key.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TValue&gt;&gt;</td>
-        <td><span class="parametername">factory</span></td>
-        <td><p>The factory.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">pageIndex</span></td>
+        <td><p>Zero-based index of the page.</p>
 </td>
       </tr>
     </tbody>
@@ -229,24 +321,53 @@ and returns them as an array of PropertyInfo.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TValue&gt;</td>
-        <td><p>An array of the properties stored for the specified type.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The number of items that the page contains.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="exceptions">Exceptions</h5>
+  
+  
+  <a id="Unosquare_Swan_Components_Paginator_GetLastItemIndex_" data-uid="Unosquare.Swan.Components.Paginator.GetLastItemIndex*"></a>
+  <h4 id="Unosquare_Swan_Components_Paginator_GetLastItemIndex_System_Int32_" data-uid="Unosquare.Swan.Components.Paginator.GetLastItemIndex(System.Int32)">GetLastItemIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets the end item index of the given page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetLastItemIndex(int pageIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Condition</th>
+        <th>Name</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>type.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">pageIndex</span></td>
+        <td><p>Zero-based index of the page.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The end item index.</p>
 </td>
       </tr>
     </tbody>
