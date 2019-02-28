@@ -13215,6 +13215,25 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.IsValueType
   nameWithType: ReflectionExtensions.IsValueType
+- uid: Unosquare.Swan.ReflectionExtensions.ToBoolean(System.Object)
+  name: ToBoolean(Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToBoolean_System_Object_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.ToBoolean(System.Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.ToBoolean(System.Object)
+  nameWithType: ReflectionExtensions.ToBoolean(Object)
+- uid: Unosquare.Swan.ReflectionExtensions.ToBoolean(System.String)
+  name: ToBoolean(String)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToBoolean_System_String_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.ToBoolean(System.String)
+  fullName: Unosquare.Swan.ReflectionExtensions.ToBoolean(System.String)
+  nameWithType: ReflectionExtensions.ToBoolean(String)
+- uid: Unosquare.Swan.ReflectionExtensions.ToBoolean*
+  name: ToBoolean
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToBoolean_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.ToBoolean
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.ToBoolean
+  nameWithType: ReflectionExtensions.ToBoolean
 - uid: Unosquare.Swan.ReflectionExtensions.ToFormattedString(System.Reflection.PropertyInfo,System.Object)
   name: ToFormattedString(PropertyInfo, Object)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_ToFormattedString_System_Reflection_PropertyInfo_System_Object_
