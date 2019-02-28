@@ -3,6 +3,13 @@
     using System.Collections.Generic;
     using System.Reflection;
 
+    /// <summary>
+    /// Represents an AutoMapper-like object to map from one object type
+    /// to another using defined properties map or using the default behaviour
+    /// to copy same named properties from one object to another.
+    /// 
+    /// The extension methods like CopyPropertiesTo use the default behaviour.
+    /// </summary>
     public partial class ObjectMapper
     {
         internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>

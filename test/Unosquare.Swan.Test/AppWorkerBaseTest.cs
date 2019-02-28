@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
+    using Abstractions;
     using System;
     using System.Threading.Tasks;
     using Mocks;
@@ -14,14 +15,14 @@
             var mock = new AppWorkerMock();
             var exit = false;
             mock.OnExit = () => exit = true;
-            Assert.AreEqual(AppWorkerState.Stopped, mock.State);
-            mock.Start();
+            Assert.AreEqual(WorkerState.Created, mock.WorkerState);
+            await mock.StartAsync();
             await Task.Delay(TimeSpan.FromMilliseconds(100));
-
-            Assert.IsTrue(mock.IsBusy, "Worker is busy");
-            Assert.AreEqual(AppWorkerState.Running, mock.State);
-            mock.Stop();
-            Assert.AreEqual(AppWorkerState.Stopped, mock.State);
+            
+            Assert.AreEqual(WorkerState.Running, mock.WorkerState);
+            
+            await mock.StopAsync();
+            Assert.AreEqual(WorkerState.Stopped, mock.WorkerState);
 
             Assert.IsTrue(mock.ExitBecauseCancellation, "Exit because cancellation");
             Assert.IsTrue(exit, "Exit event was fired");
@@ -34,7 +35,7 @@
                 Assert.Inconclusive("OSX is wrong");
             
             var mock = new AppWorkerMock();
-            mock.Start();
+            await mock.StartAsync();
 
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -45,40 +46,14 @@
         public async Task AppWorkerExceptionTest()
         {
             var mock = new AppWorkerMock();
-            mock.Start();
+            await mock.StartAsync();
 
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(2));
-
-            Assert.IsFalse(mock.IsBusy, "The AppWorker is not busy");
+            
+            Assert.AreEqual(WorkerState.Stopped, mock.WorkerState);
             Assert.IsFalse(mock.ExitBecauseCancellation, "The AppWorker doesn't exit because cancellation");
             Assert.IsNotNull(mock.Exception, "The AppWorker had an exception");
-        }
-
-        [Test]
-        public void OnStateChangedTest()
-        {
-            var mock = new AppWorkerMock();
-            var start = false;
-            var stop = false;
-
-            mock.StateChanged += (s, e) =>
-            {
-                switch (e.NewState)
-                {
-                    case AppWorkerState.Running:
-                        start = true;
-                        break;
-                    case AppWorkerState.Stopped:
-                        stop = true;
-                        break;
-                }
-            };
-
-            mock.Start();
-            mock.Stop();
-            Assert.IsTrue(start);
-            Assert.IsTrue(stop);
         }
     }
 }

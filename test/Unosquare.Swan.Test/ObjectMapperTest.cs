@@ -52,7 +52,7 @@
         }
 
         [Test]
-        public void MapWithoutSouce_ThrowsArgumentNullException()
+        public void MapWithoutSource_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => Runtime.ObjectMapper.Map<UserDto>(null));
         }
@@ -127,7 +127,7 @@
         }
 
         [Test]
-        public void PropertyDestionationInfoNull_ReturnsException()
+        public void PropertyDestinationInfoNull_ReturnsException()
         {
             Assert.Throws<ArgumentException>(() => 
                 new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
