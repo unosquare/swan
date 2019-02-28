@@ -7025,6 +7025,22 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Extensions.CopyKeyValuePairTo
   nameWithType: Extensions.CopyKeyValuePairTo
+- uid: Unosquare.Swan.Extensions.CopyKeyValuePairToNew*
+  name: CopyKeyValuePairToNew
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyKeyValuePairToNew_
+  commentId: Overload:Unosquare.Swan.Extensions.CopyKeyValuePairToNew
+  isSpec: "True"
+  fullName: Unosquare.Swan.Extensions.CopyKeyValuePairToNew
+  nameWithType: Extensions.CopyKeyValuePairToNew
+- uid: Unosquare.Swan.Extensions.CopyKeyValuePairToNew``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String[])
+  name: CopyKeyValuePairToNew<T>(IDictionary<String, Object>, String[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyKeyValuePairToNew__1_System_Collections_Generic_IDictionary_System_String_System_Object__System_String___
+  commentId: M:Unosquare.Swan.Extensions.CopyKeyValuePairToNew``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String[])
+  name.vb: CopyKeyValuePairToNew(Of T)(IDictionary(Of String, Object), String())
+  fullName: Unosquare.Swan.Extensions.CopyKeyValuePairToNew<T>(System.Collections.Generic.IDictionary<System.String, System.Object>, System.String[])
+  fullName.vb: Unosquare.Swan.Extensions.CopyKeyValuePairToNew(Of T)(System.Collections.Generic.IDictionary(Of System.String, System.Object), System.String())
+  nameWithType: Extensions.CopyKeyValuePairToNew<T>(IDictionary<String, Object>, String[])
+  nameWithType.vb: Extensions.CopyKeyValuePairToNew(Of T)(IDictionary(Of String, Object), String())
 - uid: Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])
   name: CopyOnlyPropertiesTo(Object, Object, String[])
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___

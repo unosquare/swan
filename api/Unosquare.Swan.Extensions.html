@@ -242,6 +242,74 @@ instance, writable property in the destination.</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Extensions_CopyKeyValuePairToNew_" data-uid="Unosquare.Swan.Extensions.CopyKeyValuePairToNew*"></a>
+  <h4 id="Unosquare_Swan_Extensions_CopyKeyValuePairToNew__1_System_Collections_Generic_IDictionary_System_String_System_Object__System_String___" data-uid="Unosquare.Swan.Extensions.CopyKeyValuePairToNew``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String[])">CopyKeyValuePairToNew&lt;T&gt;(IDictionary&lt;String, Object&gt;, String[])</h4>
+  <div class="markdown level1 summary"><p>Iterates over the keys of the source and tries to write a compatible value to a public,
+instance, writable property in the destination.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T CopyKeyValuePairToNew&lt;T&gt;(this IDictionary&lt;string, object&gt; source, params string[] ignoreKeys)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td><span class="parametername">ignoreKeys</span></td>
+        <td><p>The ignore keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The specified type with properties copied.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Object Type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])">CopyOnlyPropertiesTo(Object, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
