@@ -251,7 +251,15 @@
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         public static bool TryParseBasicType(this Type type, object value, out object result)
-            => TryParseBasicType(type, value.ToStringInvariant(), out result);
+        {
+            if (type == typeof(bool))
+            {
+                result = value.ToBoolean();
+                return true;
+            }
+
+            return TryParseBasicType(type, value.ToStringInvariant(), out result);
+        }
 
         /// <summary>
         /// Tries to parse using the basic types.
@@ -437,7 +445,46 @@
                     .GetOrAdd(key,
                         x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
         }
-        
+
+        /// <summary>
+        /// Convert a string to a boolean.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>
+        ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
+        /// </returns>
+        public static bool ToBoolean(this string str)
+        {
+            try
+            {
+                return Convert.ToBoolean(str);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            try
+            {
+                return Convert.ToBoolean(Convert.ToInt32(str));
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Convert a object to a boolean.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
+        /// </returns>
+        public static bool ToBoolean(this object value) => value.ToStringInvariant().ToBoolean();
+
         private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
