@@ -166,26 +166,6 @@
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
             Assert.AreEqual(source.StringData, destination.StringData);
         }
-
-        [Test]
-        public void WithValidDictionary_CopyPropertiesToTarget()
-        {
-            var source = new Dictionary<string, object>
-            {
-                {nameof(UserDto.Name), "Thrall"},
-                {nameof(UserDto.Email), "Warchief.Thrall@horde.com"},
-                {nameof(UserDto.Role), "Warchief"},
-                {nameof(UserDto.IsAdmin), 1},
-            };
-
-            var target = new UserDto();
-
-            source.CopyKeyValuePairTo(target);
-
-            Assert.AreEqual(source[nameof(UserDto.Name)].ToString(), target.Name);
-            Assert.AreEqual(source[nameof(UserDto.Email)], target.Email);
-            Assert.IsTrue(target.IsAdmin);
-        }
     }
 
     [TestFixture]
@@ -238,6 +218,32 @@
             ObjectEnum source = null;
 
             Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesToNew<ObjectEnum>());
+        }
+
+        [Test]
+        public void WithValidDictionary_CopyPropertiesToTarget()
+        {
+            var source = new Dictionary<string, object>
+            {
+                {nameof(UserDto.Name), "Thrall"},
+                {nameof(UserDto.Email), "Warchief.Thrall@horde.com"},
+                {nameof(UserDto.Role), "Warchief"},
+                {nameof(UserDto.IsAdmin), 1},
+            };
+
+            var target = source.CopyKeyValuePairToNew<UserDto>();
+
+            Assert.AreEqual(source[nameof(UserDto.Name)].ToString(), target.Name);
+            Assert.AreEqual(source[nameof(UserDto.Email)], target.Email);
+            Assert.IsTrue(target.IsAdmin);
+        }
+
+        [Test]
+        public void WithNullDictionary_ThrowsArgumentNullException()
+        {
+            Dictionary<string, object> source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.CopyKeyValuePairToNew<ObjectEnum>());
         }
     }
 
