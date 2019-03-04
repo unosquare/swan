@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Unosquare.Swan.Abstractions
+    <title>Interface IWorkerDelayProvider
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Unosquare.Swan.Abstractions
+    <meta name="title" content="Interface IWorkerDelayProvider
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.40.11.0">
     
@@ -76,97 +76,64 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.IWorkerDelayProvider">
   
-  <h1 id="Unosquare_Swan_Abstractions" data-uid="Unosquare.Swan.Abstractions" class="text-break">Namespace Unosquare.Swan.Abstractions
+  
+  <h1 id="Unosquare_Swan_Abstractions_IWorkerDelayProvider" data-uid="Unosquare.Swan.Abstractions.IWorkerDelayProvider" class="text-break">Interface IWorkerDelayProvider
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>An interface for a worker cycle delay provider.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_IWorkerDelayProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IWorkerDelayProvider</code></pre>
+  </div>
+  <h3 id="methods">Methods
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AtomicTypeBase-1.html">AtomicTypeBase&lt;T&gt;</a></h4>
-      <section><p>Provides a generic implementation of an Atomic (interlocked) type</p>
-<p>Idea taken from Memory model and .NET operations in article:
-<a href="http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/">http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/</a>.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ExclusiveTimer.html">ExclusiveTimer</a></h4>
-      <section><p>A threading <span class="xref">Unosquare.Swan.Abstractions.ExclusiveTimer._backingTimer</span> implementation that executes at most one cycle at a time
-in a <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread. Callback execution is NOT guaranteed to be carried out
-on the same <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpool">ThreadPool</a> thread every time the timer fires.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ExpressionParser.html">ExpressionParser</a></h4>
-      <section><p>Represents a generic expression parser.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.Operator.html">Operator</a></h4>
-      <section><p>Represents an operator with precedence.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.RunnerBase.html">RunnerBase</a></h4>
-      <section><p>Represents an background worker abstraction with a life cycle and running at a independent thread.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ServiceBase.html">ServiceBase</a></h4>
-      <section><p>Mimic a Windows ServiceBase class. Useful to keep compatibility with applications
-running as services in OS different to Windows.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></h4>
-      <section><p>Represents a provider to save and load settings using a plain JSON file.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase&lt;T&gt;</a></h4>
-      <section><p>Represents a singleton pattern abstract class.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ThreadWorkerBase.html">ThreadWorkerBase</a></h4>
-      <section><p>Provides a base implementation for application workers
-that perform continuous, long-running tasks. This class
-provides the ability to perform fine-grained control on these tasks.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.TimerWorkerBase.html">TimerWorkerBase</a></h4>
-      <section><p>Provides a base implementation for application workers.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.Tokenizer.html">Tokenizer</a></h4>
-      <section><p>Represents a generic tokenizer.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html">WorkerBase</a></h4>
-      <section><p>Provides base infrastructure for Timer and Thread workers.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.WorkerDelayProvider.html">WorkerDelayProvider</a></h4>
-      <section><p>Represents a class that implements delay logic for thread workers.</p>
-</section>
-    <h3 id="structs">Structs
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.Token.html">Token</a></h4>
-      <section><p>Represents a Token structure.</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IObjectMap.html">IObjectMap</a></h4>
-      <section><p>Interface object map.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></h4>
-      <section><p>Defines a generic interface for synchronized locking mechanisms.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IValidator.html">IValidator</a></h4>
-      <section><p>A simple Validator interface.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWaitEvent.html">IWaitEvent</a></h4>
-      <section><p>Provides a generalized API for ManualResetEvent and ManualResetEventSlim.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></h4>
-      <section><p>Defines a standard API to control background application workers.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorkerDelayProvider.html">IWorkerDelayProvider</a></h4>
-      <section><p>An interface for a worker cycle delay provider.</p>
-</section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.TokenType.html">TokenType</a></h4>
-      <section><p>Enums the token types.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.StateChangeRequest.html">WorkerBase.StateChangeRequest</a></h4>
-      <section><p>Enumerates all the different state change requests.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.WorkerState.html">WorkerState</a></h4>
-      <section><p>Enumerates the different states in which a worker can be.</p>
-</section>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_IWorkerDelayProvider_ExecuteCycleDelay_" data-uid="Unosquare.Swan.Abstractions.IWorkerDelayProvider.ExecuteCycleDelay*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_IWorkerDelayProvider_ExecuteCycleDelay_System_Int32_System_Threading_Tasks_Task_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.IWorkerDelayProvider.ExecuteCycleDelay(System.Int32,System.Threading.Tasks.Task,System.Threading.CancellationToken)">ExecuteCycleDelay(Int32, Task, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Suspends execution queues a new new cycle for execution. The delay is given in
+milliseconds. When overridden in a derived class the wait handle will be set
+whenever an interrupt is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">wantedDelay</span></td>
+        <td><p>The remaining delay to wait for in the cycle.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><span class="parametername">delayTask</span></td>
+        <td><p>Contains a reference to a task with the scheduled period delay.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">token</span></td>
+        <td><p>The cancellation token to cancel waiting.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>
