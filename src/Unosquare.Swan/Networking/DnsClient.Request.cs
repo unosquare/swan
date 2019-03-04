@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Linq;
     using System.Net;
     using System.Net.Sockets;
@@ -65,11 +66,11 @@
             /// <exception cref="IOException">Thrown if a IO error occurs.</exception>
             /// <exception cref="SocketException">Thrown if a the reading or writing to the socket fails.</exception>
             /// <returns>The response received from server.</returns>
-            public DnsClientResponse Resolve()
+            public async Task<DnsClientResponse> Resolve()
             {
                 try
                 {
-                    var response = _resolver.Request(this);
+                    var response = await _resolver.Request(this);
 
                     if (response.Id != Id)
                     {
@@ -97,12 +98,11 @@
         {
             private static readonly Random Random = new Random();
 
-            private readonly IList<DnsQuestion> questions;
             private DnsHeader header;
 
             public DnsRequest()
             {
-                questions = new List<DnsQuestion>();
+                Questions = new List<DnsQuestion>();
                 header = new DnsHeader
                 {
                     OperationCode = DnsOperationCode.Query,
@@ -114,7 +114,7 @@
             public DnsRequest(IDnsRequest request)
             {
                 header = new DnsHeader();
-                questions = new List<DnsQuestion>(request.Questions);
+                Questions = new List<DnsQuestion>(request.Questions);
 
                 header.Response = false;
 
@@ -123,9 +123,9 @@
                 RecursionDesired = request.RecursionDesired;
             }
 
-            public IList<DnsQuestion> Questions => questions;
+            public IList<DnsQuestion> Questions { get; }
 
-            public int Size => header.Size + questions.Sum(q => q.Size);
+            public int Size => header.Size + Questions.Sum(q => q.Size);
 
             public int Id
             {
@@ -152,7 +152,7 @@
 
                 result
                     .Append(header.ToArray())
-                    .Append(questions.Select(q => q.ToArray()));
+                    .Append(Questions.Select(q => q.ToArray()));
 
                 return result.ToArray();
             }
@@ -166,23 +166,26 @@
 
             private void UpdateHeader()
             {
-                header.QuestionCount = questions.Count;
+                header.QuestionCount = Questions.Count;
             }
         }
 
         public class DnsTcpRequestResolver : IDnsRequestResolver
         {
-            public DnsClientResponse Request(DnsClientRequest request)
+            public async Task<DnsClientResponse> Request(DnsClientRequest request)
             {
                 var tcp = new TcpClient();
 
                 try
                 {
+#if !NET452
+                    await tcp.Client.ConnectAsync(request.Dns);
+#else
                     tcp.Client.Connect(request.Dns);
-
+#endif
                     var stream = tcp.GetStream();
                     var buffer = request.ToArray();
-                    var length = BitConverter.GetBytes((ushort) buffer.Length);
+                    var length = BitConverter.GetBytes((ushort)buffer.Length);
 
                     if (BitConverter.IsLittleEndian)
                         Array.Reverse(length);
@@ -206,7 +209,7 @@
                 finally
                 {
 #if NET452
-                tcp.Close();
+                    tcp.Close();
 #else
                     tcp.Dispose();
 #endif
@@ -246,7 +249,7 @@
                 _fallback = new DnsNullRequestResolver();
             }
 
-            public DnsClientResponse Request(DnsClientRequest request)
+            public async Task<DnsClientResponse> Request(DnsClientRequest request)
             {
                 var udp = new UdpClient();
                 var dns = request.Dns;
@@ -255,8 +258,17 @@
                 {
                     udp.Client.SendTimeout = 7000;
                     udp.Client.ReceiveTimeout = 7000;
+#if !NET452
+                    await udp.Client.ConnectAsync(dns);
+#else
                     udp.Client.Connect(dns);
-                    udp.Client.Send(request.ToArray());
+#endif
+
+                    await udp.SendAsync(request.ToArray(), request.Size
+#if NETSTANDARD1_3 
+                    , dns
+#endif
+                    );
 
                     var bufferList = new List<byte>();
 
@@ -265,19 +277,20 @@
                         var tempBuffer = new byte[1024];
                         var receiveCount = udp.Client.Receive(tempBuffer);
                         bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
-                    } while (udp.Client.Available > 0 || bufferList.Count == 0);
+                    }
+                    while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer);
 
                     return response.IsTruncated
-                        ? _fallback.Request(request)
+                        ? await _fallback.Request(request)
                         : new DnsClientResponse(request, response, buffer);
                 }
                 finally
                 {
 #if NET452
-                udp.Close();
+                    udp.Close();
 #else
                     udp.Dispose();
 #endif
@@ -287,10 +300,7 @@
 
         public class DnsNullRequestResolver : IDnsRequestResolver
         {
-            public DnsClientResponse Request(DnsClientRequest request)
-            {
-                throw new DnsQueryException("Request failed");
-            }
+            public Task<DnsClientResponse> Request(DnsClientRequest request) => throw new DnsQueryException("Request failed");
         }
 
         // 12 bytes message header
@@ -330,31 +340,31 @@
             public int Id
             {
                 get => id;
-                set => id = (ushort) value;
+                set => id = (ushort)value;
             }
 
             public int QuestionCount
             {
                 get => questionCount;
-                set => questionCount = (ushort) value;
+                set => questionCount = (ushort)value;
             }
 
             public int AnswerRecordCount
             {
                 get => answerCount;
-                set => answerCount = (ushort) value;
+                set => answerCount = (ushort)value;
             }
 
             public int AuthorityRecordCount
             {
                 get => authorityCount;
-                set => authorityCount = (ushort) value;
+                set => authorityCount = (ushort)value;
             }
 
             public int AdditionalRecordCount
             {
                 get => addtionalCount;
-                set => addtionalCount = (ushort) value;
+                set => addtionalCount = (ushort)value;
             }
 
             public bool Response
@@ -365,8 +375,8 @@
 
             public DnsOperationCode OperationCode
             {
-                get => (DnsOperationCode) Opcode;
-                set => Opcode = (byte) value;
+                get => (DnsOperationCode)Opcode;
+                set => Opcode = (byte)value;
             }
 
             public bool AuthorativeServer
@@ -395,8 +405,8 @@
 
             public DnsResponseCode ResponseCode
             {
-                get => (DnsResponseCode) RCode;
-                set => RCode = (byte) value;
+                get => (DnsResponseCode)RCode;
+                set => RCode = (byte)value;
             }
 
             public int Size => SIZE;
@@ -550,7 +560,7 @@
 
                 foreach (var l in _labels.Select(label => Encoding.ASCII.GetBytes(label)))
                 {
-                    result[offset++] = (byte) l.Length;
+                    result[offset++] = (byte)l.Length;
                     l.CopyTo(result, offset);
 
                     offset += l.Length;
@@ -652,7 +662,7 @@
             public byte[] ToArray() =>
                 new MemoryStream(Size)
                     .Append(_domain.ToArray())
-                    .Append(new Tail {Type = Type, Class = Class}.ToBytes())
+                    .Append(new Tail { Type = Type, Class = Class }.ToBytes())
                     .ToArray();
 
             public override string ToString()
@@ -669,14 +679,14 @@
 
                 public DnsRecordType Type
                 {
-                    get => (DnsRecordType) type;
-                    set => type = (ushort) value;
+                    get => (DnsRecordType)type;
+                    set => type = (ushort)value;
                 }
 
                 public DnsRecordClass Class
                 {
-                    get => (DnsRecordClass) klass;
-                    set => klass = (ushort) value;
+                    get => (DnsRecordClass)klass;
+                    set => klass = (ushort)value;
                 }
             }
         }

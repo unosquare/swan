@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Networking
 {
     using System;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     /// <summary>
@@ -55,7 +56,7 @@
         
         public interface IDnsRequestResolver
         {
-            DnsClientResponse Request(DnsClientRequest request);
+            Task<DnsClientResponse> Request(DnsClientRequest request);
         }
     }
 }
