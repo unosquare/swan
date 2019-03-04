@@ -74,9 +74,6 @@
         [Test]
         public async Task WithValidDns_ReturnsDnsEntry()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
             var googleDnsIPAddresses = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn);
 
             var targetIP =
@@ -99,9 +96,6 @@
         [Test]
         public async Task WithValidDnsAndFinalDot_ReturnsDnsEntryAsync()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
             var googleDnsIPAddressesWithFinalDot = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn + ".");
             Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
                 "GoogleDnsFqdn with trailing period resolution is not null");
@@ -110,9 +104,6 @@
         [Test]
         public void WithNullFqdn_ThrowsArgumentNullException()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
             Assert.ThrowsAsync<ArgumentNullException>(() => Network.GetDnsHostEntryAsync(null));
         }
     }
