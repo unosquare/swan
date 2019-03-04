@@ -36,9 +36,6 @@
         [TestCase(DnsRecordType.CNAME)]
         public async Task ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
-                Assert.Ignore("Ignored");
-
             var records = await Network.QueryDnsAsync(GoogleDnsFqdn, dnsRecordType);
 
             Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");

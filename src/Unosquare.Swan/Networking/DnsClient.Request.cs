@@ -607,7 +607,6 @@
 
         public class DnsQuestion : IDnsMessageEntry
         {
-            private readonly DnsDomain _domain;
             private readonly DnsRecordType _type;
             private readonly DnsRecordClass _klass;
 
@@ -646,22 +645,22 @@
                 DnsRecordType type = DnsRecordType.A,
                 DnsRecordClass klass = DnsRecordClass.IN)
             {
-                _domain = domain;
+                Name = domain;
                 _type = type;
                 _klass = klass;
             }
 
-            public DnsDomain Name => _domain;
+            public DnsDomain Name { get; }
 
             public DnsRecordType Type => _type;
 
             public DnsRecordClass Class => _klass;
 
-            public int Size => _domain.Size + Tail.SIZE;
+            public int Size => Name.Size + Tail.SIZE;
 
             public byte[] ToArray() =>
                 new MemoryStream(Size)
-                    .Append(_domain.ToArray())
+                    .Append(Name.ToArray())
                     .Append(new Tail { Type = Type, Class = Class }.ToBytes())
                     .ToArray();
 
