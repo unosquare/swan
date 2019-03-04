@@ -9,7 +9,7 @@
     public interface IWorkerDelayProvider
     {
         /// <summary>
-        /// Suspends execution queues a new new cycle for execution. The delay is given in
+        /// Suspends execution queues a new cycle for execution. The delay is given in
         /// milliseconds. When overridden in a derived class the wait handle will be set
         /// whenever an interrupt is received.
         /// </summary>
