@@ -8646,37 +8646,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Network.DomainName
   nameWithType: Network.DomainName
-- uid: Unosquare.Swan.Network.GetDnsHostEntry(System.String)
-  name: GetDnsHostEntry(String)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntry_System_String_
-  commentId: M:Unosquare.Swan.Network.GetDnsHostEntry(System.String)
-  fullName: Unosquare.Swan.Network.GetDnsHostEntry(System.String)
-  nameWithType: Network.GetDnsHostEntry(String)
-- uid: Unosquare.Swan.Network.GetDnsHostEntry(System.String,IPAddress,System.Int32)
-  name: GetDnsHostEntry(String, IPAddress, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntry_System_String_IPAddress_System_Int32_
-  commentId: M:Unosquare.Swan.Network.GetDnsHostEntry(System.String,IPAddress,System.Int32)
-  fullName: Unosquare.Swan.Network.GetDnsHostEntry(System.String, IPAddress, System.Int32)
-  nameWithType: Network.GetDnsHostEntry(String, IPAddress, Int32)
-- uid: Unosquare.Swan.Network.GetDnsHostEntry*
-  name: GetDnsHostEntry
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntry_
-  commentId: Overload:Unosquare.Swan.Network.GetDnsHostEntry
-  isSpec: "True"
-  fullName: Unosquare.Swan.Network.GetDnsHostEntry
-  nameWithType: Network.GetDnsHostEntry
-- uid: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32,System.Threading.CancellationToken)
-  name: GetDnsHostEntryAsync(String, IPAddress, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_IPAddress_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String, IPAddress, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Network.GetDnsHostEntryAsync(String, IPAddress, Int32, CancellationToken)
-- uid: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,System.Threading.CancellationToken)
-  name: GetDnsHostEntryAsync(String, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String, System.Threading.CancellationToken)
-  nameWithType: Network.GetDnsHostEntryAsync(String, CancellationToken)
+- uid: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String)
+  name: GetDnsHostEntryAsync(String)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_
+  commentId: M:Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String)
+  fullName: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String)
+  nameWithType: Network.GetDnsHostEntryAsync(String)
+- uid: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32)
+  name: GetDnsHostEntryAsync(String, IPAddress, Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_IPAddress_System_Int32_
+  commentId: M:Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32)
+  fullName: Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String, IPAddress, System.Int32)
+  nameWithType: Network.GetDnsHostEntryAsync(String, IPAddress, Int32)
 - uid: Unosquare.Swan.Network.GetDnsHostEntryAsync*
   name: GetDnsHostEntryAsync
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsHostEntryAsync_
@@ -8684,37 +8665,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Network.GetDnsHostEntryAsync
   nameWithType: Network.GetDnsHostEntryAsync
-- uid: Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress)
-  name: GetDnsPointerEntry(IPAddress)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntry_IPAddress_
-  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress)
-  fullName: Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress)
-  nameWithType: Network.GetDnsPointerEntry(IPAddress)
-- uid: Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress,IPAddress,System.Int32)
-  name: GetDnsPointerEntry(IPAddress, IPAddress, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntry_IPAddress_IPAddress_System_Int32_
-  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress,IPAddress,System.Int32)
-  fullName: Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress, IPAddress, System.Int32)
-  nameWithType: Network.GetDnsPointerEntry(IPAddress, IPAddress, Int32)
-- uid: Unosquare.Swan.Network.GetDnsPointerEntry*
-  name: GetDnsPointerEntry
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntry_
-  commentId: Overload:Unosquare.Swan.Network.GetDnsPointerEntry
-  isSpec: "True"
-  fullName: Unosquare.Swan.Network.GetDnsPointerEntry
-  nameWithType: Network.GetDnsPointerEntry
-- uid: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32,System.Threading.CancellationToken)
-  name: GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_IPAddress_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress, IPAddress, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Network.GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32, CancellationToken)
-- uid: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,System.Threading.CancellationToken)
-  name: GetDnsPointerEntryAsync(IPAddress, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress, System.Threading.CancellationToken)
-  nameWithType: Network.GetDnsPointerEntryAsync(IPAddress, CancellationToken)
+- uid: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress)
+  name: GetDnsPointerEntryAsync(IPAddress)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_
+  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress)
+  fullName: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress)
+  nameWithType: Network.GetDnsPointerEntryAsync(IPAddress)
+- uid: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32)
+  name: GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_IPAddress_System_Int32_
+  commentId: M:Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32)
+  fullName: Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress, IPAddress, System.Int32)
+  nameWithType: Network.GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32)
 - uid: Unosquare.Swan.Network.GetDnsPointerEntryAsync*
   name: GetDnsPointerEntryAsync
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetDnsPointerEntryAsync_
@@ -8767,37 +8729,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Network.GetIPv4Interfaces
   nameWithType: Network.GetIPv4Interfaces
-- uid: Unosquare.Swan.Network.GetNetworkTimeUtc(IPAddress,System.Int32)
-  name: GetNetworkTimeUtc(IPAddress, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtc_IPAddress_System_Int32_
-  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtc(IPAddress,System.Int32)
-  fullName: Unosquare.Swan.Network.GetNetworkTimeUtc(IPAddress, System.Int32)
-  nameWithType: Network.GetNetworkTimeUtc(IPAddress, Int32)
-- uid: Unosquare.Swan.Network.GetNetworkTimeUtc(System.String,System.Int32)
-  name: GetNetworkTimeUtc(String, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtc_System_String_System_Int32_
-  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtc(System.String,System.Int32)
-  fullName: Unosquare.Swan.Network.GetNetworkTimeUtc(System.String, System.Int32)
-  nameWithType: Network.GetNetworkTimeUtc(String, Int32)
-- uid: Unosquare.Swan.Network.GetNetworkTimeUtc*
-  name: GetNetworkTimeUtc
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtc_
-  commentId: Overload:Unosquare.Swan.Network.GetNetworkTimeUtc
-  isSpec: "True"
-  fullName: Unosquare.Swan.Network.GetNetworkTimeUtc
-  nameWithType: Network.GetNetworkTimeUtc
-- uid: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32,System.Threading.CancellationToken)
-  name: GetNetworkTimeUtcAsync(IPAddress, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtcAsync_IPAddress_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Network.GetNetworkTimeUtcAsync(IPAddress, Int32, CancellationToken)
-- uid: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32,System.Threading.CancellationToken)
-  name: GetNetworkTimeUtcAsync(String, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtcAsync_System_String_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Network.GetNetworkTimeUtcAsync(String, Int32, CancellationToken)
+- uid: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32)
+  name: GetNetworkTimeUtcAsync(IPAddress, Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtcAsync_IPAddress_System_Int32_
+  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32)
+  fullName: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress, System.Int32)
+  nameWithType: Network.GetNetworkTimeUtcAsync(IPAddress, Int32)
+- uid: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32)
+  name: GetNetworkTimeUtcAsync(String, Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtcAsync_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32)
+  fullName: Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String, System.Int32)
+  nameWithType: Network.GetNetworkTimeUtcAsync(String, Int32)
 - uid: Unosquare.Swan.Network.GetNetworkTimeUtcAsync*
   name: GetNetworkTimeUtcAsync
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetNetworkTimeUtcAsync_
@@ -8850,37 +8793,18 @@ references:
   commentId: F:Unosquare.Swan.Network.NtpDefaultPort
   fullName: Unosquare.Swan.Network.NtpDefaultPort
   nameWithType: Network.NtpDefaultPort
-- uid: Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType)
-  name: QueryDns(String, DnsRecordType)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_
-  commentId: M:Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType)
-  fullName: Unosquare.Swan.Network.QueryDns(System.String, Unosquare.Swan.Networking.DnsRecordType)
-  nameWithType: Network.QueryDns(String, DnsRecordType)
-- uid: Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
-  name: QueryDns(String, DnsRecordType, IPAddress, Int32)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_
-  commentId: M:Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
-  fullName: Unosquare.Swan.Network.QueryDns(System.String, Unosquare.Swan.Networking.DnsRecordType, IPAddress, System.Int32)
-  nameWithType: Network.QueryDns(String, DnsRecordType, IPAddress, Int32)
-- uid: Unosquare.Swan.Network.QueryDns*
-  name: QueryDns
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDns_
-  commentId: Overload:Unosquare.Swan.Network.QueryDns
-  isSpec: "True"
-  fullName: Unosquare.Swan.Network.QueryDns
-  nameWithType: Network.QueryDns
-- uid: Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32,System.Threading.CancellationToken)
-  name: QueryDnsAsync(String, DnsRecordType, IPAddress, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.QueryDnsAsync(System.String, Unosquare.Swan.Networking.DnsRecordType, IPAddress, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Network.QueryDnsAsync(String, DnsRecordType, IPAddress, Int32, CancellationToken)
-- uid: Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,System.Threading.CancellationToken)
-  name: QueryDnsAsync(String, DnsRecordType, CancellationToken)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Network.QueryDnsAsync(System.String, Unosquare.Swan.Networking.DnsRecordType, System.Threading.CancellationToken)
-  nameWithType: Network.QueryDnsAsync(String, DnsRecordType, CancellationToken)
+- uid: Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType)
+  name: QueryDnsAsync(String, DnsRecordType)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_
+  commentId: M:Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType)
+  fullName: Unosquare.Swan.Network.QueryDnsAsync(System.String, Unosquare.Swan.Networking.DnsRecordType)
+  nameWithType: Network.QueryDnsAsync(String, DnsRecordType)
+- uid: Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
+  name: QueryDnsAsync(String, DnsRecordType, IPAddress, Int32)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_
+  commentId: M:Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)
+  fullName: Unosquare.Swan.Network.QueryDnsAsync(System.String, Unosquare.Swan.Networking.DnsRecordType, IPAddress, System.Int32)
+  nameWithType: Network.QueryDnsAsync(String, DnsRecordType, IPAddress, Int32)
 - uid: Unosquare.Swan.Network.QueryDnsAsync*
   name: QueryDnsAsync
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_QueryDnsAsync_

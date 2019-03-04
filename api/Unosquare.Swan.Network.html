@@ -231,14 +231,14 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Network_GetDnsHostEntry_" data-uid="Unosquare.Swan.Network.GetDnsHostEntry*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsHostEntry_System_String_" data-uid="Unosquare.Swan.Network.GetDnsHostEntry(System.String)">GetDnsHostEntry(String)</h4>
+  <a id="Unosquare_Swan_Network_GetDnsHostEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync*"></a>
+  <h4 id="Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String)">GetDnsHostEntryAsync(String)</h4>
   <div class="markdown level1 summary"><p>Gets the DNS host entry (a list of IP addresses) for the domain name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPAddress[] GetDnsHostEntry(string fqdn)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -268,22 +268,22 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPAddress</span>[]</td>
-        <td><p>An array of local ip addresses.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">IPAddress</span>[]&gt;</td>
+        <td><p>An array of local ip addresses of the result produced by this task.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Network_GetDnsHostEntry_" data-uid="Unosquare.Swan.Network.GetDnsHostEntry*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsHostEntry_System_String_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetDnsHostEntry(System.String,IPAddress,System.Int32)">GetDnsHostEntry(String, IPAddress, Int32)</h4>
+  <a id="Unosquare_Swan_Network_GetDnsHostEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync*"></a>
+  <h4 id="Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32)">GetDnsHostEntryAsync(String, IPAddress, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets the DNS host entry (a list of IP addresses) for the domain name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPAddress[] GetDnsHostEntry(string fqdn, IPAddress dnsServer, int port)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -325,8 +325,8 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPAddress</span>[]</td>
-        <td><p>An array of local ip addresses.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">IPAddress</span>[]&gt;</td>
+        <td><p>An array of local ip addresses of the result produced by this task.</p>
 </td>
       </tr>
     </tbody>
@@ -342,223 +342,7 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>fqdn.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_GetDnsHostEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_IPAddress_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,IPAddress,System.Int32,System.Threading.CancellationToken)">GetDnsHostEntryAsync(String, IPAddress, Int32, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Gets the DNS host entry (a list of IP addresses) for the domain name.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">fqdn</span></td>
-        <td><p>The FQDN.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">dnsServer</span></td>
-        <td><p>The DNS server.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">IPAddress</span>[]&gt;</td>
-        <td><p>An array of local ip addresses of the result produced by this task.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_GetDnsHostEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsHostEntryAsync_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetDnsHostEntryAsync(System.String,System.Threading.CancellationToken)">GetDnsHostEntryAsync(String, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Gets the DNS host entry (a list of IP addresses) for the domain name.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, CancellationToken ct = default(CancellationToken))</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">fqdn</span></td>
-        <td><p>The FQDN.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">IPAddress</span>[]&gt;</td>
-        <td><p>An array of local ip addresses of the result produced by this task.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_GetDnsPointerEntry_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntry*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntry_IPAddress_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress)">GetDnsPointerEntry(IPAddress)</h4>
-  <div class="markdown level1 summary"><p>Gets the reverse lookup FQDN of the given IP Address.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetDnsPointerEntry(IPAddress query)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_GetDnsPointerEntry_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntry*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntry_IPAddress_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntry(IPAddress,IPAddress,System.Int32)">GetDnsPointerEntry(IPAddress, IPAddress, Int32)</h4>
-  <div class="markdown level1 summary"><p>Gets the reverse lookup FQDN of the given IP Address.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">dnsServer</span></td>
-        <td><p>The DNS server.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
+        <td><p>fqdn</p>
 </td>
       </tr>
     </tbody>
@@ -566,13 +350,13 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   
   
   <a id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_IPAddress_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32,System.Threading.CancellationToken)">GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress)">GetDnsPointerEntryAsync(IPAddress)</h4>
   <div class="markdown level1 summary"><p>Gets the reverse lookup FQDN of the given IP Address.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetDnsPointerEntryAsync(IPAddress query)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -588,24 +372,6 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
         <td><span class="xref">IPAddress</span></td>
         <td><span class="parametername">query</span></td>
         <td><p>The query.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">dnsServer</span></td>
-        <td><p>The DNS server.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -629,13 +395,13 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   
   
   <a id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,System.Threading.CancellationToken)">GetDnsPointerEntryAsync(IPAddress, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_GetDnsPointerEntryAsync_IPAddress_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetDnsPointerEntryAsync(IPAddress,IPAddress,System.Int32)">GetDnsPointerEntryAsync(IPAddress, IPAddress, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets the reverse lookup FQDN of the given IP Address.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -654,9 +420,15 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">dnsServer</span></td>
+        <td><p>The DNS server.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port.</p>
 </td>
       </tr>
     </tbody>
@@ -838,117 +610,14 @@ that represents the active IPv4 interfaces.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Network_GetNetworkTimeUtc_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtc*"></a>
-  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtc_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtc(IPAddress,System.Int32)">GetNetworkTimeUtc(IPAddress, Int32)</h4>
-  <div class="markdown level1 summary"><p>Gets the UTC time by querying from an NTP server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = 123)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">ntpServerAddress</span></td>
-        <td><p>The NTP server address.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><p>A new instance of the DateTime structure to 
-the specified year, month, day, hour, minute and second.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_GetNetworkTimeUtc_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtc*"></a>
-  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtc_System_String_System_Int32_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtc(System.String,System.Int32)">GetNetworkTimeUtc(String, Int32)</h4>
-  <div class="markdown level1 summary"><p>Gets the UTC time by querying from an NTP server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DateTime GetNetworkTimeUtc(string ntpServerName = &quot;pool.ntp.org&quot;, int port = 123)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">ntpServerName</span></td>
-        <td><p>The NTP server, by default pool.ntp.org.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port, by default NTP 123.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><p>The UTC time by querying from an NTP server.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_IPAddress_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32,System.Threading.CancellationToken)">GetNetworkTimeUtcAsync(IPAddress, Int32, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync(IPAddress,System.Int32)">GetNetworkTimeUtcAsync(IPAddress, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets the UTC time by querying from an NTP server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; GetNetworkTimeUtcAsync(IPAddress ntpServerAddress, int port = 123, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; GetNetworkTimeUtcAsync(IPAddress ntpServerAddress, int port = 123)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -970,12 +639,6 @@ the specified year, month, day, hour, minute and second.</p>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
         <td><span class="parametername">port</span></td>
         <td><p>The port.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -999,13 +662,13 @@ the specified year, month, day, hour, minute and second.</p>
   
   
   <a id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_System_String_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32,System.Threading.CancellationToken)">GetNetworkTimeUtcAsync(String, Int32, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_GetNetworkTimeUtcAsync_System_String_System_Int32_" data-uid="Unosquare.Swan.Network.GetNetworkTimeUtcAsync(System.String,System.Int32)">GetNetworkTimeUtcAsync(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Gets the UTC time by querying from an NTP server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; GetNetworkTimeUtcAsync(string ntpServerName = &quot;pool.ntp.org&quot;, int port = 123, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; GetNetworkTimeUtcAsync(string ntpServerName = &quot;pool.ntp.org&quot;, int port = 123)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1020,19 +683,13 @@ the specified year, month, day, hour, minute and second.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">ntpServerName</span></td>
-        <td><p>Name of the NTP server.</p>
+        <td><p>The NTP server, by default pool.ntp.org.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
         <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
+        <td><p>The port, by default NTP 123.</p>
 </td>
       </tr>
     </tbody>
@@ -1127,128 +784,14 @@ the specified year, month, day, hour, minute and second.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Network_QueryDns_" data-uid="Unosquare.Swan.Network.QueryDns*"></a>
-  <h4 id="Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_" data-uid="Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType)">QueryDns(String, DnsRecordType)</h4>
-  <div class="markdown level1 summary"><p>Queries the DNS server for the specified record type.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DnsQueryResult QueryDns(string query, DnsRecordType recordType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.DnsRecordType.html">DnsRecordType</a></td>
-        <td><span class="parametername">recordType</span></td>
-        <td><p>Type of the record.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.DnsQueryResult.html">DnsQueryResult</a></td>
-        <td><p>Appropriate DNS server for the specified record type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Network_QueryDns_" data-uid="Unosquare.Swan.Network.QueryDns*"></a>
-  <h4 id="Unosquare_Swan_Network_QueryDns_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.QueryDns(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)">QueryDns(String, DnsRecordType, IPAddress, Int32)</h4>
-  <div class="markdown level1 summary"><p>Queries the DNS server for the specified record type.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.DnsRecordType.html">DnsRecordType</a></td>
-        <td><span class="parametername">recordType</span></td>
-        <td><p>Type of the record.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">dnsServer</span></td>
-        <td><p>The DNS server.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.DnsQueryResult.html">DnsQueryResult</a></td>
-        <td><p>Appropriate DNS server for the specified record type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Unosquare_Swan_Network_QueryDnsAsync_" data-uid="Unosquare.Swan.Network.QueryDnsAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32,System.Threading.CancellationToken)">QueryDnsAsync(String, DnsRecordType, IPAddress, Int32, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_" data-uid="Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType)">QueryDnsAsync(String, DnsRecordType)</h4>
   <div class="markdown level1 summary"><p>Queries the DNS server for the specified record type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DnsQueryResult&gt; QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;DnsQueryResult&gt; QueryDnsAsync(string query, DnsRecordType recordType)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1270,24 +813,6 @@ the specified year, month, day, hour, minute and second.</p>
         <td><a class="xref" href="Unosquare.Swan.Networking.DnsRecordType.html">DnsRecordType</a></td>
         <td><span class="parametername">recordType</span></td>
         <td><p>Type of the record.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">IPAddress</span></td>
-        <td><span class="parametername">dnsServer</span></td>
-        <td><p>The DNS server.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The port.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -1311,13 +836,13 @@ the specified year, month, day, hour, minute and second.</p>
   
   
   <a id="Unosquare_Swan_Network_QueryDnsAsync_" data-uid="Unosquare.Swan.Network.QueryDnsAsync*"></a>
-  <h4 id="Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,System.Threading.CancellationToken)">QueryDnsAsync(String, DnsRecordType, CancellationToken)</h4>
+  <h4 id="Unosquare_Swan_Network_QueryDnsAsync_System_String_Unosquare_Swan_Networking_DnsRecordType_IPAddress_System_Int32_" data-uid="Unosquare.Swan.Network.QueryDnsAsync(System.String,Unosquare.Swan.Networking.DnsRecordType,IPAddress,System.Int32)">QueryDnsAsync(String, DnsRecordType, IPAddress, Int32)</h4>
   <div class="markdown level1 summary"><p>Queries the DNS server for the specified record type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DnsQueryResult&gt; QueryDnsAsync(string query, DnsRecordType recordType, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;DnsQueryResult&gt; QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1342,9 +867,15 @@ the specified year, month, day, hour, minute and second.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
-        <td><p>The cancellation token.</p>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">dnsServer</span></td>
+        <td><p>The DNS server.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port.</p>
 </td>
       </tr>
     </tbody>
