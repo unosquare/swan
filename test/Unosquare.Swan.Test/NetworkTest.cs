@@ -74,23 +74,31 @@
         [Test]
         public async Task WithValidDns_ReturnsDnsEntry()
         {
-            var googleDnsIPAddresses = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn);
+            try
+            {
+                var googleDnsIPAddresses = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn);
 
-            var targetIP =
-                googleDnsIPAddresses.FirstOrDefault(p =>
-                    p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                var targetIP =
+                    googleDnsIPAddresses.FirstOrDefault(p =>
+                        p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
-            Assert.IsNotNull(targetIP);
+                Assert.IsNotNull(targetIP);
 
-            var googleDnsPtrRecord = await Network.GetDnsPointerEntryAsync(targetIP);
+                var googleDnsPtrRecord = await Network.GetDnsPointerEntryAsync(targetIP);
 
-            var resolvedPtrRecord = await Network.GetDnsHostEntryAsync(googleDnsPtrRecord);
+                var resolvedPtrRecord = await Network.GetDnsHostEntryAsync(googleDnsPtrRecord);
 
-            var resolvedIP =
-                resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                var resolvedIP =
+                    resolvedPtrRecord.FirstOrDefault(p =>
+                        p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
-            Assert.IsNotNull(resolvedIP);
-            Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
+                Assert.IsNotNull(resolvedIP);
+                Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
+            }
+            catch (DnsQueryException)
+            {
+                Assert.Ignore("Timeout");
+            }
         }
 
         [Test]
