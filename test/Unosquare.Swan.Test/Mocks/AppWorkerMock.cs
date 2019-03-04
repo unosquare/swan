@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using Abstractions;
 
-    public class AppWorkerMock : WorkerBase
+    public class AppWorkerMock : TimerWorkerBase
     {
         public AppWorkerMock()
             : base(nameof(AppWorkerMock), TimeSpan.FromMilliseconds(100))
@@ -18,17 +18,11 @@
 
         public Action OnExit { get; set; }
 
-        public override Task<WorkerState> StartAsync() => Task.FromResult(WorkerState.Running);
-
-        public override Task<WorkerState> PauseAsync() => Task.FromResult(WorkerState.Stopped);
-
-        public override Task<WorkerState> ResumeAsync() => Task.FromResult(WorkerState.Running);
-
         public override Task<WorkerState> StopAsync()
         {
             OnExit?.Invoke();
 
-            return Task.FromResult(WorkerState.Stopped);
+            return base.StopAsync();
         }
 
         protected override void OnCycleException(Exception ex)
@@ -46,7 +40,7 @@
 
         protected override void OnDisposing()
         {
-            // Do nothing
+            // do nothing
         }
     }
 }

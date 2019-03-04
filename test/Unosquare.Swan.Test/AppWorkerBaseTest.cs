@@ -17,10 +17,7 @@
             mock.OnExit = () => exit = true;
             Assert.AreEqual(WorkerState.Created, mock.WorkerState);
             await mock.StartAsync();
-            await Task.Delay(TimeSpan.FromMilliseconds(100));
-            
-            Assert.AreEqual(WorkerState.Running, mock.WorkerState);
-            
+            Assert.AreEqual(WorkerState.Waiting, mock.WorkerState);
             await mock.StopAsync();
             Assert.AreEqual(WorkerState.Stopped, mock.WorkerState);
 
@@ -31,9 +28,6 @@
         [Test]
         public async Task WorkingTest()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is wrong");
-            
             var mock = new AppWorkerMock();
             await mock.StartAsync();
 
@@ -51,7 +45,7 @@
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(2));
             
-            Assert.AreEqual(WorkerState.Stopped, mock.WorkerState);
+            Assert.AreEqual(WorkerState.Waiting, mock.WorkerState);
             Assert.IsFalse(mock.ExitBecauseCancellation, "The AppWorker doesn't exit because cancellation");
             Assert.IsNotNull(mock.Exception, "The AppWorker had an exception");
         }

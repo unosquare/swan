@@ -74,7 +74,7 @@
 
             return result;
         }
-        
+
         public static List<string[]> SampleStringList()
             => new List<string[]>
             {
@@ -91,7 +91,7 @@
                 new[]
                 {
                     "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532",
-                    "true"
+                    "true",
                 },
             };
     }

@@ -107,7 +107,7 @@
                 {
                     OperationCode = DnsOperationCode.Query,
                     Response = false,
-                    Id = Random.Next(UInt16.MaxValue),
+                    Id = Random.Next(ushort.MaxValue),
                 };
             }
 

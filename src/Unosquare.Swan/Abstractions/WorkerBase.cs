@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Components;
@@ -43,7 +42,7 @@
         }
 
         /// <summary>
-        /// Enumerates all the different state change requests
+        /// Enumerates all the different state change requests.
         /// </summary>
         protected enum StateChangeRequest
         {
@@ -222,23 +221,17 @@
         /// </summary>
         /// <param name="initialWorkerState">Initial state of the worker.</param>
         /// <returns>The number of milliseconds to delay for.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected int ComputeCycleDelay(WorkerState initialWorkerState)
         {
-            var delay = 0;
             var elapsedMillis = CycleStopwatch.ElapsedMilliseconds;
             var period = Period;
             var periodMillis = period.TotalMilliseconds;
             var delayMillis = periodMillis - elapsedMillis;
 
             if (initialWorkerState == WorkerState.Paused || period == TimeSpan.MaxValue || delayMillis >= int.MaxValue)
-                delay = Timeout.Infinite;
-            else if (elapsedMillis >= periodMillis)
-                delay = 0;
-            else
-                delay = Convert.ToInt32(Math.Floor(delayMillis));
+                return Timeout.Infinite;
 
-            return delay;
+            return elapsedMillis >= periodMillis ? 0 : Convert.ToInt32(Math.Floor(delayMillis));
         }
     }
 }
