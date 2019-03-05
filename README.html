@@ -98,7 +98,6 @@
 <li><a href="#the-messagehub-component">The MessageHub component</a></li>
 <li><a href="#the-ldapconnection-class">The LdapConnection class</a></li>
 <li><a href="#the-processrunner-class">The ProcessRunner class</a></li>
-<li><a href="#the-appworkerbase-class">The AppWorkerBase class</a></li>
 <li><a href="#the-argumentparser-component">The ArgumentParser component</a></li>
 <li><a href="#the-settingsprovider-abstraction">The SettingsProvider abstraction</a></li>
 <li><a href="#the-connection-class">The Connection class</a></li>
@@ -120,11 +119,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></td>
-<td><span class="emoji" shortcode="x">❌</span></td>
-<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
-</tr>
 <tr>
 <td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser</a></td>
 <td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
@@ -298,6 +292,11 @@
 <tr>
 <td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html">ValueTypeExtensions</a></td>
 <td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
+<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
+</tr>
+<tr>
+<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.WorkerBase.html">WorkerBase</a></td>
+<td><span class="emoji" shortcode="x">❌</span></td>
 <td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
 </tr>
 </tbody>
@@ -848,62 +847,7 @@ data.StandardOutput.WriteLine();
 // And the error
 data.StandardError.WriteLine();
 </code></pre><p><em>Keep in mind that both <code>GetProcessOutputAsync</code> and <code>GetProcessResultAsync</code> are meant to be used for programs that output a relatively small amount of text</em></p>
-<h3 id="the-appworkerbase-class">The <code>AppWorkerBase</code> class</h3>
-<p>An implementation of the <code>IWorker</code> interface that creates an application service capable of performing some background processing.</p>
-<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase API Doc</a></p>
-<h4 id="example-1-inherit-from-appworkerbase">Example 1: Inherit from AppWorkerBase</h4>
-<p>The <code>AppWorkerBase</code> class has many methods that can be overwritten such as:</p>
-<ul>
-<li><strong>OnWorkerThreadLoopException</strong>: which is called when an unhandled exception is thrown</li>
-<li><strong>OnWorkerThreadExit</strong>: executed when the user loop has exited</li>
-<li><strong>WorkerThreadLoop</strong>: a custom async loop that checks whether a cancellation has been requested if so it exits the loop</li>
-</ul>
-<pre><code class="lang-csharp"> class Worker : AppWorkerBase
-    {
-        // An action that will be executed if the worker is stopped
-        public Action OnExit { get; set; }
-
-        // override the base loop method, this is the code will
-        // execute until the cancellation token is canceled.
-         protected override Task WorkerThreadLoop()
-         {
-             // delay a second and then proceed
-             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
-
-             // just print out this
-             $&quot;Working...&quot;.WriteLine();
-         }
-
-        // Once the worker is stopped this code will be executed
-        protected override void OnWorkerThreadExit()
-        {          
-            // Execute the base method
-            base.OnWorkerThreadExit();
-
-            // Then if the OnExit Action is not null execute it
-            OnExit?.Invoke();
-        }
-    }
-</code></pre><h4 id="example-2-using-an-appworker">Example 2: Using an AppWorker</h4>
-<p>In this example we use the worker class described above</p>
-<pre><code class="lang-csharp">// Create a new AppWorker using the class explained above
-var worker = new Worker();
-
-// Setting an OnExit Action that just prints &#39;Exited&#39;
-worker.OnExit = () =&gt;
-    {
-        $&quot;Exited&quot;.WriteLine();
-    };
-
-// Start the worker
-worker.Start();
-
-// Wait 2 seconds in order to see some output
-Task.Delay(2000).Wait();
-
-// Stop the worker         
-worker.Stop();
-</code></pre><h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
+<h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
 <p>This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
 <h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
