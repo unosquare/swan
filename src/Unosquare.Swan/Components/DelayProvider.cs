@@ -34,7 +34,9 @@
         private readonly Stopwatch _delayStopwatch = new Stopwatch();
 
         private bool _isDisposed;
+#if !NETSTANDARD1_3 
         private IWaitEvent _delayEvent;
+#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
@@ -111,7 +113,9 @@
             {
                 if (_isDisposed) return;
                 _isDisposed = true;
+#if !NETSTANDARD1_3 
                 _delayEvent?.Dispose();
+#endif
             }
         }
 

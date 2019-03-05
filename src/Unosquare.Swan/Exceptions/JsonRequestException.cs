@@ -12,7 +12,6 @@
     public class JsonRequestException
         : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Unosquare.Swan.Exceptions.JsonRequestException" /> class.
         /// </summary>

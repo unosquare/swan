@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Components
     public sealed class CircularBuffer : IDisposable
     {
         private readonly object _syncLock = new object();
-        private IntPtr _buffer = IntPtr.Zero;
+        private IntPtr _buffer;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularBuffer"/> class.

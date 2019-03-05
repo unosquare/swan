@@ -190,7 +190,7 @@
         /// <returns>
         /// An array of local ip addresses of the result produced by this task.
         /// </returns>
-        /// <exception cref="ArgumentNullException">fqdn</exception>
+        /// <exception cref="ArgumentNullException">fqdn.</exception>
         public static async Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port)
         {
             if (fqdn == null)

@@ -279,14 +279,12 @@
                     return true;
                 }
 
-                if (!type.IsValueType() && propertyInfo.PropertyType == type)
-                {
-                    propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
+                if (type.IsValueType() || propertyInfo.PropertyType != type)
+                    return propertyInfo.TrySetBasicType(value, target);
+                
+                propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
 
-                    return true;
-                }
-            
-                return propertyInfo.TrySetBasicType(value, target);
+                return true;
             }
             catch
             {
