@@ -107,7 +107,7 @@
 
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
-            var publicIP = Network.GetPublicIPAddress();
+            var publicIP = await Network.GetPublicIPAddressAsync();
             var dnsLookup = await Network.GetDnsHostEntryAsync(domainName);
             var ptrRecord = await Network.GetDnsPointerEntryAsync(publicIP);
             var mxRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.MX);
