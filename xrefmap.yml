@@ -8748,19 +8748,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Network.GetNetworkTimeUtcAsync
   nameWithType: Network.GetNetworkTimeUtcAsync
-- uid: Unosquare.Swan.Network.GetPublicIPAddress
-  name: GetPublicIPAddress()
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetPublicIPAddress
-  commentId: M:Unosquare.Swan.Network.GetPublicIPAddress
-  fullName: Unosquare.Swan.Network.GetPublicIPAddress()
-  nameWithType: Network.GetPublicIPAddress()
-- uid: Unosquare.Swan.Network.GetPublicIPAddress*
-  name: GetPublicIPAddress
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetPublicIPAddress_
-  commentId: Overload:Unosquare.Swan.Network.GetPublicIPAddress
-  isSpec: "True"
-  fullName: Unosquare.Swan.Network.GetPublicIPAddress
-  nameWithType: Network.GetPublicIPAddress
 - uid: Unosquare.Swan.Network.GetPublicIPAddressAsync(System.Threading.CancellationToken)
   name: GetPublicIPAddressAsync(CancellationToken)
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetPublicIPAddressAsync_System_Threading_CancellationToken_
