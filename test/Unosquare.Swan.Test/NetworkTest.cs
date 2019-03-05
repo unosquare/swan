@@ -207,9 +207,9 @@
     public class GetPublicIPAddress : NetworkTest
     {
         [Test]
-        public void WithNoParam_ReturnsIPAddress()
+        public async Task WithNoParam_ReturnsIPAddress()
         {
-            var publicIPAddress = Network.GetPublicIPAddress();
+            var publicIPAddress = await Network.GetPublicIPAddressAsync();
 
             Assert.IsNotEmpty(publicIPAddress.ToString());
         }

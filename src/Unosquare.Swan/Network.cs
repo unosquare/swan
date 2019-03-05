@@ -146,13 +146,7 @@
                 return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
         }
-
-        /// <summary>
-        /// Gets the public IP address using ipify.org.
-        /// </summary>
-        /// <returns>A public ip address.</returns>
-        public static IPAddress GetPublicIPAddress() => GetPublicIPAddressAsync().GetAwaiter().GetResult();
-
+        
         /// <summary>
         /// Gets the configured IPv4 DNS servers for the active network interfaces.
         /// </summary>
@@ -209,7 +203,7 @@
             }
 
             var client = new DnsClient(dnsServer, port);
-            var result = await client.Lookup(fqdn);
+            var result = await client.Lookup(fqdn).ConfigureAwait(false);
             return result.ToArray();
         }
 
@@ -251,7 +245,7 @@
                 throw new ArgumentNullException(nameof(query));
 
             var client = new DnsClient(dnsServer, port);
-            var response = await client.Resolve(query, recordType);
+            var response = await client.Resolve(query, recordType).ConfigureAwait(false);
             return new DnsQueryResult(response);
         }
         
@@ -285,7 +279,7 @@
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
 #if !NET452
-            await socket.ConnectAsync(endPoint);
+            await socket.ConnectAsync(endPoint).ConfigureAwait(false);
 #else
             socket.Connect(endPoint);
 #endif
@@ -327,8 +321,8 @@
         public static async Task<DateTime> GetNetworkTimeUtcAsync(string ntpServerName = "pool.ntp.org",
             int port = NtpDefaultPort)
         {
-            var addresses = await GetDnsHostEntryAsync(ntpServerName);
-            return await GetNetworkTimeUtcAsync(addresses.First(), port);
+            var addresses = await GetDnsHostEntryAsync(ntpServerName).ConfigureAwait(false);
+            return await GetNetworkTimeUtcAsync(addresses.First(), port).ConfigureAwait(false);
         }
 
         #endregion
