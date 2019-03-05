@@ -13,7 +13,7 @@
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
             Role = new Role {Name = "Admin"},
-            StartDate = new DateTime(2000, 10, 13),
+            StartDate = new DateTime(2000, 2, 5),
         };
 
         protected Dictionary<string, object> SourceDict => new Dictionary<string, object>
