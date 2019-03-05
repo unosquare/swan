@@ -120,9 +120,9 @@
         }
 
         /// <inheritdoc />
-        protected override void Dispose(bool alsoManaged)
+        protected override void Dispose(bool disposing)
         {
-            base.Dispose(alsoManaged);
+            base.Dispose(disposing);
 
             lock (_syncLock)
             {
@@ -150,7 +150,7 @@
         /// <summary>
         /// Executes the worker cycle control logic.
         /// This includes processing state change requests,
-        /// the exeuction of use cycle code,
+        /// the execution of use cycle code,
         /// and the scheduling of new cycles.
         /// </summary>
         private void ExecuteWorkerCycle()
