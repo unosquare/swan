@@ -33,7 +33,6 @@ Table of contents
     * [The MessageHub component](#the-messagehub-component)
     * [The LdapConnection class](#the-ldapconnection-class)
     * [The ProcessRunner class](#the-processrunner-class)
-    * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     * [The Connection class](#the-connection-class)
@@ -47,7 +46,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|
-| [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
 | [ArgumentParser](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [CircularBuffer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
@@ -83,6 +81,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [Terminal](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [TypeCache<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ValueTypeExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [WorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.WorkerBase.html) | :x: | :heavy_check_mark: |
  
 If you are developing an ASP.NET Core application, we recommend to use [SWAN AspNet.Core](https://github.com/unosquare/swan-aspnetcore).
 
@@ -850,68 +849,6 @@ data.StandardOutput.WriteLine();
 data.StandardError.WriteLine();
 ```
 *Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
-
-### The `AppWorkerBase` class
-An implementation of the `IWorker` interface that creates an application service capable of performing some background processing.
-
-[AppWorkerBase API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html)
-
-#### Example 1: Inherit from AppWorkerBase
-The `AppWorkerBase` class has many methods that can be overwritten such as:
-
-* **OnWorkerThreadLoopException**: which is called when an unhandled exception is thrown
-* **OnWorkerThreadExit**: executed when the user loop has exited
-* **WorkerThreadLoop**: a custom async loop that checks whether a cancellation has been requested if so it exits the loop
-
-```csharp
- class Worker : AppWorkerBase
-    {
-        // An action that will be executed if the worker is stopped
-        public Action OnExit { get; set; }
-        
-        // override the base loop method, this is the code will
-		// execute until the cancellation token is canceled.
-         protected override Task WorkerThreadLoop()
-         {
-             // delay a second and then proceed
-             await Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken);
-                 
-             // just print out this
-             $"Working...".WriteLine();
-         }
-        
-        // Once the worker is stopped this code will be executed
-        protected override void OnWorkerThreadExit()
-        {          
-            // Execute the base method
-            base.OnWorkerThreadExit();
-            
-            // Then if the OnExit Action is not null execute it
-            OnExit?.Invoke();
-        }
-    }
-```
-#### Example 2: Using an AppWorker
-In this example we use the worker class described above
-```csharp
-// Create a new AppWorker using the class explained above
-var worker = new Worker();
-
-// Setting an OnExit Action that just prints 'Exited'
-worker.OnExit = () =>
-    {
-        $"Exited".WriteLine();
-    };
-
-// Start the worker
-worker.Start();
-
-// Wait 2 seconds in order to see some output
-Task.Delay(2000).Wait();
-
-// Stop the worker         
-worker.Stop();
-```
 
 ### The `ArgumentParser` component
 
