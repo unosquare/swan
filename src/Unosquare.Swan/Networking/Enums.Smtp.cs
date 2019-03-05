@@ -2,9 +2,8 @@
 namespace Unosquare.Swan.Networking
 {
 #if NETSTANDARD1_3
-
     /// <summary>
-    /// Defines the different SMTP status codes
+    /// Defines the different SMTP status codes.
     /// </summary>
     public enum SmtpStatusCode
     {

@@ -4,6 +4,8 @@
 
     internal class MethodCacheMock
     {
+        public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
+
         public void SingleMethod()
         {
             // do nothing
@@ -28,7 +30,5 @@
         {
             // do nothing
         }
-
-        public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
     }
 }

@@ -15,17 +15,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.4.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <packagereference Include="NUnit3TestAdapter" Version="3.11.2"></packagereference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <packagereference Include="NUnit3TestAdapter" Version="3.13.0"></packagereference>
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">

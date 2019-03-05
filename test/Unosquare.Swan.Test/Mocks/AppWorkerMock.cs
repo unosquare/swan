@@ -1,37 +1,46 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abstractions;
 
-    public class AppWorkerMock : AppWorkerBase
+    public class AppWorkerMock : TimerWorkerBase
     {
+        public AppWorkerMock()
+            : base(nameof(AppWorkerMock), TimeSpan.FromMilliseconds(100))
+        {
+        }
+
         public Exception Exception { get; private set; }
         public bool ExitBecauseCancellation { get; private set; } = true;
         public int Count { get; private set; }
 
         public Action OnExit { get; set; }
 
-        protected override async Task WorkerThreadLoop()
+        public override Task<WorkerState> StopAsync()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(100), CancellationToken);
+            OnExit?.Invoke();
 
+            return base.StopAsync();
+        }
+
+        protected override void OnCycleException(Exception ex)
+        {
+            Exception = ex;
+        }
+
+        protected override void ExecuteCycleLogic(CancellationToken ct)
+        {
             if (++Count != 6) return;
 
             ExitBecauseCancellation = false;
             throw new InvalidOperationException("Expected exception");
         }
 
-        protected override void OnWorkerThreadExit()
+        protected override void OnDisposing()
         {
-            base.OnWorkerThreadExit();
-            OnExit?.Invoke();
-        }
-
-        protected override void OnWorkerThreadLoopException(Exception ex)
-        {
-            Exception = ex;
-            base.OnWorkerThreadLoopException(ex);
+            // do nothing
         }
     }
 }

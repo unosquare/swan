@@ -30,7 +30,7 @@
             await TestLdapSearch();
             TestApplicationInfo();
             await TestTerminalOutputs();
-            TestNetworkUtilities();
+            await TestNetworkUtilities();
             TestContainerAndMessageHub();
             TestJson();
             TestExceptionLogging();
@@ -100,19 +100,19 @@
             "test".Dump(typeof(Program));
         }
 
-        private static void TestNetworkUtilities()
+        private static async Task TestNetworkUtilities()
         {
             const string domainName = "unosquare.com";
             const string ntpServer = "time.windows.com";
 
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
-            var publicIP = Network.GetPublicIPAddress();
-            var dnsLookup = Network.GetDnsHostEntry(domainName);
-            var ptrRecord = Network.GetDnsPointerEntry(publicIP);
-            var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
-            var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
-            var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
+            var publicIP = await Network.GetPublicIPAddressAsync();
+            var dnsLookup = await Network.GetDnsHostEntryAsync(domainName);
+            var ptrRecord = await Network.GetDnsPointerEntryAsync(publicIP);
+            var mxRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.MX);
+            var txtRecords =await  Network.QueryDnsAsync("unosquare.com", DnsRecordType.TXT);
+            var ntpTime = await Network.GetNetworkTimeUtcAsync(ntpServer);
 
             $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
             $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));

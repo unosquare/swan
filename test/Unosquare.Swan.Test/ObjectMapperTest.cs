@@ -13,6 +13,7 @@
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
             Role = new Role {Name = "Admin"},
+            StartDate = new DateTime(2000, 10, 13),
         };
 
         protected Dictionary<string, object> SourceDict => new Dictionary<string, object>
@@ -36,6 +37,7 @@
             Assert.IsNotNull(destination);
             Assert.AreEqual(SourceUser.Name, destination.Name);
             Assert.AreEqual(SourceUser.Email, destination.Email);
+            Assert.AreEqual(SourceUser.StartDate, destination.StartDate);
             Assert.IsNull(destination.Role);
         }
 
@@ -52,7 +54,7 @@
         }
 
         [Test]
-        public void MapWithoutSouce_ThrowsArgumentNullException()
+        public void MapWithoutSource_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => Runtime.ObjectMapper.Map<UserDto>(null));
         }
@@ -127,7 +129,7 @@
         }
 
         [Test]
-        public void PropertyDestionationInfoNull_ReturnsException()
+        public void PropertyDestinationInfoNull_ReturnsException()
         {
             Assert.Throws<ArgumentException>(() => 
                 new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));

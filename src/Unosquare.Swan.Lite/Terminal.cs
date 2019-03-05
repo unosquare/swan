@@ -229,7 +229,7 @@ namespace Unosquare.Swan
         /// <param name="top">The top.</param>
         public static void SetCursorPosition(int left, int top)
         {
-            if (IsConsolePresent == false) return;
+            if (!IsConsolePresent) return;
 
             lock (SyncLock)
             {

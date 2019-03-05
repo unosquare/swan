@@ -13,12 +13,8 @@
     {
         protected const string GoogleDnsFqdn = "google-public-dns-a.google.com";
 
-        protected const string Fqdn = "pool.ntp.org";
-
         protected IPAddress PrivateIP { get; } = IPAddress.Parse("192.168.1.1");
-
         protected IPAddress PublicIP { get; } = IPAddress.Parse("200.1.1.1");
-        protected IPAddress GoogleDns { get; } = IPAddress.Parse("8.8.8.8");
         protected IPAddress NullIP { get; } = null;
     }
 
@@ -28,7 +24,7 @@
         [Test]
         public void InvalidDnsAsParam_ThrowsDnsQueryException()
         {
-            Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+            Assert.ThrowsAsync<DnsQueryException>(() => Network.QueryDnsAsync("invalid.local", DnsRecordType.MX));
         }
 
         [TestCase(DnsRecordType.TXT)]
@@ -38,40 +34,54 @@
         [TestCase(DnsRecordType.SRV)]
         [TestCase(DnsRecordType.WKS)]
         [TestCase(DnsRecordType.CNAME)]
-        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
+        public async Task ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
-                Assert.Ignore("Ignored");
+            try
+            {
+                var records = await Network.QueryDnsAsync(GoogleDnsFqdn, dnsRecordType);
 
-            var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+                Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
+                Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
+                Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
+                Assert.AreEqual("Query",
+                    records.OperationCode.ToString(),
+                    $"OperationCode, Testing with {dnsRecordType}");
+                Assert.AreEqual(DnsResponseCode.NoError,
+                    records.ResponseCode,
+                    $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
+                Assert.AreEqual(dnsRecordType == DnsRecordType.TXT,
+                    records.AnswerRecords.Any(),
+                    $"AnswerRecords, Testing with {dnsRecordType}");
 
-            Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
-            Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
-            Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
-            Assert.AreEqual("Query", 
-                records.OperationCode.ToString(),
-                $"OperationCode, Testing with {dnsRecordType}");
-            Assert.AreEqual(DnsResponseCode.NoError, 
-                records.ResponseCode,
-                $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
-            Assert.AreEqual(dnsRecordType == DnsRecordType.TXT, 
-                records.AnswerRecords.Any(),
-                $"AnswerRecords, Testing with {dnsRecordType}");
+                await Task.Delay(100);
+            }
+            catch (DnsQueryException)
+            {
+                Assert.Ignore("Timeout");
+            }
         }
 
         [Test]
-        public void ValidDnsMultipleCalls_ReturnsDifferentId()
+        public async Task ValidDnsMultipleCalls_ReturnsDifferentId()
         {
-            var record = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
-            var records = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+            try
+            {
+                var record = await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.TXT);
+                await Task.Delay(100);
+                var records = await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.TXT);
 
-            Assert.AreNotEqual(records.Id, record.Id, "Different Id");
+                Assert.AreNotEqual(records.Id, record.Id, "Different Id");
+            }
+            catch (DnsQueryException)
+            {
+                Assert.Ignore("Timeout");
+            }
         }
 
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            Assert.Throws<ArgumentNullException>(() => Network.QueryDns(null, DnsRecordType.TXT));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await Network.QueryDnsAsync(null, DnsRecordType.TXT));
         }
     }
 
@@ -79,37 +89,39 @@
     public class GetDnsHostEntry : NetworkTest
     {
         [Test]
-        public void WithValidDns_ReturnsDnsEntry()
+        public async Task WithValidDns_ReturnsDnsEntry()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
+            try
+            {
+                var googleDnsIPAddresses = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn);
 
-            var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
+                var targetIP =
+                    googleDnsIPAddresses.FirstOrDefault(p =>
+                        p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
-            var targetIP =
-                googleDnsIPAddresses.FirstOrDefault(p =>
-                    p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                Assert.IsNotNull(targetIP);
 
-            Assert.IsNotNull(targetIP);
+                var googleDnsPtrRecord = await Network.GetDnsPointerEntryAsync(targetIP);
 
-            var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
+                var resolvedPtrRecord = await Network.GetDnsHostEntryAsync(googleDnsPtrRecord);
 
-            var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
+                var resolvedIP =
+                    resolvedPtrRecord.FirstOrDefault(p =>
+                        p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
-            var resolvedIP =
-                resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-
-            Assert.IsNotNull(resolvedIP);
-            Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
+                Assert.IsNotNull(resolvedIP);
+                Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
+            }
+            catch (DnsQueryException)
+            {
+                Assert.Ignore("Timeout");
+            }
         }
 
         [Test]
-        public void WithValidDnsAndFinalDot_ReturnsDnsEntry()
+        public async Task WithValidDnsAndFinalDot_ReturnsDnsEntryAsync()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
-            var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+            var googleDnsIPAddressesWithFinalDot = await Network.GetDnsHostEntryAsync(GoogleDnsFqdn + ".");
             Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
                 "GoogleDnsFqdn with trailing period resolution is not null");
         }
@@ -117,10 +129,7 @@
         [Test]
         public void WithNullFqdn_ThrowsArgumentNullException()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
-            Assert.Throws<ArgumentNullException>(() => Network.GetDnsHostEntry(null));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Network.GetDnsHostEntryAsync(null));
         }
     }
 
@@ -208,9 +217,9 @@
     public class GetPublicIPAddress : NetworkTest
     {
         [Test]
-        public void WithNoParam_ReturnsIPAddress()
+        public async Task WithNoParam_ReturnsIPAddress()
         {
-            var publicIPAddress = Network.GetPublicIPAddress();
+            var publicIPAddress = await Network.GetPublicIPAddressAsync();
 
             Assert.IsNotEmpty(publicIPAddress.ToString());
         }
@@ -222,33 +231,13 @@
         [Test]
         public void WithInvalidNtpServerName_ThrowsDnsQueryException()
         {
-            Assert.Throws<DnsQueryException>(() => Network.GetNetworkTimeUtc("www"));
+            Assert.ThrowsAsync<DnsQueryException>(() => Network.GetNetworkTimeUtcAsync("www"));
         }
 
         [Test]
         public void WithNullNtpServerName_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Network.GetNetworkTimeUtc(NullIP));
-        }
-
-        [Test]
-        public void WithIPAddressAndPort_ReturnsDateTime()
-        {
-            var ntpServerAddress = IPAddress.Parse("127.0.0.1");
-
-            var publicIPAddress = Network.GetNetworkTimeUtc(ntpServerAddress, 1203);
-
-            Assert.AreEqual(publicIPAddress, new DateTime(1900, 1, 1));
-        }
-    }
-
-    [TestFixture]
-    public class GetNetworkTimeUtcAsync : NetworkTest
-    {
-        [Test]
-        public async Task WithInvalidNtpServerName_ThrowsDnsQueryException()
-        {
-            Assert.ThrowsAsync<DnsQueryException>(async () => await Network.GetNetworkTimeUtcAsync("www"));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Network.GetNetworkTimeUtcAsync(NullIP));
         }
 
         [Test]
@@ -259,76 +248,6 @@
             var publicIPAddress = await Network.GetNetworkTimeUtcAsync(ntpServerAddress, 1203);
 
             Assert.AreEqual(publicIPAddress, new DateTime(1900, 1, 1));
-        }
-    }
-
-    [TestFixture]
-    public class GetDnsHostEntryAsync : NetworkTest
-    {
-        [Test]
-        public async Task WithValidFqdn_ReturnsDnsHost()
-        {
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn);
-
-            Assert.IsNotEmpty(dnsHost.ToString());
-        }
-
-        [Test]
-        public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
-        {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Network.DnsDefaultPort);
-
-            Assert.IsNotEmpty(dnsHost.ToString());
-        }
-    }
-
-    [TestFixture]
-    public class GetDnsPointerEntryAsync : NetworkTest
-    {
-        [Test]
-        public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
-        {
-            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns, GoogleDns, Network.DnsDefaultPort);
-
-            Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
-        }
-
-        [Test]
-        public async Task WithValidIPAddress_ReturnsDnsHost()
-        {
-            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns);
-
-            Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
-        }
-
-        [Test]
-        public void WithNullIPAddress_ReturnsDnsHost()
-        {
-            Assert.Throws<ArgumentNullException>(() => Network.GetDnsPointerEntry(NullIP));
-        }
-    }
-
-    [TestFixture]
-    public class QueryDnsAsync : NetworkTest
-    {
-        [Test]
-        public async Task ValidDnsAsDnsServer_ReturnsQueryDns()
-        {
-            var dnsPointer =
-                await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, GoogleDns, Network.DnsDefaultPort);
-
-            Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.ResponseCode);
-        }
-
-        [Test]
-        public async Task ValidDnsAsParam_ReturnsQueryDns()
-        {
-            var dnsPointer = await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX);
-
-            Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.ResponseCode);
         }
     }
 }

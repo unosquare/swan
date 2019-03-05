@@ -127,7 +127,7 @@
         /// contained in longBytes.
         /// </returns>
         public static uint SwapEndianness(this ulong longBytes)
-            => (uint) (((longBytes & 0x000000ff) << 24) +
+            => (uint)(((longBytes & 0x000000ff) << 24) +
                        ((longBytes & 0x0000ff00) << 8) +
                        ((longBytes & 0x00ff0000) >> 8) +
                        ((longBytes & 0xff000000) >> 24));

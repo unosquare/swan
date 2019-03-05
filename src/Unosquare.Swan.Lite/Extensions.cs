@@ -147,7 +147,29 @@
             object target,
             params string[] ignoreKeys)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
+        }
+
+        /// <summary>
+        /// Iterates over the keys of the source and tries to write a compatible value to a public,
+        /// instance, writable property in the destination.
+        /// </summary>
+        /// <typeparam name="T">Object Type.</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="ignoreKeys">The ignore keys.</param>
+        /// <returns>
+        /// The specified type with properties copied.
+        /// </returns>
+        public static T CopyKeyValuePairToNew<T>(
+            this IDictionary<string, object> source,
+            params string[] ignoreKeys)
+        {
+            var target = Activator.CreateInstance<T>();
+            source.CopyKeyValuePairTo(target, ignoreKeys);
+            return target;
         }
 
         /// <summary>

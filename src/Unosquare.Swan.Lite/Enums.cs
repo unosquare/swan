@@ -27,22 +27,6 @@
     }
 
     /// <summary>
-    /// Enumerates the different Application Worker States.
-    /// </summary>
-    public enum AppWorkerState
-    {
-        /// <summary>
-        /// The stopped
-        /// </summary>
-        Stopped,
-        
-        /// <summary>
-        /// The running
-        /// </summary>
-        Running,
-    }
-    
-    /// <summary>
     /// Defines Endianness, big or little.
     /// </summary>
     public enum Endianness

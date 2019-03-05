@@ -146,7 +146,7 @@
                 target,
                 source.ToDictionary(
                     x => x.Key.ToLowerInvariant(),
-                    x => new TypeValuePair(typeof(object), x.Value)),
+                    x => Tuple.Create(typeof(object), x.Value)),
                 (IEnumerable<string>)propertiesToCopy,
                 ignoreProperties);
         }
@@ -237,7 +237,7 @@
         }
 
         private static int Copy(object target,
-            Dictionary<string, TypeValuePair> sourceProperties,
+            Dictionary<string, Tuple<Type, object>> sourceProperties,
             IEnumerable<string> propertiesToCopy,
             IEnumerable<string> ignoreProperties)
         {
@@ -261,14 +261,29 @@
                 .When(() => requiredProperties != null, q => q.Where(y => requiredProperties.Contains(y.Key)))
                 .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
-                .Sum(x => TrySetValue(x, target) ? 1 : 0);
+                .Sum(x => TrySetValue(x.Key, x.Value, target) ? 1 : 0);
         }
 
-        private static bool TrySetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
+        private static bool TrySetValue(PropertyInfo propertyInfo, Tuple<Type, object> property, object target)
         {
             try
             {
-                SetValue(property, target);
+                var type = property.Item1;
+                var value = property.Item2;
+
+                if (type.GetTypeInfo().IsEnum)
+                {
+                    propertyInfo.SetValue(target,
+                        Enum.ToObject(propertyInfo.PropertyType, value));
+
+                    return true;
+                }
+
+                if (type.IsValueType() || propertyInfo.PropertyType != type)
+                    return propertyInfo.TrySetBasicType(value, target);
+                
+                propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
+
                 return true;
             }
             catch
@@ -278,35 +293,7 @@
 
             return false;
         }
-
-        private static void SetValue(KeyValuePair<PropertyInfo, TypeValuePair> property, object target)
-        {
-            if (property.Value.Type.GetTypeInfo().IsEnum)
-            {
-                property.Key.SetValue(target,
-                    Enum.ToObject(property.Key.PropertyType, property.Value.Value));
-
-                return;
-            }
-
-            if (!property.Value.Type.IsValueType() && property.Key.PropertyType == property.Value.Type)
-            {
-                property.Key.SetValue(target, GetValue(property.Value.Value, property.Key.PropertyType));
-
-                return;
-            }
-
-            if (property.Key.PropertyType == typeof(bool))
-            {
-                property.Key.SetValue(target,
-                    Convert.ToBoolean(property.Value.Value));
-
-                return;
-            }
-
-            property.Key.TrySetBasicType(property.Value.Value, target);
-        }
-
+        
         private static object GetValue(object source, Type targetType)
         {
             if (source == null)
@@ -369,7 +356,7 @@
             return target;
         }
 
-        private static Dictionary<string, TypeValuePair> GetSourceMap(object source)
+        private static Dictionary<string, Tuple<Type, object>> GetSourceMap(object source)
         {
             // select distinct properties because they can be duplicated by inheritance
             var sourceProperties = Runtime.PropertyTypeCache
@@ -381,7 +368,7 @@
                 .Distinct()
                 .ToDictionary(
                     x => x.ToLowerInvariant(),
-                    x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
+                    x => Tuple.Create(sourceProperties.First(y => y.Name == x).PropertyType,
                         sourceProperties.First(y => y.Name == x).GetValue(source)));
         }
     }

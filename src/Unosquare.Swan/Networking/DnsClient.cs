@@ -1,10 +1,11 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
-    using Exceptions;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// DnsClient public methods.
@@ -30,7 +31,7 @@
             return new DnsClientRequest(_dns, request, _resolver);
         }
 
-        public IList<IPAddress> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
+        public async Task<IList<IPAddress>> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {
             if (string.IsNullOrWhiteSpace(domain))
                 throw new ArgumentNullException(nameof(domain));
@@ -40,7 +41,7 @@
                 throw new ArgumentException("Invalid record type " + type);
             }
 
-            var response = Resolve(domain, type);
+            var response = await Resolve(domain, type);
             var ips = response.AnswerRecords
                 .Where(r => r.Type == type)
                 .Cast<DnsIPAddressResourceRecord>()
@@ -55,12 +56,12 @@
             return ips;
         }
         
-        public string Reverse(IPAddress ip)
+        public async Task<string> Reverse(IPAddress ip)
         {
             if (ip == null)
                 throw new ArgumentNullException(nameof(ip));
 
-            var response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
+            var response = await Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
             var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
             if (ptr == null)
@@ -71,9 +72,9 @@
             return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
-        public DnsClientResponse Resolve(string domain, DnsRecordType type) => Resolve(new DnsDomain(domain), type);
+        public Task<DnsClientResponse> Resolve(string domain, DnsRecordType type) => Resolve(new DnsDomain(domain), type);
 
-        public DnsClientResponse Resolve(DnsDomain domain, DnsRecordType type)
+        public Task<DnsClientResponse> Resolve(DnsDomain domain, DnsRecordType type)
         {
             var request = Create();
             var question = new DnsQuestion(domain, type);
