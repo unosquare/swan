@@ -6,15 +6,15 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class FileLogging : IDisposable
+    public class FileLogger : IDisposable
     {
         private static readonly object _lock = new Object();
-        private static FileLogging _instance;
+        private static FileLogger _instance;
         
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
 
-        private FileLogging(string path, bool dailyFile)
+        private FileLogger(string path, bool dailyFile)
         {
             Path = path;
             DailyFile = dailyFile;
@@ -34,7 +34,7 @@
             {
                 if (_instance == null)
                 {
-                    _instance = new FileLogging(path ?? Runtime.EntryAssemblyDirectory, dailyFile);
+                    _instance = new FileLogger(path ?? Runtime.EntryAssemblyDirectory, dailyFile);
                     Terminal.OnLogMessageReceived += _instance.Write;
                 }
                 else
