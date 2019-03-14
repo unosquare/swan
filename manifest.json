@@ -790,6 +790,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.FileLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.FileLogger.html",
+          "hash": "p+9hFMsNkmFEMChlxLrm3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.IMessageHub.yml",
       "output": {
         ".html": {
@@ -1118,7 +1130,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "AVTZzeus3AkDUPajImr5+g=="
+          "hash": "F/ERSbdyMo6rAVqrP19ovA=="
         }
       },
       "is_incremental": false,
@@ -2174,7 +2186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ni9NmPZlG88ZmUW3Zs86ew=="
+          "hash": "L4k5ig4oPns/plUQA0040g=="
         }
       },
       "is_incremental": false,
@@ -2243,7 +2255,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 174,
+          "total_file_count": 175,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
