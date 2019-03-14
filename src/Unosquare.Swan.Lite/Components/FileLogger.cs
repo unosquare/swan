@@ -30,17 +30,23 @@
 
         public static void Register(string path = null, bool dailyFile = true)
         {
+            var localPath = path ??
+#if NETSTANDARD1_3
+            Runtime.LocalStoragePath;
+#else
+            Runtime.EntryAssemblyDirectory;
+#endif
             lock (_lock)
             {
                 if (_instance == null)
                 {
-                    _instance = new FileLogger(path ?? Runtime.EntryAssemblyDirectory, dailyFile);
+                    _instance = new FileLogger(localPath, dailyFile);
                     Terminal.OnLogMessageReceived += _instance.Write;
                 }
                 else
                 {
                     // Change properties
-                    _instance.Path = path;
+                    _instance.Path = localPath;
                     _instance.DailyFile = dailyFile;
                 }
             }
