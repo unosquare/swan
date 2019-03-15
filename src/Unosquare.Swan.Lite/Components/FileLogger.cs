@@ -4,9 +4,12 @@
     using System;
     using System.Collections.Concurrent;
     using System.IO;
-    using System.Text;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// A helper class to write into files the messages sent by the <see cref="Terminal"/>.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class FileLogger : IDisposable
     {
         private static readonly object _syncLock = new Object();
@@ -30,10 +33,10 @@
         private bool DailyFile { get; set; }
 
         /// <summary>
-        /// Registers the specified destination path.
+        /// Registers the log file generation.
         /// </summary>
         /// <param name="destinationPath">The destination path.</param>
-        /// <param name="dailyFile">if set to <c>true</c> [daily file].</param>
+        /// <param name="dailyFile">if set to <c>true</c> a daily file is created, otherwise, only one general file is created.</param>
         public static void Register(string destinationPath = null, bool dailyFile = true)
         {
             var localPath = destinationPath ??
@@ -59,7 +62,7 @@
         }
 
         /// <summary>
-        /// Unregisters this instance.
+        /// Unregisters the log file generation.
         /// </summary>
         public static void Unregister()
         {
@@ -74,13 +77,17 @@
             }
         }
 
-        private void EnqueueEntries(object sender, LogMessageReceivedEventArgs logEvent) =>
-            _logQueue.Enqueue(Terminal.CreateOutputMessage(
-                logEvent.Source, 
-                logEvent.Message, 
-                Terminal.GetConsoleColorAndPrefix(logEvent.MessageType, out var unusedColor), 
-                logEvent.UtcDate));
+        private void EnqueueEntries(object sender, LogMessageReceivedEventArgs logEvent)
+        {
+            var outputMessage = Terminal.CreateOutputMessage(
+                logEvent.Source,
+                logEvent.Message,
+                Terminal.GetConsoleColorAndPrefix(logEvent.MessageType, out var _),
+                logEvent.UtcDate);
 
+            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty )}");
+        }
+        
         private async Task WriteLogEntries()
         {
             if (!_logQueue.IsEmpty)
