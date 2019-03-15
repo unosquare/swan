@@ -163,7 +163,7 @@
                 outputMessage.WriteLine(color, writer);
         }
 
-        private static string GetConsoleColorAndPrefix(LogMessageType messageType, out ConsoleColor color)
+        internal static string GetConsoleColorAndPrefix(LogMessageType messageType, out ConsoleColor color)
         {
             string prefix;
 
@@ -204,7 +204,7 @@
             return prefix;
         }
 
-        private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
+        internal static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
         {
             var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
                 ? string.Empty
