@@ -155,9 +155,10 @@
 
             try
             {
-                _backingTimer.Dispose();
                 _cycleDoneEvent.Wait();
                 _cycleDoneEvent.Dispose();
+                Pause();
+                _backingTimer.Dispose();
             }
             finally
             {

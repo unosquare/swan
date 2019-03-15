@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -14,7 +15,8 @@
     {
         private static readonly object _syncLock = new Object();
         private static FileLogger _instance;
-        
+
+        private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
 
@@ -87,21 +89,36 @@
 
             _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty )}");
         }
-        
-        private async Task WriteLogEntries()
+
+        private async Task WriteLogEntries(bool finalCall = false)
         {
-            if (!_logQueue.IsEmpty)
+            if (_logQueue.IsEmpty)
+                return;
+
+            if (!finalCall && !_doneEvent.IsSet)
+                return;
+
+            _doneEvent.Reset();
+
+            try
             {
                 using (var file = File.AppendText(GetFileName()))
                 {
                     while (!_logQueue.IsEmpty)
                     {
                         if (_logQueue.TryDequeue(out var entry))
-                        {
                             await file.WriteAsync(entry);
-                        }
                     }
                 }
+            }
+            catch
+            {
+                // File exceptions: don't do anything.
+            }
+            finally
+            {
+                if (!finalCall)
+                    _doneEvent.Set();
             }
         }
 
@@ -123,6 +140,11 @@
                 {
                     _timer.Pause();
                     _timer.Dispose();
+
+                    _doneEvent.Wait();
+                    _doneEvent.Reset();
+                    WriteLogEntries(true).GetAwaiter().GetResult();
+                    _doneEvent.Dispose();
                 }
 
                 LogPath = null;
