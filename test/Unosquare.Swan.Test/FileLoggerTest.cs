@@ -15,7 +15,14 @@
             $"Test".Info();
             FileLogger.Unregister();
 
-            var logFile = Path.Combine(Runtime.EntryAssemblyDirectory, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
+            var logPath = 
+#if NET462
+            Runtime.EntryAssemblyDirectory;
+#else
+            Runtime.LocalStoragePath;
+#endif
+
+            var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
             Assert.IsTrue(File.Exists(logFile));
         }
 
@@ -26,7 +33,13 @@
             $"Test".Info();
             FileLogger.Unregister();
 
-            var logFile = Path.Combine(Runtime.EntryAssemblyDirectory, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
+            var logPath =
+#if NET462
+            Runtime.EntryAssemblyDirectory;
+#else
+            Runtime.LocalStoragePath;
+#endif
+            var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
             var logContent = File.ReadAllText(logFile);
             Assert.IsNotEmpty(logContent);
         }

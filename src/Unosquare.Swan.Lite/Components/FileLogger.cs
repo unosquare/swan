@@ -26,7 +26,7 @@
             DailyFile = dailyFile;
 
             _timer = new ExclusiveTimer(
-                async () => await WriteLogEntries(),
+                async () => await WriteLogEntries().ConfigureAwait(false),
                 TimeSpan.Zero,
                 TimeSpan.FromSeconds(5));
         }
@@ -107,7 +107,7 @@
                     while (!_logQueue.IsEmpty)
                     {
                         if (_logQueue.TryDequeue(out var entry))
-                            await file.WriteAsync(entry);
+                            await file.WriteAsync(entry).ConfigureAwait(false);
                     }
                 }
             }
