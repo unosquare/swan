@@ -22,7 +22,7 @@
         /// <summary>
         /// Gets the contents of the data buffer.
         /// </summary>
-        public List<byte> DataBuffer { get; }
+        public List<byte> DataBuffer { get; protected set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has initiated.
