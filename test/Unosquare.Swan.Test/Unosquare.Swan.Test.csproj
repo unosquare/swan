@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <packagereference Include="NUnit3TestAdapter" Version="3.13.0"></packagereference>
     <PackageReference Include="NUnit" Version="3.11.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-rc.114">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
