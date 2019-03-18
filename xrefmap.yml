@@ -3839,18 +3839,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CircularBuffer.Clear
   nameWithType: CircularBuffer.Clear
-- uid: Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr,System.IntPtr,System.UInt32)
-  name: CopyMemory(IntPtr, IntPtr, UInt32)
-  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CopyMemory_System_IntPtr_System_IntPtr_System_UInt32_
-  commentId: M:Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr,System.IntPtr,System.UInt32)
-  fullName: Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr, System.IntPtr, System.UInt32)
-  nameWithType: CircularBuffer.CopyMemory(IntPtr, IntPtr, UInt32)
-- uid: Unosquare.Swan.Components.CircularBuffer.CopyMemory*
-  name: CopyMemory
-  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CopyMemory_
-  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.CopyMemory
-  fullName: Unosquare.Swan.Components.CircularBuffer.CopyMemory
-  nameWithType: CircularBuffer.CopyMemory
 - uid: Unosquare.Swan.Components.CircularBuffer.Dispose
   name: Dispose()
   href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Dispose
