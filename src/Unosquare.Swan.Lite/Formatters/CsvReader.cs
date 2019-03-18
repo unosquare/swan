@@ -391,7 +391,7 @@
                     
                     // Parse and assign the basic type value to the property if exists
                     properties
-                        .FirstOrDefault(p => p.Name.Equals(propertyName))?
+                        .FirstOrDefault(p => p.Name == propertyName)?
                         .TrySetBasicType(values[i], result);
                 }
             }
@@ -625,12 +625,11 @@
             _hasDisposed = true;
         }
         
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion

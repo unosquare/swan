@@ -197,7 +197,7 @@ namespace Unosquare.Swan.Components
         /// <param name="source">The source.</param>
         /// <param name="length">The length.</param>
         [DllImport("kernel32")]
-        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
+        internal static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
 
         #endregion
     }

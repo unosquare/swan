@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
-    using Swan.Abstractions;
+    using Abstractions;
     using System;
     using System.Collections.Concurrent;
     using System.IO;
@@ -13,12 +13,14 @@
     /// <seealso cref="System.IDisposable" />
     public class FileLogger : IDisposable
     {
-        private static readonly object _syncLock = new Object();
+        private static readonly object SyncLock = new object();
         private static FileLogger _instance;
 
         private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
+        
+        private bool _disposedValue; // To detect redundant calls
 
         private FileLogger(string path, bool dailyFile)
         {
@@ -47,7 +49,7 @@
 #else
             Runtime.EntryAssemblyDirectory;
 #endif
-            lock (_syncLock)
+            lock (SyncLock)
             {
                 if (_instance == null)
                 {
@@ -68,15 +70,44 @@
         /// </summary>
         public static void Unregister()
         {
-            lock (_syncLock)
+            lock (SyncLock)
             {
-                if (_instance != null)
-                {
-                    Terminal.OnLogMessageReceived -= _instance.EnqueueEntries;
-                    _instance.Dispose();
-                    _instance = null;
-                }
+                if (_instance == null) return;
+
+                Terminal.OnLogMessageReceived -= _instance.EnqueueEntries;
+                _instance.Dispose();
+                _instance = null;
             }
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposedValue) return;
+
+            if (disposing)
+            {
+                _timer.Pause();
+                _timer.Dispose();
+
+                _doneEvent.Wait();
+                _doneEvent.Reset();
+                WriteLogEntries(true).GetAwaiter().GetResult();
+                _doneEvent.Dispose();
+            }
+
+            LogPath = null;
+            _disposedValue = true;
         }
 
         private void EnqueueEntries(object sender, LogMessageReceivedEventArgs logEvent)
@@ -111,10 +142,6 @@
                     }
                 }
             }
-            catch
-            {
-                // File exceptions: don't do anything.
-            }
             finally
             {
                 if (!finalCall)
@@ -123,41 +150,6 @@
         }
 
         private string GetFileName() => 
-            Path.Combine(LogPath, $"Application{(DailyFile ? $"_{DateTime.UtcNow:yyyyMMdd}" : String.Empty)}.log");
-
-        #region IDisposable Support
-        private bool disposedValue; // To detect redundant calls
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    _timer.Pause();
-                    _timer.Dispose();
-
-                    _doneEvent.Wait();
-                    _doneEvent.Reset();
-                    WriteLogEntries(true).GetAwaiter().GetResult();
-                    _doneEvent.Dispose();
-                }
-
-                LogPath = null;
-                disposedValue = true;
-            }
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose() =>
-            Dispose(true);
-
-        #endregion
+            Path.Combine(LogPath, $"Application{(DailyFile ? $"_{DateTime.UtcNow:yyyyMMdd}" : string.Empty)}.log");
     }
 }

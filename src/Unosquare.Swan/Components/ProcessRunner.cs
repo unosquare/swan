@@ -393,9 +393,8 @@
             Stream baseStream,
             ProcessDataReceivedCallback onDataCallback,
             bool syncEvents,
-            CancellationToken ct)
-        {
-            return Task.Factory.StartNew(async () =>
+            CancellationToken ct) =>
+            Task.Run(async () =>
             {
                 // define some state variables
                 var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
@@ -455,8 +454,7 @@
                         var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
 
                         // Create the data processing callback invocation
-                        var eventTask =
-                            Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
+                        var eventTask = Task.Run(() => onDataCallback.Invoke(eventBuffer, process), ct);
 
                         // wait for the event to process before the next read occurs
                         if (syncEvents) eventTask.Wait(ct);
@@ -468,7 +466,6 @@
                 }
 
                 return totalCount;
-            }, ct).Unwrap();
-        }
+            }, ct);
     }
 }

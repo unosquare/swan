@@ -197,7 +197,7 @@
 
             while (true)
             {
-                if (fqdn.EndsWith(".") == false) break;
+                if (!fqdn.EndsWith(".", StringComparison.OrdinalIgnoreCase)) break;
 
                 fqdn = fqdn.Substring(0, fqdn.Length - 1);
             }
