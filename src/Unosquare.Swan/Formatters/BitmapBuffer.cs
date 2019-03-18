@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET462
 namespace Unosquare.Swan.Formatters
 {
     using System;

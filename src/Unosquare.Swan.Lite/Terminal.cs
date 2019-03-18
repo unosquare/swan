@@ -39,7 +39,7 @@ namespace Unosquare.Swan
 
                 if (IsConsolePresent)
                 {
-#if !NET452
+#if !NET462
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
                     Console.CursorVisible = false;

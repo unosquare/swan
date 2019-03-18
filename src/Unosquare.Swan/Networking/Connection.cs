@@ -695,7 +695,7 @@
 
             try
             {
-#if !NET452
+#if !NET462
                 RemoteClient.Dispose();
                 SecureStream?.Dispose();
                 NetworkStream?.Dispose();

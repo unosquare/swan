@@ -1,4 +1,4 @@
-﻿#if NET452 || NETSTANDARD2_0 
+﻿#if NET462 || NETSTANDARD2_0 
 namespace Unosquare.Swan
 {
     using System;

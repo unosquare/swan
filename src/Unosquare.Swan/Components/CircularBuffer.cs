@@ -21,7 +21,7 @@ namespace Unosquare.Swan.Components
         /// <param name="bufferLength">Length of the buffer.</param>
         public CircularBuffer(int bufferLength)
         {
-#if !NET452
+#if !NET462
             if (Runtime.OS != Swan.OperatingSystem.Windows)
                 throw new InvalidOperationException("CircularBuffer component is only available in Windows");
 #endif

@@ -178,7 +178,7 @@
 
                 try
                 {
-#if !NET452
+#if !NET462
                     await tcp.Client.ConnectAsync(request.Dns);
 #else
                     tcp.Client.Connect(request.Dns);
@@ -208,7 +208,7 @@
                 }
                 finally
                 {
-#if NET452
+#if NET462
                     tcp.Close();
 #else
                     tcp.Dispose();
@@ -258,7 +258,7 @@
                 {
                     udp.Client.SendTimeout = 7000;
                     udp.Client.ReceiveTimeout = 7000;
-#if !NET452
+#if !NET462
                     await udp.Client.ConnectAsync(dns);
 #else
                     udp.Client.Connect(dns);
@@ -289,7 +289,7 @@
                 }
                 finally
                 {
-#if NET452
+#if NET462
                     udp.Close();
 #else
                     udp.Dispose();

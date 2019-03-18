@@ -393,7 +393,7 @@
             WriteLine(GetFilteredDictionary(dictionary, true));
         }
 
-#if NET452
+#if NET462
         /// <summary>
         /// Writes the headings.
         /// </summary>

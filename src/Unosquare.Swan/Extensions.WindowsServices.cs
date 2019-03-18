@@ -5,7 +5,7 @@ namespace Unosquare.Swan
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
-#if NET452
+#if NET462
     using System.ServiceProcess;
 #else
     using Abstractions;
