@@ -51,14 +51,14 @@
         </nav>
         
         <div class="subnav navbar">
-          <div class="container hide-when-search" id="breadcrumb">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
             </ul>
           </div>
         </div>
       </header>
-      <div class="container body-content">
+      <div class="container-fluid body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -66,7 +66,7 @@
           <ul id="pagination"></ul>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
+      <div role="main" class="container-fluid body-content hide-when-search">
         
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
@@ -601,7 +601,7 @@ Check the cancellation token continuously if you need responsive interrupts.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void ExecuteCycleLogic(CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">protected abstract void ExecuteCycleLogic(CancellationToken cancellationToken)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -615,7 +615,7 @@ Check the cancellation token continuously if you need responsive interrupts.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>

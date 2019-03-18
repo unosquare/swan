@@ -51,14 +51,14 @@
         </nav>
         
         <div class="subnav navbar">
-          <div class="container hide-when-search" id="breadcrumb">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
             </ul>
           </div>
         </div>
       </header>
-      <div class="container body-content">
+      <div class="container-fluid body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -66,7 +66,7 @@
           <ul id="pagination"></ul>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
+      <div role="main" class="container-fluid body-content hide-when-search">
         
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
@@ -154,6 +154,33 @@ in the cache.</p>
   </table>
   <h3 id="properties">Properties
   </h3>
+  
+  
+  <a id="Unosquare_Swan_Reflection_AttributeCache_DefaultCache_" data-uid="Unosquare.Swan.Reflection.AttributeCache.DefaultCache*"></a>
+  <h4 id="Unosquare_Swan_Reflection_AttributeCache_DefaultCache" data-uid="Unosquare.Swan.Reflection.AttributeCache.DefaultCache">DefaultCache</h4>
+  <div class="markdown level1 summary"><p>Gets the default cache.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Lazy&lt;AttributeCache&gt; DefaultCache { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.lazy-1">Lazy</a>&lt;<a class="xref" href="Unosquare.Swan.Reflection.AttributeCache.html">AttributeCache</a>&gt;</td>
+        <td><p>The default cache.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_PropertyTypeCache_" data-uid="Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache*"></a>
@@ -499,6 +526,72 @@ in the cache.</p>
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The object type used to extract the properties from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType*"></a>
+  <h4 id="Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType__2_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType``2(System.Boolean)">RetrieveFromType&lt;T, TAttribute&gt;(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Gets all properties and their attributes of a given type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;PropertyInfo, IEnumerable&lt;object&gt;&gt; RetrieveFromType&lt;T, TAttribute&gt;(bool inherit = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">inherit</span></td>
+        <td><p><code>true</code> to inspect the ancestors of element; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
+        <td><p>A dictionary of the properties and their attributes stored for the specified type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The object type used to extract the properties from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TAttribute</span></td>
+        <td><p>The type of the attribute.</p>
 </td>
       </tr>
     </tbody>

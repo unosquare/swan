@@ -51,14 +51,14 @@
         </nav>
         
         <div class="subnav navbar">
-          <div class="container hide-when-search" id="breadcrumb">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
             </ul>
           </div>
         </div>
       </header>
-      <div class="container body-content">
+      <div class="container-fluid body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -66,7 +66,7 @@
           <ul id="pagination"></ul>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
+      <div role="main" class="container-fluid body-content hide-when-search">
         
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
@@ -801,7 +801,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -815,7 +815,7 @@ determined by this property has been received. Useful for fixed-length message p
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -846,7 +846,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -866,7 +866,7 @@ determined by this property has been received. Useful for fixed-length message p
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -918,7 +918,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -932,7 +932,7 @@ determined by this property has been received. Useful for fixed-length message p
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -968,7 +968,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -988,7 +988,7 @@ and the rest of the read methods are not called.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1035,7 +1035,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1049,7 +1049,7 @@ and the rest of the read methods are not called.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1080,7 +1080,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1100,7 +1100,7 @@ and the rest of the read methods are not called.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1227,7 +1227,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1253,7 +1253,7 @@ and the rest of the read methods are not called.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1285,7 +1285,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1311,7 +1311,7 @@ The new line sequence is added automatically at the end of the line.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1343,7 +1343,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1363,7 +1363,7 @@ The new line sequence is added automatically at the end of the line.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1394,7 +1394,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1420,7 +1420,7 @@ The new line sequence is added automatically at the end of the line.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -1451,7 +1451,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1471,7 +1471,7 @@ The new line sequence is added automatically at the end of the line.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
