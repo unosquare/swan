@@ -1,10 +1,11 @@
 ﻿namespace Unosquare.Swan.Components
 {
-    using System.Linq;
-    using System.Reflection;
     using Attributes;
+    using Reflection;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// Provides methods to parse command line arguments.
@@ -44,14 +45,14 @@
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 
             public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions()
-                => _properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
+                => _properties.Select(p => AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p))
                     .Where(x => x != null);
 
             private void GetRequiredList()
             {
                 foreach (var targetProperty in _properties)
                 {
-                    var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
                     if (optionAttr == null || optionAttr.Required == false)
                         continue;
@@ -67,7 +68,7 @@
             {
                 foreach (var targetProperty in _properties.Except(_updatedList))
                 {
-                    var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
                     var defaultValue = optionAttr?.DefaultValue;
 
@@ -153,8 +154,8 @@
 
             private PropertyInfo TryGetProperty(string propertyName)
                 => _properties.FirstOrDefault(p =>
-                    string.Equals(Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p)?.LongName, propertyName, _settings.NameComparer) ||
-                    string.Equals(Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p)?.ShortName, propertyName, _settings.NameComparer));
+                    string.Equals(AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p)?.LongName, propertyName, _settings.NameComparer) ||
+                    string.Equals(AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p)?.ShortName, propertyName, _settings.NameComparer));
         }
     }
 }

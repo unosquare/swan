@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Collections.Generic;
     using Attributes;
+    using Reflection;
 
     /// <summary>
     /// Provides various extension methods for Reflection and Types.
@@ -392,7 +393,7 @@
             try
             {
                 var value = propertyInfo.GetValue(obj);
-                var attr = Runtime.AttributeCache.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
+                var attr = AttributeCache.DefaultCache.Value.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
 
                 if (attr == null) return value?.ToString() ?? string.Empty;
 
@@ -459,7 +460,7 @@
             {
                 return Convert.ToBoolean(str);
             }
-            catch
+            catch (FormatException)
             {
                 // ignored
             }

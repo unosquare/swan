@@ -23,7 +23,7 @@
             Property = propertyInfo.Name;
             DataType = propertyInfo.PropertyType.Name;
 
-            foreach (PropertyDisplayAttribute display in Runtime.AttributeCache.Retrieve<PropertyDisplayAttribute>(propertyInfo, true))
+            foreach (PropertyDisplayAttribute display in AttributeCache.DefaultCache.Value.Retrieve<PropertyDisplayAttribute>(propertyInfo, true))
             {
                 Name = display.Name;
                 Description = display.Description;

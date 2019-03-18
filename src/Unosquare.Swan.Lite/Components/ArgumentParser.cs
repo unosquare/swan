@@ -1,6 +1,7 @@
 namespace Unosquare.Swan.Components
 {
     using System;
+    using Reflection;
     using System.Collections.Generic;
     using Attributes;
     using System.Linq;
@@ -186,12 +187,10 @@ namespace Unosquare.Swan.Components
                 return false;
             }
 
-            var properties = typeResolver.GetProperties();
-
-            if (properties == null)
+            if (typeResolver.Properties == null)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
-            var validator = new Validator(properties, args, options, Settings);
+            var validator = new Validator(typeResolver.Properties, args, options, Settings);
 
             if (validator.IsValid())
                 return true;
@@ -205,8 +204,9 @@ namespace Unosquare.Swan.Components
             "No verb was specified".WriteLine(ConsoleColor.Red);
             "Valid verbs:".WriteLine(ConsoleColor.Cyan);
 
-            Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true)
-                .Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x))
+            PropertyTypeCache.DefaultCache.Value
+                .RetrieveAllProperties<T>(true)
+                .Select(x => AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x))
                 .Where(x => x != null)
                 .ToList()
                 .ForEach(x => x.ToString().WriteLine(ConsoleColor.Cyan));

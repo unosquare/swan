@@ -201,8 +201,8 @@
         /// Represents the user defined logic to be executed on a single worker cycle.
         /// Check the cancellation token continuously if you need responsive interrupts.
         /// </summary>
-        /// <param name="ct">The cancellation token.</param>
-        protected abstract void ExecuteCycleLogic(CancellationToken ct);
+        /// <param name="cancellationToken">The cancellation token.</param>
+        protected abstract void ExecuteCycleLogic(CancellationToken cancellationToken);
 
         /// <summary>
         /// This method is called automatically when <see cref="Dispose()"/> is called.

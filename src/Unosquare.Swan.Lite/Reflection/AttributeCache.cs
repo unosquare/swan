@@ -25,8 +25,16 @@
         /// <param name="propertyCache">The property cache object.</param>
         public AttributeCache(PropertyTypeCache propertyCache = null)
         {
-            PropertyTypeCache = propertyCache ?? Runtime.PropertyTypeCache;
+            PropertyTypeCache = propertyCache ?? PropertyTypeCache.DefaultCache.Value;
         }
+
+        /// <summary>
+        /// Gets the default cache.
+        /// </summary>
+        /// <value>
+        /// The default cache.
+        /// </value>
+        public static Lazy<AttributeCache> DefaultCache { get; } = new Lazy<AttributeCache>(() => new AttributeCache());
 
         /// <summary>
         /// A PropertyTypeCache object for caching properties and their attributes.
@@ -137,6 +145,18 @@
         /// Gets all properties and their attributes of a given type.
         /// </summary>
         /// <typeparam name="T">The object type used to extract the properties from.</typeparam>
+        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+        /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
+        /// <returns>
+        /// A dictionary of the properties and their attributes stored for the specified type.
+        /// </returns>
+        public Dictionary<PropertyInfo, IEnumerable<object>> RetrieveFromType<T, TAttribute>(bool inherit = false)
+            => RetrieveFromType<T>(typeof(TAttribute), inherit);
+
+        /// <summary>
+        /// Gets all properties and their attributes of a given type.
+        /// </summary>
+        /// <typeparam name="T">The object type used to extract the properties from.</typeparam>
         /// <param name="attributeType">Type of the attribute.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>
@@ -157,10 +177,9 @@
             if (attr?.Any() != true)
                 return default;
 
-            if (attr.Count() == 1)
-                return (T) Convert.ChangeType(attr.First(), typeof(T));
-
-            throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
+            return attr.Count() == 1
+                ? (T) Convert.ChangeType(attr.First(), typeof(T))
+                : throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }
 
         private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object>> factory)

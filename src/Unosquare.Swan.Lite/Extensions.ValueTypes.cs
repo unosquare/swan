@@ -4,6 +4,7 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using Attributes;
+    using Reflection;
 
     /// <summary>
     /// Provides various extension methods for value types and structs.
@@ -143,7 +144,7 @@
 #else
             var fields = typeof(T).GetTypeInfo().DeclaredFields;
 #endif
-            var endian = Runtime.AttributeCache.RetrieveOne<StructEndiannessAttribute, T>();
+            var endian = AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute, T>();
 
             foreach (var field in fields)
             {
@@ -153,7 +154,7 @@
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
                 var length = Marshal.SizeOf(field.FieldType);
 
-                endian = endian ?? Runtime.AttributeCache.RetrieveOne<StructEndiannessAttribute>(field);
+                endian = endian ?? AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute>(field);
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))

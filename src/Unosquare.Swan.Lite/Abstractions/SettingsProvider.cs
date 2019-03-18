@@ -116,7 +116,7 @@
                 throw new ArgumentNullException(nameof(propertyList));
 
             var changedSettings = new List<string>();
-            var globalProps = Runtime.PropertyTypeCache.RetrieveAllProperties<T>();
+            var globalProps = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>();
 
             foreach (var property in propertyList)
             {

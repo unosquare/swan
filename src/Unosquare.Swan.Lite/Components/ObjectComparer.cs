@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using Reflection;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -71,7 +72,7 @@
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var properties = Runtime.PropertyTypeCache.RetrieveAllProperties(targetType).ToArray();
+            var properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).ToArray();
 
             foreach (var propertyTarget in properties)
             {
@@ -123,8 +124,8 @@
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var fields = new List<MemberInfo>(Runtime.FieldTypeCache.RetrieveAllFields(targetType))
-                .Union(Runtime.PropertyTypeCache.RetrieveAllProperties(targetType));
+            var fields = new List<MemberInfo>(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType))
+                .Union(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType));
 
             foreach (var targetMember in fields)
             {

@@ -4,7 +4,6 @@
     using System;
     using System.IO;
     using System.Threading;
-    using Reflection;
 #if !NETSTANDARD1_3 
     using System.Reflection;
 #endif
@@ -18,15 +17,7 @@
     public static class Runtime
 #endif
     {
-        private static readonly Lazy<PropertyTypeCache> _propertyTypeCache = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-        
-        private static readonly Lazy<AttributeCache> _attributeCache = new Lazy<AttributeCache>(() => new AttributeCache());
-
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
-
-        private static readonly Lazy<FieldTypeCache> _fieldTypeCache = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
-
-        private static readonly Lazy<MethodInfoCache> _methodInfoCache = new Lazy<MethodInfoCache>(() => new MethodInfoCache());
 
 #if NET462
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
@@ -169,44 +160,12 @@
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
-        /// Gets the property type cache.
-        /// </summary>
-        /// <value>
-        /// The property type cache.
-        /// </value>
-        public static PropertyTypeCache PropertyTypeCache => _propertyTypeCache.Value;
-
-        /// <summary>
-        /// Gets the attribute cache.
-        /// </summary>
-        /// <value>
-        /// The attribute cache.
-        /// </value>
-        public static AttributeCache AttributeCache => _attributeCache.Value;
-
-        /// <summary>
         /// Gets the object validator.
         /// </summary>
         /// <value>
         /// The object validator.
         /// </value>
         public static ObjectValidator ObjectValidator => _objectValidator.Value;
-
-        /// <summary>
-        /// Gets the field type cache.
-        /// </summary>
-        /// <value>
-        /// The field type cache.
-        /// </value>
-        public static FieldTypeCache FieldTypeCache => _fieldTypeCache.Value;
-
-        /// <summary>
-        /// Gets the method information cache.
-        /// </summary>
-        /// <value>
-        /// The method information cache.
-        /// </value>
-        public static MethodInfoCache MethodInfoCache => _methodInfoCache.Value;
 
 #if !NETSTANDARD1_3 
         /// <summary>

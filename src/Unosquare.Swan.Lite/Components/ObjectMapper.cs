@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
+    using Reflection;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -172,8 +173,8 @@
                 throw new InvalidOperationException("You can't create an existing map");
             }
 
-            var sourceType = Runtime.PropertyTypeCache.RetrieveAllProperties<TSource>(true);
-            var destinationType = Runtime.PropertyTypeCache.RetrieveAllProperties<TDestination>(true);
+            var sourceType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TSource>(true);
+            var destinationType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TDestination>(true);
 
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
@@ -250,7 +251,7 @@
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Select(p => p.ToLowerInvariant());
 
-            var properties = Runtime.PropertyTypeCache
+            var properties = PropertyTypeCache.DefaultCache.Value
                 .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite);
 
             return properties
@@ -359,7 +360,7 @@
         private static Dictionary<string, Tuple<Type, object>> GetSourceMap(object source)
         {
             // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = Runtime.PropertyTypeCache
+            var sourceProperties = PropertyTypeCache.DefaultCache.Value
                 .RetrieveFilteredProperties(source.GetType(), true, x => x.CanRead)
                 .ToArray();
 

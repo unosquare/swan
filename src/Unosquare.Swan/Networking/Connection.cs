@@ -391,11 +391,11 @@
         /// Reads data from the remote client asynchronously and with the given timeout.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m.</exception>
-        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct = default)
+        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             if (IsContinuousReadingEnabled)
             {
@@ -424,7 +424,7 @@
                     }
 
                     if (_readTask == null)
-                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, ct);
+                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, cancellationToken);
 
                     if (_readTask.Wait(_continuousReadingInterval))
                     {
@@ -441,7 +441,7 @@
                     }
                     else
                     {
-                        await Task.Delay(_continuousReadingInterval, ct).ConfigureAwait(false);
+                        await Task.Delay(_continuousReadingInterval, cancellationToken).ConfigureAwait(false);
                     }
                 }
             }
@@ -457,41 +457,47 @@
         /// <summary>
         /// Reads data asynchronously from the remote stream with a 5000 millisecond timeout.
         /// </summary>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results the specified sequence of bytes.</returns>
-        public Task<byte[]> ReadDataAsync(CancellationToken ct = default)
-            => ReadDataAsync(TimeSpan.FromSeconds(5), ct);
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// A byte array containing the results the specified sequence of bytes.
+        /// </returns>
+        public Task<byte[]> ReadDataAsync(CancellationToken cancellationToken = default)
+            => ReadDataAsync(TimeSpan.FromSeconds(5), cancellationToken);
 
         /// <summary>
         /// Asynchronously reads data as text with the given timeout.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default)
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
+        /// </returns>
+        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
-            var buffer = await ReadDataAsync(timeout, ct).ConfigureAwait(false);
+            var buffer = await ReadDataAsync(timeout, cancellationToken).ConfigureAwait(false);
             return buffer == null ? null : TextEncoding.GetString(buffer);
         }
 
         /// <summary>
         /// Asynchronously reads data as text with a 5000 millisecond timeout.
         /// </summary>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public Task<string> ReadTextAsync(CancellationToken ct = default)
-            => ReadTextAsync(TimeSpan.FromSeconds(5), ct);
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// When this method completes successfully, it returns the contents of the file as a text string.
+        /// </returns>
+        public Task<string> ReadTextAsync(CancellationToken cancellationToken = default)
+            => ReadTextAsync(TimeSpan.FromSeconds(5), cancellationToken);
 
         /// <summary>
         /// Performs the same task as this method's overload but it defaults to a read timeout of 30 seconds.
         /// </summary>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read.
         /// </returns>
-        public Task<string> ReadLineAsync(CancellationToken ct = default)
-            => ReadLineAsync(TimeSpan.FromSeconds(30), ct);
+        public Task<string> ReadLineAsync(CancellationToken cancellationToken = default)
+            => ReadLineAsync(TimeSpan.FromSeconds(30), cancellationToken);
 
         /// <summary>
         /// Reads the next available line of text in queue. Return null when no text is read.
@@ -501,10 +507,10 @@
         /// and the rest of the read methods are not called.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task with a string line from the queue.</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
-        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct = default)
+        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             if (IsContinuousReadingEnabled)
             {
@@ -519,13 +525,13 @@
 
             while (true)
             {
-                var text = await ReadTextAsync(timeout, ct).ConfigureAwait(false);
+                var text = await ReadTextAsync(timeout, cancellationToken).ConfigureAwait(false);
                 if (text.Length == 0)
                     break;
 
                 builder.Append(text);
 
-                if (text.EndsWith(_newLineSequence) == false) continue;
+                if (!text.EndsWith(_newLineSequence)) continue;
 
                 var lines = builder.ToString().TrimEnd(_newLineSequenceChars)
                     .Split(_newLineSequenceLineSplitter, StringSplitOptions.None);
@@ -547,17 +553,17 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default)
+        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken cancellationToken = default)
         {
             try
             {
                 _writeDone.WaitOne();
                 _writeDone.Reset();
-                await ActiveStream.WriteAsync(buffer, 0, buffer.Length, ct).ConfigureAwait(false);
+                await ActiveStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false);
                 if (forceFlush)
-                    await ActiveStream.FlushAsync(ct).ConfigureAwait(false);
+                    await ActiveStream.FlushAsync(cancellationToken).ConfigureAwait(false);
 
                 DataSentLastTimeUtc = DateTime.UtcNow;
             }
@@ -571,20 +577,20 @@
         /// Writes text asynchronously.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteTextAsync(string text, CancellationToken ct = default)
-            => WriteTextAsync(text, TextEncoding, ct);
+        public Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
+            => WriteTextAsync(text, TextEncoding, cancellationToken);
 
         /// <summary>
         /// Writes text asynchronously.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default)
-            => WriteDataAsync(encoding.GetBytes(text), true, ct);
+        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken cancellationToken = default)
+            => WriteDataAsync(encoding.GetBytes(text), true, cancellationToken);
 
         /// <summary>
         /// Writes a line of text asynchronously.
@@ -592,20 +598,20 @@
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default)
-            => WriteDataAsync(encoding.GetBytes($"{line}{_newLineSequence}"), true, ct);
+        public Task WriteLineAsync(string line, Encoding encoding, CancellationToken cancellationToken = default)
+            => WriteDataAsync(encoding.GetBytes($"{line}{_newLineSequence}"), true, cancellationToken);
 
         /// <summary>
         /// Writes a line of text asynchronously.
         /// The new line sequence is added automatically at the end of the line.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteLineAsync(string line, CancellationToken ct = default)
-            => WriteLineAsync(line, TextEncoding, ct);
+        public Task WriteLineAsync(string line, CancellationToken cancellationToken = default)
+            => WriteLineAsync(line, TextEncoding, cancellationToken);
 
         #endregion
 
@@ -736,12 +742,7 @@
 
         #region Continuous Read Methods
 
-        /// <summary>
-        /// Raises the receive buffer events.
-        /// </summary>
-        /// <param name="receivedData">The received data.</param>
-        /// <exception cref="Exception">Split function failed! This is terribly wrong.</exception>
-        private void RaiseReceiveBufferEvents(byte[] receivedData)
+        private void RaiseReceiveBufferEvents(IEnumerable<byte> receivedData)
         {
             var moreAvailable = RemoteClient.Available > 0;
 
@@ -871,7 +872,7 @@
                 }
                 catch (Exception ex)
                 {
-                    ex.Log(nameof(Connection), "Continuous Read operation errored");
+                    ex.Log(nameof(PerformContinuousReading), "Continuous Read operation errored");
                 }
                 finally
                 {

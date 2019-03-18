@@ -303,7 +303,7 @@
                 return excludedNames;
 
             var excludedByAttr = IgnoredPropertiesCache.Retrieve(type, t => t.GetProperties()
-                .Where(x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
+                .Where(x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
                 .Select(x => x.Name));
 
             if (excludedByAttr?.Any() != true)

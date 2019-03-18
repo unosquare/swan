@@ -53,7 +53,7 @@
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = AttributeCache.RetrieveFromType<NotNullMock>(typeof(IValidator));
+            var props = AttributeCache.RetrieveFromType<NotNullMock, IValidator>();
 
             Assert.That(props.Count, Is.EqualTo(1));
         }

@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using Attributes;
+    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -309,9 +310,9 @@
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
 
-            return Runtime.PropertyTypeCache
+            return PropertyTypeCache.DefaultCache.Value
                 .RetrieveAllProperties(obj.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = Runtime.AttributeCache.RetrieveOne<CopyableAttribute>(x) != null})
+                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null})
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
         }

@@ -162,8 +162,8 @@ namespace Unosquare.Swan.Abstractions
         /// <summary>
         /// Does the background work.
         /// </summary>
-        /// <param name="ct">The ct.</param>
-        protected abstract void DoBackgroundWork(CancellationToken ct);
+        /// <param name="cancellationToken">The ct.</param>
+        protected abstract void DoBackgroundWork(CancellationToken cancellationToken);
     }
 }
 #endif

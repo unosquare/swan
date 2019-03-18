@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System.Linq;
+    using Reflection;
     using System.Reflection;
     using Attributes;
     using System;
@@ -13,19 +14,19 @@
         private sealed class TypeResolver<T>
         {
             private readonly string _selectedVerb;
-            
+
             private PropertyInfo[] _properties;
-            
+
             public TypeResolver(string selectedVerb)
             {
                 _selectedVerb = selectedVerb;
             }
-            
-            public PropertyInfo[] GetProperties() => _properties?.Any() == true ? _properties : null;
+
+            public PropertyInfo[] Properties => _properties?.Any() == true ? _properties : null;
 
             public object GetOptionsObject(T instance)
             {
-                _properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
+                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>(true).ToArray();
 
                 if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                     return instance;
@@ -33,7 +34,7 @@
                 var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
                     ? null
                     : _properties.FirstOrDefault(x =>
-                        Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(_selectedVerb));
+                        AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x).Name == _selectedVerb);
 
                 if (selectedVerb == null) return null;
 
@@ -47,7 +48,7 @@
                     verbProperty?.SetValue(instance, propertyInstance);
                 }
 
-                _properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true)
+                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(selectedVerb.PropertyType, true)
                     .ToArray();
 
                 return verbProperty?.GetValue(instance);

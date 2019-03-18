@@ -40,13 +40,17 @@
 
     /// <summary>
     /// A thread-safe cache of properties belonging to a given type.
-    /// 
-    /// The Retrieve method is the most useful one in this class as it
-    /// calls the retrieval process if the type is not contained
-    /// in the cache.
     /// </summary>
     public class PropertyTypeCache : TypeCache<PropertyInfo>
     {
+        /// <summary>
+        /// Gets the default cache.
+        /// </summary>
+        /// <value>
+        /// The default cache.
+        /// </value>
+        public static Lazy<PropertyTypeCache> DefaultCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+
         /// <summary>
         /// Retrieves all properties.
         /// </summary>
@@ -109,6 +113,14 @@
     /// </summary>
     public class FieldTypeCache : TypeCache<FieldInfo>
     {
+        /// <summary>
+        /// Gets the default cache.
+        /// </summary>
+        /// <value>
+        /// The default cache.
+        /// </value>
+        public static Lazy<FieldTypeCache> DefaultCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+
         /// <summary>
         /// Retrieves all fields.
         /// </summary>

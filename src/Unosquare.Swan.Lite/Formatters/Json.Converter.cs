@@ -8,6 +8,7 @@
     using System.Reflection;
     using System.Text;
     using Attributes;
+    using Reflection;
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario
@@ -95,7 +96,7 @@
                 {
                     target = Convert.FromBase64String(sourceString);
                 } // Try conversion from Base 64
-                catch
+                catch (FormatException)
                 {
                     target = Encoding.UTF8.GetBytes(sourceString);
                 } // Get the string bytes in UTF8
@@ -106,7 +107,7 @@
             {
                 var targetPropertyName = MemberInfoNameCache.GetOrAdd(
                     targetProperty,
-                    x => Runtime.AttributeCache.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name);
+                    x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name);
 
                 return sourceProperties.GetValueOrDefault(targetPropertyName);
             }

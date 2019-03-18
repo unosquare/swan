@@ -5,6 +5,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using Abstractions;
+    using Reflection;
 
     /// <summary>
     /// Represents an object validator. 
@@ -124,32 +125,32 @@
                 _predicates[typeof(T)] = existing;
             }
 
-            existing.Add(Tuple.Create((Delegate) predicate, message));
+            existing.Add(Tuple.Create((Delegate)predicate, message));
         }
 
         private bool ValidateObject<T>(T obj, bool returnOnError = true, Action<string, string> action = null)
-        {   
+        {
             if (Equals(obj, null))
                 throw new ArgumentNullException(nameof(obj));
-           
+
             if (_predicates.ContainsKey(typeof(T)))
             {
                 foreach (var validation in _predicates[typeof(T)])
                 {
-                    if ((bool) validation.Item1.DynamicInvoke(obj)) continue;
+                    if ((bool)validation.Item1.DynamicInvoke(obj)) continue;
 
                     action?.Invoke(string.Empty, validation.Item2);
                     if (returnOnError) return false;
                 }
             }
 
-            var properties = Runtime.AttributeCache.RetrieveFromType<T>(typeof(IValidator));
+            var properties = AttributeCache.DefaultCache.Value.RetrieveFromType<T, IValidator>();
 
             foreach (var prop in properties)
             {
                 foreach (var attribute in prop.Value)
                 {
-                    var val = (IValidator) attribute;
+                    var val = (IValidator)attribute;
 
                     if (val.IsValid(prop.Key.GetValue(obj, null))) continue;
 
@@ -183,7 +184,7 @@
         /// <param name="propertyName">The property name.</param>
         /// <param name="errorMessage">The error message.</param>
         public void Add(string propertyName, string errorMessage) =>
-            Errors.Add(new ValidationError {ErrorMessage = errorMessage, PropertyName = propertyName});
+            Errors.Add(new ValidationError { ErrorMessage = errorMessage, PropertyName = propertyName });
 
         /// <summary>
         /// Defines a validation error.
