@@ -627,7 +627,7 @@ attributes from the entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LdapEntry&gt; Read(string dn, string[] attrs = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapEntry&gt; Read(string dn, string[] attrs = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -653,7 +653,7 @@ attributes from the entry.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -703,7 +703,7 @@ wait for search results).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, LdapScope scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, LdapScope scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -749,7 +749,7 @@ names and values for attributes found.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
