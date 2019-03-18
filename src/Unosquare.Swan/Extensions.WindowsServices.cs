@@ -52,7 +52,7 @@ namespace Unosquare.Swan
             {
                 var thread = new Thread(() =>
                 {
-                    onStartMethod.Invoke(service, new object[] { new string[] { } });
+                    onStartMethod.Invoke(service, new object[] { Array.Empty<string>() });
                     $"Started service '{service.GetType().Name}'".Info(service.GetType());
                 });
 

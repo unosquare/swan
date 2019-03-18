@@ -7,8 +7,6 @@
     /// </summary>
     public class SmtpSessionState
     {
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SmtpSessionState"/> class.
         /// </summary>
@@ -19,14 +17,12 @@
             ResetAuthentication();
         }
 
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets the contents of the data buffer.
         /// </summary>
-        public List<byte> DataBuffer { get; protected set; }
+        public List<byte> DataBuffer { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has initiated.

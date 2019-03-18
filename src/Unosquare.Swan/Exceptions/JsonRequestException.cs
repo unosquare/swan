@@ -13,7 +13,7 @@
         : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Unosquare.Swan.Exceptions.JsonRequestException" /> class.
+        /// Initializes a new instance of the <see cref="JsonRequestException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="httpErrorCode">The HTTP error code.</param>

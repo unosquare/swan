@@ -6,6 +6,9 @@
     /// An exception for dependency resolutions.
     /// </summary>
     /// <seealso cref="System.Exception" />
+#if !NETSTANDARD1_3
+    [Serializable]
+#endif
     public class DependencyContainerResolutionException : Exception
     {
         /// <summary>

@@ -7,6 +7,9 @@
     /// An exception thrown when the DNS query fails.
     /// </summary>
     /// <seealso cref="System.Exception" />
+#if !NETSTANDARD1_3
+    [Serializable]
+#endif
     public class DnsQueryException : Exception
     {
         internal DnsQueryException(string message)
@@ -32,9 +35,6 @@
 
         internal DnsClient.IDnsResponse Response { get; }
 
-        private static string Format(DnsClient.IDnsResponse response)
-        {
-            return $"Invalid response received with code {response.ResponseCode}";
-        }
+        private static string Format(DnsClient.IDnsResponse response) => $"Invalid response received with code {response.ResponseCode}";
     }
 }
