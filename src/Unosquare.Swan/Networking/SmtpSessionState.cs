@@ -7,8 +7,6 @@
     /// </summary>
     public class SmtpSessionState
     {
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SmtpSessionState"/> class.
         /// </summary>
@@ -18,8 +16,6 @@
             Reset(true);
             ResetAuthentication();
         }
-
-        #endregion
 
         #region Properties
 

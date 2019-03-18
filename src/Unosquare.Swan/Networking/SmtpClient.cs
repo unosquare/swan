@@ -155,8 +155,8 @@
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <param name="ct">The cancellation token.</param>
         /// <param name="callback">The callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
@@ -164,8 +164,8 @@
         public Task SendMailAsync(
             MailMessage message,
             string sessionId = null,
-            CancellationToken ct = default,
-            RemoteCertificateValidationCallback callback = null)
+            RemoteCertificateValidationCallback callback = null,
+            CancellationToken cancellationToken = default)
         {
             if (message == null)
                 throw new ArgumentNullException(nameof(message));
@@ -191,7 +191,7 @@
 
             state.DataBuffer.AddRange(message.ToMimeMessage().ToArray());
 
-            return SendMailAsync(state, sessionId, ct, callback);
+            return SendMailAsync(state, sessionId, callback, cancellationToken);
         }
 #endif
 
@@ -202,8 +202,8 @@
         /// </summary>
         /// <param name="sessionState">The state.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <param name="ct">The cancellation token.</param>
         /// <param name="callback">The callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
@@ -211,13 +211,13 @@
         public Task SendMailAsync(
             SmtpSessionState sessionState,
             string sessionId = null,
-            CancellationToken ct = default,
-            RemoteCertificateValidationCallback callback = null)
+            RemoteCertificateValidationCallback callback = null,
+            CancellationToken cancellationToken = default)
         {
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
 
-            return SendMailAsync(new[] { sessionState }, sessionId, ct, callback);
+            return SendMailAsync(new[] { sessionState }, sessionId, callback, cancellationToken);
         }
 
         /// <summary>
@@ -227,8 +227,8 @@
         /// </summary>
         /// <param name="sessionStates">The session states.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <param name="ct">The cancellation token.</param>
         /// <param name="callback">The callback.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous of send email operation.
         /// </returns>
@@ -238,8 +238,8 @@
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,
-            CancellationToken ct = default,
-            RemoteCertificateValidationCallback callback = null)
+            RemoteCertificateValidationCallback callback = null,
+            CancellationToken cancellationToken = default)
         {
             if (sessionStates == null)
                 throw new ArgumentNullException(nameof(sessionStates));
@@ -255,18 +255,18 @@
                     try
                     {
                         // Read the greeting message
-                        sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                        sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
 
                         // EHLO 1
-                        await SendEhlo(ct, sender, connection).ConfigureAwait(false);
+                        await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
 
                         // STARTTLS
                         if (EnableSsl)
                         {
                             sender.RequestText = $"{SmtpCommandNames.STARTTLS}";
 
-                            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
-                            sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                            await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                            sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                             sender.ValidateReply();
 
                             if (await connection.UpgradeToSecureAsClientAsync(callback: callback).ConfigureAwait(false) == false)
@@ -274,13 +274,13 @@
                         }
 
                         // EHLO 2
-                        await SendEhlo(ct, sender, connection).ConfigureAwait(false);
+                        await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
 
                         // AUTH
                         if (Credentials != null)
                         {
                             var auth = new ConnectionAuth(connection, sender, Credentials);
-                            await auth.AuthenticateAsync(ct).ConfigureAwait(false);
+                            await auth.AuthenticateAsync(cancellationToken).ConfigureAwait(false);
                         }
 
                         foreach (var sessionState in sessionStates)
@@ -289,8 +289,8 @@
                                 // MAIL FROM
                                 sender.RequestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
 
-                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -299,8 +299,8 @@
                             {
                                 sender.RequestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
 
-                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -308,8 +308,8 @@
                                 // DATA
                                 sender.RequestText = $"{SmtpCommandNames.DATA}";
 
-                                await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
 
@@ -321,11 +321,12 @@
 
                                 sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
 
-                                await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, ct).ConfigureAwait(false);
-                                if (dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator) == false)
-                                    await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, ct).ConfigureAwait(false);
+                                await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, cancellationToken).ConfigureAwait(false);
 
-                                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                                if (!dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator))
+                                    await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, cancellationToken).ConfigureAwait(false);
+
+                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                                 sender.ValidateReply();
                             }
                         }
@@ -334,8 +335,8 @@
                             // QUIT
                             sender.RequestText = $"{SmtpCommandNames.QUIT}";
 
-                            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
-                            sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                            await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                            sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
                             sender.ValidateReply();
                         }
                     }
@@ -351,15 +352,15 @@
             }
         }
 
-        private async Task SendEhlo(CancellationToken ct, SmtpSender sender, Connection connection)
+        private async Task SendEhlo(SmtpSender sender, Connection connection, CancellationToken cancellationToken)
         {
             sender.RequestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
 
-            await connection.WriteLineAsync(sender.RequestText, ct).ConfigureAwait(false);
+            await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
 
             do
             {
-                sender.ReplyText = await connection.ReadLineAsync(ct).ConfigureAwait(false);
+                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
             } while (!sender.IsReplyOk);
 
             sender.ValidateReply();

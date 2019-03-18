@@ -211,7 +211,7 @@
         public Task Bind(int version, string dn, string password)
         {
             dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
-            var passwordData = string.IsNullOrWhiteSpace(password) ? new sbyte[] { } : Encoding.UTF8.GetSBytes(password);
+            var passwordData = string.IsNullOrWhiteSpace(password) ? Array.Empty<sbyte>() : Encoding.UTF8.GetSBytes(password);
 
             var anonymous = false;
 
@@ -270,14 +270,14 @@
         /// </summary>
         /// <param name="dn">The distinguished name of the entry to retrieve.</param>
         /// <param name="attrs">The names of the attributes to retrieve.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// the LdapEntry read from the server.
         /// </returns>
         /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned.</exception>
-        public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default)
+        public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken cancellationToken = default)
         {
-            var sr = await Search(dn, LdapScope.ScopeSub, null, attrs, false, ct);
+            var sr = await Search(dn, LdapScope.ScopeSub, null, attrs, false, cancellationToken).ConfigureAwait(false);
             LdapEntry ret = null;
 
             if (sr.HasMore())
@@ -305,7 +305,7 @@
         /// <param name="typesOnly">If true, returns the names but not the values of
         /// the attributes found.  If false, returns the
         /// names and values for attributes found.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
@@ -315,12 +315,12 @@
             string filter = "objectClass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
             // TODO: Add Search options
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, 0, 1000, 0, typesOnly, null);
 
-            await RequestLdapMessage(msg, ct).ConfigureAwait(false);
+            await RequestLdapMessage(msg, cancellationToken).ConfigureAwait(false);
             
             return new LdapSearchResults(Messages, msg.MessageId);
         }

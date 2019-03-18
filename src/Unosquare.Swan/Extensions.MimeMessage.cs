@@ -1,4 +1,4 @@
-﻿#if NET452 || NETSTANDARD2_0 
+﻿#if NET462 || NETSTANDARD2_0 
 namespace Unosquare.Swan
 {
     using System;
@@ -34,8 +34,8 @@ namespace Unosquare.Swan
             MimeMessageConstants.CloseMethod.Invoke(
                 mailWriter, 
                 MimeMessageConstants.PrivateInstanceFlags, 
-                null, 
-                new object[] { }, 
+                null,
+                Array.Empty<object>(), 
                 null);
             result.Position = 0;
             return result;
@@ -44,7 +44,9 @@ namespace Unosquare.Swan
         internal static class MimeMessageConstants
         {
             public static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+#pragma warning disable DE0005 // API is deprecated
             public static readonly Type MailWriter = typeof(SmtpClient).Assembly.GetType("System.Net.Mail.MailWriter");
+#pragma warning restore DE0005 // API is deprecated
             public static readonly ConstructorInfo MailWriterConstructor = MailWriter.GetConstructor(PrivateInstanceFlags, null, new[] { typeof(Stream) }, null);
             public static readonly MethodInfo CloseMethod = MailWriter.GetMethod("Close", PrivateInstanceFlags);
             public static readonly MethodInfo SendMethod = typeof(MailMessage).GetMethod("Send", PrivateInstanceFlags);

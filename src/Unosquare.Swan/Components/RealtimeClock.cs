@@ -71,7 +71,7 @@
                 {
                     if (value < 0d) value = 0d;
 
-                    // Capture the initial position se we set it even after the speedratio has changed
+                    // Capture the initial position se we set it even after the Speed Ratio has changed
                     // this ensures a smooth position transition
                     var initialPosition = Position;
                     _speedRatio = value;
@@ -83,7 +83,7 @@
         /// <summary>
         /// Sets a new position value atomically.
         /// </summary>
-        /// <param name="value">The new value that the position porperty will hold.</param>
+        /// <param name="value">The new value that the position property will hold.</param>
         public void Update(TimeSpan value)
         {
             using (_locker.AcquireWriterLock())

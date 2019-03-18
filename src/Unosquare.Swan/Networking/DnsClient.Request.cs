@@ -70,7 +70,7 @@
             {
                 try
                 {
-                    var response = await _resolver.Request(this);
+                    var response = await _resolver.Request(this).ConfigureAwait(false);
 
                     if (response.Id != Id)
                     {
@@ -178,8 +178,8 @@
 
                 try
                 {
-#if !NET452
-                    await tcp.Client.ConnectAsync(request.Dns);
+#if !NET462
+                    await tcp.Client.ConnectAsync(request.Dns).ConfigureAwait(false);
 #else
                     tcp.Client.Connect(request.Dns);
 #endif
@@ -190,17 +190,17 @@
                     if (BitConverter.IsLittleEndian)
                         Array.Reverse(length);
 
-                    await stream.WriteAsync(length, 0, length.Length);
-                    await stream.WriteAsync(buffer, 0, buffer.Length);
+                    await stream.WriteAsync(length, 0, length.Length).ConfigureAwait(false);
+                    await stream.WriteAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
 
                     buffer = new byte[2];
-                    await Read(stream, buffer);
+                    await Read(stream, buffer).ConfigureAwait(false);
 
                     if (BitConverter.IsLittleEndian)
                         Array.Reverse(buffer);
 
                     buffer = new byte[BitConverter.ToUInt16(buffer, 0)];
-                    await Read(stream, buffer);
+                    await Read(stream, buffer).ConfigureAwait(false);
 
                     var response = DnsResponse.FromArray(buffer);
 
@@ -208,7 +208,7 @@
                 }
                 finally
                 {
-#if NET452
+#if NET462
                     tcp.Close();
 #else
                     tcp.Dispose();
@@ -222,7 +222,7 @@
                 var offset = 0;
                 int size;
 
-                while (length > 0 && (size = await stream.ReadAsync(buffer, offset, length)) > 0)
+                while (length > 0 && (size = await stream.ReadAsync(buffer, offset, length).ConfigureAwait(false)) > 0)
                 {
                     offset += size;
                     length -= size;
@@ -258,8 +258,8 @@
                 {
                     udp.Client.SendTimeout = 7000;
                     udp.Client.ReceiveTimeout = 7000;
-#if !NET452
-                    await udp.Client.ConnectAsync(dns);
+#if !NET462
+                    await udp.Client.ConnectAsync(dns).ConfigureAwait(false);
 #else
                     udp.Client.Connect(dns);
 #endif
@@ -268,7 +268,7 @@
 #if NETSTANDARD1_3 
                     , dns
 #endif
-                    );
+                    ).ConfigureAwait(false);
 
                     var bufferList = new List<byte>();
 
@@ -284,12 +284,12 @@
                     var response = DnsResponse.FromArray(buffer);
 
                     return response.IsTruncated
-                        ? await _fallback.Request(request)
+                        ? await _fallback.Request(request).ConfigureAwait(false)
                         : new DnsClientResponse(request, response, buffer);
                 }
                 finally
                 {
-#if NET452
+#if NET462
                     udp.Close();
 #else
                     udp.Dispose();
@@ -309,16 +309,6 @@
         public struct DnsHeader
         {
             public const int SIZE = 12;
-
-            public static DnsHeader FromArray(byte[] header)
-            {
-                if (header.Length < SIZE)
-                {
-                    throw new ArgumentException("Header length too small");
-                }
-
-                return header.ToStruct<DnsHeader>(0, SIZE);
-            }
 
             private ushort id;
 
@@ -478,6 +468,11 @@
                 get => flag1;
                 set => flag1 = value;
             }
+            
+            public static DnsHeader FromArray(byte[] header) =>
+                header.Length < SIZE
+                    ? throw new ArgumentException("Header length too small")
+                    : header.ToStruct<DnsHeader>(0, SIZE);
 
             public byte[] ToArray() => this.ToBytes();
 

@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -39,4 +38,3 @@ namespace Unosquare.Swan.Test.Mocks
         protected override void OnStop() => _cts.Cancel();
     }
 }
-#endif

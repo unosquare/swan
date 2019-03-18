@@ -137,7 +137,7 @@
             get
             {
                 if (_values == null)
-                    return new sbyte[0][];
+                    return Array.Empty<sbyte[]>();
 
                 var size = _values.Length;
                 var bva = new sbyte[size][];
@@ -164,7 +164,7 @@
             get
             {
                 if (_values == null)
-                    return new string[0];
+                    return Array.Empty<string>();
 
                 var size = _values.Length;
                 var sva = new string[size];
@@ -302,7 +302,7 @@
                 Array.Copy(_values, 0, ((LdapAttribute)newObj)._values, 0, _values.Length);
             }
 
-            return (LdapAttribute) newObj;
+            return (LdapAttribute)newObj;
         }
 
         /// <summary>
@@ -411,17 +411,16 @@
         public string[] GetSubtypes() => _subTypes;
 
         /// <summary>
-        ///     Reports if the attribute name contains the specified subtype.
-        ///     For example, if you check for the subtype lang-en and the
-        ///     attribute name is cn;lang-en, this method returns true.
+        /// Reports if the attribute name contains the specified subtype.
+        /// For example, if you check for the subtype lang-en and the
+        /// attribute name is cn;lang-en, this method returns true.
         /// </summary>
-        /// <param name="subtype">
-        ///     The single subtype to check for.
-        /// </param>
+        /// <param name="subtype">The single subtype to check for.</param>
         /// <returns>
-        ///     True, if the attribute has the specified subtype;
-        ///     false, if it doesn't.
+        /// True, if the attribute has the specified subtype;
+        /// false, if it doesn't.
         /// </returns>
+        /// <exception cref="ArgumentNullException">subtype.</exception>
         public bool HasSubtype(string subtype)
         {
             if (subtype == null)
@@ -433,19 +432,19 @@
         }
 
         /// <summary>
-        ///     Reports if the attribute name contains all the specified subtypes.
-        ///     For example, if you check for the subtypes lang-en and phonetic
-        ///     and if the attribute name is cn;lang-en;phonetic, this method
-        ///     returns true. If the attribute name is cn;phonetic or cn;lang-en,
-        ///     this method returns false.
+        /// Reports if the attribute name contains all the specified subtypes.
+        /// For example, if you check for the subtypes lang-en and phonetic
+        /// and if the attribute name is cn;lang-en;phonetic, this method
+        /// returns true. If the attribute name is cn;phonetic or cn;lang-en,
+        /// this method returns false.
         /// </summary>
-        /// <param name="subtypes">
-        ///     An array of subtypes to check for.
-        /// </param>
+        /// <param name="subtypes">An array of subtypes to check for.</param>
         /// <returns>
-        ///     True, if the attribute has all the specified subtypes;
-        ///     false, if it doesn't have all the subtypes.
+        /// True, if the attribute has all the specified subtypes;
+        /// false, if it doesn't have all the subtypes.
         /// </returns>
+        /// <exception cref="ArgumentNullException">subtypes.</exception>
+        /// <exception cref="ArgumentException">subtype at array index {i}.</exception>
         public bool HasSubtypes(string[] subtypes)
         {
             if (subtypes == null)
@@ -478,16 +477,7 @@
         /// <param name="attrString">Value of the attribute as a string.
         /// Note: Removing a value which is not present in the attribute has
         /// no effect.</param>
-        /// <exception cref="ArgumentNullException">attrString.</exception>
-        public void RemoveValue(string attrString)
-        {
-            if (attrString == null)
-            {
-                throw new ArgumentNullException(nameof(attrString));
-            }
-
-            RemoveValue(Encoding.UTF8.GetSBytes(attrString));
-        }
+        public void RemoveValue(string attrString) => RemoveValue(Encoding.UTF8.GetSBytes(attrString));
 
         /// <summary>
         /// Removes a byte-formatted value from the attribute.
@@ -597,7 +587,7 @@
                     if (sval.Length == 0)
                     {
                         // didn't decode well, must be binary
-                        result.Append("<binary value, length:" + sval.Length);
+                        result.Append($"<binary value, length:{sval.Length}");
                         continue;
                     }
 
@@ -611,15 +601,33 @@
 
             return result.ToString();
         }
+        
+        private static bool Equals(IReadOnlyList<sbyte> e1, IReadOnlyList<sbyte> e2)
+        {
+            // If same object, they compare true
+            if (object.Equals(e1, e2))
+                return true;
 
-        /// <summary>
-        /// Adds an object to this object's list of attribute values.
-        /// </summary>
-        /// <param name="bytes">Ultimately all of this attribute's values are treated
-        /// as binary data so we simplify the process by requiring
-        /// that all data added to our list is in binary form.
-        /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
-        private void Add(sbyte[] bytes)
+            // If either but not both are null, they compare false
+            if (e1 == null || e2 == null)
+                return false;
+
+            // If arrays have different length, they compare false
+            var length = e1.Count;
+            if (e2.Count != length)
+                return false;
+
+            // If any of the bytes are different, they compare false
+            for (var i = 0; i < length; i++)
+            {
+                if (e1[i] != e2[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        private void Add(IReadOnlyList<sbyte> bytes)
         {
             if (_values == null)
             {
@@ -639,31 +647,6 @@
                 _values = tmp;
             }
         }
-
-        private static bool Equals(sbyte[] e1, sbyte[] e2)
-        {
-            // If same object, they compare true
-            if (e1 == e2)
-                return true;
-
-            // If either but not both are null, they compare false
-            if (e1 == null || e2 == null)
-                return false;
-
-            // If arrays have different length, they compare false
-            var length = e1.Length;
-            if (e2.Length != length)
-                return false;
-
-            // If any of the bytes are different, they compare false
-            for (var i = 0; i < length; i++)
-            {
-                if (e1[i] != e2[i])
-                    return false;
-            }
-
-            return true;
-        }
     }
 
     /// <summary>
@@ -675,6 +658,9 @@
     /// </summary>
     /// <seealso cref="LdapAttribute"></seealso>
     /// <seealso cref="LdapEntry"></seealso>
+#if !NETSTANDARD1_3
+    [Serializable]
+#endif
     public class LdapAttributeSet : Dictionary<string, LdapAttribute>
     {
         /// <summary>

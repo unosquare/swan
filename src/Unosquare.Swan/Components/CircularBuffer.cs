@@ -21,7 +21,7 @@ namespace Unosquare.Swan.Components
         /// <param name="bufferLength">Length of the buffer.</param>
         public CircularBuffer(int bufferLength)
         {
-#if !NET452
+#if !NET462
             if (Runtime.OS != Swan.OperatingSystem.Windows)
                 throw new InvalidOperationException("CircularBuffer component is only available in Windows");
 #endif
@@ -197,7 +197,7 @@ namespace Unosquare.Swan.Components
         /// <param name="source">The source.</param>
         /// <param name="length">The length.</param>
         [DllImport("kernel32")]
-        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
+        internal static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
 
         #endregion
     }

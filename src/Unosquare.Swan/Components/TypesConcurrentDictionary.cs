@@ -36,7 +36,7 @@
                 .Concat(GetParentRegistrationsForType(resolveType)).Distinct();
 
             if (!includeUnnamed)
-                registrations = registrations.Where(tr => tr.Name != string.Empty);
+                registrations = registrations.Where(tr => !string.IsNullOrEmpty(tr.Name));
 
             return registrations.Select(registration =>
                 ResolveInternal(registration, DependencyContainerResolveOptions.Default));
@@ -346,7 +346,7 @@
 
         private IEnumerable<DependencyContainer.TypeRegistration> GetParentRegistrationsForType(Type resolveType)
             => _dependencyContainer.Parent == null 
-                ? new DependencyContainer.TypeRegistration[] { } 
+                ? Array.Empty<DependencyContainer.TypeRegistration>()
                 : _dependencyContainer.Parent.RegisteredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(_dependencyContainer.Parent.RegisteredTypes.GetParentRegistrationsForType(resolveType));
     }
 }

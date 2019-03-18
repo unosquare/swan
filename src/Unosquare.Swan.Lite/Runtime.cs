@@ -28,7 +28,7 @@
 
         private static readonly Lazy<MethodInfoCache> _methodInfoCache = new Lazy<MethodInfoCache>(() => new MethodInfoCache());
 
-#if NET452
+#if NET462
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
 
@@ -36,7 +36,7 @@
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
 
-#if NET452
+#if NET462
         private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
@@ -109,7 +109,7 @@
             }
         }
 
-#if NET452
+#if NET462
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
@@ -283,7 +283,7 @@
             {
 #if !NETSTANDARD1_3 
                 var localAppDataPath =
-#if NET452
+#if NET462
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                         EntryAssemblyName.Name);
 #else

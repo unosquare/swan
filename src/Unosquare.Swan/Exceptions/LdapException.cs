@@ -12,6 +12,9 @@
     /// duplicate entry, the server returns a result code.
     /// </summary>
     /// <seealso cref="System.Exception" />
+#if !NETSTANDARD1_3
+    [Serializable]
+#endif
     public class LdapException
         : Exception
     {

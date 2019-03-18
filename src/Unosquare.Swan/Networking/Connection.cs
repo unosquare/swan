@@ -695,7 +695,7 @@
 
             try
             {
-#if !NET452
+#if !NET462
                 RemoteClient.Dispose();
                 SecureStream?.Dispose();
                 NetworkStream?.Dispose();
@@ -704,10 +704,6 @@
                 SecureStream?.Close();
                 NetworkStream?.Close();
 #endif
-            }
-            catch
-            {
-                // ignored
             }
             finally
             {
@@ -722,9 +718,7 @@
 
         #region Dispose
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             if (_hasDisposed)

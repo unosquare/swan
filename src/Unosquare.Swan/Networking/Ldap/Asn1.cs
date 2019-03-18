@@ -206,7 +206,7 @@
         public Asn1OctetString(Stream stream, int len)
             : base(Id)
         {
-            _content = len > 0 ? (sbyte[]) LberDecoder.DecodeOctetString(stream, len) : new sbyte[0];
+            _content = len > 0 ? (sbyte[]) LberDecoder.DecodeOctetString(stream, len) : Array.Empty<sbyte>();
         }
         
         public sbyte[] ByteValue() => _content;

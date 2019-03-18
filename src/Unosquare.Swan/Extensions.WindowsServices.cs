@@ -5,7 +5,7 @@ namespace Unosquare.Swan
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
-#if NET452
+#if NET462
     using System.ServiceProcess;
 #else
     using Abstractions;
@@ -52,7 +52,7 @@ namespace Unosquare.Swan
             {
                 var thread = new Thread(() =>
                 {
-                    onStartMethod.Invoke(service, new object[] { new string[] { } });
+                    onStartMethod.Invoke(service, new object[] { Array.Empty<string>() });
                     $"Started service '{service.GetType().Name}'".Info(service.GetType());
                 });
 

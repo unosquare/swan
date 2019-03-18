@@ -58,7 +58,7 @@
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var cn = new Connection(Client, Encoding.UTF8, null, true, 0);
+                var _ = new Connection(Client, Encoding.UTF8, null, true, 0);
             });
         }
 

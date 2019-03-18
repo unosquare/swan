@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET462
 namespace Unosquare.Swan.Formatters
 {
     using System;
@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Formatters
         
         /// <summary>
         /// Initializes a new instance of the <see cref="BitmapBuffer"/> class.
-        /// Data will not contain left-over stride bytes
+        /// Data will not contain left-over stride bytes.
         /// </summary>
         /// <param name="sourceImage">The source image.</param>
         public BitmapBuffer(Image sourceImage)
