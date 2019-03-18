@@ -36,16 +36,17 @@
     ///         var connectionListener = new ConnectionListener(1337);
     ///         
     ///         // handle the OnConnectionAccepting event
-    ///         connectionListener.OnConnectionAccepted += (s, e) =>
+    ///         connectionListener.OnConnectionAccepted += async (s, e) =>
     ///         {
     ///              // create a new connection 
     ///              using (var con = new Connection(e.Client))
     ///              {               
-    ///                 con.WriteLineAsync("Hello world!").Wait();
+    ///                 await con.WriteLineAsync("Hello world!");
     ///              }
     ///         };
     ///         
     ///         connectionListener.Start();
+    ///         Console.ReadLine)=ñ
     ///     }
     /// }
     /// </code>
