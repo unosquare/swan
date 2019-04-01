@@ -373,7 +373,7 @@
             }
         }
 
-        private static Task<HttpResponseMessage> GetResponse(
+        private static async Task<HttpResponseMessage> GetResponse(
             Uri uri,
             CancellationToken ct,
             string authorization = null,
@@ -406,7 +406,8 @@
                         requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
                     }
 
-                    return httpClient.SendAsync(requestMessage, ct);
+                    return await httpClient.SendAsync(requestMessage, ct)
+                        .ConfigureAwait(false);
                 }
             }
         }
