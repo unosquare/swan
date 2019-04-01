@@ -211,9 +211,9 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var response = await GetResponse(uri, ct, authorization).ConfigureAwait(false);
+            var response = await GetHttpContent(uri, ct, authorization).ConfigureAwait(false);
 
-            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return await response.ReadAsStringAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -252,9 +252,9 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var response = await GetResponse(new Uri(url), ct, authorization).ConfigureAwait(false);
+            var response = await GetHttpContent(new Uri(url), ct, authorization).ConfigureAwait(false);
 
-            return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+            return await response.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -361,7 +361,7 @@
 
             using (var response = await GetResponse(new Uri(url), ct, authorization, null, payload, method).ConfigureAwait(false))
             {
-                if (response.IsSuccessStatusCode == false)
+                if (!response.IsSuccessStatusCode)
                 {
                     throw new JsonRequestException(
                         $"Error {method} JSON",
@@ -373,11 +373,25 @@
             }
         }
 
-        private static async Task<HttpResponseMessage> GetResponse(
+        private static async Task<HttpContent> GetHttpContent(
             Uri uri,
             CancellationToken ct,
             string authorization = null,
-            IDictionary<string, IEnumerable<string>> headers = null,
+            IDictionary<string, IEnumerable<string>> headers = null)
+        {
+            var response = await GetResponse(uri, ct, authorization, headers)
+                .ConfigureAwait(false);
+
+            return response.IsSuccessStatusCode
+                ? response.Content
+                : throw new JsonRequestException("Error GET", (int) response.StatusCode);
+        }
+
+        private static async Task<HttpResponseMessage> GetResponse(
+            Uri uri,
+            CancellationToken ct,
+            string authorization,
+            IDictionary<string, IEnumerable<string>> headers,
             object payload = null,
             HttpMethod method = default)
         {
