@@ -1,11 +1,12 @@
 ﻿namespace Unosquare.Swan.Networking
 {
-    using System;
     using Exceptions;
-    using Models;
     using Formatters;
+    using Models;
+    using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Security;
     using System.Text;
     using System.Threading;
@@ -26,15 +27,15 @@
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task with a result of the requested type.</returns>
         public static async Task<T> Post<T>(
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var jsonString = await PostString(url, payload, authorization, ct).ConfigureAwait(false);
+            var jsonString = await PostString(url, payload, authorization, cancellationToken).ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -49,21 +50,17 @@
         /// <param name="payload">The payload.</param>
         /// <param name="httpStatusError">The HTTP status error.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task with a result of the requested type or an error object.</returns>
         public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
             string url,
             object payload,
             int httpStatusError = 500,
             string authorization = null,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
+            using (var response = await GetResponse(new Uri(url), cancellationToken, authorization, null, payload, HttpMethod.Post).ConfigureAwait(false))
             {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-
-                var response = await httpClient.PostAsync(url, payloadJson, ct).ConfigureAwait(false);
-
                 var jsonString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -73,7 +70,7 @@
                         : default);
                 }
 
-                if ((int) response.StatusCode == httpStatusError)
+                if ((int)response.StatusCode == httpStatusError)
                 {
                     return OkOrError<T, TE>.FromError(!string.IsNullOrEmpty(jsonString)
                         ? Json.Deserialize<TE>(jsonString)
@@ -90,15 +87,16 @@
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task with a result as a collection of key/value pairs.</returns>
         public static async Task<IDictionary<string, object>> Post(
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var jsonString = await PostString(url, payload, authorization, ct).ConfigureAwait(false);
+            var jsonString = await PostString(url, payload, authorization, cancellationToken)
+                .ConfigureAwait(false);
 
             return string.IsNullOrWhiteSpace(jsonString)
                 ? default
@@ -191,14 +189,31 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">url.</exception>
         /// <exception cref="JsonRequestException">Error GET JSON.</exception>
-        public static async Task<string> GetString(
+        public static Task<string> GetString(
             string url,
             string authorization = null,
             CancellationToken ct = default)
-        {
-            var response = await GetHttpContent(url, authorization, ct).ConfigureAwait(false);
+            => GetString(new Uri(url), null, authorization, ct);
 
-            return await response.ReadAsStringAsync().ConfigureAwait(false);
+        /// <summary>
+        /// Gets the string.
+        /// </summary>
+        /// <param name="uri">The URI.</param>
+        /// <param name="headers">The headers.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>
+        /// A task with a result of the requested string.
+        /// </returns>
+        public static async Task<string> GetString(
+            Uri uri,
+            IDictionary<string, object> headers,
+            string authorization = null,
+            CancellationToken ct = default)
+        {
+            var response = await GetResponse(uri, ct, authorization).ConfigureAwait(false);
+
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -215,7 +230,8 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await GetString(url, authorization, ct).ConfigureAwait(false);
+            var jsonString = await GetString(url, authorization, ct)
+                .ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -236,9 +252,9 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var response = await GetHttpContent(url, authorization, ct).ConfigureAwait(false);
+            var response = await GetResponse(new Uri(url), ct, authorization).ConfigureAwait(false);
 
-            return await response.ReadAsByteArrayAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -303,10 +319,8 @@
             byte[] buffer,
             string fileName,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            return PostString(url, new {Filename = fileName, Data = buffer}, authorization, ct);
-        }
+            CancellationToken ct = default) =>
+            PostString(url, new { Filename = fileName, Data = buffer }, authorization, ct);
 
         /// <summary>
         /// Posts the file.
@@ -323,10 +337,8 @@
             byte[] buffer,
             string fileName,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            return Post<T>(url, new {Filename = fileName, Data = buffer}, authorization, ct);
-        }
+            CancellationToken ct = default) =>
+            Post<T>(url, new { Filename = fileName, Data = buffer }, authorization, ct);
 
         /// <summary>
         /// Sends the asynchronous request.
@@ -337,7 +349,8 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested string.</returns>
-        public static async Task<string> SendAsync(HttpMethod method,
+        public static async Task<string> SendAsync(
+            HttpMethod method,
             string url,
             object payload,
             string authorization = null,
@@ -346,18 +359,13 @@
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
+            using (var response = await GetResponse(new Uri(url), ct, authorization, null, payload, method).ConfigureAwait(false))
             {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-
-                var response = await httpClient
-                    .SendAsync(new HttpRequestMessage(method, url) {Content = payloadJson}, ct).ConfigureAwait(false);
-
                 if (response.IsSuccessStatusCode == false)
                 {
                     throw new JsonRequestException(
-                        $"Error {method} JSON", 
-                        (int) response.StatusCode,
+                        $"Error {method} JSON",
+                        (int)response.StatusCode,
                         await response.Content.ReadAsStringAsync().ConfigureAwait(false));
                 }
 
@@ -365,35 +373,41 @@
             }
         }
 
-        private static HttpClient GetHttpClientWithAuthorizationHeader(string authorization)
+        private static Task<HttpResponseMessage> GetResponse(
+            Uri uri,
+            CancellationToken ct,
+            string authorization = null,
+            IDictionary<string, IEnumerable<string>> headers = null,
+            object payload = null,
+            HttpMethod method = default)
         {
-            var httpClient = new HttpClient();
+            if (uri == null)
+                throw new ArgumentNullException(nameof(uri));
 
-            if (string.IsNullOrWhiteSpace(authorization) == false)
+            var httpMethod = method ?? HttpMethod.Get;
+            using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-            }
+                using (var requestMessage = new HttpRequestMessage(httpMethod, uri))
+                {
+                    if (!string.IsNullOrWhiteSpace(authorization))
+                    {
+                        requestMessage.Headers.Authorization
+                            = new AuthenticationHeaderValue("Bearer", authorization);
+                    }
 
-            return httpClient;
-        }
+                    if (headers != null)
+                    {
+                        foreach (var header in headers)
+                            requestMessage.Headers.Add(header.Key, header.Value);
+                    }
 
-        private static async Task<HttpContent> GetHttpContent(
-            string url,
-            string authorization,
-            CancellationToken ct)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException(nameof(url));
+                    if (payload != null && httpMethod != HttpMethod.Get)
+                    {
+                        requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+                    }
 
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
-            {
-                var response = await httpClient.GetAsync(url, ct).ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error GET", (int) response.StatusCode);
-
-                return response.Content;
+                    return httpClient.SendAsync(requestMessage, ct);
+                }
             }
         }
     }
