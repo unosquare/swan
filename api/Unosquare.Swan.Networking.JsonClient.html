@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class JsonClient
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="generator" content="docfx 2.41.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -439,6 +439,69 @@ with optional authorization token.</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Networking_JsonClient_GetString_" data-uid="Unosquare.Swan.Networking.JsonClient.GetString*"></a>
+  <h4 id="Unosquare_Swan_Networking_JsonClient_GetString_Uri_System_Collections_Generic_IDictionary_System_String_System_Object__System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Threading.CancellationToken)">GetString(Uri, IDictionary&lt;String, Object&gt;, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets the string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(Uri uri, IDictionary&lt;string, object&gt; headers, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Uri</span></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>The URI.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">headers</span></td>
+        <td><p>The headers.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">authorization</span></td>
+        <td><p>The authorization.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The ct.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>A task with a result of the requested string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Networking_JsonClient_Post_" data-uid="Unosquare.Swan.Networking.JsonClient.Post*"></a>
   <h4 id="Unosquare_Swan_Networking_JsonClient_Post_System_String_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.Post(System.String,System.Object,System.String,System.Threading.CancellationToken)">Post(String, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the specified URL.</p>
@@ -446,7 +509,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -478,7 +541,7 @@ with optional authorization token.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -509,7 +572,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -541,7 +604,7 @@ with optional authorization token.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>
@@ -743,7 +806,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;OkOrError&lt;T, TE&gt;&gt; PostOrError&lt;T, TE&gt;(string url, object payload, int httpStatusError = 500, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;OkOrError&lt;T, TE&gt;&gt; PostOrError&lt;T, TE&gt;(string url, object payload, int httpStatusError = 500, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -781,7 +844,7 @@ or an error.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">ct</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
         <td><p>The cancellation token.</p>
 </td>
       </tr>

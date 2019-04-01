@@ -10096,6 +10096,15 @@ references:
   commentId: M:Unosquare.Swan.Networking.JsonClient.GetString(System.String,System.String,System.Threading.CancellationToken)
   fullName: Unosquare.Swan.Networking.JsonClient.GetString(System.String, System.String, System.Threading.CancellationToken)
   nameWithType: JsonClient.GetString(String, String, CancellationToken)
+- uid: Unosquare.Swan.Networking.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Threading.CancellationToken)
+  name: GetString(Uri, IDictionary<String, Object>, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_GetString_Uri_System_Collections_Generic_IDictionary_System_String_System_Object__System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Threading.CancellationToken)
+  name.vb: GetString(Uri, IDictionary(Of String, Object), String, CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.GetString(Uri, System.Collections.Generic.IDictionary<System.String, System.Object>, System.String, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.GetString(Uri, System.Collections.Generic.IDictionary(Of System.String, System.Object), System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.GetString(Uri, IDictionary<String, Object>, String, CancellationToken)
+  nameWithType.vb: JsonClient.GetString(Uri, IDictionary(Of String, Object), String, CancellationToken)
 - uid: Unosquare.Swan.Networking.JsonClient.GetString*
   name: GetString
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_GetString_
