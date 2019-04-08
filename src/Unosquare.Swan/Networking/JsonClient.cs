@@ -35,7 +35,8 @@
             string authorization = null,
             CancellationToken cancellationToken = default)
         {
-            var jsonString = await PostString(url, payload, authorization, cancellationToken).ConfigureAwait(false);
+            var jsonString = await PostString(url, payload, authorization, cancellationToken)
+                .ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -61,7 +62,8 @@
         {
             using (var response = await GetResponse(new Uri(url), cancellationToken, authorization, null, payload, HttpMethod.Post).ConfigureAwait(false))
             {
-                var jsonString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var jsonString = await response.Content.ReadAsStringAsync()
+                    .ConfigureAwait(false);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -109,7 +111,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A task with a result of the requested string.
         /// </returns>
@@ -119,7 +121,8 @@
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default) => SendAsync(HttpMethod.Post, url, payload, authorization, ct);
+            CancellationToken cancellationToken = default)
+            => SendAsync(HttpMethod.Post, url, payload, authorization, cancellationToken);
 
         /// <summary>
         /// Puts the specified URL.
@@ -136,7 +139,8 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await PutString(url, payload, authorization, ct).ConfigureAwait(false);
+            var jsonString = await PutString(url, payload, authorization, ct)
+                .ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
         }
@@ -147,15 +151,18 @@
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested collection of key/value pairs.</returns>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// A task with a result of the requested collection of key/value pairs.
+        /// </returns>
         public static async Task<IDictionary<string, object>> Put(
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var response = await Put<object>(url, payload, authorization, ct).ConfigureAwait(false);
+            var response = await Put<object>(url, payload, authorization, cancellationToken)
+                .ConfigureAwait(false);
 
             return response as IDictionary<string, object>;
         }
@@ -207,13 +214,15 @@
         /// </returns>
         public static async Task<string> GetString(
             Uri uri,
-            IDictionary<string, object> headers,
+            IDictionary<string, IEnumerable<string>> headers,
             string authorization = null,
             CancellationToken ct = default)
         {
-            var response = await GetHttpContent(uri, ct, authorization).ConfigureAwait(false);
+            var response = await GetHttpContent(uri, ct, authorization, headers)
+                .ConfigureAwait(false);
 
-            return await response.ReadAsStringAsync().ConfigureAwait(false);
+            return await response.ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -252,9 +261,11 @@
             string authorization = null,
             CancellationToken ct = default)
         {
-            var response = await GetHttpContent(new Uri(url), ct, authorization).ConfigureAwait(false);
+            var response = await GetHttpContent(new Uri(url), ct, authorization)
+                .ConfigureAwait(false);
 
-            return await response.ReadAsByteArrayAsync().ConfigureAwait(false);
+            return await response.ReadAsByteArrayAsync()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -369,7 +380,8 @@
                         await response.Content.ReadAsStringAsync().ConfigureAwait(false));
                 }
 
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsStringAsync()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -384,7 +396,7 @@
 
             return response.IsSuccessStatusCode
                 ? response.Content
-                : throw new JsonRequestException("Error GET", (int) response.StatusCode);
+                : throw new JsonRequestException("Error GET", (int)response.StatusCode);
         }
 
         private static async Task<HttpResponseMessage> GetResponse(

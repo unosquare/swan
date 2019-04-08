@@ -1,11 +1,12 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
+    using Attributes;
+    using Reflection;
     using System;
-    using System.Collections.Generic;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Attributes;
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario
@@ -84,12 +85,12 @@
                     return current;
 
                 var fields =
-                    new List<MemberInfo>(PropertyTypeCache.RetrieveAllProperties(targetType).Where(p => p.CanRead));
+                    new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead));
 
                 // If the target is a struct (value type) navigate the fields.
                 if (targetType.IsValueType())
                 {
-                    fields.AddRange(FieldTypeCache.RetrieveAllFields(targetType));
+                    fields.AddRange(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType));
                 }
 
                 var value = fields

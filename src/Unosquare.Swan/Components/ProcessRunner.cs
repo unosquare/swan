@@ -247,7 +247,7 @@
                         RedirectStandardOutput = true,
                         StandardOutputEncoding = encoding,
                         UseShellExecute = false,
-#if NET462
+#if NET461
                         WindowStyle = ProcessWindowStyle.Hidden,
 #endif
                     },

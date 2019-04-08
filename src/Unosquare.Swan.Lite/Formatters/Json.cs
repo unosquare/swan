@@ -5,8 +5,10 @@
     using Components;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using Attributes;
+#if NETSTANDARD1_3
+    using System.Reflection;
+#endif
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario
@@ -41,8 +43,6 @@
 
         #endregion
 
-        private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
-        private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
         private static readonly CollectionCacheRepository<string> IgnoredPropertiesCache = new CollectionCacheRepository<string>();
 
         #region Public API

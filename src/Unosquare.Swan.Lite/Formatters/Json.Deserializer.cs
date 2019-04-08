@@ -21,12 +21,12 @@
             #region State Variables
 
             private readonly object _result;
-            private readonly Dictionary<string, object> _resultObject;
-            private readonly List<object> _resultArray;
-
-            private readonly ReadState _state = ReadState.WaitingForRootOpen;
-            private readonly string _currentFieldName;
             private readonly string _json;
+
+            private Dictionary<string, object> _resultObject;
+            private List<object> _resultArray;
+            private ReadState _state = ReadState.WaitingForRootOpen;
+            private string _currentFieldName;
 
             private int _index;
 
@@ -38,128 +38,50 @@
 
                 for (_index = startIndex; _index < _json.Length; _index++)
                 {
-                    #region Wait for { or [
-
-                    if (_state == ReadState.WaitingForRootOpen)
+                    switch (_state)
                     {
-                        if (char.IsWhiteSpace(_json, _index)) continue;
-
-                        if (_json[_index] == OpenObjectChar)
-                        {
-                            _resultObject = new Dictionary<string, object>();
-                            _state = ReadState.WaitingForField;
+                        case ReadState.WaitingForRootOpen:
+                            WaitForRootOpen();
                             continue;
-                        }
+                        case ReadState.WaitingForField when char.IsWhiteSpace(_json, _index):
+                            continue;
+                        case ReadState.WaitingForField when (_resultObject != null && _json[_index] == CloseObjectChar)
+                                                            || (_resultArray != null && _json[_index] == CloseArrayChar):
+                            // Handle empty arrays and empty objects
+                            _result = _resultObject ?? _resultArray as object;
+                            return;
+                        case ReadState.WaitingForField when _json[_index] != StringQuotedChar:
+                            throw CreateParserException($"'{StringQuotedChar}'");
+                        case ReadState.WaitingForField:
+                            {
+                                var charCount = GetFieldNameCount();
 
-                        if (_json[_index] == OpenArrayChar)
-                        {
-                            _resultArray = new List<object>();
+                                _currentFieldName = Unescape(_json.SliceLength(_index + 1, charCount));
+                                _index += charCount + 1;
+                                _state = ReadState.WaitingForColon;
+                                continue;
+                            }
+
+                        case ReadState.WaitingForColon when char.IsWhiteSpace(_json, _index):
+                            continue;
+                        case ReadState.WaitingForColon when _json[_index] != ValueSeparatorChar:
+                            throw CreateParserException($"'{ValueSeparatorChar}'");
+                        case ReadState.WaitingForColon:
                             _state = ReadState.WaitingForValue;
                             continue;
-                        }
-
-                        throw CreateParserException($"'{OpenObjectChar}' or '{OpenArrayChar}'");
-                    }
-
-                    #endregion
-
-                    #region Wait for opening field " (only applies for object results)
-
-                    if (_state == ReadState.WaitingForField)
-                    {
-                        if (char.IsWhiteSpace(_json, _index)) continue;
-
-                        // Handle empty arrays and empty objects
-                        if ((_resultObject != null && _json[_index] == CloseObjectChar)
-                            || (_resultArray != null && _json[_index] == CloseArrayChar))
-                        {
+                        case ReadState.WaitingForValue when char.IsWhiteSpace(_json, _index):
+                            continue;
+                        case ReadState.WaitingForValue when (_resultObject != null && _json[_index] == CloseObjectChar)
+                                                            || (_resultArray != null && _json[_index] == CloseArrayChar):
+                            // Handle empty arrays and empty objects
                             _result = _resultObject ?? _resultArray as object;
                             return;
-                        }
-
-                        if (_json[_index] != StringQuotedChar)
-                            throw CreateParserException($"'{StringQuotedChar}'");
-
-                        var charCount = GetFieldNameCount();
-
-                        _currentFieldName = Unescape(_json.SliceLength(_index + 1, charCount));
-                        _index += charCount + 1;
-                        _state = ReadState.WaitingForColon;
-                        continue;
+                        case ReadState.WaitingForValue:
+                            ExtractValue();
+                            continue;
                     }
 
-                    #endregion
-
-                    #region Wait for field-value separator : (only applies for object results
-
-                    if (_state == ReadState.WaitingForColon)
-                    {
-                        if (char.IsWhiteSpace(_json, _index)) continue;
-
-                        if (_json[_index] != ValueSeparatorChar)
-                            throw CreateParserException($"'{ValueSeparatorChar}'");
-
-                        _state = ReadState.WaitingForValue;
-                        continue;
-                    }
-
-                    #endregion
-
-                    #region Wait for and Parse the value
-
-                    if (_state == ReadState.WaitingForValue)
-                    {
-                        if (char.IsWhiteSpace(_json, _index)) continue;
-
-                        // Handle empty arrays and empty objects
-                        if ((_resultObject != null && _json[_index] == CloseObjectChar)
-                            || (_resultArray != null && _json[_index] == CloseArrayChar))
-                        {
-                            _result = _resultObject ?? _resultArray as object;
-                            return;
-                        }
-
-                        // determine the value based on what it starts with
-                        switch (_json[_index])
-                        {
-                            case StringQuotedChar: // expect a string
-                                ExtractStringQuoted();
-                                break;
-
-                            case OpenObjectChar: // expect object
-                            case OpenArrayChar: // expect array
-                                ExtractObject();
-                                break;
-
-                            case 't': // expect true
-                                ExtractConstant(TrueLiteral, true);
-                                break;
-
-                            case 'f': // expect false
-                                ExtractConstant(FalseLiteral, false);
-                                break;
-
-                            case 'n': // expect null
-                                ExtractConstant(NullLiteral, null);
-                                break;
-
-                            default: // expect number
-                                ExtractNumber();
-                                break;
-                        }
-
-                        _currentFieldName = null;
-                        _state = ReadState.WaitingForNextOrRootClose;
-                        continue;
-                    }
-
-                    #endregion
-
-                    #region Wait for closing ], } or an additional field or value ,
-
-                    if (_state != ReadState.WaitingForNextOrRootClose) continue;
-
-                    if (char.IsWhiteSpace(_json, _index)) continue;
+                    if (_state != ReadState.WaitingForNextOrRootClose || char.IsWhiteSpace(_json, _index)) continue;
 
                     if (_json[_index] == FieldSeparatorChar)
                     {
@@ -174,20 +96,72 @@
                         continue;
                     }
 
-                    if ((_resultObject != null && _json[_index] == CloseObjectChar) ||
-                        (_resultArray != null && _json[_index] == CloseArrayChar))
+                    if ((_resultObject == null || _json[_index] != CloseObjectChar) &&
+                        (_resultArray == null || _json[_index] != CloseArrayChar))
                     {
-                        _result = _resultObject ?? _resultArray as object;
-                        return;
+                        throw CreateParserException($"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
                     }
 
-                    throw CreateParserException($"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
-
-                    #endregion
+                    _result = _resultObject ?? _resultArray as object;
+                    return;
                 }
             }
 
             internal static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
+
+            private void WaitForRootOpen()
+            {
+                if (char.IsWhiteSpace(_json, _index)) return;
+
+                switch (_json[_index])
+                {
+                    case OpenObjectChar:
+                        _resultObject = new Dictionary<string, object>();
+                        _state = ReadState.WaitingForField;
+                        return;
+                    case OpenArrayChar:
+                        _resultArray = new List<object>();
+                        _state = ReadState.WaitingForValue;
+                        return;
+                    default:
+                        throw CreateParserException($"'{OpenObjectChar}' or '{OpenArrayChar}'");
+                }
+            }
+
+            private void ExtractValue()
+            {
+                // determine the value based on what it starts with
+                switch (_json[_index])
+                {
+                    case StringQuotedChar: // expect a string
+                        ExtractStringQuoted();
+                        break;
+
+                    case OpenObjectChar: // expect object
+                    case OpenArrayChar: // expect array
+                        ExtractObject();
+                        break;
+
+                    case 't': // expect true
+                        ExtractConstant(TrueLiteral, true);
+                        break;
+
+                    case 'f': // expect false
+                        ExtractConstant(FalseLiteral, false);
+                        break;
+
+                    case 'n': // expect null
+                        ExtractConstant(NullLiteral, null);
+                        break;
+
+                    default: // expect number
+                        ExtractNumber();
+                        break;
+                }
+
+                _currentFieldName = null;
+                _state = ReadState.WaitingForNextOrRootClose;
+            }
 
             private static string Unescape(string str)
             {
@@ -316,7 +290,7 @@
 
             private void ExtractConstant(string boolValue, bool? value)
             {
-                if (!_json.SliceLength(_index, boolValue.Length).Equals(boolValue))
+                if (_json.SliceLength(_index, boolValue.Length) != boolValue)
                     throw CreateParserException($"'{ValueSeparatorChar}'");
 
                 // Extract and set the value
