@@ -68,7 +68,7 @@
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-#if NET462
+#if NET461
             var md5 = MD5.Create();
             const int bufferSize = 4096;
 

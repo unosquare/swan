@@ -19,7 +19,7 @@
     {
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
-#if NET462
+#if NET461
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
 
@@ -27,7 +27,7 @@
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
 
-#if NET462
+#if NET461
         private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
@@ -100,7 +100,7 @@
             }
         }
 
-#if NET462
+#if NET461
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
@@ -242,7 +242,7 @@
             {
 #if !NETSTANDARD1_3 
                 var localAppDataPath =
-#if NET462
+#if NET461
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                         EntryAssemblyName.Name);
 #else

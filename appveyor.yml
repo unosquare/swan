@@ -39,12 +39,7 @@ before_build:
 - cmd: mkdir tools
 - cmd: nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 build_script:
-- cmd: msbuild /p:Configuration=Release /verbosity:quiet
-- sh: |
-        cd src/Unosquare.Swan
-        msbuild /verbosity:quiet /p:Configuration=Release;TargetFrameworks="netstandard2.0;netstandard1.3;net462"
-        cd ..
-        cd ..
+- msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
 - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.2
 - ps: |

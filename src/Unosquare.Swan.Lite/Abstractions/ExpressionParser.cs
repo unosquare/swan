@@ -16,9 +16,19 @@
         /// <typeparam name="T">The type of expression result.</typeparam>
         /// <param name="tokens">The tokens.</param>
         /// <returns>The representation of the expression parsed.</returns>
-        public virtual T ResolveExpression<T>(IEnumerable<Token> tokens)
+        public virtual T ResolveExpression<T>(IEnumerable<Token> tokens) =>
+            ResolveExpression<T>(tokens, System.Globalization.CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Resolves the expression.
+        /// </summary>
+        /// <typeparam name="T">The type of expression result.</typeparam>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="formatProvider">The format provider.</param>
+        /// <returns>The representation of the expression parsed.</returns>
+        public virtual T ResolveExpression<T>(IEnumerable<Token> tokens, IFormatProvider formatProvider)
         {
-            var conversion = Expression.Convert(Parse(tokens), typeof(T));
+            var conversion = Expression.Convert(Parse(tokens,formatProvider), typeof(T));
             return Expression.Lambda<Func<T>>(conversion).Compile()();
         }
 
@@ -26,8 +36,21 @@
         /// Parses the specified tokens.
         /// </summary>
         /// <param name="tokens">The tokens.</param>
-        /// <returns>The final expression.</returns>
-        public virtual Expression Parse(IEnumerable<Token> tokens)
+        /// <returns>
+        /// The final expression.
+        /// </returns>
+        public virtual Expression Parse(IEnumerable<Token> tokens) =>
+            Parse(tokens, System.Globalization.CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parses the specified tokens.
+        /// </summary>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="formatProvider">The format provider.</param>
+        /// <returns>
+        /// The final expression.
+        /// </returns>
+        public virtual Expression Parse(IEnumerable<Token> tokens, IFormatProvider formatProvider)
         {
             var expressionStack = new List<Stack<Expression>>();
 
@@ -42,7 +65,7 @@
                         expressionStack.Add(new Stack<Expression>());
                         break;
                     case TokenType.Number:
-                        expressionStack.Last().Push(Expression.Constant(Convert.ToDecimal(token.Value)));
+                        expressionStack.Last().Push(Expression.Constant(Convert.ToDecimal(token.Value, formatProvider)));
                         break;
                     case TokenType.Variable:
                         ResolveVariable(token.Value, expressionStack.Last());

@@ -241,7 +241,7 @@
                 // find the add method of the target dictionary
                 var addMethod = _targetType.GetMethods()
                     .FirstOrDefault(
-                        m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 2);
+                        m => m.Name == AddMethodName && m.IsPublic && m.GetParameters().Length == 2);
 
                 // skip if we don't have a compatible add method
                 if (addMethod == null) return;
@@ -281,7 +281,7 @@
 
             private void PopulateProperties(IDictionary<string, object> sourceProperties)
             {
-                var properties = PropertyTypeCache.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite);
+                var properties = PropertyTypeCache.DefaultCache.Value.RetrieveFilteredProperties(_targetType, false, p => p.CanWrite);
 
                 foreach (var property in properties)
                 {
@@ -311,7 +311,7 @@
 
             private void PopulateFields(IDictionary<string, object> sourceProperties)
             {
-                foreach (var field in FieldTypeCache.RetrieveAllFields(_targetType))
+                foreach (var field in FieldTypeCache.DefaultCache.Value.RetrieveAllFields(_targetType))
                 {
                     var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, field);
                     if (sourcePropertyValue == null) continue;

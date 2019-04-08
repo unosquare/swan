@@ -108,7 +108,7 @@
             var addressList = new List<IPAddress>();
             var interfaces = NetworkInterface.GetAllNetworkInterfaces()
                 .Where(ni =>
-#if NET462
+#if NET461
                     ni.IsReceiveOnly == false &&
 #endif
                     (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
@@ -278,7 +278,7 @@
             var endPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-#if !NET462
+#if !NET461
             await socket.ConnectAsync(endPoint).ConfigureAwait(false);
 #else
             socket.Connect(endPoint);

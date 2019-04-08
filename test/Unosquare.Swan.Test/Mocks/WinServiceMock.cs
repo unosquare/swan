@@ -2,7 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-#if NET462
+#if NET461
     using System.ServiceProcess;
 #else
     using Abstractions;

@@ -1,5 +1,7 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using System;
+    using System.Linq;
 #if !NETSTANDARD1_3
     using System.Net.Mail;
 #else
@@ -31,7 +33,7 @@
 
         public string ReplyText { get; set; }
 
-        public bool IsReplyOk => ReplyText.StartsWith("250 ");
+        public bool IsReplyOk => ReplyText.StartsWith("250 ", StringComparison.OrdinalIgnoreCase);
 
         public void ValidateReply()
         {
@@ -45,15 +47,16 @@
 
                 if (response.IsPositive) return;
 
-                var responseContent = string.Empty;
-                if (response.Content.Count > 0)
-                    responseContent = string.Join(";", response.Content.ToArray());
+                var responseContent = response.Content.Any()
+                    ? string.Join(";", response.Content.ToArray())
+                    : string.Empty;
 
                 throw new SmtpException((SmtpStatusCode)response.ReplyCode, responseContent);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new SmtpException($"Could not parse server response: {ReplyText}");
+                if (!(ex is SmtpException))
+                    throw new SmtpException($"Could not parse server response: {ReplyText}");
             }
         }
     }

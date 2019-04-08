@@ -282,7 +282,7 @@
 
                 if (type.IsValueType() || propertyInfo.PropertyType != type)
                     return propertyInfo.TrySetBasicType(value, target);
-                
+
                 propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
 
                 return true;
@@ -294,7 +294,7 @@
 
             return false;
         }
-        
+
         private static object GetValue(object source, Type targetType)
         {
             if (source == null)
@@ -329,8 +329,7 @@
                 case IList sourceList when target is IList targetList:
                     var addMethod = targetType.GetMethods()
                         .FirstOrDefault(
-                            m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
-                                 m.GetParameters().Length == 1);
+                            m => m.Name == Formatters.Json.AddMethodName && m.IsPublic && m.GetParameters().Length == 1);
 
                     if (addMethod == null) return target;
 

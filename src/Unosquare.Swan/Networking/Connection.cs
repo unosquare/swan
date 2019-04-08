@@ -702,7 +702,7 @@
 
             try
             {
-#if !NET462
+#if !NET461
                 RemoteClient.Dispose();
                 SecureStream?.Dispose();
                 NetworkStream?.Dispose();

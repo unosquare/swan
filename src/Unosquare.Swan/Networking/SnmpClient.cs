@@ -53,7 +53,7 @@
                                 break;
                             }
                         }
-#if NET462
+#if NET461
                         udp.Close();
 #endif
                     }
