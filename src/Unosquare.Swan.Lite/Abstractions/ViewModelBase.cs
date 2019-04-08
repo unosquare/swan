@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System.Collections.Concurrent;
     using System.Collections.Generic;
