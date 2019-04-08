@@ -167,6 +167,57 @@
   </table>
   
   
+  <a id="Unosquare_Swan_Abstractions_ExpressionParser_Parse_" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.Parse*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExpressionParser_Parse_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Token__System_IFormatProvider_" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.Parse(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token},System.IFormatProvider)">Parse(IEnumerable&lt;Token&gt;, IFormatProvider)</h4>
+  <div class="markdown level1 summary"><p>Parses the specified tokens.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Expression Parse(IEnumerable&lt;Token&gt; tokens, IFormatProvider formatProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.Token.html">Token</a>&gt;</td>
+        <td><span class="parametername">tokens</span></td>
+        <td><p>The tokens.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iformatprovider">IFormatProvider</a></td>
+        <td><span class="parametername">formatProvider</span></td>
+        <td><p>The format provider.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Expression</span></td>
+        <td><p>The final expression.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Abstractions_ExpressionParser_ResolveExpression_" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.ResolveExpression*"></a>
   <h4 id="Unosquare_Swan_Abstractions_ExpressionParser_ResolveExpression__1_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Token__" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.ResolveExpression``1(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token})">ResolveExpression&lt;T&gt;(IEnumerable&lt;Token&gt;)</h4>
   <div class="markdown level1 summary"><p>Resolves the expression.</p>
@@ -190,6 +241,73 @@
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.Token.html">Token</a>&gt;</td>
         <td><span class="parametername">tokens</span></td>
         <td><p>The tokens.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The representation of the expression parsed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of expression result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ExpressionParser_ResolveExpression_" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.ResolveExpression*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ExpressionParser_ResolveExpression__1_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Token__System_IFormatProvider_" data-uid="Unosquare.Swan.Abstractions.ExpressionParser.ResolveExpression``1(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token},System.IFormatProvider)">ResolveExpression&lt;T&gt;(IEnumerable&lt;Token&gt;, IFormatProvider)</h4>
+  <div class="markdown level1 summary"><p>Resolves the expression.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual T ResolveExpression&lt;T&gt;(IEnumerable&lt;Token&gt; tokens, IFormatProvider formatProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.Token.html">Token</a>&gt;</td>
+        <td><span class="parametername">tokens</span></td>
+        <td><p>The tokens.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iformatprovider">IFormatProvider</a></td>
+        <td><span class="parametername">formatProvider</span></td>
+        <td><p>The format provider.</p>
 </td>
       </tr>
     </tbody>
