@@ -129,7 +129,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
+public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -181,7 +182,8 @@ Do not use for large streams as this reads ALL bytes at once.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
+public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -248,7 +250,8 @@ Do not use for large streams as this reads ALL bytes at once.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this string value, bool createHasher = false)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
+public static byte[] ComputeMD5(this string value, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -299,7 +302,8 @@ Do not use for large streams as this reads ALL bytes at once.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] ComputeSha1(this string value, bool createHasher = false)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
+public static byte[] ComputeSha1(this string value, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -639,6 +643,96 @@ other than a hex char.</p>
   
   
   <a id="Unosquare_Swan_StringExtensions_Humanize_" data-uid="Unosquare.Swan.StringExtensions.Humanize*"></a>
+  <h4 id="Unosquare_Swan_StringExtensions_Humanize_System_Boolean_" data-uid="Unosquare.Swan.StringExtensions.Humanize(System.Boolean)">Humanize(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Humanizes (make more human-readable) an boolean.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Humanize(this bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>if set to <code>true</code> [value].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current boolean.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_StringExtensions_Humanize_" data-uid="Unosquare.Swan.StringExtensions.Humanize*"></a>
+  <h4 id="Unosquare_Swan_StringExtensions_Humanize_System_Object_" data-uid="Unosquare.Swan.StringExtensions.Humanize(System.Object)">Humanize(Object)</h4>
+  <div class="markdown level1 summary"><p>Humanizes (make more human-readable) the specified value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Humanize(this object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_StringExtensions_Humanize_" data-uid="Unosquare.Swan.StringExtensions.Humanize*"></a>
   <h4 id="Unosquare_Swan_StringExtensions_Humanize_System_String_" data-uid="Unosquare.Swan.StringExtensions.Humanize(System.String)">Humanize(String)</h4>
   <div class="markdown level1 summary"><p>Humanizes (make more human-readable) an identifier-style string 
 in either camel case or snake case. For example, CamelCase will be converted to 
@@ -678,7 +772,7 @@ Camel Case and Snake_Case will be converted to Snake Case.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> humanized.</p>
 </td>
       </tr>
     </tbody>

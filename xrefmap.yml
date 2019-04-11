@@ -14058,6 +14058,18 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.Hex2Int
   nameWithType: StringExtensions.Hex2Int
+- uid: Unosquare.Swan.StringExtensions.Humanize(System.Boolean)
+  name: Humanize(Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Humanize_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.Humanize(System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.Humanize(System.Boolean)
+  nameWithType: StringExtensions.Humanize(Boolean)
+- uid: Unosquare.Swan.StringExtensions.Humanize(System.Object)
+  name: Humanize(Object)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Humanize_System_Object_
+  commentId: M:Unosquare.Swan.StringExtensions.Humanize(System.Object)
+  fullName: Unosquare.Swan.StringExtensions.Humanize(System.Object)
+  nameWithType: StringExtensions.Humanize(Object)
 - uid: Unosquare.Swan.StringExtensions.Humanize(System.String)
   name: Humanize(String)
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Humanize_System_String_
