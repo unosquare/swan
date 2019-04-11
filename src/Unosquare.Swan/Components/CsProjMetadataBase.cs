@@ -52,6 +52,14 @@
         public string Version => FindElement(nameof(Version))?.Value;
 
         /// <summary>
+        /// Gets the language version.
+        /// </summary>
+        /// <value>
+        /// The language version.
+        /// </value>
+        public string LangVersion => FindElement(nameof(LangVersion))?.Value;
+
+        /// <summary>
         /// Parses the cs proj tags.
         /// </summary>
         /// <param name="args">The arguments.</param>
