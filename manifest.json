@@ -814,6 +814,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.HighResolutionTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.HighResolutionTimer.html",
+          "hash": "FwYo1rKLuzN8H4eZ8eJuuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.IMessageHub.yml",
       "output": {
         ".html": {
@@ -1142,7 +1154,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "8aDmkqvQ6CGeNlM9aGweew=="
+          "hash": "gpG3ZejgPLvYsrlQRCrwJw=="
         }
       },
       "is_incremental": false,
@@ -2174,7 +2186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "psZ7lk3IVQrYBhilxg1e/A=="
+          "hash": "ekUODXYSkUCnsER/3pS20Q=="
         }
       },
       "is_incremental": false,
@@ -2243,7 +2255,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 174,
+          "total_file_count": 175,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

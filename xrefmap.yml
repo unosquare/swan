@@ -5118,6 +5118,51 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.FileLogger.Unregister
   nameWithType: FileLogger.Unregister
+- uid: Unosquare.Swan.Components.HighResolutionTimer
+  name: HighResolutionTimer
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html
+  commentId: T:Unosquare.Swan.Components.HighResolutionTimer
+  fullName: Unosquare.Swan.Components.HighResolutionTimer
+  nameWithType: HighResolutionTimer
+- uid: Unosquare.Swan.Components.HighResolutionTimer.#ctor
+  name: HighResolutionTimer()
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer__ctor
+  commentId: M:Unosquare.Swan.Components.HighResolutionTimer.#ctor
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.HighResolutionTimer()
+  nameWithType: HighResolutionTimer.HighResolutionTimer()
+- uid: Unosquare.Swan.Components.HighResolutionTimer.#ctor*
+  name: HighResolutionTimer
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer__ctor_
+  commentId: Overload:Unosquare.Swan.Components.HighResolutionTimer.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.HighResolutionTimer
+  nameWithType: HighResolutionTimer.HighResolutionTimer
+- uid: Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds
+  name: ElapsedMicroseconds
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer_ElapsedMicroseconds
+  commentId: P:Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds
+  nameWithType: HighResolutionTimer.ElapsedMicroseconds
+- uid: Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds*
+  name: ElapsedMicroseconds
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer_ElapsedMicroseconds_
+  commentId: Overload:Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.ElapsedMicroseconds
+  nameWithType: HighResolutionTimer.ElapsedMicroseconds
+- uid: Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick
+  name: MicrosecondsPerTick
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer_MicrosecondsPerTick
+  commentId: P:Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick
+  nameWithType: HighResolutionTimer.MicrosecondsPerTick
+- uid: Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick*
+  name: MicrosecondsPerTick
+  href: api/Unosquare.Swan.Components.HighResolutionTimer.html#Unosquare_Swan_Components_HighResolutionTimer_MicrosecondsPerTick_
+  commentId: Overload:Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.HighResolutionTimer.MicrosecondsPerTick
+  nameWithType: HighResolutionTimer.MicrosecondsPerTick
 - uid: Unosquare.Swan.Components.IMessageHub
   name: IMessageHub
   href: api/Unosquare.Swan.Components.IMessageHub.html
