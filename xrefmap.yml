@@ -4201,6 +4201,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CsProjMetadataBase.FindElement
   nameWithType: CsProjMetadataBase.FindElement
+- uid: Unosquare.Swan.Components.CsProjMetadataBase.LangVersion
+  name: LangVersion
+  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_LangVersion
+  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.LangVersion
+  fullName: Unosquare.Swan.Components.CsProjMetadataBase.LangVersion
+  nameWithType: CsProjMetadataBase.LangVersion
+- uid: Unosquare.Swan.Components.CsProjMetadataBase.LangVersion*
+  name: LangVersion
+  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_LangVersion_
+  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.LangVersion
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.CsProjMetadataBase.LangVersion
+  nameWithType: CsProjMetadataBase.LangVersion
 - uid: Unosquare.Swan.Components.CsProjMetadataBase.PackageId
   name: PackageId
   href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_PackageId
