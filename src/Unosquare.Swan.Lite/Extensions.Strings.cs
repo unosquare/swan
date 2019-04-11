@@ -63,6 +63,7 @@
         /// The computed hash code.
         /// </returns>
         /// <exception cref="ArgumentNullException">stream.</exception>
+        [Obsolete("Use a better hasher.")]
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
             if (stream == null)
@@ -108,6 +109,7 @@
         /// <param name="value">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code.</returns>
+        [Obsolete("Use a better hasher.")]
         public static byte[] ComputeMD5(this string value, bool createHasher = false) =>
             Encoding.UTF8.GetBytes(value).ComputeMD5(createHasher);
 
@@ -117,6 +119,7 @@
         /// <param name="data">The data.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code.</returns>
+        [Obsolete("Use a better hasher.")]
         public static byte[] ComputeMD5(this byte[] data, bool createHasher = false) =>
             (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
 
@@ -129,6 +132,7 @@
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA1 hash function.
         /// </returns>
+        [Obsolete("Use a better hasher.")]
         public static byte[] ComputeSha1(this string value, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(value);
@@ -171,7 +175,7 @@
         /// overload exists.
         /// </summary>
         /// <param name="obj">The item.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant(this object obj)
         {
             if (obj == null)
@@ -194,7 +198,7 @@
         /// </summary>
         /// <typeparam name="T">The type to get the string.</typeparam>
         /// <param name="item">The item.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant<T>(this T item)
         {
             if (typeof(string) == typeof(T))
@@ -218,7 +222,7 @@
                 throw new ArgumentNullException(nameof(value));
 
             if (excludeChars == null)
-                excludeChars = new char[] { };
+                excludeChars = Array.Empty<char>();
 
             return new string(value
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
@@ -229,7 +233,7 @@
         /// Removes all control characters from a string, including new line sequences.
         /// </summary>
         /// <param name="value">The input.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         /// <exception cref="ArgumentNullException">input.</exception>
         public static string RemoveControlChars(this string value) => value.RemoveControlCharsExcept(null);
 
@@ -238,7 +242,7 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToJson(this object obj, bool format = true) =>
             obj == null ? string.Empty : Json.Serialize(obj, format);
 
@@ -248,7 +252,7 @@
         /// examine objects.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string Stringify(this object obj)
         {
             if (obj == null)
@@ -315,7 +319,7 @@
         /// that are delimited by one or more characters in separator.
         /// </returns>
         public static string[] ToLines(this string value) =>
-            value == null ? new string[] { } : SplitLinesRegex.Value.Split(value);
+            value == null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(value);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
@@ -323,7 +327,7 @@
         /// Camel Case and Snake_Case will be converted to Snake Case.
         /// </summary>
         /// <param name="value">The identifier-style string.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> humanized.</returns>
         public static string Humanize(this string value)
         {
             if (value == null)
@@ -335,12 +339,37 @@
         }
 
         /// <summary>
+        /// Humanizes (make more human-readable) an boolean.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <returns>A <see cref="string" /> that represents the current boolean.</returns>
+        public static string Humanize(this bool value) => value ? "Yes" : "No";
+
+        /// <summary>
+        /// Humanizes (make more human-readable) the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
+        public static string Humanize(this object value)
+        {
+            switch (value)
+            {
+                case string stringValue:
+                    return stringValue.Humanize();
+                case bool boolValue:
+                    return boolValue.Humanize();
+                default:
+                    return value.Stringify();
+            }
+        }
+
+        /// <summary>
         /// Indents the specified multi-line text with the given amount of leading spaces
         /// per line.
         /// </summary>
         /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string Indent(this string value, int spaces = 4)
         {
             if (value == null) value = string.Empty;
