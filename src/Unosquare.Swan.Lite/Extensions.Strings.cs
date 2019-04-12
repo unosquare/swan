@@ -39,13 +39,10 @@
                     new Regex(@"[a-z][A-Z]",
                         StandardRegexOptions));
 
-        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
+        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => m =>
         {
-            return m =>
-            {
-                var x = m.ToString();
-                return x[0] + " " + x.Substring(1, x.Length - 1);
-            };
+            var x = m.ToString();
+            return x[0] + " " + x.Substring(1, x.Length - 1);
         });
 
         private static readonly Lazy<string[]> InvalidFilenameChars =

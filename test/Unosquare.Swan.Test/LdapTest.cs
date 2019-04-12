@@ -27,10 +27,7 @@
         }
 
         [TearDown]
-        public void GlobalTeardown()
-        {
-            Connection?.Dispose();
-        }
+        public void GlobalTeardown() => Connection?.Dispose();
     }
 
     [TestFixture]
