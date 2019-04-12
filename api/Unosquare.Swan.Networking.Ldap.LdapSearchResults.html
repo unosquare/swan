@@ -126,13 +126,7 @@ operation (entries and exceptions).</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Count_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Count*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Count" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Count">Count</h4>
-  <div class="markdown level1 summary"><p>Returns a count of the items in the search result.
-Returns a count of the entries and exceptions remaining in the object.
-If the search was submitted with a batch size greater than zero,
-getCount reports the number of results received so far but not enumerated
-with next().  If batch size equals zero, getCount reports the number of
-items received, since the application thread blocks until all results are
-received.</p>
+  <div class="markdown level1 summary"><p>Returns a count of the items in the search result.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -188,10 +182,7 @@ received.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Next_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Next" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next">Next()</h4>
-  <div class="markdown level1 summary"><p>Returns the next result as an LdapEntry.
-If automatic referral following is disabled or if a referral
-was not followed, next() will throw an LdapReferralException
-when the referral is received.</p>
+  <div class="markdown level1 summary"><p>Returns the next result as an LdapEntry.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
