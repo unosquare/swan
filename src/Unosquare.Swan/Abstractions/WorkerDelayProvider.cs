@@ -50,7 +50,7 @@
                 // overhead.
                 if (wantedDelay <= 30)
                 {
-                    try { delayTask.Wait(); }
+                    try { delayTask.Wait(token); }
                     catch { /* ignore */ }
                     return;
                 }
@@ -74,7 +74,7 @@
                 // overhead.
                 if (wantedDelay <= 30)
                 {
-                    try { delayTask.Wait(); }
+                    try { delayTask.Wait(token); }
                     catch { /* ignore */ }
                     return;
                 }
@@ -134,7 +134,7 @@
 
                     if (remainingWaitTime >= StepMilliseconds)
                     {
-                        Task.Delay(StepMilliseconds).Wait();
+                        Task.Delay(StepMilliseconds, token).Wait(token);
                     }
                     else
                     {

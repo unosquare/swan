@@ -80,7 +80,7 @@
         /// </li><li>
         /// APPROX_MATCH - followed by the attribute name represented as a
         /// String, and by the attribute value represented as a byte array
-        /// </li><li>PRESENT - followed by a attribute name respresented as a String</li><li>
+        /// </li><li>PRESENT - followed by a attribute name represented as a String</li><li>
         /// EXTENSIBLE_MATCH - followed by the name of the matching rule
         /// represented as a String, by the attribute name represented
         /// as a String, and by the attribute value represented as a

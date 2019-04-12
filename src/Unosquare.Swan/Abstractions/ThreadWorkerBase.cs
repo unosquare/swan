@@ -136,8 +136,11 @@ namespace Unosquare.Swan.Abstractions
         /// <inheritdoc />
         protected override void OnDisposing()
         {
-            if ((_thread.ThreadState & ThreadState.Unstarted) != ThreadState.Unstarted)
-                _thread.Join();
+            lock (_syncLock)
+            {
+                if ((_thread.ThreadState & ThreadState.Unstarted) != ThreadState.Unstarted)
+                    _thread.Join();
+            }
         }
 
         /// <summary>

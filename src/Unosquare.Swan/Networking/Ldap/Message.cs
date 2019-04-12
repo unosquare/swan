@@ -44,7 +44,8 @@
 
         public string NextToken()
         {
-            if (_source == string.Empty) throw new InvalidOperationException();
+            if (string.IsNullOrEmpty(_source)) 
+                throw new InvalidOperationException();
 
             string result;
             if (_returnDelims)
@@ -69,7 +70,7 @@
         {
             for (var index = 0; index < _elements.Count; index++)
             {
-                if (_elements[index] != string.Empty) continue;
+                if (!string.IsNullOrEmpty(_elements[index])) continue;
 
                 _elements.RemoveAt(index);
                 index--;
@@ -135,7 +136,7 @@
             string matchingRule,
             string type,
             sbyte[] matchValue,
-            Asn1Boolean dnAttributes = null)
+            Asn1Boolean attributes = null)
             : base(4)
         {
             if (matchingRule != null)
@@ -147,8 +148,8 @@
 
             // if dnAttributes if false, that is the default value and we must not
             // encode it. (See RFC 2251 5.1 number 4)
-            if (dnAttributes != null && dnAttributes.BooleanValue())
-                Add(new Asn1Tagged(new Asn1Identifier(4), dnAttributes, false));
+            if (attributes?.BooleanValue() == true)
+                Add(new Asn1Tagged(new Asn1Identifier(4), attributes, false));
         }
     }
 
@@ -162,8 +163,8 @@
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcAttributeDescriptionList : Asn1SequenceOf
     {
-        public RfcAttributeDescriptionList(string[] attrs)
-            : base(attrs?.Length ?? 0)
+        public RfcAttributeDescriptionList(IReadOnlyCollection<string> attrs)
+            : base(attrs?.Count ?? 0)
         {
             if (attrs == null) return;
 
@@ -207,7 +208,7 @@
             int timeLimit,
             bool typesOnly,
             string filter,
-            string[] attributes)
+            IReadOnlyCollection<string> attributes)
             : base(8)
         {
             Add(basePath);

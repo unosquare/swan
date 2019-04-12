@@ -3,7 +3,7 @@
     using Abstractions;
 
     /// <summary>
-    /// Fast, atomioc long combining interlocked to write value and volatile to read values.
+    /// Fast, atomic long combining interlocked to write value and volatile to read values.
     /// </summary>
     public sealed class AtomicLong : AtomicTypeBase<long>
     {
