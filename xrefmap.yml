@@ -615,6 +615,25 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.ExpressionParser.ResolveVariable
   nameWithType: ExpressionParser.ResolveVariable
+- uid: Unosquare.Swan.Abstractions.IEmailSender
+  name: IEmailSender
+  href: api/Unosquare.Swan.Abstractions.IEmailSender.html
+  commentId: T:Unosquare.Swan.Abstractions.IEmailSender
+  fullName: Unosquare.Swan.Abstractions.IEmailSender
+  nameWithType: IEmailSender
+- uid: Unosquare.Swan.Abstractions.IEmailSender.SendMessage(System.String,System.String,System.String)
+  name: SendMessage(String, String, String)
+  href: api/Unosquare.Swan.Abstractions.IEmailSender.html#Unosquare_Swan_Abstractions_IEmailSender_SendMessage_System_String_System_String_System_String_
+  commentId: M:Unosquare.Swan.Abstractions.IEmailSender.SendMessage(System.String,System.String,System.String)
+  fullName: Unosquare.Swan.Abstractions.IEmailSender.SendMessage(System.String, System.String, System.String)
+  nameWithType: IEmailSender.SendMessage(String, String, String)
+- uid: Unosquare.Swan.Abstractions.IEmailSender.SendMessage*
+  name: SendMessage
+  href: api/Unosquare.Swan.Abstractions.IEmailSender.html#Unosquare_Swan_Abstractions_IEmailSender_SendMessage_
+  commentId: Overload:Unosquare.Swan.Abstractions.IEmailSender.SendMessage
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IEmailSender.SendMessage
+  nameWithType: IEmailSender.SendMessage
 - uid: Unosquare.Swan.Abstractions.IObjectMap
   name: IObjectMap
   href: api/Unosquare.Swan.Abstractions.IObjectMap.html
@@ -660,6 +679,38 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.IObjectMap.SourceType
   nameWithType: IObjectMap.SourceType
+- uid: Unosquare.Swan.Abstractions.IPropertyProxy
+  name: IPropertyProxy
+  href: api/Unosquare.Swan.Abstractions.IPropertyProxy.html
+  commentId: T:Unosquare.Swan.Abstractions.IPropertyProxy
+  fullName: Unosquare.Swan.Abstractions.IPropertyProxy
+  nameWithType: IPropertyProxy
+- uid: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(System.Object)
+  name: GetValue(Object)
+  href: api/Unosquare.Swan.Abstractions.IPropertyProxy.html#Unosquare_Swan_Abstractions_IPropertyProxy_GetValue_System_Object_
+  commentId: M:Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(System.Object)
+  fullName: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(System.Object)
+  nameWithType: IPropertyProxy.GetValue(Object)
+- uid: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue*
+  name: GetValue
+  href: api/Unosquare.Swan.Abstractions.IPropertyProxy.html#Unosquare_Swan_Abstractions_IPropertyProxy_GetValue_
+  commentId: Overload:Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+  nameWithType: IPropertyProxy.GetValue
+- uid: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(System.Object,System.Object)
+  name: SetValue(Object, Object)
+  href: api/Unosquare.Swan.Abstractions.IPropertyProxy.html#Unosquare_Swan_Abstractions_IPropertyProxy_SetValue_System_Object_System_Object_
+  commentId: M:Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(System.Object,System.Object)
+  fullName: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(System.Object, System.Object)
+  nameWithType: IPropertyProxy.SetValue(Object, Object)
+- uid: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue*
+  name: SetValue
+  href: api/Unosquare.Swan.Abstractions.IPropertyProxy.html#Unosquare_Swan_Abstractions_IPropertyProxy_SetValue_
+  commentId: Overload:Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
+  nameWithType: IPropertyProxy.SetValue
 - uid: Unosquare.Swan.Abstractions.ISyncLocker
   name: ISyncLocker
   href: api/Unosquare.Swan.Abstractions.ISyncLocker.html
@@ -13400,6 +13451,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ReflectionExtensions.BaseType
   nameWithType: ReflectionExtensions.BaseType
+- uid: Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy(System.Reflection.PropertyInfo)
+  name: CreatePropertyProxy(PropertyInfo)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_CreatePropertyProxy_System_Reflection_PropertyInfo_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy(System.Reflection.PropertyInfo)
+  fullName: Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy(System.Reflection.PropertyInfo)
+  nameWithType: ReflectionExtensions.CreatePropertyProxy(PropertyInfo)
+- uid: Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy*
+  name: CreatePropertyProxy
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_CreatePropertyProxy_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy
+  isSpec: "True"
+  fullName: Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy
+  nameWithType: ReflectionExtensions.CreatePropertyProxy
 - uid: Unosquare.Swan.ReflectionExtensions.GetAllTypes(System.Reflection.Assembly)
   name: GetAllTypes(Assembly)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetAllTypes_System_Reflection_Assembly_

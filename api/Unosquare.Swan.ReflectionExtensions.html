@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReflectionExtensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.41.0.0">
+    <meta name="generator" content="docfx 2.42.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -206,6 +206,51 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
         <td><p>returns a type of data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_ReflectionExtensions_CreatePropertyProxy_" data-uid="Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy*"></a>
+  <h4 id="Unosquare_Swan_ReflectionExtensions_CreatePropertyProxy_System_Reflection_PropertyInfo_" data-uid="Unosquare.Swan.ReflectionExtensions.CreatePropertyProxy(System.Reflection.PropertyInfo)">CreatePropertyProxy(PropertyInfo)</h4>
+  <div class="markdown level1 summary"><p>Creates a property proxy that stores getter and setter delegates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IPropertyProxy CreatePropertyProxy(this PropertyInfo propertyInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
+        <td><span class="parametername">propertyInfo</span></td>
+        <td><p>The property information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Abstractions.IPropertyProxy.html">IPropertyProxy</a></td>
+        <td><p>The property proxy.</p>
 </td>
       </tr>
     </tbody>
