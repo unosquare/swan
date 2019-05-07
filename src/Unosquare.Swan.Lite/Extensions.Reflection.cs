@@ -422,11 +422,16 @@
         {
             var key = Tuple.Create(!nonPublic, propertyInfo);
 
+#if NETSTANDARD1_3
+            // TODO: Fix public logic
             return !nonPublic && !CacheGetMethods.Value.ContainsKey(key) && !propertyInfo.GetGetMethod(true).IsPublic
                 ? null
                 : CacheGetMethods.Value
                     .GetOrAdd(key,
                         x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
+#else
+            return CacheGetMethods.Value.GetOrAdd(key, y => x => y.Item2.CreatePropertyProxy().GetValue(x));
+#endif
         }
 
         /// <summary>
@@ -441,11 +446,15 @@
         {
             var key = Tuple.Create(!nonPublic, propertyInfo);
 
+#if NETSTANDARD1_3
             return !nonPublic && !CacheSetMethods.Value.ContainsKey(key) && !propertyInfo.GetSetMethod(true).IsPublic
                 ? null
                 : CacheSetMethods.Value
                     .GetOrAdd(key,
                         x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
+#else
+            return CacheSetMethods.Value.GetOrAdd(key, y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
+#endif
         }
 
         /// <summary>

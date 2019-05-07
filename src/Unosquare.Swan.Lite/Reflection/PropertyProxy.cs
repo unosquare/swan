@@ -5,6 +5,7 @@ namespace Unosquare.Swan.Reflection
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using Abstractions;
+    using System.Collections.Concurrent;
 
     /// <summary>
     /// Represents a generic class to store getters and setters.
@@ -12,7 +13,7 @@ namespace Unosquare.Swan.Reflection
     /// <typeparam name="TClass">The type of the class.</typeparam>
     /// <typeparam name="TProperty">The type of the property.</typeparam>
     /// <seealso cref="IPropertyProxy" />
-    internal sealed class PropertyProxy<TClass, TProperty> : IPropertyProxy
+    public sealed class PropertyProxy<TClass, TProperty> : IPropertyProxy
         where TClass : class
     {
         private readonly Func<TClass, TProperty> _getter;

@@ -24,7 +24,6 @@
         /// <exception cref="ArgumentNullException">name
         /// or
         /// factory.</exception>
-        /// <exception cref="System.ArgumentNullException">type.</exception>
         public MethodInfo Retrieve<T>(string name, string alias, params Type[] types)
             => Retrieve(typeof(T), name, alias, types);
 
@@ -75,7 +74,7 @@
 
             return GetOrAdd(
                 alias,
-                x => type.GetMethod(name, types ?? new Type[0]));
+                x => type.GetMethod(name, types ?? Array.Empty<Type>()));
         }
 
         /// <summary>
