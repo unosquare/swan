@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using Abstractions;
     using System.Collections.Concurrent;
     using System.Collections;
     using System.Linq;
@@ -191,7 +192,7 @@
         ///   <c>true</c> if [is generic parameter] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGenericParameter(this Type type) => type.IsGenericParameter;
-        
+
         /// <summary>
         /// Gets the custom attributes.
         /// </summary>
@@ -475,6 +476,19 @@
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Creates a property proxy that stores getter and setter delegates.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>The property proxy.</returns>
+        public static IPropertyProxy CreatePropertyProxy(this PropertyInfo propertyInfo)
+        {
+            var genericType = typeof(PropertyProxy<,>)
+                .MakeGenericType(propertyInfo.DeclaringType, propertyInfo.PropertyType);
+
+            return Activator.CreateInstance(genericType, propertyInfo) as IPropertyProxy;
         }
 
         /// <summary>
