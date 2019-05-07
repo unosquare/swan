@@ -13317,6 +13317,70 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.MethodInfoCache.Retrieve(Of T)(System.String, System.Type())
   nameWithType: MethodInfoCache.Retrieve<T>(String, Type[])
   nameWithType.vb: MethodInfoCache.Retrieve(Of T)(String, Type())
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2
+  name: PropertyProxy<TClass, TProperty>
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html
+  commentId: T:Unosquare.Swan.Reflection.PropertyProxy`2
+  name.vb: PropertyProxy(Of TClass, TProperty)
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty)
+  nameWithType: PropertyProxy<TClass, TProperty>
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty)
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.#ctor(System.Reflection.PropertyInfo)
+  name: PropertyProxy(PropertyInfo)
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2__ctor_System_Reflection_PropertyInfo_
+  commentId: M:Unosquare.Swan.Reflection.PropertyProxy`2.#ctor(System.Reflection.PropertyInfo)
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.PropertyProxy(System.Reflection.PropertyInfo)
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).PropertyProxy(System.Reflection.PropertyInfo)
+  nameWithType: PropertyProxy<TClass, TProperty>.PropertyProxy(PropertyInfo)
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).PropertyProxy(PropertyInfo)
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.#ctor*
+  name: PropertyProxy
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2__ctor_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyProxy`2.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.PropertyProxy
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).PropertyProxy
+  nameWithType: PropertyProxy<TClass, TProperty>.PropertyProxy
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).PropertyProxy
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#GetValue(System.Object)
+  name: IPropertyProxy.GetValue(Object)
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2_Unosquare_Swan_Abstractions_IPropertyProxy_GetValue_System_Object_
+  commentId: M:Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#GetValue(System.Object)
+  name.vb: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(Object)
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(System.Object)
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(System.Object)
+  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.GetValue(Object)
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.GetValue(Object)
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#GetValue*
+  name: IPropertyProxy.GetValue
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2_Unosquare_Swan_Abstractions_IPropertyProxy_GetValue_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#GetValue
+  isSpec: "True"
+  name.vb: Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.GetValue
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.GetValue
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#SetValue(System.Object,System.Object)
+  name: IPropertyProxy.SetValue(Object, Object)
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2_Unosquare_Swan_Abstractions_IPropertyProxy_SetValue_System_Object_System_Object_
+  commentId: M:Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#SetValue(System.Object,System.Object)
+  name.vb: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(Object, Object)
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(System.Object, System.Object)
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(System.Object, System.Object)
+  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.SetValue(Object, Object)
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.SetValue(Object, Object)
+- uid: Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#SetValue*
+  name: IPropertyProxy.SetValue
+  href: api/Unosquare.Swan.Reflection.PropertyProxy-2.html#Unosquare_Swan_Reflection_PropertyProxy_2_Unosquare_Swan_Abstractions_IPropertyProxy_SetValue_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyProxy`2.Unosquare#Swan#Abstractions#IPropertyProxy#SetValue
+  isSpec: "True"
+  name.vb: Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
+  fullName: Unosquare.Swan.Reflection.PropertyProxy<TClass, TProperty>.Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
+  fullName.vb: Unosquare.Swan.Reflection.PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
+  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.SetValue
+  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Unosquare.Swan.Abstractions.IPropertyProxy.SetValue
 - uid: Unosquare.Swan.Reflection.PropertyTypeCache
   name: PropertyTypeCache
   href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html
