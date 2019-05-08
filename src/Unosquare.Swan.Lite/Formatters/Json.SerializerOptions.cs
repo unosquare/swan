@@ -15,94 +15,135 @@
     /// This is an useful helper for small tasks but it doesn't represent a full-featured
     /// serializer such as the beloved Json.NET.
     /// </summary>
-    public partial class Json
+    public class SerializerOptions
     {
-        private class SerializerOptions
+        private static readonly ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
+            TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
+
+        private readonly string[] _includeProperties;
+        private readonly string[] _excludeProperties;
+        private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SerializerOptions"/> class.
+        /// </summary>
+        /// <param name="format">if set to <c>true</c> [format].</param>
+        /// <param name="typeSpecifier">The type specifier.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <param name="excludeProperties">The exclude properties.</param>
+        /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
+        /// <param name="parentReferences">The parent references.</param>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        public SerializerOptions(
+            bool format,
+            string typeSpecifier,
+            string[] includeProperties,
+            string[] excludeProperties = null,
+            bool includeNonPublic = true,
+            IReadOnlyCollection<WeakReference> parentReferences = null,
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
         {
-            private static readonly ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
-                TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
+            _includeProperties = includeProperties;
+            _excludeProperties = excludeProperties;
 
-            private readonly string[] _includeProperties;
-            private readonly string[] _excludeProperties;
-            private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
+            IncludeNonPublic = includeNonPublic;
+            Format = format;
+            TypeSpecifier = typeSpecifier;
+            JsonSerializerCase = jsonSerializerCase;
 
-            public SerializerOptions(
-                bool format,
-                string typeSpecifier,
-                string[] includeProperties,
-                string[] excludeProperties = null,
-                bool includeNonPublic = true,
-                IReadOnlyCollection<WeakReference> parentReferences = null)
+            if (parentReferences == null)
+                return;
+
+            foreach (var parentReference in parentReferences.Where(x => x.IsAlive))
             {
-                _includeProperties = includeProperties;
-                _excludeProperties = excludeProperties;
-
-                IncludeNonPublic = includeNonPublic;
-                Format = format;
-                TypeSpecifier = typeSpecifier;
-
-                if (parentReferences == null)
-                    return;
-
-                foreach (var parentReference in parentReferences.Where(x => x.IsAlive))
-                {
-                    IsObjectPresent(parentReference.Target);
-                }
+                IsObjectPresent(parentReference.Target);
             }
+        }
 
-            public bool Format { get; }
-            public string TypeSpecifier { get; }
-            public bool IncludeNonPublic { get; }
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SerializerOptions"/> is format.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if format; otherwise, <c>false</c>.
+        /// </value>
+        public bool Format { get; }
 
-            internal bool IsObjectPresent(object target)
+        /// <summary>
+        /// Gets the type specifier.
+        /// </summary>
+        /// <value>
+        /// The type specifier.
+        /// </value>
+        public string TypeSpecifier { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [include non public].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [include non public]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IncludeNonPublic { get; }
+
+        /// <summary>
+        /// Gets the json serializer case.
+        /// </summary>
+        /// <value>
+        /// The json serializer case.
+        /// </value>
+        public JsonSerializerCase JsonSerializerCase { get; }
+
+        internal bool IsObjectPresent(object target)
+        {
+            var hashCode = target.GetHashCode();
+
+            if (_parentReferences.ContainsKey(hashCode))
             {
-                var hashCode = target.GetHashCode();
+                if (_parentReferences[hashCode].Any(p => ReferenceEquals(p.Target, target)))
+                    return true;
 
-                if (_parentReferences.ContainsKey(hashCode))
-                {
-                    if (_parentReferences[hashCode].Any(p => ReferenceEquals(p.Target, target)))
-                        return true;
-
-                    _parentReferences[hashCode].Add(new WeakReference(target));
-                    return false;
-                }
-
-                _parentReferences.Add(hashCode, new List<WeakReference> { new WeakReference(target) });
+                _parentReferences[hashCode].Add(new WeakReference(target));
                 return false;
             }
 
-            internal Dictionary<string, MemberInfo> GetProperties(Type targetType)
-                => GetPropertiesCache(targetType)
-                    .When(() => _includeProperties?.Length > 0,
-                        query => query.Where(p => _includeProperties.Contains(p.Key.Item1)))
-                    .When(() => _excludeProperties?.Length > 0,
-                        query => query.Where(p => !_excludeProperties.Contains(p.Key.Item1)))
-                    .ToDictionary(x => x.Key.Item2, x => x.Value);
+            _parentReferences.Add(hashCode, new List<WeakReference> { new WeakReference(target) });
+            return false;
+        }
 
-            private static Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
+        internal Dictionary<string, MemberInfo> GetProperties(Type targetType)
+            => GetPropertiesCache(targetType)
+                .When(() => _includeProperties?.Length > 0,
+                    query => query.Where(p => _includeProperties.Contains(p.Key.Item1)))
+                .When(() => _excludeProperties?.Length > 0,
+                    query => query.Where(p => !_excludeProperties.Contains(p.Key.Item1)))
+                .ToDictionary(x => x.Key.Item2, x => x.Value);
+
+        private string GetNameWithCase(string name) => JsonSerializerCase == JsonSerializerCase.PascalCase
+            ? name
+            : char.ToLowerInvariant(name[0]) + name.Substring(1);
+
+        private Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
+        {
+            if (TypeCache.TryGetValue(targetType, out var current))
+                return current;
+
+            var fields =
+                new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead));
+
+            // If the target is a struct (value type) navigate the fields.
+            if (targetType.IsValueType())
             {
-                if (TypeCache.TryGetValue(targetType, out var current))
-                    return current;
-
-                var fields =
-                    new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead));
-
-                // If the target is a struct (value type) navigate the fields.
-                if (targetType.IsValueType())
-                {
-                    fields.AddRange(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType));
-                }
-
-                var value = fields
-                    .ToDictionary(
-                        x => Tuple.Create(x.Name,
-                            x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name),
-                        x => x);
-
-                TypeCache.TryAdd(targetType, value);
-
-                return value;
+                fields.AddRange(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType));
             }
+
+            var value = fields
+                .ToDictionary(
+                    x => Tuple.Create(x.Name,
+                        x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? GetNameWithCase(x.Name)),
+                    x => x);
+
+            TypeCache.TryAdd(targetType, value);
+
+            return value;
         }
     }
 }

@@ -108,8 +108,24 @@
             string[] includedNames = null,
             params string[] excludedNames)
         {
-            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null);
+            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.PascalCase);
         }
+
+        /// <summary>
+        /// Serializes the specified object into a JSON string.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <param name="format">if set to <c>true</c> [format].</param>
+        /// <param name="typeSpecifier">The type specifier.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object.
+        /// </returns>
+        public static string Serialize(
+            object obj,
+            JsonSerializerCase jsonSerializerCase,
+            bool format = false,
+            string typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
@@ -121,6 +137,7 @@
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <param name="parentReferences">The parent references.</param>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
         /// <returns>
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
@@ -131,7 +148,8 @@
             bool includeNonPublic,
             string[] includedNames,
             string[] excludedNames,
-            List<WeakReference> parentReferences)
+            List<WeakReference> parentReferences,
+            JsonSerializerCase jsonSerializerCase)
         {
             if (obj != null && (obj is string || Definitions.AllBasicValueTypes.Contains(obj.GetType())))
             {
@@ -144,10 +162,21 @@
                 includedNames,
                 GetExcludedNames(obj?.GetType(), excludedNames),
                 includeNonPublic,
-                parentReferences);
+                parentReferences,
+                jsonSerializerCase);
 
-            return Serializer.Serialize(obj, 0, options);
+            return Serialize(obj, options);
         }
+
+        /// <summary>
+        /// Serializes the specified object using the SerializerOptions provided.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object.
+        /// </returns>
+        public static string Serialize(object obj, SerializerOptions options) => Serializer.Serialize(obj, 0, options);
 
         /// <summary>
         /// Serializes the specified object only including the specified property names.
@@ -178,12 +207,7 @@
         /// }
         /// </code>
         /// </example>
-        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
-        {
-            var options = new SerializerOptions(format, null, includeNames);
-
-            return Serializer.Serialize(obj, 0, options);
-        }
+        public static string SerializeOnly(object obj, bool format, params string[] includeNames) => Serialize(obj, new SerializerOptions(format, null, includeNames));
 
         /// <summary>
         /// Serializes the specified object excluding the specified property names.
@@ -214,12 +238,7 @@
         /// }
         /// </code>
         /// </example>
-        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
-        {
-            var options = new SerializerOptions(format, null, null, excludeNames);
-
-            return Serializer.Serialize(obj, 0, options);
-        }
+        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames) => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
 
         /// <summary>
         /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]

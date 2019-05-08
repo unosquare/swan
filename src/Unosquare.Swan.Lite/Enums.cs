@@ -41,4 +41,20 @@
         /// </summary>
         Little,
     }
+
+    /// <summary>
+    /// Enumerates the JSON serializer cases to use: PascalCase or camelCase.
+    /// </summary>
+    public enum JsonSerializerCase
+    {
+        /// <summary>
+        /// The pascal case (eg. PascalCase)
+        /// </summary>
+        PascalCase,
+
+        /// <summary>
+        /// The camel case (eg. camelCase)
+        /// </summary>
+        CamelCase,
+    }
 }
