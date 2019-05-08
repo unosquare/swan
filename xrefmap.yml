@@ -8292,12 +8292,12 @@ references:
   commentId: M:Unosquare.Swan.Formatters.Json.Deserialize(System.String)
   fullName: Unosquare.Swan.Formatters.Json.Deserialize(System.String)
   nameWithType: Json.Deserialize(String)
-- uid: Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean)
-  name: Deserialize(String, Type, Boolean)
-  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize_System_String_System_Type_System_Boolean_
-  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean)
-  fullName: Unosquare.Swan.Formatters.Json.Deserialize(System.String, System.Type, System.Boolean)
-  nameWithType: Json.Deserialize(String, Type, Boolean)
+- uid: Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean,Unosquare.Swan.JsonSerializerCase)
+  name: Deserialize(String, Type, Boolean, JsonSerializerCase)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize_System_String_System_Type_System_Boolean_Unosquare_Swan_JsonSerializerCase_
+  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean,Unosquare.Swan.JsonSerializerCase)
+  fullName: Unosquare.Swan.Formatters.Json.Deserialize(System.String, System.Type, System.Boolean, Unosquare.Swan.JsonSerializerCase)
+  nameWithType: Json.Deserialize(String, Type, Boolean, JsonSerializerCase)
 - uid: Unosquare.Swan.Formatters.Json.Deserialize*
   name: Deserialize
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize_
@@ -8305,15 +8305,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Formatters.Json.Deserialize
   nameWithType: Json.Deserialize
-- uid: Unosquare.Swan.Formatters.Json.Deserialize``1(System.String)
-  name: Deserialize<T>(String)
-  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_
-  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize``1(System.String)
-  name.vb: Deserialize(Of T)(String)
-  fullName: Unosquare.Swan.Formatters.Json.Deserialize<T>(System.String)
-  fullName.vb: Unosquare.Swan.Formatters.Json.Deserialize(Of T)(System.String)
-  nameWithType: Json.Deserialize<T>(String)
-  nameWithType.vb: Json.Deserialize(Of T)(String)
 - uid: Unosquare.Swan.Formatters.Json.Deserialize``1(System.String,System.Boolean)
   name: Deserialize<T>(String, Boolean)
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_System_Boolean_
@@ -8323,6 +8314,15 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.Json.Deserialize(Of T)(System.String, System.Boolean)
   nameWithType: Json.Deserialize<T>(String, Boolean)
   nameWithType.vb: Json.Deserialize(Of T)(String, Boolean)
+- uid: Unosquare.Swan.Formatters.Json.Deserialize``1(System.String,Unosquare.Swan.JsonSerializerCase)
+  name: Deserialize<T>(String, JsonSerializerCase)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_Unosquare_Swan_JsonSerializerCase_
+  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize``1(System.String,Unosquare.Swan.JsonSerializerCase)
+  name.vb: Deserialize(Of T)(String, JsonSerializerCase)
+  fullName: Unosquare.Swan.Formatters.Json.Deserialize<T>(System.String, Unosquare.Swan.JsonSerializerCase)
+  fullName.vb: Unosquare.Swan.Formatters.Json.Deserialize(Of T)(System.String, Unosquare.Swan.JsonSerializerCase)
+  nameWithType: Json.Deserialize<T>(String, JsonSerializerCase)
+  nameWithType.vb: Json.Deserialize(Of T)(String, JsonSerializerCase)
 - uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
   name: Serialize(Object, Boolean, String, Boolean, String[], String[])
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___
