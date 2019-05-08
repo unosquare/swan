@@ -267,34 +267,35 @@
         public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
 
         /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Deserializes the specified JSON string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>The deserialized specified type object.</returns>
+        /// <param name="jsonSerializerCase">The JSON serializer case.</param>
+        /// <returns>
+        /// The deserialized specified type object.
+        /// </returns>
         /// <example>
         /// The following code describes how to deserialize a JSON string into an object of type T.
         /// <code>
         /// using Unosquare.Swan.Formatters;
-        /// 
         /// class Example
         /// {
-        ///     static void Main()
-        ///     {
-        ///         // json type BasicJson to serialize
-        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-        ///         
-        ///         // deserializes the specified string in a new instance of the type BasicJson.
-        ///         var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
-        ///     }
+        /// static void Main()
+        /// {
+        /// // json type BasicJson to serialize
+        /// var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        /// // deserializes the specified string in a new instance of the type BasicJson.
+        /// var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
         /// }
-        /// </code>
-        /// </example>
-        public static T Deserialize<T>(string json) => (T)Deserialize(json, typeof(T));
+        /// }
+        /// </code></example>
+        public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase) 
+            => (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Deserializes the specified JSON string and converts it to the specified object type.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <param name="json">The json.</param>
@@ -308,9 +309,12 @@
         /// <param name="json">The json.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns>Type of the current conversion from json result.</returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false)
-            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic);
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <returns>
+        /// Type of the current conversion from json result.
+        /// </returns>
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic, jsonSerializerCase);
 
         #endregion
 
