@@ -1454,7 +1454,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Formatters.Json.html",
-          "hash": "TJEYQEn0ORSi1F5EULeqZA=="
+          "hash": "IQHTrx+CKuwbFj2Up+t5zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Formatters.SerializerOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Formatters.SerializerOptions.html",
+          "hash": "EzmODr0RvR3lTe/ot22hyA=="
         }
       },
       "is_incremental": false,
@@ -1466,7 +1478,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Formatters.html",
-          "hash": "YssW5Dhd03b1PsVU9yzpew=="
+          "hash": "CnC4IZDL8RHOPyuzrgskjg=="
         }
       },
       "is_incremental": false,
@@ -1479,6 +1491,18 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.FunctionalExtensions.html",
           "hash": "dI8dcQEHr70dFdAt09B3vQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.JsonSerializerCase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.JsonSerializerCase.html",
+          "hash": "JJRr1CFzSKoQDjdDbQ/Y8A=="
         }
       },
       "is_incremental": false,
@@ -2210,7 +2234,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "/lbPB6kpVa8Kx6pt2qBLPA=="
+          "hash": "Pu/HlzJAkttR4j5Fb84kRA=="
         }
       },
       "is_incremental": false,
@@ -2222,7 +2246,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "oR74AYDVTgzytOW2r0tbSQ=="
+          "hash": "3Bm4egz5zZLTRzjJwDtncg=="
         }
       },
       "is_incremental": false,
@@ -2282,16 +2306,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 180,
+          "skipped_file_count": 0
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 178,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

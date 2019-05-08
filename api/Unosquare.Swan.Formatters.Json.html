@@ -502,13 +502,13 @@ class Example
   
   
   <a id="Unosquare_Swan_Formatters_Json_Serialize_" data-uid="Unosquare.Swan.Formatters.Json.Serialize*"></a>
-  <h4 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__" data-uid="Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})">Serialize(Object, Boolean, String, Boolean, String[], String[], List&lt;WeakReference&gt;)</h4>
+  <h4 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__Unosquare_Swan_JsonSerializerCase_" data-uid="Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference},Unosquare.Swan.JsonSerializerCase)">Serialize(Object, Boolean, String, Boolean, String[], String[], List&lt;WeakReference&gt;, JsonSerializerCase)</h4>
   <div class="markdown level1 summary"><p>Serializes the specified object into a JSON string.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Serialize(object obj, bool format, string typeSpecifier, bool includeNonPublic, string[] includedNames, string[] excludedNames, List&lt;WeakReference&gt; parentReferences)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Serialize(object obj, bool format, string typeSpecifier, bool includeNonPublic, string[] includedNames, string[] excludedNames, List&lt;WeakReference&gt; parentReferences, JsonSerializerCase jsonSerializerCase)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -560,6 +560,126 @@ class Example
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.weakreference">WeakReference</a>&gt;</td>
         <td><span class="parametername">parentReferences</span></td>
         <td><p>The parent references.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.JsonSerializerCase.html">JsonSerializerCase</a></td>
+        <td><span class="parametername">jsonSerializerCase</span></td>
+        <td><p>The json serializer case.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_Json_Serialize_" data-uid="Unosquare.Swan.Formatters.Json.Serialize*"></a>
+  <h4 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_Unosquare_Swan_Formatters_SerializerOptions_" data-uid="Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.Formatters.SerializerOptions)">Serialize(Object, SerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Serializes the specified object using the SerializerOptions provided.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Serialize(object obj, SerializerOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Formatters.SerializerOptions.html">SerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_Json_Serialize_" data-uid="Unosquare.Swan.Formatters.Json.Serialize*"></a>
+  <h4 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_Unosquare_Swan_JsonSerializerCase_System_Boolean_System_String_" data-uid="Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.JsonSerializerCase,System.Boolean,System.String)">Serialize(Object, JsonSerializerCase, Boolean, String)</h4>
+  <div class="markdown level1 summary"><p>Serializes the specified object into a JSON string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Serialize(object obj, JsonSerializerCase jsonSerializerCase, bool format = false, string typeSpecifier = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.JsonSerializerCase.html">JsonSerializerCase</a></td>
+        <td><span class="parametername">jsonSerializerCase</span></td>
+        <td><p>The json serializer case.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">format</span></td>
+        <td><p>if set to <code>true</code> [format].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">typeSpecifier</span></td>
+        <td><p>The type specifier.</p>
 </td>
       </tr>
     </tbody>

@@ -8332,15 +8332,27 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String())
   nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[])
   nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String())
-- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
-  name: Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
-  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__
-  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
-  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
-  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Collections.Generic.List<System.WeakReference>)
-  fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Collections.Generic.List(Of System.WeakReference))
-  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
-  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
+- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference},Unosquare.Swan.JsonSerializerCase)
+  name: Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__Unosquare_Swan_JsonSerializerCase_
+  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference},Unosquare.Swan.JsonSerializerCase)
+  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
+  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Collections.Generic.List<System.WeakReference>, Unosquare.Swan.JsonSerializerCase)
+  fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Collections.Generic.List(Of System.WeakReference), Unosquare.Swan.JsonSerializerCase)
+  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
+  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
+- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.Formatters.SerializerOptions)
+  name: Serialize(Object, SerializerOptions)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_Unosquare_Swan_Formatters_SerializerOptions_
+  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.Formatters.SerializerOptions)
+  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, Unosquare.Swan.Formatters.SerializerOptions)
+  nameWithType: Json.Serialize(Object, SerializerOptions)
+- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.JsonSerializerCase,System.Boolean,System.String)
+  name: Serialize(Object, JsonSerializerCase, Boolean, String)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_Unosquare_Swan_JsonSerializerCase_System_Boolean_System_String_
+  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,Unosquare.Swan.JsonSerializerCase,System.Boolean,System.String)
+  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, Unosquare.Swan.JsonSerializerCase, System.Boolean, System.String)
+  nameWithType: Json.Serialize(Object, JsonSerializerCase, Boolean, String)
 - uid: Unosquare.Swan.Formatters.Json.Serialize*
   name: Serialize
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_
@@ -8380,6 +8392,80 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Formatters.Json.SerializeOnly
   nameWithType: Json.SerializeOnly
+- uid: Unosquare.Swan.Formatters.SerializerOptions
+  name: SerializerOptions
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html
+  commentId: T:Unosquare.Swan.Formatters.SerializerOptions
+  fullName: Unosquare.Swan.Formatters.SerializerOptions
+  nameWithType: SerializerOptions
+- uid: Unosquare.Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Collections.Generic.IReadOnlyCollection{System.WeakReference},Unosquare.Swan.JsonSerializerCase)
+  name: SerializerOptions(Boolean, String, String[], String[], Boolean, IReadOnlyCollection<WeakReference>, JsonSerializerCase)
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions__ctor_System_Boolean_System_String_System_String___System_String___System_Boolean_System_Collections_Generic_IReadOnlyCollection_System_WeakReference__Unosquare_Swan_JsonSerializerCase_
+  commentId: M:Unosquare.Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Collections.Generic.IReadOnlyCollection{System.WeakReference},Unosquare.Swan.JsonSerializerCase)
+  name.vb: SerializerOptions(Boolean, String, String(), String(), Boolean, IReadOnlyCollection(Of WeakReference), JsonSerializerCase)
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String[], System.String[], System.Boolean, System.Collections.Generic.IReadOnlyCollection<System.WeakReference>, Unosquare.Swan.JsonSerializerCase)
+  fullName.vb: Unosquare.Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String(), System.String(), System.Boolean, System.Collections.Generic.IReadOnlyCollection(Of System.WeakReference), Unosquare.Swan.JsonSerializerCase)
+  nameWithType: SerializerOptions.SerializerOptions(Boolean, String, String[], String[], Boolean, IReadOnlyCollection<WeakReference>, JsonSerializerCase)
+  nameWithType.vb: SerializerOptions.SerializerOptions(Boolean, String, String(), String(), Boolean, IReadOnlyCollection(Of WeakReference), JsonSerializerCase)
+- uid: Unosquare.Swan.Formatters.SerializerOptions.#ctor*
+  name: SerializerOptions
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions__ctor_
+  commentId: Overload:Unosquare.Swan.Formatters.SerializerOptions.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.SerializerOptions
+  nameWithType: SerializerOptions.SerializerOptions
+- uid: Unosquare.Swan.Formatters.SerializerOptions.Format
+  name: Format
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_Format
+  commentId: P:Unosquare.Swan.Formatters.SerializerOptions.Format
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.Format
+  nameWithType: SerializerOptions.Format
+- uid: Unosquare.Swan.Formatters.SerializerOptions.Format*
+  name: Format
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_Format_
+  commentId: Overload:Unosquare.Swan.Formatters.SerializerOptions.Format
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.Format
+  nameWithType: SerializerOptions.Format
+- uid: Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic
+  name: IncludeNonPublic
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_IncludeNonPublic
+  commentId: P:Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic
+  nameWithType: SerializerOptions.IncludeNonPublic
+- uid: Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic*
+  name: IncludeNonPublic
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_IncludeNonPublic_
+  commentId: Overload:Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.IncludeNonPublic
+  nameWithType: SerializerOptions.IncludeNonPublic
+- uid: Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase
+  name: JsonSerializerCase
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_JsonSerializerCase
+  commentId: P:Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase
+  nameWithType: SerializerOptions.JsonSerializerCase
+- uid: Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase*
+  name: JsonSerializerCase
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_JsonSerializerCase_
+  commentId: Overload:Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.JsonSerializerCase
+  nameWithType: SerializerOptions.JsonSerializerCase
+- uid: Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier
+  name: TypeSpecifier
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_TypeSpecifier
+  commentId: P:Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier
+  nameWithType: SerializerOptions.TypeSpecifier
+- uid: Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier*
+  name: TypeSpecifier
+  href: api/Unosquare.Swan.Formatters.SerializerOptions.html#Unosquare_Swan_Formatters_SerializerOptions_TypeSpecifier_
+  commentId: Overload:Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier
+  isSpec: "True"
+  fullName: Unosquare.Swan.Formatters.SerializerOptions.TypeSpecifier
+  nameWithType: SerializerOptions.TypeSpecifier
 - uid: Unosquare.Swan.FunctionalExtensions
   name: FunctionalExtensions
   href: api/Unosquare.Swan.FunctionalExtensions.html
@@ -8452,6 +8538,24 @@ references:
   fullName.vb: Unosquare.Swan.FunctionalExtensions.When(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of T)))
   nameWithType: FunctionalExtensions.When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
   nameWithType.vb: FunctionalExtensions.When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
+- uid: Unosquare.Swan.JsonSerializerCase
+  name: JsonSerializerCase
+  href: api/Unosquare.Swan.JsonSerializerCase.html
+  commentId: T:Unosquare.Swan.JsonSerializerCase
+  fullName: Unosquare.Swan.JsonSerializerCase
+  nameWithType: JsonSerializerCase
+- uid: Unosquare.Swan.JsonSerializerCase.CamelCase
+  name: CamelCase
+  href: api/Unosquare.Swan.JsonSerializerCase.html#Unosquare_Swan_JsonSerializerCase_CamelCase
+  commentId: F:Unosquare.Swan.JsonSerializerCase.CamelCase
+  fullName: Unosquare.Swan.JsonSerializerCase.CamelCase
+  nameWithType: JsonSerializerCase.CamelCase
+- uid: Unosquare.Swan.JsonSerializerCase.PascalCase
+  name: PascalCase
+  href: api/Unosquare.Swan.JsonSerializerCase.html#Unosquare_Swan_JsonSerializerCase_PascalCase
+  commentId: F:Unosquare.Swan.JsonSerializerCase.PascalCase
+  fullName: Unosquare.Swan.JsonSerializerCase.PascalCase
+  nameWithType: JsonSerializerCase.PascalCase
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
