@@ -116,11 +116,7 @@
                 .When(() => _excludeProperties?.Length > 0,
                     query => query.Where(p => !_excludeProperties.Contains(p.Key.Item1)))
                 .ToDictionary(x => x.Key.Item2, x => x.Value);
-
-        private string GetNameWithCase(string name) => JsonSerializerCase == JsonSerializerCase.PascalCase
-            ? name
-            : char.ToLowerInvariant(name[0]) + name.Substring(1);
-
+        
         private Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
         {
             if (TypeCache.TryGetValue(targetType, out var current))
@@ -138,7 +134,7 @@
             var value = fields
                 .ToDictionary(
                     x => Tuple.Create(x.Name,
-                        x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? GetNameWithCase(x.Name)),
+                        x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name.GetNameWithCase(JsonSerializerCase)),
                     x => x);
 
             TypeCache.TryAdd(targetType, value);

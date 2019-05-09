@@ -98,17 +98,13 @@
                 } // Get the string bytes in UTF8
             }
 
-            private string GetNameWithCase(string name) => _jsonSerializerCase == JsonSerializerCase.PascalCase
-                ? char.ToUpperInvariant(name[0]) + name.Substring(1);
-                : char.ToLowerInvariant(name[0]) + name.Substring(1);
-
             private object GetSourcePropertyValue(
                 IDictionary<string, object> sourceProperties,
                 MemberInfo targetProperty)
             {
                 var targetPropertyName = MemberInfoNameCache.GetOrAdd(
                     targetProperty,
-                    x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? GetNameWithCase(x.Name));
+                    x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name.GetNameWithCase(_jsonSerializerCase));
 
                 return sourceProperties.GetValueOrDefault(targetPropertyName);
             }

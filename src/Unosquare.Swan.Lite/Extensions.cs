@@ -347,5 +347,9 @@
                     break;
             }
         }
+
+        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) => jsonSerializerCase == JsonSerializerCase.PascalCase
+            ? char.ToUpperInvariant(name[0]) + name.Substring(1)
+            : char.ToLowerInvariant(name[0]) + name.Substring(1);
     }
 }
