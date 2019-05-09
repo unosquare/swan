@@ -87,7 +87,7 @@
             var instance = BasicJson.GetDefault();
             var reference = new List<WeakReference> {new WeakReference(instance)};
 
-            var data = Json.Serialize(instance, false, null, false, null, null, reference);
+            var data = Json.Serialize(instance, false, null, false, null, null, reference, JsonSerializerCase.PascalCase);
 
             Assert.IsTrue(data.StartsWith("{ \"$circref\":"));
         }

@@ -29,15 +29,17 @@
             private readonly object _target;
             private readonly Type _targetType;
             private readonly bool _includeNonPublic;
+            private readonly JsonSerializerCase _jsonSerializerCase;
 
-            private Converter(
-                object source,
+            private Converter(object source,
                 Type targetType,
                 ref object targetInstance,
-                bool includeNonPublic)
+                bool includeNonPublic, 
+                JsonSerializerCase jsonSerializerCase)
             {
                 _targetType = targetInstance != null ? targetInstance.GetType() : targetType;
                 _includeNonPublic = includeNonPublic;
+                _jsonSerializerCase = jsonSerializerCase;
 
                 if (source == null)
                 {
@@ -59,19 +61,14 @@
                 ResolveObject(source, ref _target);
             }
 
-            /// <summary>
-            /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the specified target type.
-            /// </summary>
-            /// <param name="source">The source.</param>
-            /// <param name="targetType">Type of the target.</param>
-            /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
-            /// <returns>The target object.</returns>
-            internal static object FromJsonResult(object source,
-                Type targetType,
-                bool includeNonPublic)
+            internal static object FromJsonResult(
+                object source,
+                JsonSerializerCase jsonSerializerCase,
+                Type targetType = null,
+                bool includeNonPublic = false)
             {
                 object nullRef = null;
-                return new Converter(source, targetType, ref nullRef, includeNonPublic).GetResult();
+                return new Converter(source, targetType ?? typeof(object), ref nullRef, includeNonPublic, jsonSerializerCase).GetResult();
             }
 
             private static object FromJsonResult(object source,
@@ -79,7 +76,7 @@
                 ref object targetInstance,
                 bool includeNonPublic)
             {
-                return new Converter(source, targetType, ref targetInstance, includeNonPublic).GetResult();
+                return new Converter(source, targetType, ref targetInstance, includeNonPublic, JsonSerializerCase.PascalCase).GetResult();
             }
 
             private static Type GetAddMethodParameterType(Type targetType)
@@ -102,12 +99,13 @@
                 } // Get the string bytes in UTF8
             }
 
-            private static object GetSourcePropertyValue(IDictionary<string, object> sourceProperties,
+            private object GetSourcePropertyValue(
+                IDictionary<string, object> sourceProperties,
                 MemberInfo targetProperty)
             {
                 var targetPropertyName = MemberInfoNameCache.GetOrAdd(
                     targetProperty,
-                    x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name);
+                    x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name.GetNameWithCase(_jsonSerializerCase));
 
                 return sourceProperties.GetValueOrDefault(targetPropertyName);
             }
@@ -178,7 +176,7 @@
                 }
             }
 
-            private void PopulateIList(IList<object> objects, IList list)
+            private void PopulateIList(IEnumerable<object> objects, IList list)
             {
                 var parameterType = GetAddMethodParameterType(_targetType);
                 if (parameterType == null) return;
@@ -189,6 +187,7 @@
                     {
                         list.Add(FromJsonResult(
                             item,
+                            _jsonSerializerCase,
                             parameterType,
                             _includeNonPublic));
                     }
@@ -209,6 +208,7 @@
                     {
                         var targetItem = FromJsonResult(
                             objects[i],
+                            _jsonSerializerCase,
                             elementType,
                             _includeNonPublic);
                         array.SetValue(targetItem, i);
@@ -258,6 +258,7 @@
                     {
                         var targetEntryValue = FromJsonResult(
                             sourceProperty.Value,
+                            _jsonSerializerCase,
                             targetEntryType,
                             _includeNonPublic);
                         targetDictionary.Add(sourceProperty.Key, targetEntryValue);
@@ -318,6 +319,7 @@
 
                     var targetPropertyValue = FromJsonResult(
                         sourcePropertyValue,
+                        _jsonSerializerCase,
                         field.FieldType,
                         _includeNonPublic);
 

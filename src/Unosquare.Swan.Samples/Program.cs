@@ -19,6 +19,8 @@
         /// <exception cref="SampleException"></exception>
         public static async Task Main(string[] args)
         {
+            TestJson();
+
             var timeSpan = TimeSpan.FromSeconds(1);
             
             TimerControl.Instance.Wait(timeSpan);
@@ -32,7 +34,6 @@
             await TestTerminalOutputs();
             await TestNetworkUtilities();
             TestContainerAndMessageHub();
-            TestJson();
             TestExceptionLogging();
 
             TestFastOutputAndReadPrompt();
@@ -87,6 +88,17 @@
 
         private static void TestJson()
         {
+            var instance = new SampleCopyTarget
+                {AlternateId = 10, CreationDate = new DateTime(2010, 1, 1), Id = 1, Score = "A"};
+
+            var payload = Json.Serialize(instance, JsonSerializerCase.CamelCase, true);
+
+            payload.Info(typeof(Program));
+
+            var recover = Json.Deserialize<SampleCopyTarget>(payload, JsonSerializerCase.CamelCase);
+
+            recover.Dump(typeof(Program));
+
             var jsonText =
                 "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
             var jsonObject = Json.Deserialize(jsonText);

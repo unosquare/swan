@@ -108,8 +108,24 @@
             string[] includedNames = null,
             params string[] excludedNames)
         {
-            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null);
+            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.PascalCase);
         }
+
+        /// <summary>
+        /// Serializes the specified object into a JSON string.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <param name="format">if set to <c>true</c> [format].</param>
+        /// <param name="typeSpecifier">The type specifier.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object.
+        /// </returns>
+        public static string Serialize(
+            object obj,
+            JsonSerializerCase jsonSerializerCase,
+            bool format = false,
+            string typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
@@ -121,6 +137,7 @@
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <param name="parentReferences">The parent references.</param>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
         /// <returns>
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
@@ -131,7 +148,8 @@
             bool includeNonPublic,
             string[] includedNames,
             string[] excludedNames,
-            List<WeakReference> parentReferences)
+            List<WeakReference> parentReferences,
+            JsonSerializerCase jsonSerializerCase)
         {
             if (obj != null && (obj is string || Definitions.AllBasicValueTypes.Contains(obj.GetType())))
             {
@@ -144,10 +162,21 @@
                 includedNames,
                 GetExcludedNames(obj?.GetType(), excludedNames),
                 includeNonPublic,
-                parentReferences);
+                parentReferences,
+                jsonSerializerCase);
 
-            return Serializer.Serialize(obj, 0, options);
+            return Serialize(obj, options);
         }
+
+        /// <summary>
+        /// Serializes the specified object using the SerializerOptions provided.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object.
+        /// </returns>
+        public static string Serialize(object obj, SerializerOptions options) => Serializer.Serialize(obj, 0, options);
 
         /// <summary>
         /// Serializes the specified object only including the specified property names.
@@ -178,12 +207,7 @@
         /// }
         /// </code>
         /// </example>
-        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
-        {
-            var options = new SerializerOptions(format, null, includeNames);
-
-            return Serializer.Serialize(obj, 0, options);
-        }
+        public static string SerializeOnly(object obj, bool format, params string[] includeNames) => Serialize(obj, new SerializerOptions(format, null, includeNames));
 
         /// <summary>
         /// Serializes the specified object excluding the specified property names.
@@ -193,7 +217,7 @@
         /// <param name="excludeNames">The exclude names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         /// <example>
-        /// The following code shows how to serialize a simple object exluding the specified properties.
+        /// The following code shows how to serialize a simple object excluding the specified properties.
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -214,68 +238,68 @@
         /// }
         /// </code>
         /// </example>
-        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
-        {
-            var options = new SerializerOptions(format, null, null, excludeNames);
-
-            return Serializer.Serialize(obj, 0, options);
-        }
+        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames) 
+            => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
 
         /// <summary>
         /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
         /// depending on the syntax of the JSON string.
         /// </summary>
         /// <param name="json">The json.</param>
-        /// <returns>Type of the current deserializes.</returns>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <returns>
+        /// Type of the current deserializes.
+        /// </returns>
         /// <example>
         /// The following code shows how to deserialize a JSON string into a Dictionary.
         /// <code>
         /// using Unosquare.Swan.Formatters;
-        /// 
         /// class Example
         /// {
-        ///     static void Main()
-        ///     {
-        ///         // json to deserialize
-        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-        ///         
-        ///         // deserializes the specified json into a Dictionary&lt;string, object&gt;.
-        ///         var data = Json.Deserialize(basicJson);
-        ///     }
+        /// static void Main()
+        /// {
+        /// // json to deserialize
+        /// var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        /// // deserializes the specified json into a Dictionary&lt;string, object&gt;.
+        /// var data = Json.Deserialize(basicJson);
         /// }
-        /// </code>
-        /// </example>
-        public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
+        /// }
+        /// </code></example>
+        public static object Deserialize(
+            string json,
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
 
         /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Deserializes the specified JSON string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>The deserialized specified type object.</returns>
+        /// <param name="jsonSerializerCase">The JSON serializer case.</param>
+        /// <returns>
+        /// The deserialized specified type object.
+        /// </returns>
         /// <example>
         /// The following code describes how to deserialize a JSON string into an object of type T.
         /// <code>
         /// using Unosquare.Swan.Formatters;
-        /// 
         /// class Example
         /// {
-        ///     static void Main()
-        ///     {
-        ///         // json type BasicJson to serialize
-        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-        ///         
-        ///         // deserializes the specified string in a new instance of the type BasicJson.
-        ///         var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
-        ///     }
+        /// static void Main()
+        /// {
+        /// // json type BasicJson to serialize
+        /// var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        /// // deserializes the specified string in a new instance of the type BasicJson.
+        /// var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
         /// }
-        /// </code>
-        /// </example>
-        public static T Deserialize<T>(string json) => (T)Deserialize(json, typeof(T));
+        /// }
+        /// </code></example>
+        public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase) 
+            => (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Deserializes the specified JSON string and converts it to the specified object type.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <param name="json">The json.</param>
@@ -289,9 +313,12 @@
         /// <param name="json">The json.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns>Type of the current conversion from json result.</returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false)
-            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic);
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <returns>
+        /// Type of the current conversion from json result.
+        /// </returns>
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase, resultType, includeNonPublic);
 
         #endregion
 

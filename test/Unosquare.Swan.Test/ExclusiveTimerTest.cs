@@ -14,7 +14,7 @@
 
             using (var timer = new ExclusiveTimer(() => i++, 0, 100))
             {
-                Thread.Sleep(120);
+                Thread.Sleep(130);
 
                 Assert.GreaterOrEqual(i, 1, "First iteration");
 
