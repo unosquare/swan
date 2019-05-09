@@ -61,13 +61,14 @@
                 ResolveObject(source, ref _target);
             }
 
-            internal static object FromJsonResult(object source,
-                Type targetType,
-                bool includeNonPublic, 
-                JsonSerializerCase jsonSerializerCase)
+            internal static object FromJsonResult(
+                object source,
+                JsonSerializerCase jsonSerializerCase,
+                Type targetType = null,
+                bool includeNonPublic = false)
             {
                 object nullRef = null;
-                return new Converter(source, targetType, ref nullRef, includeNonPublic, jsonSerializerCase).GetResult();
+                return new Converter(source, targetType ?? typeof(object), ref nullRef, includeNonPublic, jsonSerializerCase).GetResult();
             }
 
             private static object FromJsonResult(object source,
@@ -186,9 +187,9 @@
                     {
                         list.Add(FromJsonResult(
                             item,
+                            _jsonSerializerCase,
                             parameterType,
-                            _includeNonPublic,
-                            _jsonSerializerCase));
+                            _includeNonPublic));
                     }
                     catch
                     {
@@ -207,9 +208,9 @@
                     {
                         var targetItem = FromJsonResult(
                             objects[i],
+                            _jsonSerializerCase,
                             elementType,
-                            _includeNonPublic,
-                            _jsonSerializerCase);
+                            _includeNonPublic);
                         array.SetValue(targetItem, i);
                     }
                     catch
@@ -257,9 +258,9 @@
                     {
                         var targetEntryValue = FromJsonResult(
                             sourceProperty.Value,
+                            _jsonSerializerCase,
                             targetEntryType,
-                            _includeNonPublic,
-                            _jsonSerializerCase);
+                            _includeNonPublic);
                         targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                     }
                     catch
@@ -318,9 +319,9 @@
 
                     var targetPropertyValue = FromJsonResult(
                         sourcePropertyValue,
+                        _jsonSerializerCase,
                         field.FieldType,
-                        _includeNonPublic,
-                        _jsonSerializerCase);
+                        _includeNonPublic);
 
                     try
                     {

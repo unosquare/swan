@@ -217,7 +217,7 @@
         /// <param name="excludeNames">The exclude names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
         /// <example>
-        /// The following code shows how to serialize a simple object exluding the specified properties.
+        /// The following code shows how to serialize a simple object excluding the specified properties.
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -238,33 +238,37 @@
         /// }
         /// </code>
         /// </example>
-        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames) => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
+        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames) 
+            => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
 
         /// <summary>
         /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
         /// depending on the syntax of the JSON string.
         /// </summary>
         /// <param name="json">The json.</param>
-        /// <returns>Type of the current deserializes.</returns>
+        /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <returns>
+        /// Type of the current deserializes.
+        /// </returns>
         /// <example>
         /// The following code shows how to deserialize a JSON string into a Dictionary.
         /// <code>
         /// using Unosquare.Swan.Formatters;
-        /// 
         /// class Example
         /// {
-        ///     static void Main()
-        ///     {
-        ///         // json to deserialize
-        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-        ///         
-        ///         // deserializes the specified json into a Dictionary&lt;string, object&gt;.
-        ///         var data = Json.Deserialize(basicJson);
-        ///     }
+        /// static void Main()
+        /// {
+        /// // json to deserialize
+        /// var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        /// // deserializes the specified json into a Dictionary&lt;string, object&gt;.
+        /// var data = Json.Deserialize(basicJson);
         /// }
-        /// </code>
-        /// </example>
-        public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
+        /// }
+        /// </code></example>
+        public static object Deserialize(
+            string json,
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -314,7 +318,7 @@
         /// Type of the current conversion from json result.
         /// </returns>
         public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
-            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), resultType, includeNonPublic, jsonSerializerCase);
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase, resultType, includeNonPublic);
 
         #endregion
 
