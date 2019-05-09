@@ -99,7 +99,7 @@
             }
 
             private string GetNameWithCase(string name) => _jsonSerializerCase == JsonSerializerCase.PascalCase
-                ? name
+                ? char.ToUpperInvariant(name[0]) + name.Substring(1);
                 : char.ToLowerInvariant(name[0]) + name.Substring(1);
 
             private object GetSourcePropertyValue(
