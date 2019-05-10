@@ -23,20 +23,17 @@
         [TestCase("Yes", true)]
         [TestCase("(null)", null)]
         [TestCase("12", 12)]
-        public void WithValidObject_ReturnsHumanizedString(string expected, object input)
-        {
+        public void WithValidObject_ReturnsHumanizedString(string expected, object input) =>
             Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
-        }
     }
 
     [TestFixture]
     public class ReplaceAll
     {
-        [TestCase("Camel Case", "CamelCase")]
-        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, string input, char[] output)
-        {
-            Assert.AreEqual(expected, input.ReplaceAll("Ca", output), $"Testing with {input}");
-        }
+        [TestCase("Cam lCas ", "CamelCase", new[] { 'e' }, " ")]
+        [TestCase("CamelCase", "CxamxelCxaxse", new[] { 'x' }, "")]
+        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, string input, char[] toBeReplaced, string toReplace) =>
+            Assert.AreEqual(expected, input.ReplaceAll(toReplace, toBeReplaced), $"Testing with {input}");
     }
 
     [TestFixture]
