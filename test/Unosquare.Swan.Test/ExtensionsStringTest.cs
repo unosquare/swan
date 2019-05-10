@@ -29,23 +29,15 @@
         }
     }
 
-
     [TestFixture]
     public class ReplaceAll
     {
-
         [TestCase("Camel Case", "CamelCase")]
-        [TestCase("Yes", true)]
-        [TestCase("(null)", null)]
-        [TestCase("12", 12)]
-        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, object input)
+        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, string input, char[] output)
         {
-            Assert.AreEqual(expected, input.ReplaceAll(), $"Testing with {input}");
+            Assert.AreEqual(expected, input.ReplaceAll("Ca", output), $"Testing with {input}");
         }
-
-
     }
-
 
     [TestFixture]
     public class ComputeMD5 : ExtensionsByteArraysTest.ExtensionsByteArraysTest
