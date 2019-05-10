@@ -11,11 +11,41 @@
     {
         [TestCase("Camel Case", "CamelCase")]
         [TestCase("Snake Case", "Snake_Case")]
-        public void WithValidString_ReturnsHumanizedString(string expected, string input)
+        public void WithValidString_ReturnsHumanizedString(string expected, string input) =>
+        Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
+
+        [TestCase("Yes", true)]
+        [TestCase("No", false)]
+        public void WithValidBoolean_ReturnsHumanizedString(string expected, bool input) =>
+            Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
+
+        [TestCase("Camel Case", "CamelCase")]
+        [TestCase("Yes", true)]
+        [TestCase("(null)", null)]
+        [TestCase("12", 12)]
+        public void WithValidObject_ReturnsHumanizedString(string expected, object input)
         {
             Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
         }
     }
+
+
+    [TestFixture]
+    public class ReplaceAll
+    {
+
+        [TestCase("Camel Case", "CamelCase")]
+        [TestCase("Yes", true)]
+        [TestCase("(null)", null)]
+        [TestCase("12", 12)]
+        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, object input)
+        {
+            Assert.AreEqual(expected, input.ReplaceAll(), $"Testing with {input}");
+        }
+
+
+    }
+
 
     [TestFixture]
     public class ComputeMD5 : ExtensionsByteArraysTest.ExtensionsByteArraysTest
