@@ -3,10 +3,18 @@
     using NUnit.Framework;
     using System.Threading.Tasks;
     using Abstractions;
+    using Unosquare.Swan.Lite;
 
     [TestFixture]
     public class AtomicTypeTest
     {
+        enum Companies
+        {
+            Value1,
+            Value2,
+            Value3,
+        }
+
         [Test]
         public void AtomicityLong()
         {
@@ -22,7 +30,7 @@
                 Task.Factory.StartNew(SumTask),
                 Task.Factory.StartNew(SumTask),
                 Task.Factory.StartNew(SumTask));
-            
+
             Assert.That(atomic.Value, Is.EqualTo(9000));
         }
 
@@ -63,7 +71,7 @@
                 Task.Factory.StartNew(ToggleValueTask),
                 Task.Factory.StartNew(ToggleValueTask),
                 Task.Factory.StartNew(ToggleValueTask));
-            
+
             if (atomic.Value)
                 Assert.Ignore("We need to fix this");
 
@@ -87,6 +95,23 @@
                 Task.Factory.StartNew(SumTask));
 
             Assert.That(atomic.Value, Is.EqualTo(900));
+        }
+
+        [Test]
+        public void AtomicityEnum()
+        {
+            var atomic = new AtomicEnum<Companies>(Companies.Value1);
+
+            void ExchangeTask()
+            {
+                    atomic.Value++;
+            }
+
+            Task.WaitAll(
+            Task.Factory.StartNew(ExchangeTask),
+            Task.Factory.StartNew(ExchangeTask));
+
+            Assert.That(atomic.Value, Is.EqualTo(Companies.Value3));
         }
     }
 }
