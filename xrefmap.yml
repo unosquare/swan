@@ -8556,6 +8556,55 @@ references:
   commentId: F:Unosquare.Swan.JsonSerializerCase.PascalCase
   fullName: Unosquare.Swan.JsonSerializerCase.PascalCase
   nameWithType: JsonSerializerCase.PascalCase
+- uid: Unosquare.Swan.Lite
+  name: Unosquare.Swan.Lite
+  href: api/Unosquare.Swan.Lite.html
+  commentId: N:Unosquare.Swan.Lite
+  fullName: Unosquare.Swan.Lite
+  nameWithType: Unosquare.Swan.Lite
+- uid: Unosquare.Swan.Lite.AtomicEnum`1
+  name: AtomicEnum<T>
+  href: api/Unosquare.Swan.Lite.AtomicEnum-1.html
+  commentId: T:Unosquare.Swan.Lite.AtomicEnum`1
+  name.vb: AtomicEnum(Of T)
+  fullName: Unosquare.Swan.Lite.AtomicEnum<T>
+  fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T)
+  nameWithType: AtomicEnum<T>
+  nameWithType.vb: AtomicEnum(Of T)
+- uid: Unosquare.Swan.Lite.AtomicEnum`1.#ctor(`0)
+  name: AtomicEnum(T)
+  href: api/Unosquare.Swan.Lite.AtomicEnum-1.html#Unosquare_Swan_Lite_AtomicEnum_1__ctor__0_
+  commentId: M:Unosquare.Swan.Lite.AtomicEnum`1.#ctor(`0)
+  fullName: Unosquare.Swan.Lite.AtomicEnum<T>.AtomicEnum(T)
+  fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T).AtomicEnum(T)
+  nameWithType: AtomicEnum<T>.AtomicEnum(T)
+  nameWithType.vb: AtomicEnum(Of T).AtomicEnum(T)
+- uid: Unosquare.Swan.Lite.AtomicEnum`1.#ctor*
+  name: AtomicEnum
+  href: api/Unosquare.Swan.Lite.AtomicEnum-1.html#Unosquare_Swan_Lite_AtomicEnum_1__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.AtomicEnum`1.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.AtomicEnum<T>.AtomicEnum
+  fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T).AtomicEnum
+  nameWithType: AtomicEnum<T>.AtomicEnum
+  nameWithType.vb: AtomicEnum(Of T).AtomicEnum
+- uid: Unosquare.Swan.Lite.AtomicEnum`1.Value
+  name: Value
+  href: api/Unosquare.Swan.Lite.AtomicEnum-1.html#Unosquare_Swan_Lite_AtomicEnum_1_Value
+  commentId: P:Unosquare.Swan.Lite.AtomicEnum`1.Value
+  fullName: Unosquare.Swan.Lite.AtomicEnum<T>.Value
+  fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T).Value
+  nameWithType: AtomicEnum<T>.Value
+  nameWithType.vb: AtomicEnum(Of T).Value
+- uid: Unosquare.Swan.Lite.AtomicEnum`1.Value*
+  name: Value
+  href: api/Unosquare.Swan.Lite.AtomicEnum-1.html#Unosquare_Swan_Lite_AtomicEnum_1_Value_
+  commentId: Overload:Unosquare.Swan.Lite.AtomicEnum`1.Value
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.AtomicEnum<T>.Value
+  fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T).Value
+  nameWithType: AtomicEnum<T>.Value
+  nameWithType.vb: AtomicEnum(Of T).Value
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
