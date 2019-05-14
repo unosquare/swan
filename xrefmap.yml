@@ -8550,6 +8550,12 @@ references:
   commentId: F:Unosquare.Swan.JsonSerializerCase.CamelCase
   fullName: Unosquare.Swan.JsonSerializerCase.CamelCase
   nameWithType: JsonSerializerCase.CamelCase
+- uid: Unosquare.Swan.JsonSerializerCase.None
+  name: None
+  href: api/Unosquare.Swan.JsonSerializerCase.html#Unosquare_Swan_JsonSerializerCase_None
+  commentId: F:Unosquare.Swan.JsonSerializerCase.None
+  fullName: Unosquare.Swan.JsonSerializerCase.None
+  nameWithType: JsonSerializerCase.None
 - uid: Unosquare.Swan.JsonSerializerCase.PascalCase
   name: PascalCase
   href: api/Unosquare.Swan.JsonSerializerCase.html#Unosquare_Swan_JsonSerializerCase_PascalCase
