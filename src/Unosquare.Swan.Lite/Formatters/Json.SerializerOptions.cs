@@ -41,7 +41,7 @@
             string[] excludeProperties = null,
             bool includeNonPublic = true,
             IReadOnlyCollection<WeakReference> parentReferences = null,
-            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
         {
             _includeProperties = includeProperties;
             _excludeProperties = excludeProperties;

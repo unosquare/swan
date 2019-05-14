@@ -76,7 +76,7 @@
                 ref object targetInstance,
                 bool includeNonPublic)
             {
-                return new Converter(source, targetType, ref targetInstance, includeNonPublic, JsonSerializerCase.PascalCase).GetResult();
+                return new Converter(source, targetType, ref targetInstance, includeNonPublic, JsonSerializerCase.None).GetResult();
             }
 
             private static Type GetAddMethodParameterType(Type targetType)

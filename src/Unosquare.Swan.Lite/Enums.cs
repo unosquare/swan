@@ -43,10 +43,15 @@
     }
 
     /// <summary>
-    /// Enumerates the JSON serializer cases to use: PascalCase or camelCase.
+    /// Enumerates the JSON serializer cases to use: None (keeps the same case), PascalCase, or camelCase.
     /// </summary>
     public enum JsonSerializerCase
     {
+        /// <summary>
+        /// The none
+        /// </summary>
+        None,
+
         /// <summary>
         /// The pascal case (eg. PascalCase)
         /// </summary>

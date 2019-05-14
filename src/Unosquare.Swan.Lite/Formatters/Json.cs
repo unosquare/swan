@@ -108,7 +108,7 @@
             string[] includedNames = null,
             params string[] excludedNames)
         {
-            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.PascalCase);
+            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.None);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@
         /// </code></example>
         public static object Deserialize(
             string json,
-            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
             => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
 
         /// <summary>
@@ -295,7 +295,7 @@
         /// }
         /// }
         /// </code></example>
-        public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase) 
+        public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) 
             => (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
@@ -317,7 +317,7 @@
         /// <returns>
         /// Type of the current conversion from json result.
         /// </returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.PascalCase)
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
             => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase, resultType, includeNonPublic);
 
         #endregion
