@@ -8286,6 +8286,12 @@ references:
   commentId: T:Unosquare.Swan.Formatters.Json
   fullName: Unosquare.Swan.Formatters.Json
   nameWithType: Json
+- uid: Unosquare.Swan.Formatters.Json.Deserialize(System.String)
+  name: Deserialize(String)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize_System_String_
+  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize(System.String)
+  fullName: Unosquare.Swan.Formatters.Json.Deserialize(System.String)
+  nameWithType: Json.Deserialize(String)
 - uid: Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean,Unosquare.Swan.JsonSerializerCase)
   name: Deserialize(String, Type, Boolean, JsonSerializerCase)
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize_System_String_System_Type_System_Boolean_Unosquare_Swan_JsonSerializerCase_

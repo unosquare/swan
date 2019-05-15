@@ -126,8 +126,67 @@ serializer such as the beloved Json.NET.</p>
   
   
   <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
+  <h4 id="Unosquare_Swan_Formatters_Json_Deserialize_System_String_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize(System.String)">Deserialize(String)</h4>
+  <div class="markdown level1 summary"><p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
+depending on the syntax of the JSON string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object Deserialize(string json)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">json</span></td>
+        <td><p>The JSON string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><p>Type of the current deserializes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_Deserialize_System_String__examples">Examples</h5>
+  <p>The following code shows how to deserialize a JSON string into a Dictionary.</p>
+<pre><code>using Unosquare.Swan.Formatters;
+class Example
+{
+static void Main()
+{
+// json to deserialize
+var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
+// deserializes the specified json into a Dictionary&lt;string, object>.
+var data = Json.Deserialize(basicJson);
+}
+}</code></pre>
+  
+  
+  <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
   <h4 id="Unosquare_Swan_Formatters_Json_Deserialize_System_String_System_Type_System_Boolean_Unosquare_Swan_JsonSerializerCase_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize(System.String,System.Type,System.Boolean,Unosquare.Swan.JsonSerializerCase)">Deserialize(String, Type, Boolean, JsonSerializerCase)</h4>
-  <div class="markdown level1 summary"><p>Deserializes the specified json string and converts it to the specified object type.</p>
+  <div class="markdown level1 summary"><p>Deserializes the specified JSON string and converts it to the specified object type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -147,7 +206,7 @@ serializer such as the beloved Json.NET.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">json</span></td>
-        <td><p>The json.</p>
+        <td><p>The JSON string.</p>
 </td>
       </tr>
       <tr>
@@ -196,7 +255,7 @@ depending on the syntax of the JSON string.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static object Deserialize(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)</code></pre>
+    <pre><code class="lang-csharp hljs">public static object Deserialize(string json, JsonSerializerCase jsonSerializerCase)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -211,7 +270,7 @@ depending on the syntax of the JSON string.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">json</span></td>
-        <td><p>The json.</p>
+        <td><p>The JSON string.</p>
 </td>
       </tr>
       <tr>
@@ -248,7 +307,7 @@ static void Main()
 // json to deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
 // deserializes the specified json into a Dictionary&lt;string, object>.
-var data = Json.Deserialize(basicJson);
+var data = Json.Deserialize(basicJson, JsonSerializerCase.None);
 }
 }</code></pre>
   
@@ -275,7 +334,7 @@ var data = Json.Deserialize(basicJson);
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">json</span></td>
-        <td><p>The json.</p>
+        <td><p>The JSON string.</p>
 </td>
       </tr>
       <tr>
@@ -343,7 +402,7 @@ Non-public constructors and property setters are ignored.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">json</span></td>
-        <td><p>The json.</p>
+        <td><p>The JSON string.</p>
 </td>
       </tr>
       <tr>
