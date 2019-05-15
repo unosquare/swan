@@ -132,14 +132,9 @@
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>A dictionary of the properties and their attributes stored for the specified type.</returns>
         public Dictionary<PropertyInfo, IEnumerable<object>> Retrieve<T>(Type type, bool inherit = false)
-            where T : Attribute
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return PropertyTypeCache.RetrieveAllProperties(type, true)
+            where T : Attribute =>
+            PropertyTypeCache.RetrieveAllProperties(type, true)
                 .ToDictionary(x => x, x => Retrieve<T>(x, inherit));
-        }
 
         /// <summary>
         /// Gets all properties and their attributes of a given type.

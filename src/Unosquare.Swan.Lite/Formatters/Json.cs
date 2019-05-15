@@ -245,8 +245,36 @@
         /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
         /// depending on the syntax of the JSON string.
         /// </summary>
-        /// <param name="json">The json.</param>
+        /// <param name="json">The JSON string.</param>
         /// <param name="jsonSerializerCase">The json serializer case.</param>
+        /// <returns>
+        /// Type of the current deserializes.
+        /// </returns>
+        /// <example>
+        /// The following code shows how to deserialize a JSON string into a Dictionary.
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// class Example
+        /// {
+        /// static void Main()
+        /// {
+        /// // json to deserialize
+        /// var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        /// // deserializes the specified json into a Dictionary&lt;string, object&gt;.
+        /// var data = Json.Deserialize(basicJson, JsonSerializerCase.None);
+        /// }
+        /// }
+        /// </code></example>
+        public static object Deserialize(
+            string json,
+            JsonSerializerCase jsonSerializerCase)
+            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
+
+        /// <summary>
+        /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
+        /// depending on the syntax of the JSON string.
+        /// </summary>
+        /// <param name="json">The JSON string.</param>
         /// <returns>
         /// Type of the current deserializes.
         /// </returns>
@@ -265,17 +293,15 @@
         /// }
         /// }
         /// </code></example>
-        public static object Deserialize(
-            string json,
-            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
-            => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
+        public static object Deserialize(string json)
+            => Deserialize(json, JsonSerializerCase.None);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
-        /// <param name="json">The json.</param>
+        /// <param name="json">The JSON string.</param>
         /// <param name="jsonSerializerCase">The JSON serializer case.</param>
         /// <returns>
         /// The deserialized specified type object.
@@ -302,15 +328,15 @@
         /// Deserializes the specified JSON string and converts it to the specified object type.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
-        /// <param name="json">The json.</param>
+        /// <param name="json">The JSON string.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>The deserialized specified type object.</returns>
         public static T Deserialize<T>(string json, bool includeNonPublic) => (T)Deserialize(json, typeof(T), includeNonPublic);
 
         /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Deserializes the specified JSON string and converts it to the specified object type.
         /// </summary>
-        /// <param name="json">The json.</param>
+        /// <param name="json">The JSON string.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <param name="jsonSerializerCase">The json serializer case.</param>
