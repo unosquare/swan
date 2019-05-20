@@ -40,6 +40,7 @@ Table of contents
     * [The DelayProvider component](#the-delayprovider-component)
     * [The WaitEventFactory component](#the-waiteventfactory-component)
     * [Atomic Types](#atomic-types)
+  * [Running Unit Tests](#running-unit-tests)
 
 ## 📚 Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -1077,6 +1078,7 @@ static void Work(int taskNumber)
 
 
 ### Atomic types
+
 Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: `bool`, `long`, and `double`. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a `torn write`.
 
 [AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
@@ -1085,3 +1087,16 @@ Atomic operations are indivisible which means that they cannot interrupted partw
 
 [AtomicDouble API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html)
 
+## Running Unit Tests
+
+If you want to run the .NET Unit test project, you may need to start some services. These services are Javascript files and you need [NodeJS](https://nodejs.org/en/download/) to execute them. I know why Javascript files for a .NET project, but it's the easy way to start up some network services, anyway PR with .NET Core services are welcome.
+
+The following files, located in the root folder, should be run in any order before start running unit tests:
+
+* `./mail.js` - This script will mount a SMTP server, this service is required to run `SmtpClient` tests.
+* `./ldap.js` - This script will provide a limited LDAP server with basic functionality to be used with `LdapClient`.
+* `./web.js` -  This script will provide a web server responding JSON files for `JsonClient` tests.
+* `./tcp.js` - This script will open a basic TCP Socket for `TcpConnection` tests.
+* `./ntp.js` - This script will mount a NTP server for general `Network` methods.
+
+You can also check the CI files ([Travis](https://github.com/unosquare/swan/blob/master/.travis.yml) and [AppVeyor](https://github.com/unosquare/swan/blob/master/appveyor.yml) for details how to run them.
