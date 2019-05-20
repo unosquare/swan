@@ -107,6 +107,7 @@
 <li><a href="#atomic-types">Atomic Types</a></li>
 </ul>
 </li>
+<li><a href="#running-unit-tests">Running Unit Tests</a></li>
 </ul>
 <h2 id="-libraries">📚 Libraries</h2>
 <p>We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.</p>
@@ -1018,6 +1019,18 @@ static void Main()
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html">AtomicBoolean API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicLong.html">AtomicLong API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html">AtomicDouble API Doc</a></p>
+<h2 id="running-unit-tests">Running Unit Tests</h2>
+<p>If you want to run the .NET Unit test project, you may need to start some services. These services are Javascript files and you need <a href="https://nodejs.org/en/download/">NodeJS</a> to execute them. I know why Javascript files for a .NET project, but it&#39;s the easy way to start up some network services, anyway PR with .NET Core services are welcome.</p>
+<p>Before running them, please execute <code>npm install</code>. This command will install all the required dependencies to start the network services.</p>
+<p>The following files, located in the root folder, should be run in any order before start running unit tests:</p>
+<ul>
+<li><code>./mail.js</code> - This script will mount a SMTP server, this service is required to run <code>SmtpClient</code> tests.</li>
+<li><code>./ldap.js</code> - This script will provide a limited LDAP server with basic functionality to be used with <code>LdapClient</code>.</li>
+<li><code>./web.js</code> -  This script will provide a web server responding JSON files for <code>JsonClient</code> tests.</li>
+<li><code>./tcp.js</code> - This script will open a basic TCP Socket for <code>TcpConnection</code> tests.</li>
+<li><code>./ntp.js</code> - This script will mount a NTP server for general <code>Network</code> methods.</li>
+</ul>
+<p>You can also check the CI files (<a href="https://github.com/unosquare/swan/blob/master/.travis.yml">Travis</a> and <a href="https://github.com/unosquare/swan/blob/master/appveyor.yml">AppVeyor</a> for details how to run them.</p>
 </article>
           </div>
           
