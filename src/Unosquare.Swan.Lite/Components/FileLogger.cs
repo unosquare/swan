@@ -102,7 +102,7 @@
 
                 _doneEvent.Wait();
                 _doneEvent.Reset();
-                WriteLogEntries(true).GetAwaiter().GetResult();
+                WriteLogEntries(true).Await();
                 _doneEvent.Dispose();
             }
 
