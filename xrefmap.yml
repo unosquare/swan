@@ -7014,6 +7014,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.DateExtensions.ToDateTime
   nameWithType: DateExtensions.ToDateTime
+- uid: Unosquare.Swan.DateExtensions.ToRfc1123String(System.DateTime)
+  name: ToRfc1123String(DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToRfc1123String_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.ToRfc1123String(System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.ToRfc1123String(System.DateTime)
+  nameWithType: DateExtensions.ToRfc1123String(DateTime)
+- uid: Unosquare.Swan.DateExtensions.ToRfc1123String*
+  name: ToRfc1123String
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToRfc1123String_
+  commentId: Overload:Unosquare.Swan.DateExtensions.ToRfc1123String
+  isSpec: "True"
+  fullName: Unosquare.Swan.DateExtensions.ToRfc1123String
+  nameWithType: DateExtensions.ToRfc1123String
 - uid: Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)
   name: ToSortableDate(DateTime)
   href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToSortableDate_System_DateTime_
@@ -14566,6 +14579,49 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.Truncate
   nameWithType: StringExtensions.Truncate
+- uid: Unosquare.Swan.TaskExtensions
+  name: TaskExtensions
+  href: api/Unosquare.Swan.TaskExtensions.html
+  commentId: T:Unosquare.Swan.TaskExtensions
+  fullName: Unosquare.Swan.TaskExtensions
+  nameWithType: TaskExtensions
+- uid: Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task)
+  name: Await(Task)
+  href: api/Unosquare.Swan.TaskExtensions.html#Unosquare_Swan_TaskExtensions_Await_System_Threading_Tasks_Task_
+  commentId: M:Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task)
+  fullName: Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task)
+  nameWithType: TaskExtensions.Await(Task)
+- uid: Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task,System.Boolean)
+  name: Await(Task, Boolean)
+  href: api/Unosquare.Swan.TaskExtensions.html#Unosquare_Swan_TaskExtensions_Await_System_Threading_Tasks_Task_System_Boolean_
+  commentId: M:Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task,System.Boolean)
+  fullName: Unosquare.Swan.TaskExtensions.Await(System.Threading.Tasks.Task, System.Boolean)
+  nameWithType: TaskExtensions.Await(Task, Boolean)
+- uid: Unosquare.Swan.TaskExtensions.Await*
+  name: Await
+  href: api/Unosquare.Swan.TaskExtensions.html#Unosquare_Swan_TaskExtensions_Await_
+  commentId: Overload:Unosquare.Swan.TaskExtensions.Await
+  isSpec: "True"
+  fullName: Unosquare.Swan.TaskExtensions.Await
+  nameWithType: TaskExtensions.Await
+- uid: Unosquare.Swan.TaskExtensions.Await``1(System.Threading.Tasks.Task{``0})
+  name: Await<TResult>(Task<TResult>)
+  href: api/Unosquare.Swan.TaskExtensions.html#Unosquare_Swan_TaskExtensions_Await__1_System_Threading_Tasks_Task___0__
+  commentId: M:Unosquare.Swan.TaskExtensions.Await``1(System.Threading.Tasks.Task{``0})
+  name.vb: Await(Of TResult)(Task(Of TResult))
+  fullName: Unosquare.Swan.TaskExtensions.Await<TResult>(System.Threading.Tasks.Task<TResult>)
+  fullName.vb: Unosquare.Swan.TaskExtensions.Await(Of TResult)(System.Threading.Tasks.Task(Of TResult))
+  nameWithType: TaskExtensions.Await<TResult>(Task<TResult>)
+  nameWithType.vb: TaskExtensions.Await(Of TResult)(Task(Of TResult))
+- uid: Unosquare.Swan.TaskExtensions.Await``1(System.Threading.Tasks.Task{``0},System.Boolean)
+  name: Await<TResult>(Task<TResult>, Boolean)
+  href: api/Unosquare.Swan.TaskExtensions.html#Unosquare_Swan_TaskExtensions_Await__1_System_Threading_Tasks_Task___0__System_Boolean_
+  commentId: M:Unosquare.Swan.TaskExtensions.Await``1(System.Threading.Tasks.Task{``0},System.Boolean)
+  name.vb: Await(Of TResult)(Task(Of TResult), Boolean)
+  fullName: Unosquare.Swan.TaskExtensions.Await<TResult>(System.Threading.Tasks.Task<TResult>, System.Boolean)
+  fullName.vb: Unosquare.Swan.TaskExtensions.Await(Of TResult)(System.Threading.Tasks.Task(Of TResult), System.Boolean)
+  nameWithType: TaskExtensions.Await<TResult>(Task<TResult>, Boolean)
+  nameWithType.vb: TaskExtensions.Await(Of TResult)(Task(Of TResult), Boolean)
 - uid: Unosquare.Swan.Terminal
   name: Terminal
   href: api/Unosquare.Swan.Terminal.html

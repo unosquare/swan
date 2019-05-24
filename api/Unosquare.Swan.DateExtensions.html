@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DateExtensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.42.3.0">
+    <meta name="generator" content="docfx 2.42.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -81,7 +81,7 @@
   
   <h1 id="Unosquare_Swan_DateExtensions" data-uid="Unosquare.Swan.DateExtensions" class="text-break">Class DateExtensions
   </h1>
-  <div class="markdown level0 summary"><p>Provides various extension methods for dates.</p>
+  <div class="markdown level0 summary"><p>Provides extension methods for <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -129,7 +129,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime date, int? minute = default(int? ), int? hour = default(int? ), int? dayOfMonth = default(int? ), int? month = default(int? ), int? dayOfWeek = default(int? ))</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime this, int? minute = default(int? ), int? hour = default(int? ), int? dayOfMonth = default(int? ), int? month = default(int? ), int? dayOfWeek = default(int? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,8 +143,8 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><span class="parametername">date</span></td>
-        <td><p>The date.</p>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
 </td>
       </tr>
       <tr>
@@ -204,7 +204,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime date, string minute = &quot;*&quot;, string hour = &quot;*&quot;, string dayOfMonth = &quot;*&quot;, string month = &quot;*&quot;, string dayOfWeek = &quot;*&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime this, string minute = &quot;*&quot;, string hour = &quot;*&quot;, string dayOfMonth = &quot;*&quot;, string month = &quot;*&quot;, string dayOfWeek = &quot;*&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -218,8 +218,8 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><span class="parametername">date</span></td>
-        <td><p>The date.</p>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
 </td>
       </tr>
       <tr>
@@ -274,7 +274,7 @@
   
   <a id="Unosquare_Swan_DateExtensions_DateRange_" data-uid="Unosquare.Swan.DateExtensions.DateRange*"></a>
   <h4 id="Unosquare_Swan_DateExtensions_DateRange_System_DateTime_System_DateTime_" data-uid="Unosquare.Swan.DateExtensions.DateRange(System.DateTime,System.DateTime)">DateRange(DateTime, DateTime)</h4>
-  <div class="markdown level1 summary"><p>Creates a date&apos;s range.</p>
+  <div class="markdown level1 summary"><p>Creates a date range.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -497,14 +497,14 @@ the specified year, month, day, hour, minute and second.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_DateExtensions_ToSortableDate_" data-uid="Unosquare.Swan.DateExtensions.ToSortableDate*"></a>
-  <h4 id="Unosquare_Swan_DateExtensions_ToSortableDate_System_DateTime_" data-uid="Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)">ToSortableDate(DateTime)</h4>
-  <div class="markdown level1 summary"><p>Converts the date to a YYYY-MM-DD string.</p>
+  <a id="Unosquare_Swan_DateExtensions_ToRfc1123String_" data-uid="Unosquare.Swan.DateExtensions.ToRfc1123String*"></a>
+  <h4 id="Unosquare_Swan_DateExtensions_ToRfc1123String_System_DateTime_" data-uid="Unosquare.Swan.DateExtensions.ToRfc1123String(System.DateTime)">ToRfc1123String(DateTime)</h4>
+  <div class="markdown level1 summary"><p>Converts a <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> to the <a href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#RFC1123">RFC1123 format</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToSortableDate(this DateTime date)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string ToRfc1123String(this DateTime this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -518,8 +518,56 @@ the specified year, month, day, hour, minute and second.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><span class="parametername">date</span></td>
-        <td><p>The date.</p>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The string representation of <code data-dev-comment-type="paramref" class="paramref">this</code> according to <a href="https://tools.ietf.org/html/rfc1123#page-54">RFC1123</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_DateExtensions_ToRfc1123String_System_DateTime__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If <code data-dev-comment-type="paramref" class="paramref">this</code> is not a UTC date / time, its UTC equivalent is converted, leaving <code data-dev-comment-type="paramref" class="paramref">this</code> unchanged.</p>
+</div>
+  
+  
+  <a id="Unosquare_Swan_DateExtensions_ToSortableDate_" data-uid="Unosquare.Swan.DateExtensions.ToSortableDate*"></a>
+  <h4 id="Unosquare_Swan_DateExtensions_ToSortableDate_System_DateTime_" data-uid="Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)">ToSortableDate(DateTime)</h4>
+  <div class="markdown level1 summary"><p>Converts the date to a YYYY-MM-DD string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToSortableDate(this DateTime this)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
 </td>
       </tr>
     </tbody>
@@ -549,7 +597,7 @@ the specified year, month, day, hour, minute and second.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToSortableDateTime(this DateTime date)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string ToSortableDateTime(this DateTime this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -563,8 +611,8 @@ the specified year, month, day, hour, minute and second.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><span class="parametername">date</span></td>
-        <td><p>The date.</p>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
 </td>
       </tr>
     </tbody>
@@ -594,7 +642,7 @@ the specified year, month, day, hour, minute and second.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static long ToUnixEpochDate(this DateTime date)</code></pre>
+    <pre><code class="lang-csharp hljs">public static long ToUnixEpochDate(this DateTime this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -608,8 +656,8 @@ the specified year, month, day, hour, minute and second.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
-        <td><span class="parametername">date</span></td>
-        <td><p>The date to convert.</p>
+        <td><span class="parametername">this</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a> on which this method is called.</p>
 </td>
       </tr>
     </tbody>
