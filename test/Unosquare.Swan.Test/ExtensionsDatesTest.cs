@@ -225,4 +225,16 @@
             });
         }
     }
+
+    [TestFixture]
+    public class ToRfc1123String
+    {
+        private readonly DateTime _date = new DateTime(2002, 7, 3, 12, 0, 0, 200, DateTimeKind.Utc);
+
+        [Test]
+        public void WithValidDate_ReturnsRfc1123String()
+        {
+            Assert.AreEqual("Wed, 03 Jul 2002 12:00:00 GMT", _date.ToRfc1123String());
+        }
+    }
 }
