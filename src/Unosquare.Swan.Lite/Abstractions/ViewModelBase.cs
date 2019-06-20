@@ -46,7 +46,7 @@
         /// <param name="propertyName">Name of the property used to notify listeners.  This
         /// value is optional and can be provided automatically when invoked from compilers that
         /// support CallerMemberName.</param>
-        /// <param name="notifyAlso">An rray of property names to notify in addition to notifying the changes on the current property name.</param>
+        /// <param name="notifyAlso">An array of property names to notify in addition to notifying the changes on the current property name.</param>
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "", string[] notifyAlso = null)

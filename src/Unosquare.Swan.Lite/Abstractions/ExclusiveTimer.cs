@@ -52,7 +52,7 @@
         public ExclusiveTimer(TimerCallback timerCallback)
             : this(timerCallback, null, Timeout.Infinite, Timeout.Infinite)
         {
-            // placholder
+            // placeholder
         }
 
         /// <summary>

@@ -5,7 +5,6 @@ namespace Unosquare.Swan.Reflection
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using Abstractions;
-    using System.Collections.Concurrent;
 
     /// <summary>
     /// Represents a generic class to store getters and setters.
@@ -25,6 +24,9 @@ namespace Unosquare.Swan.Reflection
         /// <param name="property">The property.</param>
         public PropertyProxy(PropertyInfo property)
         {
+            if (property == null)
+                throw new ArgumentNullException(nameof(property));
+
             var getterInfo = property.GetGetMethod(false);
             if (getterInfo != null)
                 _getter = (Func<TClass, TProperty>)Delegate.CreateDelegate(typeof(Func<TClass, TProperty>), getterInfo);
