@@ -14957,6 +14957,12 @@ references:
   commentId: M:Unosquare.Swan.Terminal.ReadLine
   fullName: Unosquare.Swan.Terminal.ReadLine()
   nameWithType: Terminal.ReadLine()
+- uid: Unosquare.Swan.Terminal.ReadLine(System.String)
+  name: ReadLine(String)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadLine_System_String_
+  commentId: M:Unosquare.Swan.Terminal.ReadLine(System.String)
+  fullName: Unosquare.Swan.Terminal.ReadLine(System.String)
+  nameWithType: Terminal.ReadLine(String)
 - uid: Unosquare.Swan.Terminal.ReadLine*
   name: ReadLine
   href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadLine_
@@ -14977,15 +14983,15 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Terminal.ReadNumber
   nameWithType: Terminal.ReadNumber
-- uid: Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.Dictionary{System.ConsoleKey,System.String},System.String)
-  name: ReadPrompt(String, Dictionary<ConsoleKey, String>, String)
-  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadPrompt_System_String_System_Collections_Generic_Dictionary_System_ConsoleKey_System_String__System_String_
-  commentId: M:Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.Dictionary{System.ConsoleKey,System.String},System.String)
-  name.vb: ReadPrompt(String, Dictionary(Of ConsoleKey, String), String)
-  fullName: Unosquare.Swan.Terminal.ReadPrompt(System.String, System.Collections.Generic.Dictionary<System.ConsoleKey, System.String>, System.String)
-  fullName.vb: Unosquare.Swan.Terminal.ReadPrompt(System.String, System.Collections.Generic.Dictionary(Of System.ConsoleKey, System.String), System.String)
-  nameWithType: Terminal.ReadPrompt(String, Dictionary<ConsoleKey, String>, String)
-  nameWithType.vb: Terminal.ReadPrompt(String, Dictionary(Of ConsoleKey, String), String)
+- uid: Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.IDictionary{System.ConsoleKey,System.String},System.String)
+  name: ReadPrompt(String, IDictionary<ConsoleKey, String>, String)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadPrompt_System_String_System_Collections_Generic_IDictionary_System_ConsoleKey_System_String__System_String_
+  commentId: M:Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.IDictionary{System.ConsoleKey,System.String},System.String)
+  name.vb: ReadPrompt(String, IDictionary(Of ConsoleKey, String), String)
+  fullName: Unosquare.Swan.Terminal.ReadPrompt(System.String, System.Collections.Generic.IDictionary<System.ConsoleKey, System.String>, System.String)
+  fullName.vb: Unosquare.Swan.Terminal.ReadPrompt(System.String, System.Collections.Generic.IDictionary(Of System.ConsoleKey, System.String), System.String)
+  nameWithType: Terminal.ReadPrompt(String, IDictionary<ConsoleKey, String>, String)
+  nameWithType.vb: Terminal.ReadPrompt(String, IDictionary(Of ConsoleKey, String), String)
 - uid: Unosquare.Swan.Terminal.ReadPrompt*
   name: ReadPrompt
   href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_ReadPrompt_

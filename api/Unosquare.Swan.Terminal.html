@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Terminal
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.43.1.0">
+    <meta name="generator" content="docfx 2.43.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -1638,6 +1638,51 @@ This is useful for services and daemons that are running as console applications
   </table>
   
   
+  <a id="Unosquare_Swan_Terminal_ReadLine_" data-uid="Unosquare.Swan.Terminal.ReadLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadLine_System_String_" data-uid="Unosquare.Swan.Terminal.ReadLine(System.String)">ReadLine(String)</h4>
+  <div class="markdown level1 summary"><p>Reads a line from the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ReadLine(this string prompt)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The read line.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Terminal_ReadNumber_" data-uid="Unosquare.Swan.Terminal.ReadNumber*"></a>
   <h4 id="Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32)">ReadNumber(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Reads a number from the input. If unable to parse, it returns the default number.</p>
@@ -1690,13 +1735,13 @@ This is useful for services and daemons that are running as console applications
   
   
   <a id="Unosquare_Swan_Terminal_ReadPrompt_" data-uid="Unosquare.Swan.Terminal.ReadPrompt*"></a>
-  <h4 id="Unosquare_Swan_Terminal_ReadPrompt_System_String_System_Collections_Generic_Dictionary_System_ConsoleKey_System_String__System_String_" data-uid="Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.Dictionary{System.ConsoleKey,System.String},System.String)">ReadPrompt(String, Dictionary&lt;ConsoleKey, String&gt;, String)</h4>
+  <h4 id="Unosquare_Swan_Terminal_ReadPrompt_System_String_System_Collections_Generic_IDictionary_System_ConsoleKey_System_String__System_String_" data-uid="Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.IDictionary{System.ConsoleKey,System.String},System.String)">ReadPrompt(String, IDictionary&lt;ConsoleKey, String&gt;, String)</h4>
   <div class="markdown level1 summary"><p>Creates a table prompt where the user can enter an option based on the options dictionary provided.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary&lt;ConsoleKey, string&gt; options, string anyKeyOption)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadPrompt(this string title, IDictionary&lt;ConsoleKey, string&gt; options, string anyKeyOption)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1715,7 +1760,7 @@ This is useful for services and daemons that are running as console applications
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekey">ConsoleKey</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekey">ConsoleKey</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">options</span></td>
         <td><p>The options.</p>
 </td>
