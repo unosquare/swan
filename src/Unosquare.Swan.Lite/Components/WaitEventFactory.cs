@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Components
     ///         // send second signal
     ///         waitEvent.Complete();
     ///             
-    ///         Console.Readline();
+    ///         Terminal.Readline();
     ///     }
     ///         
     ///     public static void DoWork(int taskNumber)

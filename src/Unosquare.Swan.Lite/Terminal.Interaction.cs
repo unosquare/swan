@@ -54,8 +54,7 @@
             {
                 if (prompt != null)
                 {
-                    ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
-                        $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
+                    $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} ".Write(ConsoleColor.White);
                 }
 
                 var input = ReadKey(true);
@@ -103,6 +102,23 @@
         }
 
         /// <summary>
+        /// Reads a line from the input.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns>The read line.</returns>
+        public static string ReadLine(this string prompt)
+        {
+            if (IsConsolePresent == false) return null;
+
+            lock (SyncLock)
+            {
+                $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt}: ".Write(ConsoleColor.White);
+
+                return ReadLine();
+            }
+        }
+
+        /// <summary>
         /// Reads a number from the input. If unable to parse, it returns the default number.
         /// </summary>
         /// <param name="prompt">The prompt.</param>
@@ -116,7 +132,7 @@
 
             lock (SyncLock)
             {
-                $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
+                 $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
 
                 var input = ReadLine();
                 return int.TryParse(input, out var parsedInt) ? parsedInt : defaultNumber;
@@ -130,7 +146,10 @@
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
         /// <returns>A value that identifies the console key that was pressed.</returns>
-        public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
+        public static ConsoleKeyInfo ReadPrompt(
+            this string title, 
+            IDictionary<ConsoleKey, string> options,
+            string anyKeyOption)
         {
             if (IsConsolePresent == false) return default;
 
@@ -140,15 +159,17 @@
             var textFormat = "{0," + lineAlign + "}";
 
             // lock the output as an atomic operation
-            lock (SyncLock) 
+            lock (SyncLock)
             {
-                { // Top border
+                {
+                    // Top border
                     Table.TopLeft();
                     Table.Horizontal(-lineAlign);
                     Table.TopRight();
                 }
 
-                { // Title
+                {
+                    // Title
                     Table.Vertical();
                     var titleText = string.Format(
                         textFormat,
@@ -157,7 +178,8 @@
                     Table.Vertical();
                 }
 
-                { // Title Bottom
+                {
+                    // Title Bottom
                     Table.LeftTee();
                     Table.Horizontal(lineLength - 2);
                     Table.RightTee();
@@ -185,7 +207,8 @@
                     Table.Vertical();
                 }
 
-                { // Input section
+                {
+                    // Input section
                     Table.LeftTee();
                     Table.Horizontal(lineLength - 2);
                     Table.RightTee();
@@ -212,5 +235,8 @@
         }
 
         #endregion
+
+        private static string GetNowFormatted() => 
+            $" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}";
     }
 }
