@@ -264,11 +264,7 @@
                     udp.Client.Connect(dns);
 #endif
 
-                    await udp.SendAsync(request.ToArray(), request.Size
-#if NETSTANDARD1_3 
-                    , dns
-#endif
-                    ).ConfigureAwait(false);
+                    await udp.SendAsync(request.ToArray(), request.Size).ConfigureAwait(false);
 
                     var bufferList = new List<byte>();
 

@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     /// <summary>
     /// Represents a generic interface to store getters and setters.
@@ -21,4 +20,3 @@ namespace Unosquare.Swan.Abstractions
         void SetValue(object instance, object value);
     }
 }
-#endif

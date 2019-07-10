@@ -43,12 +43,8 @@
         /// <param name="dailyFile">if set to <c>true</c> a daily file is created, otherwise, only one general file is created.</param>
         public static void Register(string destinationPath = null, bool dailyFile = true)
         {
-            var localPath = destinationPath ??
-#if NETSTANDARD1_3
-            Runtime.LocalStoragePath;
-#else
-            Runtime.EntryAssemblyDirectory;
-#endif
+            var localPath = destinationPath ?? Runtime.EntryAssemblyDirectory;
+
             lock (SyncLock)
             {
                 if (_instance == null)

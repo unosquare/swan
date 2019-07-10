@@ -7,9 +7,7 @@
     /// An exception thrown when the DNS query fails.
     /// </summary>
     /// <seealso cref="System.Exception" />
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public class DnsQueryException : Exception
     {
         internal DnsQueryException(string message)

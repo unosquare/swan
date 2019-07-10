@@ -1,9 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
-#if NETSTANDARD1_3
-    using System.Reflection;
-#endif
 
     /// <summary>
     /// Represents an active subscription to a message.

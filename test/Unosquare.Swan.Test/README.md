@@ -5,7 +5,6 @@ If you need to run the unit tests, you need to start some Nodejs support service
 ```
 # npm install
 # node ./mail.js &
-# node ./ldap.js &
 # node ./web.js &
 # node ./tcp.js &
 # node ./ntp.js &

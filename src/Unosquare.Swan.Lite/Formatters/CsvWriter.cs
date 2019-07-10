@@ -392,25 +392,7 @@
 
             WriteLine(GetFilteredDictionary(dictionary, true));
         }
-
-#if NET461
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="item">The object to extract headings.</param>
-        /// <exception cref="ArgumentNullException">item</exception>
-        /// <exception cref="ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
-        public void WriteHeadings(dynamic item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            if (!(item is IDictionary<string, object> dictionary))
-                throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
-
-            WriteHeadings(dictionary);
-        }
-#else
+        
         /// <summary>
         /// Writes the headings.
         /// </summary>
@@ -423,7 +405,6 @@
 
             WriteHeadings(obj.GetType());
         }
-#endif
 
         #endregion
 

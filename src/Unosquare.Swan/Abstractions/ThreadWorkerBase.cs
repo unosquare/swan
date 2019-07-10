@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3 
-namespace Unosquare.Swan.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Threading;
@@ -300,4 +299,3 @@ namespace Unosquare.Swan.Abstractions
         }
     }
 }
-#endif

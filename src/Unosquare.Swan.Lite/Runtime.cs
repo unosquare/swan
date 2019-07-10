@@ -4,18 +4,12 @@
     using System;
     using System.IO;
     using System.Threading;
-#if !NETSTANDARD1_3 
     using System.Reflection;
-#endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
     /// </summary>
-#if !NETSTANDARD1_3 
     public class Runtime : MarshalByRefObject
-#else
-    public static class Runtime
-#endif
     {
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
@@ -31,7 +25,6 @@
         private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
-#if !NETSTANDARD1_3 
         private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
         {
             var attribute =
@@ -52,21 +45,16 @@
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute?.Trademark ?? string.Empty;
         });
-#endif
 
         private static readonly Lazy<ArgumentParser> _argumentParser =
             new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
-        
-#if !NETSTANDARD1_3 
+
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
-#else
-        private const string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
-#endif
 
         private static readonly object SyncLock = new object();
-        
+
         private static OperatingSystem? _oS;
 
         #region Properties
@@ -167,7 +155,6 @@
         /// </value>
         public static ObjectValidator ObjectValidator => _objectValidator.Value;
 
-#if !NETSTANDARD1_3 
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
@@ -228,7 +215,6 @@
         /// The product trademark.
         /// </value>
         public static string ProductTrademark => ProductTrademarkLazy.Value;
-#endif
 
         /// <summary>
         /// Gets a local storage path with a version.
@@ -240,7 +226,6 @@
         {
             get
             {
-#if !NETSTANDARD1_3 
                 var localAppDataPath =
 #if NET461
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -250,9 +235,6 @@
 #endif
 
                 var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
-#else
-                var returnPath = Directory.GetCurrentDirectory(); // Use current path...
-#endif
 
                 if (Directory.Exists(returnPath) == false)
                 {
@@ -262,7 +244,7 @@
                 return returnPath;
             }
         }
-        
+
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>
@@ -283,7 +265,6 @@
 
         #region Methods
 
-#if !NETSTANDARD1_3 
         /// <summary>
         /// Writes a standard banner to the standard output
         /// containing the company name, product name, assembly version and trademark.
@@ -318,7 +299,6 @@
                 filename);
             return Path.GetFullPath(pathWithFilename);
         }
-#endif
 
         #endregion
     }

@@ -481,7 +481,6 @@
             return false;
         }
 
-#if !NETSTANDARD1_3
         /// <summary>
         /// Creates a property proxy that stores getter and setter delegates.
         /// </summary>
@@ -494,7 +493,6 @@
 
             return Activator.CreateInstance(genericType, propertyInfo) as IPropertyProxy;
         }
-#endif
 
         /// <summary>
         /// Convert a object to a boolean.

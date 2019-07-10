@@ -15,7 +15,6 @@ install:
   - dotnet restore
 script:
   - node ./mail.js &
-  - node ./ldap.js &
   - node ./web.js &
   - node ./tcp.js &
   - node ./ntp.js &

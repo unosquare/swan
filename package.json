@@ -4,7 +4,6 @@
   "description": "Support packages for SWAN Unit Testing",
   "dependencies": {
     "express": "^4.16.3",
-    "ldapjs": "^1.0.2",
     "smtp-server": "^3.4.6"
   },
   "devDependencies": {},

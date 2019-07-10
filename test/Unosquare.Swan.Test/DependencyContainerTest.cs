@@ -11,7 +11,6 @@
     [TestFixture]
     public class AutoRegister
     {
-#if !NETSTANDARD1_3 
         [Test]
         public void WithFailDependencyContainer_ThrowsDependencyContainerRegistrationException()
         {
@@ -33,7 +32,6 @@
                 Assert.AreEqual(new TheOnlyCar().Name, DependencyContainer.Current.Resolve<ICar>().Name);
             });
         }
-#endif
 
         [Test]
         public void WithAssemblies_ResolvesIAnimal()

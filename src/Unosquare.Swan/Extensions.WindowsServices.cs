@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
     using System;
     using System.Collections.Generic;
@@ -77,4 +76,3 @@ namespace Unosquare.Swan
         }
     }
 }
-#endif

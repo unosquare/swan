@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
     using System;
@@ -23,4 +22,3 @@ namespace Unosquare.Swan.Test
         }
     }
 }
-#endif

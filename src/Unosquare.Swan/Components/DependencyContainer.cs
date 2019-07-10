@@ -72,7 +72,6 @@
 
         #region Registration
 
-#if !NETSTANDARD1_3 
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
         /// Types will only be registered if they pass the supplied registration predicate.
@@ -89,7 +88,6 @@
                 duplicateAction,
                 registrationPredicate);
         }
-#endif
 
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the specified assemblies
@@ -704,7 +702,6 @@
             return true;
         }
 
-#if !NETSTANDARD1_3 
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
             // TODO - find a better way to remove "system" assemblies from the auto registration
@@ -722,7 +719,6 @@
 
             return ignoreChecks.Any(check => check(assembly));
         }
-#endif
 
         private static bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
         {

@@ -150,9 +150,6 @@
             // Setup continuous reading mode if enabled
             if (disableContinuousReading) return;
 
-#if NETSTANDARD1_3
-            ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
-#else
             ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
             ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var _);
 
@@ -166,7 +163,6 @@
             {
                 new Thread(PerformContinuousReading) { IsBackground = true }.Start();
             }
-#endif
         }
 
         /// <summary>

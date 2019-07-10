@@ -34,9 +34,7 @@
         private readonly Stopwatch _delayStopwatch = new Stopwatch();
 
         private bool _isDisposed;
-#if !NETSTANDARD1_3 
         private IWaitEvent _delayEvent;
-#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
@@ -93,11 +91,9 @@
                     case DelayStrategy.TaskDelay:
                         DelayTask();
                         break;
-#if !NETSTANDARD1_3 
                     case DelayStrategy.ThreadPool:
                         DelayThreadPool();
                         break;
-#endif
                 }
 
                 return _delayStopwatch.Elapsed;
@@ -113,9 +109,8 @@
             {
                 if (_isDisposed) return;
                 _isDisposed = true;
-#if !NETSTANDARD1_3 
+
                 _delayEvent?.Dispose();
-#endif
             }
         }
 
@@ -127,7 +122,6 @@
 
         private static void DelayTask() => Task.Delay(1).Wait();
 
-#if !NETSTANDARD1_3 
         private void DelayThreadPool()
         {
             if (_delayEvent == null)
@@ -142,7 +136,7 @@
 
             _delayEvent.Wait();
         }
-#endif
+      
         #endregion
     }
 }

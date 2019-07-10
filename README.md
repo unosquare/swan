@@ -64,7 +64,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [FunctionalExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Json](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [JsonClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html) | :x: | :heavy_check_mark: |
-| [LdapConnection](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html) | :x: | :heavy_check_mark: |
 | [MessageHub](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
 | [Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html) | :x: | :heavy_check_mark: |
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
@@ -709,93 +708,9 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
 ``` 
 
 ### The `LDAPConnection` class
-The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
-[LdapConnection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html)
+The LDAP Client was moved to a standalone assembly at [SWAN LDAP](https://github.com/unosquare/swan-ldap).
 
-#### Operations
-LDAP has a couple of operations that can be executed
-
-
-* **Bind**: binds the current connection to a set of  credentials
-* **Unbind or Disconnect**: signals the server that the connection is about to close then the server proceeds to close the connection to the client
-* **Modify**: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :
-  * **Add**: inserts a new entry into the directory 
-  * **Delete**: deletes an entry from the directory
-   * **Replace**: modifies an existing property value
-   
-#### Example 1: Connecting to a LDAP Server
-A connection to a LDAP server is a two-step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two-step action allows us to reset the authorization state using the same connection. 
-
-```csharp
- // Create a  LdapConnection variable
- var connection = new LdapConnection();
- 
- // Connect to a server with a deafult port 
- await connection.Connect("ldap.forumsys.com", 389);
- 
- // Set up the credentials 
- await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
-```
-#### Example 2: Reading all the properties of an entry
-After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
-```csharp
-// Get all properties of 'tesla'
- var properties = await connection.Read("uid=tesla,dc=example,dc=com");
- 
- // After getting all properties from an entry select its email and print it
- properties.GetAttribute("mail").StringValue.Info();
-```
-#### Example 3: Searching entries
- There are three scopes for searching entries :
-1. **ScopeBase**: searches only at the base dn
-2. **ScopeOne**: searches all entries one level under the specified dn
-3. **ScopeSub**: as mentioned above this allows to search entries at all levels
-
-```csharp
-// Retrieve all entries that have the specified email using ScopeSub 
-// which searches all entries at all levels under and including the specified base DN
-var searchResult = await connection.Search("dc=example,dc=com",LdapConnection.ScopeSub,"(cn=Isaac Newton)");
-
-// If there are more entries remaining
-  while (searchResult.HasMore())
-  {
-      // Point to the next entry
-      var entry = searchResult.Next();
-      
-      // Get all attributes 
-      var entryAttributes = entry.GetAttributeSet();
-      
-      // Select its email and print it
-      entryAttributes.GetAttribute("cn").StringValue.Info();
-  }
-```
- #### Example 4: Modifying an entry attribute 
-An easy way to deal with attributes modification is by calling the Modify method with a `LdapModificationOp` such as:
-* **Replace**: overrides an attribute value. 
-   * If the attribute does not exist it creates a new one
-   * If no value is passed the entire attribute is deleted
-* **Delete** : deletes a value from an attribute.
-   * If no values are listed or if all of them are the entire attribute is removed
-* **Add**: adds a new value to an attribute 
-   * If the attribute does not exist a new one is created
- ```csharp
- // Modify Tesla and sets its email as tesla@email.com
- connection.Modify("uid=tesla,dc=example,dc=com", 
-    new[] { new LdapModification(LdapModificationOp.Replace, "mail", "tesla@email.com") });
-    
-   // Deletes the listed values from the given attribute
- connection.Modify("uid=tesla,dc=example,dc=com", 
-    new[] { new LdapModification(LdapModificationOp.Delete, "mail", "tesla@email.com") });
-
- // Add back the recently deleted property
- connection.Modify("uid=tesla,dc=example,dc=com", 
-    new[] { new LdapModification(LdapModificationOp.Add, "mail", "tesla@email.com") });
-
-
- // disconnect from the LDAP server
- connection.Disconnect();
- ```
 ### The `ProcessRunner` class
 A class that provides methods that helps us create external processes and capture their output. 
 
@@ -1096,7 +1011,6 @@ Before running them, please execute `npm install`. This command will install all
 The following files, located in the root folder, should be run in any order before start running unit tests:
 
 * `./mail.js` - This script will mount a SMTP server, this service is required to run `SmtpClient` tests.
-* `./ldap.js` - This script will provide a limited LDAP server with basic functionality to be used with `LdapClient`.
 * `./web.js` -  This script will provide a web server responding JSON files for `JsonClient` tests.
 * `./tcp.js` - This script will open a basic TCP Socket for `TcpConnection` tests.
 * `./ntp.js` - This script will mount a NTP server for general `Network` methods.

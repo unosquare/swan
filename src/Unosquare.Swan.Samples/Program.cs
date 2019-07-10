@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
     using Components;
-    using Networking.Ldap;
     using Formatters;
     using System;
     using System.Collections.Generic;
@@ -29,7 +28,6 @@
 
             TimerControl.Instance.Wait(timeSpan);
 
-            await TestLdapSearch();
             TestApplicationInfo();
             await TestTerminalOutputs();
             await TestNetworkUtilities();
@@ -40,31 +38,6 @@
             TestCsvFormatters();
             Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
-        }
-
-        private static async Task TestLdapSearch()
-        {
-            try
-            {
-                using (var cn = new LdapConnection())
-                {
-                    await cn.Connect("ldap.forumsys.com", 389);
-                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapScope.ScopeSub);
-
-                    while (lsc.HasMore())
-                    {
-                        var entry = lsc.Next();
-                        var ldapAttributes = entry.GetAttributeSet();
-
-                        $"{ldapAttributes["uniqueMember"]?.StringValue ?? string.Empty}".Info();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.Error(nameof(Main), "Error LDAP");
-            }
         }
 
         private static void TestExceptionLogging()

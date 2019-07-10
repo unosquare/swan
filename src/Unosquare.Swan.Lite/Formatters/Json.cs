@@ -6,9 +6,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Attributes;
-#if NETSTANDARD1_3
-    using System.Reflection;
-#endif
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario

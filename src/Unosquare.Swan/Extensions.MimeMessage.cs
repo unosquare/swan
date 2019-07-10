@@ -1,5 +1,4 @@
-﻿#if NET461 || NETSTANDARD2_0 
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
     using System;
     using System.IO;
@@ -54,4 +53,3 @@ namespace Unosquare.Swan
         }
     }
 }
-#endif

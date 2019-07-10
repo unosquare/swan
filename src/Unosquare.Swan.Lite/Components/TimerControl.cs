@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Threading;
@@ -60,4 +59,3 @@ namespace Unosquare.Swan.Components
             WaitUntil(DateTime.UtcNow.Add(waitTime), ct);
     }
 }
-#endif

@@ -30,7 +30,6 @@ before_build:
         }
 - npm i npm@latest -g
 - npm install -q
-- ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
@@ -69,7 +68,6 @@ after_build:
             CD ..
         }
 on_finish:
-- ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id

@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3
-namespace Unosquare.Swan.Reflection
+﻿namespace Unosquare.Swan.Reflection
 {
     using System;
     using System.Reflection;
@@ -47,4 +46,3 @@ namespace Unosquare.Swan.Reflection
             _setter(instance as TClass, (TProperty)value);
     }
 }
-#endif

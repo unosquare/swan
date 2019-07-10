@@ -2,11 +2,7 @@
 {
     using System;
     using System.Linq;
-#if !NETSTANDARD1_3
     using System.Net.Mail;
-#else
-    using Exceptions;
-#endif
 
     /// <summary>
     /// Use this class to store the sender session data.

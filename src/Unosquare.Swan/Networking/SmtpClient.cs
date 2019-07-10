@@ -10,11 +10,7 @@
     using System.Net.Security;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-#if !NETSTANDARD1_3
     using System.Net.Mail;
-#else
-    using Exceptions;
-#endif
 
     /// <summary>
     /// Represents a basic SMTP client that is capable of submitting messages to an SMTP server.
@@ -149,7 +145,6 @@
         /// </value>
         public string ClientHostname { get; set; }
 
-#if !NETSTANDARD1_3
         /// <summary>
         /// Sends an email message asynchronously.
         /// </summary>
@@ -193,7 +188,6 @@
 
             return SendMailAsync(state, sessionId, callback, cancellationToken);
         }
-#endif
 
         /// <summary>
         /// Sends an email message using a session state object.

@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3 
-namespace Unosquare.Swan.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Collections.Generic;
@@ -166,4 +165,3 @@ namespace Unosquare.Swan.Abstractions
         protected abstract void DoBackgroundWork(CancellationToken cancellationToken);
     }
 }
-#endif
