@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
+    using JetBrains.Annotations;
     using Exceptions;
     using System;
     using System.Collections.Generic;
@@ -288,13 +289,11 @@
         /// <param name="name">Name of registration.</param>
         /// <returns>RegisterOptions for fluent API.</returns>
         public RegisterOptions Register<TRegister>(
-            Func<DependencyContainer, Dictionary<string, object>, TRegister> factory, string name = "")
+            [NotNull] Func<DependencyContainer, Dictionary<string, object>, TRegister> factory, string name = "")
             where TRegister : class
         {
             if (factory == null)
-            {
                 throw new ArgumentNullException(nameof(factory));
-            }
 
             return Register(typeof(TRegister), factory, name);
         }
@@ -318,7 +317,7 @@
         /// <param name="registrationType">Type that each implementation implements.</param>
         /// <param name="implementationTypes">Types that implement RegisterType.</param>
         /// <returns>MultiRegisterOptions for the fluent API.</returns>
-        public MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable<Type> implementationTypes)
+        public MultiRegisterOptions RegisterMultiple([NotNull] Type registrationType, [NotNull] IEnumerable<Type> implementationTypes)
         {
             if (implementationTypes == null)
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");

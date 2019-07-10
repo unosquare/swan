@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
+    using JetBrains.Annotations;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -219,7 +220,7 @@
         /// Value type will be -1 for forceful termination of the process.
         /// </returns>
         public static Task<int> RunProcessAsync(
-            string filename,
+            [NotNull] string filename,
             string arguments,
             string workingDirectory,
             ProcessDataReceivedCallback onOutputData,

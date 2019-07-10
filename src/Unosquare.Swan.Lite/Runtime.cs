@@ -1,10 +1,11 @@
 ﻿namespace Unosquare.Swan
 {
     using Components;
+    using JetBrains.Annotations;
     using System;
     using System.IO;
-    using System.Threading;
     using System.Reflection;
+    using System.Threading;
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
@@ -290,13 +291,14 @@
         /// The fully qualified location of path, such as "C:\MyFile.txt".
         /// </returns>
         /// <exception cref="ArgumentNullException">filename.</exception>
-        public static string GetDesktopFilePath(string filename)
+        public static string GetDesktopFilePath([NotNull] string filename)
         {
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename));
 
             var pathWithFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 filename);
+
             return Path.GetFullPath(pathWithFilename);
         }
 

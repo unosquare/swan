@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Base class for messages that provides weak reference storage of the sender.
@@ -19,7 +20,7 @@
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <exception cref="System.ArgumentNullException">sender.</exception>
-        protected MessageHubMessageBase(object sender)
+        protected MessageHubMessageBase([NotNull] object sender)
         {
             if (sender == null)
                 throw new ArgumentNullException(nameof(sender));

@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
+    using JetBrains.Annotations;
     using Formatters;
     using Reflection;
     using System;
@@ -106,7 +107,7 @@
         /// A list of settings of type ref="ExtendedPropertyInfo".
         /// </returns>
         /// <exception cref="ArgumentNullException">propertyList.</exception>
-        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
+        public List<string> RefreshFromList([ItemNotNull] List<ExtendedPropertyInfo<T>> propertyList)
         {
             if (propertyList == null)
                 throw new ArgumentNullException(nameof(propertyList));

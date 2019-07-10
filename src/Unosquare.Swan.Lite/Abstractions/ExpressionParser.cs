@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
+    using JetBrains.Annotations;
     using System;
     using System.Linq;
     using System.Collections.Generic;

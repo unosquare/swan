@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using JetBrains.Annotations;
     using Swan;
     using System;
     using System.Net;
@@ -56,7 +57,7 @@
         /// Initializes a new instance of the <see cref="ConnectionListener"/> class.
         /// </summary>
         /// <param name="listenEndPoint">The listen end point.</param>
-        public ConnectionListener(IPEndPoint listenEndPoint)
+        public ConnectionListener([NotNull] IPEndPoint listenEndPoint)
         {
             Id = Guid.NewGuid();
             LocalEndPoint = listenEndPoint ?? throw new ArgumentNullException(nameof(listenEndPoint));

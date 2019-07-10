@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
+    using JetBrains.Annotations;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -160,8 +161,7 @@
 
         public DelegateFactory(
             Type registerType,
-            Func<DependencyContainer,
-            Dictionary<string, object>, object> factory)
+            [NotNull] Func<DependencyContainer, Dictionary<string, object>, object> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
@@ -203,8 +203,9 @@
 
         private readonly WeakReference _factory;
 
-        public WeakDelegateFactory(Type registerType,
-            Func<DependencyContainer, Dictionary<string, object>, object> factory)
+        public WeakDelegateFactory(
+            Type registerType,
+            [NotNull] Func<DependencyContainer, Dictionary<string, object>, object> factory)
         {
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
