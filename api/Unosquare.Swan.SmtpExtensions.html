@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapControl
+    <title>Class SmtpExtensions
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapControl
+    <meta name="title" content="Class SmtpExtensions
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.43.2.0">
     
@@ -76,22 +76,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.SmtpExtensions">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapControl" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl" class="text-break">Class LdapControl
+  <h1 id="Unosquare_Swan_SmtpExtensions" data-uid="Unosquare.Swan.SmtpExtensions" class="text-break">Class SmtpExtensions
   </h1>
-  <div class="markdown level0 summary"><p>Encapsulates optional additional parameters or constraints to be applied to
-an Ldap operation.
-When included with LdapConstraints or LdapSearchConstraints
-on an LdapConnection or with a specific operation request, it is
-sent to the server along with operation requests.</p>
+  <div class="markdown level0 summary"><p>Extension methods.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">LdapControl</span></div>
+    <div class="level1"><span class="xref">SmtpExtensions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -117,24 +113,23 @@ sent to the server along with operation requests.</p>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapControl_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h5 id="Unosquare_Swan_SmtpExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapControl</code></pre>
+    <pre><code class="lang-csharp hljs">public static class SmtpExtensions</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapControl__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapControl__ctor_System_String_System_Boolean_System_SByte___" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.#ctor(System.String,System.Boolean,System.SByte[])">LdapControl(String, Boolean, SByte[])</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a> class.
-Constructs a new LdapControl object using the specified values.</p>
+  <a id="Unosquare_Swan_SmtpExtensions_ToMimeMessage_" data-uid="Unosquare.Swan.SmtpExtensions.ToMimeMessage*"></a>
+  <h4 id="Unosquare_Swan_SmtpExtensions_ToMimeMessage_MailMessage_" data-uid="Unosquare.Swan.SmtpExtensions.ToMimeMessage(MailMessage)">ToMimeMessage(MailMessage)</h4>
+  <div class="markdown level1 summary"><p>The raw contents of this MailMessage as a MemoryStream.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapControl(string oid, bool critical, sbyte[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MemoryStream ToMimeMessage(this MailMessage self)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -147,112 +142,13 @@ Constructs a new LdapControl object using the specified values.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">oid</span></td>
-        <td><p>The OID of the control, as a dotted string.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">critical</span></td>
-        <td><p>True if the Ldap operation should be discarded if
-the control is not supported. False if
-the operation can be processed without the control.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.sbyte">SByte</a>[]</td>
-        <td><span class="parametername">values</span></td>
-        <td><p>The control-specific data.</p>
+        <td><span class="xref">MailMessage</span></td>
+        <td><span class="parametername">self</span></td>
+        <td><p>The caller.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
-        <td><p>An OID must be specified.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapControl_Critical_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Critical*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapControl_Critical" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Critical">Critical</h4>
-  <div class="markdown level1 summary"><p>Returns whether the control is critical for the operation.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Critical { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if critical; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapControl_Id_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Id*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapControl_Id" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Id">Id</h4>
-  <div class="markdown level1 summary"><p>Returns the identifier of the control.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>The identifier.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapControl_GetValue_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.GetValue*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapControl_GetValue" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.GetValue">GetValue()</h4>
-  <div class="markdown level1 summary"><p>Returns the control-specific data of the object.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sbyte[] GetValue()</code></pre>
-  </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -263,47 +159,8 @@ the operation can be processed without the control.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.sbyte">SByte</a>[]</td>
-        <td><p>The control-specific data of the object as a byte array,
-or null if the control has no data.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapControl_Register_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Register*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapControl_Register_System_String_System_Type_" data-uid="Unosquare.Swan.Networking.Ldap.LdapControl.Register(System.String,System.Type)">Register(String, Type)</h4>
-  <div class="markdown level1 summary"><p>Registers a class to be instantiated on receipt of a control with the
-given OID.
-Any previous registration for the OID is overridden. The
-controlClass must be an extension of LdapControl.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Register(string oid, Type controlClass)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">oid</span></td>
-        <td><p>The object identifier of the control.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">controlClass</span></td>
-        <td><p>A class which can instantiate an LdapControl.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.memorystream">MemoryStream</a></td>
+        <td><p>A MemoryStream with the raw contents of this MailMessage.</p>
 </td>
       </tr>
     </tbody>
