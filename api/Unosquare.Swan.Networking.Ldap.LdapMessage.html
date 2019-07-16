@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SmtpExtensions
+    <title>Class LdapMessage
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SmtpExtensions
+    <meta name="title" content="Class LdapMessage
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.43.2.0">
+    <meta name="generator" content="docfx 2.43.3.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -76,24 +76,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.SmtpExtensions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage">
   
   
-  <h1 id="Unosquare_Swan_SmtpExtensions" data-uid="Unosquare.Swan.SmtpExtensions" class="text-break">Class SmtpExtensions
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapMessage" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage" class="text-break">Class LdapMessage
   </h1>
-  <div class="markdown level0 summary"><p>Extension methods.</p>
+  <div class="markdown level0 summary"><p>The base class for Ldap request and response messages.
+Subclassed by response messages used in asynchronous operations.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">SmtpExtensions</span></div>
+    <div class="level1"><span class="xref">LdapMessage</span></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
-    </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
     </div>
@@ -113,42 +114,113 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
-  <h5 id="Unosquare_Swan_SmtpExtensions_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapMessage_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class SmtpExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public class LdapMessage</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_SmtpExtensions_ToMimeMessage_" data-uid="Unosquare.Swan.SmtpExtensions.ToMimeMessage*"></a>
-  <h4 id="Unosquare_Swan_SmtpExtensions_ToMimeMessage_MailMessage_" data-uid="Unosquare.Swan.SmtpExtensions.ToMimeMessage(MailMessage)">ToMimeMessage(MailMessage)</h4>
-  <div class="markdown level1 summary"><p>The raw contents of this MailMessage as a MemoryStream.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId">MessageId</h4>
+  <div class="markdown level1 summary"><p>Returns the message ID.  The message ID is an integer value
+identifying the Ldap request and its response.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MemoryStream ToMimeMessage(this MailMessage self)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int MessageId { get; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MailMessage</span></td>
-        <td><span class="parametername">self</span></td>
-        <td><p>The caller.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The message identifier.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Request_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Request*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Request" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Request">Request</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the message is a request or a response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Request { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if request; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Tag_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Tag*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Tag" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Tag">Tag</h4>
+  <div class="markdown level1 summary"><p>Retrieves the identifier tag for this message.
+An identifier can be associated with a message with the
+<code>setTag</code> method.
+Tags are set by the application and not by the API or the server.
+If a server response <code>isRequest() == false</code> has no tag,
+the tag associated with the corresponding server request is used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string Tag { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The tag.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -159,12 +231,14 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.memorystream">MemoryStream</a></td>
-        <td><p>A MemoryStream with the raw contents of this MailMessage.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that represents this instance.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a></div>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

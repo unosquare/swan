@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Unosquare.Swan.Networking.Ldap
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Unosquare.Swan.Networking.Ldap
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.43.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap">
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap" data-uid="Unosquare.Swan.Networking.Ldap" class="text-break">Namespace Unosquare.Swan.Networking.Ldap
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></h4>
+      <section><p>The name and values of one attribute of a directory entry.
+LdapAttribute objects are used when searching for, adding,
+modifying, and deleting attributes from the directory.
+LdapAttributes are often used in conjunction with an
+LdapAttributeSet when retrieving or adding multiple
+attributes to an entry.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a></h4>
+      <section><p>A set of LdapAttribute objects.
+An LdapAttributeSet is a collection of LdapAttribute
+classes as returned from an LdapEntry on a search or read
+operation. LdapAttributeSet may be also used to construct an entry
+to be added to a directory.  </p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></h4>
+      <section><p>Represents a simple bind request.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection</a></h4>
+      <section><p>The central class that encapsulates the connection
+to a directory server through the Ldap protocol.
+LdapConnection objects are used to perform common Ldap
+operations such as search, modify and add.
+In addition, LdapConnection objects allow you to bind to an
+Ldap server, set connection and search constraints, and perform
+several other tasks.
+An LdapConnection object is not connected on
+construction and can only be connected to one server at one
+port.</p>
+<p>Based on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a>.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a></h4>
+      <section><p>Encapsulates optional additional parameters or constraints to be applied to
+an Ldap operation.
+When included with LdapConstraints or LdapSearchConstraints
+on an LdapConnection or with a specific operation request, it is
+sent to the server along with operation requests.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></h4>
+      <section><p>Represents a single entry in a directory, consisting of
+a distinguished name (DN) and zero or more attributes.
+An instance of
+LdapEntry is created in order to add an entry to a directory, and
+instances of LdapEntry are returned on a search by enumerating an
+LdapSearchResults.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></h4>
+      <section><p>The base class for Ldap request and response messages.
+Subclassed by response messages used in asynchronous operations.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a></h4>
+      <section><p>A single add, delete, or replace operation to an LdapAttribute.
+An LdapModification contains information on the type of modification
+being performed, the name of the attribute to be replaced, and the new
+value.  Multiple modifications are expressed as an array of modifications,
+i.e., <code>LdapModification[]</code>.
+An LdapModification or an LdapModification array enable you to modify
+an attribute of an Ldap entry. The entire array of modifications must
+be performed by the server as a single atomic operation in the order they
+are listed. No changes are made to the directory unless all the operations
+succeed. If all succeed, a success result is returned to the application.
+It should be noted that if the connection fails during a modification,
+it is indeterminate whether the modification occurred or not.
+There are three types of modification operations: Add, Delete,
+and Replace.
+<strong>Add: </strong>Creates the attribute if it doesn&apos;t exist, and adds
+the specified values. This operation must contain at least one value, and
+all values of the attribute must be unique.
+<strong>Delete: </strong>Deletes specified values from the attribute. If no
+values are specified, or if all existing values of the attribute are
+specified, the attribute is removed. Mandatory attributes cannot be
+removed.
+<strong>Replace: </strong>Creates the attribute if necessary, and replaces
+all existing values of the attribute with the specified values.
+If you wish to keep any existing values of a multi-valued attribute,
+you must include these values in the replace operation.
+A replace operation with no value will remove the entire attribute if it
+exists, and is ignored if the attribute does not exist.
+Additional information on Ldap modifications is available in section 4.6
+of. <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></h4>
+      <section><p>Represents a LDAP Modification Request Message.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResults.html">LdapSearchResults</a></h4>
+      <section><p>An LdapSearchResults object is returned from a synchronous search
+operation. It provides access to all results received during the
+operation (entries and exceptions).</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></h4>
+      <section><p>Ldap Modification Operators.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapScope.html">LdapScope</a></h4>
+      <section><p>LDAP valid scopes.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></h4>
+      <section><p>LDAP Connection Status Code.</p>
+</section>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>
