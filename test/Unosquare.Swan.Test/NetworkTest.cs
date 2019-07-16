@@ -27,7 +27,6 @@
             Assert.ThrowsAsync<DnsQueryException>(() => Network.QueryDnsAsync("invalid.local", DnsRecordType.MX));
         }
 
-        [TestCase(DnsRecordType.TXT)]
         [TestCase(DnsRecordType.MX)]
         [TestCase(DnsRecordType.NS)]
         [TestCase(DnsRecordType.SOA)]
