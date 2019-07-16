@@ -174,7 +174,7 @@
         /// For value types it returns the default value.
         /// </summary>
         /// <returns>Default value of this type.</returns>
-        public object GetDefault() => Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
+        public object GetDefault() => IsValueType ? Activator.CreateInstance(Type) : null;
 
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
@@ -196,16 +196,9 @@
                     return true;
                 }
 
-                if (IsNullableValueType && string.IsNullOrEmpty(s))
+                if ((IsNullableValueType && string.IsNullOrEmpty(s)) || !CanParseNatively)
                 {
-                    result = GetDefault();
                     return true;
-                }
-
-                if (CanParseNatively == false)
-                {
-                    result = GetDefault();
-                    return false;
                 }
 
                 // Build the arguments of the TryParse method
@@ -224,20 +217,19 @@
 
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
-                
-                if ((bool)TryParseMethodInfo.Invoke(null, parseArguments) == false)
-                {
-                    result = GetDefault();
-                    return false;
-                }
 
-                result = parseArguments[parseArguments.Length - 1];
-                return true;
+                if ((bool) TryParseMethodInfo.Invoke(null, parseArguments))
+                {
+                    result = parseArguments[parseArguments.Length - 1];
+                    return true;
+                }
             }
             catch
             {
-                return false;
+                // Ignore
             }
+
+            return false;
         }
 
         /// <summary>
