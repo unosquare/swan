@@ -10,7 +10,7 @@
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
     /// </summary>
-    public class SwanRuntime
+    public static class SwanRuntime
     {
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
