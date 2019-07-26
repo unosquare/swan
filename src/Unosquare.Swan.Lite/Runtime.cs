@@ -14,17 +14,9 @@
     {
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
-#if NET461
-        private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
-#endif
-
-#if NETSTANDARD2_0
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
-#endif
 
-#if NET461
         private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
-#endif
 
         private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
         {
@@ -89,7 +81,6 @@
             }
         }
 
-#if NET461
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
@@ -97,7 +88,6 @@
         /// The process.
         /// </value>
         public static System.Diagnostics.Process Process => ProcessLazy.Value;
-#endif
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
@@ -227,13 +217,8 @@
         {
             get
             {
-                var localAppDataPath =
-#if NET461
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                var localAppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                         EntryAssemblyName.Name);
-#else
-                    Path.GetDirectoryName(EntryAssembly.Location);
-#endif
 
                 var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
 

@@ -118,16 +118,7 @@
         /// </summary>
         /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
         /// <returns>Seconds since Unix epoch.</returns>
-        public static long ToUnixEpochDate(this DateTime @this)
-        {
-#if NETSTANDARD2_0
-            return new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeSeconds();
-#else
-            var epochTicks = new DateTime(1970, 1, 1).Ticks;
-
-            return (@this.Ticks - epochTicks) / TimeSpan.TicksPerSecond;
-#endif
-        }
+        public static long ToUnixEpochDate(this DateTime @this) => new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeSeconds();
 
         /// <summary>
         /// Compares a Date to another and returns a <c>DateTimeSpan</c>.

@@ -66,7 +66,6 @@
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-#if NET461
             var md5 = MD5.Create();
             const int bufferSize = 4096;
 
@@ -89,15 +88,6 @@
             while (readAheadBytesRead != 0);
 
             return md5.Hash;
-#else
-            using (var ms = new MemoryStream())
-            {
-                stream.Position = 0;
-                stream.CopyTo(ms);
-
-                return (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(ms.ToArray());
-            }
-#endif
         }
 
         /// <summary>
