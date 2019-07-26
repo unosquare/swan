@@ -266,16 +266,6 @@
             return result;
         }
 
-        internal static Expression ConvertExpressionTo(Type type, Expression str)
-        {
-            var converter = TypeDescriptor.GetConverter(type);
-            return converter.CanConvertFrom(typeof(string))
-                ? Expression.Convert(
-                    Expression.Call(Expression.Constant(converter), ConvertFromInvariantStringMethod, str),
-                    type)
-                : null;
-        }
-
         private static Func<string[], (bool Success, object Result)> BuildNonGenericTryConvertLambda(Type type)
         {
             var methodInfo = TryConvertToInternalMethod.MakeGenericMethod(type);
