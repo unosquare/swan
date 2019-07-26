@@ -215,7 +215,7 @@ namespace Unosquare.Swan.Components
         private void ReportIssues(Validator validator)
         {
             if (Settings.WriteBanner)
-                Runtime.WriteWelcomeBanner();
+                SwanRuntime.WriteWelcomeBanner();
 
             var options = validator.GetPropertiesOptions();
 

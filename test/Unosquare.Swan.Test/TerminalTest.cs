@@ -8,7 +8,7 @@
         [Test]
         public void ConsolePresent_ReturnsTrue()
         {
-            if (Runtime.OS == OperatingSystem.Windows)
+            if (SwanRuntime.OS == OperatingSystem.Windows)
                 Assert.Ignore("Failing test on Windows");
 
             Assert.IsTrue(Terminal.IsConsolePresent);
@@ -21,7 +21,7 @@
         [Test]
         public void Writers_ReturnsNotEqualWriters()
         {
-            if (Runtime.OS == OperatingSystem.Windows)
+            if (SwanRuntime.OS == OperatingSystem.Windows)
                 Assert.Ignore("Windows doesn't provide writers");
 
             var writers = Terminal.AvailableWriters;

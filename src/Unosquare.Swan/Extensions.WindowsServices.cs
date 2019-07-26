@@ -45,7 +45,7 @@
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
             var serviceThreads = new List<Thread>();
-            "Starting services . . .".Info(Runtime.EntryAssemblyName.Name);
+            "Starting services . . .".Info(SwanRuntime.EntryAssemblyName.Name);
 
             foreach (var service in servicesToRun)
             {
@@ -59,9 +59,9 @@
                 thread.Start();
             }
 
-            "Press any key to stop all services.".Info(Runtime.EntryAssemblyName.Name);
+            "Press any key to stop all services.".Info(SwanRuntime.EntryAssemblyName.Name);
             Terminal.ReadKey(true, true);
-            "Stopping services . . .".Info(Runtime.EntryAssemblyName.Name);
+            "Stopping services . . .".Info(SwanRuntime.EntryAssemblyName.Name);
 
             foreach (var service in servicesToRun)
             {
@@ -72,7 +72,7 @@
             foreach (var thread in serviceThreads)
                 thread.Join();
 
-            "Stopped all services.".Info(Runtime.EntryAssemblyName.Name);
+            "Stopped all services.".Info(SwanRuntime.EntryAssemblyName.Name);
         }
     }
 }

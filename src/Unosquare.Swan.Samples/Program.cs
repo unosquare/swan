@@ -54,9 +54,9 @@
 
         private static void TestApplicationInfo()
         {
-            Runtime.WriteWelcomeBanner();
-            $"Operating System Type: {Runtime.OS}    CLR Type: {(Runtime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
-            $"Local Storage Path: {Runtime.LocalStoragePath}".Info();
+            SwanRuntime.WriteWelcomeBanner();
+            $"Operating System Type: {SwanRuntime.OS}    CLR Type: {(SwanRuntime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
+            $"Local Storage Path: {SwanRuntime.LocalStoragePath}".Info();
         }
 
         private static void TestJson()
@@ -204,8 +204,8 @@
         {
             var action = new Action(() =>
             {
-                var test01FilePath = Runtime.GetDesktopFilePath("csv-writer-test-01.csv");
-                var test02FilePath = Runtime.GetDesktopFilePath("csv-writer-test-02.csv");
+                var test01FilePath = SwanRuntime.GetDesktopFilePath("csv-writer-test-01.csv");
+                var test02FilePath = SwanRuntime.GetDesktopFilePath("csv-writer-test-02.csv");
 
                 var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));

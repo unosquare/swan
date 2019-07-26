@@ -108,7 +108,7 @@
 
         public MultiInstanceFactory(Type registerType, Type registerImplementation)
         {
-            if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
+            if (registerImplementation.IsAbstract || registerImplementation.IsInterface)
             {
                 throw new DependencyContainerRegistrationException(registerImplementation,
                     "MultiInstanceFactory",
@@ -370,7 +370,7 @@
 
         public SingletonFactory(Type registerType, Type registerImplementation)
         {
-            if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
+            if (registerImplementation.IsAbstract || registerImplementation.IsInterface)
             {
                 throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
             }

@@ -37,7 +37,7 @@
         public void WithAssemblies_ResolvesIAnimal()
         {
             var container = new DependencyContainer();
-            container.AutoRegister(Runtime.GetAssemblies());
+            container.AutoRegister(SwanRuntime.GetAssemblies());
 
             Assert.IsTrue(container.CanResolve<ICar>());
         }
@@ -48,7 +48,7 @@
             var container = new DependencyContainer();
 
             container.AutoRegister(
-                Runtime.GetAssemblies(),
+                SwanRuntime.GetAssemblies(),
                 DependencyContainerDuplicateImplementationActions.RegisterSingle,
                 (param) => true);
 
@@ -61,7 +61,7 @@
             var container = new DependencyContainer();
 
             container.AutoRegister(
-                Runtime.GetAssemblies(),
+                SwanRuntime.GetAssemblies(),
                 DependencyContainerDuplicateImplementationActions.RegisterMultiple);
 
             Assert.IsTrue(container.CanResolve<ICar>());

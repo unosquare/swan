@@ -17,7 +17,7 @@
             await Task.Delay(1);
             FileLogger.Unregister();
 
-            var logPath = Runtime.EntryAssemblyDirectory;
+            var logPath = SwanRuntime.EntryAssemblyDirectory;
 
             var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
             Assert.IsTrue(File.Exists(logFile));
@@ -31,7 +31,7 @@
             await Task.Delay(1);
             FileLogger.Unregister();
 
-            var logPath = Runtime.EntryAssemblyDirectory;
+            var logPath = SwanRuntime.EntryAssemblyDirectory;
 
             var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
             var logContent = File.ReadAllText(logFile);

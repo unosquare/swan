@@ -43,7 +43,7 @@
         /// <param name="dailyFile">if set to <c>true</c> a daily file is created, otherwise, only one general file is created.</param>
         public static void Register(string destinationPath = null, bool dailyFile = true)
         {
-            var localPath = destinationPath ?? Runtime.EntryAssemblyDirectory;
+            var localPath = destinationPath ?? SwanRuntime.EntryAssemblyDirectory;
 
             lock (SyncLock)
             {

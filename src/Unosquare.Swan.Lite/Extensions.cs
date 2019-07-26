@@ -324,7 +324,7 @@
         /// <returns>
         ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsValid(this object obj) => Runtime.ObjectValidator.IsValid(obj);
+        public static bool IsValid(this object obj) => SwanRuntime.ObjectValidator.IsValid(obj);
 
         internal static void CreateTarget(
             this object source,

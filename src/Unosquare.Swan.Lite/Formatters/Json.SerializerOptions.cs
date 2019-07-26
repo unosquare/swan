@@ -126,7 +126,7 @@
                 new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead));
 
             // If the target is a struct (value type) navigate the fields.
-            if (targetType.IsValueType())
+            if (targetType.IsValueType)
             {
                 fields.AddRange(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType));
             }

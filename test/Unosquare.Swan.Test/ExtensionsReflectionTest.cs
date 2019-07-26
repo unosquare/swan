@@ -42,73 +42,6 @@
     }
 
     [TestFixture]
-    public class IsClass
-    {
-        [TestCase(true, typeof(Fish))]
-        [TestCase(false, typeof(int))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            Assert.AreEqual(expected, input.IsClass(), $"Get IsClass value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class IsAbstract
-    {
-        [TestCase(true, typeof(IAnimal))]
-        [TestCase(false, typeof(int))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            Assert.AreEqual(expected, input.IsAbstract(), $"Get IsAbstract value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class IsInterface
-    {
-        [TestCase(true, typeof(IAnimal))]
-        [TestCase(false, typeof(int))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            Assert.AreEqual(expected, input.IsInterface(), $"Get IsAbstract value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class IsPrimitive
-    {
-        [TestCase(true, typeof(int))]
-        [TestCase(false, typeof(string))]
-        [TestCase(false, typeof(Fish))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            Assert.AreEqual(expected, input.IsPrimitive(), $"Get IsPrimitive value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class IsGenericType
-    {
-        [TestCase(true, typeof(List<Fish>))]
-        [TestCase(false, typeof(Fish))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            Assert.AreEqual(expected, input.IsGenericType(), $"Get IsGenericType value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class IsGenericParameter
-    {
-        [Test]
-        public void WithType_ReturnsABool()
-        {
-            var genericArguments = typeof(List<Fish>).GetGenericArguments();
-            Assert.AreEqual(false, genericArguments[0].IsGenericParameter(), "Get IsGenericParameter value");
-        }
-    }
-
-    [TestFixture]
     public class IsDefined
     {
         [TestCase(true, typeof(Clown))]
@@ -140,7 +73,7 @@
         [TestCase(false, typeof(string))]
         public void WithType_ReturnsABool(bool expected, Type input)
         {
-            if (input.IsGenericType())
+            if (input.IsGenericType)
                 input = input.GetGenericTypeDefinition();
 
             Assert.AreEqual(expected, input.IsGenericTypeDefinition(), $"Get IsGenericTypeDefinition value of {input}");
@@ -203,7 +136,7 @@
                 _mock.Age.ToString("P"),
                 typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Age)).ToFormattedString(_mock));
         }
-        
+
         [Test]
         public void WithDatePropertyNotNullWithFormat_ReturnFormattedValue()
         {

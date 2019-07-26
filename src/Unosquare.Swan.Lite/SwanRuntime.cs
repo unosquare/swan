@@ -10,7 +10,7 @@
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
     /// </summary>
-    public class Runtime : MarshalByRefObject
+    public class SwanRuntime
     {
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
@@ -113,7 +113,7 @@
                             // If exception occurred, there is no such mutex.
                             var appMutex = new Mutex(true, ApplicationMutexName);
                             $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(
-                                typeof(Runtime));
+                                typeof(SwanRuntime));
 
                             // Only one instance.
                             return true;

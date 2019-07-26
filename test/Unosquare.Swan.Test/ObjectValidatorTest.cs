@@ -13,13 +13,13 @@
         public void NullPredicate_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-            Runtime.ObjectValidator.AddValidator<SimpleValidationMock>(null, "as"));
+            SwanRuntime.ObjectValidator.AddValidator<SimpleValidationMock>(null, "as"));
         }
 
         [Test]
         public void NullObject_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Runtime.ObjectValidator.Validate(null as SimpleValidationMock));
+            Assert.Throws<ArgumentNullException>(() => SwanRuntime.ObjectValidator.Validate(null as SimpleValidationMock));
         }
 
         [Test]
@@ -59,7 +59,7 @@
         public void NullObject_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-            Runtime.ObjectValidator.Validate(null as SimpleValidationMock));
+            SwanRuntime.ObjectValidator.Validate(null as SimpleValidationMock));
         }
     }
 
@@ -69,7 +69,7 @@
         [Test]
         public void NullProperty_ReturnsErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new NotNullMock());
+            var res = SwanRuntime.ObjectValidator.Validate(new NotNullMock());
             Assert.IsFalse(res.IsValid);
             Assert.That(res.Errors.Count, Is.EqualTo(1));
         }
@@ -77,7 +77,7 @@
         [Test]
         public void NotNullProperty_ReturnsNoErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new NotNullMock { Number = 12 });
+            var res = SwanRuntime.ObjectValidator.Validate(new NotNullMock { Number = 12 });
             Assert.IsTrue(res.IsValid);
             Assert.That(res.Errors.Count, Is.EqualTo(0));
         }
@@ -89,14 +89,14 @@
         [Test]
         public void ValueWithinRange_ReturnsNoErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new RangeMock { Age = 5, Kilograms = 0.5 });
+            var res = SwanRuntime.ObjectValidator.Validate(new RangeMock { Age = 5, Kilograms = 0.5 });
             Assert.IsTrue(res.IsValid);
         }
 
         [Test]
         public void ValueOutsideRange_ReturnsErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new RangeMock { Age = 0 });
+            var res = SwanRuntime.ObjectValidator.Validate(new RangeMock { Age = 0 });
             Assert.IsFalse(res.IsValid);
             Assert.That(res.Errors.Count, Is.EqualTo(2));
         }
@@ -104,7 +104,7 @@
         [Test]
         public void InvalidType_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Runtime.ObjectValidator.Validate(new InvalidRangeMock { Invalid = "inv" }));
+            Assert.Throws<ArgumentException>(() => SwanRuntime.ObjectValidator.Validate(new InvalidRangeMock { Invalid = "inv" }));
         }
     }
 
@@ -115,7 +115,7 @@
         [TestCase("Hi", false, 1)]
         public void StringValidation(string salute, bool valid, int count)
         {
-            var res = Runtime.ObjectValidator.Validate(new RegexMock { Salute = salute });
+            var res = SwanRuntime.ObjectValidator.Validate(new RegexMock { Salute = salute });
             Assert.That(valid, Is.EqualTo(res.IsValid));
             Assert.That(res.Errors.Count, Is.EqualTo(count));
         }
@@ -123,7 +123,7 @@
         [Test]
         public void NullString_ReturnsErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new RegexMock { Salute = null });
+            var res = SwanRuntime.ObjectValidator.Validate(new RegexMock { Salute = null });
             Assert.IsFalse(res.IsValid);
             Assert.AreEqual(res.Errors.First().ErrorMessage, "String does not match the specified regular expression");
         }
@@ -131,7 +131,7 @@
         [Test]
         public void NotStringType_ThrowsInvalidOperationException()
         {
-            Assert.Throws<ArgumentException>(() => Runtime.ObjectValidator.Validate(new InvalidRegexMock { Salute = 1 }));
+            Assert.Throws<ArgumentException>(() => SwanRuntime.ObjectValidator.Validate(new InvalidRegexMock { Salute = 1 }));
         }
     }
 
@@ -142,7 +142,7 @@
         [TestCase("test", false, 1)]
         public void StringValidation(string to, bool valid, int count)
         {
-            var res = Runtime.ObjectValidator.Validate(new EmailMock { To = to });
+            var res = SwanRuntime.ObjectValidator.Validate(new EmailMock { To = to });
             Assert.That(valid, Is.EqualTo(res.IsValid));
             Assert.That(res.Errors.Count, Is.EqualTo(count));
         }
@@ -150,7 +150,7 @@
         [Test]
         public void NullString_ReturnsErrors()
         {
-            var res = Runtime.ObjectValidator.Validate(new EmailMock { To = null });
+            var res = SwanRuntime.ObjectValidator.Validate(new EmailMock { To = null });
             Assert.IsFalse(res.IsValid);
             Assert.AreEqual(res.Errors.First().ErrorMessage, "String is not an email");
         }

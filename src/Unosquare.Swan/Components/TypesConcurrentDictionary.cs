@@ -133,10 +133,10 @@
             // Attempt unregistered construction if possible and requested
             var isValid = (options.UnregisteredResolutionAction ==
                            DependencyContainerUnregisteredResolutionActions.AttemptResolve) ||
-                          (registration.Type.IsGenericType() && options.UnregisteredResolutionAction ==
+                          (registration.Type.IsGenericType && options.UnregisteredResolutionAction ==
                            DependencyContainerUnregisteredResolutionActions.GenericsOnly);
 
-            return isValid && !registration.Type.IsAbstract() && !registration.Type.IsInterface()
+            return isValid && !registration.Type.IsAbstract && !registration.Type.IsInterface
                 ? ConstructType(registration.Type, null, options)
                 : throw new DependencyContainerResolutionException(registration.Type);
         }
@@ -189,7 +189,7 @@
             // If we cant', bubble if we have a parent
             if ((options.UnregisteredResolutionAction ==
                  DependencyContainerUnregisteredResolutionActions.AttemptResolve) ||
-                (checkType.IsGenericType() && options.UnregisteredResolutionAction ==
+                (checkType.IsGenericType && options.UnregisteredResolutionAction ==
                  DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
                 return (GetBestConstructor(checkType, options) != null) ||
@@ -289,7 +289,7 @@
         
         private static bool IsAutomaticLazyFactoryRequest(Type type)
         {
-            if (!type.IsGenericType())
+            if (!type.IsGenericType)
                 return false;
 
             var genericType = type.GetGenericTypeDefinition();
@@ -320,7 +320,7 @@
         private ConstructorInfo GetBestConstructor(
             Type type,
             DependencyContainerResolveOptions options)
-            => type.IsValueType() ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
+            => type.IsValueType ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
         
         private bool CanConstruct(
             ConstructorInfo ctor,
@@ -333,7 +333,7 @@
 
                 var isParameterOverload = options.ConstructorParameters.ContainsKey(parameter.Name);
 
-                if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
+                if (parameter.ParameterType.IsPrimitive && !isParameterOverload)
                     return false;
 
                 if (!isParameterOverload &&

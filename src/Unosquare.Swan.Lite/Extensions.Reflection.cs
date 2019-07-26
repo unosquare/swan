@@ -63,7 +63,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return type.IsValueType() ? Activator.CreateInstance(type) : null;
+            return type.IsValueType ? Activator.CreateInstance(type) : default;
         }
 
         /// <summary>
@@ -129,70 +129,7 @@
 
             return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
-
-        /// <summary>
-        /// Determines whether this instance is class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified type is class; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsClass(this Type type) => type.GetTypeInfo().IsClass;
-
-        /// <summary>
-        /// Determines whether this instance is abstract.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified type is abstract; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsAbstract(this Type type) => type.GetTypeInfo().IsAbstract;
-
-        /// <summary>
-        /// Determines whether this instance is interface.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified type is interface; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsInterface(this Type type) => type.GetTypeInfo().IsInterface;
-
-        /// <summary>
-        /// Determines whether this instance is primitive.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified type is primitive; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsPrimitive(this Type type) => type.GetTypeInfo().IsPrimitive;
-
-        /// <summary>
-        /// Determines whether [is value type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is value type] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsValueType(this Type type) => type.GetTypeInfo().IsValueType;
-
-        /// <summary>
-        /// Determines whether [is generic type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is generic type] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsGenericType(this Type type) => type.GetTypeInfo().IsGenericType;
-
-        /// <summary>
-        /// Determines whether [is generic parameter].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is generic parameter] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsGenericParameter(this Type type) => type.IsGenericParameter;
-
+        
         /// <summary>
         /// Gets the custom attributes.
         /// </summary>
@@ -239,7 +176,7 @@
         public static bool IsIEnumerable(this Type type)
             => type == null
                 ? throw new ArgumentNullException(nameof(type))
-                : type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+                : type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
 
         #endregion
 
@@ -484,14 +421,20 @@
         /// <summary>
         /// Creates a property proxy that stores getter and setter delegates.
         /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>The property proxy.</returns>
-        public static IPropertyProxy CreatePropertyProxy(this PropertyInfo propertyInfo)
+        /// <param name="this">The property information.</param>
+        /// <returns>
+        /// The property proxy.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">this</exception>
+        public static IPropertyProxy CreatePropertyProxy(this PropertyInfo @this)
         {
-            var genericType = typeof(PropertyProxy<,>)
-                .MakeGenericType(propertyInfo.DeclaringType, propertyInfo.PropertyType);
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
-            return Activator.CreateInstance(genericType, propertyInfo) as IPropertyProxy;
+            var genericType = typeof(PropertyProxy<,>)
+                .MakeGenericType(@this.DeclaringType, @this.PropertyType);
+
+            return Activator.CreateInstance(genericType, @this) as IPropertyProxy;
         }
 
         /// <summary>

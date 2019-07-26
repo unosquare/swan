@@ -280,7 +280,7 @@
                     return true;
                 }
 
-                if (type.IsValueType() || propertyInfo.PropertyType != type)
+                if (type.IsValueType || propertyInfo.PropertyType != type)
                     return propertyInfo.TrySetBasicType(value, target);
 
                 propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
@@ -315,7 +315,7 @@
                         try
                         {
                             targetArray.SetValue(
-                                sourceList[i].GetType().IsValueType()
+                                sourceList[i].GetType().IsValueType
                                     ? sourceList[i]
                                     : sourceList[i].CopyPropertiesToNew<object>(), i);
                         }
@@ -337,7 +337,7 @@
                     {
                         try
                         {
-                            targetList.Add(item.GetType().IsValueType()
+                            targetList.Add(item.GetType().IsValueType
                                 ? item
                                 : item.CopyPropertiesToNew<object>());
                         }

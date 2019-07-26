@@ -293,7 +293,7 @@
             "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void WithValidParams_ReturnsASafeFileName(string expected, string input)
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
+            if (SwanRuntime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
             Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
@@ -302,7 +302,7 @@
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
+            if (SwanRuntime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
             Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());

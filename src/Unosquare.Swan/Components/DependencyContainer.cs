@@ -85,7 +85,7 @@
             Func<Type, bool> registrationPredicate = null)
         {
             AutoRegister(
-                Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)),
+                SwanRuntime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)),
                 duplicateAction,
                 registrationPredicate);
         }
@@ -112,7 +112,7 @@
 
                 var concreteTypes = types
                     .Where(type =>
-                        type.IsClass() && !type.IsAbstract() &&
+                        type.IsClass && !type.IsAbstract &&
                         (type != GetType() && (type.DeclaringType != GetType()) && !type.IsGenericTypeDefinition()))
                     .ToList();
 
@@ -130,7 +130,7 @@
 
                 var abstractInterfaceTypes = types.Where(
                     type =>
-                        ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
+                        ((type.IsInterface || type.IsAbstract) && (type.DeclaringType != GetType()) &&
                          (!type.IsGenericTypeDefinition())));
 
                 foreach (var type in abstractInterfaceTypes)
@@ -660,7 +660,7 @@
             var properties = input.GetType()
                 .GetProperties()
                 .Where(property => property.GetCacheGetMethod() != null && property.GetCacheSetMethod() != null &&
-                                   !property.PropertyType.IsValueType());
+                                   !property.PropertyType.IsValueType);
 
             foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
             {
@@ -691,10 +691,10 @@
             }
             else
             {
-                if (registerType.IsInterface() && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
+                if (registerType.IsInterface && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
                     return false;
 
-                if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
+                if (registerType.IsAbstract && registerImplementation.BaseType() != registerType)
                     return false;
             }
 
@@ -726,10 +726,10 @@
             {
                 t => t.FullName?.StartsWith("System.", StringComparison.Ordinal) ?? false,
                 t => t.FullName?.StartsWith("Microsoft.", StringComparison.Ordinal) ?? false,
-                t => t.IsPrimitive(),
+                t => t.IsPrimitive,
                 t => t.IsGenericTypeDefinition(),
                 t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) &&
-                     !(t.IsInterface() || t.IsAbstract()),
+                     !(t.IsInterface || t.IsAbstract),
             };
 
             if (registrationPredicate != null)
@@ -740,7 +740,7 @@
             return ignoreChecks.Any(check => check(type));
         }
 
-        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation) => registerType.IsInterface() || registerType.IsAbstract()
+        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation) => registerType.IsInterface || registerType.IsAbstract
             ? (ObjectFactoryBase)new SingletonFactory(registerType, registerImplementation)
             : new MultiInstanceFactory(registerType, registerImplementation);
 

@@ -57,7 +57,7 @@
         /// The configuration file path.
         /// </value>
         public string ConfigurationFilePath { get; set; } =
-            Path.Combine(Runtime.EntryAssemblyDirectory, "appsettings.json");
+            Path.Combine(SwanRuntime.EntryAssemblyDirectory, "appsettings.json");
 
         /// <summary>
         /// Gets the global settings object.

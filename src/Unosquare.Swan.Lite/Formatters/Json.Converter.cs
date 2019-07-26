@@ -272,7 +272,7 @@
 
             private void PopulateObject(IDictionary<string, object> sourceProperties)
             {
-                if (_targetType.IsValueType())
+                if (_targetType.IsValueType)
                 {
                     PopulateFields(sourceProperties);
                 }
