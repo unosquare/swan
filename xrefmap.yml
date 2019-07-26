@@ -7296,6 +7296,38 @@ references:
   commentId: F:Unosquare.Swan.Endianness.Little
   fullName: Unosquare.Swan.Endianness.Little
   nameWithType: Endianness.Little
+- uid: Unosquare.Swan.ExceptionExtensions
+  name: ExceptionExtensions
+  href: api/Unosquare.Swan.ExceptionExtensions.html
+  commentId: T:Unosquare.Swan.ExceptionExtensions
+  fullName: Unosquare.Swan.ExceptionExtensions
+  nameWithType: ExceptionExtensions
+- uid: Unosquare.Swan.ExceptionExtensions.IsCriticalException(System.Exception)
+  name: IsCriticalException(Exception)
+  href: api/Unosquare.Swan.ExceptionExtensions.html#Unosquare_Swan_ExceptionExtensions_IsCriticalException_System_Exception_
+  commentId: M:Unosquare.Swan.ExceptionExtensions.IsCriticalException(System.Exception)
+  fullName: Unosquare.Swan.ExceptionExtensions.IsCriticalException(System.Exception)
+  nameWithType: ExceptionExtensions.IsCriticalException(Exception)
+- uid: Unosquare.Swan.ExceptionExtensions.IsCriticalException*
+  name: IsCriticalException
+  href: api/Unosquare.Swan.ExceptionExtensions.html#Unosquare_Swan_ExceptionExtensions_IsCriticalException_
+  commentId: Overload:Unosquare.Swan.ExceptionExtensions.IsCriticalException
+  isSpec: "True"
+  fullName: Unosquare.Swan.ExceptionExtensions.IsCriticalException
+  nameWithType: ExceptionExtensions.IsCriticalException
+- uid: Unosquare.Swan.ExceptionExtensions.IsFatalException(System.Exception)
+  name: IsFatalException(Exception)
+  href: api/Unosquare.Swan.ExceptionExtensions.html#Unosquare_Swan_ExceptionExtensions_IsFatalException_System_Exception_
+  commentId: M:Unosquare.Swan.ExceptionExtensions.IsFatalException(System.Exception)
+  fullName: Unosquare.Swan.ExceptionExtensions.IsFatalException(System.Exception)
+  nameWithType: ExceptionExtensions.IsFatalException(Exception)
+- uid: Unosquare.Swan.ExceptionExtensions.IsFatalException*
+  name: IsFatalException
+  href: api/Unosquare.Swan.ExceptionExtensions.html#Unosquare_Swan_ExceptionExtensions_IsFatalException_
+  commentId: Overload:Unosquare.Swan.ExceptionExtensions.IsFatalException
+  isSpec: "True"
+  fullName: Unosquare.Swan.ExceptionExtensions.IsFatalException
+  nameWithType: ExceptionExtensions.IsFatalException
 - uid: Unosquare.Swan.Exceptions
   name: Unosquare.Swan.Exceptions
   href: api/Unosquare.Swan.Exceptions.html
@@ -8533,6 +8565,239 @@ references:
   fullName.vb: Unosquare.Swan.Lite.AtomicEnum(Of T).Value
   nameWithType: AtomicEnum<T>.Value
   nameWithType.vb: AtomicEnum(Of T).Value
+- uid: Unosquare.Swan.Lite.Components
+  name: Unosquare.Swan.Lite.Components
+  href: api/Unosquare.Swan.Lite.Components.html
+  commentId: N:Unosquare.Swan.Lite.Components
+  fullName: Unosquare.Swan.Lite.Components
+  nameWithType: Unosquare.Swan.Lite.Components
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask
+  name: PeriodicTask
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html
+  commentId: T:Unosquare.Swan.Lite.Components.PeriodicTask
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask
+  nameWithType: PeriodicTask
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.#ctor(System.TimeSpan,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Threading.CancellationToken)
+  name: PeriodicTask(TimeSpan, Func<CancellationToken, Task>, CancellationToken)
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask__ctor_System_TimeSpan_System_Func_System_Threading_CancellationToken_System_Threading_Tasks_Task__System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Lite.Components.PeriodicTask.#ctor(System.TimeSpan,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Threading.CancellationToken)
+  name.vb: PeriodicTask(TimeSpan, Func(Of CancellationToken, Task), CancellationToken)
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.PeriodicTask(System.TimeSpan, System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task>, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Lite.Components.PeriodicTask.PeriodicTask(System.TimeSpan, System.Func(Of System.Threading.CancellationToken, System.Threading.Tasks.Task), System.Threading.CancellationToken)
+  nameWithType: PeriodicTask.PeriodicTask(TimeSpan, Func<CancellationToken, Task>, CancellationToken)
+  nameWithType.vb: PeriodicTask.PeriodicTask(TimeSpan, Func(Of CancellationToken, Task), CancellationToken)
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.#ctor*
+  name: PeriodicTask
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Components.PeriodicTask.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.PeriodicTask
+  nameWithType: PeriodicTask.PeriodicTask
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Dispose
+  name: Dispose()
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Dispose
+  commentId: M:Unosquare.Swan.Lite.Components.PeriodicTask.Dispose
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Dispose()
+  nameWithType: PeriodicTask.Dispose()
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Dispose*
+  name: Dispose
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Dispose_
+  commentId: Overload:Unosquare.Swan.Lite.Components.PeriodicTask.Dispose
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Dispose
+  nameWithType: PeriodicTask.Dispose
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Finalize
+  name: Finalize()
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Finalize
+  commentId: M:Unosquare.Swan.Lite.Components.PeriodicTask.Finalize
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Finalize()
+  nameWithType: PeriodicTask.Finalize()
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Finalize*
+  name: Finalize
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Finalize_
+  commentId: Overload:Unosquare.Swan.Lite.Components.PeriodicTask.Finalize
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Finalize
+  nameWithType: PeriodicTask.Finalize
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Interval
+  name: Interval
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Interval
+  commentId: P:Unosquare.Swan.Lite.Components.PeriodicTask.Interval
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Interval
+  nameWithType: PeriodicTask.Interval
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.Interval*
+  name: Interval
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_Interval_
+  commentId: Overload:Unosquare.Swan.Lite.Components.PeriodicTask.Interval
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.Interval
+  nameWithType: PeriodicTask.Interval
+- uid: Unosquare.Swan.Lite.Components.PeriodicTask.MinInterval
+  name: MinInterval
+  href: api/Unosquare.Swan.Lite.Components.PeriodicTask.html#Unosquare_Swan_Lite_Components_PeriodicTask_MinInterval
+  commentId: F:Unosquare.Swan.Lite.Components.PeriodicTask.MinInterval
+  fullName: Unosquare.Swan.Lite.Components.PeriodicTask.MinInterval
+  nameWithType: PeriodicTask.MinInterval
+- uid: Unosquare.Swan.Lite.FromString
+  name: FromString
+  href: api/Unosquare.Swan.Lite.FromString.html
+  commentId: T:Unosquare.Swan.Lite.FromString
+  fullName: Unosquare.Swan.Lite.FromString
+  nameWithType: FromString
+- uid: Unosquare.Swan.Lite.FromString.CanConvertTo(System.Type)
+  name: CanConvertTo(Type)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_CanConvertTo_System_Type_
+  commentId: M:Unosquare.Swan.Lite.FromString.CanConvertTo(System.Type)
+  fullName: Unosquare.Swan.Lite.FromString.CanConvertTo(System.Type)
+  nameWithType: FromString.CanConvertTo(Type)
+- uid: Unosquare.Swan.Lite.FromString.CanConvertTo*
+  name: CanConvertTo
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_CanConvertTo_
+  commentId: Overload:Unosquare.Swan.Lite.FromString.CanConvertTo
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.FromString.CanConvertTo
+  nameWithType: FromString.CanConvertTo
+- uid: Unosquare.Swan.Lite.FromString.CanConvertTo``1
+  name: CanConvertTo<TResult>()
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_CanConvertTo__1
+  commentId: M:Unosquare.Swan.Lite.FromString.CanConvertTo``1
+  name.vb: CanConvertTo(Of TResult)()
+  fullName: Unosquare.Swan.Lite.FromString.CanConvertTo<TResult>()
+  fullName.vb: Unosquare.Swan.Lite.FromString.CanConvertTo(Of TResult)()
+  nameWithType: FromString.CanConvertTo<TResult>()
+  nameWithType.vb: FromString.CanConvertTo(Of TResult)()
+- uid: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type,System.String)
+  name: ConvertTo(Type, String)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo_System_Type_System_String_
+  commentId: M:Unosquare.Swan.Lite.FromString.ConvertTo(System.Type,System.String)
+  fullName: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type, System.String)
+  nameWithType: FromString.ConvertTo(Type, String)
+- uid: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type,System.String[])
+  name: ConvertTo(Type, String[])
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo_System_Type_System_String___
+  commentId: M:Unosquare.Swan.Lite.FromString.ConvertTo(System.Type,System.String[])
+  name.vb: ConvertTo(Type, String())
+  fullName: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type, System.String[])
+  fullName.vb: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type, System.String())
+  nameWithType: FromString.ConvertTo(Type, String[])
+  nameWithType.vb: FromString.ConvertTo(Type, String())
+- uid: Unosquare.Swan.Lite.FromString.ConvertTo*
+  name: ConvertTo
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo_
+  commentId: Overload:Unosquare.Swan.Lite.FromString.ConvertTo
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.FromString.ConvertTo
+  nameWithType: FromString.ConvertTo
+- uid: Unosquare.Swan.Lite.FromString.ConvertTo``1(System.String)
+  name: ConvertTo<TResult>(String)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo__1_System_String_
+  commentId: M:Unosquare.Swan.Lite.FromString.ConvertTo``1(System.String)
+  name.vb: ConvertTo(Of TResult)(String)
+  fullName: Unosquare.Swan.Lite.FromString.ConvertTo<TResult>(System.String)
+  fullName.vb: Unosquare.Swan.Lite.FromString.ConvertTo(Of TResult)(System.String)
+  nameWithType: FromString.ConvertTo<TResult>(String)
+  nameWithType.vb: FromString.ConvertTo(Of TResult)(String)
+- uid: Unosquare.Swan.Lite.FromString.ConvertTo``1(System.String[])
+  name: ConvertTo<TResult>(String[])
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo__1_System_String___
+  commentId: M:Unosquare.Swan.Lite.FromString.ConvertTo``1(System.String[])
+  name.vb: ConvertTo(Of TResult)(String())
+  fullName: Unosquare.Swan.Lite.FromString.ConvertTo<TResult>(System.String[])
+  fullName.vb: Unosquare.Swan.Lite.FromString.ConvertTo(Of TResult)(System.String())
+  nameWithType: FromString.ConvertTo<TResult>(String[])
+  nameWithType.vb: FromString.ConvertTo(Of TResult)(String())
+- uid: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type,System.String,System.Object@)
+  name: TryConvertTo(Type, String, out Object)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_TryConvertTo_System_Type_System_String_System_Object__
+  commentId: M:Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type,System.String,System.Object@)
+  name.vb: TryConvertTo(Type, String, ByRef Object)
+  fullName: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type, System.String, out System.Object)
+  fullName.vb: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type, System.String, ByRef System.Object)
+  nameWithType: FromString.TryConvertTo(Type, String, out Object)
+  nameWithType.vb: FromString.TryConvertTo(Type, String, ByRef Object)
+- uid: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type,System.String[],System.Object@)
+  name: TryConvertTo(Type, String[], out Object)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_TryConvertTo_System_Type_System_String___System_Object__
+  commentId: M:Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type,System.String[],System.Object@)
+  name.vb: TryConvertTo(Type, String(), ByRef Object)
+  fullName: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type, System.String[], out System.Object)
+  fullName.vb: Unosquare.Swan.Lite.FromString.TryConvertTo(System.Type, System.String(), ByRef System.Object)
+  nameWithType: FromString.TryConvertTo(Type, String[], out Object)
+  nameWithType.vb: FromString.TryConvertTo(Type, String(), ByRef Object)
+- uid: Unosquare.Swan.Lite.FromString.TryConvertTo*
+  name: TryConvertTo
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_TryConvertTo_
+  commentId: Overload:Unosquare.Swan.Lite.FromString.TryConvertTo
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.FromString.TryConvertTo
+  nameWithType: FromString.TryConvertTo
+- uid: Unosquare.Swan.Lite.FromString.TryConvertTo``1(System.String,``0@)
+  name: TryConvertTo<TResult>(String, out TResult)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_TryConvertTo__1_System_String___0__
+  commentId: M:Unosquare.Swan.Lite.FromString.TryConvertTo``1(System.String,``0@)
+  name.vb: TryConvertTo(Of TResult)(String, ByRef TResult)
+  fullName: Unosquare.Swan.Lite.FromString.TryConvertTo<TResult>(System.String, out TResult)
+  fullName.vb: Unosquare.Swan.Lite.FromString.TryConvertTo(Of TResult)(System.String, ByRef TResult)
+  nameWithType: FromString.TryConvertTo<TResult>(String, out TResult)
+  nameWithType.vb: FromString.TryConvertTo(Of TResult)(String, ByRef TResult)
+- uid: Unosquare.Swan.Lite.FromString.TryConvertTo``1(System.String[],``0[]@)
+  name: TryConvertTo<TResult>(String[], out TResult[])
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_TryConvertTo__1_System_String_____0____
+  commentId: M:Unosquare.Swan.Lite.FromString.TryConvertTo``1(System.String[],``0[]@)
+  name.vb: TryConvertTo(Of TResult)(String(), ByRef TResult())
+  fullName: Unosquare.Swan.Lite.FromString.TryConvertTo<TResult>(System.String[], out TResult[])
+  fullName.vb: Unosquare.Swan.Lite.FromString.TryConvertTo(Of TResult)(System.String(), ByRef TResult())
+  nameWithType: FromString.TryConvertTo<TResult>(String[], out TResult[])
+  nameWithType.vb: FromString.TryConvertTo(Of TResult)(String(), ByRef TResult())
+- uid: Unosquare.Swan.Lite.StringConversionException
+  name: StringConversionException
+  href: api/Unosquare.Swan.Lite.StringConversionException.html
+  commentId: T:Unosquare.Swan.Lite.StringConversionException
+  fullName: Unosquare.Swan.Lite.StringConversionException
+  nameWithType: StringConversionException
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor
+  name: StringConversionException()
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException()
+  nameWithType: StringConversionException.StringConversionException()
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: StringConversionException(SerializationInfo, StreamingContext)
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: StringConversionException.StringConversionException(SerializationInfo, StreamingContext)
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor(System.String)
+  name: StringConversionException(String)
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_System_String_
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor(System.String)
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException(System.String)
+  nameWithType: StringConversionException.StringConversionException(String)
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor(System.String,System.Exception)
+  name: StringConversionException(String, Exception)
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor(System.String,System.Exception)
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException(System.String, System.Exception)
+  nameWithType: StringConversionException.StringConversionException(String, Exception)
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type)
+  name: StringConversionException(Type)
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_System_Type_
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type)
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException(System.Type)
+  nameWithType: StringConversionException.StringConversionException(Type)
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type,System.Exception)
+  name: StringConversionException(Type, Exception)
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_System_Type_System_Exception_
+  commentId: M:Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type,System.Exception)
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException(System.Type, System.Exception)
+  nameWithType: StringConversionException.StringConversionException(Type, Exception)
+- uid: Unosquare.Swan.Lite.StringConversionException.#ctor*
+  name: StringConversionException
+  href: api/Unosquare.Swan.Lite.StringConversionException.html#Unosquare_Swan_Lite_StringConversionException__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.StringConversionException.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.StringConversionException.StringConversionException
+  nameWithType: StringConversionException.StringConversionException
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
@@ -12745,6 +13010,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Runtime.OS
   nameWithType: Runtime.OS
+- uid: Unosquare.Swan.Runtime.Process
+  name: Process
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_Process
+  commentId: P:Unosquare.Swan.Runtime.Process
+  fullName: Unosquare.Swan.Runtime.Process
+  nameWithType: Runtime.Process
+- uid: Unosquare.Swan.Runtime.Process*
+  name: Process
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_Process_
+  commentId: Overload:Unosquare.Swan.Runtime.Process
+  isSpec: "True"
+  fullName: Unosquare.Swan.Runtime.Process
+  nameWithType: Runtime.Process
 - uid: Unosquare.Swan.Runtime.ProductName
   name: ProductName
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_ProductName

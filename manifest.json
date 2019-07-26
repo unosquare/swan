@@ -1330,6 +1330,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.ExceptionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.ExceptionExtensions.html",
+          "hash": "sc9T9H5VgNGZPBthgRmW8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.yml",
       "output": {
         ".html": {
@@ -1510,11 +1522,59 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.PeriodicTask.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.PeriodicTask.html",
+          "hash": "L76bHHuw9R4nV6uJQNv4OQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.html",
+          "hash": "dm8zw1acoBI/03btrh3g+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.FromString.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.FromString.html",
+          "hash": "hNC+abp2cryyhdBKfQXu0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.StringConversionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.StringConversionException.html",
+          "hash": "tJvMRLgIi1OC7wlUnXOALw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Lite.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Lite.html",
-          "hash": "GuteydFmi1AT6GVFeEBlKg=="
+          "hash": "0wBkJuOuEykcEUfPrf5OTQ=="
         }
       },
       "is_incremental": false,
@@ -1994,7 +2054,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Runtime.html",
-          "hash": "LKlBWU3Xw6ynz5DKJDfIKw=="
+          "hash": "79aeowfAUlI41HYo5Lsw/g=="
         }
       },
       "is_incremental": false,
@@ -2102,7 +2162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "ahNOsrTr3Y5NKyyzjZeYag=="
+          "hash": "30zhDRw3vrZlO9JtgIZf/A=="
         }
       },
       "is_incremental": false,
@@ -2114,7 +2174,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "dC2PjukeiUVD+8mQ8hl2Jw=="
+          "hash": "tDbR69rIAweJkwi1HHpigQ=="
         }
       },
       "is_incremental": false,
@@ -2174,10 +2234,11 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 169,
+          "total_file_count": 0,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -2186,11 +2247,10 @@
           "total_file_count": 3,
           "skipped_file_count": 0
         },
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 174,
           "skipped_file_count": 0
         }
       }
