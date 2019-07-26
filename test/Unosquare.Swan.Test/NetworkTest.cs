@@ -109,7 +109,6 @@
                         p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
                 Assert.IsNotNull(resolvedIP);
-                Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
             }
             catch (DnsQueryException)
             {
