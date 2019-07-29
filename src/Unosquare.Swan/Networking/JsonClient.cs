@@ -2,7 +2,6 @@
 {
     using Exceptions;
     using Formatters;
-    using Models;
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
@@ -39,48 +38,6 @@
                 .ConfigureAwait(false);
 
             return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
-        }
-
-        /// <summary>
-        /// Posts a object as JSON with optional authorization token and retrieve an object
-        /// or an error.
-        /// </summary>
-        /// <typeparam name="T">The type of response object.</typeparam>
-        /// <typeparam name="TE">The type of the error.</typeparam>
-        /// <param name="url">The URL.</param>
-        /// <param name="payload">The payload.</param>
-        /// <param name="httpStatusError">The HTTP status error.</param>
-        /// <param name="authorization">The authorization.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>A task with a result of the requested type or an error object.</returns>
-        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
-            string url,
-            object payload,
-            int httpStatusError = 500,
-            string authorization = null,
-            CancellationToken cancellationToken = default)
-        {
-            using (var response = await GetResponse(new Uri(url), cancellationToken, authorization, null, payload, HttpMethod.Post).ConfigureAwait(false))
-            {
-                var jsonString = await response.Content.ReadAsStringAsync()
-                    .ConfigureAwait(false);
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return OkOrError<T, TE>.FromOk(!string.IsNullOrEmpty(jsonString)
-                        ? Json.Deserialize<T>(jsonString)
-                        : default);
-                }
-
-                if ((int)response.StatusCode == httpStatusError)
-                {
-                    return OkOrError<T, TE>.FromError(!string.IsNullOrEmpty(jsonString)
-                        ? Json.Deserialize<TE>(jsonString)
-                        : default);
-                }
-
-                return new OkOrError<T, TE>();
-            }
         }
 
         /// <summary>

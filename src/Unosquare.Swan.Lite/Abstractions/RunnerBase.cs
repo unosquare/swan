@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents an background worker abstraction with a life cycle and running at a independent thread.
     /// </summary>
-    public abstract class RunnerBase
+    public abstract class RunnerBase : ConfiguredObject
     {
         private Thread _worker;
         private CancellationTokenSource _cancelTokenSource;
@@ -145,15 +145,22 @@
         /// <summary>
         /// Setups this instance.
         /// </summary>
-        protected virtual void Setup()
+        protected void Setup()
         {
-            // empty
+            EnsureConfigurationNotLocked();
+            OnSetup();
+            LockConfiguration();
         }
 
         /// <summary>
         /// Cleanups this instance.
         /// </summary>
         protected virtual void Cleanup()
+        {
+            // empty
+        }
+
+        protected virtual void OnSetup()
         {
             // empty
         }

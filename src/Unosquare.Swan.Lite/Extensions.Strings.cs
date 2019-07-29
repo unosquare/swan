@@ -18,7 +18,7 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = {"B", "KB", "MB", "GB", "TB"};
+        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
@@ -26,18 +26,13 @@
         private static readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
 
         private static readonly Lazy<Regex> SplitLinesRegex =
-            new Lazy<Regex>(
-                () => new Regex("\r\n|\r|\n", StandardRegexOptions));
+            new Lazy<Regex>(() => new Regex("\r\n|\r|\n", StandardRegexOptions));
 
         private static readonly Lazy<Regex> UnderscoreRegex =
-            new Lazy<Regex>(
-                () => new Regex(@"_", StandardRegexOptions));
+            new Lazy<Regex>(() => new Regex(@"_", StandardRegexOptions));
 
         private static readonly Lazy<Regex> CamelCaseRegEx =
-            new Lazy<Regex>(
-                () =>
-                    new Regex(@"[a-z][A-Z]",
-                        StandardRegexOptions));
+            new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", StandardRegexOptions));
 
         private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => m =>
         {
@@ -434,7 +429,7 @@
         /// <returns>
         /// The string representation of the current Byte object, formatted as specified by the format parameter.
         /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
+        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -514,7 +509,7 @@
         /// <param name="chars">The chars.</param>
         /// <returns>The string with the characters replaced.</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
-            chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
+            chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue));
 
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something

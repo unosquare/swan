@@ -216,26 +216,6 @@
     }
 
     [TestFixture]
-    public class PostOrError : JsonClientTest
-    {
-        private const string Api = "/PostOrError";
-
-        [TestCase(1, 500, true)]
-        [TestCase(2, 500, false)]
-        [TestCase(4678, 404, false)]
-        public async Task PostOrErrorTest(int input, int error, bool expected)
-        {
-            var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(
-                $"{DefaultHttp}{Api}/PostOrErrorTest",
-                new BasicJson {IntData = input},
-                error);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(expected, data.IsOk);
-        }
-    }
-
-    [TestFixture]
     public class GetBinary : JsonClientTest
     {
         private const string Api = "/GetBinary";

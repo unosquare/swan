@@ -266,6 +266,23 @@
             return result;
         }
 
+        /// <summary>
+        /// Converts a expression, if the type can be converted to string, to a new expression including
+        /// the conversion to string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="str">The string.</param>
+        /// <returns>A new expression where the previous expression is converted to string.</returns>
+        public static Expression ConvertExpressionTo(Type type, Expression str)
+        {
+            var converter = TypeDescriptor.GetConverter(type);
+            return converter.CanConvertFrom(typeof(string))
+                ? Expression.Convert(
+                    Expression.Call(Expression.Constant(converter), ConvertFromInvariantStringMethod, str),
+                    type)
+                : null;
+        }
+
         private static Func<string[], (bool Success, object Result)> BuildNonGenericTryConvertLambda(Type type)
         {
             var methodInfo = TryConvertToInternalMethod.MakeGenericMethod(type);
