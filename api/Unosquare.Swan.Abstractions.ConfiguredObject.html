@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class OkOrError&lt;T, TError&gt;
+    <title>Class ConfiguredObject
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class OkOrError&lt;T, TError&gt;
+    <meta name="title" content="Class ConfiguredObject
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.43.3.0">
     
@@ -76,18 +76,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Models.OkOrError`2">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject">
   
   
-  <h1 id="Unosquare_Swan_Models_OkOrError_2" data-uid="Unosquare.Swan.Models.OkOrError`2" class="text-break">Class OkOrError&lt;T, TError&gt;
+  <h1 id="Unosquare_Swan_Abstractions_ConfiguredObject" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject" class="text-break">Class ConfiguredObject
   </h1>
-  <div class="markdown level0 summary"><p>Represents a Ok value or Error value.</p>
+  <div class="markdown level0 summary"><p>Base class for objects whose configuration may be locked,
+thus becoming read-only, at a certain moment in their lifetime.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">OkOrError&lt;T, TError&gt;</span></div>
+    <div class="level1"><span class="xref">ConfiguredObject</span></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Abstractions.RunnerBase.html">RunnerBase</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -113,71 +115,24 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Models.html">Unosquare.Swan.Models</a></h6>
-  <h5 id="Unosquare_Swan_Models_OkOrError_2_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class OkOrError&lt;T, TError&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ConfiguredObject</code></pre>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type of OK value.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="parametername">TError</span></td>
-        <td><p>The type of the error.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Models_OkOrError_2_Error_" data-uid="Unosquare.Swan.Models.OkOrError`2.Error*"></a>
-  <h4 id="Unosquare_Swan_Models_OkOrError_2_Error" data-uid="Unosquare.Swan.Models.OkOrError`2.Error">Error</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the error.</p>
+  <a id="Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked_" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked">ConfigurationLocked</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether s configuration has already been locked
+and has therefore become read-only.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TError Error { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TError</span></td>
-        <td><p>The error.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Models_OkOrError_2_IsOk_" data-uid="Unosquare.Swan.Models.OkOrError`2.IsOk*"></a>
-  <h4 id="Unosquare_Swan_Models_OkOrError_2_IsOk" data-uid="Unosquare.Swan.Models.OkOrError`2.IsOk">IsOk</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this instance is Ok.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsOk { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">protected bool ConfigurationLocked { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -190,130 +145,87 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if this instance is ok; otherwise, <code>false</code>.</p>
+        <td><p><span class="xref">true</span> if the configuration is locked; otherwise, <span class="xref">false</span>.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Models_OkOrError_2_Ok_" data-uid="Unosquare.Swan.Models.OkOrError`2.Ok*"></a>
-  <h4 id="Unosquare_Swan_Models_OkOrError_2_Ok" data-uid="Unosquare.Swan.Models.OkOrError`2.Ok">Ok</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the ok.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T Ok { get; set; }</code></pre>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked">EnsureConfigurationNotLocked()</a></div>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><p>The ok.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Models_OkOrError_2_FromError_" data-uid="Unosquare.Swan.Models.OkOrError`2.FromError*"></a>
-  <h4 id="Unosquare_Swan_Models_OkOrError_2_FromError__1_" data-uid="Unosquare.Swan.Models.OkOrError`2.FromError(`1)">FromError(TError)</h4>
-  <div class="markdown level1 summary"><p>Creates a new OkOrError from the specified Error object.</p>
+  <a id="Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked_" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked">EnsureConfigurationNotLocked()</h4>
+  <div class="markdown level1 summary"><p>Checks whether a module&apos;s configuration has become read-only
+and, if so, throws an <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static OkOrError&lt;T, TError&gt; FromError(TError error)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void EnsureConfigurationNotLocked()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <th>Condition</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TError</span></td>
-        <td><span class="parametername">error</span></td>
-        <td><p>The error.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>The configuration is locked.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Models.OkOrError-2.html">OkOrError</a>&lt;T, TError&gt;</td>
-        <td><p>OkOrError instance.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked">ConfigurationLocked</a></div>
+  </div>
   
   
-  <a id="Unosquare_Swan_Models_OkOrError_2_FromOk_" data-uid="Unosquare.Swan.Models.OkOrError`2.FromOk*"></a>
-  <h4 id="Unosquare_Swan_Models_OkOrError_2_FromOk__0_" data-uid="Unosquare.Swan.Models.OkOrError`2.FromOk(`0)">FromOk(T)</h4>
-  <div class="markdown level1 summary"><p>Creates a new OkOrError from the specified Ok object.</p>
+  <a id="Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration_" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration">LockConfiguration()</h4>
+  <div class="markdown level1 summary"><p>Locks this instance&apos;s configuration, preventing further modifications.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static OkOrError&lt;T, TError&gt; FromOk(T ok)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void LockConfiguration()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">ok</span></td>
-        <td><p>The ok.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Models.OkOrError-2.html">OkOrError</a>&lt;T, TError&gt;</td>
-        <td><p>OkOrError instance.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Configuration locking must be enforced by derived classes
+by calling <a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked">EnsureConfigurationNotLocked()</a> at the start
+of methods and property setters that could change the object&apos;s
+configuration.</p>
+<p>Immediately before locking the configuration, this method calls <a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration">OnBeforeLockConfiguration()</a>
+as a last chance to validate configuration data, and to lock the configuration of contained objects.</p>
+</div>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration">OnBeforeLockConfiguration()</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration_" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration" data-uid="Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration">OnBeforeLockConfiguration()</h4>
+  <div class="markdown level1 summary"><p>Called immediately before locking the configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnBeforeLockConfiguration()</code></pre>
+  </div>
+  <h5 id="Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration">LockConfiguration()</a></div>
+  </div>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

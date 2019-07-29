@@ -372,6 +372,64 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject
+  name: ConfiguredObject
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html
+  commentId: T:Unosquare.Swan.Abstractions.ConfiguredObject
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject
+  nameWithType: ConfiguredObject
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked
+  name: ConfigurationLocked
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked
+  commentId: P:Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked
+  nameWithType: ConfiguredObject.ConfigurationLocked
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked*
+  name: ConfigurationLocked
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_ConfigurationLocked_
+  commentId: Overload:Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.ConfigurationLocked
+  nameWithType: ConfiguredObject.ConfigurationLocked
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked
+  name: EnsureConfigurationNotLocked()
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked
+  commentId: M:Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked()
+  nameWithType: ConfiguredObject.EnsureConfigurationNotLocked()
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked*
+  name: EnsureConfigurationNotLocked
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_EnsureConfigurationNotLocked_
+  commentId: Overload:Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.EnsureConfigurationNotLocked
+  nameWithType: ConfiguredObject.EnsureConfigurationNotLocked
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration
+  name: LockConfiguration()
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration
+  commentId: M:Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration()
+  nameWithType: ConfiguredObject.LockConfiguration()
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration*
+  name: LockConfiguration
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_LockConfiguration_
+  commentId: Overload:Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.LockConfiguration
+  nameWithType: ConfiguredObject.LockConfiguration
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration
+  name: OnBeforeLockConfiguration()
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration
+  commentId: M:Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration()
+  nameWithType: ConfiguredObject.OnBeforeLockConfiguration()
+- uid: Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration*
+  name: OnBeforeLockConfiguration
+  href: api/Unosquare.Swan.Abstractions.ConfiguredObject.html#Unosquare_Swan_Abstractions_ConfiguredObject_OnBeforeLockConfiguration_
+  commentId: Overload:Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ConfiguredObject.OnBeforeLockConfiguration
+  nameWithType: ConfiguredObject.OnBeforeLockConfiguration
 - uid: Unosquare.Swan.Abstractions.ExclusiveTimer
   name: ExclusiveTimer
   href: api/Unosquare.Swan.Abstractions.ExclusiveTimer.html
@@ -615,6 +673,137 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.ExpressionParser.ResolveVariable
   nameWithType: ExpressionParser.ResolveVariable
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2
+  name: IDataDictionary<TKey, TValue>
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html
+  commentId: T:Unosquare.Swan.Abstractions.IDataDictionary`2
+  name.vb: IDataDictionary(Of TKey, TValue)
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue)
+  nameWithType: IDataDictionary<TKey, TValue>
+  nameWithType.vb: IDataDictionary(Of TKey, TValue)
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Clear
+  name: Clear()
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Clear
+  commentId: M:Unosquare.Swan.Abstractions.IDataDictionary`2.Clear
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Clear()
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Clear()
+  nameWithType: IDataDictionary<TKey, TValue>.Clear()
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Clear()
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Clear*
+  name: Clear
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Clear_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.Clear
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Clear
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Clear
+  nameWithType: IDataDictionary<TKey, TValue>.Clear
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Clear
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.ContainsKey(`0)
+  name: ContainsKey(TKey)
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_ContainsKey__0_
+  commentId: M:Unosquare.Swan.Abstractions.IDataDictionary`2.ContainsKey(`0)
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.ContainsKey(TKey)
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).ContainsKey(TKey)
+  nameWithType: IDataDictionary<TKey, TValue>.ContainsKey(TKey)
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).ContainsKey(TKey)
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.ContainsKey*
+  name: ContainsKey
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_ContainsKey_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.ContainsKey
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.ContainsKey
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).ContainsKey
+  nameWithType: IDataDictionary<TKey, TValue>.ContainsKey
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).ContainsKey
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Count
+  name: Count
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Count
+  commentId: P:Unosquare.Swan.Abstractions.IDataDictionary`2.Count
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Count
+  nameWithType: IDataDictionary<TKey, TValue>.Count
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Count*
+  name: Count
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Count_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.Count
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Count
+  nameWithType: IDataDictionary<TKey, TValue>.Count
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.IsEmpty
+  name: IsEmpty
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_IsEmpty
+  commentId: P:Unosquare.Swan.Abstractions.IDataDictionary`2.IsEmpty
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: IDataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.IsEmpty*
+  name: IsEmpty
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_IsEmpty_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.IsEmpty
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: IDataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Item(`0)
+  name: Item[TKey]
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Item__0_
+  commentId: P:Unosquare.Swan.Abstractions.IDataDictionary`2.Item(`0)
+  name.vb: Item(TKey)
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Item[TKey]
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Item(TKey)
+  nameWithType: IDataDictionary<TKey, TValue>.Item[TKey]
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Item(TKey)
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.Item*
+  name: Item
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_Item_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.Item
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).Item
+  nameWithType: IDataDictionary<TKey, TValue>.Item
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).Item
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.TryGetValue(`0,`1@)
+  name: TryGetValue(TKey, out TValue)
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_TryGetValue__0__1__
+  commentId: M:Unosquare.Swan.Abstractions.IDataDictionary`2.TryGetValue(`0,`1@)
+  name.vb: TryGetValue(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+  nameWithType: IDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.TryGetValue*
+  name: TryGetValue
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_TryGetValue_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.TryGetValue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.TryGetValue
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).TryGetValue
+  nameWithType: IDataDictionary<TKey, TValue>.TryGetValue
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryGetValue
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.TryRemove(`0,`1@)
+  name: TryRemove(TKey, out TValue)
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_TryRemove__0__1__
+  commentId: M:Unosquare.Swan.Abstractions.IDataDictionary`2.TryRemove(`0,`1@)
+  name.vb: TryRemove(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+  nameWithType: IDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Abstractions.IDataDictionary`2.TryRemove*
+  name: TryRemove
+  href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html#Unosquare_Swan_Abstractions_IDataDictionary_2_TryRemove_
+  commentId: Overload:Unosquare.Swan.Abstractions.IDataDictionary`2.TryRemove
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IDataDictionary<TKey, TValue>.TryRemove
+  fullName.vb: Unosquare.Swan.Abstractions.IDataDictionary(Of TKey, TValue).TryRemove
+  nameWithType: IDataDictionary<TKey, TValue>.TryRemove
+  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryRemove
 - uid: Unosquare.Swan.Abstractions.IEmailSender
   name: IEmailSender
   href: api/Unosquare.Swan.Abstractions.IEmailSender.html
@@ -1165,6 +1354,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.RunnerBase.Name
   nameWithType: RunnerBase.Name
+- uid: Unosquare.Swan.Abstractions.RunnerBase.OnSetup
+  name: OnSetup()
+  href: api/Unosquare.Swan.Abstractions.RunnerBase.html#Unosquare_Swan_Abstractions_RunnerBase_OnSetup
+  commentId: M:Unosquare.Swan.Abstractions.RunnerBase.OnSetup
+  fullName: Unosquare.Swan.Abstractions.RunnerBase.OnSetup()
+  nameWithType: RunnerBase.OnSetup()
+- uid: Unosquare.Swan.Abstractions.RunnerBase.OnSetup*
+  name: OnSetup
+  href: api/Unosquare.Swan.Abstractions.RunnerBase.html#Unosquare_Swan_Abstractions_RunnerBase_OnSetup_
+  commentId: Overload:Unosquare.Swan.Abstractions.RunnerBase.OnSetup
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.RunnerBase.OnSetup
+  nameWithType: RunnerBase.OnSetup
 - uid: Unosquare.Swan.Abstractions.RunnerBase.Setup
   name: Setup()
   href: api/Unosquare.Swan.Abstractions.RunnerBase.html#Unosquare_Swan_Abstractions_RunnerBase_Setup
@@ -8666,6 +8868,19 @@ references:
   fullName.vb: Unosquare.Swan.Lite.FromString.CanConvertTo(Of TResult)()
   nameWithType: FromString.CanConvertTo<TResult>()
   nameWithType.vb: FromString.CanConvertTo(Of TResult)()
+- uid: Unosquare.Swan.Lite.FromString.ConvertExpressionTo(System.Type,Expression)
+  name: ConvertExpressionTo(Type, Expression)
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertExpressionTo_System_Type_Expression_
+  commentId: M:Unosquare.Swan.Lite.FromString.ConvertExpressionTo(System.Type,Expression)
+  fullName: Unosquare.Swan.Lite.FromString.ConvertExpressionTo(System.Type, Expression)
+  nameWithType: FromString.ConvertExpressionTo(Type, Expression)
+- uid: Unosquare.Swan.Lite.FromString.ConvertExpressionTo*
+  name: ConvertExpressionTo
+  href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertExpressionTo_
+  commentId: Overload:Unosquare.Swan.Lite.FromString.ConvertExpressionTo
+  isSpec: "True"
+  fullName: Unosquare.Swan.Lite.FromString.ConvertExpressionTo
+  nameWithType: FromString.ConvertExpressionTo
 - uid: Unosquare.Swan.Lite.FromString.ConvertTo(System.Type,System.String)
   name: ConvertTo(Type, String)
   href: api/Unosquare.Swan.Lite.FromString.html#Unosquare_Swan_Lite_FromString_ConvertTo_System_Type_System_String_
@@ -9027,106 +9242,6 @@ references:
   commentId: F:Unosquare.Swan.LogMessageType.Warning
   fullName: Unosquare.Swan.LogMessageType.Warning
   nameWithType: LogMessageType.Warning
-- uid: Unosquare.Swan.Models
-  name: Unosquare.Swan.Models
-  href: api/Unosquare.Swan.Models.html
-  commentId: N:Unosquare.Swan.Models
-  fullName: Unosquare.Swan.Models
-  nameWithType: Unosquare.Swan.Models
-- uid: Unosquare.Swan.Models.OkOrError`2
-  name: OkOrError<T, TError>
-  href: api/Unosquare.Swan.Models.OkOrError-2.html
-  commentId: T:Unosquare.Swan.Models.OkOrError`2
-  name.vb: OkOrError(Of T, TError)
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError)
-  nameWithType: OkOrError<T, TError>
-  nameWithType.vb: OkOrError(Of T, TError)
-- uid: Unosquare.Swan.Models.OkOrError`2.Error
-  name: Error
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Error
-  commentId: P:Unosquare.Swan.Models.OkOrError`2.Error
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Error
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Error
-  nameWithType: OkOrError<T, TError>.Error
-  nameWithType.vb: OkOrError(Of T, TError).Error
-- uid: Unosquare.Swan.Models.OkOrError`2.Error*
-  name: Error
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Error_
-  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.Error
-  isSpec: "True"
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Error
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Error
-  nameWithType: OkOrError<T, TError>.Error
-  nameWithType.vb: OkOrError(Of T, TError).Error
-- uid: Unosquare.Swan.Models.OkOrError`2.FromError(`1)
-  name: FromError(TError)
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromError__1_
-  commentId: M:Unosquare.Swan.Models.OkOrError`2.FromError(`1)
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromError(TError)
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromError(TError)
-  nameWithType: OkOrError<T, TError>.FromError(TError)
-  nameWithType.vb: OkOrError(Of T, TError).FromError(TError)
-- uid: Unosquare.Swan.Models.OkOrError`2.FromError*
-  name: FromError
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromError_
-  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.FromError
-  isSpec: "True"
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromError
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromError
-  nameWithType: OkOrError<T, TError>.FromError
-  nameWithType.vb: OkOrError(Of T, TError).FromError
-- uid: Unosquare.Swan.Models.OkOrError`2.FromOk(`0)
-  name: FromOk(T)
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromOk__0_
-  commentId: M:Unosquare.Swan.Models.OkOrError`2.FromOk(`0)
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromOk(T)
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromOk(T)
-  nameWithType: OkOrError<T, TError>.FromOk(T)
-  nameWithType.vb: OkOrError(Of T, TError).FromOk(T)
-- uid: Unosquare.Swan.Models.OkOrError`2.FromOk*
-  name: FromOk
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_FromOk_
-  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.FromOk
-  isSpec: "True"
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.FromOk
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).FromOk
-  nameWithType: OkOrError<T, TError>.FromOk
-  nameWithType.vb: OkOrError(Of T, TError).FromOk
-- uid: Unosquare.Swan.Models.OkOrError`2.IsOk
-  name: IsOk
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_IsOk
-  commentId: P:Unosquare.Swan.Models.OkOrError`2.IsOk
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.IsOk
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).IsOk
-  nameWithType: OkOrError<T, TError>.IsOk
-  nameWithType.vb: OkOrError(Of T, TError).IsOk
-- uid: Unosquare.Swan.Models.OkOrError`2.IsOk*
-  name: IsOk
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_IsOk_
-  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.IsOk
-  isSpec: "True"
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.IsOk
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).IsOk
-  nameWithType: OkOrError<T, TError>.IsOk
-  nameWithType.vb: OkOrError(Of T, TError).IsOk
-- uid: Unosquare.Swan.Models.OkOrError`2.Ok
-  name: Ok
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Ok
-  commentId: P:Unosquare.Swan.Models.OkOrError`2.Ok
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Ok
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Ok
-  nameWithType: OkOrError<T, TError>.Ok
-  nameWithType.vb: OkOrError(Of T, TError).Ok
-- uid: Unosquare.Swan.Models.OkOrError`2.Ok*
-  name: Ok
-  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Ok_
-  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.Ok
-  isSpec: "True"
-  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Ok
-  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Ok
-  nameWithType: OkOrError<T, TError>.Ok
-  nameWithType.vb: OkOrError(Of T, TError).Ok
 - uid: Unosquare.Swan.Network
   name: Network
   href: api/Unosquare.Swan.Network.html
@@ -10633,22 +10748,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.JsonClient.PostFileString
   nameWithType: JsonClient.PostFileString
-- uid: Unosquare.Swan.Networking.JsonClient.PostOrError*
-  name: PostOrError
-  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostOrError_
-  commentId: Overload:Unosquare.Swan.Networking.JsonClient.PostOrError
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.JsonClient.PostOrError
-  nameWithType: JsonClient.PostOrError
-- uid: Unosquare.Swan.Networking.JsonClient.PostOrError``2(System.String,System.Object,System.Int32,System.String,System.Threading.CancellationToken)
-  name: PostOrError<T, TE>(String, Object, Int32, String, CancellationToken)
-  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostOrError__2_System_String_System_Object_System_Int32_System_String_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.JsonClient.PostOrError``2(System.String,System.Object,System.Int32,System.String,System.Threading.CancellationToken)
-  name.vb: PostOrError(Of T, TE)(String, Object, Int32, String, CancellationToken)
-  fullName: Unosquare.Swan.Networking.JsonClient.PostOrError<T, TE>(System.String, System.Object, System.Int32, System.String, System.Threading.CancellationToken)
-  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostOrError(Of T, TE)(System.String, System.Object, System.Int32, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.PostOrError<T, TE>(String, Object, Int32, String, CancellationToken)
-  nameWithType.vb: JsonClient.PostOrError(Of T, TE)(String, Object, Int32, String, CancellationToken)
 - uid: Unosquare.Swan.Networking.JsonClient.PostString(System.String,System.Object,System.String,System.Threading.CancellationToken)
   name: PostString(String, Object, String, CancellationToken)
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostString_System_String_System_Object_System_String_System_Threading_CancellationToken_
@@ -11597,83 +11696,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.SmtpSessionState.Username
   nameWithType: SmtpSessionState.Username
-- uid: Unosquare.Swan.Networking.SnmpClient
-  name: SnmpClient
-  href: api/Unosquare.Swan.Networking.SnmpClient.html
-  commentId: T:Unosquare.Swan.Networking.SnmpClient
-  fullName: Unosquare.Swan.Networking.SnmpClient
-  nameWithType: SnmpClient
-- uid: Unosquare.Swan.Networking.SnmpClient.Discover(System.Int32)
-  name: Discover(Int32)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_Discover_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.Discover(System.Int32)
-  fullName: Unosquare.Swan.Networking.SnmpClient.Discover(System.Int32)
-  nameWithType: SnmpClient.Discover(Int32)
-- uid: Unosquare.Swan.Networking.SnmpClient.Discover*
-  name: Discover
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_Discover_
-  commentId: Overload:Unosquare.Swan.Networking.SnmpClient.Discover
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.SnmpClient.Discover
-  nameWithType: SnmpClient.Discover
-- uid: Unosquare.Swan.Networking.SnmpClient.Get(IPEndPoint,System.String)
-  name: Get(IPEndPoint, String)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_Get_IPEndPoint_System_String_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.Get(IPEndPoint,System.String)
-  fullName: Unosquare.Swan.Networking.SnmpClient.Get(IPEndPoint, System.String)
-  nameWithType: SnmpClient.Get(IPEndPoint, String)
-- uid: Unosquare.Swan.Networking.SnmpClient.Get(System.String,IPEndPoint,System.String,System.String)
-  name: Get(String, IPEndPoint, String, String)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_Get_System_String_IPEndPoint_System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.Get(System.String,IPEndPoint,System.String,System.String)
-  fullName: Unosquare.Swan.Networking.SnmpClient.Get(System.String, IPEndPoint, System.String, System.String)
-  nameWithType: SnmpClient.Get(String, IPEndPoint, String, String)
-- uid: Unosquare.Swan.Networking.SnmpClient.Get*
-  name: Get
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_Get_
-  commentId: Overload:Unosquare.Swan.Networking.SnmpClient.Get
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.SnmpClient.Get
-  nameWithType: SnmpClient.Get
-- uid: Unosquare.Swan.Networking.SnmpClient.GetPublicName(IPEndPoint)
-  name: GetPublicName(IPEndPoint)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetPublicName_IPEndPoint_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.GetPublicName(IPEndPoint)
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetPublicName(IPEndPoint)
-  nameWithType: SnmpClient.GetPublicName(IPEndPoint)
-- uid: Unosquare.Swan.Networking.SnmpClient.GetPublicName*
-  name: GetPublicName
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetPublicName_
-  commentId: Overload:Unosquare.Swan.Networking.SnmpClient.GetPublicName
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetPublicName
-  nameWithType: SnmpClient.GetPublicName
-- uid: Unosquare.Swan.Networking.SnmpClient.GetString(IPEndPoint,System.String)
-  name: GetString(IPEndPoint, String)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetString_IPEndPoint_System_String_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.GetString(IPEndPoint,System.String)
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetString(IPEndPoint, System.String)
-  nameWithType: SnmpClient.GetString(IPEndPoint, String)
-- uid: Unosquare.Swan.Networking.SnmpClient.GetString*
-  name: GetString
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetString_
-  commentId: Overload:Unosquare.Swan.Networking.SnmpClient.GetString
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetString
-  nameWithType: SnmpClient.GetString
-- uid: Unosquare.Swan.Networking.SnmpClient.GetUptime(IPEndPoint,System.String)
-  name: GetUptime(IPEndPoint, String)
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetUptime_IPEndPoint_System_String_
-  commentId: M:Unosquare.Swan.Networking.SnmpClient.GetUptime(IPEndPoint,System.String)
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetUptime(IPEndPoint, System.String)
-  nameWithType: SnmpClient.GetUptime(IPEndPoint, String)
-- uid: Unosquare.Swan.Networking.SnmpClient.GetUptime*
-  name: GetUptime
-  href: api/Unosquare.Swan.Networking.SnmpClient.html#Unosquare_Swan_Networking_SnmpClient_GetUptime_
-  commentId: Overload:Unosquare.Swan.Networking.SnmpClient.GetUptime
-  isSpec: "True"
-  fullName: Unosquare.Swan.Networking.SnmpClient.GetUptime
-  nameWithType: SnmpClient.GetUptime
 - uid: Unosquare.Swan.OperatingSystem
   name: OperatingSystem
   href: api/Unosquare.Swan.OperatingSystem.html

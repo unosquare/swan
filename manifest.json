@@ -94,6 +94,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ConfiguredObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.ConfiguredObject.html",
+          "hash": "uC2jvzu+54VWFQZRUKqO9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ExclusiveTimer.yml",
       "output": {
         ".html": {
@@ -111,6 +123,18 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.ExpressionParser.html",
           "hash": "JIsv5iFAHD/QYYn7iHy4Zg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.IDataDictionary-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.IDataDictionary-2.html",
+          "hash": "vuajb7WrAznvKsA1CDSCLA=="
         }
       },
       "is_incremental": false,
@@ -230,7 +254,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.RunnerBase.html",
-          "hash": "6LkMiekwl5lXzL4d0GTe5g=="
+          "hash": "ThatFFNi2unDEAI99dhpwQ=="
         }
       },
       "is_incremental": false,
@@ -398,7 +422,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "pMlhixBNqc3kko+PYpOVag=="
+          "hash": "baLOufSQxFbzcqbfHtShGw=="
         }
       },
       "is_incremental": false,
@@ -1550,7 +1574,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Lite.FromString.html",
-          "hash": "hNC+abp2cryyhdBKfQXu0w=="
+          "hash": "4OkuD/YbeGUhP0pBWAVM6w=="
         }
       },
       "is_incremental": false,
@@ -1611,30 +1635,6 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.LogMessageType.html",
           "hash": "rOsdYQL5MHkaoMo2lzmNHw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Models.OkOrError-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Models.OkOrError-2.html",
-          "hash": "YofYC5gHPYJVyHpUuigTMA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Models.html",
-          "hash": "F+2KErCX/MhMKPJIq9vLQw=="
         }
       },
       "is_incremental": false,
@@ -1766,7 +1766,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.JsonClient.html",
-          "hash": "FsKAiWuMz1RAQVZcqiegPQ=="
+          "hash": "Q3xCKQnmjNH3hqdDgwMMDg=="
         }
       },
       "is_incremental": false,
@@ -1870,23 +1870,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Networking.SnmpClient.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Networking.SnmpClient.html",
-          "hash": "MDHmpI7fwaGRy24P+ZoD7w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Networking.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.html",
-          "hash": "K1lao/x1XYryfHHiBAOUKQ=="
+          "hash": "xU2s9b7KM8Ju840cXtWpJw=="
         }
       },
       "is_incremental": false,
@@ -2174,7 +2162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Z79EzRK1/AB5Lfcp5wHJjg=="
+          "hash": "+wJyGbLBCbvti8Cn/db4UQ=="
         }
       },
       "is_incremental": false,
@@ -2243,7 +2231,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 174,
+          "total_file_count": 173,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
