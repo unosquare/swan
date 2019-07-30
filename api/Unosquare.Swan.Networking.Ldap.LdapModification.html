@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class RunnerBase
+    <title>Class LdapModification
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class RunnerBase
+    <meta name="title" content="Class LdapModification
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.43.3.0">
     
@@ -76,23 +76,61 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.RunnerBase">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_RunnerBase" data-uid="Unosquare.Swan.Abstractions.RunnerBase" class="text-break">Class RunnerBase
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapModification" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification" class="text-break">Class LdapModification
   </h1>
-  <div class="markdown level0 summary"><p>Represents an background worker abstraction with a life cycle and running at a independent thread.</p>
+  <div class="markdown level0 summary"><p>A single add, delete, or replace operation to an LdapAttribute.
+An LdapModification contains information on the type of modification
+being performed, the name of the attribute to be replaced, and the new
+value.  Multiple modifications are expressed as an array of modifications,
+i.e., <code>LdapModification[]</code>.
+An LdapModification or an LdapModification array enable you to modify
+an attribute of an Ldap entry. The entire array of modifications must
+be performed by the server as a single atomic operation in the order they
+are listed. No changes are made to the directory unless all the operations
+succeed. If all succeed, a success result is returned to the application.
+It should be noted that if the connection fails during a modification,
+it is indeterminate whether the modification occurred or not.
+There are three types of modification operations: Add, Delete,
+and Replace.
+<strong>Add: </strong>Creates the attribute if it doesn&apos;t exist, and adds
+the specified values. This operation must contain at least one value, and
+all values of the attribute must be unique.
+<strong>Delete: </strong>Deletes specified values from the attribute. If no
+values are specified, or if all existing values of the attribute are
+specified, the attribute is removed. Mandatory attributes cannot be
+removed.
+<strong>Replace: </strong>Creates the attribute if necessary, and replaces
+all existing values of the attribute with the specified values.
+If you wish to keep any existing values of a multi-valued attribute,
+you must include these values in the replace operation.
+A replace operation with no value will remove the entire attribute if it
+exists, and is ignored if the attribute does not exist.
+Additional information on Ldap modifications is available in section 4.6
+of. <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">RunnerBase</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+    <div class="level2"><span class="xref">LdapModification</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId">LdapMessage.MessageId</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request">LdapMessage.Request</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Tag">LdapMessage.Tag</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ToString">LdapMessage.ToString()</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
@@ -113,23 +151,23 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_RunnerBase_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapModification_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class RunnerBase</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapModification : LdapMessage</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_RunnerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase__ctor_System_Boolean_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.#ctor(System.Boolean)">RunnerBase(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.RunnerBase.html">RunnerBase</a> class.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_Unosquare_Swan_Networking_Ldap_LdapModificationOp_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,System.String,System.String)">LdapModification(LdapModificationOp, String, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected RunnerBase(bool isEnabled)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModification(LdapModificationOp op, string attrName, string attrValue)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,9 +180,57 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">isEnabled</span></td>
-        <td><p>if set to <code>true</code> [is enabled].</p>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></td>
+        <td><span class="parametername">op</span></td>
+        <td><p>The op.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">attrName</span></td>
+        <td><p>Name of the attribute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">attrValue</span></td>
+        <td><p>The attribute value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_Unosquare_Swan_Networking_Ldap_LdapModificationOp_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,Unosquare.Swan.Networking.Ldap.LdapAttribute)">LdapModification(LdapModificationOp, LdapAttribute)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a> class.
+Specifies a modification to be made to an attribute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapModification(LdapModificationOp op, LdapAttribute attr)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></td>
+        <td><span class="parametername">op</span></td>
+        <td><p>The op.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><span class="parametername">attr</span></td>
+        <td><p>The attribute to modify.</p>
 </td>
       </tr>
     </tbody>
@@ -153,14 +239,14 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_ErrorMessages_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.ErrorMessages*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_ErrorMessages" data-uid="Unosquare.Swan.Abstractions.RunnerBase.ErrorMessages">ErrorMessages</h4>
-  <div class="markdown level1 summary"><p>Gets the error messages.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification_Attribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Attribute*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_Attribute" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Attribute">Attribute</h4>
+  <div class="markdown level1 summary"><p>Returns the attribute to modify, with any existing values.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;string&gt; ErrorMessages { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttribute Attribute { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -172,22 +258,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>The error messages.</p>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><p>The attribute.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_IsEnabled_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsEnabled*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_IsEnabled" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsEnabled">IsEnabled</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is enabled.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification_Op_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Op*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_Op" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Op">Op</h4>
+  <div class="markdown level1 summary"><p>Returns the type of modification specified by this object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsEnabled { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModificationOp Op { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -199,140 +285,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if this instance is enabled; otherwise, <code>false</code>.</p>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></td>
+        <td><p>The op.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_IsRunning_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsRunning*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_IsRunning" data-uid="Unosquare.Swan.Abstractions.RunnerBase.IsRunning">IsRunning</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is running.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsRunning { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if this instance is running; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_Name_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Name*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Name" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Name">Name</h4>
-  <div class="markdown level1 summary"><p>Gets the name.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>The name.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_Cleanup_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Cleanup*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Cleanup" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Cleanup">Cleanup()</h4>
-  <div class="markdown level1 summary"><p>Cleanups this instance.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void Cleanup()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_DoBackgroundWork_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.DoBackgroundWork*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_DoBackgroundWork_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.DoBackgroundWork(System.Threading.CancellationToken)">DoBackgroundWork(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Does the background work.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void DoBackgroundWork(CancellationToken cancellationToken)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
-        <td><span class="parametername">cancellationToken</span></td>
-        <td><p>The ct.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_Setup_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Setup*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Setup" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Setup">Setup()</h4>
-  <div class="markdown level1 summary"><p>Setups this instance.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void Setup()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_Start_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Start*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Start" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Starts this instance.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Start()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_RunnerBase_Stop_" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Stop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_RunnerBase_Stop" data-uid="Unosquare.Swan.Abstractions.RunnerBase.Stop">Stop()</h4>
-  <div class="markdown level1 summary"><p>Stops this instance.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___System_Threading_CancellationToken_">Modify(String, LdapModification[], CancellationToken)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></div>
   </div>
 
 <h3 id="disqus_thread">Comments</h3>

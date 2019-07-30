@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class StringConversionException
+    <title>Class LdapException
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class StringConversionException
+    <meta name="title" content="Class LdapException
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.43.3.0">
     
@@ -76,20 +76,24 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Lite.StringConversionException">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Exceptions.LdapException">
   
   
-  <h1 id="Unosquare_Swan_Lite_StringConversionException" data-uid="Unosquare.Swan.Lite.StringConversionException" class="text-break">Class StringConversionException
+  <h1 id="Unosquare_Swan_Exceptions_LdapException" data-uid="Unosquare.Swan.Exceptions.LdapException" class="text-break">Class LdapException
   </h1>
-  <div class="markdown level0 summary"><p>The exception that is thrown when a conversion from a string to a
-specified type fails.</p>
+  <div class="markdown level0 summary"><p>Thrown to indicate that an Ldap exception has occurred. This is a general
+exception which includes a message and an Ldap result code.
+An LdapException can result from physical problems (such as
+network errors) as well as problems with Ldap operations detected
+by the server. For example, if an Ldap add operation fails because of a
+duplicate entry, the server returns a result code.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></div>
-    <div class="level2"><span class="xref">StringConversionException</span></div>
+    <div class="level2"><span class="xref">LdapException</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -102,16 +106,10 @@ specified type fails.</p>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.getbaseexception#System_Exception_GetBaseException">Exception.GetBaseException()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.tostring#System_Exception_ToString">Exception.ToString()</a>
-    </div>
-    <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.getobjectdata#System_Exception_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_">Exception.GetObjectData(SerializationInfo, StreamingContext)</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.gettype#System_Exception_GetType">Exception.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.message#System_Exception_Message">Exception.Message</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.data#System_Exception_Data">Exception.Data</a>
@@ -153,72 +151,31 @@ specified type fails.</p>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Lite.html">Unosquare.Swan.Lite</a></h6>
-  <h5 id="Unosquare_Swan_Lite_StringConversionException_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Exceptions.html">Unosquare.Swan.Exceptions</a></h6>
+  <h5 id="Unosquare_Swan_Exceptions_LdapException_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Serializable]
-public class StringConversionException : Exception, ISerializable, _Exception</code></pre>
+public class LdapException : Exception, ISerializable, _Exception</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor">StringConversionException()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
+  <a id="Unosquare_Swan_Exceptions_LdapException__ctor_" data-uid="Unosquare.Swan.Exceptions.LdapException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_" data-uid="Unosquare.Swan.Exceptions.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)">LdapException(String, LdapStatusCode, String, String, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.LdapException.html">LdapException</a> class.
+Constructs an exception with a detailed message obtained from the
+specified <code>MessageOrKey</code> String.
+Additional parameters specify the result code, the message returned
+from the server, and a matchedDN returned from the server.
+The String is used either as a message key to obtain a localized
+message from ExceptionMessages, or if there is no key in the
+resource matching the text, it is used as the detailed message itself.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringConversionException()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">StringConversionException(SerializationInfo, StreamingContext)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected StringConversionException(SerializationInfo info, StreamingContext context)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.serializationinfo">SerializationInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.serializationinfo">SerializationInfo</a> that holds the serialized object data
-about the exception being thrown.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.streamingcontext">StreamingContext</a></td>
-        <td><span class="parametername">context</span></td>
-        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.streamingcontext">StreamingContext</a> that contains contextual information
-about the source or destination.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor_System_String_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor(System.String)">StringConversionException(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringConversionException(string message)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapException(string message, LdapStatusCode resultCode, string serverMsg = null, string matchedDN = null, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -233,112 +190,218 @@ about the source or destination.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">message</span></td>
-        <td><p>The error message that explains the reason for the exception.</p>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
+        <td><span class="parametername">resultCode</span></td>
+        <td><p>The result code returned.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">serverMsg</span></td>
+        <td><p>Error message specifying additional information
+from the server.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">matchedDN</span></td>
+        <td><p>The maximal subset of a specified DN which could
+be matched by the server on a search operation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">rootException</span></td>
+        <td><p>The root exception.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Exceptions_LdapException_Cause_" data-uid="Unosquare.Swan.Exceptions.LdapException.Cause*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_Cause" data-uid="Unosquare.Swan.Exceptions.LdapException.Cause">Cause</h4>
+  <div class="markdown level1 summary"><p>Returns the lower level Exception which caused the failure, if any.
+For example, an IOException with additional information may be returned
+on a CONNECT_ERROR failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Exception Cause { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><p>The cause.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor_System_String_System_Exception_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor(System.String,System.Exception)">StringConversionException(String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
+  <a id="Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage_" data-uid="Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage" data-uid="Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage">LdapErrorMessage</h4>
+  <div class="markdown level1 summary"><p>Returns the error message from the Ldap server, if this message is
+available (that is, if this message was set). If the message was not set,
+this method returns null.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringConversionException(string message, Exception innerException)</code></pre>
+    <pre><code class="lang-csharp hljs">public string LdapErrorMessage { get; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The error message that explains the reason for the exception.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
-        <td><span class="parametername">innerException</span></td>
-        <td><p>The exception that is the cause of the current exception,
-or <span class="xref">null</span> if no inner exception is specified.</p>
+        <td><p>The error message or null if the message was not set.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor_System_Type_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type)">StringConversionException(Type)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
+  <a id="Unosquare_Swan_Exceptions_LdapException_MatchedDN_" data-uid="Unosquare.Swan.Exceptions.LdapException.MatchedDN*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_MatchedDN" data-uid="Unosquare.Swan.Exceptions.LdapException.MatchedDN">MatchedDN</h4>
+  <div class="markdown level1 summary"><p>Returns the part of a submitted distinguished name which could be
+matched by the server.
+If the exception was caused by a local error, such as no server
+available, the return value is null. If the exception resulted from
+an operation being executed on a server, the value is an empty string
+except when the result of the operation was one of the following:.
+<ul><li>NO_SUCH_OBJECT</li><li>ALIAS_PROBLEM</li><li>INVALID_DN_SYNTAX</li><li>ALIAS_DEREFERENCING_PROBLEM</li></ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringConversionException(Type type)</code></pre>
+    <pre><code class="lang-csharp hljs">public string MatchedDN { get; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The desired resulting type of the attempted conversion.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The matched dn.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_StringConversionException__ctor_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_StringConversionException__ctor_System_Type_System_Exception_" data-uid="Unosquare.Swan.Lite.StringConversionException.#ctor(System.Type,System.Exception)">StringConversionException(Type, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.StringConversionException.html">StringConversionException</a> class.</p>
-</div>
+  <a id="Unosquare_Swan_Exceptions_LdapException_Message_" data-uid="Unosquare.Swan.Exceptions.LdapException.Message*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_Message" data-uid="Unosquare.Swan.Exceptions.LdapException.Message">Message</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringConversionException(Type type, Exception innerException)</code></pre>
+    <pre><code class="lang-csharp hljs">public override string Message { get; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The desired resulting type of the attempted conversion.</p>
-</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
       </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.message#System_Exception_Message">Exception.Message</a></div>
+  
+  
+  <a id="Unosquare_Swan_Exceptions_LdapException_ResultCode_" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_ResultCode" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode">ResultCode</h4>
+  <div class="markdown level1 summary"><p>Returns the result code from the exception.
+The codes are defined as <code>public final static int</code> members
+of the Ldap Exception class. If the exception is a
+result of error information returned from a directory operation, the
+code will be one of those defined for the class. Otherwise, a local error
+code is returned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapStatusCode ResultCode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
-        <td><span class="parametername">innerException</span></td>
-        <td><p>The exception that is the cause of the current exception,
-or <span class="xref">null</span> if no inner exception is specified.</p>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
+        <td><p>The result code.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Exceptions_LdapException_ToString_" data-uid="Unosquare.Swan.Exceptions.LdapException.ToString*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_ToString" data-uid="Unosquare.Swan.Exceptions.LdapException.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception.tostring#System_Exception_ToString">Exception.ToString()</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.runtime.serialization.iserializable">System.Runtime.Serialization.ISerializable</a>
@@ -348,7 +411,7 @@ or <span class="xref">null</span> if no inner exception is specified.</p>
   </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Lite.FromString.html">FromString</a></div>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></div>
   </div>
 
 <h3 id="disqus_thread">Comments</h3>
