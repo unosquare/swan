@@ -130,7 +130,7 @@ and bearer tokens authentication.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Authenticate(string url, string username, string password, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Authenticate(string requestUri, string username, string password, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -144,8 +144,8 @@ and bearer tokens authentication.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -217,7 +217,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(string url, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(string requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -231,8 +231,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -290,7 +290,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(string url, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(string requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -304,8 +304,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -368,7 +368,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(string url, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(string requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -382,8 +382,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -509,7 +509,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -523,8 +523,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -572,7 +572,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -586,8 +586,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -651,7 +651,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(string url, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(string requestUri, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -665,8 +665,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -736,7 +736,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(string url, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(string requestUri, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -750,8 +750,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -805,7 +805,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(string requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -819,8 +819,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -889,7 +889,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Put(string url, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Put(string requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -903,8 +903,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -952,7 +952,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(string requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -966,8 +966,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -1031,7 +1031,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(string requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1045,8 +1045,8 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -1115,7 +1115,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, string requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1135,8 +1135,8 @@ with optional authorization token.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">url</span></td>
-        <td><p>The URL.</p>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The request URI.</p>
 </td>
       </tr>
       <tr>
@@ -1171,6 +1171,27 @@ with optional authorization token.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A task with a result of the requested string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>requestUri</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error {method} JSON</p>
 </td>
       </tr>
     </tbody>
