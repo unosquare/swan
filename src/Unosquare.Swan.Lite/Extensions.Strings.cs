@@ -413,14 +413,12 @@
         /// A string with a safe file name.
         /// </returns>
         /// <exception cref="ArgumentNullException">s.</exception>
-        public static string ToSafeFilename(this string value)
-        {
-            return value == null
+        public static string ToSafeFilename(this string value) =>
+            value == null
                 ? throw new ArgumentNullException(nameof(value))
                 : InvalidFilenameChars.Value
                     .Aggregate(value, (current, c) => current.Replace(c, string.Empty))
                     .Slice(0, 220);
-        }
 
         /// <summary>
         /// Formats a long into the closest bytes string.
