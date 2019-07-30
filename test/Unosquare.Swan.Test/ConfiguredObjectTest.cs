@@ -1,20 +1,20 @@
 ﻿namespace Unosquare.Swan.Test
 {
     using System;
-    using EmbedIO.Utilities;
+    using Abstractions;
     using NUnit.Framework;
 
     public class ConfiguredObjectTest
     {
         private class TestObject : ConfiguredObject
         {
+            public bool OnBeforeLockConfigurationCalled { get; private set; }
+
             public new bool ConfigurationLocked => base.ConfigurationLocked;
 
             public new void LockConfiguration() => base.LockConfiguration();
 
             public new void EnsureConfigurationNotLocked() => base.EnsureConfigurationNotLocked();
-
-            public bool OnBeforeLockConfigurationCalled { get; private set; }
 
             protected override void OnBeforeLockConfiguration() => OnBeforeLockConfigurationCalled = true;
         }
