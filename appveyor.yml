@@ -1,7 +1,7 @@
 version: '1.00.{build}'
 image: 
 - Visual Studio 2017
-- Ubuntu
+- Ubuntu1804
 stack: node 9
 notifications:
 - provider: Slack

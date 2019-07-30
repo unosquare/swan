@@ -31,7 +31,6 @@
         /// <summary>
         /// Adds a key/value pair to the Dictionary if the key does not already exist.
         /// If the value is null, the key will not be updated.
-        ///
         /// Based on <c>ConcurrentDictionary.GetOrAdd</c> method.
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
@@ -39,11 +38,21 @@
         /// <param name="dict">The dictionary.</param>
         /// <param name="key">The key.</param>
         /// <param name="valueFactory">The value factory.</param>
-        /// <returns>The value for the key.</returns>
+        /// <returns>
+        /// The value for the key.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// dict
+        /// or
+        /// valueFactory.
+        /// </exception>
         public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TKey, TValue> valueFactory)
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));
+
+            if (valueFactory == null)
+                throw new ArgumentNullException(nameof(valueFactory));
 
             if (!dict.ContainsKey(key))
             {
