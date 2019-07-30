@@ -14292,21 +14292,21 @@ references:
   commentId: T:Unosquare.Swan.WindowsServicesExtensions
   fullName: Unosquare.Swan.WindowsServicesExtensions
   nameWithType: WindowsServicesExtensions
-- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
-  name: RunInConsoleMode(ServiceBase)
-  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase_
-  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
-  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
-  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase)
-- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
-  name: RunInConsoleMode(ServiceBase[])
-  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase___
-  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
-  name.vb: RunInConsoleMode(ServiceBase())
-  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
-  fullName.vb: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase())
-  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase[])
-  nameWithType.vb: WindowsServicesExtensions.RunInConsoleMode(ServiceBase())
+- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase,System.String)
+  name: RunInConsoleMode(ServiceBase, String)
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase_System_String_
+  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase,System.String)
+  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase, System.String)
+  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase, String)
+- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[],System.String)
+  name: RunInConsoleMode(ServiceBase[], String)
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase___System_String_
+  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[],System.String)
+  name.vb: RunInConsoleMode(ServiceBase(), String)
+  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[], System.String)
+  fullName.vb: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase(), System.String)
+  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase[], String)
+  nameWithType.vb: WindowsServicesExtensions.RunInConsoleMode(ServiceBase(), String)
 - uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode*
   name: RunInConsoleMode
   href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_

@@ -183,7 +183,7 @@ Do not use for large streams as this reads ALL bytes at once.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
-public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)</code></pre>
+public static byte[] ComputeMD5(this Stream this, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,7 +197,7 @@ public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)</
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
-        <td><span class="parametername">stream</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The stream.</p>
 </td>
       </tr>
@@ -303,7 +303,7 @@ public static byte[] ComputeMD5(this string value, bool createHasher = false)</c
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use a better hasher.&quot;)]
-public static byte[] ComputeSha1(this string value, bool createHasher = false)</code></pre>
+public static byte[] ComputeSha1(this string this, bool createHasher = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -317,7 +317,7 @@ public static byte[] ComputeSha1(this string value, bool createHasher = false)</
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">value</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The input string.</p>
 </td>
       </tr>
@@ -1025,7 +1025,7 @@ If the string is null it returns an empty string.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Slice(this string value, int startIndex, int endIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Slice(this string this, int startIndex, int endIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1039,7 +1039,7 @@ If the string is null it returns an empty string.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">value</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The string.</p>
 </td>
       </tr>
@@ -1084,7 +1084,7 @@ of string.Substring.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string SliceLength(this string str, int startIndex, int length)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string SliceLength(this string this, int startIndex, int length)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1098,7 +1098,7 @@ of string.Substring.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">str</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The string.</p>
 </td>
       </tr>
@@ -1143,7 +1143,7 @@ examine objects.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Stringify(this object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Stringify(this object this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1157,7 +1157,7 @@ examine objects.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">obj</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The object.</p>
 </td>
       </tr>
@@ -1243,7 +1243,7 @@ column number.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToJson(this object obj, bool format = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string ToJson(this object this, bool format = true)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1257,7 +1257,7 @@ column number.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">obj</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The object.</p>
 </td>
       </tr>
@@ -1294,7 +1294,7 @@ column number.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string[] ToLines(this string value)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string[] ToLines(this string this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1308,7 +1308,7 @@ column number.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">value</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The text.</p>
 </td>
       </tr>
@@ -1403,7 +1403,7 @@ overload exists.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToStringInvariant(this object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string ToStringInvariant(this object this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1417,7 +1417,7 @@ overload exists.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">obj</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The item.</p>
 </td>
       </tr>

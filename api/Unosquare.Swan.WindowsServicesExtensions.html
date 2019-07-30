@@ -123,13 +123,13 @@
   
   
   <a id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode*"></a>
-  <h4 id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase_" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)">RunInConsoleMode(ServiceBase)</h4>
+  <h4 id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase_System_String_" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase,System.String)">RunInConsoleMode(ServiceBase, String)</h4>
   <div class="markdown level1 summary"><p>Runs a service in console mode.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RunInConsoleMode(this ServiceBase serviceToRun)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void RunInConsoleMode(this ServiceBase this, string loggerSource = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,8 +143,30 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Abstractions.ServiceBase.html">ServiceBase</a></td>
-        <td><span class="parametername">serviceToRun</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The service to run.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">loggerSource</span></td>
+        <td><p>The logger source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>this.</p>
 </td>
       </tr>
     </tbody>
@@ -152,13 +174,13 @@
   
   
   <a id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode*"></a>
-  <h4 id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase___" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])">RunInConsoleMode(ServiceBase[])</h4>
+  <h4 id="Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase___System_String_" data-uid="Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[],System.String)">RunInConsoleMode(ServiceBase[], String)</h4>
   <div class="markdown level1 summary"><p>Runs a set of services in console mode.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RunInConsoleMode(this ServiceBase[] servicesToRun)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void RunInConsoleMode(this ServiceBase[] this, string loggerSource = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -172,8 +194,35 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Abstractions.ServiceBase.html">ServiceBase</a>[]</td>
-        <td><span class="parametername">servicesToRun</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The services to run.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">loggerSource</span></td>
+        <td><p>The logger source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>this.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>The ServiceBase class isn&apos;t available.</p>
 </td>
       </tr>
     </tbody>
