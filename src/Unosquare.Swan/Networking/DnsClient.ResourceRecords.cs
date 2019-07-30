@@ -107,9 +107,8 @@
                 return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
             }
 
-            public byte[] ToArray()
-            {
-                return new MemoryStream(Size)
+            public byte[] ToArray() =>
+                new MemoryStream(Size)
                     .Append(Name.ToArray())
                     .Append(new Tail()
                     {
@@ -120,7 +119,6 @@
                     }.ToBytes())
                     .Append(Data)
                     .ToArray();
-            }
 
             public override string ToString()
             {

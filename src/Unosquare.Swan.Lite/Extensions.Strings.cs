@@ -49,23 +49,23 @@
         /// Computes the MD5 hash of the given stream.
         /// Do not use for large streams as this reads ALL bytes at once.
         /// </summary>
-        /// <param name="stream">The stream.</param>
+        /// <param name="this">The stream.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computed hash code.
         /// </returns>
         /// <exception cref="ArgumentNullException">stream.</exception>
         [Obsolete("Use a better hasher.")]
-        public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
+        public static byte[] ComputeMD5(this Stream @this, bool createHasher = false)
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
             var md5 = MD5.Create();
             const int bufferSize = 4096;
 
             var readAheadBuffer = new byte[bufferSize];
-            var readAheadBytesRead = stream.Read(readAheadBuffer, 0, readAheadBuffer.Length);
+            var readAheadBytesRead = @this.Read(readAheadBuffer, 0, readAheadBuffer.Length);
 
             do
             {
@@ -73,7 +73,7 @@
                 var buffer = readAheadBuffer;
 
                 readAheadBuffer = new byte[bufferSize];
-                readAheadBytesRead = stream.Read(readAheadBuffer, 0, readAheadBuffer.Length);
+                readAheadBytesRead = @this.Read(readAheadBuffer, 0, readAheadBuffer.Length);
 
                 if (readAheadBytesRead == 0)
                     md5.TransformFinalBlock(buffer, 0, bytesRead);
@@ -108,16 +108,16 @@
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
         /// </summary>
-        /// <param name="value">The input string.</param>
+        /// <param name="this">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computes a Hash-based Message Authentication Code (HMAC) 
         /// using the SHA1 hash function.
         /// </returns>
         [Obsolete("Use a better hasher.")]
-        public static byte[] ComputeSha1(this string value, bool createHasher = false)
+        public static byte[] ComputeSha1(this string @this, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(value);
+            var inputBytes = Encoding.UTF8.GetBytes(@this);
             return (createHasher ? SHA1.Create() : SHA1Hasher.Value).ComputeHash(inputBytes);
         }
 
@@ -156,21 +156,21 @@
         /// It tries to use InvariantCulture if the ToString(IFormatProvider)
         /// overload exists.
         /// </summary>
-        /// <param name="obj">The item.</param>
+        /// <param name="this">The item.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToStringInvariant(this object obj)
+        public static string ToStringInvariant(this object @this)
         {
-            if (obj == null)
+            if (@this == null)
                 return string.Empty;
 
-            var itemType = obj.GetType();
+            var itemType = @this.GetType();
 
             if (itemType == typeof(string))
-                return obj as string;
+                return @this as string;
 
             return Definitions.BasicTypesInfo.Value.ContainsKey(itemType)
-                ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(obj)
-                : obj.ToString();
+                ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(@this)
+                : @this.ToString();
         }
 
         /// <summary>
@@ -222,34 +222,34 @@
         /// <summary>
         /// Outputs JSON string representing this object.
         /// </summary>
-        /// <param name="obj">The object.</param>
+        /// <param name="this">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToJson(this object obj, bool format = true) =>
-            obj == null ? string.Empty : Json.Serialize(obj, format);
+        public static string ToJson(this object @this, bool format = true) =>
+            @this == null ? string.Empty : Json.Serialize(@this, format);
 
         /// <summary>
         /// Returns text representing the properties of the specified object in a human-readable format.
         /// While this method is fairly expensive computationally speaking, it provides an easy way to
         /// examine objects.
         /// </summary>
-        /// <param name="obj">The object.</param>
+        /// <param name="this">The object.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Stringify(this object obj)
+        public static string Stringify(this object @this)
         {
-            if (obj == null)
+            if (@this == null)
                 return "(null)";
 
             try
             {
-                var jsonText = Json.Serialize(obj, false, "$type");
+                var jsonText = Json.Serialize(@this, false, "$type");
                 var jsonData = Json.Deserialize(jsonText);
 
                 return new HumanizeJson(jsonData, 0).GetResult();
             }
             catch
             {
-                return obj.ToStringInvariant();
+                return @this.ToStringInvariant();
             }
         }
 
@@ -258,18 +258,18 @@
         /// This behavior is unlike JavaScript's Slice behavior where the end index is non-inclusive
         /// If the string is null it returns an empty string.
         /// </summary>
-        /// <param name="value">The string.</param>
+        /// <param name="this">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string Slice(this string value, int startIndex, int endIndex)
+        public static string Slice(this string @this, int startIndex, int endIndex)
         {
-            if (value == null)
+            if (@this == null)
                 return string.Empty;
 
-            var end = endIndex.Clamp(startIndex, value.Length - 1);
+            var end = endIndex.Clamp(startIndex, @this.Length - 1);
 
-            return startIndex >= end ? string.Empty : value.Substring(startIndex, (end - startIndex) + 1);
+            return startIndex >= end ? string.Empty : @this.Substring(startIndex, (end - startIndex) + 1);
         }
 
         /// <summary>
@@ -277,31 +277,31 @@
         /// If the string is null it returns an empty string. This is basically just a safe version
         /// of string.Substring.
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="this">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string SliceLength(this string str, int startIndex, int length)
+        public static string SliceLength(this string @this, int startIndex, int length)
         {
-            if (str == null)
+            if (@this == null)
                 return string.Empty;
 
-            var start = startIndex.Clamp(0, str.Length - 1);
-            var len = length.Clamp(0, str.Length - start);
+            var start = startIndex.Clamp(0, @this.Length - 1);
+            var len = length.Clamp(0, @this.Length - start);
 
-            return len == 0 ? string.Empty : str.Substring(start, len);
+            return len == 0 ? string.Empty : @this.Substring(start, len);
         }
 
         /// <summary>
         /// Splits the specified text into r, n or rn separated lines.
         /// </summary>
-        /// <param name="value">The text.</param>
+        /// <param name="this">The text.</param>
         /// <returns>
         /// An array whose elements contain the substrings from this instance 
         /// that are delimited by one or more characters in separator.
         /// </returns>
-        public static string[] ToLines(this string value) =>
-            value == null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(value);
+        public static string[] ToLines(this string @this) =>
+            @this == null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(@this);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 

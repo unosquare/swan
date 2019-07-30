@@ -15,75 +15,75 @@
         /// Clamps the specified value between the minimum and the maximum.
         /// </summary>
         /// <typeparam name="T">The type of value to clamp.</typeparam>
-        /// <param name="value">The value.</param>
+        /// <param name="this">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static T Clamp<T>(this T value, T min, T max)
+        public static T Clamp<T>(this T @this, T min, T max)
             where T : struct, IComparable
         {
-            if (value.CompareTo(min) < 0) return min;
+            if (@this.CompareTo(min) < 0) return min;
 
-            return value.CompareTo(max) > 0 ? max : value;
+            return @this.CompareTo(max) > 0 ? max : @this;
         }
 
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="this">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static int Clamp(this int value, int min, int max)
-            => value < min ? min : (value > max ? max : value);
+        public static int Clamp(this int @this, int min, int max)
+            => @this < min ? min : (@this > max ? max : @this);
 
         /// <summary>
         /// Determines whether the specified value is between a minimum and a maximum value.
         /// </summary>
         /// <typeparam name="T">The type of value to check.</typeparam>
-        /// <param name="value">The value.</param>
+        /// <param name="this">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>
         ///   <c>true</c> if the specified minimum is between; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsBetween<T>(this T value, T min, T max)
+        public static bool IsBetween<T>(this T @this, T min, T max)
             where T : struct, IComparable
         {
-            return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
+            return @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
         }
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.
         /// </summary>
         /// <typeparam name="T">The type of structure to convert.</typeparam>
-        /// <param name="data">The data.</param>
+        /// <param name="this">The data.</param>
         /// <returns>a struct type derived from convert an array of bytes ref=ToStruct".</returns>
-        public static T ToStruct<T>(this byte[] data)
+        public static T ToStruct<T>(this byte[] @this)
             where T : struct
         {
-            return ToStruct<T>(data, 0, data.Length);
+            return @this == null ? throw new ArgumentNullException(nameof(@this)) : ToStruct<T>(@this, 0, @this.Length);
         }
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.
         /// </summary>
         /// <typeparam name="T">The type of structure to convert.</typeparam>
-        /// <param name="data">The data.</param>
+        /// <param name="this">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>
         /// A managed object containing the data pointed to by the ptr parameter.
         /// </returns>
         /// <exception cref="ArgumentNullException">data.</exception>
-        public static T ToStruct<T>(this byte[] data, int offset, int length)
+        public static T ToStruct<T>(this byte[] @this, int offset, int length)
             where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
             var buffer = new byte[length];
-            Array.Copy(data, offset, buffer, 0, buffer.Length);
+            Array.Copy(@this, offset, buffer, 0, buffer.Length);
             var handle = GCHandle.Alloc(GetStructBytes<T>(buffer), GCHandleType.Pinned);
 
             try
@@ -100,17 +100,17 @@
         /// Converts a struct to an array of bytes.
         /// </summary>
         /// <typeparam name="T">The type of structure to convert.</typeparam>
-        /// <param name="obj">The object.</param>
+        /// <param name="this">The object.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] ToBytes<T>(this T obj)
+        public static byte[] ToBytes<T>(this T @this)
             where T : struct
         {
-            var data = new byte[Marshal.SizeOf(obj)];
+            var data = new byte[Marshal.SizeOf(@this)];
             var handle = GCHandle.Alloc(data, GCHandleType.Pinned);
 
             try
             {
-                Marshal.StructureToPtr(obj, handle.AddrOfPinnedObject(), false);
+                Marshal.StructureToPtr(@this, handle.AddrOfPinnedObject(), false);
                 return GetStructBytes<T>(data);
             }
             finally
@@ -122,16 +122,16 @@
         /// <summary>
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
-        /// <param name="longBytes">The bytes contained in a long.</param>
+        /// <param name="this">The bytes contained in a long.</param>
         /// <returns>
         /// A 32-bit unsigned integer equivalent to the ulong 
         /// contained in longBytes.
         /// </returns>
-        public static uint SwapEndianness(this ulong longBytes)
-            => (uint)(((longBytes & 0x000000ff) << 24) +
-                       ((longBytes & 0x0000ff00) << 8) +
-                       ((longBytes & 0x00ff0000) >> 8) +
-                       ((longBytes & 0xff000000) >> 24));
+        public static uint SwapEndianness(this ulong @this)
+            => (uint)(((@this & 0x000000ff) << 24) +
+                       ((@this & 0x0000ff00) << 8) +
+                       ((@this & 0x00ff0000) >> 8) +
+                       ((@this & 0xff000000) >> 24));
 
         private static byte[] GetStructBytes<T>(byte[] data)
         {

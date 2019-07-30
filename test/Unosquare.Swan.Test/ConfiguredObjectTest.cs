@@ -6,19 +6,6 @@
 
     public class ConfiguredObjectTest
     {
-        private class TestObject : ConfiguredObject
-        {
-            public bool OnBeforeLockConfigurationCalled { get; private set; }
-
-            public new bool ConfigurationLocked => base.ConfigurationLocked;
-
-            public new void LockConfiguration() => base.LockConfiguration();
-
-            public new void EnsureConfigurationNotLocked() => base.EnsureConfigurationNotLocked();
-
-            protected override void OnBeforeLockConfiguration() => OnBeforeLockConfigurationCalled = true;
-        }
-
         [Test]
         public void BeforeLock_IsNotLocked()
         {
@@ -70,6 +57,19 @@
             var obj = new TestObject();
             obj.LockConfiguration();
             Assert.Throws<InvalidOperationException>(() => obj.EnsureConfigurationNotLocked());
+        }
+        
+        private class TestObject : ConfiguredObject
+        {
+            public bool OnBeforeLockConfigurationCalled { get; private set; }
+
+            public new bool ConfigurationLocked => base.ConfigurationLocked;
+
+            public new void LockConfiguration() => base.LockConfiguration();
+
+            public new void EnsureConfigurationNotLocked() => base.EnsureConfigurationNotLocked();
+
+            protected override void OnBeforeLockConfiguration() => OnBeforeLockConfigurationCalled = true;
         }
     }
 }

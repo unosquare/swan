@@ -3,12 +3,12 @@
     using NUnit.Framework;
     using System.Threading.Tasks;
     using Abstractions;
-    using Unosquare.Swan.Lite;
+    using Lite;
 
     [TestFixture]
     public class AtomicTypeTest
     {
-        enum Companies
+        private enum Companies
         {
             Value1,
             Value2,

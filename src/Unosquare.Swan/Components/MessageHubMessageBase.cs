@@ -28,9 +28,7 @@
             _sender = new WeakReference(sender);
         }
 
-        /// <summary>
-        /// The sender of the message, or null if not supported by the message implementation.
-        /// </summary>
+        /// <inheritdoc />
         public object Sender => _sender?.Target;
     }
 

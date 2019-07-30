@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
      /// <summary>
-    /// Provides extension methods for <see cref="Task"/> and <see cref="Task{TResult}"/>
+    /// Provides extension methods for <see cref="Task"/> and <see cref="Task{TResult}"/>.
     /// </summary>
     public static class TaskExtensions
     {

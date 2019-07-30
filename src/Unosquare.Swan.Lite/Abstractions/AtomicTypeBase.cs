@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Unosquare.Swan.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Threading;

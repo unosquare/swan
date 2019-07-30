@@ -13,17 +13,17 @@
         /// <summary>
         /// Determines whether the IP address is private.
         /// </summary>
-        /// <param name="address">The IP address.</param>
+        /// <param name="this">The IP address.</param>
         /// <returns>
         /// True if the IP Address is private; otherwise, false.
         /// </returns>
         /// <exception cref="ArgumentNullException">address.</exception>
-        public static bool IsPrivateAddress(this IPAddress address)
+        public static bool IsPrivateAddress(this IPAddress @this)
         {
-            if (address == null)
-                throw new ArgumentNullException(nameof(address));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
-            var octets = address.ToString().Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToArray();
+            var octets = @this.ToString().Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToArray();
             var is24Bit = octets[0] == 10;
             var is20Bit = octets[0] == 172 && (octets[1] >= 16 && octets[1] <= 31);
             var is16Bit = octets[0] == 192 && octets[1] == 168;
@@ -34,21 +34,21 @@
         /// <summary>
         /// Converts an IPv4 Address to its Unsigned, 32-bit integer representation.
         /// </summary>
-        /// <param name="address">The address.</param>
+        /// <param name="this">The address.</param>
         /// <returns>
         /// A 32-bit unsigned integer converted from four bytes at a specified position in a byte array.
         /// </returns>
         /// <exception cref="ArgumentNullException">address.</exception>
         /// <exception cref="ArgumentException">InterNetwork - address.</exception>
-        public static uint ToUInt32(this IPAddress address)
+        public static uint ToUInt32(this IPAddress @this)
         {
-            if (address == null)
-                throw new ArgumentNullException(nameof(address));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
-            if (address.AddressFamily != AddressFamily.InterNetwork)
-                throw new ArgumentException($"Address has to be of family '{nameof(AddressFamily.InterNetwork)}'", nameof(address));
+            if (@this.AddressFamily != AddressFamily.InterNetwork)
+                throw new ArgumentException($"Address has to be of family '{nameof(AddressFamily.InterNetwork)}'", nameof(@this));
 
-            var addressBytes = address.GetAddressBytes();
+            var addressBytes = @this.GetAddressBytes();
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(addressBytes);
 

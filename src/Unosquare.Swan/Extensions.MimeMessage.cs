@@ -10,21 +10,23 @@
     /// </summary>
     public static class SmtpExtensions
     {
+        private static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+
         /// <summary>
         /// The raw contents of this MailMessage as a MemoryStream.
         /// </summary>
-        /// <param name="self">The caller.</param>
+        /// <param name="this">The caller.</param>
         /// <returns>A MemoryStream with the raw contents of this MailMessage.</returns>
-        public static MemoryStream ToMimeMessage(this MailMessage self)
+        public static MemoryStream ToMimeMessage(this MailMessage @this)
         {
-            if (self == null)
-                throw new ArgumentNullException(nameof(self));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
             
             var result = new MemoryStream();
             var mailWriter = MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result });
             MimeMessageConstants.SendMethod.Invoke(
-                self, 
-                MimeMessageConstants.PrivateInstanceFlags, 
+                @this, 
+                PrivateInstanceFlags, 
                 null, 
                 MimeMessageConstants.IsRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true }, 
                 null);
@@ -32,7 +34,7 @@
             result = new MemoryStream(result.ToArray());
             MimeMessageConstants.CloseMethod.Invoke(
                 mailWriter, 
-                MimeMessageConstants.PrivateInstanceFlags, 
+                PrivateInstanceFlags, 
                 null,
                 Array.Empty<object>(), 
                 null);
@@ -42,7 +44,6 @@
 
         internal static class MimeMessageConstants
         {
-            public static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 #pragma warning disable DE0005 // API is deprecated
             public static readonly Type MailWriter = typeof(SmtpClient).Assembly.GetType("System.Net.Mail.MailWriter");
 #pragma warning restore DE0005 // API is deprecated

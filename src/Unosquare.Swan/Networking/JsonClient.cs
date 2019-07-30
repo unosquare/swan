@@ -326,8 +326,8 @@
         /// <returns>
         /// A task with a result of the requested string.
         /// </returns>
-        /// <exception cref="ArgumentNullException">requestUri</exception>
-        /// <exception cref="JsonRequestException">Error {method} JSON</exception>
+        /// <exception cref="ArgumentNullException">requestUri.</exception>
+        /// <exception cref="JsonRequestException">Error {method} JSON.</exception>
         public static async Task<string> SendAsync(
             HttpMethod method,
             string requestUri,
@@ -338,7 +338,7 @@
             if (string.IsNullOrWhiteSpace(requestUri))
                 throw new ArgumentNullException(nameof(requestUri));
 
-            using (var response = await GetResponse(new Uri(requestUri), ct, authorization, null, payload, method).ConfigureAwait(false))
+            using (var response = await GetResponse(new Uri(requestUri), authorization, null, payload, method, ct).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -359,7 +359,7 @@
             string authorization = null,
             IDictionary<string, IEnumerable<string>> headers = null)
         {
-            var response = await GetResponse(uri, ct, authorization, headers)
+            var response = await GetResponse(uri, authorization, headers, ct)
                 .ConfigureAwait(false);
 
             return response.IsSuccessStatusCode
@@ -369,11 +369,11 @@
 
         private static async Task<HttpResponseMessage> GetResponse(
             Uri uri,
-            CancellationToken ct,
             string authorization,
             IDictionary<string, IEnumerable<string>> headers,
             object payload = null,
-            HttpMethod method = default)
+            HttpMethod method = default,
+            CancellationToken ct = default)
         {
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));

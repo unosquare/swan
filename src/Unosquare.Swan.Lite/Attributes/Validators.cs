@@ -18,7 +18,7 @@
         /// <exception cref="ArgumentNullException">Expression.</exception>
         public MatchAttribute(string regex, string errorMessage = null)
         {
-            Expression = regex ?? throw new ArgumentNullException(nameof(Expression));
+            Expression = regex ?? throw new ArgumentNullException(nameof(regex));
             ErrorMessage = errorMessage ?? "String does not match the specified regular expression";
         }
 
