@@ -8,8 +8,17 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    public abstract class MessageHubTest
+    {
+        [SetUp]
+        public void OnSetup()
+        {
+            DependencyContainer.Current.Register<IMessageHub, MessageHub>();
+        }
+    }
+
     [TestFixture]
-    public class MessageHubMessageBaseConstructor
+    public class MessageHubMessageBaseConstructor : MessageHubTest
     {
         [Test]
         public void NullSender_ThrowsArgumentNullException()
@@ -34,7 +43,7 @@
     }
 
     [TestFixture]
-    public class MessageHubSubscriptionTokenConstructor
+    public class MessageHubSubscriptionTokenConstructor : MessageHubTest
     {
         [Test]
         public void NullHub_ThrowsArgumentNullException()
@@ -58,7 +67,7 @@
     }
 
     [TestFixture]
-    public class SendMessage
+    public class SendMessage : MessageHubTest
     {
         private readonly List<SimpleMessageMock> _messagesToSend = new List<SimpleMessageMock>();
         private readonly MessageHub _messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
@@ -111,7 +120,7 @@
         public void NullMessage_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _messageHub.Publish((SimpleMessageMock) null));
+                _messageHub.Publish((SimpleMessageMock)null));
         }
 
         [Test]
