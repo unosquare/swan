@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum DependencyContainerDuplicateImplementationActions
+    <title>Enum DependencyContainerUnregisteredResolutionAction
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum DependencyContainerDuplicateImplementationActions
+    <meta name="title" content="Enum DependencyContainerUnregisteredResolutionAction
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.43.3.0">
     
@@ -76,18 +76,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionAction">
   
   
-  <h1 id="Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions" data-uid="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions" class="text-break">Enum DependencyContainerDuplicateImplementationActions
+  <h1 id="Unosquare_Swan_Components_DependencyContainerUnregisteredResolutionAction" data-uid="Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionAction" class="text-break">Enum DependencyContainerUnregisteredResolutionAction
   </h1>
-  <div class="markdown level0 summary"><p>Enumerates duplicate definition actions.</p>
+  <div class="markdown level0 summary"><p>Defines Resolution actions.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
-  <h5 id="Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_DependencyContainerUnregisteredResolutionAction_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum DependencyContainerDuplicateImplementationActions</code></pre>
+    <pre><code class="lang-csharp hljs">public enum DependencyContainerUnregisteredResolutionAction</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
@@ -100,18 +100,21 @@
     <thead>
     <tbody>
       <tr>
-        <td id="Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_Fail">Fail</td>
-        <td><p>The fail</p>
+        <td id="Unosquare_Swan_Components_DependencyContainerUnregisteredResolutionAction_AttemptResolve">AttemptResolve</td>
+        <td><p>Attempt to resolve type, even if the type isn&apos;t registered.</p>
+<p>Registered types/options will always take precedence.</p>
 </td>
       </tr>
       <tr>
-        <td id="Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_RegisterMultiple">RegisterMultiple</td>
-        <td><p>The register multiple</p>
+        <td id="Unosquare_Swan_Components_DependencyContainerUnregisteredResolutionAction_Fail">Fail</td>
+        <td><p>Fail resolution if type not explicitly registered</p>
 </td>
       </tr>
       <tr>
-        <td id="Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_RegisterSingle">RegisterSingle</td>
-        <td><p>The register single</p>
+        <td id="Unosquare_Swan_Components_DependencyContainerUnregisteredResolutionAction_GenericsOnly">GenericsOnly</td>
+        <td><p>Attempt to resolve unregistered type if requested type is generic
+and no registration exists for the specific generic parameters used.</p>
+<p>Registered types/options will always take precedence.</p>
 </td>
       </tr>
     </tbody>

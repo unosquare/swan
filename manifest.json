@@ -254,7 +254,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.RunnerBase.html",
-          "hash": "ThatFFNi2unDEAI99dhpwQ=="
+          "hash": "P5Kaf4bQxVcLdrjz+2Y57Q=="
         }
       },
       "is_incremental": false,
@@ -782,7 +782,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.DependencyContainer.html",
-          "hash": "ttCfu6gDctEZCCJvXdsWKg=="
+          "hash": "UNn6KVHVPTbXmvxhJqg8WQ=="
         }
       },
       "is_incremental": false,
@@ -790,11 +790,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.yml",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerDuplicateImplementationAction.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.html",
-          "hash": "2qFDfTk546rgjyWUQuuJCA=="
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerDuplicateImplementationAction.html",
+          "hash": "foous+/W4jF+K0YHuptjUA=="
         }
       },
       "is_incremental": false,
@@ -802,11 +802,35 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerNamedResolutionFailureActions.yml",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerNamedResolutionFailureAction.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerNamedResolutionFailureActions.html",
-          "hash": "qKTVGOoCDPvb2aDhN/xsyA=="
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerNamedResolutionFailureAction.html",
+          "hash": "QFGlQzRkbPi06Tps7kqa/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerRegistrationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerRegistrationException.html",
+          "hash": "6p/9K1cQUisd7A3ZOOzI5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerResolutionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerResolutionException.html",
+          "hash": "AYZtl6kvsohHu5xV6/LRTw=="
         }
       },
       "is_incremental": false,
@@ -818,7 +842,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html",
-          "hash": "uF8w/JjY9T7AmMdXU7HKBw=="
+          "hash": "aJG1HlpIHAkgSXslbav5/A=="
         }
       },
       "is_incremental": false,
@@ -826,11 +850,23 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionActions.yml",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionAction.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionActions.html",
-          "hash": "5LVASsG4u91iBPgw/H4y/g=="
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionAction.html",
+          "hash": "patD4xl5n9eRG9g2VYW7GQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainerWeakReferenceException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.DependencyContainerWeakReferenceException.html",
+          "hash": "RqLWvjxXV7EavQA+mdHYKw=="
         }
       },
       "is_incremental": false,
@@ -986,7 +1022,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.MultiRegisterOptions.html",
-          "hash": "/M5/TVs24RitnlDNdH+NOQ=="
+          "hash": "FJlWnUiPi5E3uAPBsN3C6w=="
         }
       },
       "is_incremental": false,
@@ -1010,7 +1046,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.ObjectFactoryBase.html",
-          "hash": "NJt+vTwekCHRWlRDsb7lRw=="
+          "hash": "/2LUxJui6KZSOQUiQrQFGw=="
         }
       },
       "is_incremental": false,
@@ -1130,7 +1166,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.RegisterOptions.html",
-          "hash": "20mdZhMlasrZM9uRL2w32w=="
+          "hash": "3nQObAkw0cR8hZvENUQRMw=="
         }
       },
       "is_incremental": false,
@@ -1202,7 +1238,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "eMyWvb2PFVAagP82DmrMlQ=="
+          "hash": "HHoDKSCAuYR6uRcjkt0V4g=="
         }
       },
       "is_incremental": false,
@@ -1359,78 +1395,6 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.ExceptionExtensions.html",
           "hash": "sc9T9H5VgNGZPBthgRmW8A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html",
-          "hash": "QlvJz9TEm47eIxQeifjTzw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.DependencyContainerResolutionException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html",
-          "hash": "+dHMBdohtKrPtAs4fQxn7w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.html",
-          "hash": "SSpVrOL6oka5H7Ki1UssCg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.DnsQueryException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.DnsQueryException.html",
-          "hash": "FUwi6OsRu1xgNfcpxDjjLw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.JsonRequestException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.JsonRequestException.html",
-          "hash": "VytA50KWmj99KKDD8qWVVA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.html",
-          "hash": "4C1pn5GYoxhbs2SEgGAvWw=="
         }
       },
       "is_incremental": false,
@@ -1702,6 +1666,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Networking.DnsQueryException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Networking.DnsQueryException.html",
+          "hash": "+VQZBj33baYh0KTSGxwC4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Networking.DnsQueryResult.yml",
       "output": {
         ".html": {
@@ -1766,7 +1742,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.JsonClient.html",
-          "hash": "1UGt9fkKEW2OuK9En9s6vg=="
+          "hash": "WHYBzvial+NqP6lxypkcmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Networking.JsonRequestException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Networking.JsonRequestException.html",
+          "hash": "quKhRSVQHCpbaog57y49bw=="
         }
       },
       "is_incremental": false,
@@ -1874,7 +1862,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.html",
-          "hash": "xU2s9b7KM8Ju840cXtWpJw=="
+          "hash": "NOum6zkcK3xlSqQA79VKlg=="
         }
       },
       "is_incremental": false,
@@ -2162,7 +2150,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "+wJyGbLBCbvti8Cn/db4UQ=="
+          "hash": "2wZrbxVFHh3fENvkp83KDg=="
         }
       },
       "is_incremental": false,
@@ -2228,17 +2216,17 @@
           "total_file_count": 3,
           "skipped_file_count": 0
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 172,
+          "skipped_file_count": 0
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 173,
           "skipped_file_count": 0
         }
       }
