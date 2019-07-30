@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Exceptions
+﻿namespace Unosquare.Swan.Networking
 {
     using System;
 
@@ -40,6 +40,8 @@
         public string HttpErrorContent { get; }
 
         /// <inheritdoc />
-        public override string ToString() => string.IsNullOrEmpty(HttpErrorContent) ? $"HTTP Response Status Code {HttpErrorCode} Error Message: {HttpErrorContent}" : base.ToString();
+        public override string ToString() => string.IsNullOrEmpty(HttpErrorContent)
+            ? $"HTTP Response Status Code {HttpErrorCode} Error Message: {HttpErrorContent}"
+            : base.ToString();
     }
 }

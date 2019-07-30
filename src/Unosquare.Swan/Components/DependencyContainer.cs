@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using JetBrains.Annotations;
-    using Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -29,10 +28,6 @@
         {
             RegisteredTypes = new TypesConcurrentDictionary(this);
             Register(this);
-
-            // Only register the TinyMessenger singleton if we are the root container
-            if (Parent == null)
-                Register<IMessageHub, MessageHub>();
         }
 
         private DependencyContainer(DependencyContainer parent)
@@ -80,8 +75,8 @@
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered.</param>
         public void AutoRegister(
-            DependencyContainerDuplicateImplementationActions duplicateAction =
-                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            DependencyContainerDuplicateImplementationAction duplicateAction =
+                DependencyContainerDuplicateImplementationAction.RegisterSingle,
             Func<Type, bool> registrationPredicate = null)
         {
             AutoRegister(
@@ -99,8 +94,8 @@
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered.</param>
         public void AutoRegister(
             IEnumerable<Assembly> assemblies,
-            DependencyContainerDuplicateImplementationActions duplicateAction =
-                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            DependencyContainerDuplicateImplementationAction duplicateAction =
+                DependencyContainerDuplicateImplementationAction.RegisterSingle,
             Func<Type, bool> registrationPredicate = null)
         {
             lock (_autoRegisterLock)
@@ -141,10 +136,10 @@
 
                     if (implementations.Skip(1).Any())
                     {
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
+                        if (duplicateAction == DependencyContainerDuplicateImplementationAction.Fail)
                             throw new DependencyContainerRegistrationException(type, implementations);
 
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
+                        if (duplicateAction == DependencyContainerDuplicateImplementationAction.RegisterMultiple)
                         {
                             RegisterMultiple(type, implementations);
                         }

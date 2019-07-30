@@ -160,6 +160,9 @@
             // empty
         }
 
+        /// <summary>
+        /// Called when [setup].
+        /// </summary>
         protected virtual void OnSetup()
         {
             // empty

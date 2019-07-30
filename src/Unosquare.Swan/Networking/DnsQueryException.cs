@@ -1,12 +1,11 @@
-﻿namespace Unosquare.Swan.Exceptions
+﻿namespace Unosquare.Swan.Networking
 {
     using System;
-    using Networking;
 
     /// <summary>
     /// An exception thrown when the DNS query fails.
     /// </summary>
-    /// <seealso cref="System.Exception" />
+    /// <seealso cref="Exception" />
     [Serializable]
     public class DnsQueryException : Exception
     {

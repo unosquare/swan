@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Test.JsonClientTest
 {
-    using Exceptions;
     using Mocks;
     using Networking;
     using NUnit.Framework;

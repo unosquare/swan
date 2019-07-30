@@ -4,7 +4,6 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Exceptions;
 
     /// <summary>
     /// Represents an abstract class for Object Factory.

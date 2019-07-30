@@ -5,7 +5,6 @@
     using System.Reflection;    
     using System.Collections.Generic;
     using System.Linq;
-    using Exceptions;
     using System.Collections.Concurrent;
 
     /// <summary>
@@ -106,12 +105,12 @@
 
             // Fail if requesting named resolution and settings set to fail if unresolved
             if (!string.IsNullOrEmpty(registration.Name) && options.NamedResolutionFailureAction ==
-                DependencyContainerNamedResolutionFailureActions.Fail)
+                DependencyContainerNamedResolutionFailureAction.Fail)
                 throw new DependencyContainerResolutionException(registration.Type);
 
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(registration.Name) && options.NamedResolutionFailureAction ==
-                DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
+                DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution)
             {
                 if (TryGetValue(new DependencyContainer.TypeRegistration(registration.Type, string.Empty), out factory))
                 {
@@ -132,9 +131,9 @@
 
             // Attempt unregistered construction if possible and requested
             var isValid = (options.UnregisteredResolutionAction ==
-                           DependencyContainerUnregisteredResolutionActions.AttemptResolve) ||
+                           DependencyContainerUnregisteredResolutionAction.AttemptResolve) ||
                           (registration.Type.IsGenericType && options.UnregisteredResolutionAction ==
-                           DependencyContainerUnregisteredResolutionActions.GenericsOnly);
+                           DependencyContainerUnregisteredResolutionAction.GenericsOnly);
 
             return isValid && !registration.Type.IsAbstract && !registration.Type.IsInterface
                 ? ConstructType(registration.Type, null, options)
@@ -165,12 +164,12 @@
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction ==
-                DependencyContainerNamedResolutionFailureActions.Fail)
+                DependencyContainerNamedResolutionFailureAction.Fail)
                 return _dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, options.Clone()) ?? false;
 
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction ==
-                DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
+                DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution)
             {
                 if (TryGetValue(new DependencyContainer.TypeRegistration(checkType), out factory))
                 {
@@ -188,9 +187,9 @@
             // Attempt unregistered construction if possible and requested
             // If we cant', bubble if we have a parent
             if ((options.UnregisteredResolutionAction ==
-                 DependencyContainerUnregisteredResolutionActions.AttemptResolve) ||
+                 DependencyContainerUnregisteredResolutionAction.AttemptResolve) ||
                 (checkType.IsGenericType && options.UnregisteredResolutionAction ==
-                 DependencyContainerUnregisteredResolutionActions.GenericsOnly))
+                 DependencyContainerUnregisteredResolutionAction.GenericsOnly))
             {
                 return (GetBestConstructor(checkType, options) != null) ||
                        (_dependencyContainer.Parent?.RegisteredTypes.CanResolve(registration, options.Clone()) ?? false);

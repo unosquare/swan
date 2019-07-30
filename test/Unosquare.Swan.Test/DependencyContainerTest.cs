@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan.Test.DependencyContainerTest
 {
     using Components;
-    using Exceptions;
     using Mocks;
     using NUnit.Framework;
     using System;

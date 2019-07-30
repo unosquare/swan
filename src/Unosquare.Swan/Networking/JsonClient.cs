@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Networking
 {
-    using Exceptions;
     using Formatters;
     using System;
     using System.Collections.Generic;

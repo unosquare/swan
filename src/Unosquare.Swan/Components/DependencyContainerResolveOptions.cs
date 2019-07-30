@@ -18,8 +18,8 @@
         /// <value>
         /// The unregistered resolution action.
         /// </value>
-        public DependencyContainerUnregisteredResolutionActions UnregisteredResolutionAction { get; set; } =
-            DependencyContainerUnregisteredResolutionActions.AttemptResolve;
+        public DependencyContainerUnregisteredResolutionAction UnregisteredResolutionAction { get; set; } =
+            DependencyContainerUnregisteredResolutionAction.AttemptResolve;
 
         /// <summary>
         /// Gets or sets the named resolution failure action.
@@ -27,8 +27,8 @@
         /// <value>
         /// The named resolution failure action.
         /// </value>
-        public DependencyContainerNamedResolutionFailureActions NamedResolutionFailureAction { get; set; } =
-            DependencyContainerNamedResolutionFailureActions.Fail;
+        public DependencyContainerNamedResolutionFailureAction NamedResolutionFailureAction { get; set; } =
+            DependencyContainerNamedResolutionFailureAction.Fail;
 
         /// <summary>
         /// Gets the constructor parameters.
@@ -52,7 +52,7 @@
     /// <summary>
     /// Defines Resolution actions.
     /// </summary>
-    public enum DependencyContainerUnregisteredResolutionActions
+    public enum DependencyContainerUnregisteredResolutionAction
     {
         /// <summary>
         /// Attempt to resolve type, even if the type isn't registered.
@@ -78,7 +78,7 @@
     /// <summary>
     /// Enumerates failure actions.
     /// </summary>
-    public enum DependencyContainerNamedResolutionFailureActions
+    public enum DependencyContainerNamedResolutionFailureAction
     {
         /// <summary>
         /// The attempt unnamed resolution
@@ -94,7 +94,7 @@
     /// <summary>
     /// Enumerates duplicate definition actions.
     /// </summary>
-    public enum DependencyContainerDuplicateImplementationActions
+    public enum DependencyContainerDuplicateImplementationAction
     {
         /// <summary>
         /// The register single

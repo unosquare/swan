@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Exceptions
+﻿namespace Unosquare.Swan.Components
 {
     using System;
 
