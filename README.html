@@ -207,11 +207,6 @@
 <td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
 </tr>
 <tr>
-<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection</a></td>
-<td><span class="emoji" shortcode="x">❌</span></td>
-<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
-</tr>
-<tr>
 <td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHub.html">MessageHub</a></td>
 <td><span class="emoji" shortcode="x">❌</span></td>
 <td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
@@ -713,121 +708,31 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  // unsuscribe, we will no longer receive any messages 
  messageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
 </code></pre><h3 id="the-ldapconnection-class">The <code>LDAPConnection</code> class</h3>
-<p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
-<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection API Doc</a></p>
-<h4 id="operations">Operations</h4>
-<p>LDAP has a couple of operations that can be executed</p>
-<ul>
-<li><strong>Bind</strong>: binds the current connection to a set of  credentials</li>
-<li><strong>Unbind or Disconnect</strong>: signals the server that the connection is about to close then the server proceeds to close the connection to the client</li>
-<li><strong>Modify</strong>: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :<ul>
-<li><strong>Add</strong>: inserts a new entry into the directory </li>
-<li><strong>Delete</strong>: deletes an entry from the directory<ul>
-<li><strong>Replace</strong>: modifies an existing property value</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="example-1-connecting-to-a-ldap-server">Example 1: Connecting to a LDAP Server</h4>
-<p>A connection to a LDAP server is a two-step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two-step action allows us to reset the authorization state using the same connection. </p>
-<pre><code class="lang-csharp"> // Create a  LdapConnection variable
- var connection = new LdapConnection();
-
- // Connect to a server with a deafult port 
- await connection.Connect(&quot;ldap.forumsys.com&quot;, 389);
-
- // Set up the credentials 
- await connection.Bind(&quot;cn=read-only-admin,dc=example,dc=com&quot;, &quot;password&quot;);
-</code></pre><h4 id="example-2-reading-all-the-properties-of-an-entry">Example 2: Reading all the properties of an entry</h4>
-<p>After establishing a connection you can use the connection&#39;s Read method to retrieve all properties of an entry</p>
-<pre><code class="lang-csharp">// Get all properties of &#39;tesla&#39;
- var properties = await connection.Read(&quot;uid=tesla,dc=example,dc=com&quot;);
-
- // After getting all properties from an entry select its email and print it
- properties.GetAttribute(&quot;mail&quot;).StringValue.Info();
-</code></pre><h4 id="example-3-searching-entries">Example 3: Searching entries</h4>
-<p> There are three scopes for searching entries :</p>
-<ol>
-<li><strong>ScopeBase</strong>: searches only at the base dn</li>
-<li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
-<li><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</li>
-</ol>
-<pre><code class="lang-csharp">// Retrieve all entries that have the specified email using ScopeSub 
-// which searches all entries at all levels under and including the specified base DN
-var searchResult = await connection.Search(&quot;dc=example,dc=com&quot;,LdapConnection.ScopeSub,&quot;(cn=Isaac Newton)&quot;);
-
-// If there are more entries remaining
-  while (searchResult.HasMore())
-  {
-      // Point to the next entry
-      var entry = searchResult.Next();
-
-      // Get all attributes 
-      var entryAttributes = entry.GetAttributeSet();
-
-      // Select its email and print it
-      entryAttributes.GetAttribute(&quot;cn&quot;).StringValue.Info();
-  }
-</code></pre><h4 id="example-4-modifying-an-entry-attribute">Example 4: Modifying an entry attribute</h4>
-<p>An easy way to deal with attributes modification is by calling the Modify method with a <code>LdapModificationOp</code> such as:</p>
-<ul>
-<li><strong>Replace</strong>: overrides an attribute value. <ul>
-<li>If the attribute does not exist it creates a new one</li>
-<li>If no value is passed the entire attribute is deleted</li>
-</ul>
-</li>
-<li><strong>Delete</strong> : deletes a value from an attribute.<ul>
-<li>If no values are listed or if all of them are the entire attribute is removed</li>
-</ul>
-</li>
-<li><p><strong>Add</strong>: adds a new value to an attribute </p>
-<ul>
-<li><p>If the attribute does not exist a new one is created</p>
-<pre><code class="lang-csharp">// Modify Tesla and sets its email as tesla@email.com
-connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
-new[] { new LdapModification(LdapModificationOp.Replace, &quot;mail&quot;, &quot;tesla@email.com&quot;) });
-
-// Deletes the listed values from the given attribute
-connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
-new[] { new LdapModification(LdapModificationOp.Delete, &quot;mail&quot;, &quot;tesla@email.com&quot;) });
-</code></pre></li>
-</ul>
-<p>// Add back the recently deleted property
-connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
-  new[] { new LdapModification(LdapModificationOp.Add, &quot;mail&quot;, &quot;tesla@email.com&quot;) });</p>
-</li>
-</ul>
-<p> // disconnect from the LDAP server
- connection.Disconnect();</p>
-<pre><code>### The `ProcessRunner` class
-A class that provides methods that helps us create external processes and capture their output. 
-
-[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
-
-#### Example 1: Running a process async
-`RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.
-
-```csharp
-// executes a process and returns the exit code
+<p>The LDAP Client was moved to a standalone assembly at <a href="https://github.com/unosquare/swan-ldap">SWAN LDAP</a>.</p>
+<h3 id="the-processrunner-class">The <code>ProcessRunner</code> class</h3>
+<p>A class that provides methods that helps us create external processes and capture their output. </p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html">ProcessRunner API Doc</a></p>
+<h4 id="example-1-running-a-process-async">Example 1: Running a process async</h4>
+<p><code>RunProcessAsync</code> runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.</p>
+<pre><code class="lang-csharp">// executes a process and returns the exit code
 var result = await ProcessRunner.RunProcessAsync(
-              // The path of the program to be executed
-              &quot;dotnet&quot;,
-              //Parameters
-              &quot;--help&quot;,
-              // A success callback with a reference to the output and the process itself
-              (data, proc) =&gt;
-              {
-              // If it executes correctly, print the output
-                Encoding.GetEncoding(0).GetString(data).WriteLine();
-              },
-              // An error callback with a reference to the error and the process itself
-              (data, proc) =&gt;
-              {
-              // If an error ocurred, print out the error
-                  Encoding.GetEncoding(0).GetString(data).WriteLine();
-              }
-             );
+               // The path of the program to be executed
+               &quot;dotnet&quot;,
+               //Parameters
+               &quot;--help&quot;,
+               // A success callback with a reference to the output and the process itself
+               (data, proc) =&gt;
+               {
+               // If it executes correctly, print the output
+                 Encoding.GetEncoding(0).GetString(data).WriteLine();
+               },
+               // An error callback with a reference to the error and the process itself
+               (data, proc) =&gt;
+               {
+               // If an error ocurred, print out the error
+                   Encoding.GetEncoding(0).GetString(data).WriteLine();
+               }
+              );
 </code></pre><h4 id="example-2-getting-a-process-output">Example 2: Getting a process output</h4>
 <p>If you are more concern about the output than the process itself, you can use <code>GetProcessOutputAsync</code> to get just a string containing either the output or the error text.</p>
 <pre><code class="lang-csharp">// Execute a process asynchronously and return either the ouput or the error
@@ -1026,7 +931,6 @@ static void Main()
 <p>The following files, located in the root folder, should be run in any order before start running unit tests:</p>
 <ul>
 <li><code>./mail.js</code> - This script will mount a SMTP server, this service is required to run <code>SmtpClient</code> tests.</li>
-<li><code>./ldap.js</code> - This script will provide a limited LDAP server with basic functionality to be used with <code>LdapClient</code>.</li>
 <li><code>./web.js</code> -  This script will provide a web server responding JSON files for <code>JsonClient</code> tests.</li>
 <li><code>./tcp.js</code> - This script will open a basic TCP Socket for <code>TcpConnection</code> tests.</li>
 <li><code>./ntp.js</code> - This script will mount a NTP server for general <code>Network</code> methods.</li>
@@ -1045,7 +949,7 @@ static void Main()
               <div class="contribution">
                 <ul class="nav">
                   <li class="top-sep">
-                    <a href="https://github.com/unosquare/swan/blob/dependabot/nuget/Microsoft.CodeAnalysis.FxCopAnalyzers-2.9.4/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/unosquare/swan/blob/Swanv2.0/README.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

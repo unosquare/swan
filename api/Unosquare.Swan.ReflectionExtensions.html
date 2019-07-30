@@ -219,7 +219,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPropertyProxy CreatePropertyProxy(this PropertyInfo propertyInfo)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IPropertyProxy CreatePropertyProxy(this PropertyInfo this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -233,7 +233,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
-        <td><span class="parametername">propertyInfo</span></td>
+        <td><span class="parametername">this</span></td>
         <td><p>The property information.</p>
 </td>
       </tr>
@@ -251,6 +251,22 @@
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Abstractions.IPropertyProxy.html">IPropertyProxy</a></td>
         <td><p>The property proxy.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>this</p>
 </td>
       </tr>
     </tbody>
@@ -624,96 +640,6 @@ binding criteria. This class cannot be inherited.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_ReflectionExtensions_IsAbstract_" data-uid="Unosquare.Swan.ReflectionExtensions.IsAbstract*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsAbstract_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)">IsAbstract(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether this instance is abstract.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsAbstract(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if the specified type is abstract; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsClass_" data-uid="Unosquare.Swan.ReflectionExtensions.IsClass*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsClass_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsClass(System.Type)">IsClass(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether this instance is class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsClass(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if the specified type is class; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Unosquare_Swan_ReflectionExtensions_IsCollection_" data-uid="Unosquare.Swan.ReflectionExtensions.IsCollection*"></a>
   <h4 id="Unosquare_Swan_ReflectionExtensions_IsCollection_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsCollection(System.Type)">IsCollection(Type)</h4>
   <div class="markdown level1 summary"><p>Determines whether this type is compatible with ICollection.</p>
@@ -769,96 +695,6 @@ binding criteria. This class cannot be inherited.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p>sourceType.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsGenericParameter_" data-uid="Unosquare.Swan.ReflectionExtensions.IsGenericParameter*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsGenericParameter_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsGenericParameter(System.Type)">IsGenericParameter(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether [is generic parameter].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsGenericParameter(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if [is generic parameter] [the specified type]; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsGenericType_" data-uid="Unosquare.Swan.ReflectionExtensions.IsGenericType*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsGenericType_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsGenericType(System.Type)">IsGenericType(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether [is generic type].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsGenericType(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if [is generic type] [the specified type]; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -965,141 +801,6 @@ binding criteria. This class cannot be inherited.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p>type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsInterface_" data-uid="Unosquare.Swan.ReflectionExtensions.IsInterface*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsInterface_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsInterface(System.Type)">IsInterface(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether this instance is interface.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsInterface(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if the specified type is interface; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsPrimitive_" data-uid="Unosquare.Swan.ReflectionExtensions.IsPrimitive*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsPrimitive_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsPrimitive(System.Type)">IsPrimitive(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether this instance is primitive.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsPrimitive(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if the specified type is primitive; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_ReflectionExtensions_IsValueType_" data-uid="Unosquare.Swan.ReflectionExtensions.IsValueType*"></a>
-  <h4 id="Unosquare_Swan_ReflectionExtensions_IsValueType_System_Type_" data-uid="Unosquare.Swan.ReflectionExtensions.IsValueType(System.Type)">IsValueType(Type)</h4>
-  <div class="markdown level1 summary"><p>Determines whether [is value type].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsValueType(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if [is value type] [the specified type]; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
