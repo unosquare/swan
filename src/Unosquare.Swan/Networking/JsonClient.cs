@@ -17,6 +17,7 @@
     /// </summary>
     public static class JsonClient
     {
+        private static readonly HttpClient HttpClient = new HttpClient();
         private const string JsonMimeType = "application/json";
 
         /// <summary>
@@ -368,30 +369,28 @@
                 throw new ArgumentNullException(nameof(uri));
 
             var httpMethod = method ?? HttpMethod.Get;
-            using (var httpClient = new HttpClient())
+
+            using (var requestMessage = new HttpRequestMessage(httpMethod, uri))
             {
-                using (var requestMessage = new HttpRequestMessage(httpMethod, uri))
+                if (!string.IsNullOrWhiteSpace(authorization))
                 {
-                    if (!string.IsNullOrWhiteSpace(authorization))
-                    {
-                        requestMessage.Headers.Authorization
-                            = new AuthenticationHeaderValue("Bearer", authorization);
-                    }
-
-                    if (headers != null)
-                    {
-                        foreach (var header in headers)
-                            requestMessage.Headers.Add(header.Key, header.Value);
-                    }
-
-                    if (payload != null && httpMethod != HttpMethod.Get)
-                    {
-                        requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-                    }
-
-                    return await httpClient.SendAsync(requestMessage, ct)
-                        .ConfigureAwait(false);
+                    requestMessage.Headers.Authorization
+                        = new AuthenticationHeaderValue("Bearer", authorization);
                 }
+
+                if (headers != null)
+                {
+                    foreach (var header in headers)
+                        requestMessage.Headers.Add(header.Key, header.Value);
+                }
+
+                if (payload != null && httpMethod != HttpMethod.Get)
+                {
+                    requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+                }
+
+                return await HttpClient.SendAsync(requestMessage, ct)
+                    .ConfigureAwait(false);
             }
         }
     }
