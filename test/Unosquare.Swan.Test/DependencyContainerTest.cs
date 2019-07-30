@@ -16,7 +16,7 @@
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail));
+                container.AutoRegister(DependencyContainerDuplicateImplementationAction.Fail));
         }
 
         [Test]
@@ -48,7 +48,7 @@
 
             container.AutoRegister(
                 SwanRuntime.GetAssemblies(),
-                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+                DependencyContainerDuplicateImplementationAction.RegisterSingle,
                 (param) => true);
 
             Assert.IsTrue(container.CanResolve<ICar>());
@@ -61,7 +61,7 @@
 
             container.AutoRegister(
                 SwanRuntime.GetAssemblies(),
-                DependencyContainerDuplicateImplementationActions.RegisterMultiple);
+                DependencyContainerDuplicateImplementationAction.RegisterMultiple);
 
             Assert.IsTrue(container.CanResolve<ICar>());
         }
@@ -99,7 +99,7 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution,
             };
 
             Assert.IsNotNull(container.Resolve(
@@ -115,7 +115,7 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution,
             };
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
@@ -637,7 +637,7 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution,
             };
 
             container.Register<IAnimal>(new Human("George"), registerName);
@@ -682,7 +682,7 @@
 
             var resolveOptions = new DependencyContainerResolveOptions
             {
-                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution,
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureAction.AttemptUnnamedResolution,
             };
 
             Assert.IsTrue(container.CanResolve(typeof(Shark), new Shark().Name, resolveOptions));
