@@ -120,7 +120,7 @@
             var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
             Assert.GreaterOrEqual(8, objectInfoLines.Length);
-            Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
+            Assert.AreEqual("$type           : Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
             Assert.AreEqual("    string,", objectInfoLines[2]);
         }
 
@@ -130,7 +130,7 @@
             var emptyJson = new EmptyJson();
             var objectInfoLines = emptyJson.Stringify().ToLines();
 
-            Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
+            Assert.AreEqual("$type           : Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
         }
 
         [Test]
