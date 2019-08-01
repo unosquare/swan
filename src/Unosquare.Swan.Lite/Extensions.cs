@@ -320,11 +320,11 @@
         /// <summary>
         /// Returns true if the object is valid.
         /// </summary>
-        /// <param name="obj">The object.</param>
+        /// <param name="this">The object.</param>
         /// <returns>
         ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsValid(this object obj) => SwanRuntime.ObjectValidator.IsValid(obj);
+        public static bool IsValid(this object @this) => SwanRuntime.ObjectValidator.IsValid(@this);
 
         internal static void CreateTarget(
             this object source,
