@@ -32,7 +32,7 @@
     /// <summary>
     /// Occurs before a connection is accepted. Set the Cancel property to true to prevent the connection from being accepted.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.ConnectionAcceptedEventArgs" />
+    /// <seealso cref="ConnectionAcceptedEventArgs" />
     public class ConnectionAcceptingEventArgs : ConnectionAcceptedEventArgs
     {
         /// <summary>

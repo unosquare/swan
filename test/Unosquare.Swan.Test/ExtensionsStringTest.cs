@@ -187,14 +187,14 @@
     {
         [TestCase("", null)]
         [TestCase("Test", "Test")]
-        [TestCase("Unosquare.Swan.Test.Mocks.Monkey", typeof(Monkey))]
+        [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
         public void WithObjectAsParam_ReturnsAString(string expected, object input)
         {
             Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
         }
 
         [TestCase("Test", "Test")]
-        [TestCase("Unosquare.Swan.Test.Mocks.Monkey", typeof(Monkey))]
+        [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
         public void WithGenericAsParam_ReturnsAString<T>(string expected, T input)
         {
             Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
