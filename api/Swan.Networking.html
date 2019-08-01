@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Swan.Networking
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Swan.Networking
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.43.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Networking">
+  
+  <h1 id="Swan_Networking" data-uid="Swan.Networking" class="text-break">Namespace Swan.Networking
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="Swan.Networking.Connection.html">Connection</a></h4>
+      <section><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
+and its corresponding network streams. It is capable of working in 2 modes. Typically on the server side
+you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
+and use the Read methods available. In continuous reading mode Read methods are not available and will throw
+an invalid operation exceptions if they are used.
+Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don&apos;t use Read methods
+Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.ConnectionListener.html">ConnectionListener</a></h4>
+      <section><p>TCP Listener manager with built-in events and asynchronous functionality.
+This networking component is typically used when writing server software.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsQueryException.html">DnsQueryException</a></h4>
+      <section><p>An exception thrown when the DNS query fails.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsQueryResult.html">DnsQueryResult</a></h4>
+      <section><p>Represents a response from a DNS server.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsRecord.html">DnsRecord</a></h4>
+      <section><p>Represents a DNS record entry.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.JsonClient.html">JsonClient</a></h4>
+      <section><p>Represents a HttpClient with extended methods to use with JSON payloads 
+and bearer tokens authentication.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.JsonRequestException.html">JsonRequestException</a></h4>
+      <section><p>Represents errors that occurs requesting a JSON file through HTTP.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpClient.html">SmtpClient</a></h4>
+      <section><p>Represents a basic SMTP client that is capable of submitting messages to an SMTP server.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpDefinitions.html">SmtpDefinitions</a></h4>
+      <section><p>Contains useful constants and definitions.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpDefinitions.SmtpAuthMethods.html">SmtpDefinitions.SmtpAuthMethods</a></h4>
+      <section><p>Lists the AUTH methods supported by default.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpServerReply.html">SmtpServerReply</a></h4>
+      <section><p>Represents an SMTP server response object.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpSessionState.html">SmtpSessionState</a></h4>
+      <section><p>Represents the state of an SMTP session associated with a client.</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="Swan.Networking.DnsOperationCode.html">DnsOperationCode</a></h4>
+      <section><p>Enumerates the different DNS operation codes.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsRecordClass.html">DnsRecordClass</a></h4>
+      <section><p>Enumerates the different DNS record classes.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsRecordType.html">DnsRecordType</a></h4>
+      <section><p>Enumerates the different DNS record types.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.DnsResponseCode.html">DnsResponseCode</a></h4>
+      <section><p>Enumerates the different DNS query response codes.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpCommandNames.html">SmtpCommandNames</a></h4>
+      <section><p>Enumerates all of the well-known SMTP command names.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpReplyCodeCategories.html">SmtpReplyCodeCategories</a></h4>
+      <section><p>Enumerates the reply code categories.</p>
+</section>
+      <h4><a class="xref" href="Swan.Networking.SmtpReplyCodeSeverities.html">SmtpReplyCodeSeverities</a></h4>
+      <section><p>Enumerates the reply code severities.</p>
+</section>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>
