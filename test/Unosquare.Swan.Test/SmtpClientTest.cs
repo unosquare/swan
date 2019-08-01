@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.SmtpTests
+﻿namespace Swan.Test.SmtpTests
 {
     using Formatters;
     using Mocks;

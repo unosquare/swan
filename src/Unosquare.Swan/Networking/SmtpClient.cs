@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Networking
+﻿namespace Swan.Networking
 {
     using System.Threading;
     using System;

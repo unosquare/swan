@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
+﻿namespace Swan.Test.ExtensionsByteArraysTest
 {
     using NUnit.Framework;
     using System;

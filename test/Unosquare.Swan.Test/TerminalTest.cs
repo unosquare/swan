@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.TerminalTests
+﻿namespace Swan.Test.TerminalTests
 {
     using NUnit.Framework;
 

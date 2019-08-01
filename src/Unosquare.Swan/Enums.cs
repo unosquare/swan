@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Swan
 {
     /// <summary>
     /// Enumerates the possible causes of the DataReceived event occurring.

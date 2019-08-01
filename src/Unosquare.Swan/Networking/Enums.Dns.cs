@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Unosquare.Swan.Networking
+namespace Swan.Networking
 {
     #region DNS
 

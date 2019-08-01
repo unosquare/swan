@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Swan.Components
 {
     using System;
     using System.Diagnostics;
@@ -12,7 +12,7 @@
     /// <example>
     ///  The following example shows how to implement delay mechanisms.
     /// <code>
-    /// using Unosquare.Swan.Components;
+    /// using Swan.Components;
     /// 
     /// public class Example
     /// {

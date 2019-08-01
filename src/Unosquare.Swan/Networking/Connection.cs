@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Networking
+﻿namespace Swan.Networking
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,7 @@
     /// The following code explains how to create a TCP server.
     /// <code>
     /// using System.Text;
-    /// using Unosquare.Swan.Networking;
+    /// using Swan.Networking;
     /// 
     /// class Example
     /// {
@@ -55,7 +55,7 @@
     /// using System.Net.Sockets;
     /// using System.Text;
     /// using System.Threading.Tasks;
-    /// using Unosquare.Swan.Networking;
+    /// using Swan.Networking;
     /// 
     /// class Example
     /// {

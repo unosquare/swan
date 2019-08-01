@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.TerminalLoggingTests
+﻿namespace Swan.Test.TerminalLoggingTests
 {
     using System;
     using System.Collections.Generic;

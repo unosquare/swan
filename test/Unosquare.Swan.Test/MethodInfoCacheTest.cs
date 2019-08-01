@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.MethodInfoCacheTest
+﻿namespace Swan.Test.MethodInfoCacheTest
 {
     using System;
     using Reflection;

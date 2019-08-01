@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Networking
+﻿namespace Swan.Networking
 {
     /// <summary>
     /// Contains useful constants and definitions.

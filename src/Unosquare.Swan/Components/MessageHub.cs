@@ -12,7 +12,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 // ===============================================================================
 
-namespace Unosquare.Swan.Components
+namespace Swan.Components
 {
     using System.Threading.Tasks;
     using JetBrains.Annotations;
@@ -150,8 +150,8 @@ namespace Unosquare.Swan.Components
     /// <code>
     /// class Example
     /// {
-    ///     using Unosquare.Swan;
-    ///     using Unosquare.Swan.Components;
+    ///     using Swan;
+    ///     using Swan.Components;
     ///     
     ///     static void Main()
     ///     {

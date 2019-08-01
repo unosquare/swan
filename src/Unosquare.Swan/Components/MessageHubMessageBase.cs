@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Swan.Components
 {
     using System;
     using JetBrains.Annotations;

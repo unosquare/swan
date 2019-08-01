@@ -1,5 +1,5 @@
 ﻿#if !NET461
-namespace Unosquare.Swan.Abstractions
+namespace Swan.Abstractions
 {
     /// <summary>
     /// Mimic a Windows ServiceBase class. Useful to keep compatibility with applications

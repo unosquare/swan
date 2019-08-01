@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
+﻿namespace Swan.Test.ExtensionsDictionariesTests
 {
     using System;
     using System.Linq;

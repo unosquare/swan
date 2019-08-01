@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Swan.Components
 {
     using JetBrains.Annotations;
     using System;
@@ -52,7 +52,7 @@
         /// class Example
         /// {
         ///     using System.Threading.Tasks;
-        ///     using Unosquare.Swan.Components;
+        ///     using Swan.Components;
         ///     
         ///     static async Task Main()
         ///     {
@@ -157,7 +157,7 @@
         /// class Example
         /// {
         /// using System.Threading.Tasks;
-        /// using Unosquare.Swan.Components;
+        /// using Swan.Components;
         /// static async Task Main()
         /// {
         /// // Execute a process asynchronously
@@ -344,8 +344,8 @@
         ///     using System.Diagnostics;
         ///     using System.Text;
         ///     using System.Threading.Tasks;
-        ///     using Unosquare.Swan;
-        ///     using Unosquare.Swan.Components;
+        ///     using Swan;
+        ///     using Swan.Components;
         ///     
         ///     static async Task Main()
         ///     {

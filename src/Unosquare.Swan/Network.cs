@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Swan
 {
     using Networking;
     using System;

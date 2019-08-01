@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.SingletonBaseTest
+﻿namespace Swan.Test.SingletonBaseTest
 {
     using NUnit.Framework;
     using Mocks;

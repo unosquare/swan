@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.MessageHubTests
+﻿namespace Swan.Test.MessageHubTests
 {
     using Components;
     using Mocks;

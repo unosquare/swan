@@ -1,5 +1,5 @@
 ﻿#if NET461
-namespace Unosquare.Swan.Formatters
+namespace Swan.Formatters
 {
     using System;
     using System.Drawing;

@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.CsvReaderTest
+﻿namespace Swan.Test.CsvReaderTest
 {
     using System;
     using System.Collections.Generic;

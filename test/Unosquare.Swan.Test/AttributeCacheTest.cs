@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test
+﻿namespace Swan.Test
 {
     using Abstractions;
     using System.Linq;

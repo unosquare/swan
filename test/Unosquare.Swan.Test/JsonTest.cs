@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.JsonTests
+﻿namespace Swan.Test.JsonTests
 {
     using NUnit.Framework;
     using System;

@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Samples
+﻿namespace Swan.Samples
 {
     using System.Threading.Tasks;
     using Components;

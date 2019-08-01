@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ObjectMapperTests
+﻿namespace Swan.Test.ObjectMapperTests
 {
     using NUnit.Framework;
     using System;

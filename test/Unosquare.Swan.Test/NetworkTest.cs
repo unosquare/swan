@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.NetworkTests
+﻿namespace Swan.Test.NetworkTests
 {
     using NUnit.Framework;
     using System;

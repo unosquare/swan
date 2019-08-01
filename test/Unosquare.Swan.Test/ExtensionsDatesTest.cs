@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsDatesTests
+﻿namespace Swan.Test.ExtensionsDatesTests
 {
     using System;
     using NUnit.Framework;

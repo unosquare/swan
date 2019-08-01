@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsReflectionTest
+﻿namespace Swan.Test.ExtensionsReflectionTest
 {
     using Mocks;
     using NUnit.Framework;

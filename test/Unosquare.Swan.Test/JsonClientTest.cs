@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.JsonClientTest
+﻿namespace Swan.Test.JsonClientTest
 {
     using Mocks;
     using Networking;

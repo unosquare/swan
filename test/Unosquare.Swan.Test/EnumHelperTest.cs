@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.EnumHelperTest
+﻿namespace Swan.Test.EnumHelperTest
 {
     using NUnit.Framework;
     using System.Linq;

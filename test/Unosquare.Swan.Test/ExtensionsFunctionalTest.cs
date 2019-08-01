@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
+﻿namespace Swan.Test.ExtensionsFunctionalTest
 {
     using NUnit.Framework;
     using System;

@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ExtensionsStringTest
+﻿namespace Swan.Test.ExtensionsStringTest
 {
     using NUnit.Framework;
     using System;

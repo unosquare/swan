@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.DependencyContainerTest
+﻿namespace Swan.Test.DependencyContainerTest
 {
     using Components;
     using Mocks;

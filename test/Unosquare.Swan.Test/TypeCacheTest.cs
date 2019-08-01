@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.TypeCacheTest
+﻿namespace Swan.Test.TypeCacheTest
 {
     using NUnit.Framework;
     using System;

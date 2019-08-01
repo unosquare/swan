@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ObjectComparerTests
+﻿namespace Swan.Test.ObjectComparerTests
 {
     using Components;
     using Mocks;

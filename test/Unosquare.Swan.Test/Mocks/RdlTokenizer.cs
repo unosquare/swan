@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
     using System.Linq;
     using Abstractions;

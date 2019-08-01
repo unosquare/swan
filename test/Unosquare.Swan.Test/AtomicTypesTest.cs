@@ -1,9 +1,9 @@
-﻿namespace Unosquare.Swan.Test
+﻿namespace Swan.Test
 {
     using NUnit.Framework;
     using System.Threading.Tasks;
     using Abstractions;
-    using Lite;
+    using Swan;
 
     [TestFixture]
     public class AtomicTypeTest

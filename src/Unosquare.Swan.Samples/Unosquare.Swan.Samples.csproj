@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Swan.Lite\Swan.Lite.csproj" />
     <ProjectReference Include="..\Unosquare.Swan\Unosquare.Swan.csproj" />
   </ItemGroup>
 

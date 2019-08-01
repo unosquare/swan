@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Swan.Components
 {
     /// <summary>
     /// A Message to be published/delivered by Messenger.

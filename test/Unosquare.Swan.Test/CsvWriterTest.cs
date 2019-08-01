@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.CsvWriterTest
+﻿namespace Swan.Test.CsvWriterTest
 {
     using Formatters;
     using Mocks;

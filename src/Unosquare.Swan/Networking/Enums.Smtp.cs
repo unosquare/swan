@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Unosquare.Swan.Networking
+namespace Swan.Networking
 {
     /// <summary>
     /// Enumerates all of the well-known SMTP command names.

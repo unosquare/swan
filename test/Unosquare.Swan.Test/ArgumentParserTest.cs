@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Test.ArgumentParserTests
+﻿namespace Swan.Test.ArgumentParserTests
 {
     using NUnit.Framework;
     using System;

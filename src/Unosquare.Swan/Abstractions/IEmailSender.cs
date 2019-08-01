@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Abstractions
+﻿namespace Swan.Abstractions
 {
     using System.Threading.Tasks;
 
