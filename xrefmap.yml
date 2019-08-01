@@ -673,6 +673,84 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.ExpressionParser.ResolveVariable
   nameWithType: ExpressionParser.ResolveVariable
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1
+  name: IComponentCollection<T>
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html
+  commentId: T:Unosquare.Swan.Abstractions.IComponentCollection`1
+  name.vb: IComponentCollection(Of T)
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T)
+  nameWithType: IComponentCollection<T>
+  nameWithType.vb: IComponentCollection(Of T)
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Add(System.String,`0)
+  name: Add(String, T)
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Add_System_String__0_
+  commentId: M:Unosquare.Swan.Abstractions.IComponentCollection`1.Add(System.String,`0)
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Add(System.String, T)
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Add(System.String, T)
+  nameWithType: IComponentCollection<T>.Add(String, T)
+  nameWithType.vb: IComponentCollection(Of T).Add(String, T)
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Add*
+  name: Add
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Add_
+  commentId: Overload:Unosquare.Swan.Abstractions.IComponentCollection`1.Add
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Add
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Add
+  nameWithType: IComponentCollection<T>.Add
+  nameWithType.vb: IComponentCollection(Of T).Add
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Item(System.String)
+  name: Item[String]
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Item_System_String_
+  commentId: P:Unosquare.Swan.Abstractions.IComponentCollection`1.Item(System.String)
+  name.vb: Item(String)
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Item[System.String]
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Item(System.String)
+  nameWithType: IComponentCollection<T>.Item[String]
+  nameWithType.vb: IComponentCollection(Of T).Item(String)
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Item*
+  name: Item
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Item_
+  commentId: Overload:Unosquare.Swan.Abstractions.IComponentCollection`1.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Item
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Item
+  nameWithType: IComponentCollection<T>.Item
+  nameWithType.vb: IComponentCollection(Of T).Item
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Named
+  name: Named
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Named
+  commentId: P:Unosquare.Swan.Abstractions.IComponentCollection`1.Named
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Named
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Named
+  nameWithType: IComponentCollection<T>.Named
+  nameWithType.vb: IComponentCollection(Of T).Named
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.Named*
+  name: Named
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_Named_
+  commentId: Overload:Unosquare.Swan.Abstractions.IComponentCollection`1.Named
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.Named
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).Named
+  nameWithType: IComponentCollection<T>.Named
+  nameWithType.vb: IComponentCollection(Of T).Named
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.WithSafeNames
+  name: WithSafeNames
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_WithSafeNames
+  commentId: P:Unosquare.Swan.Abstractions.IComponentCollection`1.WithSafeNames
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.WithSafeNames
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).WithSafeNames
+  nameWithType: IComponentCollection<T>.WithSafeNames
+  nameWithType.vb: IComponentCollection(Of T).WithSafeNames
+- uid: Unosquare.Swan.Abstractions.IComponentCollection`1.WithSafeNames*
+  name: WithSafeNames
+  href: api/Unosquare.Swan.Abstractions.IComponentCollection-1.html#Unosquare_Swan_Abstractions_IComponentCollection_1_WithSafeNames_
+  commentId: Overload:Unosquare.Swan.Abstractions.IComponentCollection`1.WithSafeNames
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IComponentCollection<T>.WithSafeNames
+  fullName.vb: Unosquare.Swan.Abstractions.IComponentCollection(Of T).WithSafeNames
+  nameWithType: IComponentCollection<T>.WithSafeNames
+  nameWithType.vb: IComponentCollection(Of T).WithSafeNames
 - uid: Unosquare.Swan.Abstractions.IDataDictionary`2
   name: IDataDictionary<TKey, TValue>
   href: api/Unosquare.Swan.Abstractions.IDataDictionary-2.html
@@ -3924,6 +4002,28 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.ByteArrayExtensions.TrimStart
   nameWithType: ByteArrayExtensions.TrimStart
+- uid: Unosquare.Swan.ComponentCollectionExtensions
+  name: ComponentCollectionExtensions
+  href: api/Unosquare.Swan.ComponentCollectionExtensions.html
+  commentId: T:Unosquare.Swan.ComponentCollectionExtensions
+  fullName: Unosquare.Swan.ComponentCollectionExtensions
+  nameWithType: ComponentCollectionExtensions
+- uid: Unosquare.Swan.ComponentCollectionExtensions.Add*
+  name: Add
+  href: api/Unosquare.Swan.ComponentCollectionExtensions.html#Unosquare_Swan_ComponentCollectionExtensions_Add_
+  commentId: Overload:Unosquare.Swan.ComponentCollectionExtensions.Add
+  isSpec: "True"
+  fullName: Unosquare.Swan.ComponentCollectionExtensions.Add
+  nameWithType: ComponentCollectionExtensions.Add
+- uid: Unosquare.Swan.ComponentCollectionExtensions.Add``1(Unosquare.Swan.Abstractions.IComponentCollection{``0},``0)
+  name: Add<T>(IComponentCollection<T>, T)
+  href: api/Unosquare.Swan.ComponentCollectionExtensions.html#Unosquare_Swan_ComponentCollectionExtensions_Add__1_Unosquare_Swan_Abstractions_IComponentCollection___0____0_
+  commentId: M:Unosquare.Swan.ComponentCollectionExtensions.Add``1(Unosquare.Swan.Abstractions.IComponentCollection{``0},``0)
+  name.vb: Add(Of T)(IComponentCollection(Of T), T)
+  fullName: Unosquare.Swan.ComponentCollectionExtensions.Add<T>(Unosquare.Swan.Abstractions.IComponentCollection<T>, T)
+  fullName.vb: Unosquare.Swan.ComponentCollectionExtensions.Add(Of T)(Unosquare.Swan.Abstractions.IComponentCollection(Of T), T)
+  nameWithType: ComponentCollectionExtensions.Add<T>(IComponentCollection<T>, T)
+  nameWithType.vb: ComponentCollectionExtensions.Add(Of T)(IComponentCollection(Of T), T)
 - uid: Unosquare.Swan.Components
   name: Unosquare.Swan.Components
   href: api/Unosquare.Swan.Components.html
@@ -4337,6 +4437,664 @@ references:
   fullName.vb: Unosquare.Swan.Components.CollectionCacheRepository(Of TValue).Retrieve
   nameWithType: CollectionCacheRepository<TValue>.Retrieve
   nameWithType.vb: CollectionCacheRepository(Of TValue).Retrieve
+- uid: Unosquare.Swan.Components.ComponentCollection`1
+  name: ComponentCollection<T>
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html
+  commentId: T:Unosquare.Swan.Components.ComponentCollection`1
+  name.vb: ComponentCollection(Of T)
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T)
+  nameWithType: ComponentCollection<T>
+  nameWithType.vb: ComponentCollection(Of T)
+- uid: Unosquare.Swan.Components.ComponentCollection`1.#ctor
+  name: ComponentCollection()
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1__ctor
+  commentId: M:Unosquare.Swan.Components.ComponentCollection`1.#ctor
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.ComponentCollection()
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).ComponentCollection()
+  nameWithType: ComponentCollection<T>.ComponentCollection()
+  nameWithType.vb: ComponentCollection(Of T).ComponentCollection()
+- uid: Unosquare.Swan.Components.ComponentCollection`1.#ctor*
+  name: ComponentCollection
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1__ctor_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.ComponentCollection
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).ComponentCollection
+  nameWithType: ComponentCollection<T>.ComponentCollection
+  nameWithType.vb: ComponentCollection(Of T).ComponentCollection
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Add(System.String,`0)
+  name: Add(String, T)
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Add_System_String__0_
+  commentId: M:Unosquare.Swan.Components.ComponentCollection`1.Add(System.String,`0)
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Add(System.String, T)
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Add(System.String, T)
+  nameWithType: ComponentCollection<T>.Add(String, T)
+  nameWithType.vb: ComponentCollection(Of T).Add(String, T)
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Add*
+  name: Add
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Add_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.Add
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Add
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Add
+  nameWithType: ComponentCollection<T>.Add
+  nameWithType.vb: ComponentCollection(Of T).Add
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Count
+  name: Count
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Count
+  commentId: P:Unosquare.Swan.Components.ComponentCollection`1.Count
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Count
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Count
+  nameWithType: ComponentCollection<T>.Count
+  nameWithType.vb: ComponentCollection(Of T).Count
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Count*
+  name: Count
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Count_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.Count
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Count
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Count
+  nameWithType: ComponentCollection<T>.Count
+  nameWithType.vb: ComponentCollection(Of T).Count
+- uid: Unosquare.Swan.Components.ComponentCollection`1.GetEnumerator
+  name: GetEnumerator()
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_GetEnumerator
+  commentId: M:Unosquare.Swan.Components.ComponentCollection`1.GetEnumerator
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).GetEnumerator()
+  nameWithType: ComponentCollection<T>.GetEnumerator()
+  nameWithType.vb: ComponentCollection(Of T).GetEnumerator()
+- uid: Unosquare.Swan.Components.ComponentCollection`1.GetEnumerator*
+  name: GetEnumerator
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.GetEnumerator
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).GetEnumerator
+  nameWithType: ComponentCollection<T>.GetEnumerator
+  nameWithType.vb: ComponentCollection(Of T).GetEnumerator
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Item(System.Int32)
+  name: Item[Int32]
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Item_System_Int32_
+  commentId: P:Unosquare.Swan.Components.ComponentCollection`1.Item(System.Int32)
+  name.vb: Item(Int32)
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Item[System.Int32]
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Item(System.Int32)
+  nameWithType: ComponentCollection<T>.Item[Int32]
+  nameWithType.vb: ComponentCollection(Of T).Item(Int32)
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Item(System.String)
+  name: Item[String]
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Item_System_String_
+  commentId: P:Unosquare.Swan.Components.ComponentCollection`1.Item(System.String)
+  name.vb: Item(String)
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Item[System.String]
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Item(System.String)
+  nameWithType: ComponentCollection<T>.Item[String]
+  nameWithType.vb: ComponentCollection(Of T).Item(String)
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Item*
+  name: Item
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Item_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Item
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Item
+  nameWithType: ComponentCollection<T>.Item
+  nameWithType.vb: ComponentCollection(Of T).Item
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Lock
+  name: Lock()
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Lock
+  commentId: M:Unosquare.Swan.Components.ComponentCollection`1.Lock
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Lock()
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Lock()
+  nameWithType: ComponentCollection<T>.Lock()
+  nameWithType.vb: ComponentCollection(Of T).Lock()
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Lock*
+  name: Lock
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Lock_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.Lock
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Lock
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Lock
+  nameWithType: ComponentCollection<T>.Lock
+  nameWithType.vb: ComponentCollection(Of T).Lock
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Named
+  name: Named
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Named
+  commentId: P:Unosquare.Swan.Components.ComponentCollection`1.Named
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Named
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Named
+  nameWithType: ComponentCollection<T>.Named
+  nameWithType.vb: ComponentCollection(Of T).Named
+- uid: Unosquare.Swan.Components.ComponentCollection`1.Named*
+  name: Named
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_Named_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.Named
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.Named
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).Named
+  nameWithType: ComponentCollection<T>.Named
+  nameWithType.vb: ComponentCollection(Of T).Named
+- uid: Unosquare.Swan.Components.ComponentCollection`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Unosquare.Swan.Components.ComponentCollection`1.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ComponentCollection<T>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ComponentCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
+- uid: Unosquare.Swan.Components.ComponentCollection`1.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ComponentCollection<T>.IEnumerable.GetEnumerator
+  nameWithType.vb: ComponentCollection(Of T).System.Collections.IEnumerable.GetEnumerator
+- uid: Unosquare.Swan.Components.ComponentCollection`1.WithSafeNames
+  name: WithSafeNames
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_WithSafeNames
+  commentId: P:Unosquare.Swan.Components.ComponentCollection`1.WithSafeNames
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.WithSafeNames
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).WithSafeNames
+  nameWithType: ComponentCollection<T>.WithSafeNames
+  nameWithType.vb: ComponentCollection(Of T).WithSafeNames
+- uid: Unosquare.Swan.Components.ComponentCollection`1.WithSafeNames*
+  name: WithSafeNames
+  href: api/Unosquare.Swan.Components.ComponentCollection-1.html#Unosquare_Swan_Components_ComponentCollection_1_WithSafeNames_
+  commentId: Overload:Unosquare.Swan.Components.ComponentCollection`1.WithSafeNames
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ComponentCollection<T>.WithSafeNames
+  fullName.vb: Unosquare.Swan.Components.ComponentCollection(Of T).WithSafeNames
+  nameWithType: ComponentCollection<T>.WithSafeNames
+  nameWithType.vb: ComponentCollection(Of T).WithSafeNames
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2
+  name: ConcurrentDataDictionary<TKey, TValue>
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html
+  commentId: T:Unosquare.Swan.Components.ConcurrentDataDictionary`2
+  name.vb: ConcurrentDataDictionary(Of TKey, TValue)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor
+  name: ConcurrentDataDictionary()
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary()
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary()
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary()
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary()
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name: ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name.vb: ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name: ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)), System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})
+  name: ConcurrentDataDictionary(IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: ConcurrentDataDictionary(IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEqualityComparer<TKey>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name: ConcurrentDataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_System_Int32_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: ConcurrentDataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Int32, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Int32, System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)), System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Int32)
+  name: ConcurrentDataDictionary(Int32, Int32)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Int32)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Int32, System.Int32)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Int32, System.Int32)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(Int32, Int32)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(Int32, Int32)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor*
+  name: ConcurrentDataDictionary
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2__ctor_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Clear
+  name: Clear()
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Clear
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Clear
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Clear()
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Clear()
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Clear()
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Clear()
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Clear*
+  name: Clear
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Clear_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Clear
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Clear
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Clear
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Clear
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Clear
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.ContainsKey(`0)
+  name: ContainsKey(TKey)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_ContainsKey__0_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.ContainsKey(`0)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ContainsKey(TKey)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ContainsKey(TKey)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ContainsKey(TKey)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ContainsKey(TKey)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.ContainsKey*
+  name: ContainsKey
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_ContainsKey_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.ContainsKey
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.ContainsKey
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).ContainsKey
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ContainsKey
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ContainsKey
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Count
+  name: Count
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Count
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Count
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Count
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Count
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Count*
+  name: Count
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Count_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Count
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Count
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Count
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.GetOrAdd(`0,`1)
+  name: GetOrAdd(TKey, TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_GetOrAdd__0__1_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.GetOrAdd(`0,`1)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.GetOrAdd*
+  name: GetOrAdd
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_GetOrAdd_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.GetOrAdd
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.GetOrAdd
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.GetOrAdd
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.IsEmpty
+  name: IsEmpty
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_IsEmpty
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.IsEmpty
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.IsEmpty*
+  name: IsEmpty
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_IsEmpty_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.IsEmpty
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Item(`0)
+  name: Item[TKey]
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Item__0_
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Item(`0)
+  name.vb: Item(TKey)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Item[TKey]
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Item(TKey)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Item[TKey]
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Item(TKey)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Item*
+  name: Item
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Item_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Item
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Item
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Item
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Item
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Keys
+  name: Keys
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Keys
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Keys
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Keys
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Keys
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Keys
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Keys*
+  name: Keys
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Keys_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Keys
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Keys
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Keys
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Keys
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Remove(`0)
+  name: Remove(TKey)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Remove__0_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Remove(`0)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Remove(TKey)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Remove(TKey)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Remove(TKey)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Remove(TKey)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Remove*
+  name: Remove
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Remove_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Remove
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Remove
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Remove
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Remove
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Remove
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Add(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Add
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Add
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Add
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Contains(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Contains
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Contains
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Contains
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name: ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[], Int32)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair(Of TKey, TValue)(), Int32)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, TValue>[], System.Int32)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(System.Collections.Generic.KeyValuePair(Of TKey, TValue)(), System.Int32)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[], Int32)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair(Of TKey, TValue)(), Int32)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo*
+  name: ICollection<KeyValuePair<TKey, TValue>>.CopyTo
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.CopyTo
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.CopyTo
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  name: ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___IsReadOnly
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.IsReadOnly
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly*
+  name: ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___IsReadOnly_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.IsReadOnly
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Remove(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Remove
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Remove
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Remove
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add(`0,`1)
+  name: IDictionary<TKey, TValue>.Add(TKey, TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IDictionary_TKey_TValue__Add__0__1_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add(`0,`1)
+  name.vb: System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IDictionary<TKey, TValue>.Add(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IDictionary<TKey, TValue>.Add(TKey, TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add*
+  name: IDictionary<TKey, TValue>.Add
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IDictionary_TKey_TValue__Add_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IDictionary<TKey,TValue>.Add
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IDictionary<TKey, TValue>.Add
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IDictionary<TKey, TValue>.Add
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  name: IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  name.vb: System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator*
+  name: IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  name: IReadOnlyDictionary<TKey, TValue>.Keys
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Keys
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Keys
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys*
+  name: IReadOnlyDictionary<TKey, TValue>.Keys
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Keys_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Keys
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  name: IReadOnlyDictionary<TKey, TValue>.Values
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Values
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Values
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values*
+  name: IReadOnlyDictionary<TKey, TValue>.Values
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Values_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Values
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator()
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IEnumerable.GetEnumerator
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryAdd(`0,`1)
+  name: TryAdd(TKey, TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryAdd__0__1_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryAdd(`0,`1)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryAdd*
+  name: TryAdd
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryAdd_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryAdd
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryAdd
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryAdd
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryAdd
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryAdd
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryGetValue(`0,`1@)
+  name: TryGetValue(TKey, out TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryGetValue__0__1__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryGetValue(`0,`1@)
+  name.vb: TryGetValue(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryGetValue*
+  name: TryGetValue
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryGetValue_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryGetValue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryGetValue
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryGetValue
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryGetValue
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryGetValue
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryRemove(`0,`1@)
+  name: TryRemove(TKey, out TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryRemove__0__1__
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryRemove(`0,`1@)
+  name.vb: TryRemove(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryRemove*
+  name: TryRemove
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryRemove_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryRemove
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryRemove
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryRemove
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryRemove
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryRemove
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryUpdate(`0,`1,`1)
+  name: TryUpdate(TKey, TValue, TValue)
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryUpdate__0__1__1_
+  commentId: M:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryUpdate(`0,`1,`1)
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryUpdate*
+  name: TryUpdate
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_TryUpdate_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.TryUpdate
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.TryUpdate
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).TryUpdate
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryUpdate
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryUpdate
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Values
+  name: Values
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Values
+  commentId: P:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Values
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Values
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Values
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Values
+- uid: Unosquare.Swan.Components.ConcurrentDataDictionary`2.Values*
+  name: Values
+  href: api/Unosquare.Swan.Components.ConcurrentDataDictionary-2.html#Unosquare_Swan_Components_ConcurrentDataDictionary_2_Values_
+  commentId: Overload:Unosquare.Swan.Components.ConcurrentDataDictionary`2.Values
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.ConcurrentDataDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.ConcurrentDataDictionary(Of TKey, TValue).Values
+  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Values
+  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Values
 - uid: Unosquare.Swan.Components.CsProjFile`1
   name: CsProjFile<T>
   href: api/Unosquare.Swan.Components.CsProjFile-1.html
@@ -4548,6 +5306,490 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.CsProjMetadataBase.Version
   nameWithType: CsProjMetadataBase.Version
+- uid: Unosquare.Swan.Components.DataDictionary`2
+  name: DataDictionary<TKey, TValue>
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html
+  commentId: T:Unosquare.Swan.Components.DataDictionary`2
+  name.vb: DataDictionary(Of TKey, TValue)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue)
+  nameWithType: DataDictionary<TKey, TValue>
+  nameWithType.vb: DataDictionary(Of TKey, TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor
+  name: DataDictionary()
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary()
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary()
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary()
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary()
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name: DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name.vb: DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)))
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name: DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)), System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})
+  name: DataDictionary(IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: DataDictionary(IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary(System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary(System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEqualityComparer<TKey>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Int32)
+  name: DataDictionary(Int32)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_System_Int32_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Int32)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary(System.Int32)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary(System.Int32)
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(Int32)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(Int32)
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name: DataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_System_Int32_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: DataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary(System.Int32, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, System.Collections.Generic.IEqualityComparer<TKey>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary(System.Int32, System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TValue)), System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
+- uid: Unosquare.Swan.Components.DataDictionary`2.#ctor*
+  name: DataDictionary
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2__ctor_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.DataDictionary
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).DataDictionary
+  nameWithType: DataDictionary<TKey, TValue>.DataDictionary
+  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary
+- uid: Unosquare.Swan.Components.DataDictionary`2.Clear
+  name: Clear()
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Clear
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.Clear
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Clear()
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Clear()
+  nameWithType: DataDictionary<TKey, TValue>.Clear()
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Clear()
+- uid: Unosquare.Swan.Components.DataDictionary`2.Clear*
+  name: Clear
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Clear_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Clear
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Clear
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Clear
+  nameWithType: DataDictionary<TKey, TValue>.Clear
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Clear
+- uid: Unosquare.Swan.Components.DataDictionary`2.ContainsKey(`0)
+  name: ContainsKey(TKey)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_ContainsKey__0_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.ContainsKey(`0)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.ContainsKey(TKey)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).ContainsKey(TKey)
+  nameWithType: DataDictionary<TKey, TValue>.ContainsKey(TKey)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).ContainsKey(TKey)
+- uid: Unosquare.Swan.Components.DataDictionary`2.ContainsKey*
+  name: ContainsKey
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_ContainsKey_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.ContainsKey
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.ContainsKey
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).ContainsKey
+  nameWithType: DataDictionary<TKey, TValue>.ContainsKey
+  nameWithType.vb: DataDictionary(Of TKey, TValue).ContainsKey
+- uid: Unosquare.Swan.Components.DataDictionary`2.Count
+  name: Count
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Count
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.Count
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Count
+  nameWithType: DataDictionary<TKey, TValue>.Count
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Components.DataDictionary`2.Count*
+  name: Count
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Count_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Count
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Count
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Count
+  nameWithType: DataDictionary<TKey, TValue>.Count
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Count
+- uid: Unosquare.Swan.Components.DataDictionary`2.GetOrAdd(`0,`1)
+  name: GetOrAdd(TKey, TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_GetOrAdd__0__1_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.GetOrAdd(`0,`1)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
+  nameWithType: DataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.GetOrAdd*
+  name: GetOrAdd
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_GetOrAdd_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.GetOrAdd
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.GetOrAdd
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).GetOrAdd
+  nameWithType: DataDictionary<TKey, TValue>.GetOrAdd
+  nameWithType.vb: DataDictionary(Of TKey, TValue).GetOrAdd
+- uid: Unosquare.Swan.Components.DataDictionary`2.IsEmpty
+  name: IsEmpty
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_IsEmpty
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.IsEmpty
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: DataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: DataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Components.DataDictionary`2.IsEmpty*
+  name: IsEmpty
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_IsEmpty_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.IsEmpty
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.IsEmpty
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).IsEmpty
+  nameWithType: DataDictionary<TKey, TValue>.IsEmpty
+  nameWithType.vb: DataDictionary(Of TKey, TValue).IsEmpty
+- uid: Unosquare.Swan.Components.DataDictionary`2.Item(`0)
+  name: Item[TKey]
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Item__0_
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.Item(`0)
+  name.vb: Item(TKey)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Item[TKey]
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Item(TKey)
+  nameWithType: DataDictionary<TKey, TValue>.Item[TKey]
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Item(TKey)
+- uid: Unosquare.Swan.Components.DataDictionary`2.Item*
+  name: Item
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Item_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Item
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Item
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Item
+  nameWithType: DataDictionary<TKey, TValue>.Item
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Item
+- uid: Unosquare.Swan.Components.DataDictionary`2.Keys
+  name: Keys
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Keys
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.Keys
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Keys
+  nameWithType: DataDictionary<TKey, TValue>.Keys
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Keys
+- uid: Unosquare.Swan.Components.DataDictionary`2.Keys*
+  name: Keys
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Keys_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Keys
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Keys
+  nameWithType: DataDictionary<TKey, TValue>.Keys
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Keys
+- uid: Unosquare.Swan.Components.DataDictionary`2.Remove(`0)
+  name: Remove(TKey)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Remove__0_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.Remove(`0)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Remove(TKey)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Remove(TKey)
+  nameWithType: DataDictionary<TKey, TValue>.Remove(TKey)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Remove(TKey)
+- uid: Unosquare.Swan.Components.DataDictionary`2.Remove*
+  name: Remove
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Remove_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Remove
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Remove
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Remove
+  nameWithType: DataDictionary<TKey, TValue>.Remove
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Remove
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Add(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Add
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Add_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Add
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Add
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Add
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Add
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Contains(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Contains
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Contains_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Contains
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Contains
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Contains
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Contains
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name: ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[], Int32)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair(Of TKey, TValue)(), Int32)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, TValue>[], System.Int32)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(System.Collections.Generic.KeyValuePair(Of TKey, TValue)(), System.Int32)
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[], Int32)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair(Of TKey, TValue)(), Int32)
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo*
+  name: ICollection<KeyValuePair<TKey, TValue>>.CopyTo
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___CopyTo_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#CopyTo
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.CopyTo
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.CopyTo
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.CopyTo
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  name: ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___IsReadOnly
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.IsReadOnly
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly*
+  name: ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___IsReadOnly_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#IsReadOnly
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.IsReadOnly
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.IsReadOnly
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue>)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(KeyValuePair(Of TKey, TValue))
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Remove(System.Collections.Generic.KeyValuePair<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(System.Collections.Generic.KeyValuePair(Of TKey, TValue))
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue>)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove(KeyValuePair(Of TKey, TValue))
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove*
+  name: ICollection<KeyValuePair<TKey, TValue>>.Remove
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_TKey_TValue___Remove_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{TKey,TValue}}#Remove
+  isSpec: "True"
+  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.Remove
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+  nameWithType: DataDictionary<TKey, TValue>.ICollection<KeyValuePair<TKey, TValue>>.Remove
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>.Remove
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add(`0,`1)
+  name: IDictionary<TKey, TValue>.Add(TKey, TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IDictionary_TKey_TValue__Add__0__1_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add(`0,`1)
+  name.vb: System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IDictionary<TKey, TValue>.Add(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+  nameWithType: DataDictionary<TKey, TValue>.IDictionary<TKey, TValue>.Add(TKey, TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add(TKey, TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add*
+  name: IDictionary<TKey, TValue>.Add
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IDictionary_TKey_TValue__Add_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IDictionary{TKey,TValue}#Add
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IDictionary<TKey,TValue>.Add
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IDictionary<TKey, TValue>.Add
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add
+  nameWithType: DataDictionary<TKey, TValue>.IDictionary<TKey, TValue>.Add
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IDictionary<TKey,TValue>.Add
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  name: IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  name.vb: System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+  nameWithType: DataDictionary<TKey, TValue>.IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator()
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator*
+  name: IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TKey_TValue___GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,TValue}}#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+  nameWithType: DataDictionary<TKey, TValue>.IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey,TValue>>.GetEnumerator
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  name: IReadOnlyDictionary<TKey, TValue>.Keys
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Keys
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  nameWithType: DataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Keys
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys*
+  name: IReadOnlyDictionary<TKey, TValue>.Keys
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Keys_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Keys
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Keys
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+  nameWithType: DataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Keys
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Keys
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  name: IReadOnlyDictionary<TKey, TValue>.Values
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Values
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  nameWithType: DataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Values
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values*
+  name: IReadOnlyDictionary<TKey, TValue>.Values
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_Generic_IReadOnlyDictionary_TKey_TValue__Values_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#Generic#IReadOnlyDictionary{TKey,TValue}#Values
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+  nameWithType: DataDictionary<TKey, TValue>.IReadOnlyDictionary<TKey, TValue>.Values
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.Values
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: DataDictionary<TKey, TValue>.IEnumerable.GetEnumerator()
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator()
+- uid: Unosquare.Swan.Components.DataDictionary`2.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: DataDictionary<TKey, TValue>.IEnumerable.GetEnumerator
+  nameWithType.vb: DataDictionary(Of TKey, TValue).System.Collections.IEnumerable.GetEnumerator
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryAdd(`0,`1)
+  name: TryAdd(TKey, TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryAdd__0__1_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.TryAdd(`0,`1)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
+  nameWithType: DataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryAdd*
+  name: TryAdd
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryAdd_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.TryAdd
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryAdd
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryAdd
+  nameWithType: DataDictionary<TKey, TValue>.TryAdd
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryAdd
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryGetValue(`0,`1@)
+  name: TryGetValue(TKey, out TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryGetValue__0__1__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.TryGetValue(`0,`1@)
+  name.vb: TryGetValue(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+  nameWithType: DataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryGetValue*
+  name: TryGetValue
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryGetValue_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.TryGetValue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryGetValue
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryGetValue
+  nameWithType: DataDictionary<TKey, TValue>.TryGetValue
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryGetValue
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryRemove(`0,`1@)
+  name: TryRemove(TKey, out TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryRemove__0__1__
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.TryRemove(`0,`1@)
+  name.vb: TryRemove(TKey, ByRef TValue)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+  nameWithType: DataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryRemove*
+  name: TryRemove
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryRemove_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.TryRemove
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryRemove
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryRemove
+  nameWithType: DataDictionary<TKey, TValue>.TryRemove
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryRemove
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryUpdate(`0,`1,`1)
+  name: TryUpdate(TKey, TValue, TValue)
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryUpdate__0__1__1_
+  commentId: M:Unosquare.Swan.Components.DataDictionary`2.TryUpdate(`0,`1,`1)
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
+  nameWithType: DataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
+- uid: Unosquare.Swan.Components.DataDictionary`2.TryUpdate*
+  name: TryUpdate
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_TryUpdate_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.TryUpdate
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.TryUpdate
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).TryUpdate
+  nameWithType: DataDictionary<TKey, TValue>.TryUpdate
+  nameWithType.vb: DataDictionary(Of TKey, TValue).TryUpdate
+- uid: Unosquare.Swan.Components.DataDictionary`2.Values
+  name: Values
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Values
+  commentId: P:Unosquare.Swan.Components.DataDictionary`2.Values
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Values
+  nameWithType: DataDictionary<TKey, TValue>.Values
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Values
+- uid: Unosquare.Swan.Components.DataDictionary`2.Values*
+  name: Values
+  href: api/Unosquare.Swan.Components.DataDictionary-2.html#Unosquare_Swan_Components_DataDictionary_2_Values_
+  commentId: Overload:Unosquare.Swan.Components.DataDictionary`2.Values
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DataDictionary<TKey, TValue>.Values
+  fullName.vb: Unosquare.Swan.Components.DataDictionary(Of TKey, TValue).Values
+  nameWithType: DataDictionary<TKey, TValue>.Values
+  nameWithType.vb: DataDictionary(Of TKey, TValue).Values
 - uid: Unosquare.Swan.Components.DelayProvider
   name: DelayProvider
   href: api/Unosquare.Swan.Components.DelayProvider.html
@@ -5283,6 +6525,74 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException
   nameWithType: DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1
+  name: DisposableComponentCollection<T>
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html
+  commentId: T:Unosquare.Swan.Components.DisposableComponentCollection`1
+  name.vb: DisposableComponentCollection(Of T)
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T)
+  nameWithType: DisposableComponentCollection<T>
+  nameWithType.vb: DisposableComponentCollection(Of T)
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.#ctor
+  name: DisposableComponentCollection()
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1__ctor
+  commentId: M:Unosquare.Swan.Components.DisposableComponentCollection`1.#ctor
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.DisposableComponentCollection()
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).DisposableComponentCollection()
+  nameWithType: DisposableComponentCollection<T>.DisposableComponentCollection()
+  nameWithType.vb: DisposableComponentCollection(Of T).DisposableComponentCollection()
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.#ctor*
+  name: DisposableComponentCollection
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1__ctor_
+  commentId: Overload:Unosquare.Swan.Components.DisposableComponentCollection`1.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.DisposableComponentCollection
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).DisposableComponentCollection
+  nameWithType: DisposableComponentCollection<T>.DisposableComponentCollection
+  nameWithType.vb: DisposableComponentCollection(Of T).DisposableComponentCollection
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose
+  name: Dispose()
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1_Dispose
+  commentId: M:Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.Dispose()
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).Dispose()
+  nameWithType: DisposableComponentCollection<T>.Dispose()
+  nameWithType.vb: DisposableComponentCollection(Of T).Dispose()
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose(System.Boolean)
+  name: Dispose(Boolean)
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1_Dispose_System_Boolean_
+  commentId: M:Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose(System.Boolean)
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.Dispose(System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).Dispose(System.Boolean)
+  nameWithType: DisposableComponentCollection<T>.Dispose(Boolean)
+  nameWithType.vb: DisposableComponentCollection(Of T).Dispose(Boolean)
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose*
+  name: Dispose
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1_Dispose_
+  commentId: Overload:Unosquare.Swan.Components.DisposableComponentCollection`1.Dispose
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.Dispose
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).Dispose
+  nameWithType: DisposableComponentCollection<T>.Dispose
+  nameWithType.vb: DisposableComponentCollection(Of T).Dispose
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.Finalize
+  name: Finalize()
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1_Finalize
+  commentId: M:Unosquare.Swan.Components.DisposableComponentCollection`1.Finalize
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.Finalize()
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).Finalize()
+  nameWithType: DisposableComponentCollection<T>.Finalize()
+  nameWithType.vb: DisposableComponentCollection(Of T).Finalize()
+- uid: Unosquare.Swan.Components.DisposableComponentCollection`1.Finalize*
+  name: Finalize
+  href: api/Unosquare.Swan.Components.DisposableComponentCollection-1.html#Unosquare_Swan_Components_DisposableComponentCollection_1_Finalize_
+  commentId: Overload:Unosquare.Swan.Components.DisposableComponentCollection`1.Finalize
+  isSpec: "True"
+  fullName: Unosquare.Swan.Components.DisposableComponentCollection<T>.Finalize
+  fullName.vb: Unosquare.Swan.Components.DisposableComponentCollection(Of T).Finalize
+  nameWithType: DisposableComponentCollection<T>.Finalize
+  nameWithType.vb: DisposableComponentCollection(Of T).Finalize
 - uid: Unosquare.Swan.Components.EnumHelper
   name: EnumHelper
   href: api/Unosquare.Swan.Components.EnumHelper.html
