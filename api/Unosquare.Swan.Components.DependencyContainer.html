@@ -1,0 +1,2157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class DependencyContainer
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class DependencyContainer
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.43.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.DependencyContainer">
+  
+  
+  <h1 id="Unosquare_Swan_Components_DependencyContainer" data-uid="Unosquare.Swan.Components.DependencyContainer" class="text-break">Class DependencyContainer
+  </h1>
+  <div class="markdown level0 summary"><p>The concrete implementation of a simple IoC container
+based largely on TinyIoC (<a href="https://github.com/grumpydev/TinyIoC">https://github.com/grumpydev/TinyIoC</a>).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">DependencyContainer</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_DependencyContainer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DependencyContainer : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer__ctor_" data-uid="Unosquare.Swan.Components.DependencyContainer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer__ctor" data-uid="Unosquare.Swan.Components.DependencyContainer.#ctor">DependencyContainer()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DependencyContainer()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Current_" data-uid="Unosquare.Swan.Components.DependencyContainer.Current*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Current" data-uid="Unosquare.Swan.Components.DependencyContainer.Current">Current</h4>
+  <div class="markdown level1 summary"><p>Lazy created Singleton instance of the container for simple scenarios.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DependencyContainer Current { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_System_Func_System_Type_System_Boolean__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions,System.Func{System.Type,System.Boolean})">AutoRegister(IEnumerable&lt;Assembly&gt;, DependencyContainerDuplicateImplementationActions, Func&lt;Type, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the specified assemblies
+Types will only be registered if they pass the supplied registration predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func&lt;Type, bool&gt; registrationPredicate = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a>&gt;</td>
+        <td><span class="parametername">assemblies</span></td>
+        <td><p>Assemblies to process.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.html">DependencyContainerDuplicateImplementationActions</a></td>
+        <td><span class="parametername">duplicateAction</span></td>
+        <td><p>What action to take when encountering duplicate implementations of an interface/base class.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><span class="parametername">registrationPredicate</span></td>
+        <td><p>Predicate to determine if a particular type should be registered.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_System_Func_System_Type_System_Boolean__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions,System.Func{System.Type,System.Boolean})">AutoRegister(DependencyContainerDuplicateImplementationActions, Func&lt;Type, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the current app domain.
+Types will only be registered if they pass the supplied registration predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func&lt;Type, bool&gt; registrationPredicate = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.html">DependencyContainerDuplicateImplementationActions</a></td>
+        <td><span class="parametername">duplicateAction</span></td>
+        <td><p>What action to take when encountering duplicate implementations of an interface/base class.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><span class="parametername">registrationPredicate</span></td>
+        <td><p>Predicate to determine if a particular type should be registered.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_BuildUp_" data-uid="Unosquare.Swan.Components.DependencyContainer.BuildUp*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_BuildUp_System_Object_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.BuildUp(System.Object,Unosquare.Swan.Components.DependencyContainerResolveOptions)">BuildUp(Object, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve all public property dependencies on the given object using the given resolve options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">input</span></td>
+        <td><p>Object to &quot;build up&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">resolveOptions</span></td>
+        <td><p>Resolve options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, String, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
+Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
+All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
+Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, string name = null, DependencyContainerResolveOptions options = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>Bool indicating whether the type can be resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.</p>
+<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
+All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
+<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name = null, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>Bool indicating whether the type can be resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Dispose_" data-uid="Unosquare.Swan.Components.DependencyContainer.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Dispose" data-uid="Unosquare.Swan.Components.DependencyContainer.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_GetChildContainer_" data-uid="Unosquare.Swan.Components.DependencyContainer.GetChildContainer*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_GetChildContainer" data-uid="Unosquare.Swan.Components.DependencyContainer.GetChildContainer">GetChildContainer()</h4>
+  <div class="markdown level1 summary"><p>Gets the child container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DependencyContainer GetChildContainer()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a></td>
+        <td><p>A new instance of the <a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a> class.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Func_Unosquare_Swan_Components_DependencyContainer_System_Collections_Generic_Dictionary_System_String_System_Object__System_Object__System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Func{Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},System.Object},System.String)">Register(Type, Func&lt;DependencyContainer, Dictionary&lt;String, Object&gt;, Object&gt;, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a user specified factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, object&gt; factory, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>Factory/lambda that returns an instance of RegisterType.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Object_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Object,System.String)">Register(Type, Object, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, object instance, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>Instance of RegisterType to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.String)">Register(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Type_System_Object_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Type,System.Object,System.String)">Register(Type, Type, Object, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Type registerImplementation, object instance, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerImplementation</span></td>
+        <td><p>Type of instance to register that implements RegisterType.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>Instance of RegisterImplementation to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Type_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Type,System.String)">Register(Type, Type, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a given implementation and default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register(Type registerType, Type registerImplementation, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerImplementation</span></td>
+        <td><p>Type to instantiate that implements RegisterType.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1___0_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(``0,System.String)">Register&lt;TRegister&gt;(TRegister, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(TRegister instance, string name = &quot;&quot;)
+    where TRegister : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TRegister</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>Instance of RegisterType to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1_System_Func_Unosquare_Swan_Components_DependencyContainer_System_Collections_Generic_Dictionary_System_String_System_Object____0__System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(System.Func{Unosquare.Swan.Components.DependencyContainer,System.Collections.Generic.Dictionary{System.String,System.Object},``0},System.String)">Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;String, Object&gt;, TRegister&gt;, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a user specified factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, TRegister&gt; factory, string name = &quot;&quot;)
+    where TRegister : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;, TRegister&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>Factory/lambda that returns an instance of RegisterType.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(System.String)">Register&lt;TRegister&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister&gt;(string name = &quot;&quot;)
+    where TRegister : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__2___1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``2(``1,System.String)">Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation, String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation instance, string name = &quot;&quot;)
+    where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TRegisterImplementation</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>Instance of RegisterImplementation to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TRegisterImplementation</span></td>
+        <td><p>Type of instance to register that implements RegisterType.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__2_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``2(System.String)">Register&lt;TRegister, TRegisterImplementation&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a given implementation and default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(string name = &quot;&quot;)
+    where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.RegisterOptions.html">RegisterOptions</a></td>
+        <td><p>RegisterOptions for fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to register.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TRegisterImplementation</span></td>
+        <td><p>Type to instantiate that implements RegisterType.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterMultiple_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterMultiple*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterMultiple_System_Type_System_Collections_Generic_IEnumerable_System_Type__" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterMultiple(System.Type,System.Collections.Generic.IEnumerable{System.Type})">RegisterMultiple(Type, IEnumerable&lt;Type&gt;)</h4>
+  <div class="markdown level1 summary"><p>Register multiple implementations of a type.</p>
+<p>Internally this registers each implementation using the full name of the class as its registration name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registrationType</span></td>
+        <td><p>Type that each implementation implements.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;</td>
+        <td><span class="parametername">implementationTypes</span></td>
+        <td><p>Types that implement RegisterType.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
+        <td><p>MultiRegisterOptions for the fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterMultiple_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterMultiple*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterMultiple__1_System_Collections_Generic_IEnumerable_System_Type__" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterMultiple``1(System.Collections.Generic.IEnumerable{System.Type})">RegisterMultiple&lt;TRegister&gt;(IEnumerable&lt;Type&gt;)</h4>
+  <div class="markdown level1 summary"><p>Register multiple implementations of a type.</p>
+<p>Internally this registers each implementation using the full name of the class as its registration name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiRegisterOptions RegisterMultiple&lt;TRegister&gt;(IEnumerable&lt;Type&gt; implementationTypes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;</td>
+        <td><span class="parametername">implementationTypes</span></td>
+        <td><p>Types that implement RegisterType.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MultiRegisterOptions.html">MultiRegisterOptions</a></td>
+        <td><p>MultiRegisterOptions for the fluent API.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type that each implementation implements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, String, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
+<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
+All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name = null, DependencyContainerResolveOptions options = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><p>Instance of type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
+        <td><p>Unable to resolve the type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
+<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
+All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name = null, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TResolveType</span></td>
+        <td><p>Instance of type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
+        <td><p>Unable to resolve the type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_ResolveAll_" data-uid="Unosquare.Swan.Components.DependencyContainer.ResolveAll*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_ResolveAll_System_Type_System_Boolean_" data-uid="Unosquare.Swan.Components.DependencyContainer.ResolveAll(System.Type,System.Boolean)">ResolveAll(Type, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Returns all registrations of a type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;object&gt; ResolveAll(Type resolveType, bool includeUnnamed = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolveAll.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">includeUnnamed</span></td>
+        <td><p>Whether to include un-named (default) registrations.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><p>IEnumerable.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_ResolveAll_" data-uid="Unosquare.Swan.Components.DependencyContainer.ResolveAll*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_ResolveAll__1_System_Boolean_" data-uid="Unosquare.Swan.Components.DependencyContainer.ResolveAll``1(System.Boolean)">ResolveAll&lt;TResolveType&gt;(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Returns all registrations of a type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TResolveType&gt; ResolveAll&lt;TResolveType&gt;(bool includeUnnamed = true)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">includeUnnamed</span></td>
+        <td><p>Whether to include un-named (default) registrations.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TResolveType&gt;</td>
+        <td><p>IEnumerable.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolveAll.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.Object@)">TryResolve(Type, out Object)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, out object resolvedType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_String_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.String,System.Object@)">TryResolve(Type, String, out Object)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and given name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, string name, out object resolvedType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions,System.Object@)">TryResolve(Type, String, DependencyContainerResolveOptions, out Object)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the given options and name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, string name, DependencyContainerResolveOptions options, out object resolvedType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions,System.Object@)">TryResolve(Type, DependencyContainerResolveOptions, out Object)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the given options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve(Type resolveType, DependencyContainerResolveOptions options, out object resolvedType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(``0@)">TryResolve&lt;TResolveType&gt;(out TResolveType)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TResolveType</span></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_String___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.String,``0@)">TryResolve&lt;TResolveType&gt;(String, out TResolveType)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the default options and given name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TResolveType</span></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions,``0@)">TryResolve&lt;TResolveType&gt;(String, DependencyContainerResolveOptions, out TResolveType)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the given options and name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TResolveType</span></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_TryResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_TryResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.TryResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions,``0@)">TryResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions, out TResolveType)</h4>
+  <div class="markdown level1 summary"><p>Attempts to resolve a type using the given options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TResolveType</span></td>
+        <td><span class="parametername">resolvedType</span></td>
+        <td><p>Resolved type or default if resolve fails.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if resolved successfully, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResolveType</span></td>
+        <td><p>Type to resolve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister_System_Type_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister(System.Type,System.String)">Unregister(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Remove a named container class registration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Unregister(Type registerType, string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">registerType</span></td>
+        <td><p>Type to unregister.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if the registration is successfully found and removed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister__1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister``1(System.String)">Unregister&lt;TRegister&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Remove a named container class registration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Unregister&lt;TRegister&gt;(string name = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if the registration is successfully found and removed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRegister</span></td>
+        <td><p>Type to unregister.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

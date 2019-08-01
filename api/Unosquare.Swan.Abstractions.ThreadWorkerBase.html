@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ThreadWorkerBase
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ThreadWorkerBase
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.43.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase">
+  
+  
+  <h1 id="Unosquare_Swan_Abstractions_ThreadWorkerBase" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase" class="text-break">Class ThreadWorkerBase
+  </h1>
+  <div class="markdown level0 summary"><p>Provides a base implementation for application workers
+that perform continuous, long-running tasks. This class
+provides the ability to perform fine-grained control on these tasks.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html">WorkerBase</a></div>
+    <div class="level2"><span class="xref">ThreadWorkerBase</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_Name">WorkerBase.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_Period">WorkerBase.Period</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_WorkerState">WorkerBase.WorkerState</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_IsDisposed">WorkerBase.IsDisposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_IsDisposing">WorkerBase.IsDisposing</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_DefaultPeriod">WorkerBase.DefaultPeriod</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_IsStopRequested">WorkerBase.IsStopRequested</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_CycleStopwatch">WorkerBase.CycleStopwatch</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_StateChangeRequests">WorkerBase.StateChangeRequests</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_CycleCompletedEvent">WorkerBase.CycleCompletedEvent</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_StateChangedEvent">WorkerBase.StateChangedEvent</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_CycleCancellation">WorkerBase.CycleCancellation</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_StateChangeTask">WorkerBase.StateChangeTask</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_Dispose">WorkerBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_Dispose_System_Boolean_">WorkerBase.Dispose(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_OnCycleException_System_Exception_">WorkerBase.OnCycleException(Exception)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_ExecuteCycleLogic_System_Threading_CancellationToken_">WorkerBase.ExecuteCycleLogic(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_OnStateChangeProcessed_Unosquare_Swan_Abstractions_WorkerState_Unosquare_Swan_Abstractions_WorkerState_">WorkerBase.OnStateChangeProcessed(WorkerState, WorkerState)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_ComputeCycleDelay_Unosquare_Swan_Abstractions_WorkerState_">WorkerBase.ComputeCycleDelay(WorkerState)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ThreadWorkerBase : WorkerBase, IWorker, IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase__ctor_System_String_System_Threading_ThreadPriority_System_TimeSpan_Unosquare_Swan_Abstractions_IWorkerDelayProvider_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.#ctor(System.String,System.Threading.ThreadPriority,System.TimeSpan,Unosquare.Swan.Abstractions.IWorkerDelayProvider)">ThreadWorkerBase(String, ThreadPriority, TimeSpan, IWorkerDelayProvider)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ThreadWorkerBase.html">ThreadWorkerBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ThreadWorkerBase(string name, ThreadPriority priority, TimeSpan period, IWorkerDelayProvider delayProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.threadpriority">ThreadPriority</a></td>
+        <td><span class="parametername">priority</span></td>
+        <td><p>The thread priority.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The interval of cycle execution.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Abstractions.IWorkerDelayProvider.html">IWorkerDelayProvider</a></td>
+        <td><span class="parametername">delayProvider</span></td>
+        <td><p>The cycle delay provide implementation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase__ctor_System_String_System_TimeSpan_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.#ctor(System.String,System.TimeSpan)">ThreadWorkerBase(String, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.ThreadWorkerBase.html">ThreadWorkerBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ThreadWorkerBase(string name, TimeSpan period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The execution interval.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_DelayProvider_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.DelayProvider*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_DelayProvider" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.DelayProvider">DelayProvider</h4>
+  <div class="markdown level1 summary"><p>Provides an implementation on a cycle delay provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IWorkerDelayProvider DelayProvider { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Abstractions.IWorkerDelayProvider.html">IWorkerDelayProvider</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_ExecuteCycleDelay_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.ExecuteCycleDelay*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_ExecuteCycleDelay_System_Int32_System_Threading_Tasks_Task_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.ExecuteCycleDelay(System.Int32,System.Threading.Tasks.Task,System.Threading.CancellationToken)">ExecuteCycleDelay(Int32, Task, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Suspends execution queues a new new cycle for execution. The delay is given in
+milliseconds. When overridden in a derived class the wait handle will be set
+whenever an interrupt is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">wantedDelay</span></td>
+        <td><p>The remaining delay to wait for in the cycle.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><span class="parametername">delayTask</span></td>
+        <td><p>Contains a reference to a task with the scheduled period delay.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">token</span></td>
+        <td><p>The cancellation token to cancel waiting.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_OnDisposing_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.OnDisposing*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_OnDisposing" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.OnDisposing">OnDisposing()</h4>
+  <div class="markdown level1 summary"><p>This method is called automatically when <a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_Dispose">Dispose()</a> is called.
+Makes sure you release all resources within this call.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDisposing()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_OnDisposing">WorkerBase.OnDisposing()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_PauseAsync_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.PauseAsync*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_PauseAsync" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.PauseAsync">PauseAsync()</h4>
+  <div class="markdown level1 summary"><p>Pauses execution of worker cycles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;WorkerState&gt; PauseAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.WorkerState.html">WorkerState</a>&gt;</td>
+        <td><p>The awaitable task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_PauseAsync">WorkerBase.PauseAsync()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_ResumeAsync_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.ResumeAsync*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_ResumeAsync" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.ResumeAsync">ResumeAsync()</h4>
+  <div class="markdown level1 summary"><p>Resumes execution of worker cycles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;WorkerState&gt; ResumeAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.WorkerState.html">WorkerState</a>&gt;</td>
+        <td><p>The awaitable task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_ResumeAsync">WorkerBase.ResumeAsync()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_StartAsync_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.StartAsync*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_StartAsync" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.StartAsync">StartAsync()</h4>
+  <div class="markdown level1 summary"><p>Starts execution of worker cycles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;WorkerState&gt; StartAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.WorkerState.html">WorkerState</a>&gt;</td>
+        <td><p>The awaitable task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_StartAsync">WorkerBase.StartAsync()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ThreadWorkerBase_StopAsync_" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.StopAsync*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ThreadWorkerBase_StopAsync" data-uid="Unosquare.Swan.Abstractions.ThreadWorkerBase.StopAsync">StopAsync()</h4>
+  <div class="markdown level1 summary"><p>Permanently stops execution of worker cycles.
+An interrupt is always sent to the worker. If you wish to stop
+the worker without interrupting then call the <a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_PauseAsync">PauseAsync()</a>
+method, await it, and finally call the <a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_StopAsync">StopAsync()</a> method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;WorkerState&gt; StopAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.WorkerState.html">WorkerState</a>&gt;</td>
+        <td><p>The awaitable task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Abstractions.WorkerBase.html#Unosquare_Swan_Abstractions_WorkerBase_StopAsync">WorkerBase.StopAsync()</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></div>
+  </div>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

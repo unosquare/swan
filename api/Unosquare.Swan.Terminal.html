@@ -1,0 +1,2521 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Terminal
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Terminal
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.43.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Terminal">
+  
+  
+  <h1 id="Unosquare_Swan_Terminal" data-uid="Unosquare.Swan.Terminal" class="text-break">Class Terminal
+  </h1>
+  <div class="markdown level0 summary"><p>A console terminal helper to create nicer output and receive input from the user. 
+This class is thread-safe :).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Terminal</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h5 id="Unosquare_Swan_Terminal_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Terminal</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Terminal_AvailableWriters_" data-uid="Unosquare.Swan.Terminal.AvailableWriters*"></a>
+  <h4 id="Unosquare_Swan_Terminal_AvailableWriters" data-uid="Unosquare.Swan.Terminal.AvailableWriters">AvailableWriters</h4>
+  <div class="markdown level1 summary"><p>Gets the available output writers in a bitwise mask.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TerminalWriters AvailableWriters { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><p>The available writers.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_CursorLeft_" data-uid="Unosquare.Swan.Terminal.CursorLeft*"></a>
+  <h4 id="Unosquare_Swan_Terminal_CursorLeft" data-uid="Unosquare.Swan.Terminal.CursorLeft">CursorLeft</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the cursor left position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CursorLeft { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The cursor left.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_CursorTop_" data-uid="Unosquare.Swan.Terminal.CursorTop*"></a>
+  <h4 id="Unosquare_Swan_Terminal_CursorTop" data-uid="Unosquare.Swan.Terminal.CursorTop">CursorTop</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the cursor top position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CursorTop { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The cursor top.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_IsConsolePresent_" data-uid="Unosquare.Swan.Terminal.IsConsolePresent*"></a>
+  <h4 id="Unosquare_Swan_Terminal_IsConsolePresent" data-uid="Unosquare.Swan.Terminal.IsConsolePresent">IsConsolePresent</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the Console is present.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsConsolePresent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is console present; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_IsDebuggerAttached_" data-uid="Unosquare.Swan.Terminal.IsDebuggerAttached*"></a>
+  <h4 id="Unosquare_Swan_Terminal_IsDebuggerAttached" data-uid="Unosquare.Swan.Terminal.IsDebuggerAttached">IsDebuggerAttached</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a debugger is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsDebuggerAttached { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is debugger attached; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_OutputEncoding_" data-uid="Unosquare.Swan.Terminal.OutputEncoding*"></a>
+  <h4 id="Unosquare_Swan_Terminal_OutputEncoding" data-uid="Unosquare.Swan.Terminal.OutputEncoding">OutputEncoding</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the output encoding for the current console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Encoding OutputEncoding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><p>The output encoding.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Terminal_BacklineCursor_" data-uid="Unosquare.Swan.Terminal.BacklineCursor*"></a>
+  <h4 id="Unosquare_Swan_Terminal_BacklineCursor" data-uid="Unosquare.Swan.Terminal.BacklineCursor">BacklineCursor()</h4>
+  <div class="markdown level1 summary"><p>Moves the output cursor one line up starting at left position 0
+Please note that backlining the cursor does not clear the contents of the 
+previous line so you might need to clear it by writing an empty string the 
+length of the console width.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void BacklineCursor()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Debug_" data-uid="Unosquare.Swan.Terminal.Debug*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Debug_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Debug(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Debug(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Debug_" data-uid="Unosquare.Swan.Terminal.Debug*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Debug_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Debug(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Debug(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Debug_" data-uid="Unosquare.Swan.Terminal.Debug*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Debug_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Debug(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Debug(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Dump_" data-uid="Unosquare.Swan.Terminal.Dump*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Dump_System_Object_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Dump(System.Object,System.String,System.String,System.String,System.String,System.Int32)">Dump(Object, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message showing all possible non-null properties of the given object
+This method is expensive as it uses Stringify internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Dump(this object obj, string source, string text = &quot;Object Dump&quot;, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The title.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Dump_" data-uid="Unosquare.Swan.Terminal.Dump*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Dump_System_Object_System_Type_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Dump(System.Object,System.Type,System.String,System.String,System.String,System.Int32)">Dump(Object, Type, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message showing all possible non-null properties of the given object
+This method is expensive as it uses Stringify internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Dump(this object obj, Type source, string text = &quot;Object Dump&quot;, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Error_" data-uid="Unosquare.Swan.Terminal.Error*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Error_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Error(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Error(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this Exception ex, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Error_" data-uid="Unosquare.Swan.Terminal.Error*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Error_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Error(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Error(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Error_" data-uid="Unosquare.Swan.Terminal.Error*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Error_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Error(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Error(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Fatal(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Fatal(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Fatal(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Flush_" data-uid="Unosquare.Swan.Terminal.Flush*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Flush_System_Nullable_System_TimeSpan__" data-uid="Unosquare.Swan.Terminal.Flush(System.Nullable{System.TimeSpan})">Flush(Nullable&lt;TimeSpan&gt;)</h4>
+  <div class="markdown level1 summary"><p>Waits for all of the queued output messages to be written out to the console.
+Call this method if it is important to display console text before
+quitting the application such as showing usage or help.
+Set the timeout to null or TimeSpan.Zero to wait indefinitely.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Flush(TimeSpan? timeout = default(TimeSpan? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>The timeout. Set the amount of time to black before this method exits.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Info_" data-uid="Unosquare.Swan.Terminal.Info*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Info_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Info(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Info(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Info_" data-uid="Unosquare.Swan.Terminal.Info*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Info_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Info(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Info(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Info_" data-uid="Unosquare.Swan.Terminal.Info*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Info_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Info(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Info(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Log_" data-uid="Unosquare.Swan.Terminal.Log*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Log_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Log(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Log(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, string source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The ex.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Log_" data-uid="Unosquare.Swan.Terminal.Log*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Log_System_Exception_System_Type_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Log(System.Exception,System.Type,System.String,System.String,System.String,System.Int32)">Log(Exception, Type, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, Type source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The ex.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Log_" data-uid="Unosquare.Swan.Terminal.Log*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Log_System_String_System_String_Unosquare_Swan_LogMessageType_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Log(System.String,System.String,Unosquare.Swan.LogMessageType,System.Object,System.String,System.String,System.Int32)">Log(String, String, LogMessageType, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs the specified message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this string message, string source, LogMessageType messageType, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.LogMessageType.html">LogMessageType</a></td>
+        <td><span class="parametername">messageType</span></td>
+        <td><p>Type of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Log_" data-uid="Unosquare.Swan.Terminal.Log*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Log_System_String_System_Type_Unosquare_Swan_LogMessageType_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Log(System.String,System.Type,Unosquare.Swan.LogMessageType,System.Object,System.String,System.String,System.Int32)">Log(String, Type, LogMessageType, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs the specified message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this string message, Type source, LogMessageType messageType, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.LogMessageType.html">LogMessageType</a></td>
+        <td><span class="parametername">messageType</span></td>
+        <td><p>Type of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_OverwriteLine_" data-uid="Unosquare.Swan.Terminal.OverwriteLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_OverwriteLine_System_String_System_Nullable_System_ConsoleColor__Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.OverwriteLine(System.String,System.Nullable{System.ConsoleColor},Unosquare.Swan.TerminalWriters)">OverwriteLine(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>As opposed to WriteLine methods, it prepends a Carriage Return character to the text
+so that the console moves the cursor one position up after the text has been written out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void OverwriteLine(this string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolecolor">ConsoleColor</a>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_PrintCurrentCodePage_" data-uid="Unosquare.Swan.Terminal.PrintCurrentCodePage*"></a>
+  <h4 id="Unosquare_Swan_Terminal_PrintCurrentCodePage" data-uid="Unosquare.Swan.Terminal.PrintCurrentCodePage">PrintCurrentCodePage()</h4>
+  <div class="markdown level1 summary"><p>Prints all characters in the current code page.
+This is provided for debugging purposes only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void PrintCurrentCodePage()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadKey_" data-uid="Unosquare.Swan.Terminal.ReadKey*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadKey_System_Boolean_System_Boolean_" data-uid="Unosquare.Swan.Terminal.ReadKey(System.Boolean,System.Boolean)">ReadKey(Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">intercept</span></td>
+        <td><p>if set to <code>true</code> the pressed key will not be rendered to the output.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">disableLocking</span></td>
+        <td><p>if set to <code>true</code> the output will continue to be shown.
+This is useful for services and daemons that are running as console applications and wait for a key to exit the program.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekeyinfo">ConsoleKeyInfo</a></td>
+        <td><p>The console key information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadKey_" data-uid="Unosquare.Swan.Terminal.ReadKey*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadKey_System_String_" data-uid="Unosquare.Swan.Terminal.ReadKey(System.String)">ReadKey(String)</h4>
+  <div class="markdown level1 summary"><p>Reads a key from the terminal preventing the key from being echoed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadKey(this string prompt)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekeyinfo">ConsoleKeyInfo</a></td>
+        <td><p>A value that identifies the console key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadKey_" data-uid="Unosquare.Swan.Terminal.ReadKey*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadKey_System_String_System_Boolean_" data-uid="Unosquare.Swan.Terminal.ReadKey(System.String,System.Boolean)">ReadKey(String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Reads a key from the Terminal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">preventEcho</span></td>
+        <td><p>if set to <code>true</code> [prevent echo].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekeyinfo">ConsoleKeyInfo</a></td>
+        <td><p>The console key information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadLine_" data-uid="Unosquare.Swan.Terminal.ReadLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadLine" data-uid="Unosquare.Swan.Terminal.ReadLine">ReadLine()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of text from the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ReadLine()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The read line.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadLine_" data-uid="Unosquare.Swan.Terminal.ReadLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadLine_System_String_" data-uid="Unosquare.Swan.Terminal.ReadLine(System.String)">ReadLine(String)</h4>
+  <div class="markdown level1 summary"><p>Reads a line from the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ReadLine(this string prompt)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The read line.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadNumber_" data-uid="Unosquare.Swan.Terminal.ReadNumber*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadNumber_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.ReadNumber(System.String,System.Int32)">ReadNumber(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Reads a number from the input. If unable to parse, it returns the default number.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ReadNumber(this string prompt, int defaultNumber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">defaultNumber</span></td>
+        <td><p>The default number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>Conversions of string representation of a number to its 32-bit signed integer equivalent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_ReadPrompt_" data-uid="Unosquare.Swan.Terminal.ReadPrompt*"></a>
+  <h4 id="Unosquare_Swan_Terminal_ReadPrompt_System_String_System_Collections_Generic_IDictionary_System_ConsoleKey_System_String__System_String_" data-uid="Unosquare.Swan.Terminal.ReadPrompt(System.String,System.Collections.Generic.IDictionary{System.ConsoleKey,System.String},System.String)">ReadPrompt(String, IDictionary&lt;ConsoleKey, String&gt;, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a table prompt where the user can enter an option based on the options dictionary provided.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadPrompt(this string title, IDictionary&lt;ConsoleKey, string&gt; options, string anyKeyOption)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">title</span></td>
+        <td><p>The title.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekey">ConsoleKey</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">anyKeyOption</span></td>
+        <td><p>Any key option.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolekeyinfo">ConsoleKeyInfo</a></td>
+        <td><p>A value that identifies the console key that was pressed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_SetCursorPosition_" data-uid="Unosquare.Swan.Terminal.SetCursorPosition*"></a>
+  <h4 id="Unosquare_Swan_Terminal_SetCursorPosition_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Terminal.SetCursorPosition(System.Int32,System.Int32)">SetCursorPosition(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Sets the cursor position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCursorPosition(int left, int top)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">top</span></td>
+        <td><p>The top.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Trace_" data-uid="Unosquare.Swan.Terminal.Trace*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Trace_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Trace(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Trace(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Trace_" data-uid="Unosquare.Swan.Terminal.Trace*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Trace_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Trace(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Trace(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Trace_" data-uid="Unosquare.Swan.Terminal.Trace*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Trace_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Trace(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Trace(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Warn_" data-uid="Unosquare.Swan.Terminal.Warn*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Warn_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Warn(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Warn(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Warn_" data-uid="Unosquare.Swan.Terminal.Warn*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Warn_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Warn(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Warn(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Warn_" data-uid="Unosquare.Swan.Terminal.Warn*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Warn_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Warn(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Warn(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Write_" data-uid="Unosquare.Swan.Terminal.Write*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Write_System_Byte_System_Nullable_System_ConsoleColor__System_Int32_System_Boolean_Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.Write(System.Byte,System.Nullable{System.ConsoleColor},System.Int32,System.Boolean,Unosquare.Swan.TerminalWriters)">Write(Byte, Nullable&lt;ConsoleColor&gt;, Int32, Boolean, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a character a number of times, optionally adding a new line at the end.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(this byte charCode, ConsoleColor? color = default(ConsoleColor? ), int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></td>
+        <td><span class="parametername">charCode</span></td>
+        <td><p>The character code.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolecolor">ConsoleColor</a>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The count.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">newLine</span></td>
+        <td><p>if set to <code>true</code> [new line].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Write_" data-uid="Unosquare.Swan.Terminal.Write*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Write_System_Char_System_Nullable_System_ConsoleColor__Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.Write(System.Char,System.Nullable{System.ConsoleColor},Unosquare.Swan.TerminalWriters)">Write(Char, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes the specified character in the default color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(this char charCode, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a></td>
+        <td><span class="parametername">charCode</span></td>
+        <td><p>The character code.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolecolor">ConsoleColor</a>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Write_" data-uid="Unosquare.Swan.Terminal.Write*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Write_System_String_System_Nullable_System_ConsoleColor__Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.Write(System.String,System.Nullable{System.ConsoleColor},Unosquare.Swan.TerminalWriters)">Write(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes the specified text in the given color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(this string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolecolor">ConsoleColor</a>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_WriteLine_" data-uid="Unosquare.Swan.Terminal.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_WriteLine_System_String_System_Nullable_System_ConsoleColor__Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.WriteLine(System.String,System.Nullable{System.ConsoleColor},Unosquare.Swan.TerminalWriters)">WriteLine(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text in the current console foreground color
+to the standard output.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLine(this string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.consolecolor">ConsoleColor</a>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_WriteLine_" data-uid="Unosquare.Swan.Terminal.WriteLine*"></a>
+  <h4 id="Unosquare_Swan_Terminal_WriteLine_Unosquare_Swan_TerminalWriters_" data-uid="Unosquare.Swan.Terminal.WriteLine(Unosquare.Swan.TerminalWriters)">WriteLine(TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a New Line Sequence to the standard output.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Terminal_OnLogMessageDisplaying" data-uid="Unosquare.Swan.Terminal.OnLogMessageDisplaying">OnLogMessageDisplaying</h4>
+  <div class="markdown level1 summary"><p>Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
+console output. Setting the CancelOutput to true in the event arguments prevents the
+logging message to be written out to the console.
+Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Fatal, Error and Dump
+Standard Write methods do not get filtering capabilities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static event EventHandler&lt;LogMessageDisplayingEventArgs&gt; OnLogMessageDisplaying</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Unosquare.Swan.LogMessageDisplayingEventArgs.html">LogMessageDisplayingEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Terminal_OnLogMessageReceived" data-uid="Unosquare.Swan.Terminal.OnLogMessageReceived">OnLogMessageReceived</h4>
+  <div class="markdown level1 summary"><p>Occurs asynchronously, whenever a logging message is received by the terminal.
+Only called when Terminal writes data via Info, Error, Trace, Warn, Fatal, Debug methods, regardless of whether or not
+the console is present. Subscribe to this event to pass data on to your own logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static event EventHandler&lt;LogMessageReceivedEventArgs&gt; OnLogMessageReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Unosquare.Swan.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>
