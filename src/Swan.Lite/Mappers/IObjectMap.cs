@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Swan.Abstractions
+namespace Swan.Mappers
 {
     /// <summary>
     /// Interface object map.

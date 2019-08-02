@@ -42,7 +42,7 @@ namespace Swan
         /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)
-            => Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
+            => Mappers.ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -69,7 +69,7 @@ namespace Swan
         /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy) 
-            => Components.ObjectMapper.Copy(source, target, propertiesToCopy);
+            => Mappers.ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
         /// Deep clone an object, this is just an alias for <c>CopyPropertiesToNew</c>.
@@ -151,7 +151,7 @@ namespace Swan
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
+            return Mappers.ObjectMapper.Copy(source, target, null, ignoreKeys);
         }
 
         /// <summary>

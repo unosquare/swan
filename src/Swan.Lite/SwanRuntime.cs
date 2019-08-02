@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using Swan.Components;
+using Swan.Mappers;
 using Swan.Validators;
 
 namespace Swan

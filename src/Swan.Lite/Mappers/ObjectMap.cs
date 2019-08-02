@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Swan.Abstractions;
 
-namespace Swan.Components
+namespace Swan.Mappers
 {
     /// <summary>
     /// Represents an object map.

@@ -3,7 +3,7 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using Components;
+    using Mappers;
     using Mocks;
 
     public abstract class ObjectMapperTest : TestFixtureBase

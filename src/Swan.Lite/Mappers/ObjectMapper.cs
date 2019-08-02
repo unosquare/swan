@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Swan.Abstractions;
 using Swan.Reflection;
 
-namespace Swan.Components
+namespace Swan.Mappers
 {
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type

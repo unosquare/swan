@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace Swan.Components
+namespace Swan.Mappers
 {
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
