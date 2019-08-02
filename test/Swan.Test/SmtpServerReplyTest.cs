@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test
 {
     using NUnit.Framework;
-    using Networking;
+    using Swan.Net.Smtp;
 
     [TestFixture]
     public class Constructor

@@ -6,7 +6,7 @@
     using System.Net;
     using System.Net.NetworkInformation;
     using System.Threading.Tasks;
-    using Networking;
+    using Swan.Net.Dns;
 
     public abstract class NetworkTest
     {

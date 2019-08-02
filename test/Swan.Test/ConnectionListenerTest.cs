@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test
 {
-    using Networking;
+    using Net;
     using NUnit.Framework;
     using System.Net.Sockets;
     using System.Threading.Tasks;

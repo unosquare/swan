@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Swan.Abstractions;
+using Swan.Threading;
 
 namespace Swan.Components
 {

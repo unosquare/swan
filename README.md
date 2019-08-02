@@ -51,8 +51,8 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [CircularBuffer](https://unosquare.github.io/swan/api/Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
-| [Connection](https://unosquare.github.io/swan/api/Swan.Networking.Connection.html) | :x: | :heavy_check_mark: |
-| [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Networking.ConnectionListener.html) | :x: | :heavy_check_mark: |
+| [Connection](https://unosquare.github.io/swan/api/Swan.Net.Connection.html) | :x: | :heavy_check_mark: |
+| [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Net.ConnectionListener.html) | :x: | :heavy_check_mark: |
 | [CsProjFile<T>](https://unosquare.github.io/swan/api/Swan.Components.CsProjFile-1.html) | :x: | :heavy_check_mark: |
 | [CsvReader](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [CsvWriter](https://unosquare.github.io/swan/api/Swan.Formatters.CsvWriter.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -64,7 +64,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [Extensions](https://unosquare.github.io/swan/api/Swan.Extensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [FunctionalExtensions](https://unosquare.github.io/swan/api/Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Json](https://unosquare.github.io/swan/api/Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [JsonClient](https://unosquare.github.io/swan/api/Swan.Networking.JsonClient.html) | :x: | :heavy_check_mark: |
+| [JsonClient](https://unosquare.github.io/swan/api/Swan.Net.JsonClient.html) | :x: | :heavy_check_mark: |
 | [MessageHub](https://unosquare.github.io/swan/api/Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
 | [Network](https://unosquare.github.io/swan/api/Swan.Network.html) | :x: | :heavy_check_mark: |
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
@@ -76,8 +76,8 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [Runtime](https://unosquare.github.io/swan/api/Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SmtpClient](https://unosquare.github.io/swan/api/Swan.Networking.SmtpClient.html) | :x: | :heavy_check_mark: |
-| [SnmpClient](https://unosquare.github.io/swan/api/Swan.Networking.SnmpClient.html) | :x: | :heavy_check_mark: |
+| [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html) | :x: | :heavy_check_mark: |
+| [SnmpClient](https://unosquare.github.io/swan/api/Swan.Net.SnmpClient.html) | :x: | :heavy_check_mark: |
 | [StringExtensions](https://unosquare.github.io/swan/api/Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Terminal](https://unosquare.github.io/swan/api/Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [TypeCache<T>](https://unosquare.github.io/swan/api/Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -366,7 +366,7 @@ var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/Cs
 
 Represents a wrapper `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
 
-[JsonClient API Doc](https://unosquare.github.io/swan/api/Swan.Networking.JsonClient.html)
+[JsonClient API Doc](https://unosquare.github.io/swan/api/Swan.Net.JsonClient.html)
 
 #### Example 1: Authentication
 
@@ -408,7 +408,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to configure and it provides a very handy way to make send email messages in your application.
 
-[SmtpClient API Doc](https://unosquare.github.io/swan/api/Swan.Networking.SmtpClient.html)
+[SmtpClient API Doc](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html)
 
 #### Example 1: Using `System.Net.Mail.MailMessage`
 `SmtpClient` uses the classic  `System.Net.Mail.MailMessage` provided by .NET to send emails asynchronously.
@@ -862,9 +862,9 @@ var user = SettingsProvider<Settings>.Instance.Global.User;
 ### The `Connection` class
 It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.
 
-[Connection API Doc](https://unosquare.github.io/swan/api/Swan.Networking.Connection.html)
+[Connection API Doc](https://unosquare.github.io/swan/api/Swan.Net.Connection.html)
 
-[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Swan.Networking.ConnectionListener.html)
+[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Swan.Net.ConnectionListener.html)
 
 #### Example 1: Creating an TCP server
 

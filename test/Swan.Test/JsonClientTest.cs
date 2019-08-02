@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test.JsonClientTest
 {
     using Mocks;
-    using Networking;
+    using Swan.Net;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;

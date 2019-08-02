@@ -2,7 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Components;
+    using Threading;
 
     [TestFixture]
     public class TimerControlTest

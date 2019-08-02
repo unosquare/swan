@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
     using System;
-    using Components;
+    using Diagnostics;
 
     [TestFixture]
     public class BenchmarkTest

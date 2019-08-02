@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test.DependencyContainerTest
 {
-    using Components;
+    using DependencyInjection;
     using Mocks;
     using NUnit.Framework;
     using System;

@@ -2,7 +2,7 @@
 {
     using Formatters;
     using Mocks;
-    using Networking;
+    using Swan.Net.Smtp;
     using NUnit.Framework;
     using System;
     using System.IO;

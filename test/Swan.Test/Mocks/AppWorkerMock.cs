@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abstractions;
+    using Threading;
 
     public class AppWorkerMock : TimerWorkerBase
     {

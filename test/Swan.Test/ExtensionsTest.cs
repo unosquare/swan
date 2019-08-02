@@ -3,7 +3,8 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using Networking;
+    using Swan.Net;
+    using Swan.Net.Smtp;
     using Mocks;
 
     [TestFixture]

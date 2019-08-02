@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test
 {
     using NUnit.Framework;
-    using Abstractions;
+    using Threading;
     using System;
     using System.Threading.Tasks;
     using Mocks;

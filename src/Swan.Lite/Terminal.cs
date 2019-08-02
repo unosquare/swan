@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
-using Swan.Abstractions;
+using Swan.Threading;
 
 namespace Swan
 {

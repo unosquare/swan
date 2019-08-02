@@ -1,6 +1,6 @@
 ﻿namespace Swan
 {
-    using Networking;
+    using Net.Dns;
     using System;
     using System.Collections.Generic;
     using System.Linq;

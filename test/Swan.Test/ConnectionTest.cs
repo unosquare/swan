@@ -5,7 +5,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using NUnit.Framework;
-    using Networking;
+    using Swan.Net;
     using System.Net;
 
     public abstract class ConnectionTest
