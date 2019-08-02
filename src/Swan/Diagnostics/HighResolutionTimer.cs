@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan.Diagnostics
 {
     using System;
     using System.Diagnostics;

@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan.Messaging
 {
     /// <summary>
     /// Represents a message subscription.

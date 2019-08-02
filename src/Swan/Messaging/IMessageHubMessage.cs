@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan.Messaging
 {
     /// <summary>
     /// A Message to be published/delivered by Messenger.

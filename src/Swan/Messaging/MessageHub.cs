@@ -12,7 +12,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 // ===============================================================================
 
-namespace Swan.Components
+namespace Swan.Messaging
 {
     using System.Threading.Tasks;
     using JetBrains.Annotations;

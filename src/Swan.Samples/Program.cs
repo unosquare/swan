@@ -1,7 +1,7 @@
 ﻿namespace Swan.Samples
 {
     using System.Threading.Tasks;
-    using Components;
+    using Messaging;
     using Formatters;
     using System;
     using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿namespace Swan.Samples
 {
-    using Components;
+    using Messaging;
     using System;
     using System.Collections.Generic;
     using System.Text;

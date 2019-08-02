@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test.MessageHubTests
 {
-    using Components;
+    using Messaging;
     using Mocks;
     using NUnit.Framework;
     using System;

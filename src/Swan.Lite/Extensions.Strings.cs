@@ -515,15 +515,13 @@ namespace Swan
         /// </summary>
         /// <param name="value">The c.</param>
         /// <returns>Converted integer.</returns>
-        public static int Hex2Int(this char value)
-        {
-            return value >= '0' && value <= '9'
+        public static int Hex2Int(this char value) =>
+            value >= '0' && value <= '9'
                 ? value - '0'
                 : value >= 'A' && value <= 'F'
                     ? value - 'A' + 10
                     : value >= 'a' && value <= 'f'
                         ? value - 'a' + 10
                         : -1;
-        }
     }
 }
