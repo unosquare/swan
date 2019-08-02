@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test.Mocks
 {
-    using Attributes;
+    using Validators;
 
     public class SimpleValidationMock
     {

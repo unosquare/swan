@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test.ObjectComparerTests
 {
-    using Components;
+    using Validators;
     using Mocks;
     using NUnit.Framework;
     using System;

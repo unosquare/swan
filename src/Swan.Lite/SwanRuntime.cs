@@ -2,8 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using JetBrains.Annotations;
 using Swan.Components;
+using Swan.Validators;
 
 namespace Swan
 {
@@ -276,7 +276,7 @@ namespace Swan
         /// The fully qualified location of path, such as "C:\MyFile.txt".
         /// </returns>
         /// <exception cref="ArgumentNullException">filename.</exception>
-        public static string GetDesktopFilePath([NotNull] string filename)
+        public static string GetDesktopFilePath([JetBrains.Annotations.NotNull] string filename)
         {
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename));

@@ -21,7 +21,8 @@
 
         private const string SomeValue = "algo";
 
-        private static readonly IReadOnlyDictionary<string, string> InitialData = new Dictionary<string, string> {
+        private static readonly IReadOnlyDictionary<string, string> InitialData = new Dictionary<string, string>
+        {
             { "one", "uno" },
             { "two", "dos" },
             { "three", null },
@@ -285,7 +286,8 @@
         [Test]
         public void SetItem_OnNonExistingKeyAndNonNullValue_AddsKeyAndValue()
         {
-            var dict = new DataDictionary<string, string> {
+            var dict = new DataDictionary<string, string>
+            {
                 [InitialExistingKey] = InitialExistingValue,
             };
             Assert.AreEqual(InitialExistingValue, dict[InitialExistingKey]);
@@ -294,7 +296,8 @@
         [Test]
         public void SetItem_OnNonExistingKeyAndNullValue_DoesNothing()
         {
-            var dict = new DataDictionary<string, string> {
+            var dict = new DataDictionary<string, string>
+            {
                 [InitialExistingKey] = null,
             };
             Assert.IsTrue(dict.IsEmpty);
@@ -303,7 +306,8 @@
         [Test]
         public void SetItem_OnExistingKeyAndNonNullValue_ReplacesValue()
         {
-            var dict = new DataDictionary<string, string>(InitialData) {
+            var dict = new DataDictionary<string, string>(InitialData)
+            {
                 [InitialExistingKey] = DifferentValueForInitialExistingKey,
             };
             Assert.AreEqual(DifferentValueForInitialExistingKey, dict[InitialExistingKey]);
@@ -312,7 +316,8 @@
         [Test]
         public void SetItem_OnExistingKeyAndNullValue_RemovesKey()
         {
-            var dict = new DataDictionary<string, string>(InitialData) {
+            var dict = new DataDictionary<string, string>(InitialData)
+            {
                 [InitialExistingKey] = null,
             };
             Assert.IsFalse(dict.TryGetValue(InitialExistingKey, out _));
