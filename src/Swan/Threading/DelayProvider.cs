@@ -127,7 +127,7 @@
                 _delayEvent = WaitEventFactory.Create(isCompleted: true, useSlim: true);
 
             _delayEvent.Begin();
-            ThreadPool.QueueUserWorkItem((s) =>
+            ThreadPool.QueueUserWorkItem(s =>
             {
                 DelaySleep();
                 _delayEvent.Complete();

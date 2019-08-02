@@ -358,7 +358,8 @@
             do
             {
                 sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-            } while (!sender.IsReplyOk);
+            }
+            while (!sender.IsReplyOk);
 
             sender.ValidateReply();
         }

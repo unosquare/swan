@@ -49,7 +49,7 @@
             container.AutoRegister(
                 SwanRuntime.GetAssemblies(),
                 DependencyContainerDuplicateImplementationAction.RegisterSingle,
-                (param) => true);
+                param => true);
 
             Assert.IsTrue(container.CanResolve<ICar>());
         }

@@ -21,7 +21,8 @@
 
         private const string SomeValue = "algo";
 
-        private static readonly IReadOnlyDictionary<string, string> InitialData = new Dictionary<string, string> {
+        private static readonly IReadOnlyDictionary<string, string> InitialData = new Dictionary<string, string>
+        {
             { "one", "uno" },
             { "two", "dos" },
             { "three", null },
