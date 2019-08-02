@@ -48,41 +48,41 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|
-| [ArgumentParser](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ByteArrayExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [CircularBuffer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
-| [Connection](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html) | :x: | :heavy_check_mark: |
-| [ConnectionListener](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html) | :x: | :heavy_check_mark: |
-| [CsProjFile<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.CsProjFile-1.html) | :x: | :heavy_check_mark: |
-| [CsvReader](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [CsvWriter](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [DateExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.DateExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [DateTimeSpan](https://unosquare.github.io/swan/api/Unosquare.Swan.DateTimeSpan.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Definitions](https://unosquare.github.io/swan/api/Unosquare.Swan.Definitions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [DependencyContainer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html) | :x: | :heavy_check_mark: |
-| [EnumHelper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.EnumHelper.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Extensions](https://unosquare.github.io/swan/api/Unosquare.Swan.Extensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [FunctionalExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Json](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [JsonClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html) | :x: | :heavy_check_mark: |
-| [MessageHub](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
-| [Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html) | :x: | :heavy_check_mark: |
-| [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
-| [ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
- | [ObjectValidator](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ProcessRunner](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
-| [ReflectionExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Runtime](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SettingsProvider<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SingletonBase<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SmtpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html) | :x: | :heavy_check_mark: |
-| [SnmpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SnmpClient.html) | :x: | :heavy_check_mark: |
-| [StringExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Terminal](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [TypeCache<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ValueTypeExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [WorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.WorkerBase.html) | :x: | :heavy_check_mark: |
+| [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [CircularBuffer](https://unosquare.github.io/swan/api/Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
+| [Connection](https://unosquare.github.io/swan/api/Swan.Networking.Connection.html) | :x: | :heavy_check_mark: |
+| [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Networking.ConnectionListener.html) | :x: | :heavy_check_mark: |
+| [CsProjFile<T>](https://unosquare.github.io/swan/api/Swan.Components.CsProjFile-1.html) | :x: | :heavy_check_mark: |
+| [CsvReader](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [CsvWriter](https://unosquare.github.io/swan/api/Swan.Formatters.CsvWriter.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DateExtensions](https://unosquare.github.io/swan/api/Swan.DateExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DateTimeSpan](https://unosquare.github.io/swan/api/Swan.DateTimeSpan.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Definitions](https://unosquare.github.io/swan/api/Swan.Definitions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DependencyContainer](https://unosquare.github.io/swan/api/Swan.Components.DependencyContainer.html) | :x: | :heavy_check_mark: |
+| [EnumHelper](https://unosquare.github.io/swan/api/Swan.Components.EnumHelper.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Extensions](https://unosquare.github.io/swan/api/Swan.Extensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [FunctionalExtensions](https://unosquare.github.io/swan/api/Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Json](https://unosquare.github.io/swan/api/Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [JsonClient](https://unosquare.github.io/swan/api/Swan.Networking.JsonClient.html) | :x: | :heavy_check_mark: |
+| [MessageHub](https://unosquare.github.io/swan/api/Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
+| [Network](https://unosquare.github.io/swan/api/Swan.Network.html) | :x: | :heavy_check_mark: |
+| [NetworkExtensions](https://unosquare.github.io/swan/api/Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
+| [ObjectComparer](https://unosquare.github.io/swan/api/Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ObjectMapper](https://unosquare.github.io/swan/api/Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
+ | [ObjectValidator](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ProcessRunner](https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
+| [ReflectionExtensions](https://unosquare.github.io/swan/api/Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Runtime](https://unosquare.github.io/swan/api/Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SmtpClient](https://unosquare.github.io/swan/api/Swan.Networking.SmtpClient.html) | :x: | :heavy_check_mark: |
+| [SnmpClient](https://unosquare.github.io/swan/api/Swan.Networking.SnmpClient.html) | :x: | :heavy_check_mark: |
+| [StringExtensions](https://unosquare.github.io/swan/api/Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Terminal](https://unosquare.github.io/swan/api/Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [TypeCache<T>](https://unosquare.github.io/swan/api/Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ValueTypeExtensions](https://unosquare.github.io/swan/api/Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [WorkerBase](https://unosquare.github.io/swan/api/Swan.Abstractions.WorkerBase.html) | :x: | :heavy_check_mark: |
  
 If you are developing an ASP.NET Core application, we recommend to use [SWAN AspNet.Core](https://github.com/unosquare/swan-aspnetcore).
 
@@ -112,7 +112,7 @@ In this section, we present the different components that are available in the S
 
 `Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as `ObjectMapper`.
 
-[Runtime API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html)
+[Runtime API Doc](https://unosquare.github.io/swan/api/Swan.Runtime.html)
 
 ### The `Terminal` class
 
@@ -131,7 +131,7 @@ The Swan `Terminal` is __all__ of the following:
 It is also very easy to use, it's thread-safe, and it does not require you to learn anything new. In fact, it simplifies logging
 messages and displaying `Console` messages by providing `string` extension methods.
 
-[Terminal API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html)
+[Terminal API Doc](https://unosquare.github.io/swan/api/Swan.Terminal.html)
 
 #### Example 1: Writing to the Terminal
 
@@ -215,7 +215,7 @@ the current thread until the entire output queue becomes empty.
 
 You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to another point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
-[Json API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
+[Json API Doc](https://unosquare.github.io/swan/api/Swan.Formatters.Json.html)
 
 #### Example 1: Serialize
 
@@ -298,7 +298,7 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save data into a file.
 
-[CsvWriter API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
+[CsvWriter API Doc](https://unosquare.github.io/swan/api/Swan.Formatters.CsvWriter.html)
 
 #### Example 1: Writing a List of objects
 
@@ -330,7 +330,7 @@ CsvWriter.SaveRecords(basicObj, "C:/Users/user/Documents/CsvFile");
 
 When you need to parse data in CSV files you'll always need an easy way to read and load their contents into lists and classes that are usable by your application. Swan provides the `CsvReader` class to read and load CSV files into objects.
 
-[CsvReader API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
+[CsvReader API Doc](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html)
 
 #### Example 1: Reading a CSV data string
 
@@ -366,7 +366,7 @@ var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/Cs
 
 Represents a wrapper `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
 
-[JsonClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html)
+[JsonClient API Doc](https://unosquare.github.io/swan/api/Swan.Networking.JsonClient.html)
 
 #### Example 1: Authentication
 
@@ -408,7 +408,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to configure and it provides a very handy way to make send email messages in your application.
 
-[SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
+[SmtpClient API Doc](https://unosquare.github.io/swan/api/Swan.Networking.SmtpClient.html)
 
 #### Example 1: Using `System.Net.Mail.MailMessage`
 `SmtpClient` uses the classic  `System.Net.Mail.MailMessage` provided by .NET to send emails asynchronously.
@@ -468,7 +468,7 @@ client.SendMailAsync(session);
 
 The `ObjectMapper` is a component to translate and copy property data from one type to another. You can access a default instance of `ObjectMapper` through the `Runtime` class.
 
-[ObjectMapper API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
+[ObjectMapper API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectMapper.html)
 
 #### Example 1: Mapping with default map
 
@@ -509,7 +509,7 @@ var destination = mapper.Map<UserDto>(user);
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
-[Network API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html)
+[Network API Doc](https://unosquare.github.io/swan/api/Swan.Network.html)
 
 #### Example 1: IPv4 and adapters information
 
@@ -551,7 +551,7 @@ var dateTime = Network.GetNetworkTimeUtc();
 
 Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your own code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
-[ObjectComparer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html)
+[ObjectComparer API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectComparer.html)
 
 ```csharp
 // Compare if two variables of the same type are equal.
@@ -569,9 +569,9 @@ ObjectComparer.AreEnumsEqual(first, second)
 ### The `ObjectValidator` component
 A simple object validator that allows you to set custom validations and identify if an object satisfies them.
 
-[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html)
+[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidator.html)
 
-[ObjectValdiationResult API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidationResult.html)
+[ObjectValdiationResult API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidationResult.html)
 
 ### Example 1: Simple object validation
 Our `Simple` class to validate
@@ -635,7 +635,7 @@ var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsVali
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
 
-[DependencyContainer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html)
+[DependencyContainer API Doc](https://unosquare.github.io/swan/api/Swan.Components.DependencyContainer.html)
 
 #### Example 1: Basic Example
 
@@ -682,7 +682,7 @@ if (Runtime.Container.CanResolve<IAnimal>())
 ### The `MessageHub` component
 A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
-[MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
+[MessageHub API Doc](https://unosquare.github.io/swan/api/Swan.Components.IMessageHub.html)
 
 In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to the publisher's publish event. When a message is "published" the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
@@ -715,7 +715,7 @@ The LDAP Client was moved to a standalone assembly at [SWAN LDAP](https://github
 ### The `ProcessRunner` class
 A class that provides methods that helps us create external processes and capture their output. 
 
-[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
+[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html)
 
 #### Example 1: Running a process async
 `RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.
@@ -771,7 +771,7 @@ data.StandardError.WriteLine();
 
 This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.
 
-[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
+[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html)
 
 #### Example 1: Using basic options
 
@@ -833,7 +833,7 @@ internal class Options
 ### The `SettingsProvider` abstraction
 It represents a provider that helps you save and load settings using plain JSON file.
 
-[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
+[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html)
 
 #### Example 1: Loading and saving settings
 Here we define a `Settings` class that contains all the properties we want.
@@ -862,9 +862,9 @@ var user = SettingsProvider<Settings>.Instance.Global.User;
 ### The `Connection` class
 It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.
 
-[Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
+[Connection API Doc](https://unosquare.github.io/swan/api/Swan.Networking.Connection.html)
 
-[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html)
+[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Swan.Networking.ConnectionListener.html)
 
 #### Example 1: Creating an TCP server
 
@@ -914,7 +914,7 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
 A simple benchmarking class used as an `IDisposable` that provides useful statistics about a certain piece of code.
 
 
-[Benchmark API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.Benchmark.html)
+[Benchmark API Doc](https://unosquare.github.io/swan/api/Swan.Components.Benchmark.html)
 
 #### Example 1: A simple benchmark test
 ```csharp
@@ -932,7 +932,7 @@ var results = Benchmark.Dump();
 ### The `DelayProvider` component
 A useful component that implements several delay mechanisms.
 
-[DelayProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DelayProvider.html)
+[DelayProvider API Doc](https://unosquare.github.io/swan/api/Swan.Components.DelayProvider.html)
 
 #### Example 1: Creating a delay
 ```csharp
@@ -948,7 +948,7 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 `WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API. 
 `ManualResetEvent` is a variation of `AutoResetEvent` that doesn't automatically reset after a thread is let through on a `WaitOne` call. Calling `Set` on a `ManualResetEvent` serves like an open gate allowing any number of threads that `WaitOne` pass throughCalling and `Reset` closes this gate. This type of event is usually used to signal that a certain operation has completed.
 
-[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html)
+[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Swan.Components.WaitEventFactory.html)
 
 #### Example 1: Using the `WaitEventFactory`
 
@@ -997,11 +997,11 @@ static void Work(int taskNumber)
 
 Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: `bool`, `long`, and `double`. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a `torn write`.
 
-[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
+[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Swan.AtomicBoolean.html)
 
-[AtomicLong API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicLong.html)
+[AtomicLong API Doc](https://unosquare.github.io/swan/api/Swan.AtomicLong.html)
 
-[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html)
+[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Swan.AtomicDouble.html)
 
 ## Running Unit Tests
 

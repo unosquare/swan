@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "files": [ "src/Unosquare.Swan/**/*.cs", "src/Unosquare.Swan.Lite/**/*.cs" ],
+          "files": [ "src/Swan/**/*.cs", "src/Swan.Lite/**/*.cs" ],
           "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],

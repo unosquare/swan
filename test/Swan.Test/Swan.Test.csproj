@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Swan.Lite\Swan.Lite.csproj" />
-    <ProjectReference Include="..\..\src\Unosquare.Swan\Unosquare.Swan.csproj" />
+    <ProjectReference Include="..\..\src\Swan\Swan.csproj" />
   </ItemGroup>
 
   <ItemGroup>
