@@ -17,7 +17,7 @@ namespace Swan.Mappers
     /// <example>
     /// The following code explains how to map an object's properties into an instance of type T. 
     /// <code>
-    /// using Swan
+    /// using Swan.Mappers;
     /// 
     /// class Example
     /// {
@@ -35,9 +35,10 @@ namespace Swan.Mappers
     ///     }
     /// }
     /// </code>
+    /// 
     /// The following code explains how to explicitly map certain properties.
     /// <code>
-    /// using Swan
+    /// using Swan.Mappers;
     /// 
     /// class Example
     /// {

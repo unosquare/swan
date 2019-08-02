@@ -4,15 +4,14 @@
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abstractions;
-
+    
     /// <summary>
     /// Represents logic providing several delay mechanisms.
     /// </summary>
     /// <example>
     ///  The following example shows how to implement delay mechanisms.
     /// <code>
-    /// using Swan.Components;
+    /// using Swan.Threading;
     /// 
     /// public class Example
     /// {

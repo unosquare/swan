@@ -11,7 +11,7 @@ namespace Swan.Validators
     /// <example>
     /// The following code describes how to perform a simple object validation.
     /// <code>
-    /// using Swan.Components;
+    /// using Swan.Validators;
     /// 
     /// class Example
     /// {
@@ -37,7 +37,7 @@ namespace Swan.Validators
     /// 
     /// The following code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton.
     /// <code>
-    /// using Swan.Components;
+    /// using Swan.Validators;
     /// 
     /// class Example
     /// {

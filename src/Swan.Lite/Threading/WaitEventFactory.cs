@@ -9,7 +9,7 @@ namespace Swan.Threading
     /// <example>
     /// The following example shows how to use the WaitEventFactory class.
     /// <code>
-    /// using Swan.Components;
+    /// using Swan.Threading;
     /// 
     /// public class Example
     /// {

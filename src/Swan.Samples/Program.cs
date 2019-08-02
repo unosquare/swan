@@ -1,4 +1,6 @@
-﻿namespace Swan.Samples
+﻿using Swan.Diagnostics;
+
+namespace Swan.Samples
 {
     using System.Threading.Tasks;
     using Messaging;
@@ -231,7 +233,7 @@
                     .Info(nameof(TestCsvFormatters));
             });
 
-            var elapsed = action.Benchmark();
+            var elapsed = Benchmark.BenchmarkAction(action);
             $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
     }

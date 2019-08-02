@@ -174,39 +174,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Measures the elapsed time of the given action as a TimeSpan
-        /// This method uses a high precision Stopwatch.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>
-        /// A  time interval that represents a specified time, where the specification is in units of ticks.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">target.</exception>
-        public static TimeSpan Benchmark(this Action target)
-        {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
-
-            var sw = new Stopwatch();
-
-            try
-            {
-                sw.Start();
-                target.Invoke();
-            }
-            catch
-            {
-                // swallow
-            }
-            finally
-            {
-                sw.Stop();
-            }
-
-            return TimeSpan.FromTicks(sw.ElapsedTicks);
-        }
-
-        /// <summary>
         /// Does the specified action.
         /// </summary>
         /// <param name="action">The action.</param>
@@ -300,31 +267,22 @@ namespace Swan
         /// <summary>
         /// Gets the copyable properties.
         /// </summary>
-        /// <param name="obj">The object.</param>
+        /// <param name="this">The object.</param>
         /// <returns>
         /// Array of properties.
         /// </returns>
         /// <exception cref="ArgumentNullException">model.</exception>
-        public static IEnumerable<string> GetCopyableProperties(this object obj)
+        public static IEnumerable<string> GetCopyableProperties(this object @this)
         {
-            if (obj == null)
-                throw new ArgumentNullException(nameof(obj));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
             return PropertyTypeCache.DefaultCache.Value
-                .RetrieveAllProperties(obj.GetType(), true)
+                .RetrieveAllProperties(@this.GetType(), true)
                 .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null})
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
         }
-
-        /// <summary>
-        /// Returns true if the object is valid.
-        /// </summary>
-        /// <param name="this">The object.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsValid(this object @this) => SwanRuntime.ObjectValidator.IsValid(@this);
 
         internal static void CreateTarget(
             this object source,

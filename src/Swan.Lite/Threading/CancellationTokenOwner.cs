@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Swan.Components
+namespace Swan.Threading
 {
     /// <summary>
     /// Acts as a <see cref="CancellationTokenSource"/> but with reusable tokens.

@@ -1,4 +1,6 @@
-﻿namespace Swan.Test.ExtensionsTest
+﻿using Swan.Diagnostics;
+
+namespace Swan.Test.ExtensionsTest
 {
     using NUnit.Framework;
     using System;
@@ -8,7 +10,7 @@
     using Mocks;
 
     [TestFixture]
-    public class Benchmark : TestFixtureBase
+    public class BenchmarkTest : TestFixtureBase
     {
         [Test]
         public void WithAction_ReturnsTimeSpan()
@@ -20,7 +22,7 @@
                     throw new Exception();
             });
 
-            var result = action.Benchmark();
+            var result = Benchmark.BenchmarkAction(action);
 
             Assert.IsNotNull(result);
         }
@@ -30,7 +32,7 @@
         {
             var action = new Action(() => { });
 
-            var result = action.Benchmark();
+            var result = Benchmark.BenchmarkAction(action);
 
             Assert.IsNotNull(result);
         }
@@ -38,7 +40,7 @@
         [Test]
         public void WithNullAction_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullAction.Benchmark());
+            Assert.Throws<ArgumentNullException>(() => Benchmark.BenchmarkAction(NullAction));
         }
     }
 

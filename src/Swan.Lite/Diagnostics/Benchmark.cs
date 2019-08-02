@@ -33,7 +33,7 @@ namespace Swan.Diagnostics
     /// }
     /// </code>
     /// </example>
-    public static class Benchmark
+    public static partial class Benchmark
     {
         private static readonly object SyncLock = new object();
         private static readonly Dictionary<string, List<TimeSpan>> Measures = new Dictionary<string, List<TimeSpan>>();
@@ -70,6 +70,39 @@ namespace Swan.Diagnostics
         }
 
         /// <summary>
+        /// Measures the elapsed time of the given action as a TimeSpan
+        /// This method uses a high precision Stopwatch if it is available.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>
+        /// A  time interval that represents a specified time, where the specification is in units of ticks.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">target.</exception>
+        public static TimeSpan BenchmarkAction(Action target)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            var sw = Stopwatch.IsHighResolution ? new HighResolutionTimer() : new Stopwatch();
+
+            try
+            {
+                sw.Start();
+                target.Invoke();
+            }
+            catch
+            {
+                // swallow
+            }
+            finally
+            {
+                sw.Stop();
+            }
+            
+            return TimeSpan.FromTicks(sw.ElapsedTicks);
+        }
+
+        /// <summary>
         /// Adds the specified result to the given identifier.
         /// </summary>
         /// <param name="identifier">The identifier.</param>
@@ -82,48 +115,6 @@ namespace Swan.Diagnostics
                     Measures[identifier] = new List<TimeSpan>(1024 * 1024);
 
                 Measures[identifier].Add(elapsed);
-            }
-        }
-
-        /// <summary>
-        /// Represents a disposable benchmark unit.
-        /// </summary>
-        /// <seealso cref="IDisposable" />
-        private sealed class BenchmarkUnit : IDisposable
-        {
-            private readonly string _identifier;
-            private bool _isDisposed; // To detect redundant calls
-            private Stopwatch _stopwatch = new Stopwatch();
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="BenchmarkUnit" /> class.
-            /// </summary>
-            /// <param name="identifier">The identifier.</param>
-            public BenchmarkUnit(string identifier)
-            {
-                _identifier = identifier;
-                _stopwatch.Start();
-            }
-
-            /// <inheritdoc />
-            public void Dispose() => Dispose(true);
-
-            /// <summary>
-            /// Releases unmanaged and - optionally - managed resources.
-            /// </summary>
-            /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-            private void Dispose(bool alsoManaged)
-            {
-                if (_isDisposed) return;
-
-                if (alsoManaged)
-                {
-                    Add(_identifier, _stopwatch.Elapsed);
-                    _stopwatch?.Stop();
-                }
-
-                _stopwatch = null;
-                _isDisposed = true;
             }
         }
     }

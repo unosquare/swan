@@ -25,7 +25,7 @@
     ///     static void Main()
     ///     {
     ///         // create a new smtp client using google's smtp server
-    ///         var client = new SmtpClient("smtp.gmail.com", 587);
+    ///         var client = new Swan.Net.Smtp.SmtpClient("smtp.gmail.com", 587);
     ///         
     ///         // send an email 
     ///         client.SendMailAsync(
@@ -36,6 +36,8 @@
     /// 
     /// The following code demonstrates how to sent an e-mail using a SmtpSessionState:
     /// <code>
+    /// using Swan.Net.Smtp;
+    /// 
     /// class Example
     /// {
     ///     static void Main()
@@ -55,9 +57,10 @@
     /// }
     /// </code>
     /// 
-    /// The following code shows how to send an e-mail with an attachment:
+    /// The following code shows how to send an e-mail with an attachment using MimeKit:
     /// <code>
-    /// using System.Net.Mail;
+    /// using MimeKit;
+    /// using Swan.Net.Smtp;
     ///  
     /// class Example
     /// {
