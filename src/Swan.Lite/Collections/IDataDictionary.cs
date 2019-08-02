@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Abstractions
+namespace Swan.Collections
 {
     /// <summary>
     /// Represents a generic collection of key/value pairs that does not store

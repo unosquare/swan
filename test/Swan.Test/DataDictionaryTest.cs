@@ -5,8 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
-    using Swan.Components;
-    using Swan.Test;
+    using Swan.Collections;
 
     public class DataDictionaryTest
     {

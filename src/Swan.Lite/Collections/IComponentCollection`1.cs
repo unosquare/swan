@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Swan.Abstractions
+namespace Swan.Collections
 {
     /// <summary>
     /// <para>Represents a collection of components.</para>

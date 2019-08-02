@@ -2,7 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Components;
+    using Collections;
 
     public class DisposableComponentCollectionTest
     {

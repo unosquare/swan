@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
-    using Components;
+    using Collections;
 
     public class ConcurrentDataDictionaryTest
     {

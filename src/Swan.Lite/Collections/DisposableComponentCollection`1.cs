@@ -1,7 +1,7 @@
 ﻿using System;
 using Swan.Abstractions;
 
-namespace Swan.Components
+namespace Swan.Collections
 {
     /// <summary>
     /// <para>Implements a collection of components that automatically disposes each component

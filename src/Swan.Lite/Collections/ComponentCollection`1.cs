@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Swan.Abstractions;
 
-namespace Swan.Components
+namespace Swan.Collections
 {
     /// <summary>
     /// <para>Implements a collection of components.</para>
