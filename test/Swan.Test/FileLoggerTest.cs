@@ -12,14 +12,13 @@
         [Test]
         public async Task WithDefaultValues_FileExist()
         {
-            Logger.RegisterLogger(new FileLogger());
+            var instance = new FileLogger();
+            Logger.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
             // TODO: Unregister
-            var logPath = SwanRuntime.EntryAssemblyDirectory;
-
-            var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
-            Assert.IsTrue(File.Exists(logFile));
+            
+            Assert.IsTrue(File.Exists(instance.LogPath));
         }
 
         [Test]
