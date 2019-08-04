@@ -47,7 +47,7 @@ namespace Swan
         /// <param name="prompt">The prompt.</param>
         /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
         /// <returns>The console key information.</returns>
-        public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
+        public static ConsoleKeyInfo ReadKey(string prompt, bool preventEcho = true)
         {
             if (IsConsolePresent == false) return default;
 
@@ -55,22 +55,15 @@ namespace Swan
             {
                 if (prompt != null)
                 {
-                    $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} ".Write(ConsoleColor.White);
+                    Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} ", ConsoleColor.White);
                 }
 
                 var input = ReadKey(true);
                 var echo = preventEcho ? string.Empty : input.Key.ToString();
-                echo.WriteLine();
+                WriteLine(echo);
                 return input;
             }
         }
-
-        /// <summary>
-        /// Reads a key from the terminal preventing the key from being echoed.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
-        /// <returns>A value that identifies the console key.</returns>
-        public static ConsoleKeyInfo ReadKey(this string prompt) => prompt.ReadKey(true);
 
         #endregion
 
@@ -107,13 +100,13 @@ namespace Swan
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns>The read line.</returns>
-        public static string ReadLine(this string prompt)
+        public static string ReadLine(string prompt)
         {
             if (IsConsolePresent == false) return null;
 
             lock (SyncLock)
             {
-                $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt}: ".Write(ConsoleColor.White);
+                Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt}: ", ConsoleColor.White);
 
                 return ReadLine();
             }
@@ -127,13 +120,13 @@ namespace Swan
         /// <returns>
         /// Conversions of string representation of a number to its 32-bit signed integer equivalent.
         /// </returns>
-        public static int ReadNumber(this string prompt, int defaultNumber)
+        public static int ReadNumber(string prompt, int defaultNumber)
         {
             if (IsConsolePresent == false) return defaultNumber;
 
             lock (SyncLock)
             {
-                 $"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
+                Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} (default is {defaultNumber}): ", ConsoleColor.White);
 
                 var input = ReadLine();
                 return int.TryParse(input, out var parsedInt) ? parsedInt : defaultNumber;
@@ -148,7 +141,7 @@ namespace Swan
         /// <param name="anyKeyOption">Any key option.</param>
         /// <returns>A value that identifies the console key that was pressed.</returns>
         public static ConsoleKeyInfo ReadPrompt(
-            this string title, 
+            string title,
             IDictionary<ConsoleKey, string> options,
             string anyKeyOption)
         {
@@ -175,7 +168,7 @@ namespace Swan
                     var titleText = string.Format(
                         textFormat,
                         string.IsNullOrWhiteSpace(title) ? " Select an option from the list below." : $" {title}");
-                    titleText.Write(textColor);
+                    Write(titleText, textColor);
                     Table.Vertical();
                 }
 
@@ -190,8 +183,8 @@ namespace Swan
                 foreach (var kvp in options)
                 {
                     Table.Vertical();
-                    string.Format(textFormat,
-                        $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}").Write(textColor);
+                    Write(string.Format(textFormat,
+                        $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}"), textColor);
                     Table.Vertical();
                 }
 
@@ -199,12 +192,12 @@ namespace Swan
                 if (string.IsNullOrWhiteSpace(anyKeyOption) == false)
                 {
                     Table.Vertical();
-                    string.Format(textFormat, " ").Write(ConsoleColor.Gray);
+                    Write(string.Format(textFormat, " "), ConsoleColor.Gray);
                     Table.Vertical();
 
                     Table.Vertical();
-                    string.Format(textFormat,
-                        $"    {" ",-10}  {anyKeyOption}").Write(ConsoleColor.Gray);
+                    Write(string.Format(textFormat,
+                        $"    {" ",-10}  {anyKeyOption}"), ConsoleColor.Gray);
                     Table.Vertical();
                 }
 
@@ -215,8 +208,7 @@ namespace Swan
                     Table.RightTee();
 
                     Table.Vertical();
-                    string.Format(textFormat,
-                        Settings.UserOptionText).Write(ConsoleColor.Green);
+                    Write(string.Format(textFormat, Settings.UserOptionText), ConsoleColor.Green);
                     Table.Vertical();
 
                     Table.BottomLeft();
@@ -229,7 +221,7 @@ namespace Swan
 
             SetCursorPosition(inputLeft, CursorTop - 2);
             var userInput = ReadKey(true);
-            userInput.Key.ToString().Write(ConsoleColor.Gray);
+            Write(userInput.Key.ToString(), ConsoleColor.Gray);
 
             SetCursorPosition(0, CursorTop + 2);
             return userInput;
@@ -237,7 +229,7 @@ namespace Swan
 
         #endregion
 
-        private static string GetNowFormatted() => 
+        private static string GetNowFormatted() =>
             $" {(string.IsNullOrWhiteSpace(ConsoleLogger.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(ConsoleLogger.LoggingTimeFormat) + " ")}";
     }
 }

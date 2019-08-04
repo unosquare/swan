@@ -22,6 +22,14 @@ namespace Swan
             public static ConsoleColor DefaultColor { get; set; } = Console.ForegroundColor;
 
             /// <summary>
+            /// Gets the color of the border.
+            /// </summary>
+            /// <value>
+            /// The color of the border.
+            /// </value>
+            public static ConsoleColor BorderColor { get; } = ConsoleColor.DarkGreen;
+
+            /// <summary>
             /// Gets or sets the user input prefix.
             /// </summary>
             /// <value>

@@ -21,7 +21,7 @@ namespace Swan
 
             lock (SyncLock)
             {
-                $"Output Encoding: {OutputEncoding}".WriteLine();
+                WriteLine($"Output Encoding: {OutputEncoding}");
                 for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
                 {
                     var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
@@ -36,10 +36,10 @@ namespace Swan
                             break;
                     }
 
-                    $"{byteValue:000} {charValue}   ".Write();
+                    Write($"{byteValue:000} {charValue}   ");
 
                     // 7 is a beep -- Console.Beep() also works
-                    if (byteValue == 7) " ".Write();
+                    if (byteValue == 7) Write(" ");
 
                     if ((byteValue + 1) % 8 == 0)
                         WriteLine();
@@ -61,7 +61,7 @@ namespace Swan
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(this byte charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(byte charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             lock (SyncLock)
             {
@@ -95,7 +95,7 @@ namespace Swan
         /// <param name="charCode">The character code.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(this char charCode, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(char charCode, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             lock (SyncLock)
             {
@@ -116,7 +116,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             if (text == null) return;
             
@@ -143,7 +143,7 @@ namespace Swan
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
         public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
-            => Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
+            => Write(Environment.NewLine, Settings.DefaultColor, writerFlags);
 
         /// <summary>
         /// Writes a line of text in the current console foreground color
@@ -152,7 +152,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
+        public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
             => Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void OverwriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void OverwriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             Write($"\r{text ?? string.Empty}", color, writerFlags);
             Flush();

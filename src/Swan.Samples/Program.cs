@@ -1,8 +1,8 @@
 ﻿namespace Swan.Samples
 {
     using System.Threading.Tasks;
-    using Swan.Diagnostics;
-    using Swan.Logging;
+    using Diagnostics;
+    using Logging;
     using Messaging;
     using Formatters;
     using System;
@@ -41,7 +41,7 @@
             TestFastOutputAndReadPrompt();
             TestCsvFormatters();
             Terminal.Flush();
-            "Enter any key to exit . . .".ReadKey();
+            Terminal.ReadKey("Enter any key to exit . . .");
         }
 
         private static void TestExceptionLogging()
@@ -149,7 +149,7 @@
                 {ConsoleKey.B, "Sample B"}
             };
 
-            "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
+            Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
         }
 
         private static async Task TestTerminalOutputs()
@@ -157,15 +157,15 @@
             for (var i = 0; i <= 100; i++)
             {
                 await Task.Delay(20);
-                $"Current Progress: {(i + "%"),-10}".OverwriteLine();
+                Terminal.OverwriteLine($"Current Progress: {(i + "%"),-10}");
             }
 
-            if ("Press a key to output the current codepage. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
-            "CODEPAGE TEST".WriteLine(ConsoleColor.Blue);
+            if (Terminal.ReadKey("Press a key to output the current codepage. (X) will exit.").Key == ConsoleKey.X) return;
+            Terminal.WriteLine("CODEPAGE TEST", ConsoleColor.Blue);
             Terminal.PrintCurrentCodePage();
 
-            if ("Press a key to test logging output. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
-            "OUTPUT LOGGING TEST".WriteLine(ConsoleColor.Blue);
+            if (Terminal.ReadKey("Press a key to test logging output. (X) will exit.").Key == ConsoleKey.X) return;
+            Terminal.WriteLine("OUTPUT LOGGING TEST", ConsoleColor.Blue);
             "This is some error".Error(typeof(Program));
             "This is some error".Error(nameof(TestTerminalOutputs));
             "This is some info".Info(typeof(Program));
@@ -178,24 +178,23 @@
             "This is for debugging stuff".Debug(nameof(TestTerminalOutputs));
 
             // The simplest way of writing a line of text:
-            $"Hello, today is {DateTime.Today}".WriteLine();
-
-            // A slightly better way:
-            $"Hello, today is {DateTime.Today}".WriteLine();
-
+            Terminal.WriteLine($"Hello, today is {DateTime.Today}");
+            
             // Now, add some color:
-            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
+            Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green);
 
             // Write it out to the debugger as well!
-            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green,
+            Terminal.WriteLine($"Hello, today is {DateTime.Today}",
+                ConsoleColor.Green,
                 TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
             // You could have also skipped the color argument and just use the default
-            $"Hello, today is {DateTime.Today}".WriteLine(null,
+            Terminal.WriteLine($"Hello, today is {DateTime.Today}",
+                null,
                 TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
-            if ("Press a key to test menu options. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
-            "TESTING MENU OPTIONS".WriteLine(ConsoleColor.Blue);
+            if (Terminal.ReadKey("Press a key to test menu options. (X) will exit.").Key == ConsoleKey.X) return;
+            Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
 
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
@@ -203,7 +202,7 @@
                 {ConsoleKey.B, "Sample B"}
             };
 
-            "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
+            Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
         }
 
         private static void TestCsvFormatters()

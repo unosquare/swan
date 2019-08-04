@@ -165,7 +165,7 @@ namespace Swan.Logging
                     }
                 }
 
-                outputMessage.WriteLine(color, writer);
+                Terminal.WriteLine(outputMessage, color, writer);
             }
         }
 

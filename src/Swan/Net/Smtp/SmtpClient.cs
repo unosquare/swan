@@ -1,6 +1,5 @@
 ﻿namespace Swan.Net.Smtp
 {
-    using Logging;
     using System.Threading;
     using System;
     using System.Linq;

@@ -260,8 +260,8 @@ namespace Swan
         /// <param name="color">The color.</param>
         public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
         {
-            $"{CompanyName} {ProductName} [Version {EntryAssemblyVersion}]".WriteLine(color);
-            $"{ProductTrademark}".WriteLine(color);
+            Terminal.WriteLine($"{CompanyName} {ProductName} [Version {EntryAssemblyVersion}]", color);
+            Terminal.WriteLine($"{ProductTrademark}", color);
         }
 
         /// <summary>

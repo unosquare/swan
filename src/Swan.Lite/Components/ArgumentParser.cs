@@ -201,15 +201,15 @@ namespace Swan.Components
         
         private static void ReportUnknownVerb<T>()
         {
-            "No verb was specified".WriteLine(ConsoleColor.Red);
-            "Valid verbs:".WriteLine(ConsoleColor.Cyan);
+            Terminal.WriteLine("No verb was specified", ConsoleColor.Red);
+            Terminal.WriteLine("Valid verbs:", ConsoleColor.Cyan);
 
             PropertyTypeCache.DefaultCache.Value
                 .RetrieveAllProperties<T>(true)
                 .Select(x => AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x))
                 .Where(x => x != null)
                 .ToList()
-                .ForEach(x => x.ToString().WriteLine(ConsoleColor.Cyan));
+                .ForEach(x => Terminal.WriteLine(x.ToString(), ConsoleColor.Cyan));
         }
 
         private void ReportIssues(Validator validator)
@@ -221,7 +221,7 @@ namespace Swan.Components
 
             foreach (var option in options)
             {
-                string.Empty.WriteLine();
+                Terminal.WriteLine(string.Empty);
 
                 // TODO: If Enum list values
                 var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
@@ -231,17 +231,17 @@ namespace Swan.Components
                     : ", ";
                 var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
 
-                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+                Terminal.WriteLine($"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}", ConsoleColor.Cyan);
             }
 
-            string.Empty.WriteLine();
-            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+            Terminal.WriteLine(string.Empty);
+            Terminal.WriteLine("  --help\t\tDisplay this help screen.", ConsoleColor.Cyan);
 
             if (validator.UnknownList.Any())
-                $"Unknown arguments: {string.Join(", ", validator.UnknownList)}".WriteLine(ConsoleColor.Red);
+                Terminal.WriteLine($"Unknown arguments: {string.Join(", ", validator.UnknownList)}", ConsoleColor.Red);
 
             if (validator.RequiredList.Any())
-                $"Required arguments: {string.Join(", ", validator.RequiredList)}".WriteLine(ConsoleColor.Red);
+                Terminal.WriteLine($"Required arguments: {string.Join(", ", validator.RequiredList)}", ConsoleColor.Red);
         }
     }
 }

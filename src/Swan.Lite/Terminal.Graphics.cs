@@ -13,35 +13,27 @@ namespace Swan
         /// </summary>
         private static class Table
         {
-            /// <summary>
-            /// Gets or sets the color of the border.
-            /// </summary>
-            /// <value>
-            /// The color of the border.
-            /// </value>
-            private static ConsoleColor BorderColor { get; } = ConsoleColor.DarkGreen;
+            public static void Vertical() => Write((byte)179, Settings.BorderColor);
 
-            public static void Vertical() => ((byte)179).Write(BorderColor);
+            public static void RightTee() => Write((byte)180, Settings.BorderColor);
 
-            public static void RightTee() => ((byte)180).Write(BorderColor);
+            public static void TopRight() => Write((byte)191, Settings.BorderColor);
 
-            public static void TopRight() => ((byte)191).Write(BorderColor);
+            public static void BottomLeft() => Write((byte)192, Settings.BorderColor);
 
-            public static void BottomLeft() => ((byte)192).Write(BorderColor);
+            public static void BottomTee() => Write((byte)193, Settings.BorderColor);
 
-            public static void BottomTee() => ((byte)193).Write(BorderColor);
+            public static void TopTee() => Write((byte)194, Settings.BorderColor);
 
-            public static void TopTee() => ((byte)194).Write(BorderColor);
+            public static void LeftTee() => Write((byte)195, Settings.BorderColor);
 
-            public static void LeftTee() => ((byte)195).Write(BorderColor);
+            public static void Horizontal(int length) => Write((byte)196, Settings.BorderColor, length);
 
-            public static void Horizontal(int length) => ((byte)196).Write(BorderColor, length);
+            public static void Tee() => Write((byte)197, Settings.BorderColor);
 
-            public static void Tee() => ((byte)197).Write(BorderColor);
+            public static void BottomRight() => Write((byte)217, Settings.BorderColor);
 
-            public static void BottomRight() => ((byte)217).Write(BorderColor);
-
-            public static void TopLeft() => ((byte)218).Write(BorderColor);
+            public static void TopLeft() => Write((byte)218, Settings.BorderColor);
         }
     }
 }
