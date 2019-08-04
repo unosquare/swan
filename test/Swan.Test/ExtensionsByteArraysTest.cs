@@ -450,33 +450,4 @@
                 NullString.ConvertHexadecimalToBytes());
         }
     }
-
-    [TestFixture]
-    public class SubArray : ExtensionsByteArraysTest
-    {
-        [TestCase(0, 2, 21)]
-        [TestCase(2, 2, 91)]
-        public void WithValidParams_ReturnsSubArray(long startIndex, long length, int expected)
-        {
-            var sub = Bytes.SubArray(startIndex, length);
-
-            Assert.AreEqual(expected, sub[0]);
-        }
-
-        [TestCase(2, 3)]
-        [TestCase(2, 0)]
-        [TestCase(-1, 3)]
-        public void WithInvalidParams_ReturnsEmpty(long startIndex, long length)
-        {
-            var sub = Bytes.SubArray(startIndex, length);
-
-            Assert.IsEmpty(sub);
-        }
-
-        [Test]
-        public void WithNullArray_ReturnsEmpty()
-        {
-            Assert.IsEmpty(NullByteArray.SubArray(0, 0));
-        }
-    }
 }

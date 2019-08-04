@@ -404,69 +404,7 @@ namespace Swan
         /// <param name="buffer">The buffer.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string ToText(this IEnumerable<byte> buffer) => buffer.ToText(Encoding.UTF8);
-
-        /// <summary>
-        /// Retrieves a sub-array from the specified <paramref name="array"/>. A sub-array starts at
-        /// the specified element position in <paramref name="array"/>.
-        /// </summary>
-        /// <returns>
-        /// An array of T that receives a sub-array, or an empty array of T if any problems with
-        /// the parameters.
-        /// </returns>
-        /// <param name="array">
-        /// An array of T from which to retrieve a sub-array.
-        /// </param>
-        /// <param name="startIndex">
-        /// An <see cref="int"/> that represents the zero-based starting position of
-        /// a sub-array in <paramref name="array"/>.
-        /// </param>
-        /// <param name="length">
-        /// An <see cref="int"/> that represents the number of elements to retrieve.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type of elements in <paramref name="array"/>.
-        /// </typeparam>
-        public static T[] SubArray<T>(this T[] array, int startIndex, int length)
-        {
-            int len;
-            if (array == null || (len = array.Length) == 0)
-                return new T[0];
-
-            if (startIndex < 0 || length <= 0 || startIndex + length > len)
-                return new T[0];
-
-            if (startIndex == 0 && length == len)
-                return array;
-
-            var subArray = new T[length];
-            Array.Copy(array, startIndex, subArray, 0, length);
-
-            return subArray;
-        }
-
-        /// <summary>
-        /// Retrieves a sub-array from the specified <paramref name="array"/>. A sub-array starts at
-        /// the specified element position in <paramref name="array"/>.
-        /// </summary>
-        /// <returns>
-        /// An array of T that receives a sub-array, or an empty array of T if any problems with
-        /// the parameters.
-        /// </returns>
-        /// <param name="array">
-        /// An array of T from which to retrieve a sub-array.
-        /// </param>
-        /// <param name="startIndex">
-        /// A <see cref="long"/> that represents the zero-based starting position of
-        /// a sub-array in <paramref name="array"/>.
-        /// </param>
-        /// <param name="length">
-        /// A <see cref="long"/> that represents the number of elements to retrieve.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type of elements in <paramref name="array"/>.
-        /// </typeparam>
-        public static T[] SubArray<T>(this T[] array, long startIndex, long length) => array.SubArray((int)startIndex, (int)length);
-
+        
         /// <summary>
         /// Reads the bytes asynchronous.
         /// </summary>
@@ -544,7 +482,7 @@ namespace Swan
                 // ignored
             }
 
-            return buff.SubArray(0, offset);
+            return new ArraySegment<byte>(buff, 0, offset).ToArray();
         }
 
         private static string ToHex(byte[] bytes, bool addPrefix, string format)
