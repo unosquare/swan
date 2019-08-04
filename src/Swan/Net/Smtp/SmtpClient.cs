@@ -340,11 +340,7 @@
                     }
                     catch (Exception ex)
                     {
-                        var errorMessage =
-                            $"Could not send email. {ex.Message}\r\n    Last Request: {sender.RequestText}\r\n    Last Reply: {sender.ReplyText}";
-                        errorMessage.Error(typeof(SmtpClient).FullName, sessionId);
-
-                        throw new SmtpException(errorMessage);
+                        throw new SmtpException($"Could not send email - Session ID {sessionId}. {ex.Message}\r\n    Last Request: {sender.RequestText}\r\n    Last Reply: {sender.ReplyText}");
                     }
                 }
             }
