@@ -18,14 +18,7 @@ namespace Swan.Collections
         private readonly List<(string, T)> _componentsWithSafeNames = new List<(string, T)>();
 
         private readonly Dictionary<string, T> _namedComponents = new Dictionary<string, T>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ComponentCollection{T}"/> class.
-        /// </summary>
-        public ComponentCollection()
-        {
-        }
-
+        
         /// <inheritdoc />
         public int Count => _components.Count;
 

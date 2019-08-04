@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Swan
+﻿namespace Swan
 {
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user

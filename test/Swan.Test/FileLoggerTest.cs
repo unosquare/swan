@@ -39,13 +39,13 @@
         public async Task WithCustomValues_FileExist()
         {
             var tempFile = Path.GetTempPath();
-            Logger.RegisterLogger(new FileLogger(tempFile, false));
+            var instance = new FileLogger(tempFile, false);
+            Logger.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
 
             // TODO: Unregister
-            var logFile = Path.Combine(tempFile, $"Application.log");
-            Assert.IsTrue(File.Exists(logFile));
+            Assert.IsTrue(File.Exists(instance.LogPath));
         }
 
         [Test]

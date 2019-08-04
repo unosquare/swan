@@ -1,5 +1,4 @@
 ﻿using System;
-using Swan.Abstractions;
 
 namespace Swan.Collections
 {
@@ -13,13 +12,6 @@ namespace Swan.Collections
     /// <seealso cref="IComponentCollection{T}" />
     public class DisposableComponentCollection<T> : ComponentCollection<T>, IDisposable
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DisposableComponentCollection{T}"/> class.
-        /// </summary>
-        public DisposableComponentCollection()
-        {
-        }
-
         /// <summary>
         /// Finalizes an instance of the <see cref="DisposableComponentCollection{T}"/> class.
         /// </summary>

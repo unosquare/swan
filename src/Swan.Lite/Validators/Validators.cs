@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Swan.Abstractions;
 
 namespace Swan.Validators
 {
