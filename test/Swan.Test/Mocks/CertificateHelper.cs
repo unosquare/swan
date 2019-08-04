@@ -1,5 +1,6 @@
 namespace Swan.Test.Mocks
 {
+    using Swan.Logging;
     using System;
     using System.IO;
     using Org.BouncyCastle.Asn1.X509;

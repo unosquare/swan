@@ -5,24 +5,35 @@ using System.Threading;
 using System.Threading.Tasks;
 using Swan.Threading;
 
-namespace Swan.Components
+namespace Swan.Logging
 {
     /// <summary>
-    /// A helper class to write into files the messages sent by the <see cref="Terminal"/>.
+    /// A helper class to write into files the messages sent by the <see cref="Terminal" />.
     /// </summary>
+    /// <seealso cref="Swan.Logging.ILogger" />
     /// <seealso cref="System.IDisposable" />
-    public class FileLogger : IDisposable
+    public class FileLogger : IDisposable, ILogger
     {
-        private static readonly object SyncLock = new object();
-        private static FileLogger _instance;
-
         private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
         
         private bool _disposedValue; // To detect redundant calls
 
-        private FileLogger(string path, bool dailyFile)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileLogger"/> class.
+        /// </summary>
+        public FileLogger()
+            : this(SwanRuntime.EntryAssemblyDirectory, true)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileLogger"/> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="dailyFile">if set to <c>true</c> [daily file].</param>
+        public FileLogger(string path, bool dailyFile)
         {
             LogPath = path;
             DailyFile = dailyFile;
@@ -32,48 +43,36 @@ namespace Swan.Components
                 TimeSpan.Zero,
                 TimeSpan.FromSeconds(5));
         }
-
-        private string LogPath { get; set; }
-        private bool DailyFile { get; set; }
-
-        /// <summary>
-        /// Registers the log file generation.
-        /// </summary>
-        /// <param name="destinationPath">The destination path.</param>
-        /// <param name="dailyFile">if set to <c>true</c> a daily file is created, otherwise, only one general file is created.</param>
-        public static void Register(string destinationPath = null, bool dailyFile = true)
-        {
-            var localPath = destinationPath ?? SwanRuntime.EntryAssemblyDirectory;
-
-            lock (SyncLock)
-            {
-                if (_instance == null)
-                {
-                    _instance = new FileLogger(localPath, dailyFile);
-                    Terminal.OnLogMessageReceived += _instance.EnqueueEntries;
-                }
-                else
-                {
-                    // Change properties
-                    _instance.LogPath = localPath;
-                    _instance.DailyFile = dailyFile;
-                }
-            }
-        }
+        
+        /// <inheritdoc />
+        public LogMessageType LogLevel { get; set; }
 
         /// <summary>
-        /// Unregisters the log file generation.
+        /// Gets or sets the log path.
         /// </summary>
-        public static void Unregister()
-        {
-            lock (SyncLock)
-            {
-                if (_instance == null) return;
+        /// <value>
+        /// The log path.
+        /// </value>
+        public string LogPath { get; }
 
-                Terminal.OnLogMessageReceived -= _instance.EnqueueEntries;
-                _instance.Dispose();
-                _instance = null;
-            }
+        /// <summary>
+        /// Gets a value indicating whether [daily file].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [daily file]; otherwise, <c>false</c>.
+        /// </value>
+        public bool DailyFile { get; }
+        
+        /// <inheritdoc />
+        public void Log(LogMessageReceivedEventArgs logEvent)
+        {
+            var outputMessage = ConsoleLogger.CreateOutputMessage(
+                logEvent.Source,
+                logEvent.Message,
+                ConsoleLogger.GetConsoleColorAndPrefix(logEvent.MessageType, out _),
+                logEvent.UtcDate);
+
+            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty )}");
         }
 
         /// <inheritdoc />
@@ -101,22 +100,10 @@ namespace Swan.Components
                 WriteLogEntries(true).Await();
                 _doneEvent.Dispose();
             }
-
-            LogPath = null;
+            
             _disposedValue = true;
         }
-
-        private void EnqueueEntries(object sender, LogMessageReceivedEventArgs logEvent)
-        {
-            var outputMessage = Terminal.CreateOutputMessage(
-                logEvent.Source,
-                logEvent.Message,
-                Terminal.GetConsoleColorAndPrefix(logEvent.MessageType, out var _),
-                logEvent.UtcDate);
-
-            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty )}");
-        }
-
+        
         private async Task WriteLogEntries(bool finalCall = false)
         {
             if (_logQueue.IsEmpty)

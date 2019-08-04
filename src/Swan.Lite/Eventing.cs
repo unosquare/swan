@@ -128,41 +128,4 @@ namespace Swan
         /// </value>
         public Exception Exception => ExtendedData as Exception;
     }
-
-    /// <summary>
-    /// Event arguments representing a message logged and about to be
-    /// displayed on the terminal (console). Set the CancelOutput property in the
-    /// event handler to prevent the terminal from displaying the message.
-    /// </summary>
-    /// <seealso cref="LogMessageReceivedEventArgs" />
-    public class LogMessageDisplayingEventArgs : LogMessageReceivedEventArgs
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogMessageDisplayingEventArgs"/> class.
-        /// </summary>
-        /// <param name="data">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
-        public LogMessageDisplayingEventArgs(LogMessageReceivedEventArgs data)
-            : base(
-                data.Sequence,
-                data.MessageType,
-                data.UtcDate,
-                data.Source,
-                data.Message,
-                data.ExtendedData,
-                data.CallerMemberName,
-                data.CallerFilePath,
-                data.CallerLineNumber)
-        {
-            CancelOutput = false;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the displaying of the
-        /// logging message should be canceled.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [cancel output]; otherwise, <c>false</c>.
-        /// </value>
-        public bool CancelOutput { get; set; }
-    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Swan.Net.Smtp
 {
+    using Logging;
     using System;
     using System.Linq;
     using System.Net.Mail;
@@ -23,7 +24,7 @@
             set
             {
                 _requestText = value;
-                $"  TX {_requestText}".Debug(typeof(SmtpClient), _sessionId);
+                $"  TX {_requestText}".Trace(typeof(SmtpClient), _sessionId);
             }
         }
 
@@ -39,7 +40,7 @@
             try
             {
                 var response = SmtpServerReply.Parse(ReplyText);
-                $"  RX {ReplyText} - {response.IsPositive}".Debug(typeof(SmtpClient), _sessionId);
+                $"  RX {ReplyText} - {response.IsPositive}".Trace(typeof(SmtpClient), _sessionId);
 
                 if (response.IsPositive) return;
 

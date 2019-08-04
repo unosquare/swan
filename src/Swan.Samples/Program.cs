@@ -1,8 +1,8 @@
-﻿using Swan.Diagnostics;
-
-namespace Swan.Samples
+﻿namespace Swan.Samples
 {
     using System.Threading.Tasks;
+    using Swan.Diagnostics;
+    using Swan.Logging;
     using Messaging;
     using Formatters;
     using System;
@@ -118,6 +118,8 @@ namespace Swan.Samples
 
         private static void TestContainerAndMessageHub()
         {
+            DependencyContainer.Current.Register<IMessageHub, MessageHub>();
+
             DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
             $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
             DependencyContainer.Current.Unregister<ISampleAnimal>();

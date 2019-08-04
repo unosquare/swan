@@ -1,5 +1,6 @@
 ﻿namespace Swan.Net
 {
+    using Logging;
     using System;
     using System.Collections.Generic;
     using System.IO;

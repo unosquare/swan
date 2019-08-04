@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test
 {
-    using Components;
+    using Logging;
     using NUnit.Framework;
     using System.Threading.Tasks;
     using System;
@@ -12,11 +12,10 @@
         [Test]
         public async Task WithDefaultValues_FileExist()
         {
-            FileLogger.Register();
-            $"Test".Info();
+            Logger.RegisterLogger(new FileLogger());
+            "Test".Info();
             await Task.Delay(1);
-            FileLogger.Unregister();
-
+            // TODO: Unregister
             var logPath = SwanRuntime.EntryAssemblyDirectory;
 
             var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
@@ -26,11 +25,10 @@
         [Test]
         public async Task WithDefaultValues_FileIsNotEmpty()
         {
-            FileLogger.Register();
-            $"Test".Info();
+            Logger.RegisterLogger(new FileLogger());
+            "Test".Info();
             await Task.Delay(1);
-            FileLogger.Unregister();
-
+            // TODO: Unregister
             var logPath = SwanRuntime.EntryAssemblyDirectory;
 
             var logFile = Path.Combine(logPath, $"Application_{DateTime.UtcNow:yyyyMMdd}.log");
@@ -42,11 +40,11 @@
         public async Task WithCustomValues_FileExist()
         {
             var tempFile = Path.GetTempPath();
-            FileLogger.Register(tempFile, false);
-            $"Test".Info();
+            Logger.RegisterLogger(new FileLogger(tempFile, false));
+            "Test".Info();
             await Task.Delay(1);
-            FileLogger.Unregister();
 
+            // TODO: Unregister
             var logFile = Path.Combine(tempFile, $"Application.log");
             Assert.IsTrue(File.Exists(logFile));
         }
@@ -55,12 +53,12 @@
         public async Task WithCustomValues_FileIsNotEmpty()
         {
             var tempFile = Path.GetTempPath();
-            FileLogger.Register(tempFile, false);
-            $"Test".Info();
+            Logger.RegisterLogger(new FileLogger(tempFile, false));
+            "Test".Info();
             await Task.Delay(1);
-            FileLogger.Unregister();
 
-            var logFile = Path.Combine(tempFile, $"Application.log");
+            // TODO: Unregister
+            var logFile = Path.Combine(tempFile, "Application.log");
             var logContent = File.ReadAllText(logFile);
             Assert.IsNotEmpty(logContent);
         }

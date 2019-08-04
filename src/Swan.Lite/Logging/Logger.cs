@@ -1,227 +1,34 @@
-﻿using System;
+﻿using Swan.Collections;
+using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
-namespace Swan
+namespace Swan.Logging
 {
     /// <summary>
-    /// A console terminal helper to create nicer output and receive input from the user
-    /// This class is thread-safe :).
+    /// Entry-point for logging. Use this static class to register/unregister
+    /// loggers instances. By default, the <c>ConsoleLogger</c> is registered.
     /// </summary>
-    public static partial class Terminal
+    public static class Logger
     {
-        #region Private Declarations
-
         private static ulong _loggingSequence;
 
-        #endregion
+        private static readonly IComponentCollection<ILogger> _loggers = new ComponentCollection<ILogger>();
 
-        #region Events
-
-        /// <summary>
-        /// Occurs asynchronously, whenever a logging message is received by the terminal.
-        /// Only called when Terminal writes data via Info, Error, Trace, Warn, Fatal, Debug methods, regardless of whether or not
-        /// the console is present. Subscribe to this event to pass data on to your own logger.
-        /// </summary>
-        public static event EventHandler<LogMessageReceivedEventArgs> OnLogMessageReceived;
-
-        /// <summary>
-        /// Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
-        /// console output. Setting the CancelOutput to true in the event arguments prevents the
-        /// logging message to be written out to the console.
-        /// Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Fatal, Error and Dump
-        /// Standard Write methods do not get filtering capabilities.
-        /// </summary>
-        public static event EventHandler<LogMessageDisplayingEventArgs> OnLogMessageDisplaying;
-
-        #endregion
-
-        #region Main Logging Method
-
-        /// <summary>
-        /// Logs a message.
-        /// </summary>
-        /// <param name="messageType">Type of the message.</param>
-        /// <param name="message">The text.</param>
-        /// <param name="sourceName">Name of the source.</param>
-        /// <param name="extendedData">The extended data. Could be an exception, or a dictionary of properties or anything the user specifies.</param>
-        /// <param name="callerMemberName">Name of the caller member.</param>
-        /// <param name="callerFilePath">The caller file path.</param>
-        /// <param name="callerLineNumber">The caller line number.</param>
-        private static void LogMessage(
-            LogMessageType messageType, 
-            string message, 
-            string sourceName, 
-            object extendedData,
-            string callerMemberName,
-            string callerFilePath,
-            int callerLineNumber)
+        static Logger()
         {
-            lock (SyncLock)
-            {
-                if (!Settings.GlobalLoggingMessageType.HasFlag(messageType))
-                    return;
-
-                var prefix = GetConsoleColorAndPrefix(messageType, out var color);
-                
-                #region Create and Format the Output
-
-                var sequence = _loggingSequence;
-                var date = DateTime.UtcNow;
-                _loggingSequence++;
-
-                var loggerMessage = string.IsNullOrWhiteSpace(message) ?
-                    string.Empty : message.RemoveControlCharsExcept('\n');
-
-                var outputMessage = CreateOutputMessage(sourceName, loggerMessage, prefix, date);
-
-                // Log the message asynchronously with the appropriate event args
-                var eventArgs = new LogMessageReceivedEventArgs(
-                    sequence, 
-                    messageType, 
-                    date, 
-                    sourceName, 
-                    loggerMessage, 
-                    extendedData, 
-                    callerMemberName,
-                    callerFilePath, 
-                    callerLineNumber);
-
-                #endregion
-
-                #region Fire Up External Logging Logic (Asynchronously)
-
-                if (OnLogMessageReceived != null)
-                {
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            OnLogMessageReceived?.Invoke(sourceName, eventArgs);
-                        }
-                        catch
-                        {
-                            // Ignore
-                        }
-                    });
-                }
-
-                #endregion
-
-                #region Display the Message by Writing to the Output Queue
-
-                // Check if we are skipping these messages to be displayed based on settings
-                if (!Settings.DisplayLoggingMessageType.HasFlag(messageType))
-                    return;
-
-                Write(messageType, sourceName, eventArgs, outputMessage, color);
-
-                #endregion
-            }
+            _loggers.Add(new ConsoleLogger());
         }
-
-        private static void Write(
-            LogMessageType messageType, 
-            string sourceName, 
-            LogMessageReceivedEventArgs eventArgs,
-            string outputMessage, 
-            ConsoleColor color)
-        {
-            // Select the writer based on the message type
-            var writer = IsConsolePresent
-                ? messageType.HasFlag(LogMessageType.Error) ? TerminalWriters.StandardError : TerminalWriters.StandardOutput
-                : TerminalWriters.None;
-
-            // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
-            // if it is attached at all
-            if (IsDebuggerAttached
-                && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug) ||
-                    messageType.HasFlag(LogMessageType.Error)))
-                writer = writer | TerminalWriters.Diagnostics;
-
-            // Check if we really need to write this out
-            if (writer == TerminalWriters.None) return;
-
-            // Further format the output in the case there is an exception being logged
-            if (writer.HasFlag(TerminalWriters.StandardError) && eventArgs.Exception != null)
-            {
-                try
-                {
-                    outputMessage =
-                        $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent()}";
-                }
-                catch
-                {
-                    // Ignore  
-                }
-            }
-
-            // Filter output messages via events
-            var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
-            OnLogMessageDisplaying?.Invoke(sourceName, displayingEventArgs);
-            if (displayingEventArgs.CancelOutput == false)
-                outputMessage.WriteLine(color, writer);
-        }
-
-        internal static string GetConsoleColorAndPrefix(LogMessageType messageType, out ConsoleColor color)
-        {
-            string prefix;
-
-            // Select color and prefix based on message type
-            // and settings
-            switch (messageType)
-            {
-                case LogMessageType.Debug:
-                    color = Settings.DebugColor;
-                    prefix = Settings.DebugPrefix;
-                    break;
-                case LogMessageType.Error:
-                    color = Settings.ErrorColor;
-                    prefix = Settings.ErrorPrefix;
-                    break;
-                case LogMessageType.Info:
-                    color = Settings.InfoColor;
-                    prefix = Settings.InfoPrefix;
-                    break;
-                case LogMessageType.Trace:
-                    color = Settings.TraceColor;
-                    prefix = Settings.TracePrefix;
-                    break;
-                case LogMessageType.Warning:
-                    color = Settings.WarnColor;
-                    prefix = Settings.WarnPrefix;
-                    break;
-                case LogMessageType.Fatal:
-                    color = Settings.FatalColor;
-                    prefix = Settings.FatalPrefix;
-                    break;
-                default:
-                    color = Settings.DefaultColor;
-                    prefix = new string(' ', Settings.InfoPrefix.Length);
-                    break;
-            }
-
-            return prefix;
-        }
-
-        internal static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
-        {
-            var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
-                ? string.Empty
-                : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
-
-            var outputMessage = string.IsNullOrWhiteSpace(sourceName)
-                ? loggerMessage
-                : $"[{friendlySourceName}] {loggerMessage}";
-
-            return string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat)
-                ? $" {prefix} >> {outputMessage}"
-                : $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
-        }
-
-        #endregion
 
         #region Standard Public API
+
+        /// <summary>
+        /// Registers the logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        public static void RegisterLogger(ILogger logger) => _loggers.Add(logger);
+
+        // TODO: WHY?
+        //public static void UnregisterLogger(ILogger logger) => _loggers.
 
         #region Debug
 
@@ -742,5 +549,38 @@ namespace Swan
         }
 
         #endregion
+        
+        private static void LogMessage(LogMessageType messageType, 
+            string message, 
+            string sourceName, 
+            object extendedData,
+            string callerMemberName,
+            string callerFilePath,
+            int callerLineNumber)
+        {
+            var sequence = _loggingSequence;
+            var date = DateTime.UtcNow;
+            _loggingSequence++;
+
+            var loggerMessage = string.IsNullOrWhiteSpace(message) ?
+                string.Empty : message.RemoveControlCharsExcept('\n');
+            
+            // Log the message asynchronously with the appropriate event args
+            var eventArgs = new LogMessageReceivedEventArgs(
+                sequence, 
+                messageType, 
+                date, 
+                sourceName, 
+                loggerMessage, 
+                extendedData, 
+                callerMemberName,
+                callerFilePath, 
+                callerLineNumber);
+
+            foreach (var (_, component) in _loggers.WithSafeNames)
+            {
+                component.Log(eventArgs);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Swan.Logging;
 
 namespace Swan
 {
@@ -237,6 +238,6 @@ namespace Swan
         #endregion
 
         private static string GetNowFormatted() => 
-            $" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}";
+            $" {(string.IsNullOrWhiteSpace(ConsoleLogger.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(ConsoleLogger.LoggingTimeFormat) + " ")}";
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Swan.Abstractions;
+using Swan.Logging;
 
 namespace Swan.Threading
 {
