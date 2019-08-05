@@ -60,7 +60,7 @@
 
         private static void TestApplicationInfo()
         {
-            SwanRuntime.WriteWelcomeBanner();
+            Terminal.WriteWelcomeBanner();
             $"Operating System Type: {SwanRuntime.OS}    CLR Type: {(SwanRuntime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {SwanRuntime.LocalStoragePath}".Info();
         }

@@ -13,7 +13,7 @@
         public void BasicArguments_ReturnsEquals()
         {
             var dumpArgs = new[] { "-n", "babu", "--verbose" };
-            var result = SwanRuntime.ArgumentParser.ParseArguments<OptionMock>(dumpArgs, out var options);
+            var result = ArgumentParser.Current.ParseArguments<OptionMock>(dumpArgs, out var options);
 
             Assert.IsTrue(result);
             Assert.IsTrue(options.Verbose);
@@ -25,7 +25,7 @@
         public void InvalidDataConversion_ReturnsFalse()
         {
             var options = new OptionIntRequiredMock();
-            var result = SwanRuntime.ArgumentParser.ParseArguments(new[] { "-n", "babu" }, options);
+            var result = ArgumentParser.Current.ParseArguments(new[] { "-n", "babu" }, options);
 
             Assert.IsFalse(result);
         }
@@ -34,7 +34,7 @@
         public void InvalidClassWithCollection_ReturnsFalse()
         {
             var options = new OptionObjectCollectionMock();
-            var result = SwanRuntime.ArgumentParser.ParseArguments(new[] { "--options", "1", "1", "0" }, options);
+            var result = ArgumentParser.Current.ParseArguments(new[] { "--options", "1", "1", "0" }, options);
 
             Assert.IsFalse(result);
         }
@@ -43,7 +43,7 @@
         public void ValidObjectArray_ReturnsTrue()
         {
             var options = new OptionObjectArrayMock();
-            var result = SwanRuntime.ArgumentParser.ParseArguments(new[] { "--options", "1,null,0" }, options);
+            var result = ArgumentParser.Current.ParseArguments(new[] { "--options", "1,null,0" }, options);
 
             Assert.IsTrue(result);
             Assert.AreEqual(3, options.Options.Length);
@@ -80,7 +80,7 @@
             const ConsoleColor newColor = ConsoleColor.White;
 
             var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
-            var result = SwanRuntime.ArgumentParser.ParseArguments(dumpArgs, options);
+            var result = ArgumentParser.Current.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.AreEqual(newColor, options.BgColor);
@@ -93,7 +93,7 @@
             Assert.IsNull(options.Options);
 
             var dumpArgs = new[] { "-n", "babu", "--options", string.Join(",", DefaultStringList) };
-            var result = SwanRuntime.ArgumentParser.ParseArguments(dumpArgs, options);
+            var result = ArgumentParser.Current.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(options.Options);
@@ -108,14 +108,14 @@
         public void UnavailableArguments_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                SwanRuntime.ArgumentParser.ParseArguments(null, new OptionMock()));
+                ArgumentParser.Current.ParseArguments(null, new OptionMock()));
         }
 
         [Test]
         public void TypeInvalid_ThrowsInvalidOperationException()
         {
             Assert.Throws<InvalidOperationException>(() =>
-                SwanRuntime.ArgumentParser.ParseArguments(DefaultStringList, 1));
+                ArgumentParser.Current.ParseArguments(DefaultStringList, 1));
         }
 
         [Test]
@@ -124,14 +124,14 @@
             var dumpArgs = new[] { "--options", string.Join(",", DefaultStringList) };
 
             Assert.Throws<InvalidOperationException>(() =>
-                SwanRuntime.ArgumentParser.ParseArguments(dumpArgs, new OptionMockEmpty()));
+                ArgumentParser.Current.ParseArguments(dumpArgs, new OptionMockEmpty()));
         }
 
         [Test]
         public void InstanceNull_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                SwanRuntime.ArgumentParser.ParseArguments<OptionMock>(DefaultStringList, null));
+                ArgumentParser.Current.ParseArguments<OptionMock>(DefaultStringList, null));
         }
     }
 
@@ -143,7 +143,7 @@
         {
             var verbOptions = new CliVerbs();
             var arguments = new string[0];
-            var expected = SwanRuntime.ArgumentParser.ParseArguments(arguments, verbOptions);
+            var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsFalse(expected);
         }
@@ -153,7 +153,7 @@
         {
             var verbOptions = new CliVerbs();
             var arguments = new[] { "monitor", "-v" };
-            var expected = SwanRuntime.ArgumentParser.ParseArguments(arguments, verbOptions);
+            var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsTrue(expected);
         }
@@ -163,7 +163,7 @@
         {
             var verbOptions = new CliVerbs();
             var arguments = new[] { "monitor", "-v" };
-            var expected = SwanRuntime.ArgumentParser.ParseArguments(arguments, verbOptions);
+            var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsTrue(expected);
             Assert.IsNotNull(verbOptions.MonitorVerboptions);
@@ -175,7 +175,7 @@
         {
             var verbOptions = new CliVerbs();
             var arguments = new[] { "option", "-v" };
-            var expected = SwanRuntime.ArgumentParser.ParseArguments(arguments, verbOptions);
+            var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsFalse(expected);
             Assert.IsNull(verbOptions.MonitorVerboptions);

@@ -125,6 +125,14 @@ namespace Swan.Parsers
         }
 
         /// <summary>
+        /// Gets the current.
+        /// </summary>
+        /// <value>
+        /// The current.
+        /// </value>
+        public static ArgumentParser Current { get; } = new ArgumentParser();
+
+        /// <summary>
         /// Gets the instance that implements <see cref="ArgumentParserSettings" /> in use.
         /// </summary>
         /// <value>
@@ -215,7 +223,7 @@ namespace Swan.Parsers
         private void ReportIssues(Validator validator)
         {
             if (Settings.WriteBanner)
-                SwanRuntime.WriteWelcomeBanner();
+                Terminal.WriteWelcomeBanner();
 
             var options = validator.GetPropertiesOptions();
 

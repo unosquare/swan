@@ -324,6 +324,17 @@ namespace Swan
                 }
             }
         }
+        
+        /// <summary>
+        /// Writes a standard banner to the standard output
+        /// containing the company name, product name, assembly version and trademark.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
+        {
+            WriteLine($"{SwanRuntime.CompanyName} {SwanRuntime.ProductName} [Version {SwanRuntime.EntryAssemblyVersion}]", color);
+            WriteLine($"{SwanRuntime.ProductTrademark}", color);
+        }
 
         #endregion
 

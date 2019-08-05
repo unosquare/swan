@@ -80,7 +80,7 @@
             Func<Type, bool> registrationPredicate = null)
         {
             AutoRegister(
-                SwanRuntime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)),
+                AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)),
                 duplicateAction,
                 registrationPredicate);
         }

@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Threading;
 using Swan.Logging;
 using Swan.Mappers;
-using Swan.Parsers;
 using Swan.Validators;
 
 namespace Swan
@@ -17,9 +16,7 @@ namespace Swan
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
-
-        private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
-
+        
         private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
         {
             var attribute =
@@ -40,10 +37,7 @@ namespace Swan
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute?.Trademark ?? string.Empty;
         });
-
-        private static readonly Lazy<ArgumentParser> _argumentParser =
-            new Lazy<ArgumentParser>(() => new ArgumentParser());
-
+        
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
 
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
@@ -82,15 +76,7 @@ namespace Swan
                 return _oS ?? OperatingSystem.Unknown;
             }
         }
-
-        /// <summary>
-        /// Gets the process associated with the current application.
-        /// </summary>
-        /// <value>
-        /// The process.
-        /// </value>
-        public static System.Diagnostics.Process Process => ProcessLazy.Value;
-
+        
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
         /// </summary>
@@ -232,15 +218,7 @@ namespace Swan
                 return returnPath;
             }
         }
-
-        /// <summary>
-        /// Gets the singleton instance created with basic defaults.
-        /// </summary>
-        /// <value>
-        /// The argument parser.
-        /// </value>
-        public static ArgumentParser ArgumentParser => _argumentParser.Value;
-
+        
         /// <summary>
         /// Gets the object mapper instance created with basic defaults.
         /// </summary>
@@ -252,24 +230,7 @@ namespace Swan
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Writes a standard banner to the standard output
-        /// containing the company name, product name, assembly version and trademark.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
-        {
-            Terminal.WriteLine($"{CompanyName} {ProductName} [Version {EntryAssemblyVersion}]", color);
-            Terminal.WriteLine($"{ProductTrademark}", color);
-        }
-
-        /// <summary>
-        /// Gets all the loaded assemblies in the current application domain.
-        /// </summary>
-        /// <returns>An array of assemblies.</returns>
-        public static Assembly[] GetAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
-
+        
         /// <summary>
         /// Build a full path pointing to the current user's desktop with the given filename.
         /// </summary>

@@ -76,12 +76,12 @@ namespace Swan.Validators
         /// Validates an object given the specified validators and attributes.
         /// </summary>
         /// <typeparam name="T">The type of the object.</typeparam>
-        /// <param name="obj">The object.</param>
+        /// <param name="target">The object.</param>
         /// <returns cref="ObjectValidationResult">A validation result. </returns>
-        public ObjectValidationResult Validate<T>(T obj)
+        public ObjectValidationResult Validate<T>(T target)
         {
             var errorList = new ObjectValidationResult();
-            ValidateObject(obj, false, errorList.Add);
+            ValidateObject(target, false, errorList.Add);
 
             return errorList;
         }
@@ -90,12 +90,12 @@ namespace Swan.Validators
         /// Validates an object given the specified validators and attributes.
         /// </summary>
         /// <typeparam name="T">The type.</typeparam>
-        /// <param name="obj">The object.</param>
+        /// <param name="target">The object.</param>
         /// <returns>
         ///   <c>true</c> if the specified object is valid; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">obj.</exception>
-        public bool IsValid<T>(T obj) => ValidateObject(obj);
+        public bool IsValid<T>(T target) => ValidateObject(target);
 
         /// <summary>
         /// Adds a validator to a specific class.
