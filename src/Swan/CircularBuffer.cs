@@ -1,4 +1,4 @@
-namespace Swan.Components
+namespace Swan
 {
     using System;
     using System.Runtime.InteropServices;

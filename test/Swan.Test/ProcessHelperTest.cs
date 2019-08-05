@@ -4,7 +4,6 @@
     using System;
     using System.Text;
     using System.Threading.Tasks;
-    using Components;
 
     [TestFixture]
     public class GetProcessOutputAsync

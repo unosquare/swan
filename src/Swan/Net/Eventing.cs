@@ -71,20 +71,14 @@
         public bool HasMoreAvailable { get; }
 
         /// <summary>
-        /// Gets the string from the given buffer.
-        /// </summary>
-        /// <param name="buffer">The buffer.</param>
-        /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
-            => encoding.GetString(buffer).TrimEnd('\r', '\n');
-
-        /// <summary>
         /// Gets the string from buffer.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
+        /// <returns>
+        /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">encoding</exception>
         public string GetStringFromBuffer(Encoding encoding) 
-            => GetStringFromBuffer(Buffer, encoding);
+            => encoding?.GetString(Buffer).TrimEnd('\r', '\n') ?? throw new ArgumentNullException(nameof(encoding));
     }
 }

@@ -5,7 +5,7 @@
     using System.IO;
     using System.Text;
     using System.Xml;
-    using Components;
+    using Formatters;
     using Mocks;
 
     [TestFixture]

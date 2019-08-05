@@ -77,7 +77,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html) | :x: | :heavy_check_mark: |
-| [SnmpClient](https://unosquare.github.io/swan/api/Swan.Net.SnmpClient.html) | :x: | :heavy_check_mark: |
 | [StringExtensions](https://unosquare.github.io/swan/api/Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Terminal](https://unosquare.github.io/swan/api/Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [TypeCache<T>](https://unosquare.github.io/swan/api/Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |

@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan.Formatters
 {
     using System.Linq;
     using System.Xml.Linq;

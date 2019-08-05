@@ -5,8 +5,7 @@
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-    using Components;
-
+    
     /// <summary>
     /// Provides base infrastructure for Timer and Thread workers.
     /// </summary>

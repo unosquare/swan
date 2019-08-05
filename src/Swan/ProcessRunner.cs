@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan
 {
     using JetBrains.Annotations;
     using System;

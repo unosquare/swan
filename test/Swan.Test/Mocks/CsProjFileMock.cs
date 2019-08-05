@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test.Mocks
 {
     using System;
-    using Components;
+    using Formatters;
 
     public class CsMetadataMock : CsProjMetadataBase
     {

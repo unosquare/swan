@@ -3,7 +3,6 @@
     using NUnit.Framework;
     using System.Linq;
     using System;
-    using Components;
     using Mocks;
 
     [TestFixture]

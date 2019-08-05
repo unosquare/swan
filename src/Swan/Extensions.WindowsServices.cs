@@ -8,7 +8,7 @@
 #if NET461
     using System.ServiceProcess;
 #else
-    using Abstractions;
+    using Services;
 #endif
 
     /// <summary>

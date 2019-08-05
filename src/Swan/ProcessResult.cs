@@ -1,4 +1,4 @@
-﻿namespace Swan.Components
+﻿namespace Swan
 {
     /// <summary>
     /// Represents the text of the standard output and standard error
