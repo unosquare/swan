@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Components
+namespace Swan.Parsers
 {
     /// <summary>
     /// Provides settings for <see cref="ArgumentParser"/>.

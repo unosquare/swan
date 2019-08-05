@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Swan.Reflection;
 
-namespace Swan.Components
+namespace Swan
 {
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object

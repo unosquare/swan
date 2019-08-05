@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.Components
+namespace Swan.Collections
 {
     /// <summary>
     /// A thread-safe collection cache repository for types.

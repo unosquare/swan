@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Swan.Attributes;
-using Swan.Components;
+using Swan.Collections;
 using Swan.Reflection;
 
 namespace Swan.Formatters

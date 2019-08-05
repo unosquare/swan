@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.Abstractions
+namespace Swan.Parsers
 {
     /// <summary>
     /// Represents a generic tokenizer.

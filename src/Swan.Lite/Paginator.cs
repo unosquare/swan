@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Components
+namespace Swan
 {
     /// <summary>
     /// A utility class to compute paging or batching offsets.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Swan.Abstractions
+namespace Swan.Parsers
 {
     /// <summary>
     /// Represents a generic expression parser.

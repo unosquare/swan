@@ -22,6 +22,8 @@
         /// <exception cref="SampleException"></exception>
         public static async Task Main(string[] args)
         {
+            Logger.RegisterLogger<FileLogger>();
+
             TestJson();
 
             var timeSpan = TimeSpan.FromSeconds(1);

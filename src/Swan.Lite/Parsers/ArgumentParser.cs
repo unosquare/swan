@@ -4,7 +4,7 @@ using System.Linq;
 using Swan.Attributes;
 using Swan.Reflection;
 
-namespace Swan.Components
+namespace Swan.Parsers
 {
     /// <summary>
     /// Provides methods to parse command line arguments.
@@ -16,7 +16,7 @@ namespace Swan.Components
     /// class Example 
     /// {
     ///     using System;
-    ///     using Swan;
+    ///     using Swan.Parsers;
     ///     using Swan.Attributes;
     ///     
     ///     static void Main(string[] args)

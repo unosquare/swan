@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test
 {
-    using Abstractions;
+    using Parsers;
     using NUnit.Framework;
     using System.Linq;
     using Mocks;

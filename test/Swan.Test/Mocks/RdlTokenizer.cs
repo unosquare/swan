@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test.Mocks
 {
     using System.Linq;
-    using Abstractions;
+    using Parsers;
 
     public class RdlTokenizer : Tokenizer
     {

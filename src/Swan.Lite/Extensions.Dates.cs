@@ -38,7 +38,7 @@ namespace Swan
         /// <summary>
         /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime.
         /// </summary>
-        /// <param name="sortableDate">The sortable date.</param>
+        /// <param name="this">The sortable date.</param>
         /// <returns>
         /// A new instance of the DateTime structure to 
         /// the specified year, month, day, hour, minute and second.
@@ -50,16 +50,16 @@ namespace Swan
         /// <exception cref="ArgumentException">
         /// Unable to parse sortable date and time. - sortableDate.
         /// </exception>
-        public static DateTime ToDateTime(this string sortableDate)
+        public static DateTime ToDateTime(this string @this)
         {
-            if (string.IsNullOrWhiteSpace(sortableDate))
-                throw new ArgumentNullException(nameof(sortableDate));
+            if (string.IsNullOrWhiteSpace(@this))
+                throw new ArgumentNullException(nameof(@this));
 
             var hour = 0;
             var minute = 0;
             var second = 0;
 
-            var dateTimeParts = sortableDate.Split(' ');
+            var dateTimeParts = @this.Split(' ');
 
             try
             {
@@ -87,7 +87,7 @@ namespace Swan
             }
             catch (Exception)
             {
-                throw new ArgumentException("Unable to parse sortable date and time.", nameof(sortableDate));
+                throw new ArgumentException("Unable to parse sortable date and time.", nameof(@this));
             }
         }
 

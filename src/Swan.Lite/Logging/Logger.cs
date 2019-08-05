@@ -18,8 +18,18 @@ namespace Swan.Logging
         {
             _loggers.Add(new ConsoleLogger());
         }
-
+        
         #region Standard Public API
+
+        /// <summary>
+        /// Registers the logger.
+        /// </summary>
+        /// <typeparam name="T">The type of logger to register.</typeparam>
+        public static void RegisterLogger<T>() 
+            where T : ILogger
+        {
+            _loggers.Add(Activator.CreateInstance<T>());
+        }
 
         /// <summary>
         /// Registers the logger.
