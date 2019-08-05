@@ -10,14 +10,13 @@ namespace Swan.Logging
     /// <summary>
     /// A helper class to write into files the messages sent by the <see cref="Terminal" />.
     /// </summary>
-    /// <seealso cref="Swan.Logging.ILogger" />
-    /// <seealso cref="System.IDisposable" />
-    public class FileLogger : IDisposable, ILogger
+    /// <seealso cref="ILogger" />
+    public class FileLogger : ILogger
     {
         private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
-        
+
         private bool _disposedValue; // To detect redundant calls
 
         /// <summary>
@@ -43,9 +42,17 @@ namespace Swan.Logging
                 TimeSpan.Zero,
                 TimeSpan.FromSeconds(5));
         }
-        
+
         /// <inheritdoc />
-        public LogMessageType LogLevel { get; set; }
+        public LogLevel LogLevel { get; set; }
+
+        /// <summary>
+        /// Gets the file path.
+        /// </summary>
+        /// <value>
+        /// The file path.
+        /// </value>
+        public string FilePath => Path.Combine(LogPath, $"Application{(DailyFile ? $"_{DateTime.UtcNow:yyyyMMdd}" : string.Empty)}.log");
 
         /// <summary>
         /// Gets or sets the log path.
@@ -62,7 +69,7 @@ namespace Swan.Logging
         ///   <c>true</c> if [daily file]; otherwise, <c>false</c>.
         /// </value>
         public bool DailyFile { get; }
-        
+
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
@@ -72,7 +79,7 @@ namespace Swan.Logging
                 ConsoleLogger.GetConsoleColorAndPrefix(logEvent.MessageType, out _),
                 logEvent.UtcDate);
 
-            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty )}");
+            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty)}");
         }
 
         /// <inheritdoc />
@@ -100,10 +107,10 @@ namespace Swan.Logging
                 WriteLogEntries(true).Await();
                 _doneEvent.Dispose();
             }
-            
+
             _disposedValue = true;
         }
-        
+
         private async Task WriteLogEntries(bool finalCall = false)
         {
             if (_logQueue.IsEmpty)
@@ -116,7 +123,7 @@ namespace Swan.Logging
 
             try
             {
-                using (var file = File.AppendText(GetFileName()))
+                using (var file = File.AppendText(FilePath))
                 {
                     while (!_logQueue.IsEmpty)
                     {
@@ -131,8 +138,5 @@ namespace Swan.Logging
                     _doneEvent.Set();
             }
         }
-
-        private string GetFileName() => 
-            Path.Combine(LogPath, $"Application{(DailyFile ? $"_{DateTime.UtcNow:yyyyMMdd}" : string.Empty)}.log");
     }
 }

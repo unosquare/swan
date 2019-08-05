@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Swan.Abstractions
+namespace Swan
 {
     /// <summary>
     /// A base class for implementing models that fire notifications when their properties change.

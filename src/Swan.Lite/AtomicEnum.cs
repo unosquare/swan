@@ -6,7 +6,7 @@ namespace Swan
     /// <summary>
     /// Defines an atomic generic Enum.
     /// </summary>
-    /// <typeparam name="T">The type of enum</typeparam>
+    /// <typeparam name="T">The type of enum.</typeparam>
    public sealed class AtomicEnum<T>
         where T : struct, IConvertible
     {
@@ -16,7 +16,7 @@ namespace Swan
         /// Initializes a new instance of the <see cref="AtomicEnum{T}"/> class.
         /// </summary>
         /// <param name="initialValue">The initial value.</param>
-        /// <exception cref="ArgumentException">T must be an enumerated type</exception>
+        /// <exception cref="ArgumentException">T must be an enumerated type.</exception>
         public AtomicEnum(T initialValue)
         {
             if (!Enum.IsDefined(typeof(T), initialValue))

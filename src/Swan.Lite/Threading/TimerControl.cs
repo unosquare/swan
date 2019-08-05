@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Swan.Abstractions;
 
 namespace Swan.Threading
 {
@@ -43,10 +42,10 @@ namespace Swan.Threading
         /// Waits until the time is elapsed.
         /// </summary>
         /// <param name="untilDate">The until date.</param>
-        /// <param name="ct">The cancellation token.</param>
-        public void WaitUntil(DateTime untilDate, CancellationToken ct = default)
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public void WaitUntil(DateTime untilDate, CancellationToken cancellationToken = default)
         {
-            while (!ct.IsCancellationRequested && DateTime.UtcNow < untilDate)
+            while (!cancellationToken.IsCancellationRequested && DateTime.UtcNow < untilDate)
                 _delayLock.Wait();
         }
 
@@ -54,8 +53,8 @@ namespace Swan.Threading
         /// Waits the specified wait time.
         /// </summary>
         /// <param name="waitTime">The wait time.</param>
-        /// <param name="ct">The cancellation token.</param>
-        public void Wait(TimeSpan waitTime, CancellationToken ct = default) =>
-            WaitUntil(DateTime.UtcNow.Add(waitTime), ct);
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public void Wait(TimeSpan waitTime, CancellationToken cancellationToken = default) =>
+            WaitUntil(DateTime.UtcNow.Add(waitTime), cancellationToken);
     }
 }

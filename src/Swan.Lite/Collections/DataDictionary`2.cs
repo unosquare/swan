@@ -86,7 +86,7 @@ namespace Swan.Collections
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="collection"/> is <see langword="null"/>.</para>
-        /// <para>- or -</para>
+        /// <para>- or -.</para>
         /// <para><paramref name="comparer"/> is <see langword="null"/>.</para>
         /// </exception>
         /// <see cref="Dictionary{TKey,TValue}(IEqualityComparer{TKey})"/>
@@ -129,7 +129,7 @@ namespace Swan.Collections
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="collection"/> is <see langword="null"/>.</para>
-        /// <para>- or -</para>
+        /// <para>- or -.</para>
         /// <para><paramref name="comparer"/> is <see langword="null"/>.</para>
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>

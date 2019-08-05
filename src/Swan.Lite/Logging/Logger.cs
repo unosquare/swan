@@ -1,5 +1,6 @@
-﻿using Swan.Collections;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Swan.Logging
@@ -10,35 +11,68 @@ namespace Swan.Logging
     /// </summary>
     public static class Logger
     {
+        private static readonly object SyncLock = new object();
+        private static readonly List<ILogger> Loggers = new List<ILogger>();
+        
         private static ulong _loggingSequence;
-
-        private static readonly IComponentCollection<ILogger> _loggers = new ComponentCollection<ILogger>();
-
+        
         static Logger()
         {
-            _loggers.Add(new ConsoleLogger());
+            Loggers.Add(new ConsoleLogger());
         }
-        
+
         #region Standard Public API
 
         /// <summary>
         /// Registers the logger.
         /// </summary>
         /// <typeparam name="T">The type of logger to register.</typeparam>
-        public static void RegisterLogger<T>() 
+        /// <exception cref="InvalidOperationException">There is already a logger with that class registered.</exception>
+        public static void RegisterLogger<T>()
             where T : ILogger
         {
-            _loggers.Add(Activator.CreateInstance<T>());
+            lock (SyncLock)
+            {
+                var loggerInstance = Loggers.FirstOrDefault(x => x.GetType() == typeof(T));
+
+                if (loggerInstance == null)
+                    throw new InvalidOperationException("There is already a logger with that class registered.");
+
+                Loggers.Add(Activator.CreateInstance<T>());
+            }
         }
 
         /// <summary>
         /// Registers the logger.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public static void RegisterLogger(ILogger logger) => _loggers.Add(logger);
+        public static void RegisterLogger(ILogger logger)
+        {
+            lock (SyncLock)
+            {
+                Loggers.Add(logger);
+            }
+        }
 
-        // TODO: WHY?
-        //public static void UnregisterLogger(ILogger logger) => _loggers.
+        /// <summary>
+        /// Unregisters the logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <exception cref="ArgumentOutOfRangeException">logger.</exception>
+        public static void UnregisterLogger(ILogger logger)
+        {
+            lock (SyncLock)
+            {
+                var loggerInstance = Loggers.FirstOrDefault(x => x == logger);
+
+                if (loggerInstance == null)
+                    throw new ArgumentOutOfRangeException(nameof(logger));
+
+                loggerInstance.Dispose();
+
+                Loggers.Remove(loggerInstance);
+            }
+        }
 
         #region Debug
 
@@ -52,14 +86,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Debug(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -72,14 +106,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Debug(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Debug, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Debug, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -92,14 +126,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Debug(
-            this Exception extendedData, 
-            string source, 
+            this Exception extendedData,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -116,14 +150,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Trace(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -136,14 +170,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Trace(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Trace, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Trace, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -156,14 +190,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Trace(
-            this Exception extendedData, 
-            string source, 
+            this Exception extendedData,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -180,14 +214,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Warn(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -200,14 +234,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Warn(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Warning, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Warning, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -220,14 +254,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Warn(
-            this Exception extendedData, 
-            string source, 
+            this Exception extendedData,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -244,14 +278,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Fatal(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -264,14 +298,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Fatal(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Fatal, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Fatal, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -284,14 +318,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Fatal(
-            this Exception extendedData, 
-            string source, 
+            this Exception extendedData,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -308,14 +342,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Info(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -328,14 +362,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Info(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Info, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Info, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -348,14 +382,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Info(
-            this Exception extendedData, 
-            string source, 
+            this Exception extendedData,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -372,14 +406,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Error(
-            this string message, 
-            string source = null, 
+            this string message,
+            string source = null,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Error, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Error, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -392,14 +426,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Error(
-            this string message, 
-            Type source, 
+            this string message,
+            Type source,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Error, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Error, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -412,14 +446,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Error(
-            this Exception ex, 
-            string source, 
+            this Exception ex,
+            string source,
             string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
@@ -439,9 +473,9 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Log(
-            this string message, 
-            string source, 
-            LogMessageType messageType,
+            this string message,
+            string source,
+            LogLevel messageType,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -461,9 +495,9 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Log(
-            this string message, 
-            Type source, 
-            LogMessageType messageType,
+            this string message,
+            Type source,
+            LogLevel messageType,
             object extendedData = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -482,14 +516,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Log(
-            this Exception ex, 
-            string source = null, 
+            this Exception ex,
+            string source = null,
             string message = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Error, message ?? ex.Message, source ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -502,14 +536,14 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Log(
-            this Exception ex, 
-            Type source = null, 
+            this Exception ex,
+            Type source = null,
             string message = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
         {
-            LogMessage(LogMessageType.Error, message ?? ex.Message, source?.FullName ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Error, message ?? ex.Message, source?.FullName ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -523,8 +557,8 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Dump(
-            this object obj, 
-            string source, 
+            this object obj,
+            string source,
             string text = "Object Dump",
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -532,7 +566,7 @@ namespace Swan.Logging
         {
             if (obj == null) return;
             var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
-            LogMessage(LogMessageType.Trace, message, source, obj, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Trace, message, source, obj, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
@@ -546,8 +580,8 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         public static void Dump(
-            this object obj, 
-            Type source, 
+            this object obj,
+            Type source,
             string text = "Object Dump",
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -555,14 +589,14 @@ namespace Swan.Logging
         {
             if (obj == null) return;
             var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
-            LogMessage(LogMessageType.Trace, message, source?.FullName, obj, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogLevel.Trace, message, source?.FullName, obj, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
-        
-        private static void LogMessage(LogMessageType messageType, 
-            string message, 
-            string sourceName, 
+
+        private static void LogMessage(LogLevel messageType,
+            string message,
+            string sourceName,
             object extendedData,
             string callerMemberName,
             string callerFilePath,
@@ -574,22 +608,22 @@ namespace Swan.Logging
 
             var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                 string.Empty : message.RemoveControlCharsExcept('\n');
-            
+
             // Log the message asynchronously with the appropriate event args
             var eventArgs = new LogMessageReceivedEventArgs(
-                sequence, 
-                messageType, 
-                date, 
-                sourceName, 
-                loggerMessage, 
-                extendedData, 
+                sequence,
+                messageType,
+                date,
+                sourceName,
+                loggerMessage,
+                extendedData,
                 callerMemberName,
-                callerFilePath, 
+                callerFilePath,
                 callerLineNumber);
 
-            foreach (var (_, component) in _loggers.WithSafeNames)
+            foreach (var logger in Loggers)
             {
-                component.Log(eventArgs);
+                logger.Log(eventArgs);
             }
         }
     }

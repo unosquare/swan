@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Abstractions
+namespace Swan
 {
     /// <summary>
     /// Represents a singleton pattern abstract class.

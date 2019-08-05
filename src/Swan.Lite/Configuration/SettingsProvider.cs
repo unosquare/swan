@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using Swan.Formatters;
 using Swan.Reflection;
 
-namespace Swan.Abstractions
+namespace Swan.Configuration
 {
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file.
@@ -16,7 +16,7 @@ namespace Swan.Abstractions
     /// <example>
     /// The following example shows how to save and load settings.
     /// <code>
-    /// using Swan.Abstractions;
+    /// using Swan.Configuration;
     /// 
     /// public class Example
     /// { 

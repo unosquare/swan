@@ -1,4 +1,4 @@
-﻿namespace Swan.Abstractions
+﻿namespace Swan.Reflection
 {
     /// <summary>
     /// Represents a generic interface to store getters and setters.

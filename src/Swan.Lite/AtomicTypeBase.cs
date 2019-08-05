@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Swan.Abstractions
+namespace Swan
 {
     /// <summary>
     /// Provides a generic implementation of an Atomic (interlocked) type

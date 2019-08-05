@@ -65,32 +65,7 @@
             Assert.GreaterOrEqual(expected, attributes.Length, $"Get GetCustomAttributes length of {input}");
         }
     }
-
-    [TestFixture]
-    public class IsGenericTypeDefinition
-    {
-        [TestCase(true, typeof(List<Fish>))]
-        [TestCase(false, typeof(string))]
-        public void WithType_ReturnsABool(bool expected, Type input)
-        {
-            if (input.IsGenericType)
-                input = input.GetGenericTypeDefinition();
-
-            Assert.AreEqual(expected, input.IsGenericTypeDefinition(), $"Get IsGenericTypeDefinition value of {input}");
-        }
-    }
-
-    [TestFixture]
-    public class BaseType
-    {
-        [TestCase(typeof(object), typeof(List<Fish>))]
-        [TestCase(typeof(object), typeof(string))]
-        public void WithType_ReturnsBaseType(Type expected, Type input)
-        {
-            Assert.AreEqual(expected, input.BaseType(), $"Get BaseType value of {input}");
-        }
-    }
-
+    
     [TestFixture]
     public class IsIEnumerable : TestFixtureBase
     {
@@ -160,9 +135,7 @@
         [Test]
         public void WithAssembly_ReturnsTypeObjects()
         {
-            var assembly = typeof(string).Assembly();
-
-            var data = assembly.GetAllTypes();
+            var data = typeof(string).Assembly.GetAllTypes();
 
             Assert.AreEqual("System.Type[]", data.ToString());
         }

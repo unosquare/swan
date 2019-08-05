@@ -43,47 +43,4 @@ namespace Swan
         /// </summary>
         OutputAndDebug = StandardOutput | Diagnostics,
     }
-
-    /// <summary>
-    /// Defines the bitwise flags to determine
-    /// which types of messages get printed on the current console.
-    /// </summary>
-    [Flags]
-    public enum LogMessageType
-    {
-        /// <summary>
-        /// The none message type
-        /// </summary>
-        None = 0,
-
-        /// <summary>
-        /// The information message type
-        /// </summary>
-        Info = 1,
-
-        /// <summary>
-        /// The debug message type
-        /// </summary>
-        Debug = 2,
-
-        /// <summary>
-        /// The trace message type
-        /// </summary>
-        Trace = 4,
-
-        /// <summary>
-        /// The error message type
-        /// </summary>
-        Error = 8,
-
-        /// <summary>
-        /// The warning message type
-        /// </summary>
-        Warning = 16,
-        
-        /// <summary>
-        /// The fatal message type
-        /// </summary>
-        Fatal = 32,
-    }
 }

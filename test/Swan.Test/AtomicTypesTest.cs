@@ -2,7 +2,6 @@
 {
     using NUnit.Framework;
     using System.Threading.Tasks;
-    using Abstractions;
     using Swan;
 
     [TestFixture]

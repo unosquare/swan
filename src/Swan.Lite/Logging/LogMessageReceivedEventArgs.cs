@@ -24,7 +24,7 @@ namespace Swan
         /// <param name="callerLineNumber">The caller line number.</param>
         public LogMessageReceivedEventArgs(
             ulong sequence,
-            LogMessageType messageType,
+            LogLevel messageType,
             DateTime utcDate,
             string source,
             string message,
@@ -59,7 +59,7 @@ namespace Swan
         /// <value>
         /// The type of the message.
         /// </value>
-        public LogMessageType MessageType { get; }
+        public LogLevel MessageType { get; }
 
         /// <summary>
         /// Gets the UTC date at which the event at which the message was logged.

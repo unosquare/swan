@@ -74,8 +74,8 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [ProcessRunner](https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
 | [ReflectionExtensions](https://unosquare.github.io/swan/api/Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Runtime](https://unosquare.github.io/swan/api/Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Configuration.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html) | :x: | :heavy_check_mark: |
 | [StringExtensions](https://unosquare.github.io/swan/api/Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Terminal](https://unosquare.github.io/swan/api/Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |

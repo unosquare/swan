@@ -4,7 +4,7 @@
 
     public class LoggingEntryMock
     {
-        public LogMessageType Type { get; set; }
+        public LogLevel Type { get; set; }
 
         public DateTime DateTime { get; set; }
 

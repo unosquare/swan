@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Swan.Abstractions;
+using Swan.Configuration;
 
 namespace Swan.Reflection
 {

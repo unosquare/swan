@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test
 {
     using System;
-    using Abstractions;
+    using Configuration;
     using NUnit.Framework;
 
     public class ConfiguredObjectTest

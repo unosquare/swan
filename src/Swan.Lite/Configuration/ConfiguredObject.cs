@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Abstractions
+namespace Swan.Configuration
 {
     /// <summary>
     /// Base class for objects whose configuration may be locked,

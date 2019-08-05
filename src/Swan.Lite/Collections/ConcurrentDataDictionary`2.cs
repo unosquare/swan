@@ -83,7 +83,7 @@ namespace Swan.Collections
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="collection"/> is <see langword="null"/>.</para>
-        /// <para>- or -</para>
+        /// <para>- or -.</para>
         /// <para><paramref name="comparer"/> is <see langword="null"/>.</para>
         /// </exception>
         /// <see cref="ConcurrentDictionary{TKey,TValue}(IEnumerable{KeyValuePair{TKey,TValue}},IEqualityComparer{TKey})"/>
@@ -104,7 +104,7 @@ namespace Swan.Collections
         /// <param name="capacity">The initial number of elements that the <see cref="ConcurrentDataDictionary{TKey, TValue}"/> can contain.</param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <para><paramref name="concurrencyLevel"/> is less than 1.</para>
-        /// <para>- or -</para>
+        /// <para>- or -.</para>
         /// <para><paramref name="capacity"/> is less than 0.</para>
         /// </exception>
         /// <see cref="ConcurrentDictionary{TKey,TValue}(int,int)"/>
@@ -129,7 +129,7 @@ namespace Swan.Collections
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="collection"/> is <see langword="null"/>.</para>
-        /// <para>- or -</para>
+        /// <para>- or -.</para>
         /// <para><paramref name="comparer"/> is <see langword="null"/>.</para>
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="concurrencyLevel"/> is less than 1.</exception>

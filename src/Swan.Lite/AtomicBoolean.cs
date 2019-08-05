@@ -1,6 +1,4 @@
-﻿using Swan.Abstractions;
-
-namespace Swan
+﻿namespace Swan
 {
     /// <summary>
     /// Fast, atomic boolean combining interlocked to write value and volatile to read values.

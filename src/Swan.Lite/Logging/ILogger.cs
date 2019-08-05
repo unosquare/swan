@@ -1,9 +1,11 @@
 ﻿namespace Swan.Logging
 {
+    using System;
+
     /// <summary>
     /// Interface for a logger implementation.
     /// </summary>
-    public interface ILogger
+    public interface ILogger : IDisposable
     {
         /// <summary>
         /// Gets the log level.
@@ -11,7 +13,7 @@
         /// <value>
         /// The log level.
         /// </value>
-        LogMessageType LogLevel { get; }
+        LogLevel LogLevel { get; }
         
         /// <summary>
         /// Logs the specified log event.

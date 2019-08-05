@@ -116,7 +116,7 @@ namespace Swan.Logging
         public static ConsoleColor FatalColor { get; set; } = ConsoleColor.Red;
 
         /// <inheritdoc />
-        public LogMessageType LogLevel { get; set; } = LogMessageType.Info;
+        public LogLevel LogLevel { get; set; } = LogLevel.Info;
 
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
@@ -137,15 +137,15 @@ namespace Swan.Logging
 
                 // Select the writer based on the message type
                 var writer = Terminal.IsConsolePresent
-                    ? logEvent.MessageType.HasFlag(LogMessageType.Error) ? TerminalWriters.StandardError :
+                    ? logEvent.MessageType.HasFlag(LogLevel.Error) ? TerminalWriters.StandardError :
                     TerminalWriters.StandardOutput
                     : TerminalWriters.None;
 
                 // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
                 // if it is attached at all
                 if (Terminal.IsDebuggerAttached
-                    && (Terminal.IsConsolePresent == false || logEvent.MessageType.HasFlag(LogMessageType.Debug) ||
-                        logEvent.MessageType.HasFlag(LogMessageType.Error)))
+                    && (Terminal.IsConsolePresent == false || logEvent.MessageType.HasFlag(LogLevel.Debug) ||
+                        logEvent.MessageType.HasFlag(LogLevel.Error)))
                     writer = writer | TerminalWriters.Diagnostics;
 
                 // Check if we really need to write this out
@@ -168,8 +168,14 @@ namespace Swan.Logging
                 Terminal.WriteLine(outputMessage, color, writer);
             }
         }
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            // Do nothing
+        }
 
-        internal static string GetConsoleColorAndPrefix(LogMessageType messageType, out ConsoleColor color)
+        internal static string GetConsoleColorAndPrefix(LogLevel messageType, out ConsoleColor color)
         {
             string prefix;
 
@@ -177,27 +183,27 @@ namespace Swan.Logging
             // and settings
             switch (messageType)
             {
-                case LogMessageType.Debug:
+                case LogLevel.Debug:
                     color = DebugColor;
                     prefix = DebugPrefix;
                     break;
-                case LogMessageType.Error:
+                case LogLevel.Error:
                     color = ErrorColor;
                     prefix = ErrorPrefix;
                     break;
-                case LogMessageType.Info:
+                case LogLevel.Info:
                     color = InfoColor;
                     prefix = InfoPrefix;
                     break;
-                case LogMessageType.Trace:
+                case LogLevel.Trace:
                     color = TraceColor;
                     prefix = TracePrefix;
                     break;
-                case LogMessageType.Warning:
+                case LogLevel.Warning:
                     color = WarnColor;
                     prefix = WarnPrefix;
                     break;
-                case LogMessageType.Fatal:
+                case LogLevel.Fatal:
                     color = FatalColor;
                     prefix = FatalPrefix;
                     break;

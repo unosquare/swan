@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Swan.Abstractions;
 using Swan.Collections;
 
 namespace Swan

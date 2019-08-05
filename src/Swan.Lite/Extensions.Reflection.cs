@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Swan.Abstractions;
 using Swan.Attributes;
 using Swan.Reflection;
 
@@ -141,30 +140,7 @@ namespace Swan
         /// </returns>
         public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) =>
             type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
-
-        /// <summary>
-        /// Determines whether [is generic type definition].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is generic type definition] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsGenericTypeDefinition(this Type type) => type.GetTypeInfo().IsGenericTypeDefinition;
-
-        /// <summary>
-        /// Bases the type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>returns a type of data.</returns>
-        public static Type BaseType(this Type type) => type.GetTypeInfo().BaseType;
-
-        /// <summary>
-        /// Assemblies the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>returns an Assembly object.</returns>
-        public static Assembly Assembly(this Type type) => type.GetTypeInfo().Assembly;
-
+        
         /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
@@ -221,17 +197,17 @@ namespace Swan
         /// </summary>
         /// <param name="property">The property.</param>
         /// <param name="value">The value.</param>
-        /// <param name="obj">The object.</param>
+        /// <param name="target">The object.</param>
         /// <returns>
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetBasicType(this PropertyInfo property, object value, object obj)
+        public static bool TrySetBasicType(this PropertyInfo property, object value, object target)
         {
             try
             {
                 if (property.PropertyType.TryParseBasicType(value, out var propertyValue))
                 {
-                    property.SetValue(obj, propertyValue);
+                    property.SetValue(target, propertyValue);
                     return true;
                 }
             }
@@ -248,30 +224,30 @@ namespace Swan
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="value">The value.</param>
-        /// <param name="array">The array.</param>
+        /// <param name="target">The array.</param>
         /// <param name="index">The index.</param>
         /// <returns>
         ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArrayBasicType(this Type type, object value, Array array, int index)
+        public static bool TrySetArrayBasicType(this Type type, object value, Array target, int index)
         {
             try
             {
                 if (value == null)
                 {
-                    array.SetValue(null, index);
+                    target.SetValue(null, index);
                     return true;
                 }
 
                 if (type.TryParseBasicType(value, out var propertyValue))
                 {
-                    array.SetValue(propertyValue, index);
+                    target.SetValue(propertyValue, index);
                     return true;
                 }
 
                 if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    array.SetValue(null, index);
+                    target.SetValue(null, index);
                     return true;
                 }
             }
@@ -324,13 +300,13 @@ namespace Swan
         /// If the object contains a null value, a empty string will be returned.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <param name="obj">The object.</param>
+        /// <param name="target">The object.</param>
         /// <returns>The property value or null.</returns>
-        public static string ToFormattedString(this PropertyInfo propertyInfo, object obj)
+        public static string ToFormattedString(this PropertyInfo propertyInfo, object target)
         {
             try
             {
-                var value = propertyInfo.GetValue(obj);
+                var value = propertyInfo.GetValue(target);
                 var attr = AttributeCache.DefaultCache.Value.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
 
                 if (attr == null) return value?.ToString() ?? string.Empty;
@@ -425,7 +401,7 @@ namespace Swan
         /// <returns>
         /// The property proxy.
         /// </returns>
-        /// <exception cref="ArgumentNullException">this</exception>
+        /// <exception cref="ArgumentNullException">this.</exception>
         public static IPropertyProxy CreatePropertyProxy(this PropertyInfo @this)
         {
             if (@this == null)

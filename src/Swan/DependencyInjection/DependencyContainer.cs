@@ -108,7 +108,7 @@
                 var concreteTypes = types
                     .Where(type =>
                         type.IsClass && !type.IsAbstract &&
-                        (type != GetType() && (type.DeclaringType != GetType()) && !type.IsGenericTypeDefinition()))
+                        (type != GetType() && (type.DeclaringType != GetType()) && !type.IsGenericTypeDefinition))
                     .ToList();
 
                 foreach (var type in concreteTypes)
@@ -126,7 +126,7 @@
                 var abstractInterfaceTypes = types.Where(
                     type =>
                         ((type.IsInterface || type.IsAbstract) && (type.DeclaringType != GetType()) &&
-                         (!type.IsGenericTypeDefinition())));
+                         (!type.IsGenericTypeDefinition)));
 
                 foreach (var type in abstractInterfaceTypes)
                 {
@@ -679,7 +679,7 @@
         
         internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
         {
-            if (!registerType.IsGenericTypeDefinition())
+            if (!registerType.IsGenericTypeDefinition)
             {
                 if (!registerType.IsAssignableFrom(registerImplementation))
                     return false;
@@ -689,7 +689,7 @@
                 if (registerType.IsInterface && registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
                     return false;
 
-                if (registerType.IsAbstract && registerImplementation.BaseType() != registerType)
+                if (registerType.IsAbstract && registerImplementation.BaseType != registerType)
                     return false;
             }
 
@@ -722,7 +722,7 @@
                 t => t.FullName?.StartsWith("System.", StringComparison.Ordinal) ?? false,
                 t => t.FullName?.StartsWith("Microsoft.", StringComparison.Ordinal) ?? false,
                 t => t.IsPrimitive,
-                t => t.IsGenericTypeDefinition(),
+                t => t.IsGenericTypeDefinition,
                 t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) &&
                      !(t.IsInterface || t.IsAbstract),
             };
