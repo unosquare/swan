@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Attributes
+namespace Swan.Parsers
 {
     /// <summary>
     /// Models an option specification.

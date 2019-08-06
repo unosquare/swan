@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test.Mocks
 {
     using System;
-    using Attributes;
+    using Parsers;
     using System.Collections.Generic;
 
     public class OptionMock

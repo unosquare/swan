@@ -166,7 +166,7 @@
             var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsTrue(expected);
-            Assert.IsNotNull(verbOptions.MonitorVerboptions);
+            Assert.IsNotNull(verbOptions.MonitorVerbOptions);
             Assert.IsNull(verbOptions.PushVerbOptions);
         }
 
@@ -178,7 +178,7 @@
             var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsFalse(expected);
-            Assert.IsNull(verbOptions.MonitorVerboptions);
+            Assert.IsNull(verbOptions.MonitorVerbOptions);
             Assert.IsNull(verbOptions.PushVerbOptions);
         }
     }

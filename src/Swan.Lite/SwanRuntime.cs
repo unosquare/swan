@@ -210,7 +210,7 @@ namespace Swan
 
                 var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
 
-                if (Directory.Exists(returnPath) == false)
+                if (!Directory.Exists(returnPath))
                 {
                     Directory.CreateDirectory(returnPath);
                 }

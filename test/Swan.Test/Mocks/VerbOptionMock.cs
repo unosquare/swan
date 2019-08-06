@@ -1,14 +1,14 @@
 ﻿namespace Swan.Test.Mocks
 {
     using System;
-    using Attributes;
+    using Parsers;
 
     public class CliVerbs
     {
         [VerbOption("verb")]
         public VerbOptions PushVerbOptions { get; set; }
         [VerbOption("monitor")]
-        public MonitorOptions MonitorVerboptions { get; set; }
+        public MonitorOptions MonitorVerbOptions { get; set; }
     }
 
     public class VerbOptions

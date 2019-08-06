@@ -66,7 +66,7 @@ namespace Swan
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">hex.</exception>
-        public static ReadOnlySpan<byte> ConvertHexadecimalToBytes(this string hex)
+        public static byte[] ConvertHexadecimalToBytes(this string hex)
         {
             if (string.IsNullOrWhiteSpace(hex))
                 throw new ArgumentNullException(nameof(hex));

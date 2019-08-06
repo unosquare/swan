@@ -440,7 +440,7 @@
         [Test]
         public void WithValidHex_ReturnsString()
         {
-            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes().ToArray(), "Get ConvertHexadecimalToBytes value");
+            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes(), "Get ConvertHexadecimalToBytes value");
         }
 
         [Test]
