@@ -53,7 +53,7 @@ namespace Swan
         /// Converts an array of bytes to a base-64 encoded string.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns>A <see cref="System.String" /> converted from an array of bytes.</returns>
+        /// <returns>A <see cref="string" /> converted from an array of bytes.</returns>
         public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Swan
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">hex.</exception>
-        public static byte[] ConvertHexadecimalToBytes(this string hex)
+        public static ReadOnlySpan<byte> ConvertHexadecimalToBytes(this string hex)
         {
             if (string.IsNullOrWhiteSpace(hex))
                 throw new ArgumentNullException(nameof(hex));

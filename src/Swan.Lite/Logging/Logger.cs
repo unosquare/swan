@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Swan.Logging
 {
@@ -13,9 +14,9 @@ namespace Swan.Logging
     {
         private static readonly object SyncLock = new object();
         private static readonly List<ILogger> Loggers = new List<ILogger>();
-        
+
         private static ulong _loggingSequence;
-        
+
         static Logger()
         {
             Loggers.Add(new ConsoleLogger());
@@ -35,7 +36,7 @@ namespace Swan.Logging
             {
                 var loggerInstance = Loggers.FirstOrDefault(x => x.GetType() == typeof(T));
 
-                if (loggerInstance == null)
+                if (loggerInstance != null)
                     throw new InvalidOperationException("There is already a logger with that class registered.");
 
                 Loggers.Add(Activator.CreateInstance<T>());
@@ -594,7 +595,8 @@ namespace Swan.Logging
 
         #endregion
 
-        private static void LogMessage(LogLevel messageType,
+        private static void LogMessage(
+            LogLevel logLevel,
             string message,
             string sourceName,
             object extendedData,
@@ -609,10 +611,9 @@ namespace Swan.Logging
             var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                 string.Empty : message.RemoveControlCharsExcept('\n');
 
-            // Log the message asynchronously with the appropriate event args
             var eventArgs = new LogMessageReceivedEventArgs(
                 sequence,
-                messageType,
+                logLevel,
                 date,
                 sourceName,
                 loggerMessage,
@@ -623,7 +624,11 @@ namespace Swan.Logging
 
             foreach (var logger in Loggers)
             {
-                logger.Log(eventArgs);
+                Task.Run(() =>
+                {
+                    if (logger.LogLevel <= logLevel)
+                        logger.Log(eventArgs);
+                });
             }
         }
     }

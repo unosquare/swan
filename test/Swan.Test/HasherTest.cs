@@ -25,7 +25,7 @@ namespace Swan.Test
             [TestCase("8C-1D-5F-69-43-84-06-3D-F2-E0-66-4F-54-9C-4B-93", "Grommash")]
             public void WithValidString_ReturnsMD5(string expected, string input)
             {
-                Assert.AreEqual(expected, Hasher.ComputeMD5(input).ToDashedHex(), "Get MD5");
+                Assert.AreEqual(expected, Hasher.ComputeMD5(input).ToArray().ToDashedHex(), "Get MD5");
             }
 
             [Test]
@@ -43,7 +43,7 @@ namespace Swan.Test
             [TestCase("D4570F48B4B7B720B55499B5D01A0215A6A60FB2", "Darnassus")]
             public void WithValidString_ReturnsSha1(string expected, string input)
             {
-                Assert.AreEqual(expected, Hasher.ComputeSha1(input).ToUpperHex(), "Get Sha1");
+                Assert.AreEqual(expected, Hasher.ComputeSha1(input).ToArray().ToUpperHex(), "Get Sha1");
             }
         }
 
@@ -56,8 +56,8 @@ namespace Swan.Test
                 const string input = "HOLA";
 
                 Assert.AreEqual(
-                    "73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes(),
-                    Hasher.ComputeSha256(input));
+                    "73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes().ToArray(),
+                    Hasher.ComputeSha256(input).ToArray());
             }
         }
 
@@ -72,7 +72,7 @@ namespace Swan.Test
                 "Pandaria")]
             public void WithValidString_ReturnsSha512(string expected, string input)
             {
-                Assert.AreEqual(expected, Hasher.ComputeSha512(input).ToBase64(), "Get Sha512");
+                Assert.AreEqual(expected, Hasher.ComputeSha512(input).ToArray().ToBase64(), "Get Sha512");
             }
         }
     }

@@ -228,7 +228,7 @@ namespace Swan.Formatters
                     return i;
                 }
 
-                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
+                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes().ToArray();
                 builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
                 i += 5;
                 return i;

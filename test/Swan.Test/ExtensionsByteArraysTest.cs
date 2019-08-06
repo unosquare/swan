@@ -427,7 +427,7 @@
         [Test]
         public void WithOffsetAndValue_ReturnsBitValue()
         {
-            byte input = 201;
+            const byte input = 201;
             var result = input.SetBitValueAt(2, 1);
 
             Assert.AreEqual(205, result);
@@ -440,7 +440,7 @@
         [Test]
         public void WithValidHex_ReturnsString()
         {
-            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes(), "Get ConvertHexadecimalToBytes value");
+            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes().ToArray(), "Get ConvertHexadecimalToBytes value");
         }
 
         [Test]

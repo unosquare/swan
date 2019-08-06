@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Swan.Logging
 {
@@ -9,7 +10,7 @@ namespace Swan.Logging
     public class ConsoleLogger : ILogger
     {
         private static readonly object SyncLock = new object();
-        
+
         /// <summary>
         /// Gets or sets the debug logging prefix.
         /// </summary>
@@ -33,7 +34,7 @@ namespace Swan.Logging
         /// The warn prefix.
         /// </value>
         public static string WarnPrefix { get; set; } = "WRN";
-            
+
         /// <summary>
         /// Gets or sets the fatal logging prefix.
         /// </summary>
@@ -49,7 +50,7 @@ namespace Swan.Logging
         /// The error prefix.
         /// </value>
         public static string ErrorPrefix { get; set; } = "ERR";
-        
+
         /// <summary>
         /// Gets or sets the information logging prefix.
         /// </summary>
@@ -57,7 +58,7 @@ namespace Swan.Logging
         /// The information prefix.
         /// </value>
         public static string InfoPrefix { get; set; } = "INF";
-        
+
         /// <summary>
         /// Gets or sets the logging time format.
         /// set to null or empty to prevent output.
@@ -116,17 +117,13 @@ namespace Swan.Logging
         public static ConsoleColor FatalColor { get; set; } = ConsoleColor.Red;
 
         /// <inheritdoc />
-        public LogLevel LogLevel { get; set; } = LogLevel.Info;
+        public LogLevel LogLevel { get; set; } = Terminal.IsDebuggerAttached ? LogLevel.Trace : LogLevel.Info;
 
         /// <inheritdoc />
-        public void Log(LogMessageReceivedEventArgs logEvent)
+        public void Log([NotNull] LogMessageReceivedEventArgs logEvent)
         {
             lock (SyncLock)
             {
-                // TODO: Check level
-                //if (!Terminal.GlobalLoggingMessageType.HasFlag(logEvent.MessageType))
-                //    return;
-
                 var prefix = GetConsoleColorAndPrefix(logEvent.MessageType, out var color);
 
                 var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
@@ -146,7 +143,7 @@ namespace Swan.Logging
                 if (Terminal.IsDebuggerAttached
                     && (Terminal.IsConsolePresent == false || logEvent.MessageType.HasFlag(LogLevel.Debug) ||
                         logEvent.MessageType.HasFlag(LogLevel.Error)))
-                    writer = writer | TerminalWriters.Diagnostics;
+                    writer |= TerminalWriters.Diagnostics;
 
                 // Check if we really need to write this out
                 if (writer == TerminalWriters.None) return;
@@ -168,7 +165,7 @@ namespace Swan.Logging
                 Terminal.WriteLine(outputMessage, color, writer);
             }
         }
-        
+
         /// <inheritdoc />
         public void Dispose()
         {
