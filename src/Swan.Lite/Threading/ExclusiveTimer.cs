@@ -104,6 +104,44 @@ namespace Swan.Threading
         ///   <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
         /// </value>
         public bool IsDisposed => _isDisposed.Value;
+        
+        /// <summary>
+        /// Waits until the time is elapsed.
+        /// </summary>
+        /// <param name="untilDate">The until date.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public static void WaitUntil(DateTime untilDate, CancellationToken cancellationToken = default)
+        {
+            void Callback(IWaitEvent waitEvent)
+            {
+                try
+                {
+                    waitEvent.Complete();
+                    waitEvent.Begin();
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
+
+            using (var delayLock = WaitEventFactory.Create(true))
+            {
+                using (var _ = new ExclusiveTimer(() => Callback(delayLock), 0, 15))
+                {
+                    while (!cancellationToken.IsCancellationRequested && DateTime.UtcNow < untilDate)
+                        delayLock.Wait();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Waits the specified wait time.
+        /// </summary>
+        /// <param name="waitTime">The wait time.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public static void Wait(TimeSpan waitTime, CancellationToken cancellationToken = default) =>
+            WaitUntil(DateTime.UtcNow.Add(waitTime), cancellationToken);
 
         /// <summary>
         /// Changes the start time and the interval between method invocations for the internal timer.

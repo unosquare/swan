@@ -1,17 +1,16 @@
 ﻿namespace Swan.Samples
 {
-    using System.Threading.Tasks;
+    using DependencyInjection;
     using Diagnostics;
+    using Formatters;
     using Logging;
     using Messaging;
-    using Formatters;
+    using Net.Dns;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Net.Dns;
-    using DependencyInjection;
-    using Threading;
+    using System.Threading.Tasks;
 
     public static partial class Program
     {
@@ -25,15 +24,6 @@
             Logger.RegisterLogger<FileLogger>();
 
             TestJson();
-
-            var timeSpan = TimeSpan.FromSeconds(1);
-            
-            TimerControl.Instance.Wait(timeSpan);
-
-            TimerControl.Instance.Wait(timeSpan);
-
-            TimerControl.Instance.Wait(timeSpan);
-
             TestApplicationInfo();
             await TestTerminalOutputs();
             await TestNetworkUtilities();
