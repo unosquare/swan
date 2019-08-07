@@ -16,7 +16,6 @@
         // to avoid deadlocked reads
         private readonly object _syncLock = new object();
 
-        private long _period;
         private int _isDisposed;
         private int _isDisposing;
         private int _workerState = (int)WorkerState.Created;
@@ -29,7 +28,7 @@
         protected WorkerBase(string name, TimeSpan period)
         {
             Name = name;
-            Period = period;
+            Period = new AtomicTimeSpan(period);
 
             StateChangeRequests = new Dictionary<StateChangeRequest, bool>(5)
             {
@@ -75,11 +74,7 @@
         public string Name { get; }
 
         /// <inheritdoc />
-        public TimeSpan Period
-        {
-            get => TimeSpan.FromTicks(Interlocked.Read(ref _period));
-            set => Interlocked.Exchange(ref _period, value.Ticks < 0 ? 0 : value.Ticks);
-        }
+        public AtomicTimeSpan Period { get; set; }
 
         /// <inheritdoc />
         public WorkerState WorkerState
@@ -228,7 +223,7 @@
         {
             var elapsedMillis = CycleStopwatch.ElapsedMilliseconds;
             var period = Period;
-            var periodMillis = period.TotalMilliseconds;
+            var periodMillis = period.Value.TotalMilliseconds;
             var delayMillis = periodMillis - elapsedMillis;
 
             if (initialWorkerState == WorkerState.Paused || period == TimeSpan.MaxValue || delayMillis >= int.MaxValue)

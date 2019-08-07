@@ -32,7 +32,7 @@ namespace Swan.Threading
         /// <summary>
         /// Gets or sets the time interval used to execute cycles.
         /// </summary>
-        TimeSpan Period { get; set; }
+        AtomicTimeSpan Period { get; set; }
 
         /// <summary>
         /// Gets the name identifier of this worker.

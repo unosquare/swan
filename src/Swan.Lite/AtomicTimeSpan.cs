@@ -21,6 +21,6 @@ namespace Swan
         protected override TimeSpan FromLong(long backingValue) => TimeSpan.FromTicks(backingValue);
 
         /// <inheritdoc />
-        protected override long ToLong(TimeSpan value) => value.Ticks;
+        protected override long ToLong(TimeSpan value) => value.Ticks < 0 ? 0 : value.Ticks;
     }
 }
