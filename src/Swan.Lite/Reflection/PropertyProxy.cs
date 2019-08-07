@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Swan.Configuration;
 
 namespace Swan.Reflection
 {

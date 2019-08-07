@@ -1,8 +1,7 @@
+using Swan.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Swan.Attributes;
-using Swan.Reflection;
 
 namespace Swan.Parsers
 {
@@ -17,7 +16,6 @@ namespace Swan.Parsers
     /// {
     ///     using System;
     ///     using Swan.Parsers;
-    ///     using Swan.Attributes;
     ///     
     ///     static void Main(string[] args)
     ///     {
@@ -51,7 +49,7 @@ namespace Swan.Parsers
     /// class Example2 
     /// {
     ///     using Swan;
-    ///     using Swan.Attributes;
+    ///     using Swan.Parsers;
     ///     
     ///     static void Main(string[] args)
     ///     {

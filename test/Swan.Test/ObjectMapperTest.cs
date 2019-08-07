@@ -30,9 +30,9 @@
         [Test]
         public void SimpleMap_ReturnsTrue()
         {
-            SwanRuntime.ObjectMapper.CreateMap<User, UserDto>();
+            ObjectMapper.Current.CreateMap<User, UserDto>();
 
-            var destination = SwanRuntime.ObjectMapper.Map<UserDto>(SourceUser);
+            var destination = ObjectMapper.Current.Map<UserDto>(SourceUser);
 
             Assert.IsNotNull(destination);
             Assert.AreEqual(SourceUser.Name, destination.Name);
@@ -56,7 +56,7 @@
         [Test]
         public void MapWithoutSource_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => SwanRuntime.ObjectMapper.Map<UserDto>(null));
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Current.Map<UserDto>(null));
         }
 
         [Test]
@@ -100,7 +100,7 @@
         [Test]
         public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException()
         {
-            Assert.Throws<InvalidOperationException>(() => SwanRuntime.ObjectMapper.CreateMap<User, ErrorJson>());
+            Assert.Throws<InvalidOperationException>(() => ObjectMapper.Current.CreateMap<User, ErrorJson>());
         }
     }
 

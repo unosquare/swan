@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Swan.Logging;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using Swan.Logging;
-using Swan.Mappers;
-using Swan.Validators;
 
 namespace Swan
 {
@@ -13,8 +11,6 @@ namespace Swan
     /// </summary>
     public static class SwanRuntime
     {
-        private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
-
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
         
         private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
@@ -38,8 +34,6 @@ namespace Swan
             return attribute?.Trademark ?? string.Empty;
         });
         
-        private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
-
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 
         private static readonly object SyncLock = new object();
@@ -127,14 +121,6 @@ namespace Swan
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
-        /// Gets the object validator.
-        /// </summary>
-        /// <value>
-        /// The object validator.
-        /// </value>
-        public static ObjectValidator ObjectValidator => _objectValidator.Value;
-
-        /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
         /// <value>
@@ -219,14 +205,6 @@ namespace Swan
             }
         }
         
-        /// <summary>
-        /// Gets the object mapper instance created with basic defaults.
-        /// </summary>
-        /// <value>
-        /// The object mapper.
-        /// </value>
-        public static ObjectMapper ObjectMapper => _objectMapper.Value;
-
         #endregion
 
         #region Methods

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Swan.Attributes;
 using Swan.Reflection;
 
 namespace Swan.Parsers

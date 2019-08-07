@@ -80,7 +80,17 @@ namespace Swan.Mappers
     /// </example>
     public partial class ObjectMapper
     {
+        private static readonly Lazy<ObjectMapper> LazyInstance = new Lazy<ObjectMapper>(() => new ObjectMapper());
+
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
+        
+        /// <summary>
+        /// Gets the current.
+        /// </summary>
+        /// <value>
+        /// The current.
+        /// </value>
+        public static ObjectMapper Current => LazyInstance.Value;
 
         /// <summary>
         /// Copies the specified source.

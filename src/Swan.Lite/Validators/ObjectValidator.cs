@@ -69,8 +69,18 @@ namespace Swan.Validators
     /// </example>
     public class ObjectValidator
     {
+        private static readonly Lazy<ObjectValidator> LazyInstance = new Lazy<ObjectValidator>(() => new ObjectValidator());
+
         private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
             new ConcurrentDictionary<Type, List<Tuple<Delegate, string>>>();
+        
+        /// <summary>
+        /// Gets the current.
+        /// </summary>
+        /// <value>
+        /// The current.
+        /// </value>
+        public static ObjectValidator Current => LazyInstance.Value;
 
         /// <summary>
         /// Validates an object given the specified validators and attributes.
