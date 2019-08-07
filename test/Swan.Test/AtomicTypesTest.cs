@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
     using System.Threading.Tasks;
-    using Swan;
+    using Threading;
 
     [TestFixture]
     public class AtomicTypeTest
@@ -103,12 +103,12 @@
 
             void ExchangeTask()
             {
-                    atomic.Value++;
+                atomic.Value++;
             }
 
             Task.WaitAll(
-            Task.Factory.StartNew(ExchangeTask),
-            Task.Factory.StartNew(ExchangeTask));
+                Task.Factory.StartNew(ExchangeTask),
+                Task.Factory.StartNew(ExchangeTask));
 
             Assert.That(atomic.Value, Is.EqualTo(Companies.Value3));
         }

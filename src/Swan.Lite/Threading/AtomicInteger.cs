@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Threading
 {
     /// <summary>
     /// Represents an atomically readable or writable integer.
