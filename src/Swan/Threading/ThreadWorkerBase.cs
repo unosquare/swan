@@ -151,7 +151,7 @@
             {
                 CycleStopwatch.Restart();
                 var interruptToken = CycleCancellation.Token;
-                var period = Period.Value.TotalMilliseconds >= int.MaxValue ? -1 : Convert.ToInt32(Math.Floor(Period.Value.TotalMilliseconds));
+                var period = Period.TotalMilliseconds >= int.MaxValue ? -1 : Convert.ToInt32(Math.Floor(Period.TotalMilliseconds));
                 var delayTask = Task.Delay(period, interruptToken);
                 var initialWorkerState = WorkerState;
 

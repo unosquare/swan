@@ -5,7 +5,7 @@
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-    
+
     /// <summary>
     /// Provides base infrastructure for Timer and Thread workers.
     /// </summary>
@@ -16,9 +16,10 @@
         // to avoid deadlocked reads
         private readonly object _syncLock = new object();
 
-        private int _isDisposed;
-        private int _isDisposing;
-        private int _workerState = (int)WorkerState.Created;
+        private readonly AtomicBoolean _isDisposed = new AtomicBoolean();
+        private readonly AtomicBoolean _isDisposing = new AtomicBoolean();
+        private readonly AtomicEnum<WorkerState> _workerState = new AtomicEnum<WorkerState>(WorkerState.Created);
+        private readonly AtomicTimeSpan _timeSpan;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkerBase"/> class.
@@ -28,7 +29,7 @@
         protected WorkerBase(string name, TimeSpan period)
         {
             Name = name;
-            Period = new AtomicTimeSpan(period);
+            _timeSpan = new AtomicTimeSpan(period);
 
             StateChangeRequests = new Dictionary<StateChangeRequest, bool>(5)
             {
@@ -74,27 +75,31 @@
         public string Name { get; }
 
         /// <inheritdoc />
-        public AtomicTimeSpan Period { get; set; }
+        public TimeSpan Period
+        {
+            get => _timeSpan.Value;
+            set => _timeSpan.Value = value;
+        }
 
         /// <inheritdoc />
         public WorkerState WorkerState
         {
-            get => (WorkerState)Interlocked.CompareExchange(ref _workerState, 0, 0);
-            protected set => Interlocked.Exchange(ref _workerState, (int)value);
+            get => _workerState.Value;
+            protected set => _workerState.Value = value;
         }
 
         /// <inheritdoc />
         public bool IsDisposed
         {
-            get => Interlocked.CompareExchange(ref _isDisposed, 0, 0) != 0;
-            protected set => Interlocked.Exchange(ref _isDisposed, value ? 1 : 0);
+            get => _isDisposed.Value;
+            protected set => _isDisposed.Value = value;
         }
 
         /// <inheritdoc />
         public bool IsDisposing
         {
-            get => Interlocked.CompareExchange(ref _isDisposing, 0, 0) != 0;
-            protected set => Interlocked.Exchange(ref _isDisposing, value ? 1 : 0);
+            get => _isDisposing.Value;
+            protected set => _isDisposing.Value = value;
         }
 
         /// <summary>
@@ -223,7 +228,7 @@
         {
             var elapsedMillis = CycleStopwatch.ElapsedMilliseconds;
             var period = Period;
-            var periodMillis = period.Value.TotalMilliseconds;
+            var periodMillis = period.TotalMilliseconds;
             var delayMillis = periodMillis - elapsedMillis;
 
             if (initialWorkerState == WorkerState.Paused || period == TimeSpan.MaxValue || delayMillis >= int.MaxValue)
