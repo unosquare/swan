@@ -10,7 +10,6 @@
     using System.Net.Sockets;
     using System.Runtime.InteropServices;
     using System.Text;
-    using Attributes;
 
     /// <summary>
     /// DnsClient Request inner class.

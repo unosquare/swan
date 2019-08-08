@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Swan.Attributes;
 using Swan.Reflection;
 
 namespace Swan.Formatters

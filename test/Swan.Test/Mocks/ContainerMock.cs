@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections;
-    using Attributes;
+    using Configuration;
     using System.Collections.Generic;
 
     public interface IAnimal

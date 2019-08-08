@@ -1,7 +1,8 @@
 ﻿namespace Swan.Test.Mocks
 {
     using System;
-    using Attributes;
+    using Formatters;
+    using Mappers;
 
     public class ErrorJson
     {

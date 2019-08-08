@@ -1,6 +1,6 @@
 ﻿namespace Swan.Test.Mocks
 {
-    using Attributes;
+    using Formatters;
     using System.Collections.Generic;
 
     public class SmtpMock

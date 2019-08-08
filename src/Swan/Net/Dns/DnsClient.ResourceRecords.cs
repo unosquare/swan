@@ -1,6 +1,5 @@
 ﻿namespace Swan.Net.Dns
 {
-    using Attributes;
     using Formatters;
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Swan
+﻿namespace Swan.Net
 {
     using Net.Dns;
     using System;

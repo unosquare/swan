@@ -1,12 +1,13 @@
 ﻿namespace Swan.Test.NetworkTests
 {
     using NUnit.Framework;
-    using System;
     using System.Linq;
+    using System;
+    using Net;
     using System.Net;
     using System.Net.NetworkInformation;
     using System.Threading.Tasks;
-    using Swan.Net.Dns;
+    using Net.Dns;
 
     public abstract class NetworkTest
     {

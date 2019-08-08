@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Attributes
+namespace Swan
 {
     /// <summary>
     /// An attribute used to help conversion structs back and forth into arrays of bytes via

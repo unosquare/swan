@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Swan.Attributes;
 using Swan.Reflection;
 
 namespace Swan

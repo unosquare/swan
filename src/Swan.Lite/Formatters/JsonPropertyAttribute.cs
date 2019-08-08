@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Attributes
+namespace Swan.Formatters
 {
     /// <summary>
     /// An attribute used to help setup a property behavior when serialize/deserialize JSON.

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Swan.Attributes;
 using Swan.Collections;
 using Swan.Reflection;
 

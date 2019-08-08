@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Attributes
+namespace Swan.Configuration
 {
     /// <summary>
     /// An attribute used to include additional information to a Property for serialization.

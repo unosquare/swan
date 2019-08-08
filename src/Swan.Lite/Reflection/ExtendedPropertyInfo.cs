@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Swan.Attributes;
+using Swan.Configuration;
 
 namespace Swan.Reflection
 {

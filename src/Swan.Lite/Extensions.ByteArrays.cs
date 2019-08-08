@@ -61,57 +61,57 @@ namespace Swan
         /// to a byte array. String length must be a multiple of 2 and
         /// any prefix (such as 0x) has to be avoided for this to work properly.
         /// </summary>
-        /// <param name="hex">The hexadecimal.</param>
+        /// <param name="this">The hexadecimal.</param>
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">hex.</exception>
-        public static byte[] ConvertHexadecimalToBytes(this string hex)
+        public static byte[] ConvertHexadecimalToBytes(this string @this)
         {
-            if (string.IsNullOrWhiteSpace(hex))
-                throw new ArgumentNullException(nameof(hex));
+            if (string.IsNullOrWhiteSpace(@this))
+                throw new ArgumentNullException(nameof(@this));
 
             return Enumerable
-                .Range(0, hex.Length / 2)
-                .Select(x => Convert.ToByte(hex.Substring(x * 2, 2), 16))
+                .Range(0, @this.Length / 2)
+                .Select(x => Convert.ToByte(@this.Substring(x * 2, 2), 16))
                 .ToArray();
         }
 
         /// <summary>
         /// Gets the bit value at the given offset.
         /// </summary>
-        /// <param name="b">The b.</param>
+        /// <param name="this">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>
         /// Bit value at the given offset.
         /// </returns>
-        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1) => (byte)((b >> offset) & ~(0xff << length));
+        public static byte GetBitValueAt(this byte @this, byte offset, byte length = 1) => (byte)((@this >> offset) & ~(0xff << length));
 
         /// <summary>
         /// Sets the bit value at the given offset.
         /// </summary>
-        /// <param name="b">The b.</param>
+        /// <param name="this">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
+        public static byte SetBitValueAt(this byte @this, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
             var valueAt = (byte)(value & mask);
 
-            return (byte)((valueAt << offset) | (b & ~(mask << offset)));
+            return (byte)((valueAt << offset) | (@this & ~(mask << offset)));
         }
 
         /// <summary>
         /// Sets the bit value at the given offset.
         /// </summary>
-        /// <param name="b">The b.</param>
+        /// <param name="this">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
         /// <returns>Bit value at the given offset.</returns>
-        public static byte SetBitValueAt(this byte b, byte offset, byte value) => b.SetBitValueAt(offset, 1, value);
+        public static byte SetBitValueAt(this byte @this, byte offset, byte value) => @this.SetBitValueAt(offset, 1, value);
 
         /// <summary>
         /// Splits a byte array delimited by the specified sequence of bytes.
@@ -119,7 +119,7 @@ namespace Swan
         /// For example if you split [1,2,3,4] by a sequence of [2,3] this method will return a list with 2 byte arrays, one containing [1,2,3] and the
         /// second one containing 4. Use the Trim extension methods to remove terminator sequences.
         /// </summary>
-        /// <param name="buffer">The buffer.</param>
+        /// <param name="this">The buffer.</param>
         /// <param name="offset">The offset at which to start splitting bytes. Any bytes before this will be discarded.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>
@@ -130,33 +130,33 @@ namespace Swan
         /// or
         /// sequence.
         /// </exception>
-        public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
+        public static List<byte[]> Split(this byte[] @this, int offset, params byte[] sequence)
         {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
 
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
-            var seqOffset = offset.Clamp(0, buffer.Length - 1);
+            var seqOffset = offset.Clamp(0, @this.Length - 1);
 
             var result = new List<byte[]>();
 
-            while (seqOffset < buffer.Length)
+            while (seqOffset < @this.Length)
             {
-                var separatorStartIndex = buffer.GetIndexOf(sequence, seqOffset);
+                var separatorStartIndex = @this.GetIndexOf(sequence, seqOffset);
 
                 if (separatorStartIndex >= 0)
                 {
                     var item = new byte[separatorStartIndex - seqOffset + sequence.Length];
-                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
+                    Array.Copy(@this, seqOffset, item, 0, item.Length);
                     result.Add(item);
                     seqOffset += item.Length;
                 }
                 else
                 {
-                    var item = new byte[buffer.Length - seqOffset];
-                    Array.Copy(buffer, seqOffset, item, 0, item.Length);
+                    var item = new byte[@this.Length - seqOffset];
+                    Array.Copy(@this, seqOffset, item, 0, item.Length);
                     result.Add(item);
                     break;
                 }
@@ -168,15 +168,15 @@ namespace Swan
         /// <summary>
         /// Clones the specified buffer, byte by byte.
         /// </summary>
-        /// <param name="buffer">The buffer.</param>
+        /// <param name="this">The buffer.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] DeepClone(this byte[] buffer)
+        public static byte[] DeepClone(this byte[] @this)
         {
-            if (buffer == null)
+            if (@this == null)
                 return null;
 
-            var result = new byte[buffer.Length];
-            Array.Copy(buffer, result, buffer.Length);
+            var result = new byte[@this.Length];
+            Array.Copy(@this, result, @this.Length);
             return result;
         }
 
@@ -295,7 +295,7 @@ namespace Swan
 
         /// <summary>
         /// Returns the first instance of the matched sequence based on the given offset.
-        /// If nomatches are found then this method returns -1.
+        /// If no matches are found then this method returns -1.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
