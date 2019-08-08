@@ -40,10 +40,9 @@ namespace Swan
             if (Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
                 return Equals(left, right);
 
-            if (targetType.IsValueType || targetType.IsArray)
-                return AreStructsEqual(left, right, targetType);
-
-            return AreObjectsEqual(left, right, targetType);
+            return targetType.IsValueType || targetType.IsArray
+                ? AreStructsEqual(left, right, targetType)
+                : AreObjectsEqual(left, right, targetType);
         }
 
         /// <summary>

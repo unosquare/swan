@@ -130,18 +130,6 @@ namespace Swan
         }
         
         /// <summary>
-        /// Gets the custom attributes.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attributeType">Type of the attribute.</param>
-        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
-        /// <returns>
-        /// Attributes associated with the property represented by this PropertyInfo object.
-        /// </returns>
-        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit) =>
-            type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
-        
-        /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
         /// <param name="type">The type.</param>
