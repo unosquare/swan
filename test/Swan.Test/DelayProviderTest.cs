@@ -16,7 +16,7 @@
             {
                 var time = delay.WaitOne();
                 var mil = time.Milliseconds;
-                Assert.GreaterOrEqual(mil, 1);
+                Assert.GreaterOrEqual(mil, 1, $"Strategy {strategy}");
             }               
         }
     }

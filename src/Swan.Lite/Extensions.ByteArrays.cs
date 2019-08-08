@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -411,12 +411,12 @@ namespace Swan
         /// <param name="stream">The stream.</param>
         /// <param name="length">The length.</param>
         /// <param name="bufferLength">Length of the buffer.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">stream.</exception>
-        public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default)
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken cancellationToken = default)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -431,7 +431,7 @@ namespace Swan
                         if (length < bufferLength)
                             bufferLength = (int)length;
 
-                        var nread = await stream.ReadAsync(buff, 0, bufferLength, ct).ConfigureAwait(false);
+                        var nread = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
                         if (nread == 0)
                             break;
 
@@ -453,12 +453,12 @@ namespace Swan
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="length">The length.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">stream.</exception>
-        public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default)
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken cancellationToken = default)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -469,7 +469,7 @@ namespace Swan
             {
                 while (length > 0)
                 {
-                    var nread = await stream.ReadAsync(buff, offset, length, ct).ConfigureAwait(false);
+                    var nread = await stream.ReadAsync(buff, offset, length, cancellationToken).ConfigureAwait(false);
                     if (nread == 0)
                         break;
 

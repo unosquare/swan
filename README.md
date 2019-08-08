@@ -37,7 +37,6 @@ Table of contents
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     * [The Connection class](#the-connection-class)
-    * [The Benchmark component](#the-benchmark-component)
     * [The DelayProvider component](#the-delayprovider-component)
     * [The WaitEventFactory component](#the-waiteventfactory-component)
     * [Atomic Types](#atomic-types)
@@ -48,32 +47,31 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|
-| [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Parsing.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [CircularBuffer](https://unosquare.github.io/swan/api/Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
+| [CircularBuffer](https://unosquare.github.io/swan/api/Swan.CircularBuffer.html) | :x: | :heavy_check_mark: |
 | [Connection](https://unosquare.github.io/swan/api/Swan.Net.Connection.html) | :x: | :heavy_check_mark: |
 | [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Net.ConnectionListener.html) | :x: | :heavy_check_mark: |
-| [CsProjFile<T>](https://unosquare.github.io/swan/api/Swan.Components.CsProjFile-1.html) | :x: | :heavy_check_mark: |
 | [CsvReader](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [CsvWriter](https://unosquare.github.io/swan/api/Swan.Formatters.CsvWriter.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [DateExtensions](https://unosquare.github.io/swan/api/Swan.DateExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [DateTimeSpan](https://unosquare.github.io/swan/api/Swan.DateTimeSpan.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Definitions](https://unosquare.github.io/swan/api/Swan.Definitions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [DependencyContainer](https://unosquare.github.io/swan/api/Swan.Components.DependencyContainer.html) | :x: | :heavy_check_mark: |
-| [EnumHelper](https://unosquare.github.io/swan/api/Swan.Components.EnumHelper.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DependencyContainer](https://unosquare.github.io/swan/api/Swan.DependencyInjection.DependencyContainer.html) | :x: | :heavy_check_mark: |
+| [EnumHelper](https://unosquare.github.io/swan/api/Swan.EnumHelper.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Extensions](https://unosquare.github.io/swan/api/Swan.Extensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [FunctionalExtensions](https://unosquare.github.io/swan/api/Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Json](https://unosquare.github.io/swan/api/Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [JsonClient](https://unosquare.github.io/swan/api/Swan.Net.JsonClient.html) | :x: | :heavy_check_mark: |
-| [MessageHub](https://unosquare.github.io/swan/api/Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
-| [Network](https://unosquare.github.io/swan/api/Swan.Network.html) | :x: | :heavy_check_mark: |
+| [MessageHub](https://unosquare.github.io/swan/api/Swan.Messaging.MessageHub.html) | :x: | :heavy_check_mark: |
+| [Network](https://unosquare.github.io/swan/api/Swan.Net.Network.html) | :x: | :heavy_check_mark: |
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
-| [ObjectComparer](https://unosquare.github.io/swan/api/Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ObjectMapper](https://unosquare.github.io/swan/api/Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
- | [ObjectValidator](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [ProcessRunner](https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
+| [ObjectComparer](https://unosquare.github.io/swan/api/Swan.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ObjectMapper](https://unosquare.github.io/swan/api/Swan.Mappers.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ObjectValidator](https://unosquare.github.io/swan/api/Swan.Validators.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ProcessRunner](https://unosquare.github.io/swan/api/Swan.ProcessRunner.html) | :x: | :heavy_check_mark: |
 | [ReflectionExtensions](https://unosquare.github.io/swan/api/Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [Runtime](https://unosquare.github.io/swan/api/Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SwanRuntime](https://unosquare.github.io/swan/api/Swan.SwanRuntime.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Configuration.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html) | :x: | :heavy_check_mark: |
@@ -83,7 +81,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [ValueTypeExtensions](https://unosquare.github.io/swan/api/Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [WorkerBase](https://unosquare.github.io/swan/api/Swan.Abstractions.WorkerBase.html) | :x: | :heavy_check_mark: |
  
-If you are developing an ASP.NET Core application, we recommend to use [SWAN AspNet.Core](https://github.com/unosquare/swan-aspnetcore).
+If you are developing an ASP.NET Core application, we recommend to use [SWAN ASP.NET Core](https://github.com/unosquare/swan-aspnetcore).
 
 ## 💾 Installation:
 
@@ -125,7 +123,6 @@ The Swan `Terminal` is __all__ of the following:
 - Console Standard Error Writer 
 - Debug Writer
 - Console Standard Input Reader
-- Log message forwarder
 
 It is also very easy to use, it's thread-safe, and it does not require you to learn anything new. In fact, it simplifies logging
 messages and displaying `Console` messages by providing `string` extension methods.
@@ -156,34 +153,13 @@ $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriter
 $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 ```
 
-#### Example 2: Basic Logging
-
-This is where `Terminal` really shines. Instead of using the `Write` and `WriteLine` methods, you can use the methods that are intended for logging. These methods have different purposes and distinct functionality. Please
-refer to the example below and its comments.
-
-```csharp
-$"Hello, today is {DateTime.Today}".Info();
-$"Hello, today is {DateTime.Today}".Debug();
-$"Hello, today is {DateTime.Today}".Warn();
-$"Hello, today is {DateTime.Today}".Error();
-$"Hello, today is {DateTime.Today}".Trace();
-```
-
-#### Example 3: Forwarding Logging Messages
-
-Suppose you have various calls to `Terminal`'s logging methods such as `Info()`, `Warn()`, `Error()`, `Trace()`
-and `Debug()`. You wish to forward those messages to a logging subsystem in addition to using the `Console`'s
-standard output and standard error, and the built-in diagnostics output. All you have to do is subscribe to the
-Terminal's `OnLogMessageReceived` event. The event arguments of this event provide useful properties that you
-can piece together to send your logging messages directly to the Logging subsystem in your application.
-
-#### Example 4: Configuring Output
+#### Example 2: Configuring Output
 
 Swan's `Terminal` provides both, flexibility and consistency for all of its output. While it will pick the most
 common defaults for a given build or runtime scenario, you are able to modify such defaults and adjust them to your
 liking. You can change the output colors,  
 
-#### Example 5: User Interaction
+#### Example 3: User Interaction
 
 The Swan `Terminal` would not be complete without a way to read user input. The good news is
 that `Terminal` can create decent-looking user prompts if a very convenient way.
@@ -202,7 +178,7 @@ var promptResult = Terminal.ReadPrompt("Read Promp", options, "A");
 var keyResult = Terminal.ReadKey("Read Key");
 ``` 
 
-#### Example 6: Other Useful Functions
+#### Example 4: Other Useful Functions
 
 Swan's `Terminal` also provides additional methods to accomplish very specific tasks. Given the fact that `Terminal`
 is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queues to be written
@@ -467,7 +443,7 @@ client.SendMailAsync(session);
 
 The `ObjectMapper` is a component to translate and copy property data from one type to another. You can access a default instance of `ObjectMapper` through the `Runtime` class.
 
-[ObjectMapper API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectMapper.html)
+[ObjectMapper API Doc](https://unosquare.github.io/swan/api/Swan.Mappers.ObjectMapper.html)
 
 #### Example 1: Mapping with default map
 
@@ -550,7 +526,7 @@ var dateTime = Network.GetNetworkTimeUtc();
 
 Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your own code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
-[ObjectComparer API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectComparer.html)
+[ObjectComparer API Doc](https://unosquare.github.io/swan/api/Swan.ObjectComparer.html)
 
 ```csharp
 // Compare if two variables of the same type are equal.
@@ -568,9 +544,9 @@ ObjectComparer.AreEnumsEqual(first, second)
 ### The `ObjectValidator` component
 A simple object validator that allows you to set custom validations and identify if an object satisfies them.
 
-[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidator.html)
+[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidator.html)
 
-[ObjectValdiationResult API Doc](https://unosquare.github.io/swan/api/Swan.Components.ObjectValidationResult.html)
+[ObjectValidationResult API Doc](https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidationResult.html)
 
 ### Example 1: Simple object validation
 Our `Simple` class to validate
@@ -909,25 +885,6 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
 }
 ```
 
-### The `Benchmark` component
-A simple benchmarking class used as an `IDisposable` that provides useful statistics about a certain piece of code.
-
-
-[Benchmark API Doc](https://unosquare.github.io/swan/api/Swan.Components.Benchmark.html)
-
-#### Example 1: A simple benchmark test
-```csharp
-//starts a test with a custom name identifier
-using (Benchmark.Start("Test")) 
-{
-
-  // do some logic in here
-  
-}
-
-// dump results into a string
-var results = Benchmark.Dump();
-```
 ### The `DelayProvider` component
 A useful component that implements several delay mechanisms.
 
@@ -996,11 +953,11 @@ static void Work(int taskNumber)
 
 Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: `bool`, `long`, and `double`. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a `torn write`.
 
-[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Swan.AtomicBoolean.html)
+[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Swan.Threading.AtomicBoolean.html)
 
-[AtomicLong API Doc](https://unosquare.github.io/swan/api/Swan.AtomicLong.html)
+[AtomicLong API Doc](https://unosquare.github.io/swan/api/Swan.Threading.AtomicLong.html)
 
-[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Swan.AtomicDouble.html)
+[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Swan.Threading.AtomicDouble.html)
 
 ## Running Unit Tests
 

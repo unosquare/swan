@@ -8,10 +8,12 @@ namespace Swan.Validators
     /// </summary>
     public class ObjectValidationResult
     {
+        private readonly List<ValidationError> _errors = new List<ValidationError>();
+
         /// <summary>
         /// A list of errors.
         /// </summary>
-        public List<ValidationError> Errors { get; set; } = new List<ValidationError>();
+        public IReadOnlyList<ValidationError> Errors => _errors;
 
         /// <summary>
         /// <c>true</c> if there are no errors; otherwise, <c>false</c>.
@@ -24,7 +26,7 @@ namespace Swan.Validators
         /// <param name="propertyName">The property name.</param>
         /// <param name="errorMessage">The error message.</param>
         public void Add(string propertyName, string errorMessage) =>
-            Errors.Add(new ValidationError { ErrorMessage = errorMessage, PropertyName = propertyName });
+            _errors.Add(new ValidationError { ErrorMessage = errorMessage, PropertyName = propertyName });
 
         /// <summary>
         /// Defines a validation error.
@@ -34,12 +36,12 @@ namespace Swan.Validators
             /// <summary>
             /// The property name.
             /// </summary>
-            public string PropertyName { get; set; }
+            public string PropertyName { get; internal set; }
 
             /// <summary>
             /// The message error.
             /// </summary>
-            public string ErrorMessage { get; set; }
+            public string ErrorMessage { get; internal set; }
         }
     }
 }

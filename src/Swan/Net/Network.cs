@@ -136,13 +136,13 @@
         /// <summary>
         /// Gets the public IP address using ipify.org.
         /// </summary>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A public IP address of the result produced by this Task.</returns>
-        public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default)
+        public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken cancellationToken = default)
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync("https://api.ipify.org", ct).ConfigureAwait(false);
+                var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
                 return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
         }

@@ -30,10 +30,10 @@
         /// This method is meant to be used for programs that output a relatively small amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task.</returns>
-        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken ct = default) =>
-            GetProcessOutputAsync(filename, string.Empty, ct);
+        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken cancellationToken = default) =>
+            GetProcessOutputAsync(filename, string.Empty, cancellationToken);
 
         /// <summary>
         /// Runs the process asynchronously and if the exit code is 0,
@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task.</returns>
         /// <example>
         /// The following code explains how to run an external process using the 
@@ -52,7 +52,7 @@
         /// class Example
         /// {
         ///     using System.Threading.Tasks;
-        ///     using Swan.Components;
+        ///     using Swan;
         ///     
         ///     static async Task Main()
         ///     {
@@ -69,9 +69,9 @@
         public static async Task<string> GetProcessOutputAsync(
             string filename, 
             string arguments,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, ct).ConfigureAwait(false);
+            var result = await GetProcessResultAsync(filename, arguments, cancellationToken).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -81,7 +81,7 @@
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="workingDirectory">The working directory.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// The type of the result produced by this Task.
         /// </returns>
@@ -89,9 +89,9 @@
             string filename,
             string arguments,
             string workingDirectory,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, workingDirectory, ct: ct).ConfigureAwait(false);
+            var result = await GetProcessResultAsync(filename, arguments, workingDirectory, cancellationToken: cancellationToken).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -105,7 +105,7 @@
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// The type of the result produced by this Task.
         /// </returns>
@@ -113,9 +113,9 @@
             string filename, 
             string arguments = "",
             Encoding encoding = null, 
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
-            var result = await GetProcessResultAsync(filename, arguments, null, encoding, ct).ConfigureAwait(false);
+            var result = await GetProcessResultAsync(filename, arguments, null, encoding, cancellationToken).ConfigureAwait(false);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
@@ -126,7 +126,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance.
         /// </returns>
@@ -134,8 +134,8 @@
         public static Task<ProcessResult> GetProcessResultAsync(
             string filename, 
             string arguments = "",
-            CancellationToken ct = default) =>
-            GetProcessResultAsync(filename, arguments, null, Definitions.CurrentAnsiEncoding, ct);
+            CancellationToken cancellationToken = default) =>
+            GetProcessResultAsync(filename, arguments, null, Definitions.CurrentAnsiEncoding, cancellationToken);
 
         /// <summary>
         /// Executes a process asynchronously and returns the text of the standard output and standard error streams
@@ -146,7 +146,7 @@
         /// <param name="arguments">The arguments.</param>
         /// <param name="workingDirectory">The working directory.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance.
         /// </returns>
@@ -156,19 +156,22 @@
         /// <code>
         /// class Example
         /// {
-        /// using System.Threading.Tasks;
-        /// using Swan.Components;
-        /// static async Task Main()
-        /// {
-        /// // Execute a process asynchronously
-        /// var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
-        /// // print out the exit code
-        /// $"{data.ExitCode}".WriteLine();
-        /// // print out the output
-        /// data.StandardOutput.WriteLine();
-        /// // and the error if exists
-        /// data.StandardError.Error();
-        /// }
+        ///     using System.Threading.Tasks;
+        ///     using Swan;
+        /// 
+        ///     static async Task Main()
+        ///     {
+        ///         // Execute a process asynchronously
+        ///         var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
+        /// 
+        ///         // print out the exit code
+        ///         $"{data.ExitCode}".WriteLine();
+        ///
+        ///         // print out the output
+        ///         data.StandardOutput.WriteLine();
+        ///         // and the error if exists
+        ///         data.StandardError.Error();
+        ///     }
         /// }
         /// </code></example>
         public static async Task<ProcessResult> GetProcessResultAsync(
@@ -176,7 +179,7 @@
             string arguments,
             string workingDirectory, 
             Encoding encoding = null, 
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -195,7 +198,7 @@
                 (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
                 encoding,
                 true,
-                ct)
+                cancellationToken)
                 .ConfigureAwait(false);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
@@ -215,7 +218,7 @@
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
         /// Value type will be -1 for forceful termination of the process.
         /// </returns>
@@ -227,7 +230,7 @@
             ProcessDataReceivedCallback onErrorData,
             Encoding encoding,
             bool syncEvents = true,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -269,18 +272,18 @@
                     process.StandardOutput.BaseStream, 
                     onOutputData, 
                     syncEvents,
-                    ct);
+                    cancellationToken);
                 readTasks[1] = CopyStreamAsync(
                     process, 
                     process.StandardError.BaseStream, 
                     onErrorData, 
                     syncEvents, 
-                    ct);
+                    cancellationToken);
 
                 try
                 {
                     // Wait for all tasks to complete
-                    Task.WaitAll(readTasks, ct);
+                    Task.WaitAll(readTasks, cancellationToken);
                 }
                 catch (TaskCanceledException)
                 {
@@ -289,7 +292,7 @@
                 finally
                 {
                     // Wait for the process to exit
-                    while (ct.IsCancellationRequested == false)
+                    while (cancellationToken.IsCancellationRequested == false)
                     {
                         if (process.HasExited || process.WaitForExit(5))
                             break;
@@ -317,7 +320,7 @@
                 {
                     return -1;
                 }
-            }, ct);
+            }, cancellationToken);
         }
 
         /// <summary>
@@ -332,7 +335,7 @@
         /// <param name="onOutputData">The on output data.</param>
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
-        /// <param name="ct">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>Value type will be -1 for forceful termination of the process.</returns>
         /// <example>
         /// The following example illustrates how to run an external process using the 
@@ -345,7 +348,6 @@
         ///     using System.Text;
         ///     using System.Threading.Tasks;
         ///     using Swan;
-        ///     using Swan.Components;
         ///     
         ///     static async Task Main()
         ///     {
@@ -369,7 +371,7 @@
             ProcessDataReceivedCallback onOutputData, 
             ProcessDataReceivedCallback onErrorData, 
             bool syncEvents = true,
-            CancellationToken ct = default)
+            CancellationToken cancellationToken = default)
             => RunProcessAsync(
                 filename, 
                 arguments, 
@@ -378,7 +380,7 @@
                 onErrorData, 
                 Definitions.CurrentAnsiEncoding,
                 syncEvents, 
-                ct);
+                cancellationToken);
 
         /// <summary>
         /// Copies the stream asynchronously.
