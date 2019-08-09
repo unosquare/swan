@@ -12,6 +12,16 @@ namespace Swan.Logging
         private static readonly object SyncLock = new object();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+        /// </summary>
+        protected ConsoleLogger()
+        {
+            // Empty
+        }
+
+        internal static ConsoleLogger Instance { get; } = new ConsoleLogger();
+
+        /// <summary>
         /// Gets or sets the debug logging prefix.
         /// </summary>
         /// <value>

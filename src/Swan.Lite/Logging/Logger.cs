@@ -19,7 +19,7 @@ namespace Swan.Logging
 
         static Logger()
         {
-            Loggers.Add(new ConsoleLogger());
+            Loggers.Add(ConsoleLogger.Instance);
         }
 
         #region Standard Public API
@@ -60,20 +60,13 @@ namespace Swan.Logging
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <exception cref="ArgumentOutOfRangeException">logger.</exception>
-        public static void UnregisterLogger(ILogger logger)
-        {
-            lock (SyncLock)
-            {
-                var loggerInstance = Loggers.FirstOrDefault(x => x == logger);
+        public static void UnregisterLogger(ILogger logger) => RemoveLogger(x => x == logger);
 
-                if (loggerInstance == null)
-                    throw new ArgumentOutOfRangeException(nameof(logger));
-
-                loggerInstance.Dispose();
-
-                Loggers.Remove(loggerInstance);
-            }
-        }
+        /// <summary>
+        /// Unregisters the logger.
+        /// </summary>
+        /// <typeparam name="T">The type of logger to unregister.</typeparam>
+        public static void UnregisterLogger<T>() => RemoveLogger(x => x.GetType() == typeof(T));
 
         #region Debug
 
@@ -594,6 +587,21 @@ namespace Swan.Logging
         }
 
         #endregion
+
+        private static void RemoveLogger(Func<ILogger, bool> criteria)
+        {
+            lock (SyncLock)
+            {
+                var loggerInstance = Loggers.FirstOrDefault(criteria);
+
+                if (loggerInstance == null)
+                    throw new InvalidOperationException("The logger is not registered.");
+
+                loggerInstance.Dispose();
+
+                Loggers.Remove(loggerInstance);
+            }
+        }
 
         private static void LogMessage(
             LogLevel logLevel,
