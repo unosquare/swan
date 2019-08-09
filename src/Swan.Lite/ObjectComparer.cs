@@ -154,7 +154,7 @@ namespace Swan
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// True if two specified types are equal; otherwise, false.
+        /// <c>true</c> if two specified types are equal; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// left

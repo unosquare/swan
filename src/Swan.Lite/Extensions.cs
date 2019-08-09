@@ -41,7 +41,7 @@ namespace Swan
         /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)
-            => Mappers.ObjectMapper.Copy(source, target, null, ignoreProperties);
+            => ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -68,23 +68,7 @@ namespace Swan
         /// Number of properties that were successfully copied.
         /// </returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy) 
-            => Mappers.ObjectMapper.Copy(source, target, propertiesToCopy);
-
-        /// <summary>
-        /// Deep clone an object, this is just an alias for <c>CopyPropertiesToNew</c>.
-        /// </summary>
-        /// <typeparam name="T">The new object type.</typeparam>
-        /// <param name="source">The source.</param>
-        /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>
-        /// The specified type with properties copied.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">source.</exception>
-        public static T DeepClone<T>(this T source, params string[] ignoreProperties)
-            where T : class
-        {
-            return source.CopyPropertiesToNew<T>(ignoreProperties);
-        }
+            => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
         /// Copies the properties to new instance of T.
@@ -150,7 +134,7 @@ namespace Swan
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            return Mappers.ObjectMapper.Copy(source, target, null, ignoreKeys);
+            return ObjectMapper.Copy(source, target, null, ignoreKeys);
         }
 
         /// <summary>
@@ -236,31 +220,6 @@ namespace Swan
             }
 
             throw new AggregateException(exceptions);
-        }
-
-        /// <summary>
-        /// Retrieves the exception message, plus all the inner exception messages separated by new lines.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        /// <param name="priorMessage">The prior message.</param>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public static string ExceptionMessage(this Exception ex, string priorMessage = "")
-        {
-            while (true)
-            {
-                if (ex == null)
-                    throw new ArgumentNullException(nameof(ex));
-
-                var fullMessage = string.IsNullOrWhiteSpace(priorMessage)
-                    ? ex.Message
-                    : priorMessage + "\r\n" + ex.Message;
-
-                if (string.IsNullOrWhiteSpace(ex.InnerException?.Message))
-                    return fullMessage;
-
-                ex = ex.InnerException;
-                priorMessage = fullMessage;
-            }
         }
 
         /// <summary>

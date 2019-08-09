@@ -251,26 +251,6 @@ namespace Swan.Test.ExtensionsTest
     }
 
     [TestFixture]
-    public class DeepClone
-    {
-        [Test]
-        public void WithSmtpState_CloneProperly()
-        {
-            var sampleBuffer = System.Text.Encoding.UTF8.GetBytes("HOLA");
-            var source = new SmtpSessionState();
-            source.DataBuffer.AddRange(sampleBuffer);
-
-            var target = source.DeepClone();
-
-            Assert.AreEqual(source.DataBuffer.Count, target.DataBuffer.Count);
-            source.ResetEmail();
-
-            Assert.AreEqual(0, source.DataBuffer.Count);
-            Assert.AreEqual(sampleBuffer.Length, target.DataBuffer.Count);
-        }
-    }
-
-    [TestFixture]
     public class CopyOnlyPropertiesTo
     {
         [Test]
@@ -327,50 +307,6 @@ namespace Swan.Test.ExtensionsTest
 
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.DecimalData, destination.DecimalData);
-        }
-    }
-
-    [TestFixture]
-    public class ExceptionMessage : TestFixtureBase
-    {
-        [Test]
-        public void WithNullException_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => NullException.ExceptionMessage());
-        }
-
-        [Test]
-        public void ExceptionMessageTest()
-        {
-            try
-            {
-                throw new Exception("Random message");
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.ExceptionMessage();
-                Assert.IsNotNull(msg);
-                Assert.AreEqual(msg, ex.Message);
-            }
-        }
-
-        [Test]
-        public void InnerExceptionTest()
-        {
-            string[] splits = {"\r\n"};
-            var exceptions = new List<Exception>
-            {
-                new TimeoutException("It timed out", new ArgumentException("ID missing")),
-                new NotImplementedException("Somethings not implemented", new ArgumentNullException()),
-            };
-
-            var ex = new AggregateException(exceptions);
-
-            var msg = ex.ExceptionMessage();
-            Assert.IsNotNull(msg);
-
-            var lines = msg.Split(splits, StringSplitOptions.None);
-            Assert.AreEqual(lines.Length - 1, ex.InnerExceptions.Count);
         }
     }
 }
