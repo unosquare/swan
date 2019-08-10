@@ -13,7 +13,7 @@ namespace Swan.Collections
     /// <typeparam name="TKey">The type of keys in the dictionary. This must be a reference type.</typeparam>
     /// <typeparam name="TValue">The type of values in the dictionary. This must be a reference type.</typeparam>
     /// <seealso cref="IDataDictionary{TKey,TValue}"/>
-    public sealed class ConcurrentDataDictionary<TKey, TValue> : IDataDictionary<TKey, TValue>, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>
+    public sealed class ConcurrentDataDictionary<TKey, TValue> : IDataDictionary<TKey, TValue>
         where TKey : class
         where TValue : class
     {
