@@ -1,0 +1,522 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ArgumentParser
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ArgumentParser
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Parsers.ArgumentParser">
+  
+  
+  <h1 id="Swan_Parsers_ArgumentParser" data-uid="Swan.Parsers.ArgumentParser" class="text-break">Class ArgumentParser
+  </h1>
+  <div class="markdown level0 summary"><p>Provides methods to parse command line arguments.</p>
+<p>Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">ArgumentParser</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Parsers.html">Swan.Parsers</a></h6>
+  <h5 id="Swan_Parsers_ArgumentParser_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ArgumentParser</code></pre>
+  </div>
+  <h5 id="Swan_Parsers_ArgumentParser_examples"><strong>Examples</strong></h5>
+  <p>The following example shows how to parse CLI arguments into objects.</p>
+<pre><code>class Example 
+{
+    using System;
+    using Swan.Parsers;
+
+    static void Main(string[] args)
+    {
+        // parse the supplied command-line arguments into the options object
+        var res = Runtime.ArgumentParser.ParseArguments(args, out var options);
+    }
+
+    class Options
+    {
+        [ArgumentOption(&apos;v&apos;, &quot;verbose&quot;, HelpText = &quot;Set verbose mode.&quot;)]
+        public bool Verbose { get; set; }
+
+        [ArgumentOption(&apos;u&apos;, Required = true, HelpText = &quot;Set user name.&quot;)]
+        public string Username { get; set; }
+
+        [ArgumentOption(&apos;n&apos;, &quot;names&quot;, Separator = &apos;,&apos;,
+        Required = true, HelpText = &quot;A list of files separated by a comma&quot;)]
+        public string[] Files { get; set; }
+
+        [ArgumentOption(&apos;p&apos;, &quot;port&quot;, DefaultValue = 22, HelpText = &quot;Set port.&quot;)]
+        public int Port { get; set; }
+
+        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red,
+        HelpText = &quot;Set a color.&quot;)]
+        public ConsoleColor Color { get; set; }
+    }
+}</code></pre>
+<p>The following code describes how to parse CLI verbs.</p>
+<pre><code>class Example2 
+{
+    using Swan;
+    using Swan.Parsers;
+
+    static void Main(string[] args)
+    {
+        // create an instance of the VerbOptions class
+        var options = new VerbOptions();
+
+        // parse the supplied command-line arguments into the options object
+        var res = Runtime.ArgumentParser.ParseArguments(args, options);
+
+        // if there were no errors parsing
+        if (res)
+        {
+            if(options.Run != null)
+            {
+                // run verb was selected
+            }
+
+            if(options.Print != null)
+            {
+                // print verb was selected
+            }
+        }
+
+        // flush all error messages
+        Terminal.Flush();
+    }
+
+    class VerbOptions
+    {
+        [VerbOption(&quot;run&quot;, HelpText = &quot;Run verb.&quot;)]
+        public RunVerbOption Run { get; set; }
+
+        [VerbOption(&quot;print&quot;, HelpText = &quot;Print verb.&quot;)]
+        public PrintVerbOption Print { get; set; }
+    }
+
+    class RunVerbOption
+    {
+        [ArgumentOption(&apos;o&apos;, &quot;outdir&quot;, HelpText = &quot;Output directory&quot;,
+        DefaultValue = &quot;&quot;, Required = false)]
+        public string OutDir { get; set; }
+    }
+
+    class PrintVerbOption
+    {
+        [ArgumentOption(&apos;t&apos;, &quot;text&quot;, HelpText = &quot;Text to print&quot;,
+        DefaultValue = &quot;&quot;, Required = false)]
+        public string Text { get; set; }
+    }
+}</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser__ctor_" data-uid="Swan.Parsers.ArgumentParser.#ctor*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser__ctor" data-uid="Swan.Parsers.ArgumentParser.#ctor">ArgumentParser()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Parsers.ArgumentParser.html">ArgumentParser</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ArgumentParser()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser__ctor_" data-uid="Swan.Parsers.ArgumentParser.#ctor*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser__ctor_Swan_Parsers_ArgumentParserSettings_" data-uid="Swan.Parsers.ArgumentParser.#ctor(Swan.Parsers.ArgumentParserSettings)">ArgumentParser(ArgumentParserSettings)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Parsers.ArgumentParser.html">ArgumentParser</a> class,
+configurable with <a class="xref" href="Swan.Parsers.ArgumentParserSettings.html">ArgumentParserSettings</a> using a delegate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ArgumentParser(ArgumentParserSettings parseSettings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Parsers.ArgumentParserSettings.html">ArgumentParserSettings</a></td>
+        <td><span class="parametername">parseSettings</span></td>
+        <td><p>The parse settings.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser_Current_" data-uid="Swan.Parsers.ArgumentParser.Current*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser_Current" data-uid="Swan.Parsers.ArgumentParser.Current">Current</h4>
+  <div class="markdown level1 summary"><p>Gets the current.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ArgumentParser Current { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Parsers.ArgumentParser.html">ArgumentParser</a></td>
+        <td><p>The current.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser_Settings_" data-uid="Swan.Parsers.ArgumentParser.Settings*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser_Settings" data-uid="Swan.Parsers.ArgumentParser.Settings">Settings</h4>
+  <div class="markdown level1 summary"><p>Gets the instance that implements <a class="xref" href="Swan.Parsers.ArgumentParserSettings.html">ArgumentParserSettings</a> in use.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ArgumentParserSettings Settings { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Parsers.ArgumentParserSettings.html">ArgumentParserSettings</a></td>
+        <td><p>The settings.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser_ParseArguments_" data-uid="Swan.Parsers.ArgumentParser.ParseArguments*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser_ParseArguments__1_IEnumerable_System_String____0_" data-uid="Swan.Parsers.ArgumentParser.ParseArguments``1(IEnumerable{System.String},``0)">ParseArguments&lt;T&gt;(IEnumerable&lt;String&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Parses a string array of command line arguments constructing values in an instance of type <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ParseArguments&lt;T&gt;(IEnumerable&lt;string&gt; args, T instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if was converted successfully; otherwise,  <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Parsers_ArgumentParser_ParseArguments_" data-uid="Swan.Parsers.ArgumentParser.ParseArguments*"></a>
+  <h4 id="Swan_Parsers_ArgumentParser_ParseArguments__1_IEnumerable_System_String____0__" data-uid="Swan.Parsers.ArgumentParser.ParseArguments``1(IEnumerable{System.String},``0@)">ParseArguments&lt;T&gt;(IEnumerable&lt;String&gt;, out T)</h4>
+  <div class="markdown level1 summary"><p>Parses a string array of command line arguments constructing values in an instance of type <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ParseArguments&lt;T&gt;(IEnumerable&lt;string&gt; args, out T instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if was converted successfully; otherwise,  <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

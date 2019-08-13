@@ -1,0 +1,1658 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Connection
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Connection
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Net.Connection">
+  
+  
+  <h1 id="Swan_Net_Connection" data-uid="Swan.Net.Connection" class="text-break">Class Connection
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
+and its corresponding network streams. It is capable of working in 2 modes. Typically on the server side
+you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
+and use the Read methods available. In continuous reading mode Read methods are not available and will throw
+an invalid operation exceptions if they are used.
+Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don&apos;t use Read methods
+Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Connection</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Net.html">Swan.Net</a></h6>
+  <h5 id="Swan_Net_Connection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class Connection : IDisposable</code></pre>
+  </div>
+  <h5 id="Swan_Net_Connection_examples"><strong>Examples</strong></h5>
+  <p>The following code explains how to create a TCP server.</p>
+<pre><code>using System.Text;
+using Swan.Net;
+
+class Example
+{
+    static void Main()
+    {
+        // create a new connection listener on a specific port
+        var connectionListener = new ConnectionListener(1337);
+
+        // handle the OnConnectionAccepting event
+        connectionListener.OnConnectionAccepted += async (s, e) =>
+        {
+             // create a new connection 
+             using (var con = new Connection(e.Client))
+             {               
+                await con.WriteLineAsync(&quot;Hello world!&quot;);
+             }
+        };
+
+        connectionListener.Start();
+        Console.ReadLine)=ñ
+    }
+}</code></pre>
+<p>The following code describes how to create a TCP client.</p>
+<pre><code>using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using Swan.Net;
+
+class Example
+{
+    static async Task Main()
+    {
+        // create a new TcpClient object
+        var client = new TcpClient();
+
+        // connect to a specific address and port
+        client.Connect(&quot;localhost&quot;, 1337);
+
+        //create a new connection with specific encoding,
+        //new line sequence and continuous reading disabled
+        using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0))
+        {               
+           var response = await cn.ReadTextAsync();
+        }
+    }
+}</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Swan_Net_Connection__ctor_" data-uid="Swan.Net.Connection.#ctor*"></a>
+  <h4 id="Swan_Net_Connection__ctor_TcpClient_" data-uid="Swan.Net.Connection.#ctor(TcpClient)">Connection(TcpClient)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.Connection.html">Connection</a> class in continuous reading mode.
+It uses UTF8 encoding, CRLF as a new line sequence and disables a protocol block size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Connection(TcpClient client)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TcpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The client.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection__ctor_" data-uid="Swan.Net.Connection.#ctor*"></a>
+  <h4 id="Swan_Net_Connection__ctor_TcpClient_System_Int32_" data-uid="Swan.Net.Connection.#ctor(TcpClient,System.Int32)">Connection(TcpClient, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.Connection.html">Connection</a> class in continuous reading mode.
+It uses UTF8 encoding, disables line sequences, and uses a protocol block size instead.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Connection(TcpClient client, int blockSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TcpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The client.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">blockSize</span></td>
+        <td><p>Size of the block.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection__ctor_" data-uid="Swan.Net.Connection.#ctor*"></a>
+  <h4 id="Swan_Net_Connection__ctor_TcpClient_System_Text_Encoding_System_String_System_Boolean_System_Int32_" data-uid="Swan.Net.Connection.#ctor(TcpClient,System.Text.Encoding,System.String,System.Boolean,System.Int32)">Connection(TcpClient, Encoding, String, Boolean, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.Connection.html">Connection</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Connection(TcpClient client, Encoding textEncoding, string newLineSequence, bool disableContinuousReading, int blockSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TcpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The client.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">textEncoding</span></td>
+        <td><p>The text encoding.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">newLineSequence</span></td>
+        <td><p>The new line sequence used for read and write operations.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">disableContinuousReading</span></td>
+        <td><p>if set to <code>true</code> [disable continuous reading].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">blockSize</span></td>
+        <td><p>Size of the block. -- set to 0 or less to disable.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Net_Connection_ActiveStream_" data-uid="Swan.Net.Connection.ActiveStream*"></a>
+  <h4 id="Swan_Net_Connection_ActiveStream" data-uid="Swan.Net.Connection.ActiveStream">ActiveStream</h4>
+  <div class="markdown level1 summary"><p>Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns
+the underlying NetworkStream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Stream ActiveStream { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><p>The active stream.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ConnectionDuration_" data-uid="Swan.Net.Connection.ConnectionDuration*"></a>
+  <h4 id="Swan_Net_Connection_ConnectionDuration" data-uid="Swan.Net.Connection.ConnectionDuration">ConnectionDuration</h4>
+  <div class="markdown level1 summary"><p>Gets the duration of the connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan ConnectionDuration { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><p>The duration of the connection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ConnectionStartTime_" data-uid="Swan.Net.Connection.ConnectionStartTime*"></a>
+  <h4 id="Swan_Net_Connection_ConnectionStartTime" data-uid="Swan.Net.Connection.ConnectionStartTime">ConnectionStartTime</h4>
+  <div class="markdown level1 summary"><p>Gets the start time at which the connection was started in local time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime ConnectionStartTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><p>The connection start time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ConnectionStartTimeUtc_" data-uid="Swan.Net.Connection.ConnectionStartTimeUtc*"></a>
+  <h4 id="Swan_Net_Connection_ConnectionStartTimeUtc" data-uid="Swan.Net.Connection.ConnectionStartTimeUtc">ConnectionStartTimeUtc</h4>
+  <div class="markdown level1 summary"><p>Gets the start time at which the connection was started in UTC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime ConnectionStartTimeUtc { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><p>The connection start time UTC.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_DataReceivedIdleDuration_" data-uid="Swan.Net.Connection.DataReceivedIdleDuration*"></a>
+  <h4 id="Swan_Net_Connection_DataReceivedIdleDuration" data-uid="Swan.Net.Connection.DataReceivedIdleDuration">DataReceivedIdleDuration</h4>
+  <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan DataReceivedIdleDuration { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_DataReceivedLastTimeUtc_" data-uid="Swan.Net.Connection.DataReceivedLastTimeUtc*"></a>
+  <h4 id="Swan_Net_Connection_DataReceivedLastTimeUtc" data-uid="Swan.Net.Connection.DataReceivedLastTimeUtc">DataReceivedLastTimeUtc</h4>
+  <div class="markdown level1 summary"><p>Gets the last time data was received at in UTC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime DataReceivedLastTimeUtc { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><p>The data received last time UTC.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_DataSentIdleDuration_" data-uid="Swan.Net.Connection.DataSentIdleDuration*"></a>
+  <h4 id="Swan_Net_Connection_DataSentIdleDuration" data-uid="Swan.Net.Connection.DataSentIdleDuration">DataSentIdleDuration</h4>
+  <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last sent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan DataSentIdleDuration { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><p>The duration of the data sent idle.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_DataSentLastTimeUtc_" data-uid="Swan.Net.Connection.DataSentLastTimeUtc*"></a>
+  <h4 id="Swan_Net_Connection_DataSentLastTimeUtc" data-uid="Swan.Net.Connection.DataSentLastTimeUtc">DataSentLastTimeUtc</h4>
+  <div class="markdown level1 summary"><p>Gets the last time at which data was sent in UTC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime DataSentLastTimeUtc { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><p>The data sent last time UTC.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_Id_" data-uid="Swan.Net.Connection.Id*"></a>
+  <h4 id="Swan_Net_Connection_Id" data-uid="Swan.Net.Connection.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the unique identifier of this connection.
+This field is filled out upon instantiation of this class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></td>
+        <td><p>The identifier.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_IsActiveStreamSecure_" data-uid="Swan.Net.Connection.IsActiveStreamSecure*"></a>
+  <h4 id="Swan_Net_Connection_IsActiveStreamSecure" data-uid="Swan.Net.Connection.IsActiveStreamSecure">IsActiveStreamSecure</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the current connection stream is an SSL stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsActiveStreamSecure { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is active stream secure; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_IsConnected_" data-uid="Swan.Net.Connection.IsConnected*"></a>
+  <h4 id="Swan_Net_Connection_IsConnected" data-uid="Swan.Net.Connection.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this connection is connected.
+Remarks: This property polls the socket internally and checks if it is available to read data from it.
+If disconnect has been called, then this property will return false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is connected; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_IsContinuousReadingEnabled_" data-uid="Swan.Net.Connection.IsContinuousReadingEnabled*"></a>
+  <h4 id="Swan_Net_Connection_IsContinuousReadingEnabled" data-uid="Swan.Net.Connection.IsContinuousReadingEnabled">IsContinuousReadingEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this connection is in continuous reading mode.
+Remark: Whenever a disconnect event occurs, the background thread is terminated
+and this property will return false whenever the reading thread is not active.
+Therefore, even if continuous reading was not disabled in the constructor, this property
+might return false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsContinuousReadingEnabled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is continuous reading enabled; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_LocalEndPoint_" data-uid="Swan.Net.Connection.LocalEndPoint*"></a>
+  <h4 id="Swan_Net_Connection_LocalEndPoint" data-uid="Swan.Net.Connection.LocalEndPoint">LocalEndPoint</h4>
+  <div class="markdown level1 summary"><p>Gets the local end point of this TCP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPEndPoint LocalEndPoint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPEndPoint</span></td>
+        <td><p>The local end point.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ProtocolBlockSize_" data-uid="Swan.Net.Connection.ProtocolBlockSize*"></a>
+  <h4 id="Swan_Net_Connection_ProtocolBlockSize" data-uid="Swan.Net.Connection.ProtocolBlockSize">ProtocolBlockSize</h4>
+  <div class="markdown level1 summary"><p>When in continuous reading mode, and if set to greater than 0,
+a Data reception event will be fired whenever the amount of bytes
+determined by this property has been received. Useful for fixed-length message protocols.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ProtocolBlockSize { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The size of the protocol block.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_RemoteClient_" data-uid="Swan.Net.Connection.RemoteClient*"></a>
+  <h4 id="Swan_Net_Connection_RemoteClient" data-uid="Swan.Net.Connection.RemoteClient">RemoteClient</h4>
+  <div class="markdown level1 summary"><p>Gets the remote client of this TCP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TcpClient RemoteClient { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TcpClient</span></td>
+        <td><p>The remote client.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_RemoteEndPoint_" data-uid="Swan.Net.Connection.RemoteEndPoint*"></a>
+  <h4 id="Swan_Net_Connection_RemoteEndPoint" data-uid="Swan.Net.Connection.RemoteEndPoint">RemoteEndPoint</h4>
+  <div class="markdown level1 summary"><p>Gets the remote end point of this TCP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPEndPoint RemoteEndPoint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPEndPoint</span></td>
+        <td><p>The remote end point.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_TextEncoding_" data-uid="Swan.Net.Connection.TextEncoding*"></a>
+  <h4 id="Swan_Net_Connection_TextEncoding" data-uid="Swan.Net.Connection.TextEncoding">TextEncoding</h4>
+  <div class="markdown level1 summary"><p>Gets the text encoding for send and receive operations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Encoding TextEncoding { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><p>The text encoding.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Net_Connection_Disconnect_" data-uid="Swan.Net.Connection.Disconnect*"></a>
+  <h4 id="Swan_Net_Connection_Disconnect" data-uid="Swan.Net.Connection.Disconnect">Disconnect()</h4>
+  <div class="markdown level1 summary"><p>Disconnects this connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disconnect()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Net_Connection_Dispose_" data-uid="Swan.Net.Connection.Dispose*"></a>
+  <h4 id="Swan_Net_Connection_Dispose" data-uid="Swan.Net.Connection.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Net_Connection_ReadDataAsync_" data-uid="Swan.Net.Connection.ReadDataAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadDataAsync_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadDataAsync(System.Threading.CancellationToken)">ReadDataAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Reads data asynchronously from the remote stream with a 5000 millisecond timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]&gt;</td>
+        <td><p>A byte array containing the results the specified sequence of bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ReadDataAsync_" data-uid="Swan.Net.Connection.ReadDataAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadDataAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadDataAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadDataAsync(TimeSpan, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Reads data from the remote client asynchronously and with the given timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]&gt;</td>
+        <td><p>A byte array containing the results of encoding the specified set of characters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Read methods have been disabled because continuous reading is enabled.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></td>
+        <td><p>Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ReadLineAsync_" data-uid="Swan.Net.Connection.ReadLineAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadLineAsync_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadLineAsync(System.Threading.CancellationToken)">ReadLineAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Performs the same task as this method&apos;s overload but it defaults to a read timeout of 30 seconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>A task that represents the asynchronous read operation. The value of the TResult parameter 
+contains the next line from the stream, or is null if all the characters have been read.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ReadLineAsync_" data-uid="Swan.Net.Connection.ReadLineAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadLineAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadLineAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadLineAsync(TimeSpan, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Reads the next available line of text in queue. Return null when no text is read.
+This method differs from the rest of the read methods because it keeps an internal
+queue of lines that are read from the stream and only returns the one line next in the queue.
+It is only recommended to use this method when you are working with text-based protocols
+and the rest of the read methods are not called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>A task with a string line from the queue.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Read methods have been disabled because continuous reading is enabled.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ReadTextAsync_" data-uid="Swan.Net.Connection.ReadTextAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadTextAsync_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadTextAsync(System.Threading.CancellationToken)">ReadTextAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously reads data as text with a 5000 millisecond timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>When this method completes successfully, it returns the contents of the file as a text string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_ReadTextAsync_" data-uid="Swan.Net.Connection.ReadTextAsync*"></a>
+  <h4 id="Swan_Net_Connection_ReadTextAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.ReadTextAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadTextAsync(TimeSpan, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously reads data as text with the given timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that contains the results of decoding the specified sequence of bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_UpgradeToSecureAsClientAsync_" data-uid="Swan.Net.Connection.UpgradeToSecureAsClientAsync*"></a>
+  <h4 id="Swan_Net_Connection_UpgradeToSecureAsClientAsync_System_String_RemoteCertificateValidationCallback_" data-uid="Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)">UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)</h4>
+  <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string hostname = null, RemoteCertificateValidationCallback callback = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">hostname</span></td>
+        <td><p>The hostname.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">RemoteCertificateValidationCallback</span></td>
+        <td><span class="parametername">callback</span></td>
+        <td><p>The callback.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><p>A tasks with <code>true</code> if the upgrade to SSL was successful; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_UpgradeToSecureAsServerAsync_" data-uid="Swan.Net.Connection.UpgradeToSecureAsServerAsync*"></a>
+  <h4 id="Swan_Net_Connection_UpgradeToSecureAsServerAsync_X509Certificate2_" data-uid="Swan.Net.Connection.UpgradeToSecureAsServerAsync(X509Certificate2)">UpgradeToSecureAsServerAsync(X509Certificate2)</h4>
+  <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsServerAsync(X509Certificate2 serverCertificate)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">X509Certificate2</span></td>
+        <td><span class="parametername">serverCertificate</span></td>
+        <td><p>The server certificate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><p><code>true</code> if the object is hosted in the server; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_WriteDataAsync_" data-uid="Swan.Net.Connection.WriteDataAsync*"></a>
+  <h4 id="Swan_Net_Connection_WriteDataAsync_System_Byte___System_Boolean_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.WriteDataAsync(System.Byte[],System.Boolean,System.Threading.CancellationToken)">WriteDataAsync(Byte[], Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes data asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>The buffer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">forceFlush</span></td>
+        <td><p>if set to <code>true</code> [force flush].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_WriteLineAsync_" data-uid="Swan.Net.Connection.WriteLineAsync*"></a>
+  <h4 id="Swan_Net_Connection_WriteLineAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.WriteLineAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)">WriteLineAsync(String, Encoding, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text asynchronously.
+The new line sequence is added automatically at the end of the line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">line</span></td>
+        <td><p>The line.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>The encoding.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_WriteLineAsync_" data-uid="Swan.Net.Connection.WriteLineAsync*"></a>
+  <h4 id="Swan_Net_Connection_WriteLineAsync_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.WriteLineAsync(System.String,System.Threading.CancellationToken)">WriteLineAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text asynchronously.
+The new line sequence is added automatically at the end of the line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">line</span></td>
+        <td><p>The line.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_WriteTextAsync_" data-uid="Swan.Net.Connection.WriteTextAsync*"></a>
+  <h4 id="Swan_Net_Connection_WriteTextAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.WriteTextAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)">WriteTextAsync(String, Encoding, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>The encoding.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_Connection_WriteTextAsync_" data-uid="Swan.Net.Connection.WriteTextAsync*"></a>
+  <h4 id="Swan_Net_Connection_WriteTextAsync_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.Connection.WriteTextAsync(System.String,System.Threading.CancellationToken)">WriteTextAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A task that represents the asynchronous write operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  
+  
+  <h4 id="Swan_Net_Connection_ClientDisconnected" data-uid="Swan.Net.Connection.ClientDisconnected">ClientDisconnected</h4>
+  <div class="markdown level1 summary"><p>Occurs when a client is disconnected</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler ClientDisconnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Swan_Net_Connection_ConnectionFailure" data-uid="Swan.Net.Connection.ConnectionFailure">ConnectionFailure</h4>
+  <div class="markdown level1 summary"><p>Occurs when an error occurs while upgrading, sending, or receiving data in this client</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ConnectionFailureEventArgs&gt; ConnectionFailure</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Swan.Net.ConnectionFailureEventArgs.html">ConnectionFailureEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Swan_Net_Connection_DataReceived" data-uid="Swan.Net.Connection.DataReceived">DataReceived</h4>
+  <div class="markdown level1 summary"><p>Occurs when the receive buffer has encounters a new line sequence, the buffer is flushed or the buffer is full.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ConnectionDataReceivedEventArgs&gt; DataReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Swan.Net.ConnectionDataReceivedEventArgs.html">ConnectionDataReceivedEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

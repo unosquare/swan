@@ -1,0 +1,1185 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AtomicTypeBase&lt;T&gt;
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AtomicTypeBase&lt;T&gt;
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Threading.AtomicTypeBase`1">
+  
+  
+  <h1 id="Swan_Threading_AtomicTypeBase_1" data-uid="Swan.Threading.AtomicTypeBase`1" class="text-break">Class AtomicTypeBase&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Provides a generic implementation of an Atomic (interlocked) type</p>
+<p>Idea taken from Memory model and .NET operations in article:
+<a href="http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/">http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">AtomicTypeBase&lt;T&gt;</span></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicBoolean.html">AtomicBoolean</a></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicDateTime.html">AtomicDateTime</a></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicDouble.html">AtomicDouble</a></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicInteger.html">AtomicInteger</a></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicLong.html">AtomicLong</a></div>
+      <div class="level2"><a class="xref" href="Swan.Threading.AtomicTimeSpan.html">AtomicTimeSpan</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IComparable</span>&lt;T&gt;</div>
+    <div><span class="xref">IComparable</span>&lt;<a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;&gt;</div>
+    <div><span class="xref">IEquatable</span>&lt;T&gt;</div>
+    <div><span class="xref">IEquatable</span>&lt;<a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Threading.html">Swan.Threading</a></h6>
+  <h5 id="Swan_Threading_AtomicTypeBase_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AtomicTypeBase&lt;T&gt; : IComparable, IComparable&lt;T&gt;, IComparable&lt;AtomicTypeBase&lt;T&gt;&gt;, IEquatable&lt;T&gt;, IEquatable&lt;AtomicTypeBase&lt;T&gt;&gt; where T : struct, IComparable, IComparable&lt;T&gt;, IEquatable&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The structure type backed by a 64-bit value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1__ctor_" data-uid="Swan.Threading.AtomicTypeBase`1.#ctor*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1__ctor_System_Int64_" data-uid="Swan.Threading.AtomicTypeBase`1.#ctor(System.Int64)">AtomicTypeBase(Int64)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase&lt;T&gt;</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected AtomicTypeBase(long initialValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">initialValue</span></td>
+        <td><p>The initial value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_BackingValue_" data-uid="Swan.Threading.AtomicTypeBase`1.BackingValue*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_BackingValue" data-uid="Swan.Threading.AtomicTypeBase`1.BackingValue">BackingValue</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the backing value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected long BackingValue { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_Value_" data-uid="Swan.Threading.AtomicTypeBase`1.Value*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_Value" data-uid="Swan.Threading.AtomicTypeBase`1.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_CompareTo_" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_CompareTo__0_" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo(`0)">CompareTo(T)</h4>
+  <div class="markdown level1 summary"><p>Compares the value to the other instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(T other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_CompareTo_" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_CompareTo_Swan_Threading_AtomicTypeBase__0__" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo(Swan.Threading.AtomicTypeBase{`0})">CompareTo(AtomicTypeBase&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Compares the value to the other instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(AtomicTypeBase&lt;T&gt; other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_CompareTo_" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_CompareTo_System_Object_" data-uid="Swan.Threading.AtomicTypeBase`1.CompareTo(System.Object)">CompareTo(Object)</h4>
+  <div class="markdown level1 summary"><p>Compares the value to the other instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(object other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_Equals_" data-uid="Swan.Threading.AtomicTypeBase`1.Equals*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_Equals__0_" data-uid="Swan.Threading.AtomicTypeBase`1.Equals(`0)">Equals(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(T other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_Equals_" data-uid="Swan.Threading.AtomicTypeBase`1.Equals*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_Equals_Swan_Threading_AtomicTypeBase__0__" data-uid="Swan.Threading.AtomicTypeBase`1.Equals(Swan.Threading.AtomicTypeBase{`0})">Equals(AtomicTypeBase&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(AtomicTypeBase&lt;T&gt; other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_Equals_" data-uid="Swan.Threading.AtomicTypeBase`1.Equals*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_Equals_System_Object_" data-uid="Swan.Threading.AtomicTypeBase`1.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, is equal to this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a> to compare with this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if the specified <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a> is equal to this instance; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_FromLong_" data-uid="Swan.Threading.AtomicTypeBase`1.FromLong*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_FromLong_System_Int64_" data-uid="Swan.Threading.AtomicTypeBase`1.FromLong(System.Int64)">FromLong(Int64)</h4>
+  <div class="markdown level1 summary"><p>Converts from a long value to the target type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract T FromLong(long backingValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">backingValue</span></td>
+        <td><p>The backing value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The value converted form a long value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_GetHashCode_" data-uid="Swan.Threading.AtomicTypeBase`1.GetHashCode*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_GetHashCode" data-uid="Swan.Threading.AtomicTypeBase`1.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Returns a hash code for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_ToLong_" data-uid="Swan.Threading.AtomicTypeBase`1.ToLong*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_ToLong__0_" data-uid="Swan.Threading.AtomicTypeBase`1.ToLong(`0)">ToLong(T)</h4>
+  <div class="markdown level1 summary"><p>Converts from the target type to a long value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract long ToLong(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><p>The value converted to a long value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Addition_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Addition*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Addition_Swan_Threading_AtomicTypeBase__0__System_Int64_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Addition(Swan.Threading.AtomicTypeBase{`0},System.Int64)">Addition(AtomicTypeBase&lt;T&gt;, Int64)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator -&lt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AtomicTypeBase&lt;T&gt; operator +(AtomicTypeBase&lt;T&gt; instance, long operand)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">operand</span></td>
+        <td><p>The operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Decrement_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Decrement*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Decrement_Swan_Threading_AtomicTypeBase__0__" data-uid="Swan.Threading.AtomicTypeBase`1.op_Decrement(Swan.Threading.AtomicTypeBase{`0})">Decrement(AtomicTypeBase&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator --.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AtomicTypeBase&lt;T&gt; operator --(AtomicTypeBase&lt;T&gt; instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Equality_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Equality*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Equality_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Equality(Swan.Threading.AtomicTypeBase{`0},`0)">Equality(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator ==.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_GreaterThan_" data-uid="Swan.Threading.AtomicTypeBase`1.op_GreaterThan*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_GreaterThan_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_GreaterThan(Swan.Threading.AtomicTypeBase{`0},`0)">GreaterThan(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator &gt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator&gt;(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_GreaterThanOrEqual_" data-uid="Swan.Threading.AtomicTypeBase`1.op_GreaterThanOrEqual*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_GreaterThanOrEqual_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_GreaterThanOrEqual(Swan.Threading.AtomicTypeBase{`0},`0)">GreaterThanOrEqual(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator &gt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;=(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Increment_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Increment*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Increment_Swan_Threading_AtomicTypeBase__0__" data-uid="Swan.Threading.AtomicTypeBase`1.op_Increment(Swan.Threading.AtomicTypeBase{`0})">Increment(AtomicTypeBase&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator ++.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AtomicTypeBase&lt;T&gt; operator ++(AtomicTypeBase&lt;T&gt; instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Inequality_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Inequality*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Inequality_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Inequality(Swan.Threading.AtomicTypeBase{`0},`0)">Inequality(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator !=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_LessThan_" data-uid="Swan.Threading.AtomicTypeBase`1.op_LessThan*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_LessThan_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_LessThan(Swan.Threading.AtomicTypeBase{`0},`0)">LessThan(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator &lt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_LessThanOrEqual_" data-uid="Swan.Threading.AtomicTypeBase`1.op_LessThanOrEqual*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_LessThanOrEqual_Swan_Threading_AtomicTypeBase__0___0_" data-uid="Swan.Threading.AtomicTypeBase`1.op_LessThanOrEqual(Swan.Threading.AtomicTypeBase{`0},`0)">LessThanOrEqual(AtomicTypeBase&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator &lt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;=(AtomicTypeBase&lt;T&gt; a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>a.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The b.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_AtomicTypeBase_1_op_Subtraction_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Subtraction*"></a>
+  <h4 id="Swan_Threading_AtomicTypeBase_1_op_Subtraction_Swan_Threading_AtomicTypeBase__0__System_Int64_" data-uid="Swan.Threading.AtomicTypeBase`1.op_Subtraction(Swan.Threading.AtomicTypeBase{`0},System.Int64)">Subtraction(AtomicTypeBase&lt;T&gt;, Int64)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator -.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AtomicTypeBase&lt;T&gt; operator -(AtomicTypeBase&lt;T&gt; instance, long operand)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">operand</span></td>
+        <td><p>The operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Threading.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;T&gt;</td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">IComparable&lt;&gt;</span>
+  </div>
+  <div>
+      <span class="xref">IComparable&lt;&gt;</span>
+  </div>
+  <div>
+      <span class="xref">IEquatable&lt;&gt;</span>
+  </div>
+  <div>
+      <span class="xref">IEquatable&lt;&gt;</span>
+  </div>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

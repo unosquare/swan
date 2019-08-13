@@ -1,0 +1,1743 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Logger
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Logger
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Logging.Logger">
+  
+  
+  <h1 id="Swan_Logging_Logger" data-uid="Swan.Logging.Logger" class="text-break">Class Logger
+  </h1>
+  <div class="markdown level0 summary"><p>Entry-point for logging. Use this static class to register/unregister
+loggers instances. By default, the <code>ConsoleLogger</code> is registered.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Logger</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Logging.html">Swan.Logging</a></h6>
+  <h5 id="Swan_Logging_Logger_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Logger</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Logging_Logger_Debug_" data-uid="Swan.Logging.Logger.Debug*"></a>
+  <h4 id="Swan_Logging_Logger_Debug_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Debug(Exception,System.String,System.String,System.String,System.String,System.Int32)">Debug(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Debug_" data-uid="Swan.Logging.Logger.Debug*"></a>
+  <h4 id="Swan_Logging_Logger_Debug_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Debug(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Debug(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Debug_" data-uid="Swan.Logging.Logger.Debug*"></a>
+  <h4 id="Swan_Logging_Logger_Debug_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Debug(System.String,Type,System.Object,System.String,System.String,System.Int32)">Debug(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a debug message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Dump_" data-uid="Swan.Logging.Logger.Dump*"></a>
+  <h4 id="Swan_Logging_Logger_Dump_System_Object_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Dump(System.Object,System.String,System.String,System.String,System.String,System.Int32)">Dump(Object, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message showing all possible non-null properties of the given object
+This method is expensive as it uses Stringify internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Dump(this object obj, string source, string text = &quot;Object Dump&quot;, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The title.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Dump_" data-uid="Swan.Logging.Logger.Dump*"></a>
+  <h4 id="Swan_Logging_Logger_Dump_System_Object_Type_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Dump(System.Object,Type,System.String,System.String,System.String,System.Int32)">Dump(Object, Type, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message showing all possible non-null properties of the given object
+This method is expensive as it uses Stringify internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Dump(this object obj, Type source, string text = &quot;Object Dump&quot;, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Error_" data-uid="Swan.Logging.Logger.Error*"></a>
+  <h4 id="Swan_Logging_Logger_Error_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Error(Exception,System.String,System.String,System.String,System.String,System.Int32)">Error(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this Exception ex, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Error_" data-uid="Swan.Logging.Logger.Error*"></a>
+  <h4 id="Swan_Logging_Logger_Error_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Error(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Error(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Error_" data-uid="Swan.Logging.Logger.Error*"></a>
+  <h4 id="Swan_Logging_Logger_Error_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Error(System.String,Type,System.Object,System.String,System.String,System.Int32)">Error(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Fatal_" data-uid="Swan.Logging.Logger.Fatal*"></a>
+  <h4 id="Swan_Logging_Logger_Fatal_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Fatal(Exception,System.String,System.String,System.String,System.String,System.Int32)">Fatal(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Fatal_" data-uid="Swan.Logging.Logger.Fatal*"></a>
+  <h4 id="Swan_Logging_Logger_Fatal_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Fatal(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Fatal(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Fatal_" data-uid="Swan.Logging.Logger.Fatal*"></a>
+  <h4 id="Swan_Logging_Logger_Fatal_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Fatal(System.String,Type,System.Object,System.String,System.String,System.Int32)">Fatal(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Info_" data-uid="Swan.Logging.Logger.Info*"></a>
+  <h4 id="Swan_Logging_Logger_Info_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Info(Exception,System.String,System.String,System.String,System.String,System.Int32)">Info(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Info_" data-uid="Swan.Logging.Logger.Info*"></a>
+  <h4 id="Swan_Logging_Logger_Info_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Info(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Info(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Info_" data-uid="Swan.Logging.Logger.Info*"></a>
+  <h4 id="Swan_Logging_Logger_Info_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Info(System.String,Type,System.Object,System.String,System.String,System.Int32)">Info(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an info message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
+  <h4 id="Swan_Logging_Logger_Log_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)">Log(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, string source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The ex.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
+  <h4 id="Swan_Logging_Logger_Log_Exception_Type_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,Type,System.String,System.String,System.String,System.Int32)">Log(Exception, Type, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, Type source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The ex.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
+  <h4 id="Swan_Logging_Logger_Log_System_String_System_String_Swan_LogLevel_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(System.String,System.String,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)">Log(String, String, LogLevel, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs the specified message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this string message, string source, LogLevel messageType, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.LogLevel.html">LogLevel</a></td>
+        <td><span class="parametername">messageType</span></td>
+        <td><p>Type of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
+  <h4 id="Swan_Logging_Logger_Log_System_String_Type_Swan_LogLevel_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(System.String,Type,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)">Log(String, Type, LogLevel, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs the specified message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Log(this string message, Type source, LogLevel messageType, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.LogLevel.html">LogLevel</a></td>
+        <td><span class="parametername">messageType</span></td>
+        <td><p>Type of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_RegisterLogger_" data-uid="Swan.Logging.Logger.RegisterLogger*"></a>
+  <h4 id="Swan_Logging_Logger_RegisterLogger_Swan_Logging_ILogger_" data-uid="Swan.Logging.Logger.RegisterLogger(Swan.Logging.ILogger)">RegisterLogger(ILogger)</h4>
+  <div class="markdown level1 summary"><p>Registers the logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterLogger(ILogger logger)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Logging.ILogger.html">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>The logger.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_RegisterLogger_" data-uid="Swan.Logging.Logger.RegisterLogger*"></a>
+  <h4 id="Swan_Logging_Logger_RegisterLogger__1" data-uid="Swan.Logging.Logger.RegisterLogger``1">RegisterLogger&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Registers the logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterLogger&lt;T&gt;()
+    where T : ILogger</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of logger to register.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Trace_" data-uid="Swan.Logging.Logger.Trace*"></a>
+  <h4 id="Swan_Logging_Logger_Trace_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Trace(Exception,System.String,System.String,System.String,System.String,System.Int32)">Trace(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Trace_" data-uid="Swan.Logging.Logger.Trace*"></a>
+  <h4 id="Swan_Logging_Logger_Trace_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Trace(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Trace(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Trace_" data-uid="Swan.Logging.Logger.Trace*"></a>
+  <h4 id="Swan_Logging_Logger_Trace_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Trace(System.String,Type,System.Object,System.String,System.String,System.Int32)">Trace(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a trace message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_UnregisterLogger_" data-uid="Swan.Logging.Logger.UnregisterLogger*"></a>
+  <h4 id="Swan_Logging_Logger_UnregisterLogger_Swan_Logging_ILogger_" data-uid="Swan.Logging.Logger.UnregisterLogger(Swan.Logging.ILogger)">UnregisterLogger(ILogger)</h4>
+  <div class="markdown level1 summary"><p>Unregisters the logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnregisterLogger(ILogger logger)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Logging.ILogger.html">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>The logger.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_UnregisterLogger_" data-uid="Swan.Logging.Logger.UnregisterLogger*"></a>
+  <h4 id="Swan_Logging_Logger_UnregisterLogger__1" data-uid="Swan.Logging.Logger.UnregisterLogger``1">UnregisterLogger&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Unregisters the logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnregisterLogger&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of logger to unregister.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Warn_" data-uid="Swan.Logging.Logger.Warn*"></a>
+  <h4 id="Swan_Logging_Logger_Warn_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Warn(Exception,System.String,System.String,System.String,System.String,System.Int32)">Warn(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Warn_" data-uid="Swan.Logging.Logger.Warn*"></a>
+  <h4 id="Swan_Logging_Logger_Warn_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Warn(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Warn(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Logging_Logger_Warn_" data-uid="Swan.Logging.Logger.Warn*"></a>
+  <h4 id="Swan_Logging_Logger_Warn_System_String_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Warn(System.String,Type,System.Object,System.String,System.String,System.Int32)">Warn(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

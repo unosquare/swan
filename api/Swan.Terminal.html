@@ -1,0 +1,1018 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Terminal
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Terminal
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Terminal">
+  
+  
+  <h1 id="Swan_Terminal" data-uid="Swan.Terminal" class="text-break">Class Terminal
+  </h1>
+  <div class="markdown level0 summary"><p>A console terminal helper to create nicer output and receive input from the user. 
+This class is thread-safe :).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Terminal</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.html">Swan</a></h6>
+  <h5 id="Swan_Terminal_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Terminal</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Terminal_AvailableWriters_" data-uid="Swan.Terminal.AvailableWriters*"></a>
+  <h4 id="Swan_Terminal_AvailableWriters" data-uid="Swan.Terminal.AvailableWriters">AvailableWriters</h4>
+  <div class="markdown level1 summary"><p>Gets the available output writers in a bitwise mask.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TerminalWriters AvailableWriters { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><p>The available writers.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_CursorLeft_" data-uid="Swan.Terminal.CursorLeft*"></a>
+  <h4 id="Swan_Terminal_CursorLeft" data-uid="Swan.Terminal.CursorLeft">CursorLeft</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the cursor left position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CursorLeft { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The cursor left.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_CursorTop_" data-uid="Swan.Terminal.CursorTop*"></a>
+  <h4 id="Swan_Terminal_CursorTop" data-uid="Swan.Terminal.CursorTop">CursorTop</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the cursor top position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CursorTop { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The cursor top.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_IsConsolePresent_" data-uid="Swan.Terminal.IsConsolePresent*"></a>
+  <h4 id="Swan_Terminal_IsConsolePresent" data-uid="Swan.Terminal.IsConsolePresent">IsConsolePresent</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the Console is present.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsConsolePresent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is console present; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_IsDebuggerAttached_" data-uid="Swan.Terminal.IsDebuggerAttached*"></a>
+  <h4 id="Swan_Terminal_IsDebuggerAttached" data-uid="Swan.Terminal.IsDebuggerAttached">IsDebuggerAttached</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a debugger is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsDebuggerAttached { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is debugger attached; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_OutputEncoding_" data-uid="Swan.Terminal.OutputEncoding*"></a>
+  <h4 id="Swan_Terminal_OutputEncoding" data-uid="Swan.Terminal.OutputEncoding">OutputEncoding</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the output encoding for the current console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Encoding OutputEncoding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><p>The output encoding.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Terminal_BacklineCursor_" data-uid="Swan.Terminal.BacklineCursor*"></a>
+  <h4 id="Swan_Terminal_BacklineCursor" data-uid="Swan.Terminal.BacklineCursor">BacklineCursor()</h4>
+  <div class="markdown level1 summary"><p>Moves the output cursor one line up starting at left position 0
+Please note that backlining the cursor does not clear the contents of the 
+previous line so you might need to clear it by writing an empty string the 
+length of the console width.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void BacklineCursor()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Terminal_Flush_" data-uid="Swan.Terminal.Flush*"></a>
+  <h4 id="Swan_Terminal_Flush_System_Nullable_TimeSpan__" data-uid="Swan.Terminal.Flush(System.Nullable{TimeSpan})">Flush(Nullable&lt;TimeSpan&gt;)</h4>
+  <div class="markdown level1 summary"><p>Waits for all of the queued output messages to be written out to the console.
+Call this method if it is important to display console text before
+quitting the application such as showing usage or help.
+Set the timeout to null or TimeSpan.Zero to wait indefinitely.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Flush(TimeSpan? timeout = default(TimeSpan? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">TimeSpan</span>&gt;</td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>The timeout. Set the amount of time to black before this method exits.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_OverwriteLine_" data-uid="Swan.Terminal.OverwriteLine*"></a>
+  <h4 id="Swan_Terminal_OverwriteLine_System_String_System_Nullable_ConsoleColor__Swan_TerminalWriters_" data-uid="Swan.Terminal.OverwriteLine(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)">OverwriteLine(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>As opposed to WriteLine methods, it prepends a Carriage Return character to the text
+so that the console moves the cursor one position up after the text has been written out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void OverwriteLine(string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_PrintCurrentCodePage_" data-uid="Swan.Terminal.PrintCurrentCodePage*"></a>
+  <h4 id="Swan_Terminal_PrintCurrentCodePage" data-uid="Swan.Terminal.PrintCurrentCodePage">PrintCurrentCodePage()</h4>
+  <div class="markdown level1 summary"><p>Prints all characters in the current code page.
+This is provided for debugging purposes only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void PrintCurrentCodePage()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Terminal_ReadKey_" data-uid="Swan.Terminal.ReadKey*"></a>
+  <h4 id="Swan_Terminal_ReadKey_System_Boolean_System_Boolean_" data-uid="Swan.Terminal.ReadKey(System.Boolean,System.Boolean)">ReadKey(Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">intercept</span></td>
+        <td><p>if set to <code>true</code> the pressed key will not be rendered to the output.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">disableLocking</span></td>
+        <td><p>if set to <code>true</code> the output will continue to be shown.
+This is useful for services and daemons that are running as console applications and wait for a key to exit the program.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConsoleKeyInfo</span></td>
+        <td><p>The console key information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_ReadKey_" data-uid="Swan.Terminal.ReadKey*"></a>
+  <h4 id="Swan_Terminal_ReadKey_System_String_System_Boolean_" data-uid="Swan.Terminal.ReadKey(System.String,System.Boolean)">ReadKey(String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Reads a key from the Terminal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadKey(string prompt, bool preventEcho = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">preventEcho</span></td>
+        <td><p>if set to <code>true</code> [prevent echo].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConsoleKeyInfo</span></td>
+        <td><p>The console key information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_ReadLine_" data-uid="Swan.Terminal.ReadLine*"></a>
+  <h4 id="Swan_Terminal_ReadLine" data-uid="Swan.Terminal.ReadLine">ReadLine()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of text from the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ReadLine()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The read line.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_ReadLine_" data-uid="Swan.Terminal.ReadLine*"></a>
+  <h4 id="Swan_Terminal_ReadLine_System_String_" data-uid="Swan.Terminal.ReadLine(System.String)">ReadLine(String)</h4>
+  <div class="markdown level1 summary"><p>Reads a line from the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ReadLine(string prompt)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The read line.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_ReadNumber_" data-uid="Swan.Terminal.ReadNumber*"></a>
+  <h4 id="Swan_Terminal_ReadNumber_System_String_System_Int32_" data-uid="Swan.Terminal.ReadNumber(System.String,System.Int32)">ReadNumber(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Reads a number from the input. If unable to parse, it returns the default number.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ReadNumber(string prompt, int defaultNumber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">prompt</span></td>
+        <td><p>The prompt.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">defaultNumber</span></td>
+        <td><p>The default number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>Conversions of string representation of a number to its 32-bit signed integer equivalent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_ReadPrompt_" data-uid="Swan.Terminal.ReadPrompt*"></a>
+  <h4 id="Swan_Terminal_ReadPrompt_System_String_IDictionary_ConsoleKey_System_String__System_String_" data-uid="Swan.Terminal.ReadPrompt(System.String,IDictionary{ConsoleKey,System.String},System.String)">ReadPrompt(String, IDictionary&lt;ConsoleKey, String&gt;, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a table prompt where the user can enter an option based on the options dictionary provided.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConsoleKeyInfo ReadPrompt(string title, IDictionary&lt;ConsoleKey, string&gt; options, string anyKeyOption)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">title</span></td>
+        <td><p>The title.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IDictionary</span>&lt;<span class="xref">ConsoleKey</span>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">anyKeyOption</span></td>
+        <td><p>Any key option.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConsoleKeyInfo</span></td>
+        <td><p>A value that identifies the console key that was pressed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_SetCursorPosition_" data-uid="Swan.Terminal.SetCursorPosition*"></a>
+  <h4 id="Swan_Terminal_SetCursorPosition_System_Int32_System_Int32_" data-uid="Swan.Terminal.SetCursorPosition(System.Int32,System.Int32)">SetCursorPosition(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Sets the cursor position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCursorPosition(int left, int top)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">top</span></td>
+        <td><p>The top.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_Write_" data-uid="Swan.Terminal.Write*"></a>
+  <h4 id="Swan_Terminal_Write_System_Byte_System_Nullable_ConsoleColor__System_Int32_System_Boolean_Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.Byte,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)">Write(Byte, Nullable&lt;ConsoleColor&gt;, Int32, Boolean, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a character a number of times, optionally adding a new line at the end.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(byte charCode, ConsoleColor? color = default(ConsoleColor? ), int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></td>
+        <td><span class="parametername">charCode</span></td>
+        <td><p>The character code.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The count.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">newLine</span></td>
+        <td><p>if set to <code>true</code> [new line].</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_Write_" data-uid="Swan.Terminal.Write*"></a>
+  <h4 id="Swan_Terminal_Write_System_Char_System_Nullable_ConsoleColor__Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},Swan.TerminalWriters)">Write(Char, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes the specified character in the default color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(char charCode, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a></td>
+        <td><span class="parametername">charCode</span></td>
+        <td><p>The character code.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_Write_" data-uid="Swan.Terminal.Write*"></a>
+  <h4 id="Swan_Terminal_Write_System_String_System_Nullable_ConsoleColor__Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)">Write(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes the specified text in the given color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Write(string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_WriteLine_" data-uid="Swan.Terminal.WriteLine*"></a>
+  <h4 id="Swan_Terminal_WriteLine_Swan_TerminalWriters_" data-uid="Swan.Terminal.WriteLine(Swan.TerminalWriters)">WriteLine(TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a New Line Sequence to the standard output.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_WriteLine_" data-uid="Swan.Terminal.WriteLine*"></a>
+  <h4 id="Swan_Terminal_WriteLine_System_String_System_Nullable_ConsoleColor__Swan_TerminalWriters_" data-uid="Swan.Terminal.WriteLine(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)">WriteLine(String, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text in the current console foreground color
+to the standard output.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLine(string text, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
+        <td><span class="parametername">writerFlags</span></td>
+        <td><p>The writer flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Terminal_WriteWelcomeBanner_" data-uid="Swan.Terminal.WriteWelcomeBanner*"></a>
+  <h4 id="Swan_Terminal_WriteWelcomeBanner_ConsoleColor_" data-uid="Swan.Terminal.WriteWelcomeBanner(ConsoleColor)">WriteWelcomeBanner(ConsoleColor)</h4>
+  <div class="markdown level1 summary"><p>Writes a standard banner to the standard output
+containing the company name, product name, assembly version and trademark.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteWelcomeBanner(ConsoleColor color = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConsoleColor</span></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

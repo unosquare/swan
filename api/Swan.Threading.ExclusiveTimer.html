@@ -1,0 +1,688 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ExclusiveTimer
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ExclusiveTimer
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Threading.ExclusiveTimer">
+  
+  
+  <h1 id="Swan_Threading_ExclusiveTimer" data-uid="Swan.Threading.ExclusiveTimer" class="text-break">Class ExclusiveTimer
+  </h1>
+  <div class="markdown level0 summary"><p>A threading <span class="xref">Swan.Threading.ExclusiveTimer._backingTimer</span> implementation that executes at most one cycle at a time
+in a <see cref="!:ThreadPool"></see> thread. Callback execution is NOT guaranteed to be carried out
+on the same <see cref="!:ThreadPool"></see> thread every time the timer fires.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">ExclusiveTimer</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Threading.html">Swan.Threading</a></h6>
+  <h5 id="Swan_Threading_ExclusiveTimer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ExclusiveTimer : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_Action_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(Action)">ExclusiveTimer(Action)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(Action timerCallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_Action_System_Int32_System_Int32_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(Action,System.Int32,System.Int32)">ExclusiveTimer(Action, Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(Action timerCallback, int dueTime, int period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_Action_TimeSpan_TimeSpan_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(Action,TimeSpan,TimeSpan)">ExclusiveTimer(Action, TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(Action timerCallback, TimeSpan dueTime, TimeSpan period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_TimerCallback_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(TimerCallback)">ExclusiveTimer(TimerCallback)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(TimerCallback timerCallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimerCallback</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_TimerCallback_System_Object_System_Int32_System_Int32_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(TimerCallback,System.Object,System.Int32,System.Int32)">ExclusiveTimer(TimerCallback, Object, Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(TimerCallback timerCallback, object state, int dueTime, int period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimerCallback</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>The state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer__ctor_" data-uid="Swan.Threading.ExclusiveTimer.#ctor*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer__ctor_TimerCallback_System_Object_TimeSpan_TimeSpan_" data-uid="Swan.Threading.ExclusiveTimer.#ctor(TimerCallback,System.Object,TimeSpan,TimeSpan)">ExclusiveTimer(TimerCallback, Object, TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Threading.ExclusiveTimer.html">ExclusiveTimer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExclusiveTimer(TimerCallback timerCallback, object state, TimeSpan dueTime, TimeSpan period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimerCallback</span></td>
+        <td><span class="parametername">timerCallback</span></td>
+        <td><p>The timer callback.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>The state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_IsDisposed_" data-uid="Swan.Threading.ExclusiveTimer.IsDisposed*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_IsDisposed" data-uid="Swan.Threading.ExclusiveTimer.IsDisposed">IsDisposed</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDisposed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is disposed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_IsDisposing_" data-uid="Swan.Threading.ExclusiveTimer.IsDisposing*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_IsDisposing" data-uid="Swan.Threading.ExclusiveTimer.IsDisposing">IsDisposing</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is disposing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDisposing { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><code>true</code> if this instance is disposing; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Change_" data-uid="Swan.Threading.ExclusiveTimer.Change*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Change_System_Int32_System_Int32_" data-uid="Swan.Threading.ExclusiveTimer.Change(System.Int32,System.Int32)">Change(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Changes the start time and the interval between method invocations for the internal timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Change(int dueTime, int period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Change_" data-uid="Swan.Threading.ExclusiveTimer.Change*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Change_TimeSpan_TimeSpan_" data-uid="Swan.Threading.ExclusiveTimer.Change(TimeSpan,TimeSpan)">Change(TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Changes the start time and the interval between method invocations for the internal timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Change(TimeSpan dueTime, TimeSpan period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">dueTime</span></td>
+        <td><p>The due time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Dispose_" data-uid="Swan.Threading.ExclusiveTimer.Dispose*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Dispose" data-uid="Swan.Threading.ExclusiveTimer.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Pause_" data-uid="Swan.Threading.ExclusiveTimer.Pause*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Pause" data-uid="Swan.Threading.ExclusiveTimer.Pause">Pause()</h4>
+  <div class="markdown level1 summary"><p>Pauses this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Pause()</code></pre>
+  </div>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Resume_" data-uid="Swan.Threading.ExclusiveTimer.Resume*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Resume_System_Int32_" data-uid="Swan.Threading.ExclusiveTimer.Resume(System.Int32)">Resume(Int32)</h4>
+  <div class="markdown level1 summary"><p>Changes the interval between method invocations for the internal timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Resume(int period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Resume_" data-uid="Swan.Threading.ExclusiveTimer.Resume*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Resume_TimeSpan_" data-uid="Swan.Threading.ExclusiveTimer.Resume(TimeSpan)">Resume(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Changes the interval between method invocations for the internal timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Resume(TimeSpan period)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_Wait_" data-uid="Swan.Threading.ExclusiveTimer.Wait*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_Wait_TimeSpan_CancellationToken_" data-uid="Swan.Threading.ExclusiveTimer.Wait(TimeSpan,CancellationToken)">Wait(TimeSpan, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Waits the specified wait time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Wait(TimeSpan waitTime, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">waitTime</span></td>
+        <td><p>The wait time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Threading_ExclusiveTimer_WaitUntil_" data-uid="Swan.Threading.ExclusiveTimer.WaitUntil*"></a>
+  <h4 id="Swan_Threading_ExclusiveTimer_WaitUntil_DateTime_CancellationToken_" data-uid="Swan.Threading.ExclusiveTimer.WaitUntil(DateTime,CancellationToken)">WaitUntil(DateTime, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Waits until the time is elapsed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WaitUntil(DateTime untilDate, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">DateTime</span></td>
+        <td><span class="parametername">untilDate</span></td>
+        <td><p>The until date.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>
