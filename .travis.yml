@@ -15,11 +15,10 @@ install:
   - dotnet restore
 script:
   - node ./mail.js &
-  - node ./ldap.js &
   - node ./web.js &
   - node ./tcp.js &
   - node ./ntp.js &
-  - cd ./test/Unosquare.Swan.Test/
-  - dotnet test Unosquare.Swan.Test.csproj -s .runsettings -f netcoreapp2.2
+  - cd ./test/Swan.Test/
+  - dotnet test Swan.Test.csproj -s .runsettings
 after_script:
   - killall -9 node

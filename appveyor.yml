@@ -1,7 +1,7 @@
 version: '1.00.{build}'
 image: 
 - Visual Studio 2017
-- Ubuntu
+- Ubuntu1804
 stack: node 9
 notifications:
 - provider: Slack
@@ -30,7 +30,6 @@ before_build:
         }
 - npm i npm@latest -g
 - npm install -q
-- ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
@@ -41,15 +40,15 @@ before_build:
 build_script:
 - msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
-- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.2
+- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release -s .runsettings
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
-            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Unosquare.Swan.Test\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
+            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Swan.Test\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
         }
 after_build:
 - ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows -And $env:APPVEYOR_REPO_BRANCH -eq "master")
         {
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
@@ -69,7 +68,6 @@ after_build:
             CD ..
         }
 on_finish:
-- ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
 - ps: Stop-Process -Id $TCP.Id
