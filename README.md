@@ -109,7 +109,7 @@ In this section, we present the different components that are available in the S
 
 `Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as `ObjectMapper`.
 
-[Runtime API Doc](https://unosquare.github.io/swan/api/Swan.Runtime.html)
+[Runtime API Doc](https://unosquare.github.io/swan/api/Swan.SwanRuntime.html)
 
 ### The `Terminal` class
 
@@ -383,7 +383,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to configure and it provides a very handy way to make send email messages in your application.
 
-[SmtpClient API Doc](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html)
+[SmtpClient API Doc](https://unosquare.github.io/swan/api/Swan.Net.Smtp.SmtpClient.html)
 
 #### Example 1: Using `System.Net.Mail.MailMessage`
 `SmtpClient` uses the classic  `System.Net.Mail.MailMessage` provided by .NET to send emails asynchronously.
@@ -484,7 +484,7 @@ var destination = mapper.Map<UserDto>(user);
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
-[Network API Doc](https://unosquare.github.io/swan/api/Swan.Network.html)
+[Network API Doc](https://unosquare.github.io/swan/api/Swan.Net.Network.html)
 
 #### Example 1: IPv4 and adapters information
 
@@ -544,9 +544,9 @@ ObjectComparer.AreEnumsEqual(first, second)
 ### The `ObjectValidator` component
 A simple object validator that allows you to set custom validations and identify if an object satisfies them.
 
-[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidator.html)
+[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Swan.Validators.ObjectValidator.html)
 
-[ObjectValidationResult API Doc](https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidationResult.html)
+[ObjectValidationResult API Doc](https://unosquare.github.io/swan/api/Swan.Validators.ObjectValidationResult.html)
 
 ### Example 1: Simple object validation
 Our `Simple` class to validate
@@ -610,7 +610,7 @@ var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsVali
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
 
-[DependencyContainer API Doc](https://unosquare.github.io/swan/api/Swan.Components.DependencyContainer.html)
+[DependencyContainer API Doc](https://unosquare.github.io/swan/api/Swan.DependencyInjection.DependencyContainer.html)
 
 #### Example 1: Basic Example
 
@@ -657,7 +657,7 @@ if (Runtime.Container.CanResolve<IAnimal>())
 ### The `MessageHub` component
 A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
-[MessageHub API Doc](https://unosquare.github.io/swan/api/Swan.Components.IMessageHub.html)
+[MessageHub API Doc](https://unosquare.github.io/swan/api/Swan.Messaging.MessageHub.html)
 
 In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to the publisher's publish event. When a message is "published" the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
@@ -690,7 +690,7 @@ The LDAP Client was moved to a standalone assembly at [SWAN LDAP](https://github
 ### The `ProcessRunner` class
 A class that provides methods that helps us create external processes and capture their output. 
 
-[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html)
+[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Swan.ProcessRunner.html)
 
 #### Example 1: Running a process async
 `RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.
@@ -746,7 +746,7 @@ data.StandardError.WriteLine();
 
 This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.
 
-[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html)
+[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Swan.Parsers.ArgumentParser.html)
 
 #### Example 1: Using basic options
 
@@ -808,7 +808,7 @@ internal class Options
 ### The `SettingsProvider` abstraction
 It represents a provider that helps you save and load settings using plain JSON file.
 
-[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html)
+[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Swan.Configuration.SettingsProvider-1.html)
 
 #### Example 1: Loading and saving settings
 Here we define a `Settings` class that contains all the properties we want.
@@ -888,7 +888,7 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
 ### The `DelayProvider` component
 A useful component that implements several delay mechanisms.
 
-[DelayProvider API Doc](https://unosquare.github.io/swan/api/Swan.Components.DelayProvider.html)
+[DelayProvider API Doc](https://unosquare.github.io/swan/api/Swan.Threading.DelayProvider.html)
 
 #### Example 1: Creating a delay
 ```csharp
@@ -904,7 +904,7 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 `WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API. 
 `ManualResetEvent` is a variation of `AutoResetEvent` that doesn't automatically reset after a thread is let through on a `WaitOne` call. Calling `Set` on a `ManualResetEvent` serves like an open gate allowing any number of threads that `WaitOne` pass throughCalling and `Reset` closes this gate. This type of event is usually used to signal that a certain operation has completed.
 
-[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Swan.Components.WaitEventFactory.html)
+[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Swan.Threading.WaitEventFactory.html)
 
 #### Example 1: Using the `WaitEventFactory`
 
