@@ -84,7 +84,7 @@
 <li><a href="#-libraries">📚 Libraries</a></li>
 <li><a href="#-installation">💾Installation</a></li>
 <li><a href="#whats-in-the-library">What&#39;s in the library</a><ul>
-<li><a href="#the-runtime-component">The Runtime component</a></li>
+<li><a href="#the-swanruntime-component">The SwanRuntime component</a></li>
 <li><a href="#the-terminal-class">The Terminal class</a></li>
 <li><a href="#the-json-formatter">The Json formatter</a></li>
 <li><a href="#the-csvwriter-class">The CsvWriter class</a></li>
@@ -297,9 +297,9 @@
 <pre><code>PM&gt; Install-Package Unosquare.Swan.Lite
 </code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
 <p>In this section, we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in. Swan is completely opt-in. It won&#39;t force you to use any of its components, classes or methods.</p>
-<h3 id="the-runtime-component">The <code>Runtime</code> component</h3>
-<p><code>Runtime</code> provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as <code>ObjectMapper</code>.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Runtime.html">Runtime API Doc</a></p>
+<h3 id="the-swanruntime-component">The <code>SwanRuntime</code> component</h3>
+<p><code>SwanRuntime</code> provides properties and methods that provide information about the application environment (including Assemblies and OS).</p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.SwanRuntime.html">Runtime API Doc</a></p>
 <h3 id="the-terminal-class">The <code>Terminal</code> class</h3>
 <p>Many times, we find ourselves implementing <code>Console</code> output code as some <code>NLog</code> or <code>Log4Net</code> logger or adapter, especially when writing console applications, daemons, and Windows services or Linux daemons. We also tend to write <code>Console</code> code for reading user input because it can&#39;t be some logger or adapter. And then you have the <code>System.Diagnostics.Debug</code> class to write to the debugger output. And finally, all your <code>Console</code> user interaction looks primitive and unprofessional. In other 
 words, you end up with 3 things you are unsure of how to put together in the different configurations and runtime environments:
@@ -472,7 +472,7 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre><h3 id="the-smtpclient-class">The <code>SmtpClient</code> class</h3>
 <p>It&#39;s a basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to configure and it provides a very handy way to make send email messages in your application.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html">SmtpClient API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Net.Smtp.SmtpClient.html">SmtpClient API Doc</a></p>
 <h4 id="example-1-using-systemnetmailmailmessage">Example 1: Using <code>System.Net.Mail.MailMessage</code></h4>
 <p><code>SmtpClient</code> uses the classic  <code>System.Net.Mail.MailMessage</code> provided by .NET to send emails asynchronously.</p>
 <pre><code class="lang-csharp">// Create a new smtp client using google&#39;s smtp server
@@ -543,7 +543,7 @@ mapper.CreateMap&lt;User, UserDto&gt;().RemoveMapProperty(t =&gt; t.Name);
 var destination = mapper.Map&lt;UserDto&gt;(user);
 </code></pre><h3 id="the-network-component">The <code>Network</code> component</h3>
 <p>When you are working with projects related to network or you want to extend your application to use some network functionality the Swan&#39;s <code>Network</code> provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Network.html">Network API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Net.Network.html">Network API Doc</a></p>
 <h4 id="example-1-ipv4-and-adapters-information">Example 1: IPv4 and adapters information</h4>
 <p>It&#39;s always useful to have a tool that gives you access to your adapters information and your IP address local and public and use it in your application.</p>
 <pre><code class="lang-csharp">// Gets the active IPv4 interfaces.
@@ -586,8 +586,8 @@ ObjectComparer.AreStructsEqual(first, second)
 ObjectComparer.AreEnumsEqual(first, second)
 </code></pre><h3 id="the-objectvalidator-component">The <code>ObjectValidator</code> component</h3>
 <p>A simple object validator that allows you to set custom validations and identify if an object satisfies them.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidator.html">ObjectValidator API Doc</a></p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Valiators.ObjectValidationResult.html">ObjectValidationResult API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Validators.ObjectValidator.html">ObjectValidator API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Validators.ObjectValidationResult.html">ObjectValidationResult API Doc</a></p>
 <h3 id="example-1-simple-object-validation">Example 1: Simple object validation</h3>
 <p>Our <code>Simple</code> class to validate</p>
 <pre><code class="lang-csharp">  public class Simple
@@ -630,7 +630,7 @@ Runtime.ObjectValidator.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;
 var res = new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;}.IsValid();
 </code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
 <p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of <code>DependencyContainer</code> called <code>Current</code> by <code>DependencyContainer</code> class.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.DependencyContainer.html">DependencyContainer API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.DependencyInjection.DependencyContainer.html">DependencyContainer API Doc</a></p>
 <h4 id="example-1-basic-example">Example 1: Basic Example</h4>
 <pre><code class="lang-csharp">// Initialize a new instance of DependencyContainer
 var container = new DependencyContainer();
@@ -662,7 +662,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 }
 </code></pre><h3 id="the-messagehub-component">The <code>MessageHub</code> component</h3>
 <p>A simple <a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Publisher-Subscriber pattern</a> implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.IMessageHub.html">MessageHub API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Messaging.MessageHub.html">MessageHub API Doc</a></p>
 <p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern, any object can &quot;subscribe&quot; to the publisher&#39;s publish event. When a message is &quot;published&quot; the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
 <h4 id="example-1-subscribing-to-a-messagehub">Example 1: Subscribing to a MessageHub</h4>
 <p>A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.</p>
@@ -685,7 +685,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <p>The LDAP Client was moved to a standalone assembly at <a href="https://github.com/unosquare/swan-ldap">SWAN LDAP</a>.</p>
 <h3 id="the-processrunner-class">The <code>ProcessRunner</code> class</h3>
 <p>A class that provides methods that helps us create external processes and capture their output. </p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.ProcessRunner.html">ProcessRunner API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.ProcessRunner.html">ProcessRunner API Doc</a></p>
 <h4 id="example-1-running-a-process-async">Example 1: Running a process async</h4>
 <p><code>RunProcessAsync</code> runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.</p>
 <pre><code class="lang-csharp">// executes a process and returns the exit code
@@ -730,7 +730,7 @@ data.StandardError.WriteLine();
 </code></pre><p><em>Keep in mind that both <code>GetProcessOutputAsync</code> and <code>GetProcessResultAsync</code> are meant to be used for programs that output a relatively small amount of text</em></p>
 <h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
 <p>This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Parsers.ArgumentParser.html">ArgumentParser API Doc</a></p>
 <h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
 <p>In order to parse arguments first, we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
 <p>In order to set an <code>ArgumentOption</code>, we need to supply at least a short name, a long name or both</p>
@@ -773,7 +773,7 @@ static void Main(string[] args)
   }
 </code></pre><h3 id="the-settingsprovider-abstraction">The <code>SettingsProvider</code> abstraction</h3>
 <p>It represents a provider that helps you save and load settings using plain JSON file.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Abstractions.SettingsProvider-1.html">SettingsProvider API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Configuration.SettingsProvider-1.html">SettingsProvider API Doc</a></p>
 <h4 id="example-1-loading-and-saving-settings">Example 1: Loading and saving settings</h4>
 <p>Here we define a <code>Settings</code> class that contains all the properties we want.</p>
 <pre><code class="lang-csharp">internal class Settings 
@@ -832,7 +832,7 @@ using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0)
 }
 </code></pre><h3 id="the-delayprovider-component">The <code>DelayProvider</code> component</h3>
 <p>A useful component that implements several delay mechanisms.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.DelayProvider.html">DelayProvider API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Threading.DelayProvider.html">DelayProvider API Doc</a></p>
 <h4 id="example-1-creating-a-delay">Example 1: Creating a delay</h4>
 <pre><code class="lang-csharp">// using the ThreadSleep strategy
 using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
@@ -843,7 +843,7 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 </code></pre><h3 id="the-waiteventfactory-component">The <code>WaitEventFactory</code> component</h3>
 <p><code>WaitEventFactory</code> provides a standard <a href="https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1">ManualResetEvent</a> factory with a unified API. 
 <code>ManualResetEvent</code> is a variation of <code>AutoResetEvent</code> that doesn&#39;t automatically reset after a thread is let through on a <code>WaitOne</code> call. Calling <code>Set</code> on a <code>ManualResetEvent</code> serves like an open gate allowing any number of threads that <code>WaitOne</code> pass throughCalling and <code>Reset</code> closes this gate. This type of event is usually used to signal that a certain operation has completed.</p>
-<p><a href="https://unosquare.github.io/swan/api/Swan.Components.WaitEventFactory.html">WaitEventFactory API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Swan.Threading.WaitEventFactory.html">WaitEventFactory API Doc</a></p>
 <h4 id="example-1-using-the-waiteventfactory">Example 1: Using the <code>WaitEventFactory</code></h4>
 <pre><code class="lang-csharp">// creates a WaitEvent using the slim version of ManualResetEvent
 private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
