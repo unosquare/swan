@@ -19,7 +19,7 @@ Table of contents
   * [📚 Libraries](#-libraries)
   * [💾Installation](#-installation)
   * [What's in the library](#whats-in-the-library)
-    * [The Runtime component](#the-runtime-component)
+    * [The SwanRuntime component](#the-swanruntime-component)
     * [The Terminal class](#the-terminal-class)
     * [The Json formatter](#the-json-formatter)
     * [The CsvWriter class](#the-csvwriter-class)
@@ -105,9 +105,9 @@ PM> Install-Package Unosquare.Swan.Lite
 
 In this section, we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in. Swan is completely opt-in. It won't force you to use any of its components, classes or methods.
 
-### The `Runtime` component
+### The `SwanRuntime` component
 
-`Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as `ObjectMapper`.
+`SwanRuntime` provides properties and methods that provide information about the application environment (including Assemblies and OS).
 
 [Runtime API Doc](https://unosquare.github.io/swan/api/Swan.SwanRuntime.html)
 
