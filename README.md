@@ -47,7 +47,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|
-| [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Parsing.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Parsers.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [CircularBuffer](https://unosquare.github.io/swan/api/Swan.CircularBuffer.html) | :x: | :heavy_check_mark: |
 | [Connection](https://unosquare.github.io/swan/api/Swan.Net.Connection.html) | :x: | :heavy_check_mark: |
@@ -74,12 +74,12 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [SwanRuntime](https://unosquare.github.io/swan/api/Swan.SwanRuntime.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SettingsProvider<T>](https://unosquare.github.io/swan/api/Swan.Configuration.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [SingletonBase<T>](https://unosquare.github.io/swan/api/Swan.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.SmtpClient.html) | :x: | :heavy_check_mark: |
+| [SmtpClient](https://unosquare.github.io/swan/api/Swan.Net.Smtp.SmtpClient.html) | :x: | :heavy_check_mark: |
 | [StringExtensions](https://unosquare.github.io/swan/api/Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Terminal](https://unosquare.github.io/swan/api/Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [TypeCache<T>](https://unosquare.github.io/swan/api/Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ValueTypeExtensions](https://unosquare.github.io/swan/api/Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [WorkerBase](https://unosquare.github.io/swan/api/Swan.Abstractions.WorkerBase.html) | :x: | :heavy_check_mark: |
+| [WorkerBase](https://unosquare.github.io/swan/api/Swan.Threading.WorkerBase.html) | :x: | :heavy_check_mark: |
  
 If you are developing an ASP.NET Core application, we recommend to use [SWAN ASP.NET Core](https://github.com/unosquare/swan-aspnetcore).
 
