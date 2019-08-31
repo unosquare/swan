@@ -132,7 +132,7 @@
             var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
             {
-                $"Output info {i} ({((decimal) i / limit):P})".Info(typeof(Program));
+                Terminal.WriteLine($"Output info {i} ({((decimal) i / limit):P})");
                 Terminal.BacklineCursor();
             }
 
