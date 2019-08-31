@@ -19,6 +19,7 @@
         {
             var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
             Assert.IsNotEmpty(data);
+            Console.Write(data);
             Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
         }
 
