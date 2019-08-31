@@ -40,7 +40,7 @@ before_build:
 build_script:
 - msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
-- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release -s .runsettings
+- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {

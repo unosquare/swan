@@ -175,17 +175,7 @@
             
             // Now, add some color:
             Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green);
-
-            // Write it out to the debugger as well!
-            Terminal.WriteLine($"Hello, today is {DateTime.Today}",
-                ConsoleColor.Green,
-                TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
-
-            // You could have also skipped the color argument and just use the default
-            Terminal.WriteLine($"Hello, today is {DateTime.Today}",
-                null,
-                TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
-
+            
             if (Terminal.ReadKey("Press a key to test menu options. (X) will exit.").Key == ConsoleKey.X) return;
             Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
 

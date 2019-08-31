@@ -24,23 +24,8 @@ namespace Swan
         StandardError = 2,
         
         /// <summary>
-        /// Writes to the System.Diagnostics.Debug
-        /// </summary>
-        Diagnostics = 4,
-        
-        /// <summary>
         /// Writes to all possible terminal writers
         /// </summary>
-        All = StandardOutput | Diagnostics | StandardError,
-        
-        /// <summary>
-        /// The error and debug writers
-        /// </summary>
-        ErrorAndDebug = StandardError | Diagnostics,
-        
-        /// <summary>
-        /// The output and debug writers
-        /// </summary>
-        OutputAndDebug = StandardOutput | Diagnostics,
+        All = StandardOutput | StandardError,
     }
 }
