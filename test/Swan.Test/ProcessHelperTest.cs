@@ -19,8 +19,7 @@
         {
             var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
             Assert.IsNotEmpty(data);
-            Console.Write(data);
-            Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
+            Assert.IsTrue(data.StartsWith(".NET"));
         }
 
         [Test]
@@ -28,7 +27,7 @@
         {
             var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help", System.IO.Path.GetTempPath());
             Assert.IsNotEmpty(data);
-            Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
+            Assert.IsTrue(data.StartsWith(".NET"));
         }
         
         [Test]
@@ -54,7 +53,7 @@
         {
             var data = await ProcessRunner.GetProcessEncodedOutputAsync("dotnet", "--help", Encoding.UTF8);
             Assert.IsNotEmpty(data);
-            Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
+            Assert.IsTrue(data.StartsWith(".NET"));
         }
     }
 
