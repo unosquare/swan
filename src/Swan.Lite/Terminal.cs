@@ -124,8 +124,6 @@ namespace Swan
         {
             get
             {
-                if (Settings.OverrideIsConsolePresent) return true;
-
                 if (_isConsolePresent == null)
                 {
                     _isConsolePresent = true;
@@ -293,10 +291,10 @@ namespace Swan
 
             while (OutputQueue.Count > 0)
             {
-                if (OutputQueue.TryDequeue(out var context) == false) continue;
+                if (!OutputQueue.TryDequeue(out var context)) continue;
 
                 // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
+                if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
                 {
                     // Output to the standard output
                     if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
