@@ -156,17 +156,10 @@ namespace Swan
         /// <value>
         /// The available writers.
         /// </value>
-        public static TerminalWriters AvailableWriters
-        {
-            get
-            {
-                var writers = TerminalWriters.None;
-                if (IsConsolePresent)
-                    writers = TerminalWriters.StandardError | TerminalWriters.StandardOutput;
-                
-                return writers;
-            }
-        }
+        public static TerminalWriters AvailableWriters =>
+            IsConsolePresent 
+                ? TerminalWriters.StandardError | TerminalWriters.StandardOutput
+                : TerminalWriters.None;
 
         /// <summary>
         /// Gets or sets the output encoding for the current console.

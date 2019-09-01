@@ -134,12 +134,14 @@ namespace Swan.Logging
         {
             lock (SyncLock)
             {
+                var isError = logEvent.MessageType.HasFlag(LogLevel.Error);
+
                 // Select the writer based on the message type
-                var writer = logEvent.MessageType.HasFlag(LogLevel.Error) 
+                var writer = isError
                         ? TerminalWriters.StandardError 
                         : TerminalWriters.StandardOutput;
                 
-                var color = GetOutputAndColor(logEvent, writer.HasFlag(TerminalWriters.StandardError), out var outputMessage);
+                var color = GetOutputAndColor(logEvent, isError, out var outputMessage);
 
                 Terminal.WriteLine(outputMessage, color, writer);
             }
