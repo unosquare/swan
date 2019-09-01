@@ -224,7 +224,7 @@ namespace Swan.Logging
             return prefix;
         }
 
-        internal static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
+        private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
         {
             var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
                 ? string.Empty
