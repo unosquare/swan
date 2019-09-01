@@ -34,8 +34,8 @@
         public async Task WithInvalidParams_ReturnsProcessError()
         {
             var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "lol");
+
             Assert.IsNotEmpty(data);
-            Assert.IsTrue(data.StartsWith("No executable found"));
         }
     }
 
