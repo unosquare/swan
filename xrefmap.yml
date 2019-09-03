@@ -4787,6 +4787,64 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.ConsoleLogger.WarnPrefix
   nameWithType: ConsoleLogger.WarnPrefix
+- uid: Swan.Logging.DebugLogger
+  name: DebugLogger
+  href: api/Swan.Logging.DebugLogger.html
+  commentId: T:Swan.Logging.DebugLogger
+  fullName: Swan.Logging.DebugLogger
+  nameWithType: DebugLogger
+- uid: Swan.Logging.DebugLogger.#ctor
+  name: DebugLogger()
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger__ctor
+  commentId: M:Swan.Logging.DebugLogger.#ctor
+  fullName: Swan.Logging.DebugLogger.DebugLogger()
+  nameWithType: DebugLogger.DebugLogger()
+- uid: Swan.Logging.DebugLogger.#ctor*
+  name: DebugLogger
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger__ctor_
+  commentId: Overload:Swan.Logging.DebugLogger.#ctor
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.DebugLogger
+  nameWithType: DebugLogger.DebugLogger
+- uid: Swan.Logging.DebugLogger.Dispose
+  name: Dispose()
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Dispose
+  commentId: M:Swan.Logging.DebugLogger.Dispose
+  fullName: Swan.Logging.DebugLogger.Dispose()
+  nameWithType: DebugLogger.Dispose()
+- uid: Swan.Logging.DebugLogger.Dispose*
+  name: Dispose
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Dispose_
+  commentId: Overload:Swan.Logging.DebugLogger.Dispose
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.Dispose
+  nameWithType: DebugLogger.Dispose
+- uid: Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
+  name: Log(LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Log_Swan_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
+  nameWithType: DebugLogger.Log(LogMessageReceivedEventArgs)
+- uid: Swan.Logging.DebugLogger.Log*
+  name: Log
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Log_
+  commentId: Overload:Swan.Logging.DebugLogger.Log
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.Log
+  nameWithType: DebugLogger.Log
+- uid: Swan.Logging.DebugLogger.LogLevel
+  name: LogLevel
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_LogLevel
+  commentId: P:Swan.Logging.DebugLogger.LogLevel
+  fullName: Swan.Logging.DebugLogger.LogLevel
+  nameWithType: DebugLogger.LogLevel
+- uid: Swan.Logging.DebugLogger.LogLevel*
+  name: LogLevel
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_LogLevel_
+  commentId: Overload:Swan.Logging.DebugLogger.LogLevel
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.LogLevel
+  nameWithType: DebugLogger.LogLevel
 - uid: Swan.Logging.FileLogger
   name: FileLogger
   href: api/Swan.Logging.FileLogger.html
@@ -11869,19 +11927,6 @@ references:
   isSpec: "True"
   fullName: Swan.Terminal.Settings.DefaultColor
   nameWithType: Terminal.Settings.DefaultColor
-- uid: Swan.Terminal.Settings.OverrideIsConsolePresent
-  name: OverrideIsConsolePresent
-  href: api/Swan.Terminal.Settings.html#Swan_Terminal_Settings_OverrideIsConsolePresent
-  commentId: P:Swan.Terminal.Settings.OverrideIsConsolePresent
-  fullName: Swan.Terminal.Settings.OverrideIsConsolePresent
-  nameWithType: Terminal.Settings.OverrideIsConsolePresent
-- uid: Swan.Terminal.Settings.OverrideIsConsolePresent*
-  name: OverrideIsConsolePresent
-  href: api/Swan.Terminal.Settings.html#Swan_Terminal_Settings_OverrideIsConsolePresent_
-  commentId: Overload:Swan.Terminal.Settings.OverrideIsConsolePresent
-  isSpec: "True"
-  fullName: Swan.Terminal.Settings.OverrideIsConsolePresent
-  nameWithType: Terminal.Settings.OverrideIsConsolePresent
 - uid: Swan.Terminal.Settings.UserInputPrefix
   name: UserInputPrefix
   href: api/Swan.Terminal.Settings.html#Swan_Terminal_Settings_UserInputPrefix
@@ -11989,30 +12034,12 @@ references:
   commentId: F:Swan.TerminalWriters.All
   fullName: Swan.TerminalWriters.All
   nameWithType: TerminalWriters.All
-- uid: Swan.TerminalWriters.Diagnostics
-  name: Diagnostics
-  href: api/Swan.TerminalWriters.html#Swan_TerminalWriters_Diagnostics
-  commentId: F:Swan.TerminalWriters.Diagnostics
-  fullName: Swan.TerminalWriters.Diagnostics
-  nameWithType: TerminalWriters.Diagnostics
-- uid: Swan.TerminalWriters.ErrorAndDebug
-  name: ErrorAndDebug
-  href: api/Swan.TerminalWriters.html#Swan_TerminalWriters_ErrorAndDebug
-  commentId: F:Swan.TerminalWriters.ErrorAndDebug
-  fullName: Swan.TerminalWriters.ErrorAndDebug
-  nameWithType: TerminalWriters.ErrorAndDebug
 - uid: Swan.TerminalWriters.None
   name: None
   href: api/Swan.TerminalWriters.html#Swan_TerminalWriters_None
   commentId: F:Swan.TerminalWriters.None
   fullName: Swan.TerminalWriters.None
   nameWithType: TerminalWriters.None
-- uid: Swan.TerminalWriters.OutputAndDebug
-  name: OutputAndDebug
-  href: api/Swan.TerminalWriters.html#Swan_TerminalWriters_OutputAndDebug
-  commentId: F:Swan.TerminalWriters.OutputAndDebug
-  fullName: Swan.TerminalWriters.OutputAndDebug
-  nameWithType: TerminalWriters.OutputAndDebug
 - uid: Swan.TerminalWriters.StandardError
   name: StandardError
   href: api/Swan.TerminalWriters.html#Swan_TerminalWriters_StandardError
