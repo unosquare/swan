@@ -44,14 +44,6 @@ namespace Swan
             /// The user option text.
             /// </value>
             public static string UserOptionText { get; set; } = " Option: ";
-
-            /// <summary>
-            /// Gets or sets a value indicating whether [override is console present].
-            /// </summary>
-            /// <value>
-            ///   <c>true</c> if [override is console present]; otherwise, <c>false</c>.
-            /// </value>
-            public static bool OverrideIsConsolePresent { get; set; }
         }
     }
 }

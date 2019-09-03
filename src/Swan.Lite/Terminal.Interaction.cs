@@ -21,13 +21,14 @@ namespace Swan
         /// <returns>The console key information.</returns>
         public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
-            if (IsConsolePresent == false) return default;
+            if (!IsConsolePresent) return default;
             if (disableLocking) return Console.ReadKey(intercept);
 
             lock (SyncLock)
             {
                 Flush();
                 InputDone.Reset();
+
                 try
                 {
                     Console.CursorVisible = true;
@@ -49,7 +50,7 @@ namespace Swan
         /// <returns>The console key information.</returns>
         public static ConsoleKeyInfo ReadKey(string prompt, bool preventEcho = true)
         {
-            if (IsConsolePresent == false) return default;
+            if (!IsConsolePresent) return default;
 
             lock (SyncLock)
             {
@@ -102,7 +103,7 @@ namespace Swan
         /// <returns>The read line.</returns>
         public static string ReadLine(string prompt)
         {
-            if (IsConsolePresent == false) return null;
+            if (!IsConsolePresent) return null;
 
             lock (SyncLock)
             {
@@ -122,7 +123,7 @@ namespace Swan
         /// </returns>
         public static int ReadNumber(string prompt, int defaultNumber)
         {
-            if (IsConsolePresent == false) return defaultNumber;
+            if (!IsConsolePresent) return defaultNumber;
 
             lock (SyncLock)
             {
@@ -145,7 +146,7 @@ namespace Swan
             IDictionary<ConsoleKey, string> options,
             string anyKeyOption)
         {
-            if (IsConsolePresent == false) return default;
+            if (!IsConsolePresent) return default;
 
             const ConsoleColor textColor = ConsoleColor.White;
             var lineLength = Console.BufferWidth;

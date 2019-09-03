@@ -124,8 +124,6 @@ namespace Swan
         {
             get
             {
-                if (Settings.OverrideIsConsolePresent) return true;
-
                 if (_isConsolePresent == null)
                 {
                     _isConsolePresent = true;
@@ -158,20 +156,10 @@ namespace Swan
         /// <value>
         /// The available writers.
         /// </value>
-        public static TerminalWriters AvailableWriters
-        {
-            get
-            {
-                var writers = TerminalWriters.None;
-                if (IsConsolePresent)
-                    writers = TerminalWriters.StandardError | TerminalWriters.StandardOutput;
-
-                if (IsDebuggerAttached)
-                    writers = writers | TerminalWriters.Diagnostics;
-
-                return writers;
-            }
-        }
+        public static TerminalWriters AvailableWriters =>
+            IsConsolePresent 
+                ? TerminalWriters.StandardError | TerminalWriters.StandardOutput
+                : TerminalWriters.None;
 
         /// <summary>
         /// Gets or sets the output encoding for the current console.
@@ -243,6 +231,17 @@ namespace Swan
         /// length of the console width.
         /// </summary>
         public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
+        
+        /// <summary>
+        /// Writes a standard banner to the standard output
+        /// containing the company name, product name, assembly version and trademark.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
+        {
+            WriteLine($"{SwanRuntime.CompanyName} {SwanRuntime.ProductName} [Version {SwanRuntime.EntryAssemblyVersion}]", color);
+            WriteLine($"{SwanRuntime.ProductTrademark}", color);
+        }
 
         /// <summary>
         /// Enqueues the output to be written to the console
@@ -293,47 +292,28 @@ namespace Swan
 
             while (OutputQueue.Count > 0)
             {
-                if (OutputQueue.TryDequeue(out var context) == false) continue;
+                if (!OutputQueue.TryDequeue(out var context)) continue;
 
                 // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
-                {
-                    // Output to the standard output
-                    if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                    {
-                        Console.ForegroundColor = context.OutputColor;
-                        Console.Out.Write(context.OutputText);
-                        Console.ResetColor();
-                        Console.ForegroundColor = context.OriginalColor;
-                    }
+                if (!IsConsolePresent || OutputQueue.Count > Console.BufferHeight) continue;
 
-                    // output to the standard error
-                    if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                    {
-                        Console.ForegroundColor = context.OutputColor;
-                        Console.Error.Write(context.OutputText);
-                        Console.ResetColor();
-                        Console.ForegroundColor = context.OriginalColor;
-                    }
+                Console.ForegroundColor = context.OutputColor;
+
+                // Output to the standard output
+                if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
+                {
+                    Console.Out.Write(context.OutputText);
                 }
 
-                // Process Debugger output
-                if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                // output to the standard error
+                if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
                 {
-                    System.Diagnostics.Debug.Write(new string(context.OutputText));
+                    Console.Error.Write(context.OutputText);
                 }
+                
+                Console.ResetColor();
+                Console.ForegroundColor = context.OriginalColor;
             }
-        }
-        
-        /// <summary>
-        /// Writes a standard banner to the standard output
-        /// containing the company name, product name, assembly version and trademark.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
-        {
-            WriteLine($"{SwanRuntime.CompanyName} {SwanRuntime.ProductName} [Version {SwanRuntime.EntryAssemblyVersion}]", color);
-            WriteLine($"{SwanRuntime.ProductTrademark}", color);
         }
 
         #endregion
@@ -353,9 +333,7 @@ namespace Swan
                 OriginalColor = Settings.DefaultColor;
                 OutputWriters = IsConsolePresent
                     ? TerminalWriters.StandardOutput
-                    : IsDebuggerAttached
-                        ? TerminalWriters.Diagnostics
-                        : TerminalWriters.None;
+                    : TerminalWriters.None;
             }
 
             public ConsoleColor OriginalColor { get; }

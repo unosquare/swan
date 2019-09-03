@@ -73,13 +73,9 @@ namespace Swan.Logging
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            var outputMessage = ConsoleLogger.CreateOutputMessage(
-                logEvent.Source,
-                logEvent.Message,
-                ConsoleLogger.GetConsoleColorAndPrefix(logEvent.MessageType, out _),
-                logEvent.UtcDate);
+            ConsoleLogger.GetOutputAndColor(logEvent, true, out var outputMessage);
 
-            _logQueue.Enqueue($"{outputMessage}{Environment.NewLine}{(logEvent.Exception != null ? $"{logEvent.Exception.Stringify().Indent()}{Environment.NewLine}" : String.Empty)}");
+            _logQueue.Enqueue(outputMessage);
         }
 
         /// <inheritdoc />

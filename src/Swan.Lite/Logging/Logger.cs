@@ -19,7 +19,11 @@ namespace Swan.Logging
 
         static Logger()
         {
-            Loggers.Add(ConsoleLogger.Instance);
+            if (Terminal.IsConsolePresent)
+                Loggers.Add(ConsoleLogger.Instance);
+
+            if (Terminal.IsDebuggerAttached)
+                Loggers.Add(DebugLogger.Instance);
         }
 
         #region Standard Public API

@@ -134,43 +134,14 @@ namespace Swan.Logging
         {
             lock (SyncLock)
             {
-                var prefix = GetConsoleColorAndPrefix(logEvent.MessageType, out var color);
-
-                var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
-                    ? string.Empty
-                    : logEvent.Message.RemoveControlCharsExcept('\n');
-
-                var outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
+                var isError = logEvent.MessageType.HasFlag(LogLevel.Error);
 
                 // Select the writer based on the message type
-                var writer = Terminal.IsConsolePresent
-                    ? logEvent.MessageType.HasFlag(LogLevel.Error) ? TerminalWriters.StandardError :
-                    TerminalWriters.StandardOutput
-                    : TerminalWriters.None;
-
-                // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
-                // if it is attached at all
-                if (Terminal.IsDebuggerAttached
-                    && (Terminal.IsConsolePresent == false || logEvent.MessageType.HasFlag(LogLevel.Debug) ||
-                        logEvent.MessageType.HasFlag(LogLevel.Error)))
-                    writer |= TerminalWriters.Diagnostics;
-
-                // Check if we really need to write this out
-                if (writer == TerminalWriters.None) return;
-
-                // Further format the output in the case there is an exception being logged
-                if (writer.HasFlag(TerminalWriters.StandardError) && logEvent.Exception != null)
-                {
-                    try
-                    {
-                        outputMessage =
-                            $"{outputMessage}{Environment.NewLine}{logEvent.Exception.Stringify().Indent()}";
-                    }
-                    catch
-                    {
-                        // Ignore  
-                    }
-                }
+                var writer = isError
+                        ? TerminalWriters.StandardError 
+                        : TerminalWriters.StandardOutput;
+                
+                var color = GetOutputAndColor(logEvent, isError, out var outputMessage);
 
                 Terminal.WriteLine(outputMessage, color, writer);
             }
@@ -181,8 +152,38 @@ namespace Swan.Logging
         {
             // Do nothing
         }
+        
+        internal static ConsoleColor GetOutputAndColor(
+            LogMessageReceivedEventArgs logEvent, 
+            bool isError,
+            out string outputMessage)
+        {
+            var prefix = GetConsoleColorAndPrefix(logEvent.MessageType, out var color);
 
-        internal static string GetConsoleColorAndPrefix(LogLevel messageType, out ConsoleColor color)
+            var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
+                ? string.Empty
+                : logEvent.Message.RemoveControlCharsExcept('\n');
+
+            outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
+
+            // Further format the output in the case there is an exception being logged
+            if (isError && logEvent.Exception != null)
+            {
+                try
+                {
+                    outputMessage =
+                        $"{outputMessage}{Environment.NewLine}{logEvent.Exception.Stringify().Indent()}";
+                }
+                catch
+                {
+                    // Ignore  
+                }
+            }
+
+            return color;
+        }
+
+        private static string GetConsoleColorAndPrefix(LogLevel messageType, out ConsoleColor color)
         {
             string prefix;
 
@@ -223,7 +224,7 @@ namespace Swan.Logging
             return prefix;
         }
 
-        internal static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
+        private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
         {
             var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
                 ? string.Empty

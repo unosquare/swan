@@ -19,6 +19,6 @@ script:
   - node ./tcp.js &
   - node ./ntp.js &
   - cd ./test/Swan.Test/
-  - dotnet test Swan.Test.csproj -s .runsettings
+  - dotnet test Swan.Test.csproj
 after_script:
   - killall -9 node
