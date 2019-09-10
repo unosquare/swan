@@ -129,6 +129,16 @@
         public MyEnum MyEnum{ get; set; }
     }
 
+    public class ObjectNoEmptyCtor
+    {
+        public ObjectNoEmptyCtor(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; set; }
+    }
+
     public enum MyEnum
     {
         One = 1,
