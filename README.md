@@ -1,6 +1,8 @@
 [![NuGet](https://img.shields.io/nuget/dt/Unosquare.Swan.svg)](https://www.nuget.org/packages/Unosquare.Swan)
+[![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/swan/)](https://github.com/igrigorik/ga-beacon)
 [![Build Status](https://travis-ci.org/unosquare/swan.svg?branch=master)](https://travis-ci.org/unosquare/swan)
 [![Build status](https://ci.appveyor.com/api/projects/status/063tybvog8mb1sic/branch/master?svg=true)](https://ci.appveyor.com/project/geoperez/swan/branch/master)
+![Buils status](https://github.com/unosquare/swan/workflows/.NET%20Core%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master)](https://coveralls.io/github/unosquare/swan?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c588287f33694935a4d061e82baf62f5)](https://www.codacy.com/project/UnosquareLabs/swan/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=unosquare/swan&amp;utm_campaign=Badge_Grade_Dashboard)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=unosquare/swan)](https://dependabot.com)
