@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swan.Lite.Reflection;
 using Swan.Mappers;
 using Swan.Reflection;
 
@@ -67,7 +68,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy) 
+        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy)
             => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
@@ -237,7 +238,7 @@ namespace Swan
 
             return PropertyTypeCache.DefaultCache.Value
                 .RetrieveAllProperties(@this.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null})
+                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
         }
@@ -259,7 +260,23 @@ namespace Swan
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    target = Activator.CreateInstance(targetType, includeNonPublic);
+                    var ctors = ConstructorTypeCache.DefaultCache.Value
+                        .RetrieveAllConstructors(targetType, includeNonPublic);
+
+                    // Try to check if empty constructor is available
+                    if (ctors.Any(x => x.Item2.Length == 0))
+                    {
+                        target = Activator.CreateInstance(targetType, includeNonPublic);
+                    }
+                    else
+                    {
+                        var firstCtor = ctors
+                            .OrderBy(x => x.Item2.Length)
+                            .FirstOrDefault();
+
+                        target = Activator.CreateInstance(targetType, firstCtor?.Item2.Select(arg => arg.GetType().GetDefault()).ToArray());
+                    }
+
                     break;
             }
         }

@@ -14,7 +14,6 @@ namespace Swan.Reflection
     /// </summary>
     /// <typeparam name="T">The type of Member to be cached.</typeparam>
     public abstract class TypeCache<T> : CollectionCacheRepository<T>
-        where T : MemberInfo
     {
         /// <summary>
         /// Determines whether the cache contains the specified type.
