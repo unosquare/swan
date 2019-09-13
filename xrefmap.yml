@@ -4866,6 +4866,19 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.DebugLogger.Dispose
   nameWithType: DebugLogger.Dispose
+- uid: Swan.Logging.DebugLogger.IsDebuggerAttached
+  name: IsDebuggerAttached
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_IsDebuggerAttached
+  commentId: P:Swan.Logging.DebugLogger.IsDebuggerAttached
+  fullName: Swan.Logging.DebugLogger.IsDebuggerAttached
+  nameWithType: DebugLogger.IsDebuggerAttached
+- uid: Swan.Logging.DebugLogger.IsDebuggerAttached*
+  name: IsDebuggerAttached
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_IsDebuggerAttached_
+  commentId: Overload:Swan.Logging.DebugLogger.IsDebuggerAttached
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.IsDebuggerAttached
+  nameWithType: DebugLogger.IsDebuggerAttached
 - uid: Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
   href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Log_Swan_LogMessageReceivedEventArgs_
@@ -11807,19 +11820,6 @@ references:
   isSpec: "True"
   fullName: Swan.Terminal.IsConsolePresent
   nameWithType: Terminal.IsConsolePresent
-- uid: Swan.Terminal.IsDebuggerAttached
-  name: IsDebuggerAttached
-  href: api/Swan.Terminal.html#Swan_Terminal_IsDebuggerAttached
-  commentId: P:Swan.Terminal.IsDebuggerAttached
-  fullName: Swan.Terminal.IsDebuggerAttached
-  nameWithType: Terminal.IsDebuggerAttached
-- uid: Swan.Terminal.IsDebuggerAttached*
-  name: IsDebuggerAttached
-  href: api/Swan.Terminal.html#Swan_Terminal_IsDebuggerAttached_
-  commentId: Overload:Swan.Terminal.IsDebuggerAttached
-  isSpec: "True"
-  fullName: Swan.Terminal.IsDebuggerAttached
-  nameWithType: Terminal.IsDebuggerAttached
 - uid: Swan.Terminal.OutputEncoding
   name: OutputEncoding
   href: api/Swan.Terminal.html#Swan_Terminal_OutputEncoding
