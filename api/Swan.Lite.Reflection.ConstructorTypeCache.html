@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IMessageHubSubscription
+    <title>Class ConstructorTypeCache
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IMessageHubSubscription
+    <meta name="title" content="Class ConstructorTypeCache
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -76,31 +76,36 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.Messaging.IMessageHubSubscription">
+            <article class="content wrap" id="_content" data-uid="Swan.Lite.Reflection.ConstructorTypeCache">
   
   
-  <h1 id="Swan_Messaging_IMessageHubSubscription" data-uid="Swan.Messaging.IMessageHubSubscription" class="text-break">Interface IMessageHubSubscription
+  <h1 id="Swan_Lite_Reflection_ConstructorTypeCache" data-uid="Swan.Lite.Reflection.ConstructorTypeCache" class="text-break">Class ConstructorTypeCache
   </h1>
-  <div class="markdown level0 summary"><p>Represents a message subscription.</p>
+  <div class="markdown level0 summary"><p>A thread-safe cache of constructors belonging to a given type.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Messaging.html">Swan.Messaging</a></h6>
-  <h5 id="Swan_Messaging_IMessageHubSubscription_syntax">Syntax</h5>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">ConstructorTypeCache</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Lite.Reflection.html">Swan.Lite.Reflection</a></h6>
+  <h5 id="Swan_Lite_Reflection_ConstructorTypeCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IMessageHubSubscription</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConstructorTypeCache : TypeCache&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Swan_Messaging_IMessageHubSubscription_SubscriptionToken_" data-uid="Swan.Messaging.IMessageHubSubscription.SubscriptionToken*"></a>
-  <h4 id="Swan_Messaging_IMessageHubSubscription_SubscriptionToken" data-uid="Swan.Messaging.IMessageHubSubscription.SubscriptionToken">SubscriptionToken</h4>
-  <div class="markdown level1 summary"><p>Token returned to the subscribed to reference this subscription.</p>
+  <a id="Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache*"></a>
+  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache">DefaultCache</h4>
+  <div class="markdown level1 summary"><p>Gets the default cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken SubscriptionToken { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static Lazy&lt;ConstructorTypeCache&gt; DefaultCache { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -112,8 +117,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Swan.Messaging.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
-        <td></td>
+        <td><span class="xref">Lazy</span>&lt;<a class="xref" href="Swan.Lite.Reflection.ConstructorTypeCache.html">ConstructorTypeCache</a>&gt;</td>
+        <td><p>The default cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -121,14 +127,14 @@
   </h3>
   
   
-  <a id="Swan_Messaging_IMessageHubSubscription_Deliver_" data-uid="Swan.Messaging.IMessageHubSubscription.Deliver*"></a>
-  <h4 id="Swan_Messaging_IMessageHubSubscription_Deliver_Swan_Messaging_IMessageHubMessage_" data-uid="Swan.Messaging.IMessageHubSubscription.Deliver(Swan.Messaging.IMessageHubMessage)">Deliver(IMessageHubMessage)</h4>
-  <div class="markdown level1 summary"><p>Deliver the message.</p>
+  <a id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
+  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)">RetrieveAllConstructors(Type, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Deliver(IMessageHubMessage message)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors(Type type, bool includeNonPublic = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -141,38 +147,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Swan.Messaging.IMessageHubMessage.html">IMessageHubMessage</a></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>Message to deliver.</p>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_Messaging_IMessageHubSubscription_ShouldAttemptDelivery_" data-uid="Swan.Messaging.IMessageHubSubscription.ShouldAttemptDelivery*"></a>
-  <h4 id="Swan_Messaging_IMessageHubSubscription_ShouldAttemptDelivery_Swan_Messaging_IMessageHubMessage_" data-uid="Swan.Messaging.IMessageHubSubscription.ShouldAttemptDelivery(Swan.Messaging.IMessageHubMessage)">ShouldAttemptDelivery(IMessageHubMessage)</h4>
-  <div class="markdown level1 summary"><p>Whether delivery should be attempted.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool ShouldAttemptDelivery(IMessageHubMessage message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Swan.Messaging.IMessageHubMessage.html">IMessageHubMessage</a></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>Message that may potentially be delivered.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">includeNonPublic</span></td>
+        <td><p>if set to <code>true</code> [include non public].</p>
 </td>
       </tr>
     </tbody>
@@ -187,8 +170,69 @@
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
+        <td><p>A collection with all the constructors in the given type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
+  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)">RetrieveAllConstructors&lt;T&gt;(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors&lt;T&gt;(bool includeNonPublic = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> - ok to send, <code>false</code> - should not attempt to send.</p>
+        <td><span class="parametername">includeNonPublic</span></td>
+        <td><p>if set to <code>true</code> [include non public].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
+        <td><p>A collection with all the constructors in the given type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type to inspect.</p>
 </td>
       </tr>
     </tbody>

@@ -4554,6 +4554,53 @@ references:
   commentId: F:Swan.JsonSerializerCase.PascalCase
   fullName: Swan.JsonSerializerCase.PascalCase
   nameWithType: JsonSerializerCase.PascalCase
+- uid: Swan.Lite.Reflection
+  name: Swan.Lite.Reflection
+  href: api/Swan.Lite.Reflection.html
+  commentId: N:Swan.Lite.Reflection
+  fullName: Swan.Lite.Reflection
+  nameWithType: Swan.Lite.Reflection
+- uid: Swan.Lite.Reflection.ConstructorTypeCache
+  name: ConstructorTypeCache
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html
+  commentId: T:Swan.Lite.Reflection.ConstructorTypeCache
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache
+  nameWithType: ConstructorTypeCache
+- uid: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
+  name: DefaultCache
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache
+  commentId: P:Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
+  nameWithType: ConstructorTypeCache.DefaultCache
+- uid: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache*
+  name: DefaultCache
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache_
+  commentId: Overload:Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
+  isSpec: "True"
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
+  nameWithType: ConstructorTypeCache.DefaultCache
+- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
+  name: RetrieveAllConstructors(Type, Boolean)
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_
+  commentId: M:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type, System.Boolean)
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors(Type, Boolean)
+- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*
+  name: RetrieveAllConstructors
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_
+  commentId: Overload:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors
+  isSpec: "True"
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors
+- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
+  name: RetrieveAllConstructors<T>(Boolean)
+  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_
+  commentId: M:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
+  name.vb: RetrieveAllConstructors(Of T)(Boolean)
+  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors<T>(System.Boolean)
+  fullName.vb: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Of T)(System.Boolean)
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors<T>(Boolean)
+  nameWithType.vb: ConstructorTypeCache.RetrieveAllConstructors(Of T)(Boolean)
 - uid: Swan.Logging
   name: Swan.Logging
   href: api/Swan.Logging.html
