@@ -127,7 +127,7 @@ namespace Swan.Logging
         public static ConsoleColor FatalColor { get; set; } = ConsoleColor.Red;
 
         /// <inheritdoc />
-        public LogLevel LogLevel { get; set; } = Terminal.IsDebuggerAttached ? LogLevel.Trace : LogLevel.Info;
+        public LogLevel LogLevel { get; set; } = DebugLogger.IsDebuggerAttached ? LogLevel.Trace : LogLevel.Info;
 
         /// <inheritdoc />
         public void Log([NotNull] LogMessageReceivedEventArgs logEvent)

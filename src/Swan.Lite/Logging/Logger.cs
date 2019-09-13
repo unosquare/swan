@@ -22,7 +22,7 @@ namespace Swan.Logging
             if (Terminal.IsConsolePresent)
                 Loggers.Add(ConsoleLogger.Instance);
 
-            if (Terminal.IsDebuggerAttached)
+            if (DebugLogger.IsDebuggerAttached)
                 Loggers.Add(DebugLogger.Instance);
         }
 

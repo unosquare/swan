@@ -14,9 +14,17 @@
         {
             // Empty
         }
+        
+        /// <summary>
+        /// Gets a value indicating whether a debugger is attached.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is debugger attached; otherwise, <c>false</c>.
+        /// </value>
+        public static bool IsDebuggerAttached => System.Diagnostics.Debugger.IsAttached;
 
         /// <inheritdoc/>
-        public LogLevel LogLevel { get; set; } = Terminal.IsDebuggerAttached ? LogLevel.Trace : LogLevel.None;
+        public LogLevel LogLevel { get; set; } = IsDebuggerAttached ? LogLevel.Trace : LogLevel.None;
         
         internal static DebugLogger Instance { get; } = new DebugLogger();
 

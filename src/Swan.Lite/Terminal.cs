@@ -143,14 +143,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Gets a value indicating whether a debugger is attached.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is debugger attached; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsDebuggerAttached => System.Diagnostics.Debugger.IsAttached;
-
-        /// <summary>
         /// Gets the available output writers in a bitwise mask.
         /// </summary>
         /// <value>
