@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swan.Lite.Reflection;
 using Swan.Mappers;
 using Swan.Reflection;
 
@@ -259,22 +260,21 @@ namespace Swan
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    var ctors = targetType.GetConstructors()
-                        .Select(x => new { Ctor = x, Parameters = x.GetParameters() })
-                        .OrderBy(x => x.Parameters.Length);
+                    var ctors = ConstructorTypeCache.DefaultCache.Value
+                        .RetrieveAllConstructors(targetType, includeNonPublic);
 
                     // Try to check if empty constructor is available
-                    if (ctors.Any(x => x.Parameters.Length == 0))
+                    if (ctors.Any(x => x.Item2.Length == 0))
                     {
                         target = Activator.CreateInstance(targetType, includeNonPublic);
                     }
                     else
                     {
                         var firstCtor = ctors
-                            .OrderBy(x => x.Parameters.Length)
+                            .OrderBy(x => x.Item2.Length)
                             .FirstOrDefault();
 
-                        target = Activator.CreateInstance(targetType, firstCtor?.Parameters.Select(arg => arg.GetType().GetDefault()).ToArray());
+                        target = Activator.CreateInstance(targetType, firstCtor?.Item2.Select(arg => arg.GetType().GetDefault()).ToArray());
                     }
 
                     break;
