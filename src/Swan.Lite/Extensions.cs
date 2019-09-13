@@ -67,7 +67,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy) 
+        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy)
             => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Swan
 
             return PropertyTypeCache.DefaultCache.Value
                 .RetrieveAllProperties(@this.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null})
+                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
         }
@@ -259,7 +259,24 @@ namespace Swan
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    target = Activator.CreateInstance(targetType, includeNonPublic);
+                    var ctors = targetType.GetConstructors()
+                        .Select(x => new { Ctor = x, Parameters = x.GetParameters() })
+                        .OrderBy(x => x.Parameters.Length);
+
+                    // Try to check if empty constructor is available
+                    if (ctors.Any(x => x.Parameters.Length == 0))
+                    {
+                        target = Activator.CreateInstance(targetType, includeNonPublic);
+                    }
+                    else
+                    {
+                        var firstCtor = ctors
+                            .OrderBy(x => x.Parameters.Length)
+                            .FirstOrDefault();
+
+                        target = Activator.CreateInstance(targetType, firstCtor?.Parameters.Select(arg => arg.GetType().GetDefault()).ToArray());
+                    }
+
                     break;
             }
         }
