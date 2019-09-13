@@ -268,6 +268,10 @@ namespace Swan.Formatters
             private string ResolveObject(object target, int depth)
             {
                 var targetType = target.GetType();
+
+                if (targetType.IsEnum)
+                    return Enum.ToObject(targetType, target).ToString();
+
                 var fields = _options.GetProperties(targetType);
 
                 if (fields.Count == 0 && string.IsNullOrWhiteSpace(_options.TypeSpecifier))

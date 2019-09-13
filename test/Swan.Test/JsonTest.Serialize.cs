@@ -141,6 +141,12 @@
         {
             Assert.AreEqual("{\"Value\": 1,\"Name\": \"DefaultStruct\"}", Json.Serialize(DefaultStruct));
         }
+
+        [Test]
+        public void WithObjEnum_ReturnsObjectSerialized()
+        {
+            Assert.AreEqual("{\"Id\": 0,\"MyEnum\": 0}", Json.Serialize(new ObjectEnum()));
+        }
     }
 
     [TestFixture]
