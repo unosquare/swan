@@ -255,10 +255,10 @@
         [Test]
         public void WithClassNoEmptyConstructor_ReturnClassDeserialized()
         {
-            var obj = Json.Deserialize<ObjectNoEmptyCtor>("{ \"Id\": 0 }");
+            var obj = Json.Deserialize<ObjectNoEmptyCtor>("{ \"Id\": 1 }");
 
             Assert.IsNotNull(obj);
-            Assert.AreEqual(0, obj.Id);
+            Assert.AreEqual(1, obj.Id);
         }
     }
 }

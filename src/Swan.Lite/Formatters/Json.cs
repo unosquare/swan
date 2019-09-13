@@ -170,7 +170,7 @@ namespace Swan.Formatters
         /// <param name="obj">The object.</param>
         /// <param name="options">The options.</param>
         /// <returns>
-        /// A <see cref="System.String" /> that represents the current object.
+        /// A <see cref="string" /> that represents the current object.
         /// </returns>
         public static string Serialize(object obj, SerializerOptions options) => Serializer.Serialize(obj, 0, options);
 
@@ -180,7 +180,7 @@ namespace Swan.Formatters
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         /// <example>
         /// The following example shows how to serialize a simple object including the specified properties.
         /// <code>
@@ -211,7 +211,7 @@ namespace Swan.Formatters
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
         /// <example>
         /// The following code shows how to serialize a simple object excluding the specified properties.
         /// <code>
