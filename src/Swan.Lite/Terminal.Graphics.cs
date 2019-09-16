@@ -11,27 +11,27 @@
         /// </summary>
         private static class Table
         {
-            public static void Vertical() => Write((byte)179, Settings.BorderColor);
+            public static void Vertical() => Write('\u2502', Settings.BorderColor);
 
-            public static void RightTee() => Write((byte)180, Settings.BorderColor);
+            public static void RightTee() => Write('\u2524', Settings.BorderColor);
 
-            public static void TopRight() => Write((byte)191, Settings.BorderColor);
+            public static void TopRight() => Write('\u2510', Settings.BorderColor);
 
-            public static void BottomLeft() => Write((byte)192, Settings.BorderColor);
+            public static void BottomLeft() => Write('\u2514', Settings.BorderColor);
 
-            public static void BottomTee() => Write((byte)193, Settings.BorderColor);
+            public static void BottomTee() => Write('\u2534', Settings.BorderColor);
 
-            public static void TopTee() => Write((byte)194, Settings.BorderColor);
+            public static void TopTee() => Write('\u252c', Settings.BorderColor);
 
-            public static void LeftTee() => Write((byte)195, Settings.BorderColor);
+            public static void LeftTee() => Write('\u251c', Settings.BorderColor);
 
-            public static void Horizontal(int length) => Write((byte)196, Settings.BorderColor, length);
+            public static void Horizontal(int length) => Write(new string('\u2500', length), Settings.BorderColor);
 
-            public static void Tee() => Write((byte)197, Settings.BorderColor);
+            public static void Tee() => Write('\u253c', Settings.BorderColor);
 
-            public static void BottomRight() => Write((byte)217, Settings.BorderColor);
+            public static void BottomRight() => Write('\u2518', Settings.BorderColor);
 
-            public static void TopLeft() => Write((byte)218, Settings.BorderColor);
+            public static void TopLeft() => Write('\u250C', Settings.BorderColor);
         }
     }
 }

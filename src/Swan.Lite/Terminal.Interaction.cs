@@ -220,7 +220,7 @@ namespace Swan
 
             var inputLeft = Settings.UserOptionText.Length + 3;
 
-            SetCursorPosition(inputLeft, CursorTop - 2);
+            SetCursorPosition(inputLeft, CursorTop - 1);
             var userInput = ReadKey(true);
             Write(userInput.Key.ToString(), ConsoleColor.Gray);
 
