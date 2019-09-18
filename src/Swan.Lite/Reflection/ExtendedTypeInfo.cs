@@ -53,10 +53,10 @@ namespace Swan.Reflection
         public ExtendedTypeInfo(Type t)
         {
             Type = t ?? throw new ArgumentNullException(nameof(t));
-            IsNullableValueType = Type.GetTypeInfo().IsGenericType
+            IsNullableValueType = Type.IsGenericType
                 && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
-            IsValueType = t.GetTypeInfo().IsValueType;
+            IsValueType = t.IsValueType;
 
             UnderlyingType = IsNullableValueType ?
                 new NullableConverter(Type).UnderlyingType :
