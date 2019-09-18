@@ -151,10 +151,14 @@ namespace Swan
         /// <param name="value">The value.</param>
         /// <param name="result">The result.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TryParseBasicType(this Type type, object value, out object result)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             if (type == typeof(bool))
             {
                 result = value.ToBoolean();
@@ -171,10 +175,14 @@ namespace Swan
         /// <param name="value">The value.</param>
         /// <param name="result">The result.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TryParseBasicType(this Type type, string value, out object result)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             result = null;
 
             return Definitions.BasicTypesInfo.Value.ContainsKey(type) && Definitions.BasicTypesInfo.Value[type].TryParse(value, out result);
@@ -215,10 +223,14 @@ namespace Swan
         /// <param name="target">The array.</param>
         /// <param name="index">The index.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TrySetArrayBasicType(this Type type, object value, Array target, int index)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             if (target == null)
                 return false;
 

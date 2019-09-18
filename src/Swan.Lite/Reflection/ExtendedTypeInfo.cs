@@ -85,7 +85,7 @@ namespace Swan.Reflection
                 ToStringMethodInfo = UnderlyingType.GetMethod(ToStringMethodName,
                                          new[] { typeof(IFormatProvider) }) ??
                                      UnderlyingType.GetMethod(ToStringMethodName,
-                                         new Type[] { });
+                                         Array.Empty<Type>());
 
                 _toStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;
             }
