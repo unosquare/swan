@@ -128,7 +128,7 @@ namespace Swan
 
             return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
-        
+
         /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
@@ -258,9 +258,9 @@ namespace Swan
         /// </returns>
         public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object> value, object obj)
         {
-            var elementType = propertyInfo.PropertyType.GetElementType();
+            var elementType = propertyInfo?.PropertyType.GetElementType();
 
-            if (elementType == null)
+            if (elementType == null || value == null)
                 return false;
 
             var targetArray = Array.CreateInstance(elementType, value.Count());
@@ -329,7 +329,7 @@ namespace Swan
                 : CacheGetMethods.Value
                     .GetOrAdd(key,
                         x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
-                        //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
+            //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
         }
 
         /// <summary>
@@ -349,7 +349,7 @@ namespace Swan
                 : CacheSetMethods.Value
                     .GetOrAdd(key,
                         x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
-                        //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
+            //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
         }
 
         /// <summary>
