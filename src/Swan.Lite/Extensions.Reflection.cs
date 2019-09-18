@@ -219,6 +219,9 @@ namespace Swan
         /// </returns>
         public static bool TrySetArrayBasicType(this Type type, object value, Array target, int index)
         {
+            if (target == null)
+                return false;
+
             try
             {
                 if (value == null)
@@ -233,7 +236,7 @@ namespace Swan
                     return true;
                 }
 
-                if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     target.SetValue(null, index);
                     return true;

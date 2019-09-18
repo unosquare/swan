@@ -222,7 +222,7 @@ namespace Swan.Formatters
             private void GetEnumValue(string sourceStringValue, ref object target)
             {
                 var enumType = Nullable.GetUnderlyingType(_targetType);
-                if (enumType == null && _targetType.GetTypeInfo().IsEnum) enumType = _targetType;
+                if (enumType == null && _targetType.IsEnum) enumType = _targetType;
                 if (enumType == null) return;
 
                 try
