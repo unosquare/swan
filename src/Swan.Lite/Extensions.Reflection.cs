@@ -128,7 +128,7 @@ namespace Swan
 
             return methods.Count > 1 ? throw new AmbiguousMatchException() : methods.FirstOrDefault();
         }
-        
+
         /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
@@ -151,10 +151,14 @@ namespace Swan
         /// <param name="value">The value.</param>
         /// <param name="result">The result.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TryParseBasicType(this Type type, object value, out object result)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             if (type == typeof(bool))
             {
                 result = value.ToBoolean();
@@ -171,10 +175,14 @@ namespace Swan
         /// <param name="value">The value.</param>
         /// <param name="result">The result.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TryParseBasicType(this Type type, string value, out object result)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             result = null;
 
             return Definitions.BasicTypesInfo.Value.ContainsKey(type) && Definitions.BasicTypesInfo.Value[type].TryParse(value, out result);
@@ -215,10 +223,17 @@ namespace Swan
         /// <param name="target">The array.</param>
         /// <param name="index">The index.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool TrySetArrayBasicType(this Type type, object value, Array target, int index)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            if (target == null)
+                return false;
+
             try
             {
                 if (value == null)
@@ -233,7 +248,7 @@ namespace Swan
                     return true;
                 }
 
-                if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     target.SetValue(null, index);
                     return true;
@@ -258,9 +273,9 @@ namespace Swan
         /// </returns>
         public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object> value, object obj)
         {
-            var elementType = propertyInfo.PropertyType.GetElementType();
+            var elementType = propertyInfo?.PropertyType.GetElementType();
 
-            if (elementType == null)
+            if (elementType == null || value == null)
                 return false;
 
             var targetArray = Array.CreateInstance(elementType, value.Count());
@@ -329,7 +344,7 @@ namespace Swan
                 : CacheGetMethods.Value
                     .GetOrAdd(key,
                         x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
-                        //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
+            //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
         }
 
         /// <summary>
@@ -349,7 +364,7 @@ namespace Swan
                 : CacheSetMethods.Value
                     .GetOrAdd(key,
                         x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
-                        //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
+            //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
         }
 
         /// <summary>

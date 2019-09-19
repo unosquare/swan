@@ -83,7 +83,7 @@ namespace Swan.Mappers
         private static readonly Lazy<ObjectMapper> LazyInstance = new Lazy<ObjectMapper>(() => new ObjectMapper());
 
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
-        
+
         /// <summary>
         /// Gets the current.
         /// </summary>
@@ -171,7 +171,7 @@ namespace Swan.Mappers
         /// An object map representation of type of the destination property 
         /// and type of the source property.
         /// </returns>
-        /// <exception cref="System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// You can't create an existing map
         /// or
         /// Types doesn't match.
@@ -179,19 +179,15 @@ namespace Swan.Mappers
         public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
-            {
                 throw new InvalidOperationException("You can't create an existing map");
-            }
 
             var sourceType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TSource>(true);
             var destinationType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TDestination>(true);
 
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
-            if (intersect.Any() == false)
-            {
+            if (!intersect.Any())
                 throw new InvalidOperationException("Types doesn't match");
-            }
 
             var map = new ObjectMap<TSource, TDestination>(intersect);
 
@@ -279,10 +275,9 @@ namespace Swan.Mappers
         {
             try
             {
-                var type = property.Item1;
-                var value = property.Item2;
+                var (type, value) = property;
 
-                if (type.GetTypeInfo().IsEnum)
+                if (type.IsEnum)
                 {
                     propertyInfo.SetValue(target,
                         Enum.ToObject(propertyInfo.PropertyType, value));
@@ -292,6 +287,12 @@ namespace Swan.Mappers
 
                 if (type.IsValueType || propertyInfo.PropertyType != type)
                     return propertyInfo.TrySetBasicType(value, target);
+
+                if (propertyInfo.PropertyType.IsArray)
+                {
+                    propertyInfo.TrySetArray(value as IEnumerable<object>, target);
+                    return true;
+                }
 
                 propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
 
@@ -319,23 +320,6 @@ namespace Swan.Mappers
                 case string _:
                     target = source;
                     break;
-                case IList sourceList when target is Array targetArray:
-                    for (var i = 0; i < sourceList.Count; i++)
-                    {
-                        try
-                        {
-                            targetArray.SetValue(
-                                sourceList[i].GetType().IsValueType
-                                    ? sourceList[i]
-                                    : sourceList[i].CopyPropertiesToNew<object>(), i);
-                        }
-                        catch
-                        {
-                            // ignored
-                        }
-                    }
-
-                    break;
                 case IList sourceList when target is IList targetList:
                     var addMethod = targetType.GetMethods()
                         .FirstOrDefault(
@@ -343,11 +327,13 @@ namespace Swan.Mappers
 
                     if (addMethod == null) return target;
 
+                    var isItemValueType = targetList.GetType().GetElementType().IsValueType;
+
                     foreach (var item in sourceList)
                     {
                         try
                         {
-                            targetList.Add(item.GetType().IsValueType
+                            targetList.Add(isItemValueType
                                 ? item
                                 : item.CopyPropertiesToNew<object>());
                         }

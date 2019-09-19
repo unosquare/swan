@@ -105,7 +105,7 @@
     public class JsonFile
     {
         public string Filename { get; set; }
-        public byte[] Data { get; set; }       
+        public byte[] Data { get; set; }
     }
 
     public struct SampleStruct
@@ -126,7 +126,7 @@
     public class ObjectEnum
     {
         public int Id { get; set; }
-        public MyEnum MyEnum{ get; set; }
+        public MyEnum MyEnum { get; set; }
     }
 
     public class ObjectNoEmptyCtor
@@ -154,7 +154,7 @@
         Two = 2,
         All = One | Two,
     }
-    
+
     [Flags]
     public enum MyFlagByte : byte
     {
@@ -163,7 +163,7 @@
         Two = 2,
         All = One | Two,
     }
-    
+
     [Flags]
     public enum MyFlagLong : long
     {
@@ -193,15 +193,18 @@
 
         public string Owner { get; set; }
 
-        public static ObjectAttr GetDefault()
-        {
-            return new ObjectAttr
+        public static ObjectAttr GetDefault() =>
+            new ObjectAttr
             {
                 Id = 1,
                 IsActive = true,
                 Name = "swan",
                 Owner = "UnoLabs",
             };
-        }
+    }
+
+    public class ObjectWithArray
+    {
+        public string[] Data { get; set; }
     }
 }

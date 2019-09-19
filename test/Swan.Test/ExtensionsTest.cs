@@ -1,13 +1,11 @@
-﻿using Swan.Diagnostics;
-
-namespace Swan.Test.ExtensionsTest
+﻿namespace Swan.Test.ExtensionsTest
 {
+    using Mocks;
     using NUnit.Framework;
+    using Diagnostics;
+    using Net;
     using System;
     using System.Collections.Generic;
-    using Swan.Net;
-    using Swan.Net.Smtp;
-    using Mocks;
 
     [TestFixture]
     public class BenchmarkTest : TestFixtureBase
@@ -168,6 +166,17 @@ namespace Swan.Test.ExtensionsTest
             Assert.AreNotEqual(source.BoolData, destination.BoolData);
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
             Assert.AreEqual(source.StringData, destination.StringData);
+        }
+
+        [Test]
+        public void WithValidObjectWithArray_CopyPropertiesToTarget()
+        {
+            var source = new ObjectWithArray {Data = new[] {"HOLA", "MUNDO "}};
+            var target = new ObjectWithArray();
+
+            source.CopyPropertiesTo(target);
+
+            Assert.AreEqual(source.Data, target.Data);
         }
     }
 

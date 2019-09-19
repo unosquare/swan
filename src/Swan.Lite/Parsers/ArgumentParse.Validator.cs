@@ -134,7 +134,7 @@ namespace Swan.Parsers
                 object result,
                 ArgumentOptionAttribute optionAttr = null)
             {
-                if (!targetProperty.PropertyType.GetTypeInfo().IsEnum)
+                if (!targetProperty.PropertyType.IsEnum)
                 {
                     return targetProperty.PropertyType.IsArray
                         ? targetProperty.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)

@@ -107,10 +107,10 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(ExchangeTask),
-                Task.Factory.StartNew(ExchangeTask));
+                Task.Run(ExchangeTask),
+                Task.Run(ExchangeTask));
 
-            Assert.That(atomic.Value, Is.EqualTo(Companies.Value3));
+            Assert.GreaterOrEqual(2, (int) atomic.Value);
         }
     }
 }
