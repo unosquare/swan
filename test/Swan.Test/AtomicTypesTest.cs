@@ -110,7 +110,7 @@
                 Task.Run(ExchangeTask),
                 Task.Run(ExchangeTask));
 
-            Assert.Greater(2, (int) atomic.Value);
+            Assert.GreaterOrEqual(2, (int) atomic.Value);
         }
     }
 }
