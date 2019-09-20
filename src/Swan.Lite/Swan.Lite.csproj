@@ -15,11 +15,13 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
     <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
     <LangVersion>7.3</LangVersion>
+    <Configurations>Debug;Release;Signed</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Signed'">
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>codesigning.pfx</AssemblyOriginatorKeyFile>
+    <Optimize>true</Optimize>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
 
