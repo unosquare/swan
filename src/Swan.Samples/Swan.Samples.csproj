@@ -9,6 +9,7 @@
     <OutputType>Exe</OutputType>
     <PackageId>Unosquare.Swan.Samples</PackageId>
     <LangVersion>7.3</LangVersion>
+    <Configurations>Debug;Release;Signed</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
