@@ -8,13 +8,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Swan</AssemblyName>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-    <Version>2.0.1</Version>
+    <Version>2.2.3</Version>
     <Authors>Unosquare</Authors>
     <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
     <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
 	  <LangVersion>7.3</LangVersion>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

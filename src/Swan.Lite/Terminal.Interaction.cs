@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Swan.Logging;
 
 namespace Swan
@@ -69,6 +70,15 @@ namespace Swan
         #endregion
 
         #region Other Terminal Read Methods
+
+        /// <summary>
+        /// Clears the screen.
+        /// </summary>
+        public static void Clear()
+        {
+            Flush();
+            Console.Clear();
+        }
 
         /// <summary>
         /// Reads a line of text from the console.
@@ -149,7 +159,7 @@ namespace Swan
             if (!IsConsolePresent) return default;
 
             const ConsoleColor textColor = ConsoleColor.White;
-            var lineLength = Console.BufferWidth;
+            var lineLength = Console.WindowWidth;
             var lineAlign = -(lineLength - 2);
             var textFormat = "{0," + lineAlign + "}";
 
@@ -166,7 +176,7 @@ namespace Swan
                 {
                     // Title
                     Table.Vertical();
-                    var titleText = string.Format(
+                    var titleText = string.Format(CultureInfo.CurrentCulture,
                         textFormat,
                         string.IsNullOrWhiteSpace(title) ? " Select an option from the list below." : $" {title}");
                     Write(titleText, textColor);
@@ -184,7 +194,7 @@ namespace Swan
                 foreach (var kvp in options)
                 {
                     Table.Vertical();
-                    Write(string.Format(textFormat,
+                    Write(string.Format(CultureInfo.CurrentCulture, textFormat,
                         $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}"), textColor);
                     Table.Vertical();
                 }
@@ -193,11 +203,11 @@ namespace Swan
                 if (string.IsNullOrWhiteSpace(anyKeyOption) == false)
                 {
                     Table.Vertical();
-                    Write(string.Format(textFormat, " "), ConsoleColor.Gray);
+                    Write(string.Format(CultureInfo.CurrentCulture, textFormat, " "), ConsoleColor.Gray);
                     Table.Vertical();
 
                     Table.Vertical();
-                    Write(string.Format(textFormat,
+                    Write(string.Format(CultureInfo.CurrentCulture, textFormat,
                         $"    {" ",-10}  {anyKeyOption}"), ConsoleColor.Gray);
                     Table.Vertical();
                 }
@@ -209,7 +219,7 @@ namespace Swan
                     Table.RightTee();
 
                     Table.Vertical();
-                    Write(string.Format(textFormat, Settings.UserOptionText), ConsoleColor.Green);
+                    Write(string.Format(CultureInfo.CurrentCulture, textFormat, Settings.UserOptionText), ConsoleColor.Green);
                     Table.Vertical();
 
                     Table.BottomLeft();

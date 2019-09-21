@@ -12,6 +12,7 @@
     using Net;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Text;
 
     public static partial class Program
     {
@@ -31,7 +32,8 @@
             TestContainerAndMessageHub();
             TestExceptionLogging();
 
-            TestFastOutputAndReadPrompt();
+            TestFastOutput();
+            TestReadPrompt();
             TestCsvFormatters();
             Terminal.Flush();
             Terminal.ReadKey("Enter any key to exit . . .");
@@ -127,19 +129,26 @@
             messageHub.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
-        private static void TestFastOutputAndReadPrompt()
+        private static void TestFastOutput()
         {
             var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
             {
-                Terminal.WriteLine($"Output info {i} ({((decimal) i / limit):P})");
+                Terminal.WriteLine($"Output info {i} ({((decimal)i / limit):P})");
                 Terminal.BacklineCursor();
             }
+        }
 
+        private static void TestReadPrompt()
+        {
+            Terminal.Clear();
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
                 {ConsoleKey.A, "Sample A"},
-                {ConsoleKey.B, "Sample B"}
+                {ConsoleKey.B, "Sample B"},
+                {ConsoleKey.C, "Sample C" },
+                {ConsoleKey.D, "Sample D" },
+                {ConsoleKey.E, "Sample E" }
             };
 
             Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
@@ -154,6 +163,8 @@
             }
 
             if (Terminal.ReadKey("Press a key to output the current codepage. (X) will exit.").Key == ConsoleKey.X) return;
+            // Although .NET is by default Unicode, this explicit instruction causes Linux to print mostly garbage
+            // Terminal.OutputEncoding = Encoding.Unicode;
             Terminal.WriteLine("CODEPAGE TEST", ConsoleColor.Blue);
             Terminal.PrintCurrentCodePage();
 
