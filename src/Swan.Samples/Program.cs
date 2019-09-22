@@ -28,7 +28,14 @@
             TestJson();
             TestApplicationInfo();
             await TestTerminalOutputs();
-            await TestNetworkUtilities();
+			try
+			{
+				await TestNetworkUtilities();
+			}
+			catch (System.Net.Http.HttpRequestException x)
+			{
+				Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
+			}
             TestContainerAndMessageHub();
             TestExceptionLogging();
 
