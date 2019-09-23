@@ -10,8 +10,6 @@ namespace Swan.Logging
     /// <seealso cref="ILogger" />
     public class ConsoleLogger : TextLogger, ILogger
     {
-        private static readonly object SyncLock = new object();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
         /// </summary>
@@ -130,17 +128,14 @@ namespace Swan.Logging
         /// <inheritdoc />
         public void Log([NotNull] LogMessageReceivedEventArgs logEvent)
         {
-            lock (SyncLock)
-            {
-                // Select the writer based on the message type
-                var writer = logEvent.MessageType == LogLevel.Error
-                        ? TerminalWriters.StandardError
-                        : TerminalWriters.StandardOutput;
+            // Select the writer based on the message type
+            var writer = logEvent.MessageType == LogLevel.Error
+                    ? TerminalWriters.StandardError
+                    : TerminalWriters.StandardOutput;
 
-                var (outputMessage, color) = GetOutputAndColor(logEvent);
+            var (outputMessage, color) = GetOutputAndColor(logEvent);
 
-                Terminal.Write(outputMessage, color, writer);
-            }
+            Terminal.Write(outputMessage, color, writer);
         }
 
         /// <inheritdoc />
