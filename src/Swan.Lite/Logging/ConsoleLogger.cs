@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using Swan.Lite.Logging;
 
 namespace Swan.Logging
 {
@@ -7,7 +8,7 @@ namespace Swan.Logging
     /// Represents a Console implementation of <c>ILogger</c>.
     /// </summary>
     /// <seealso cref="ILogger" />
-    public class ConsoleLogger : ILogger
+    public class ConsoleLogger : TextLogger, ILogger
     {
         private static readonly object SyncLock = new object();
 
@@ -76,15 +77,6 @@ namespace Swan.Logging
         public static string InfoPrefix { get; set; } = "INF";
 
         /// <summary>
-        /// Gets or sets the logging time format.
-        /// set to null or empty to prevent output.
-        /// </summary>
-        /// <value>
-        /// The logging time format.
-        /// </value>
-        public static string LoggingTimeFormat { get; set; } = "HH:mm:ss.fff";
-
-        /// <summary>
         /// Gets or sets the color of the information output logging.
         /// </summary>
         /// <value>
@@ -140,16 +132,14 @@ namespace Swan.Logging
         {
             lock (SyncLock)
             {
-                var isError = logEvent.MessageType.HasFlag(LogLevel.Error);
-
                 // Select the writer based on the message type
-                var writer = isError
+                var writer = logEvent.MessageType == LogLevel.Error
                         ? TerminalWriters.StandardError 
                         : TerminalWriters.StandardOutput;
                 
-                var color = GetOutputAndColor(logEvent, isError, out var outputMessage);
+                var color = GetOutputAndColor(logEvent, out var outputMessage);
 
-                Terminal.WriteLine(outputMessage, color, writer);
+                Terminal.Write(outputMessage, color, writer);
             }
         }
 
@@ -157,92 +147,6 @@ namespace Swan.Logging
         public void Dispose()
         {
             // Do nothing
-        }
-        
-        internal static ConsoleColor GetOutputAndColor(
-            LogMessageReceivedEventArgs logEvent, 
-            bool isError,
-            out string outputMessage)
-        {
-            var prefix = GetConsoleColorAndPrefix(logEvent.MessageType, out var color);
-
-            var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
-                ? string.Empty
-                : logEvent.Message.RemoveControlCharsExcept('\n');
-
-            outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
-
-            // Further format the output in the case there is an exception being logged
-            if (isError && logEvent.Exception != null)
-            {
-                try
-                {
-                    outputMessage =
-                        $"{outputMessage}{Environment.NewLine}{logEvent.Exception.Stringify().Indent()}";
-                }
-                catch
-                {
-                    // Ignore  
-                }
-            }
-
-            return color;
-        }
-
-        private static string GetConsoleColorAndPrefix(LogLevel messageType, out ConsoleColor color)
-        {
-            string prefix;
-
-            // Select color and prefix based on message type
-            // and settings
-            switch (messageType)
-            {
-                case LogLevel.Debug:
-                    color = DebugColor;
-                    prefix = DebugPrefix;
-                    break;
-                case LogLevel.Error:
-                    color = ErrorColor;
-                    prefix = ErrorPrefix;
-                    break;
-                case LogLevel.Info:
-                    color = InfoColor;
-                    prefix = InfoPrefix;
-                    break;
-                case LogLevel.Trace:
-                    color = TraceColor;
-                    prefix = TracePrefix;
-                    break;
-                case LogLevel.Warning:
-                    color = WarnColor;
-                    prefix = WarnPrefix;
-                    break;
-                case LogLevel.Fatal:
-                    color = FatalColor;
-                    prefix = FatalPrefix;
-                    break;
-                default:
-                    color = Terminal.Settings.DefaultColor;
-                    prefix = new string(' ', InfoPrefix.Length);
-                    break;
-            }
-
-            return prefix;
-        }
-
-        private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
-        {
-            var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
-                ? string.Empty
-                : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
-
-            var outputMessage = string.IsNullOrWhiteSpace(sourceName)
-                ? loggerMessage
-                : $"[{friendlySourceName}] {loggerMessage}";
-
-            return string.IsNullOrWhiteSpace(LoggingTimeFormat)
-                ? $" {prefix} >> {outputMessage}"
-                : $" {date.ToLocalTime().ToString(LoggingTimeFormat)} {prefix} >> {outputMessage}";
         }
     }
 }

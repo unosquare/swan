@@ -1,11 +1,13 @@
-﻿namespace Swan.Logging
+﻿using Swan.Lite.Logging;
+
+namespace Swan.Logging
 {
     /// <summary>
     /// Represents a logger target. This target will write to the
     /// Debug console using System.Diagnostics.Debug.
     /// </summary>
     /// <seealso cref="ILogger" />
-    public class DebugLogger : ILogger
+    public class DebugLogger : TextLogger, ILogger
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DebugLogger"/> class.
@@ -31,7 +33,7 @@
         /// <inheritdoc/>
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            ConsoleLogger.GetOutputAndColor(logEvent, true, out var outputMessage);
+            GetOutputAndColor(logEvent, out var outputMessage);
 
             System.Diagnostics.Debug.Write(outputMessage);
         }
