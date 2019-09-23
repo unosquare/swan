@@ -16,6 +16,7 @@
     <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
 	  <LangVersion>7.3</LangVersion>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Configurations>Debug;Release;Signed</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
