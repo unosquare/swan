@@ -54,9 +54,7 @@ namespace Swan.Logging
         public static void RegisterLogger(ILogger logger)
         {
             lock (SyncLock)
-            {
                 Loggers.Add(logger);
-            }
         }
 
         /// <summary>
@@ -71,6 +69,15 @@ namespace Swan.Logging
         /// </summary>
         /// <typeparam name="T">The type of logger to unregister.</typeparam>
         public static void UnregisterLogger<T>() => RemoveLogger(x => x.GetType() == typeof(T));
+
+        /// <summary>
+        /// Remove all the loggers.
+        /// </summary>
+        public static void NoLogging()
+        {
+            lock (SyncLock)
+                Loggers.Clear();
+        }
 
         #region Debug
 
