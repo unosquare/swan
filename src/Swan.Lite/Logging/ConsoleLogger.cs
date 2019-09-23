@@ -19,7 +19,13 @@ namespace Swan.Logging
             // Empty
         }
 
-        internal static ConsoleLogger Instance { get; } = new ConsoleLogger();
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static ConsoleLogger Instance { get; } = new ConsoleLogger();
 
         /// <summary>
         /// Gets or sets the debug logging prefix.

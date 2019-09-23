@@ -20,8 +20,6 @@
         /// </summary>
         public static async Task Main()
         {
-            Logger.RegisterLogger<FileLogger>();
-
             TestJson();
             TestApplicationInfo();
             await TestTerminalOutputs();
