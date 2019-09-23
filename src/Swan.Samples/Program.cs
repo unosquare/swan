@@ -16,11 +16,9 @@
     public static partial class Program
     {
         /// <summary>
-        /// Mains the specified arguments.
+        /// Entry point of the Program.
         /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <exception cref="SampleException"></exception>
-        public static async Task Main(string[] args)
+        public static async Task Main()
         {
             Logger.RegisterLogger<FileLogger>();
 

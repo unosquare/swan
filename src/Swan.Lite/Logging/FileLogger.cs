@@ -75,7 +75,7 @@ namespace Swan.Logging
         {
             ConsoleLogger.GetOutputAndColor(logEvent, true, out var outputMessage);
 
-            _logQueue.Enqueue(outputMessage);
+            _logQueue.Enqueue(outputMessage + Environment.NewLine);
         }
 
         /// <inheritdoc />
