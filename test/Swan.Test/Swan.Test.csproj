@@ -8,7 +8,6 @@
     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.3</LangVersion>
-    <Configurations>Debug;Release;Signed</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
