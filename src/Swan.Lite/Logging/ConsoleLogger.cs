@@ -21,7 +21,7 @@ namespace Swan.Logging
         }
 
         /// <summary>
-        /// Gets the instance.
+        /// Gets the current instance of ConsoleLogger.
         /// </summary>
         /// <value>
         /// The instance.
@@ -134,10 +134,10 @@ namespace Swan.Logging
             {
                 // Select the writer based on the message type
                 var writer = logEvent.MessageType == LogLevel.Error
-                        ? TerminalWriters.StandardError 
+                        ? TerminalWriters.StandardError
                         : TerminalWriters.StandardOutput;
-                
-                var color = GetOutputAndColor(logEvent, out var outputMessage);
+
+                var (outputMessage, color) = GetOutputAndColor(logEvent);
 
                 Terminal.Write(outputMessage, color, writer);
             }

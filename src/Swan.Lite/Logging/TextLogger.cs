@@ -21,13 +21,10 @@ namespace Swan.Lite.Logging
         /// Gets the color of the output of the message (the output message has a new line char in the end).
         /// </summary>
         /// <param name="logEvent">The <see cref="LogMessageReceivedEventArgs" /> instance containing the event data.</param>
-        /// <param name="outputMessage">The output message.</param>
         /// <returns>
-        /// The color of the console to be used.
+        /// The output message formatted and the color of the console to be used.
         /// </returns>
-        protected ConsoleColor GetOutputAndColor(
-            LogMessageReceivedEventArgs logEvent, 
-            out string outputMessage)
+        protected (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)
         {
             var (prefix , color) = GetConsoleColorAndPrefix(logEvent.MessageType);
 
@@ -35,7 +32,7 @@ namespace Swan.Lite.Logging
                 ? string.Empty
                 : logEvent.Message.RemoveControlCharsExcept('\n');
 
-            outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
+            var outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
 
             // Further format the output in the case there is an exception being logged
             if (logEvent.MessageType == LogLevel.Error && logEvent.Exception != null)
@@ -50,7 +47,7 @@ namespace Swan.Lite.Logging
                 }
             }
 
-            return color;
+            return (outputMessage, color);
         }
 
         private static (string Prefix, ConsoleColor color) GetConsoleColorAndPrefix(LogLevel messageType)

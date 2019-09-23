@@ -18,6 +18,14 @@ namespace Swan.Logging
         }
         
         /// <summary>
+        /// Gets the current instance of DebugLogger.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static DebugLogger Instance { get; } = new DebugLogger();
+
+        /// <summary>
         /// Gets a value indicating whether a debugger is attached.
         /// </summary>
         /// <value>
@@ -27,13 +35,11 @@ namespace Swan.Logging
 
         /// <inheritdoc/>
         public LogLevel LogLevel { get; set; } = IsDebuggerAttached ? LogLevel.Trace : LogLevel.None;
-        
-        internal static DebugLogger Instance { get; } = new DebugLogger();
 
         /// <inheritdoc/>
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            GetOutputAndColor(logEvent, out var outputMessage);
+            var (outputMessage, _) = GetOutputAndColor(logEvent);
 
             System.Diagnostics.Debug.Write(outputMessage);
         }

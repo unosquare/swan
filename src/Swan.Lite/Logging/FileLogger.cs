@@ -74,7 +74,7 @@ namespace Swan.Logging
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            GetOutputAndColor(logEvent, out var outputMessage);
+            var (outputMessage, _) = GetOutputAndColor(logEvent);
 
             _logQueue.Enqueue(outputMessage);
         }
