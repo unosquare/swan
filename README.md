@@ -136,7 +136,7 @@ messages and displaying `Console` messages by providing `string` extension metho
 This only writes messages out to the `TerminalWriters` if there are any available. In practice, we typically **DO NOT** use
 the `Write` and `WriteLine` methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
-will not show up in you logging subsystem.
+will not show up in your logging subsystem.
 
 ```csharp
 // The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
