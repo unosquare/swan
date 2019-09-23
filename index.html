@@ -321,7 +321,7 @@ messages and displaying <code>Console</code> messages by providing <code>string<
 <p>This only writes messages out to the <code>TerminalWriters</code> if there are any available. In practice, we typically <strong>DO NOT</strong> use
 the <code>Write</code> and <code>WriteLine</code> methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
-will not show up in you logging subsystem.</p>
+will not show up in your logging subsystem.</p>
 <pre><code class="lang-csharp">// The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
 Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;);
 
