@@ -5,14 +5,13 @@
     using Formatters;
     using Logging;
     using Messaging;
+    using Net;
     using Net.Dns;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Net;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Text;
 
     public static partial class Program
     {
@@ -166,12 +165,6 @@
                 await Task.Delay(20);
                 Terminal.OverwriteLine($"Current Progress: {(i + "%"),-10}");
             }
-
-            if (Terminal.ReadKey("Press a key to output the current codepage. (X) will exit.").Key == ConsoleKey.X) return;
-            // Although .NET is by default Unicode, this explicit instruction causes Linux to print mostly garbage
-            // Terminal.OutputEncoding = Encoding.Unicode;
-            Terminal.WriteLine("CODEPAGE TEST", ConsoleColor.Blue);
-            Terminal.PrintCurrentCodePage();
 
             if (Terminal.ReadKey("Press a key to test logging output. (X) will exit.").Key == ConsoleKey.X) return;
             Terminal.WriteLine("OUTPUT LOGGING TEST", ConsoleColor.Blue);

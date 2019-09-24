@@ -16,8 +16,7 @@ namespace Swan.Logging
         private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
-
-        private string _filePath;
+        private readonly string _filePath;
 
         private bool _disposedValue; // To detect redundant calls
 

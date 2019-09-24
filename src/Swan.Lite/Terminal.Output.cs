@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Swan
 {
@@ -9,22 +8,23 @@ namespace Swan
     /// </summary>
     public static partial class Terminal
     {
-        #region Helper Methods
-
         /// <summary>
         /// Prints all characters in the current code page.
         /// This is provided for debugging purposes only.
         /// </summary>
+        [Obsolete("This method will be remove in future version")]
         public static void PrintCurrentCodePage()
         {
             if (!IsConsolePresent) return;
 
             lock (SyncLock)
             {
-                Terminal.WriteLine($"Output Encoding: {OutputEncoding}");
-                for (char charValue = char.MinValue; charValue < 2000; charValue++)
+                WriteLine($"Output Encoding: {OutputEncoding}");
+
+                for (var charValue = char.MinValue; charValue < 2000; charValue++)
                 {
-                    int value = (int)charValue;
+                    var value = (int)charValue;
+
                     switch (charValue)
                     {
                         case '\b': // Backspace
@@ -35,29 +35,25 @@ namespace Swan
                             break;
                     }
 
-                    if (!(Char.IsLetterOrDigit(charValue) || Char.IsPunctuation(charValue) || Char.IsSymbol(charValue)))
+                    if (!(char.IsLetterOrDigit(charValue) || char.IsPunctuation(charValue) || char.IsSymbol(charValue)))
                     {
                         continue;
                     }
 
-                    Terminal.Write($"{value:000} {charValue}   ");
+                    Write($"{value:000} {charValue}   ");
 
                     // 7 is a beep -- Console.Beep() also works
                     if (value == 7) Write(" ");
 
                     if ((value + 1) % 8 == 0)
                     {
-                        Terminal.WriteLine();
+                        WriteLine();
                     }
                 }
 
                 WriteLine();
             }
         }
-
-        #endregion
-
-        #region Write Methods
 
         /// <summary>
         /// Writes a character a number of times, optionally adding a new line at the end.
@@ -71,13 +67,15 @@ namespace Swan
         {
             lock (SyncLock)
             {
-				string text = new string(charCode, count);
-				if (newLine)
-				{
-					text += Environment.NewLine;
-				}
-				var buffer = OutputEncoding.GetBytes(text);
-				var context = new OutputContext
+                var text = new string(charCode, count);
+
+                if (newLine)
+                {
+                    text += Environment.NewLine;
+                }
+
+                var buffer = OutputEncoding.GetBytes(text);
+                var context = new OutputContext
                 {
                     OutputColor = color ?? Settings.DefaultColor,
                     OutputText = OutputEncoding.GetChars(buffer),
@@ -97,7 +95,7 @@ namespace Swan
         public static void Write(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             if (text == null) return;
-            
+
             lock (SyncLock)
             {
                 var buffer = OutputEncoding.GetBytes(text);
@@ -112,15 +110,11 @@ namespace Swan
             }
         }
 
-        #endregion
-
-        #region WriteLine Methods
-
         /// <summary>
         /// Writes a New Line Sequence to the standard output.
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
+        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)
             => Write(Environment.NewLine, Settings.DefaultColor, writerFlags);
 
         /// <summary>
@@ -130,7 +124,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput) 
+        public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
             => Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
 
         /// <summary>
@@ -146,7 +140,5 @@ namespace Swan
             Flush();
             CursorLeft = 0;
         }
-
-        #endregion
     }
 }

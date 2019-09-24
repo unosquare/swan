@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Swan.Lite</AssemblyName>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-    <Version>2.2.3</Version>
+    <Version>2.2.6</Version>
     <Authors>Unosquare</Authors>
     <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
