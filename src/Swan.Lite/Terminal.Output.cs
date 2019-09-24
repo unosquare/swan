@@ -21,28 +21,34 @@ namespace Swan
 
             lock (SyncLock)
             {
-                WriteLine($"Output Encoding: {OutputEncoding}");
-                for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
+                Terminal.WriteLine($"Output Encoding: {OutputEncoding}");
+                for (char charValue = char.MinValue; charValue < 2000; charValue++)
                 {
-                    var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
-
-                    switch (byteValue)
+                    int value = (int)charValue;
+                    switch (charValue)
                     {
-                        case 8: // Backspace
-                        case 9: // Tab
-                        case 10: // Line feed
-                        case 13: // Carriage return
+                        case '\b': // Backspace
+                        case '\t': // Tab
+                        case '\r': // Line feed
+                        case '\n': // Carriage return
                             charValue = '.';
                             break;
                     }
 
-                    Write($"{byteValue:000} {charValue}   ");
+                    if (!(Char.IsLetterOrDigit(charValue) || Char.IsPunctuation(charValue) || Char.IsSymbol(charValue)))
+                    {
+                        continue;
+                    }
+
+                    Terminal.Write($"{value:000} {charValue}   ");
 
                     // 7 is a beep -- Console.Beep() also works
-                    if (byteValue == 7) Write(" ");
+                    if (value == 7) Write(" ");
 
-                    if ((byteValue + 1) % 8 == 0)
-                        WriteLine();
+                    if ((value + 1) % 8 == 0)
+                    {
+                        Terminal.WriteLine();
+                    }
                 }
 
                 WriteLine();
@@ -61,48 +67,20 @@ namespace Swan
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(byte charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(char charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             lock (SyncLock)
             {
-                var bytes = new byte[count];
-                for (var i = 0; i < bytes.Length; i++)
-                {
-                    bytes[i] = charCode;
-                }
-
-                if (newLine)
-                {
-                    var newLineBytes = OutputEncoding.GetBytes(Environment.NewLine);
-                    bytes = bytes.Union(newLineBytes).ToArray();
-                }
-
-                var buffer = OutputEncoding.GetChars(bytes);
-                var context = new OutputContext
+				string text = new string(charCode, count);
+				if (newLine)
+				{
+					text += Environment.NewLine;
+				}
+				var buffer = OutputEncoding.GetBytes(text);
+				var context = new OutputContext
                 {
                     OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = buffer,
-                    OutputWriters = writerFlags,
-                };
-
-                EnqueueOutput(context);
-            }
-        }
-
-        /// <summary>
-        /// Writes the specified character in the default color.
-        /// </summary>
-        /// <param name="charCode">The character code.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(char charCode, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
-        {
-            lock (SyncLock)
-            {
-                var context = new OutputContext
-                {
-                    OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = new[] { charCode },
+                    OutputText = OutputEncoding.GetChars(buffer),
                     OutputWriters = writerFlags,
                 };
 
