@@ -1,11 +1,13 @@
-﻿namespace Swan.Logging
+﻿using Swan.Lite.Logging;
+
+namespace Swan.Logging
 {
     /// <summary>
     /// Represents a logger target. This target will write to the
     /// Debug console using System.Diagnostics.Debug.
     /// </summary>
     /// <seealso cref="ILogger" />
-    public class DebugLogger : ILogger
+    public class DebugLogger : TextLogger, ILogger
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DebugLogger"/> class.
@@ -16,6 +18,14 @@
         }
         
         /// <summary>
+        /// Gets the current instance of DebugLogger.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static DebugLogger Instance { get; } = new DebugLogger();
+
+        /// <summary>
         /// Gets a value indicating whether a debugger is attached.
         /// </summary>
         /// <value>
@@ -25,13 +35,11 @@
 
         /// <inheritdoc/>
         public LogLevel LogLevel { get; set; } = IsDebuggerAttached ? LogLevel.Trace : LogLevel.None;
-        
-        internal static DebugLogger Instance { get; } = new DebugLogger();
 
         /// <inheritdoc/>
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            ConsoleLogger.GetOutputAndColor(logEvent, true, out var outputMessage);
+            var (outputMessage, _) = GetOutputAndColor(logEvent);
 
             System.Diagnostics.Debug.Write(outputMessage);
         }

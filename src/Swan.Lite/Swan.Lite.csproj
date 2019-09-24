@@ -19,7 +19,7 @@
     <Configurations>Debug;Release;Signed</Configurations>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Signed'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' And Exists('codesigning.pfx')">
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>codesigning.pfx</AssemblyOriginatorKeyFile>
     <Optimize>true</Optimize>

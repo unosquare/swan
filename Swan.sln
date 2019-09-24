@@ -33,33 +33,24 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Signed|Any CPU = Signed|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{061C78DC-13E2-425B-AD58-1388416E11EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{061C78DC-13E2-425B-AD58-1388416E11EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{061C78DC-13E2-425B-AD58-1388416E11EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{061C78DC-13E2-425B-AD58-1388416E11EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Signed|Any CPU.Build.0 = Signed|Any CPU
 		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
-		{3214EA54-8BB0-4EEA-B859-D2BA865595C8}.Signed|Any CPU.Build.0 = Signed|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
-		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Signed|Any CPU.Build.0 = Signed|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Release|Any CPU.Build.0 = Release|Any CPU
-		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
-		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Signed|Any CPU.Build.0 = Signed|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

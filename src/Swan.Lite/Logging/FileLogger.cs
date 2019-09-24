@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Swan.Lite.Logging;
 using Swan.Threading;
 
 namespace Swan.Logging
@@ -11,7 +12,7 @@ namespace Swan.Logging
     /// A helper class to write into files the messages sent by the <see cref="Terminal" />.
     /// </summary>
     /// <seealso cref="ILogger" />
-    public class FileLogger : ILogger
+    public class FileLogger : TextLogger, ILogger
     {
         private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
@@ -68,9 +69,9 @@ namespace Swan.Logging
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
-            ConsoleLogger.GetOutputAndColor(logEvent, true, out var outputMessage);
+            var (outputMessage, _) = GetOutputAndColor(logEvent);
 
-            _logQueue.Enqueue(outputMessage + Environment.NewLine);
+            _logQueue.Enqueue(outputMessage);
         }
 
         /// <inheritdoc />
