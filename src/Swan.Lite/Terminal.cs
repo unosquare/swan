@@ -287,7 +287,7 @@ namespace Swan
                 if (!OutputQueue.TryDequeue(out var context)) continue;
 
                 // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                if (!IsConsolePresent || OutputQueue.Count > Console.BufferHeight) continue;
+                if (!IsConsolePresent) continue;
 
                 Console.ForegroundColor = context.OutputColor;
 
@@ -332,7 +332,7 @@ namespace Swan
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
             public TerminalWriters OutputWriters { get; set; }
-        }
+	    }
 
         #endregion
     }

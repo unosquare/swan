@@ -5,11 +5,11 @@
     using Formatters;
     using Logging;
     using Messaging;
+    using Net;
     using Net.Dns;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Net;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -25,11 +25,19 @@
             TestJson();
             TestApplicationInfo();
             await TestTerminalOutputs();
-            await TestNetworkUtilities();
+			try
+			{
+				await TestNetworkUtilities();
+			}
+			catch (System.Net.Http.HttpRequestException x)
+			{
+				Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
+			}
             TestContainerAndMessageHub();
             TestExceptionLogging();
 
-            TestFastOutputAndReadPrompt();
+            TestFastOutput();
+            TestReadPrompt();
             TestCsvFormatters();
             Terminal.Flush();
             Terminal.ReadKey("Enter any key to exit . . .");
@@ -125,19 +133,26 @@
             messageHub.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
-        private static void TestFastOutputAndReadPrompt()
+        private static void TestFastOutput()
         {
             var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
             {
-                Terminal.WriteLine($"Output info {i} ({((decimal) i / limit):P})");
+                Terminal.WriteLine($"Output info {i} ({((decimal)i / limit):P})");
                 Terminal.BacklineCursor();
             }
+        }
 
+        private static void TestReadPrompt()
+        {
+            Terminal.Clear();
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
                 {ConsoleKey.A, "Sample A"},
-                {ConsoleKey.B, "Sample B"}
+                {ConsoleKey.B, "Sample B"},
+                {ConsoleKey.C, "Sample C" },
+                {ConsoleKey.D, "Sample D" },
+                {ConsoleKey.E, "Sample E" }
             };
 
             Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
@@ -150,10 +165,6 @@
                 await Task.Delay(20);
                 Terminal.OverwriteLine($"Current Progress: {(i + "%"),-10}");
             }
-
-            if (Terminal.ReadKey("Press a key to output the current codepage. (X) will exit.").Key == ConsoleKey.X) return;
-            Terminal.WriteLine("CODEPAGE TEST", ConsoleColor.Blue);
-            Terminal.PrintCurrentCodePage();
 
             if (Terminal.ReadKey("Press a key to test logging output. (X) will exit.").Key == ConsoleKey.X) return;
             Terminal.WriteLine("OUTPUT LOGGING TEST", ConsoleColor.Blue);
