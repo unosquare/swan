@@ -126,7 +126,7 @@
     public class ObjectEnum
     {
         public int Id { get; set; }
-        public MyEnum MyEnum { get; set; }
+        public MyEnum MyEnum { get; set; } = MyEnum.Three;
     }
 
     public class ObjectNoEmptyCtor
