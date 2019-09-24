@@ -421,31 +421,30 @@ namespace Swan
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            using (var dest = new MemoryStream())
+            await using var dest = new MemoryStream();
+
+            try
             {
-                try
+                var buff = new byte[bufferLength];
+                while (length > 0)
                 {
-                    var buff = new byte[bufferLength];
-                    while (length > 0)
-                    {
-                        if (length < bufferLength)
-                            bufferLength = (int)length;
+                    if (length < bufferLength)
+                        bufferLength = (int)length;
 
-                        var nread = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
-                        if (nread == 0)
-                            break;
+                    var nread = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
+                    if (nread == 0)
+                        break;
 
-                        dest.Write(buff, 0, nread);
-                        length -= nread;
-                    }
+                    dest.Write(buff, 0, nread);
+                    length -= nread;
                 }
-                catch
-                {
-                    // ignored
-                }
-
-                return dest.ToArray();
             }
+            catch
+            {
+                // ignored
+            }
+
+            return dest.ToArray();
         }
 
         /// <summary>

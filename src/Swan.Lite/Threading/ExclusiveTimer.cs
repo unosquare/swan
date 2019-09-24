@@ -112,7 +112,7 @@ namespace Swan.Threading
         /// <param name="cancellationToken">The cancellation token.</param>
         public static void WaitUntil(DateTime untilDate, CancellationToken cancellationToken = default)
         {
-            void Callback(IWaitEvent waitEvent)
+            static void Callback(IWaitEvent waitEvent)
             {
                 try
                 {
@@ -125,14 +125,10 @@ namespace Swan.Threading
                 }
             }
 
-            using (var delayLock = WaitEventFactory.Create(true))
-            {
-                using (var _ = new ExclusiveTimer(() => Callback(delayLock), 0, 15))
-                {
-                    while (!cancellationToken.IsCancellationRequested && DateTime.UtcNow < untilDate)
-                        delayLock.Wait();
-                }
-            }
+            using var delayLock = WaitEventFactory.Create(true);
+            using var _ = new ExclusiveTimer(() => Callback(delayLock), 0, 15);
+            while (!cancellationToken.IsCancellationRequested && DateTime.UtcNow < untilDate)
+                delayLock.Wait();
         }
 
         /// <summary>

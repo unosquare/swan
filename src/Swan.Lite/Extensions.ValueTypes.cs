@@ -150,7 +150,7 @@ namespace Swan
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
                 var length = Marshal.SizeOf(field.FieldType);
 
-                endian = endian ?? AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute>(field);
+                endian ??= AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute>(field);
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))

@@ -262,17 +262,16 @@
 
             // ignore empty password for now
             var content = $"grant_type=password&username={username}&password={password}";
-            using (var requestContent = new StringContent(content, Encoding.UTF8, FormType))
-            {
-                var response = await HttpClient.PostAsync(requestUri, requestContent, ct).ConfigureAwait(false);
 
-                if (!response.IsSuccessStatusCode)
-                    throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
+            using var requestContent = new StringContent(content, Encoding.UTF8, FormType);
+            var response = await HttpClient.PostAsync(requestUri, requestContent, ct).ConfigureAwait(false);
 
-                var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+                throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
 
-                return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
-            }
+            var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
         }
 
         /// <summary>
@@ -337,19 +336,19 @@
             if (string.IsNullOrWhiteSpace(requestUri))
                 throw new ArgumentNullException(nameof(requestUri));
 
-            using (var response = await GetResponse(new Uri(requestUri), authorization, null, payload, method, ct).ConfigureAwait(false))
-            {
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new JsonRequestException(
-                        $"Error {method} JSON",
-                        (int)response.StatusCode,
-                        await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-                }
+            using var response = await GetResponse(new Uri(requestUri), authorization, null, payload, method, ct)
+                .ConfigureAwait(false);
 
-                return await response.Content.ReadAsStringAsync()
-                    .ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new JsonRequestException(
+                    $"Error {method} JSON",
+                    (int)response.StatusCode,
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
+
+            return await response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         private static async Task<HttpContent> GetHttpContent(
@@ -358,7 +357,7 @@
             string authorization = null,
             IDictionary<string, IEnumerable<string>> headers = null)
         {
-            var response = await GetResponse(uri, authorization, headers, ct)
+            var response = await GetResponse(uri, authorization, headers, ct: ct)
                 .ConfigureAwait(false);
 
             return response.IsSuccessStatusCode
@@ -379,28 +378,27 @@
 
             var httpMethod = method ?? HttpMethod.Get;
 
-            using (var requestMessage = new HttpRequestMessage(httpMethod, uri))
+            using var requestMessage = new HttpRequestMessage(httpMethod, uri);
+
+            if (!string.IsNullOrWhiteSpace(authorization))
             {
-                if (!string.IsNullOrWhiteSpace(authorization))
-                {
-                    requestMessage.Headers.Authorization
-                        = new AuthenticationHeaderValue("Bearer", authorization);
-                }
-
-                if (headers != null)
-                {
-                    foreach (var header in headers)
-                        requestMessage.Headers.Add(header.Key, header.Value);
-                }
-
-                if (payload != null && httpMethod != HttpMethod.Get)
-                {
-                    requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-                }
-
-                return await HttpClient.SendAsync(requestMessage, ct)
-                    .ConfigureAwait(false);
+                requestMessage.Headers.Authorization
+                    = new AuthenticationHeaderValue("Bearer", authorization);
             }
+
+            if (headers != null)
+            {
+                foreach (var (key, value) in headers)
+                    requestMessage.Headers.Add(key, value);
+            }
+
+            if (payload != null && httpMethod != HttpMethod.Get)
+            {
+                requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+            }
+
+            return await HttpClient.SendAsync(requestMessage, ct)
+                .ConfigureAwait(false);
         }
     }
 }

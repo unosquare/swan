@@ -1,4 +1,4 @@
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
     using Swan.Logging;
     using System;
@@ -87,13 +87,11 @@ namespace Swan.Test.Mocks
                 new AsymmetricKeyEntry(keyPair.Private),
                 new[] {certificateEntry});
 
-            using (var outputFileStream = File.Create(outputFilePath))
-            {
-                certificateStore.Save(
-                    outputFileStream, 
-                    certificatePassword.ToCharArray(),
-                    new SecureRandom(new CryptoApiRandomGenerator()));
-            }
+            using var outputFileStream = File.Create(outputFilePath);
+            certificateStore.Save(
+                outputFileStream, 
+                certificatePassword.ToCharArray(),
+                new SecureRandom(new CryptoApiRandomGenerator()));
         }
 
         internal static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(

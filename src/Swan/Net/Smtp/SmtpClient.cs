@@ -241,107 +241,103 @@
             if (sessionStates == null)
                 throw new ArgumentNullException(nameof(sessionStates));
 
-            using (var tcpClient = new TcpClient())
+            using var tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(Host, Port).ConfigureAwait(false);
+
+            using var connection = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 1000);
+            var sender = new SmtpSender(sessionId);
+
+            try
             {
-                await tcpClient.ConnectAsync(Host, Port).ConfigureAwait(false);
+                // Read the greeting message
+                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
 
-                using (var connection = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 1000))
+                // EHLO 1
+                await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
+
+                // STARTTLS
+                if (EnableSsl)
                 {
-                    var sender = new SmtpSender(sessionId);
+                    sender.RequestText = $"{SmtpCommandNames.STARTTLS}";
 
-                    try
+                    await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                    sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
+                    sender.ValidateReply();
+
+                    if (await connection.UpgradeToSecureAsClientAsync(callback: callback).ConfigureAwait(false) == false)
+                        throw new SecurityException("Could not upgrade the channel to SSL.");
+                }
+
+                // EHLO 2
+                await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
+
+                // AUTH
+                if (Credentials != null)
+                {
+                    var auth = new ConnectionAuth(connection, sender, Credentials);
+                    await auth.AuthenticateAsync(cancellationToken).ConfigureAwait(false);
+                }
+
+                foreach (var sessionState in sessionStates)
+                {
                     {
-                        // Read the greeting message
+                        // MAIL FROM
+                        sender.RequestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
+
+                        await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
                         sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-
-                        // EHLO 1
-                        await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
-
-                        // STARTTLS
-                        if (EnableSsl)
-                        {
-                            sender.RequestText = $"{SmtpCommandNames.STARTTLS}";
-
-                            await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
-                            sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                            sender.ValidateReply();
-
-                            if (await connection.UpgradeToSecureAsClientAsync(callback: callback).ConfigureAwait(false) == false)
-                                throw new SecurityException("Could not upgrade the channel to SSL.");
-                        }
-
-                        // EHLO 2
-                        await SendEhlo(sender, connection, cancellationToken).ConfigureAwait(false);
-
-                        // AUTH
-                        if (Credentials != null)
-                        {
-                            var auth = new ConnectionAuth(connection, sender, Credentials);
-                            await auth.AuthenticateAsync(cancellationToken).ConfigureAwait(false);
-                        }
-
-                        foreach (var sessionState in sessionStates)
-                        {
-                            {
-                                // MAIL FROM
-                                sender.RequestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
-
-                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                                sender.ValidateReply();
-                            }
-
-                            // RCPT TO
-                            foreach (var recipient in sessionState.Recipients)
-                            {
-                                sender.RequestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
-
-                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                                sender.ValidateReply();
-                            }
-
-                            {
-                                // DATA
-                                sender.RequestText = $"{SmtpCommandNames.DATA}";
-
-                                await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
-                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                                sender.ValidateReply();
-                            }
-
-                            {
-                                // CONTENT
-                                var dataTerminator = sessionState.DataBuffer
-                                    .Skip(sessionState.DataBuffer.Count - 5)
-                                    .ToText();
-
-                                sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
-
-                                await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, cancellationToken).ConfigureAwait(false);
-
-                                if (!dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator))
-                                    await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, cancellationToken).ConfigureAwait(false);
-
-                                sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                                sender.ValidateReply();
-                            }
-                        }
-
-                        {
-                            // QUIT
-                            sender.RequestText = $"{SmtpCommandNames.QUIT}";
-
-                            await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
-                            sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-                            sender.ValidateReply();
-                        }
+                        sender.ValidateReply();
                     }
-                    catch (Exception ex)
+
+                    // RCPT TO
+                    foreach (var recipient in sessionState.Recipients)
                     {
-                        throw new SmtpException($"Could not send email - Session ID {sessionId}. {ex.Message}\r\n    Last Request: {sender.RequestText}\r\n    Last Reply: {sender.ReplyText}");
+                        sender.RequestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
+
+                        await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                        sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
+                        sender.ValidateReply();
+                    }
+
+                    {
+                        // DATA
+                        sender.RequestText = $"{SmtpCommandNames.DATA}";
+
+                        await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                        sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
+                        sender.ValidateReply();
+                    }
+
+                    {
+                        // CONTENT
+                        var dataTerminator = sessionState.DataBuffer
+                            .Skip(sessionState.DataBuffer.Count - 5)
+                            .ToText();
+
+                        sender.RequestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
+
+                        await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, cancellationToken).ConfigureAwait(false);
+
+                        if (!dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator))
+                            await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, cancellationToken).ConfigureAwait(false);
+
+                        sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
+                        sender.ValidateReply();
                     }
                 }
+
+                {
+                    // QUIT
+                    sender.RequestText = $"{SmtpCommandNames.QUIT}";
+
+                    await connection.WriteLineAsync(sender.RequestText, cancellationToken).ConfigureAwait(false);
+                    sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);
+                    sender.ValidateReply();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SmtpException($"Could not send email - Session ID {sessionId}. {ex.Message}\r\n    Last Request: {sender.RequestText}\r\n    Last Reply: {sender.ReplyText}");
             }
         }
 

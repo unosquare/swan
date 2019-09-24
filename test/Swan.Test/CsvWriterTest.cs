@@ -24,21 +24,17 @@
         [Test]
         public void WithMemoryStreamAndEncoding_Valid()
         {
-            using (var stream = new MemoryStream())
-            {
-                var reader = new CsvWriter(stream, Encoding.ASCII);
-                Assert.IsNotNull(reader);
-            }
+            using var stream = new MemoryStream();
+            var reader = new CsvWriter(stream, Encoding.ASCII);
+            Assert.IsNotNull(reader);
         }
 
         [Test]
         public void WithMemoryStream_Valid()
         {
-            using (var stream = new MemoryStream())
-            {
-                var reader = new CsvWriter(stream);
-                Assert.IsNotNull(reader);
-            }
+            using var stream = new MemoryStream();
+            var reader = new CsvWriter(stream);
+            Assert.IsNotNull(reader);
         }
 
         [Test]
@@ -83,11 +79,9 @@
 
             using (var stream = File.OpenWrite(tempFile))
             {
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings(data);
-                    writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
-                }
+                using var writer = new CsvWriter(stream);
+                writer.WriteHeadings(data);
+                writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
             }
 
             var valuesInFile = CsvReader.LoadRecords<object>(tempFile);
@@ -123,25 +117,21 @@
         [Test]
         public void Dictionary_ReturnsAreNotEqual()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvWriter(stream);
-                reader.WriteObject(DefaultDictionary);
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvWriter(stream);
+            reader.WriteObject(DefaultDictionary);
 
-                Assert.AreNotEqual(0, reader.Count);
-            }
+            Assert.AreNotEqual(0, reader.Count);
         }
 
         [Test]
         public void Array_ReturnsAreNotEqual()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvWriter(stream);
-                reader.WriteObject(DefaultStringList.ToArray());
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvWriter(stream);
+            reader.WriteObject(DefaultStringList.ToArray());
 
-                Assert.AreNotEqual(0, reader.Count);
-            }
+            Assert.AreNotEqual(0, reader.Count);
         }
 
         [Test]
@@ -149,15 +139,11 @@
         {
             var strings = SampleCsvRecord.SampleStringList();
 
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteObjects(strings);
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            writer.WriteObjects(strings);
 
-                    Assert.AreEqual((int) writer.Count, strings.Count);
-                }
-            }
+            Assert.AreEqual((int) writer.Count, strings.Count);
         }
 
         [Test]
@@ -166,16 +152,12 @@
             dynamic dynObject = new System.Dynamic.ExpandoObject();
             dynObject.A = nameof(MemoryStream);
 
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteObject(dynObject);
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            writer.WriteObject(dynObject);
 
-                    Assert.IsNotNull(writer);
-                    Assert.AreEqual(1, (int) writer.Count);
-                }
-            }
+            Assert.IsNotNull(writer);
+            Assert.AreEqual(1, (int) writer.Count);
         }
     }
 
@@ -185,26 +167,18 @@
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    Assert.Throws<ArgumentNullException>(() => writer.WriteHeadings(NullType));
-                }
-            }
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            Assert.Throws<ArgumentNullException>(() => writer.WriteHeadings(NullType));
         }
 
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    Assert.Throws<ArgumentNullException>(() => 
-                        writer.WriteHeadings(null as Dictionary<string, string>));
-                }
-            }
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            Assert.Throws<ArgumentNullException>(() => 
+                writer.WriteHeadings(null as Dictionary<string, string>));
         }
 
         [Test]
@@ -224,24 +198,20 @@
             };
 
             var stringHeaders = dictionaryHeaders.Select(k => k.Key).ToList();
-            
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
 
-                    writer.WriteHeadings(dictionaryHeaders);
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
 
-                    stream.Position = 0;
-                    var sr = new StreamReader(stream);
-                    var value = sr.ReadToEnd();
-                    var values = value.Split(',');
+            writer.WriteHeadings(dictionaryHeaders);
 
-                    Assert.AreEqual(stringHeadersOutput, value);
-                    Assert.AreEqual(stringHeaders.Count, values.Length);
-                }
-            }
+            stream.Position = 0;
+            var sr = new StreamReader(stream);
+            var value = sr.ReadToEnd();
+            var values = value.Split(',');
+
+            Assert.AreEqual(stringHeadersOutput, value);
+            Assert.AreEqual(stringHeaders.Count, values.Length);
         }
 
         [Test]
@@ -255,21 +225,17 @@
 
             var stringHeadersOutput = string.Join(",", stringHeaders);
 
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings<SampleCsvRecord>();
+            using var stream = new MemoryStream();
+            using var writer = new CsvWriter(stream);
+            writer.WriteHeadings<SampleCsvRecord>();
 
-                    stream.Position = 0;
-                    var sr = new StreamReader(stream);
-                    var value = sr.ReadToEnd();
-                    var values = value.Split(',');
+            stream.Position = 0;
+            var sr = new StreamReader(stream);
+            var value = sr.ReadToEnd();
+            var values = value.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, value.Trim());
-                    Assert.AreEqual(stringHeaders.Length, values.Length);
-                }
-            }
+            Assert.AreEqual(stringHeadersOutput, value.Trim());
+            Assert.AreEqual(stringHeaders.Length, values.Length);
         }
     }
 }

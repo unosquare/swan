@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Swan.Reflection;
 
 namespace Swan.Formatters
@@ -46,7 +47,7 @@ namespace Swan.Formatters
     /// }
     /// </code>
     /// </example>
-    public class CsvWriter : IDisposable
+    public class CsvWriter : IDisposable, IAsyncDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
@@ -193,12 +194,10 @@ namespace Swan.Formatters
             if (truncateData && stream.Length > 0)
                 stream.SetLength(0);
 
-            using (var writer = new CsvWriter(stream))
-            {
-                writer.WriteHeadings<T>();
-                writer.WriteObjects(items);
-                return (int)writer.Count;
-            }
+            using var writer = new CsvWriter(stream);
+            writer.WriteHeadings<T>();
+            writer.WriteObjects(items);
+            return (int)writer.Count;
         }
 
         /// <summary>
@@ -413,6 +412,15 @@ namespace Swan.Formatters
         /// <inheritdoc />
         public void Dispose() => Dispose(true);
 
+        /// <inheritdoc />
+        public async ValueTask DisposeAsync()
+        {
+            if (_leaveStreamOpen == false)
+            {
+                await _outputStream.DisposeAsync();
+            }
+        }
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -454,6 +462,5 @@ namespace Swan.Formatters
                 .Where(p => !IgnorePropertyNames.Contains(p.Name));
 
         #endregion
-
     }
 }

@@ -220,7 +220,7 @@ namespace Swan.Reflection
 
                 if ((bool) TryParseMethodInfo.Invoke(null, parseArguments))
                 {
-                    result = parseArguments[parseArguments.Length - 1];
+                    result = parseArguments[^1];
                     return true;
                 }
             }

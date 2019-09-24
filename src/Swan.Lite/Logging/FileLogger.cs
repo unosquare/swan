@@ -115,13 +115,11 @@ namespace Swan.Logging
 
             try
             {
-                using (var file = File.AppendText(FilePath))
+                await using var file = File.AppendText(FilePath);
+                while (!_logQueue.IsEmpty)
                 {
-                    while (!_logQueue.IsEmpty)
-                    {
-                        if (_logQueue.TryDequeue(out var entry))
-                            await file.WriteAsync(entry).ConfigureAwait(false);
-                    }
+                    if (_logQueue.TryDequeue(out var entry))
+                        await file.WriteAsync(entry).ConfigureAwait(false);
                 }
             }
             finally

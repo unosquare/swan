@@ -13,16 +13,14 @@
         {
             var i = 0;
 
-            using (var timer = new ExclusiveTimer(() => i++, 0, 100))
-            {
-                Thread.Sleep(130);
+            using var timer = new ExclusiveTimer(() => i++, 0, 100);
+            Thread.Sleep(130);
 
-                Assert.GreaterOrEqual(i, 1, "First iteration");
+            Assert.GreaterOrEqual(i, 1, "First iteration");
 
-                Thread.Sleep(120);
+            Thread.Sleep(120);
 
-                Assert.GreaterOrEqual(i, 2, "Second iteration");
-            }
+            Assert.GreaterOrEqual(i, 2, "Second iteration");
         }
 
         [Test]

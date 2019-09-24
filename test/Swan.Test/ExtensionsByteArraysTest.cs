@@ -285,20 +285,16 @@
         [Test]
         public void WithValidBytes_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                stream.Append(Bytes);
-                Assert.AreEqual(Bytes.Length, stream.Length, "Get Append value");
-            }
+            using var stream = new MemoryStream(10);
+            stream.Append(Bytes);
+            Assert.AreEqual(Bytes.Length, stream.Length, "Get Append value");
         }
 
         [Test]
         public void WithNullBuffer_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
 
         [Test]
@@ -313,30 +309,24 @@
         {
             IEnumerable<byte> enumerableByte = BitConverter.GetBytes(Value);
 
-            using (var stream = new MemoryStream(10))
-            {
-                stream.Append(enumerableByte);
+            using var stream = new MemoryStream(10);
+            stream.Append(enumerableByte);
 
-                Assert.AreEqual(4, stream.Length, "Get Append value");
-            }
+            Assert.AreEqual(4, stream.Length, "Get Append value");
         }
 
         [Test]
         public void WithNullIEnumerable_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
 
         [Test]
         public void WithValidIEnumerableArray_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
     }
 
