@@ -143,9 +143,9 @@
         }
 
         [Test]
-        public void WithObjEnum_ReturnsObjectSerialized()
+        public void WithObjEnumString_ReturnsObjectSerialized()
         {
-            Assert.AreEqual("{\"Id\": 0,\"MyEnum\": 0}", Json.Serialize(new ObjectEnum()));
+            Assert.AreEqual("{\"Id\": 0,\"MyEnum\": 3}", Json.Serialize(new ObjectEnum()));
         }
     }
 

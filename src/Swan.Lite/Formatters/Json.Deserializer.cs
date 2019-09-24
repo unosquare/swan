@@ -277,7 +277,7 @@ namespace Swan.Formatters
                 // Extract and set the value
                 var stringValue = _json.SliceLength(_index, charCount);
 
-                if (decimal.TryParse(stringValue, out var value) == false)
+                if (decimal.TryParse(stringValue, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out var value) == false)
                     throw CreateParserException("[number]");
 
                 if (_currentFieldName != null)
