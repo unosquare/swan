@@ -2,7 +2,7 @@ language: csharp
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
 mono: none
-dotnet: 2.2.101
+dotnet: 3.0.100
 matrix:
   include:
     - os: linux
