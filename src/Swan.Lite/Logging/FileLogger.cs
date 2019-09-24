@@ -17,6 +17,8 @@ namespace Swan.Logging
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly ExclusiveTimer _timer;
 
+        private string _filePath;
+
         private bool _disposedValue; // To detect redundant calls
 
         /// <summary>
@@ -30,11 +32,11 @@ namespace Swan.Logging
         /// <summary>
         /// Initializes a new instance of the <see cref="FileLogger"/> class.
         /// </summary>
-        /// <param name="path">The path.</param>
+        /// <param name="filePath">The filePath.</param>
         /// <param name="dailyFile">if set to <c>true</c> [daily file].</param>
-        public FileLogger(string path, bool dailyFile)
+        public FileLogger(string filePath, bool dailyFile)
         {
-            LogPath = path;
+            _filePath = filePath;
             DailyFile = dailyFile;
 
             _timer = new ExclusiveTimer(
@@ -52,15 +54,9 @@ namespace Swan.Logging
         /// <value>
         /// The file path.
         /// </value>
-        public string FilePath => Path.Combine(LogPath, $"Application{(DailyFile ? $"_{DateTime.UtcNow:yyyyMMdd}" : string.Empty)}.log");
-
-        /// <summary>
-        /// Gets or sets the log path.
-        /// </summary>
-        /// <value>
-        /// The log path.
-        /// </value>
-        public string LogPath { get; }
+        public string FilePath => DailyFile
+                                    ? Path.Combine(Path.GetDirectoryName(_filePath), Path.GetFileNameWithoutExtension(_filePath) + $"_{DateTime.UtcNow:yyyyMMdd}" + Path.GetExtension(_filePath))
+                                    : _filePath;
 
         /// <summary>
         /// Gets a value indicating whether [daily file].
