@@ -699,15 +699,9 @@
 
             try
             {
-#if !NET461
-                RemoteClient.Dispose();
-                SecureStream?.Dispose();
-                NetworkStream?.Dispose();
-#else
                 RemoteClient.Close();
                 SecureStream?.Close();
                 NetworkStream?.Close();
-#endif
             }
             finally
             {
