@@ -270,7 +270,7 @@ namespace Swan.Formatters
                 var targetType = target.GetType();
 
                 if (targetType.IsEnum)
-                    return Enum.ToObject(targetType, target).ToString();
+                    return Convert.ToInt64(target, System.Globalization.CultureInfo.InvariantCulture).ToString();
 
                 var fields = _options.GetProperties(targetType);
 
