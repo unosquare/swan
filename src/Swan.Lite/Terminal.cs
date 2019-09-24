@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
@@ -38,10 +38,7 @@ namespace Swan
                 if (DequeueOutputTimer != null) return;
 
                 if (IsConsolePresent)
-                {
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     Console.CursorVisible = false;
-                }
 
                 // Here we start the output task, fire-and-forget
                 DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
