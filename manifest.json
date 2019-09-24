@@ -706,6 +706,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Lite.Logging.TextLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Lite.Logging.TextLogger.html",
+          "hash": "LljOG6TI06DOjHGLsU6xCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Lite.Logging.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Lite.Logging.html",
+          "hash": "cHxZhcDP9yG+uSppSa+/ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Lite.Reflection.ConstructorTypeCache.yml",
       "output": {
         ".html": {
@@ -758,7 +782,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.ConsoleLogger.html",
-          "hash": "YHOdLR3+ZzBSdcwHixtsJg=="
+          "hash": "OthK/ysCMKuvRMQFDw8eCA=="
         }
       },
       "is_incremental": false,
@@ -770,7 +794,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.DebugLogger.html",
-          "hash": "XfY8Wt1hcmJ9lvu/1Dpjvg=="
+          "hash": "a35oK2fee6MfcmQsacS/BQ=="
         }
       },
       "is_incremental": false,
@@ -782,7 +806,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.FileLogger.html",
-          "hash": "LuqU5l/tDlxTe5tUcVNE0A=="
+          "hash": "KSHZvTftVtiReqx4oSbHFQ=="
         }
       },
       "is_incremental": false,
@@ -806,7 +830,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.Logger.html",
-          "hash": "1aKmtNtNmpAoDoTj5joK2A=="
+          "hash": "m7I9YJVTlT52yKlSpb6YQw=="
         }
       },
       "is_incremental": false,
@@ -2354,7 +2378,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "mcvA1xtVg34JjkyF5L+fPQ=="
+          "hash": "4naNg/qLutY+FIzCT/suUg=="
         }
       },
       "is_incremental": false,
@@ -2407,28 +2431,28 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 191,
+          "skipped_file_count": 0
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 189,
+          "total_file_count": 0,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0

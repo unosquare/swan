@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DebugLogger
+    <title>Class TextLogger
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DebugLogger
+    <meta name="title" content="Class TextLogger
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -76,55 +76,61 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.Logging.DebugLogger">
+            <article class="content wrap" id="_content" data-uid="Swan.Lite.Logging.TextLogger">
   
   
-  <h1 id="Swan_Logging_DebugLogger" data-uid="Swan.Logging.DebugLogger" class="text-break">Class DebugLogger
+  <h1 id="Swan_Lite_Logging_TextLogger" data-uid="Swan.Lite.Logging.TextLogger" class="text-break">Class TextLogger
   </h1>
-  <div class="markdown level0 summary"><p>Represents a logger target. This target will write to the
-Debug console using System.Diagnostics.Debug.</p>
+  <div class="markdown level0 summary"><p>Use this class for text-based logger.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">DebugLogger</span></div>
+    <div class="level1"><span class="xref">TextLogger</span></div>
   </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="Swan.Logging.ILogger.html">ILogger</a></div>
-    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Logging.html">Swan.Logging</a></h6>
-  <h5 id="Swan_Logging_DebugLogger_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Lite.Logging.html">Swan.Lite.Logging</a></h6>
+  <h5 id="Swan_Lite_Logging_TextLogger_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DebugLogger : TextLogger, ILogger, IDisposable</code></pre>
-  </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Swan_Logging_DebugLogger__ctor_" data-uid="Swan.Logging.DebugLogger.#ctor*"></a>
-  <h4 id="Swan_Logging_DebugLogger__ctor" data-uid="Swan.Logging.DebugLogger.#ctor">DebugLogger()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Logging.DebugLogger.html">DebugLogger</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected DebugLogger()</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class TextLogger</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Swan_Logging_DebugLogger_Instance_" data-uid="Swan.Logging.DebugLogger.Instance*"></a>
-  <h4 id="Swan_Logging_DebugLogger_Instance" data-uid="Swan.Logging.DebugLogger.Instance">Instance</h4>
-  <div class="markdown level1 summary"><p>Gets the current instance of DebugLogger.</p>
+  <a id="Swan_Lite_Logging_TextLogger_LoggingTimeFormat_" data-uid="Swan.Lite.Logging.TextLogger.LoggingTimeFormat*"></a>
+  <h4 id="Swan_Lite_Logging_TextLogger_LoggingTimeFormat" data-uid="Swan.Lite.Logging.TextLogger.LoggingTimeFormat">LoggingTimeFormat</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the logging time format.
+set to null or empty to prevent output.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DebugLogger Instance { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static string LoggingTimeFormat { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -136,62 +142,8 @@ Debug console using System.Diagnostics.Debug.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Swan.Logging.DebugLogger.html">DebugLogger</a></td>
-        <td><p>The instance.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_Logging_DebugLogger_IsDebuggerAttached_" data-uid="Swan.Logging.DebugLogger.IsDebuggerAttached*"></a>
-  <h4 id="Swan_Logging_DebugLogger_IsDebuggerAttached" data-uid="Swan.Logging.DebugLogger.IsDebuggerAttached">IsDebuggerAttached</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether a debugger is attached.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsDebuggerAttached { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><code>true</code> if this instance is debugger attached; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_Logging_DebugLogger_LogLevel_" data-uid="Swan.Logging.DebugLogger.LogLevel*"></a>
-  <h4 id="Swan_Logging_DebugLogger_LogLevel" data-uid="Swan.Logging.DebugLogger.LogLevel">LogLevel</h4>
-  <div class="markdown level1 summary"><p>Gets the log level.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LogLevel LogLevel { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Swan.LogLevel.html">LogLevel</a></td>
-        <td><p>The log level.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The logging time format.</p>
 </td>
       </tr>
     </tbody>
@@ -200,24 +152,14 @@ Debug console using System.Diagnostics.Debug.</p>
   </h3>
   
   
-  <a id="Swan_Logging_DebugLogger_Dispose_" data-uid="Swan.Logging.DebugLogger.Dispose*"></a>
-  <h4 id="Swan_Logging_DebugLogger_Dispose" data-uid="Swan.Logging.DebugLogger.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-  
-  
-  <a id="Swan_Logging_DebugLogger_Log_" data-uid="Swan.Logging.DebugLogger.Log*"></a>
-  <h4 id="Swan_Logging_DebugLogger_Log_Swan_LogMessageReceivedEventArgs_" data-uid="Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)">Log(LogMessageReceivedEventArgs)</h4>
-  <div class="markdown level1 summary"><p>Logs the specified log event.</p>
+  <a id="Swan_Lite_Logging_TextLogger_GetOutputAndColor_" data-uid="Swan.Lite.Logging.TextLogger.GetOutputAndColor*"></a>
+  <h4 id="Swan_Lite_Logging_TextLogger_GetOutputAndColor_Swan_LogMessageReceivedEventArgs_" data-uid="Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)">GetOutputAndColor(LogMessageReceivedEventArgs)</h4>
+  <div class="markdown level1 summary"><p>Gets the color of the output of the message (the output message has a new line char in the end).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Log(LogMessageReceivedEventArgs logEvent)</code></pre>
+    <pre><code class="lang-csharp hljs">protected (string outputMessage, ConsoleColor color)GetOutputAndColor(LogMessageReceivedEventArgs logEvent)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -237,17 +179,22 @@ Debug console using System.Diagnostics.Debug.</p>
       </tr>
     </tbody>
   </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="Swan.Logging.ILogger.html">ILogger</a>
-  </div>
-  <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
-  </div>
-  <h3 id="seealso">See Also</h3>
-  <div class="seealso">
-      <div><a class="xref" href="Swan.Logging.ILogger.html">ILogger</a></div>
-  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">ValueTuple</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <span class="xref">ConsoleColor</span>&gt;</td>
+        <td><p>The output message formatted and the color of the console to be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

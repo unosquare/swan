@@ -94,34 +94,10 @@
     <div><a class="xref" href="Swan.Logging.ILogger.html">ILogger</a></div>
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Logging.html">Swan.Logging</a></h6>
   <h5 id="Swan_Logging_ConsoleLogger_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConsoleLogger : ILogger, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConsoleLogger : TextLogger, ILogger, IDisposable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -356,15 +332,14 @@
   </table>
   
   
-  <a id="Swan_Logging_ConsoleLogger_LoggingTimeFormat_" data-uid="Swan.Logging.ConsoleLogger.LoggingTimeFormat*"></a>
-  <h4 id="Swan_Logging_ConsoleLogger_LoggingTimeFormat" data-uid="Swan.Logging.ConsoleLogger.LoggingTimeFormat">LoggingTimeFormat</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the logging time format.
-set to null or empty to prevent output.</p>
+  <a id="Swan_Logging_ConsoleLogger_Instance_" data-uid="Swan.Logging.ConsoleLogger.Instance*"></a>
+  <h4 id="Swan_Logging_ConsoleLogger_Instance" data-uid="Swan.Logging.ConsoleLogger.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>Gets the current instance of ConsoleLogger.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string LoggingTimeFormat { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static ConsoleLogger Instance { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -376,8 +351,8 @@ set to null or empty to prevent output.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>The logging time format.</p>
+        <td><a class="xref" href="Swan.Logging.ConsoleLogger.html">ConsoleLogger</a></td>
+        <td><p>The instance.</p>
 </td>
       </tr>
     </tbody>

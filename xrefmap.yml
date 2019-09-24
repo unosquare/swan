@@ -4554,6 +4554,44 @@ references:
   commentId: F:Swan.JsonSerializerCase.PascalCase
   fullName: Swan.JsonSerializerCase.PascalCase
   nameWithType: JsonSerializerCase.PascalCase
+- uid: Swan.Lite.Logging
+  name: Swan.Lite.Logging
+  href: api/Swan.Lite.Logging.html
+  commentId: N:Swan.Lite.Logging
+  fullName: Swan.Lite.Logging
+  nameWithType: Swan.Lite.Logging
+- uid: Swan.Lite.Logging.TextLogger
+  name: TextLogger
+  href: api/Swan.Lite.Logging.TextLogger.html
+  commentId: T:Swan.Lite.Logging.TextLogger
+  fullName: Swan.Lite.Logging.TextLogger
+  nameWithType: TextLogger
+- uid: Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
+  name: GetOutputAndColor(LogMessageReceivedEventArgs)
+  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_GetOutputAndColor_Swan_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
+  fullName: Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
+  nameWithType: TextLogger.GetOutputAndColor(LogMessageReceivedEventArgs)
+- uid: Swan.Lite.Logging.TextLogger.GetOutputAndColor*
+  name: GetOutputAndColor
+  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_GetOutputAndColor_
+  commentId: Overload:Swan.Lite.Logging.TextLogger.GetOutputAndColor
+  isSpec: "True"
+  fullName: Swan.Lite.Logging.TextLogger.GetOutputAndColor
+  nameWithType: TextLogger.GetOutputAndColor
+- uid: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
+  name: LoggingTimeFormat
+  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_LoggingTimeFormat
+  commentId: P:Swan.Lite.Logging.TextLogger.LoggingTimeFormat
+  fullName: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
+  nameWithType: TextLogger.LoggingTimeFormat
+- uid: Swan.Lite.Logging.TextLogger.LoggingTimeFormat*
+  name: LoggingTimeFormat
+  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_LoggingTimeFormat_
+  commentId: Overload:Swan.Lite.Logging.TextLogger.LoggingTimeFormat
+  isSpec: "True"
+  fullName: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
+  nameWithType: TextLogger.LoggingTimeFormat
 - uid: Swan.Lite.Reflection
   name: Swan.Lite.Reflection
   href: api/Swan.Lite.Reflection.html
@@ -4743,6 +4781,19 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.ConsoleLogger.InfoPrefix
   nameWithType: ConsoleLogger.InfoPrefix
+- uid: Swan.Logging.ConsoleLogger.Instance
+  name: Instance
+  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_Instance
+  commentId: P:Swan.Logging.ConsoleLogger.Instance
+  fullName: Swan.Logging.ConsoleLogger.Instance
+  nameWithType: ConsoleLogger.Instance
+- uid: Swan.Logging.ConsoleLogger.Instance*
+  name: Instance
+  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_Instance_
+  commentId: Overload:Swan.Logging.ConsoleLogger.Instance
+  isSpec: "True"
+  fullName: Swan.Logging.ConsoleLogger.Instance
+  nameWithType: ConsoleLogger.Instance
 - uid: Swan.Logging.ConsoleLogger.Log(Swan.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
   href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_Log_Swan_LogMessageReceivedEventArgs_
@@ -4756,19 +4807,6 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.ConsoleLogger.Log
   nameWithType: ConsoleLogger.Log
-- uid: Swan.Logging.ConsoleLogger.LoggingTimeFormat
-  name: LoggingTimeFormat
-  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_LoggingTimeFormat
-  commentId: P:Swan.Logging.ConsoleLogger.LoggingTimeFormat
-  fullName: Swan.Logging.ConsoleLogger.LoggingTimeFormat
-  nameWithType: ConsoleLogger.LoggingTimeFormat
-- uid: Swan.Logging.ConsoleLogger.LoggingTimeFormat*
-  name: LoggingTimeFormat
-  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_LoggingTimeFormat_
-  commentId: Overload:Swan.Logging.ConsoleLogger.LoggingTimeFormat
-  isSpec: "True"
-  fullName: Swan.Logging.ConsoleLogger.LoggingTimeFormat
-  nameWithType: ConsoleLogger.LoggingTimeFormat
 - uid: Swan.Logging.ConsoleLogger.LogLevel
   name: LogLevel
   href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_LogLevel
@@ -4866,6 +4904,19 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.DebugLogger.Dispose
   nameWithType: DebugLogger.Dispose
+- uid: Swan.Logging.DebugLogger.Instance
+  name: Instance
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Instance
+  commentId: P:Swan.Logging.DebugLogger.Instance
+  fullName: Swan.Logging.DebugLogger.Instance
+  nameWithType: DebugLogger.Instance
+- uid: Swan.Logging.DebugLogger.Instance*
+  name: Instance
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Instance_
+  commentId: Overload:Swan.Logging.DebugLogger.Instance
+  isSpec: "True"
+  fullName: Swan.Logging.DebugLogger.Instance
+  nameWithType: DebugLogger.Instance
 - uid: Swan.Logging.DebugLogger.IsDebuggerAttached
   name: IsDebuggerAttached
   href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_IsDebuggerAttached
@@ -5189,6 +5240,19 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.Logger.Log
   nameWithType: Logger.Log
+- uid: Swan.Logging.Logger.NoLogging
+  name: NoLogging()
+  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_NoLogging
+  commentId: M:Swan.Logging.Logger.NoLogging
+  fullName: Swan.Logging.Logger.NoLogging()
+  nameWithType: Logger.NoLogging()
+- uid: Swan.Logging.Logger.NoLogging*
+  name: NoLogging
+  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_NoLogging_
+  commentId: Overload:Swan.Logging.Logger.NoLogging
+  isSpec: "True"
+  fullName: Swan.Logging.Logger.NoLogging
+  nameWithType: Logger.NoLogging
 - uid: Swan.Logging.Logger.RegisterLogger(Swan.Logging.ILogger)
   name: RegisterLogger(ILogger)
   href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_RegisterLogger_Swan_Logging_ILogger_
