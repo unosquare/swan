@@ -235,9 +235,18 @@
         }
 
         [Test]
-        public void WithEnumProperty_ReturnValidObject()
+        public void WithEnumStringProperty_ReturnValidObject()
         {
             var obj = Json.Deserialize<ObjectEnum>("{ \"Id\": 1, \"MyEnum\": \"Three\" }");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(MyEnum.Three, obj.MyEnum);
+        }
+
+        [Test]
+        public void WithEnumIntProperty_ReturnValidObject()
+        {
+            var obj = Json.Deserialize<ObjectEnum>("{ \"Id\": 1, \"MyEnum\": 3 }");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(MyEnum.Three, obj.MyEnum);
