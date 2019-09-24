@@ -274,6 +274,17 @@ length of the console width.</p>
   </div>
   
   
+  <a id="Swan_Terminal_Clear_" data-uid="Swan.Terminal.Clear*"></a>
+  <h4 id="Swan_Terminal_Clear" data-uid="Swan.Terminal.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Clears the screen.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Clear()</code></pre>
+  </div>
+  
+  
   <a id="Swan_Terminal_Flush_" data-uid="Swan.Terminal.Flush*"></a>
   <h4 id="Swan_Terminal_Flush_System_Nullable_TimeSpan__" data-uid="Swan.Terminal.Flush(System.Nullable{TimeSpan})">Flush(Nullable&lt;TimeSpan&gt;)</h4>
   <div class="markdown level1 summary"><p>Waits for all of the queued output messages to be written out to the console.
@@ -679,66 +690,13 @@ This is useful for services and daemons that are running as console applications
   
   
   <a id="Swan_Terminal_Write_" data-uid="Swan.Terminal.Write*"></a>
-  <h4 id="Swan_Terminal_Write_System_Byte_System_Nullable_ConsoleColor__System_Int32_System_Boolean_Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.Byte,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)">Write(Byte, Nullable&lt;ConsoleColor&gt;, Int32, Boolean, TerminalWriters)</h4>
+  <h4 id="Swan_Terminal_Write_System_Char_System_Nullable_ConsoleColor__System_Int32_System_Boolean_Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)">Write(Char, Nullable&lt;ConsoleColor&gt;, Int32, Boolean, TerminalWriters)</h4>
   <div class="markdown level1 summary"><p>Writes a character a number of times, optionally adding a new line at the end.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Write(byte charCode, ConsoleColor? color = default(ConsoleColor? ), int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></td>
-        <td><span class="parametername">charCode</span></td>
-        <td><p>The character code.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
-        <td><span class="parametername">color</span></td>
-        <td><p>The color.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>The count.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">newLine</span></td>
-        <td><p>if set to <code>true</code> [new line].</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Swan.TerminalWriters.html">TerminalWriters</a></td>
-        <td><span class="parametername">writerFlags</span></td>
-        <td><p>The writer flags.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_Terminal_Write_" data-uid="Swan.Terminal.Write*"></a>
-  <h4 id="Swan_Terminal_Write_System_Char_System_Nullable_ConsoleColor__Swan_TerminalWriters_" data-uid="Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},Swan.TerminalWriters)">Write(Char, Nullable&lt;ConsoleColor&gt;, TerminalWriters)</h4>
-  <div class="markdown level1 summary"><p>Writes the specified character in the default color.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Write(char charCode, ConsoleColor? color = default(ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Write(char charCode, ConsoleColor? color = default(ConsoleColor? ), int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -760,6 +718,18 @@ This is useful for services and daemons that are running as console applications
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">ConsoleColor</span>&gt;</td>
         <td><span class="parametername">color</span></td>
         <td><p>The color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The count.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">newLine</span></td>
+        <td><p>if set to <code>true</code> [new line].</p>
 </td>
       </tr>
       <tr>

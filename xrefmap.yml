@@ -5001,19 +5001,6 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.FileLogger.LogLevel
   nameWithType: FileLogger.LogLevel
-- uid: Swan.Logging.FileLogger.LogPath
-  name: LogPath
-  href: api/Swan.Logging.FileLogger.html#Swan_Logging_FileLogger_LogPath
-  commentId: P:Swan.Logging.FileLogger.LogPath
-  fullName: Swan.Logging.FileLogger.LogPath
-  nameWithType: FileLogger.LogPath
-- uid: Swan.Logging.FileLogger.LogPath*
-  name: LogPath
-  href: api/Swan.Logging.FileLogger.html#Swan_Logging_FileLogger_LogPath_
-  commentId: Overload:Swan.Logging.FileLogger.LogPath
-  isSpec: "True"
-  fullName: Swan.Logging.FileLogger.LogPath
-  nameWithType: FileLogger.LogPath
 - uid: Swan.Logging.ILogger
   name: ILogger
   href: api/Swan.Logging.ILogger.html
@@ -11765,6 +11752,19 @@ references:
   isSpec: "True"
   fullName: Swan.Terminal.BacklineCursor
   nameWithType: Terminal.BacklineCursor
+- uid: Swan.Terminal.Clear
+  name: Clear()
+  href: api/Swan.Terminal.html#Swan_Terminal_Clear
+  commentId: M:Swan.Terminal.Clear
+  fullName: Swan.Terminal.Clear()
+  nameWithType: Terminal.Clear()
+- uid: Swan.Terminal.Clear*
+  name: Clear
+  href: api/Swan.Terminal.html#Swan_Terminal_Clear_
+  commentId: Overload:Swan.Terminal.Clear
+  isSpec: "True"
+  fullName: Swan.Terminal.Clear
+  nameWithType: Terminal.Clear
 - uid: Swan.Terminal.CursorLeft
   name: CursorLeft
   href: api/Swan.Terminal.html#Swan_Terminal_CursorLeft
@@ -12000,24 +12000,15 @@ references:
   isSpec: "True"
   fullName: Swan.Terminal.Settings.UserOptionText
   nameWithType: Terminal.Settings.UserOptionText
-- uid: Swan.Terminal.Write(System.Byte,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)
-  name: Write(Byte, Nullable<ConsoleColor>, Int32, Boolean, TerminalWriters)
-  href: api/Swan.Terminal.html#Swan_Terminal_Write_System_Byte_System_Nullable_ConsoleColor__System_Int32_System_Boolean_Swan_TerminalWriters_
-  commentId: M:Swan.Terminal.Write(System.Byte,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)
-  name.vb: Write(Byte, Nullable(Of ConsoleColor), Int32, Boolean, TerminalWriters)
-  fullName: Swan.Terminal.Write(System.Byte, System.Nullable<ConsoleColor>, System.Int32, System.Boolean, Swan.TerminalWriters)
-  fullName.vb: Swan.Terminal.Write(System.Byte, System.Nullable(Of ConsoleColor), System.Int32, System.Boolean, Swan.TerminalWriters)
-  nameWithType: Terminal.Write(Byte, Nullable<ConsoleColor>, Int32, Boolean, TerminalWriters)
-  nameWithType.vb: Terminal.Write(Byte, Nullable(Of ConsoleColor), Int32, Boolean, TerminalWriters)
-- uid: Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},Swan.TerminalWriters)
-  name: Write(Char, Nullable<ConsoleColor>, TerminalWriters)
-  href: api/Swan.Terminal.html#Swan_Terminal_Write_System_Char_System_Nullable_ConsoleColor__Swan_TerminalWriters_
-  commentId: M:Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},Swan.TerminalWriters)
-  name.vb: Write(Char, Nullable(Of ConsoleColor), TerminalWriters)
-  fullName: Swan.Terminal.Write(System.Char, System.Nullable<ConsoleColor>, Swan.TerminalWriters)
-  fullName.vb: Swan.Terminal.Write(System.Char, System.Nullable(Of ConsoleColor), Swan.TerminalWriters)
-  nameWithType: Terminal.Write(Char, Nullable<ConsoleColor>, TerminalWriters)
-  nameWithType.vb: Terminal.Write(Char, Nullable(Of ConsoleColor), TerminalWriters)
+- uid: Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)
+  name: Write(Char, Nullable<ConsoleColor>, Int32, Boolean, TerminalWriters)
+  href: api/Swan.Terminal.html#Swan_Terminal_Write_System_Char_System_Nullable_ConsoleColor__System_Int32_System_Boolean_Swan_TerminalWriters_
+  commentId: M:Swan.Terminal.Write(System.Char,System.Nullable{ConsoleColor},System.Int32,System.Boolean,Swan.TerminalWriters)
+  name.vb: Write(Char, Nullable(Of ConsoleColor), Int32, Boolean, TerminalWriters)
+  fullName: Swan.Terminal.Write(System.Char, System.Nullable<ConsoleColor>, System.Int32, System.Boolean, Swan.TerminalWriters)
+  fullName.vb: Swan.Terminal.Write(System.Char, System.Nullable(Of ConsoleColor), System.Int32, System.Boolean, Swan.TerminalWriters)
+  nameWithType: Terminal.Write(Char, Nullable<ConsoleColor>, Int32, Boolean, TerminalWriters)
+  nameWithType.vb: Terminal.Write(Char, Nullable(Of ConsoleColor), Int32, Boolean, TerminalWriters)
 - uid: Swan.Terminal.Write(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)
   name: Write(String, Nullable<ConsoleColor>, TerminalWriters)
   href: api/Swan.Terminal.html#Swan_Terminal_Write_System_String_System_Nullable_ConsoleColor__Swan_TerminalWriters_

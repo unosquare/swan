@@ -782,7 +782,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.FileLogger.html",
-          "hash": "6fYH6MmyNa/8uIl4chmt4Q=="
+          "hash": "LuqU5l/tDlxTe5tUcVNE0A=="
         }
       },
       "is_incremental": false,
@@ -1850,7 +1850,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Terminal.html",
-          "hash": "y27S6Hi/Lq25dl2H+UaWew=="
+          "hash": "rQfli4U1Py3UvX7MuWi9zQ=="
         }
       },
       "is_incremental": false,
@@ -2407,17 +2407,16 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 189,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
@@ -2427,10 +2426,11 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 189,
+          "total_file_count": 0,
           "skipped_file_count": 0
         }
       }
