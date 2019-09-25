@@ -16,46 +16,6 @@ namespace Swan.Cryptography
         private static readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
 
         /// <summary>
-        /// Computes the MD5 hash of the given stream.
-        /// Do not use for large streams as this reads ALL bytes at once.
-        /// </summary>
-        /// <param name="this">The stream.</param>
-        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>
-        /// The computed hash code.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">stream.</exception>
-        [Obsolete("Use a better hasher.")]
-        public static Span<byte> ComputeMD5(Stream @this, bool createHasher = false)
-        {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
-
-            using var md5 = MD5.Create();
-            const int bufferSize = 4096;
-
-            var readAheadBuffer = new byte[bufferSize];
-            var readAheadBytesRead = @this.Read(readAheadBuffer, 0, readAheadBuffer.Length);
-
-            do
-            {
-                var bytesRead = readAheadBytesRead;
-                var buffer = readAheadBuffer;
-
-                readAheadBuffer = new byte[bufferSize];
-                readAheadBytesRead = @this.Read(readAheadBuffer, 0, readAheadBuffer.Length);
-
-                if (readAheadBytesRead == 0)
-                    md5.TransformFinalBlock(buffer, 0, bytesRead);
-                else
-                    md5.TransformBlock(buffer, 0, bytesRead, buffer, 0);
-            }
-            while (readAheadBytesRead != 0);
-
-            return md5.Hash;
-        }
-
-        /// <summary>
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="value">The input string.</param>

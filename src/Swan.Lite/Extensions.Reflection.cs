@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Swan.Configuration;
@@ -57,7 +58,7 @@ namespace Swan
         /// Default value of this type.
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
-        public static object GetDefault(this Type type)
+        public static object? GetDefault(this Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -159,13 +160,11 @@ namespace Swan
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (type == typeof(bool))
-            {
-                result = value.ToBoolean();
-                return true;
-            }
+            if (type != typeof(bool))
+                return TryParseBasicType(type, value.ToStringInvariant(), out result);
 
-            return TryParseBasicType(type, value.ToStringInvariant(), out result);
+            result = value.ToBoolean();
+            return true;
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, string value, out object result)
+        public static bool TryParseBasicType(this Type type, string value, out object? result)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -195,10 +194,14 @@ namespace Swan
         /// <param name="value">The value.</param>
         /// <param name="target">The object.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetBasicType(this PropertyInfo property, object value, object target)
+        /// <exception cref="ArgumentNullException">property.</exception>
+        public static bool TrySetBasicType(this PropertyInfo property, object value, object? target)
         {
+            if (property == null)
+                throw new ArgumentNullException(nameof(property));
+
             try
             {
                 if (property.PropertyType.TryParseBasicType(value, out var propertyValue))
@@ -296,17 +299,21 @@ namespace Swan
 
         /// <summary>
         /// Gets property actual value or <c>PropertyDisplayAttribute.DefaultValue</c> if presented.
-        ///
         /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
         /// will be formatted accordingly.
-        ///
         /// If the object contains a null value, a empty string will be returned.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="target">The object.</param>
-        /// <returns>The property value or null.</returns>
-        public static string ToFormattedString(this PropertyInfo propertyInfo, object target)
+        /// <returns>
+        /// The property value or null.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
+        public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
         {
+            if (propertyInfo == null)
+                throw new ArgumentNullException(nameof(propertyInfo));
+
             try
             {
                 var value = propertyInfo.GetValue(target);
@@ -378,7 +385,7 @@ namespace Swan
         {
             try
             {
-                return Convert.ToBoolean(str);
+                return Convert.ToBoolean(str, CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
@@ -387,7 +394,7 @@ namespace Swan
 
             try
             {
-                return Convert.ToBoolean(Convert.ToInt32(str));
+                return Convert.ToBoolean(Convert.ToInt32(str, CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -405,7 +412,7 @@ namespace Swan
         /// The property proxy.
         /// </returns>
         /// <exception cref="ArgumentNullException">this.</exception>
-        public static IPropertyProxy CreatePropertyProxy(this PropertyInfo @this)
+        public static IPropertyProxy? CreatePropertyProxy(this PropertyInfo @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
@@ -428,15 +435,15 @@ namespace Swan
         private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
-                return Convert.ToDateTime(value).ToString(format);
+                return Convert.ToDateTime(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(int) || propertyType == typeof(int?))
-                return Convert.ToInt32(value).ToString(format);
+                return Convert.ToInt32(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
-                return Convert.ToDecimal(value).ToString(format);
+                return Convert.ToDecimal(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(double) || propertyType == typeof(double?))
-                return Convert.ToDouble(value).ToString(format);
+                return Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(byte) || propertyType == typeof(byte?))
-                return Convert.ToByte(value).ToString(format);
+                return Convert.ToByte(value, CultureInfo.InvariantCulture).ToString(format);
 
             return value?.ToString() ?? string.Empty;
         }

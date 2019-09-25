@@ -423,10 +423,8 @@ namespace Swan.Formatters
         /// <typeparam name="T">The type of object.</typeparam>
         /// <returns>The conversion of specific type of object.</returns>
         public T ReadObject<T>()
-            where T : new()
-        {
-            return ReadObject<T>(_defaultMap);
-        }
+            where T : new() =>
+            ReadObject<T>(_defaultMap);
 
         #endregion
 
@@ -453,7 +451,7 @@ namespace Swan.Formatters
                 {
                     // Get the current and next character
                     var currentChar = line[charIndex];
-                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new char?();
+                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : default(char?);
 
                     // Perform logic based on state and decide on next state
                     switch (currentState)
@@ -593,14 +591,19 @@ namespace Swan.Formatters
         /// <param name="filePath">The file path.</param>
         /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
         public static IList<T> LoadRecords<T>(string filePath)
-            where T : new()
-        {
-            return LoadRecords<T>(File.OpenRead(filePath));
-        }
+            where T : new() =>
+            LoadRecords<T>(File.OpenRead(filePath));
 
         #endregion
 
         #region IDisposable Support
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
@@ -625,13 +628,6 @@ namespace Swan.Formatters
             _hasDisposed = true;
         }
         
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         #endregion
         
         /// <summary>

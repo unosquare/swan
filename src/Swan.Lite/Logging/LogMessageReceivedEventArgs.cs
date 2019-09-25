@@ -26,9 +26,9 @@ namespace Swan.Logging
             ulong sequence,
             LogLevel messageType,
             DateTime utcDate,
-            string source,
+            string? source,
             string message,
-            object extendedData,
+            object? extendedData,
             string callerMemberName,
             string callerFilePath,
             int callerLineNumber)
@@ -76,7 +76,7 @@ namespace Swan.Logging
         /// <value>
         /// The source.
         /// </value>
-        public string Source { get; }
+        public string? Source { get; }
 
         /// <summary>
         /// Gets the body of the message.
@@ -117,7 +117,7 @@ namespace Swan.Logging
         /// <value>
         /// The extended data.
         /// </value>
-        public object ExtendedData { get; }
+        public object? ExtendedData { get; }
 
         /// <summary>
         /// Gets the Extended Data properties cast as an Exception (if possible)

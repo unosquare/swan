@@ -20,7 +20,7 @@ namespace Swan.Formatters
             TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
 
         private readonly string[] _includeProperties;
-        private readonly string[] _excludeProperties;
+        private readonly string[]? _excludeProperties;
         private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace Swan.Formatters
             bool format,
             string typeSpecifier,
             string[] includeProperties,
-            string[] excludeProperties = null,
+            string[]? excludeProperties = null,
             bool includeNonPublic = true,
-            IReadOnlyCollection<WeakReference> parentReferences = null,
+            IReadOnlyCollection<WeakReference>? parentReferences = null,
             JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
         {
             _includeProperties = includeProperties;

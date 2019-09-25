@@ -25,10 +25,10 @@ namespace Swan.Formatters
 
             private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
 
-            private readonly SerializerOptions _options;
+            private readonly SerializerOptions? _options;
             private readonly string _result;
-            private readonly StringBuilder _builder;
-            private readonly string _lastCommaSearch;
+            private readonly StringBuilder? _builder;
+            private readonly string? _lastCommaSearch;
 
             #endregion
 
@@ -67,30 +67,19 @@ namespace Swan.Formatters
                 // At this point, we will need to construct the object with a StringBuilder.
                 _builder = new StringBuilder();
 
-                switch (obj)
+                _result = obj switch
                 {
-                    case IDictionary itemsZero when itemsZero.Count == 0:
-                        _result = EmptyObjectLiteral;
-                        break;
-                    case IDictionary items:
-                        _result = ResolveDictionary(items, depth);
-                        break;
-                    case IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any():
-                        _result = EmptyArrayLiteral;
-                        break;
-                    case IEnumerable enumerableBytes when enumerableBytes is byte[] bytes:
-                        _result = Serialize(bytes.ToBase64(), depth, _options);
-                        break;
-                    case IEnumerable enumerable:
-                        _result = ResolveEnumerable(enumerable, depth);
-                        break;
-                    default:
-                        _result = ResolveObject(obj, depth);
-                        break;
-                }
+                    IDictionary itemsZero when itemsZero.Count == 0 => EmptyObjectLiteral,
+                    IDictionary items => ResolveDictionary(items, depth),
+                    IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
+                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(),
+                        depth, _options),
+                    IEnumerable enumerable => ResolveEnumerable(enumerable, depth),
+                    _ => ResolveObject(obj, depth)
+                };
             }
 
-            internal static string Serialize(object obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
+            internal static string Serialize(object obj, int depth, SerializerOptions? options) => new Serializer(obj, depth, options)._result;
 
             #endregion
 
@@ -128,13 +117,11 @@ namespace Swan.Formatters
                 }
             }
 
-            private static bool IsNonEmptyJsonArrayOrObject(string serialized)
-            {
-                if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
-
-                // find the first position the character is not a space
-                return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
-            }
+            private static bool IsNonEmptyJsonArrayOrObject(string serialized) =>
+                !serialized.Equals(EmptyObjectLiteral, StringComparison.InvariantCulture) &&
+                !serialized.Equals(EmptyArrayLiteral, StringComparison.InvariantCulture) && serialized
+                    .Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar)
+                    .FirstOrDefault();
 
             private static string Escape(string str, bool quoted)
             {
@@ -205,7 +192,7 @@ namespace Swan.Formatters
                 // Create the dictionary and extract the properties
                 var objectDictionary = new Dictionary<string, object>();
 
-                if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
+                if (string.IsNullOrWhiteSpace(_options?.TypeSpecifier) == false)
                     objectDictionary[_options.TypeSpecifier] = targetType;
 
                 foreach (var (key, value) in fields)

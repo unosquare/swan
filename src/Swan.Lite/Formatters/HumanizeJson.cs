@@ -14,9 +14,7 @@ namespace Swan.Formatters
         public HumanizeJson(object obj, int indent)
         {
             if (obj == null)
-            {
                 return;
-            }
 
             _indent = indent;
             _indentStr = new string(' ', indent * 4);
@@ -45,20 +43,20 @@ namespace Swan.Formatters
 
         private void AppendDictionary(Dictionary<string, object> objects)
         {
-            foreach (var kvp in objects)
+            foreach (var (key, value) in objects)
             {
-                if (kvp.Value == null) continue;
+                if (value == null) continue;
 
                 var writeOutput = false;
 
-                switch (kvp.Value)
+                switch (value)
                 {
                     case Dictionary<string, object> valueDictionary:
                         if (valueDictionary.Count > 0)
                         {
                             writeOutput = true;
                             _builder
-                                .Append($"{_indentStr}{kvp.Key,-16}: object")
+                                .Append($"{_indentStr}{key,-16}: object")
                                 .AppendLine();
                         }
 
@@ -68,23 +66,23 @@ namespace Swan.Formatters
                         {
                             writeOutput = true;
                             _builder
-                                .Append($"{_indentStr}{kvp.Key,-16}: array[{valueList.Count}]")
+                                .Append($"{_indentStr}{key,-16}: array[{valueList.Count}]")
                                 .AppendLine();
                         }
 
                         break;
                     default:
                         writeOutput = true;
-                        _builder.Append($"{_indentStr}{kvp.Key,-16}: ");
+                        _builder.Append($"{_indentStr}{key,-16}: ");
                         break;
                 }
 
                 if (writeOutput)
-                    _builder.AppendLine(new HumanizeJson(kvp.Value, _indent + 1).GetResult());
+                    _builder.AppendLine(new HumanizeJson(value, _indent + 1).GetResult());
             }
         }
 
-        private void AppendList(List<object> objects)
+        private void AppendList(IEnumerable<object> objects)
         {
             var index = 0;
             foreach (var value in objects)

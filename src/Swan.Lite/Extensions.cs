@@ -41,7 +41,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)
+        public static int CopyPropertiesTo(this object source, object target, params string[]? ignoreProperties)
             => ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
@@ -53,10 +53,8 @@ namespace Swan
         /// <param name="target">The target.</param>
         /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyOnlyPropertiesTo<T>(this T source, object target)
-            where T : class
-        {
-            return CopyOnlyPropertiesTo(source, target, null);
-        }
+            where T : class =>
+            CopyOnlyPropertiesTo(source, target, null);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -68,7 +66,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy)
+        public static int CopyOnlyPropertiesTo(this object source, object target, params string[]? propertiesToCopy)
             => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
@@ -81,7 +79,7 @@ namespace Swan
         /// The specified type with properties copied.
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
-        public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
+        public static T CopyPropertiesToNew<T>(this object source, string[]? ignoreProperties = null)
             where T : class
         {
             if (source == null)
@@ -128,7 +126,7 @@ namespace Swan
         /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyKeyValuePairTo(
-            this IDictionary<string, object> source,
+            this IDictionary<string, object>? source,
             object target,
             params string[] ignoreKeys)
         {
@@ -171,7 +169,7 @@ namespace Swan
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-            Retry<object>(() =>
+            Retry<object?>(() =>
                 {
                     action();
                     return null;
@@ -247,7 +245,7 @@ namespace Swan
             this object source,
             Type targetType,
             bool includeNonPublic,
-            ref object target)
+            ref object? target)
         {
             switch (source)
             {
@@ -260,17 +258,17 @@ namespace Swan
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    var ctors = ConstructorTypeCache.DefaultCache.Value
+                    var constructors = ConstructorTypeCache.DefaultCache.Value
                         .RetrieveAllConstructors(targetType, includeNonPublic);
 
                     // Try to check if empty constructor is available
-                    if (ctors.Any(x => x.Item2.Length == 0))
+                    if (constructors.Any(x => x.Item2.Length == 0))
                     {
                         target = Activator.CreateInstance(targetType, includeNonPublic);
                     }
                     else
                     {
-                        var firstCtor = ctors
+                        var firstCtor = constructors
                             .OrderBy(x => x.Item2.Length)
                             .FirstOrDefault();
 
@@ -284,8 +282,8 @@ namespace Swan
         internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) =>
             jsonSerializerCase switch
             {
-                JsonSerializerCase.PascalCase => (char.ToUpperInvariant(name[0]) + name.Substring(1)),
-                JsonSerializerCase.CamelCase => (char.ToLowerInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.PascalCase => char.ToUpperInvariant(name[0]) + name.Substring(1),
+                JsonSerializerCase.CamelCase => char.ToLowerInvariant(name[0]) + name.Substring(1),
                 JsonSerializerCase.None => name,
                 _ => throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null)
             };

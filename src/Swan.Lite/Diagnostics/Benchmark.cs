@@ -55,13 +55,13 @@ namespace Swan.Diagnostics
 
             lock (SyncLock)
             {
-                foreach (var kvp in Measures)
+                foreach (var (key, value) in Measures)
                 {
-                    builder.Append($"BID: {kvp.Key,-30} | ")
-                        .Append($"CNT: {kvp.Value.Count,6} | ")
-                        .Append($"AVG: {kvp.Value.Average(t => t.TotalMilliseconds),8:0.000} ms. | ")
-                        .Append($"MAX: {kvp.Value.Max(t => t.TotalMilliseconds),8:0.000} ms. | ")
-                        .Append($"MIN: {kvp.Value.Min(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                    builder.Append($"BID: {key,-30} | ")
+                        .Append($"CNT: {value.Count,6} | ")
+                        .Append($"AVG: {value.Average(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                        .Append($"MAX: {value.Max(t => t.TotalMilliseconds),8:0.000} ms. | ")
+                        .Append($"MIN: {value.Min(t => t.TotalMilliseconds),8:0.000} ms. | ")
                         .Append(Environment.NewLine);
                 }
             }

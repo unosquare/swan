@@ -1,6 +1,6 @@
-version: '1.00.{build}'
+﻿version: '1.00.{build}'
 image: 
-- Visual Studio 2019 Preview
+- Visual Studio 2019
 - Ubuntu1804
 stack: node 10
 notifications:

@@ -48,7 +48,7 @@ namespace Swan.Mappers
                 Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
                 Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
-            var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
+            var propertyDestinationInfo = (destinationProperty?.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
             {
@@ -104,7 +104,9 @@ namespace Swan.Mappers
             {
                 var propertySourceInfo = initialExpression?.Member as PropertyInfo;
 
-                if (propertySourceInfo == null) break;
+                if (propertySourceInfo == null)
+                    break;
+
                 sourceMembers.Add(propertySourceInfo);
                 initialExpression = initialExpression.Expression as MemberExpression;
             }

@@ -57,7 +57,10 @@ namespace Swan
             if (!dict.ContainsKey(key))
             {
                 var value = valueFactory(key);
-                if (Equals(value, default)) return default;
+
+                if (Equals(value, default))
+                    return default;
+
                 dict[key] = value;
             }
 
@@ -77,9 +80,9 @@ namespace Swan
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));
 
-            foreach (var kvp in dict)
+            foreach (var (key, value) in dict)
             {
-                itemAction(kvp.Key, kvp.Value);
+                itemAction(key, value);
             }
         }
     }

@@ -110,8 +110,8 @@ namespace Swan.Mappers
         public static int Copy(
             object source,
             object target,
-            string[] propertiesToCopy = null,
-            params string[] ignoreProperties)
+            string[]? propertiesToCopy = null,
+            params string[]? ignoreProperties)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -122,7 +122,7 @@ namespace Swan.Mappers
             return Copy(
                 target,
                 GetSourceMap(source),
-                (IEnumerable<string>)propertiesToCopy,
+                (IEnumerable<string>) propertiesToCopy,
                 ignoreProperties);
         }
 
@@ -144,7 +144,7 @@ namespace Swan.Mappers
         public static int Copy(
             IDictionary<string, object> source,
             object target,
-            string[] propertiesToCopy = null,
+            string[]? propertiesToCopy = null,
             params string[] ignoreProperties)
         {
             if (source == null)
@@ -210,9 +210,7 @@ namespace Swan.Mappers
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)
-            {
                 throw new ArgumentNullException(nameof(source));
-            }
 
             var destination = Activator.CreateInstance<TDestination>();
             var map = _maps
@@ -245,8 +243,8 @@ namespace Swan.Mappers
 
         private static int Copy(object target,
             Dictionary<string, Tuple<Type, object>> sourceProperties,
-            IEnumerable<string> propertiesToCopy,
-            IEnumerable<string> ignoreProperties)
+            IEnumerable<string>? propertiesToCopy,
+            IEnumerable<string>? ignoreProperties)
         {
             // Filter properties
             var requiredProperties = propertiesToCopy?
@@ -306,12 +304,12 @@ namespace Swan.Mappers
             return false;
         }
 
-        private static object GetValue(object source, Type targetType)
+        private static object? GetValue(object source, Type targetType)
         {
             if (source == null)
                 return null;
 
-            object target = null;
+            object? target = null;
 
             source.CreateTarget(targetType, false, ref target);
 

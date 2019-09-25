@@ -20,13 +20,13 @@ namespace Swan.Formatters
         {
             #region State Variables
 
-            private readonly object _result;
+            private readonly object? _result;
             private readonly string _json;
 
-            private Dictionary<string, object> _resultObject;
-            private List<object> _resultArray;
+            private Dictionary<string, object>? _resultObject;
+            private List<object>? _resultArray;
             private ReadState _state = ReadState.WaitingForRootOpen;
-            private string _currentFieldName;
+            private string? _currentFieldName;
 
             private int _index;
 
@@ -107,7 +107,7 @@ namespace Swan.Formatters
                 }
             }
 
-            internal static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
+            internal static object? DeserializeInternal(string json) => new Deserializer(json, 0)._result;
 
             private void WaitForRootOpen()
             {
@@ -259,7 +259,7 @@ namespace Swan.Formatters
                 if (_currentFieldName != null)
                     _resultObject[_currentFieldName] = deserializer._result;
                 else
-                    _resultArray.Add(deserializer._result);
+                    _resultArray?.Add(deserializer._result);
 
                 _index = deserializer._index;
             }
@@ -286,7 +286,7 @@ namespace Swan.Formatters
                 if (_currentFieldName != null)
                     _resultObject[_currentFieldName] = value;
                 else
-                    _resultArray.Add(value);
+                    _resultArray?.Add(value);
 
                 _index += charCount - 1;
             }
@@ -300,7 +300,7 @@ namespace Swan.Formatters
                 if (_currentFieldName != null)
                     _resultObject[_currentFieldName] = value;
                 else
-                    _resultArray.Add(value);
+                    _resultArray?.Add(value);
 
                 _index += boolValue.Length - 1;
             }
@@ -309,6 +309,7 @@ namespace Swan.Formatters
             {
                 var charCount = 0;
                 var escapeCharFound = false;
+
                 for (var j = _index + 1; j < _json.Length; j++)
                 {
                     if (_json[j] == StringQuotedChar && !escapeCharFound)
@@ -323,7 +324,7 @@ namespace Swan.Formatters
                 if (_currentFieldName != null)
                     _resultObject[_currentFieldName] = value;
                 else
-                    _resultArray.Add(value);
+                    _resultArray?.Add(value);
 
                 _index += charCount + 1;
             }

@@ -64,11 +64,10 @@ namespace Swan.Threading
 
         private void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                _cancellationTokenSource.Cancel();
-                _cancellationTokenSource.Dispose();
-            }
+            if (!disposing) return;
+
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
 
         private static TimeSpan ValidateInterval(TimeSpan value)

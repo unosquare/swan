@@ -157,6 +157,10 @@ namespace Swan
                         }
 
                         break;
+                    case Phase.Done:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(phase));
                 }
             }
 

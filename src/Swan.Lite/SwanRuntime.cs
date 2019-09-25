@@ -93,7 +93,7 @@ namespace Swan
                         try
                         {
                             // If exception occurred, there is no such mutex.
-                            var appMutex = new Mutex(true, ApplicationMutexName);
+                            using var appMutex = new Mutex(true, ApplicationMutexName);
                             $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(
                                 typeof(SwanRuntime));
 
@@ -197,9 +197,7 @@ namespace Swan
                 var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
 
                 if (!Directory.Exists(returnPath))
-                {
                     Directory.CreateDirectory(returnPath);
-                }
 
                 return returnPath;
             }
