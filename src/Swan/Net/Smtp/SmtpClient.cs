@@ -161,8 +161,8 @@
         /// <exception cref="ArgumentNullException">message.</exception>
         public Task SendMailAsync(
             MailMessage message,
-            string sessionId = null,
-            RemoteCertificateValidationCallback callback = null,
+            string? sessionId = null,
+            RemoteCertificateValidationCallback? callback = null,
             CancellationToken cancellationToken = default)
         {
             if (message == null)
@@ -207,8 +207,8 @@
         /// <exception cref="ArgumentNullException">sessionState.</exception>
         public Task SendMailAsync(
             SmtpSessionState sessionState,
-            string sessionId = null,
-            RemoteCertificateValidationCallback callback = null,
+            string? sessionId = null,
+            RemoteCertificateValidationCallback? callback = null,
             CancellationToken cancellationToken = default)
         {
             if (sessionState == null)
@@ -234,8 +234,8 @@
         /// <exception cref="SmtpException">Defines an SMTP Exceptions class.</exception>
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
-            string sessionId = null,
-            RemoteCertificateValidationCallback callback = null,
+            string? sessionId = null,
+            RemoteCertificateValidationCallback? callback = null,
             CancellationToken cancellationToken = default)
         {
             if (sessionStates == null)

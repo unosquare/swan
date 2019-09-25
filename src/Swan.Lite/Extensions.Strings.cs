@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,11 +32,11 @@ namespace Swan
         private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => m =>
         {
             var x = m.ToString();
-            return x[0] + " " + x.Substring(1, x.Length - 1);
+            return $"{x[0]} {x[1..]}";
         });
 
         private static readonly Lazy<string[]> InvalidFilenameChars =
-            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
+            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString(CultureInfo.InvariantCulture)).ToArray());
 
         #endregion
 
@@ -46,7 +47,7 @@ namespace Swan
         /// </summary>
         /// <param name="this">The item.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToStringInvariant(this object @this)
+        public static string ToStringInvariant(this object? @this)
         {
             if (@this == null)
                 return string.Empty;
@@ -54,27 +55,11 @@ namespace Swan
             var itemType = @this.GetType();
 
             if (itemType == typeof(string))
-                return @this as string;
+                return @this as string ?? string.Empty;
 
             return Definitions.BasicTypesInfo.Value.ContainsKey(itemType)
                 ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(@this)
                 : @this.ToString();
-        }
-
-        /// <summary>
-        /// Returns a string that represents the given item
-        /// It tries to use InvariantCulture if the ToString(IFormatProvider)
-        /// overload exists.
-        /// </summary>
-        /// <typeparam name="T">The type to get the string.</typeparam>
-        /// <param name="item">The item.</param>
-        /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToStringInvariant<T>(this T item)
-        {
-            if (typeof(string) == typeof(T))
-                return Equals(item, default(T)) ? string.Empty : item as string;
-
-            return ToStringInvariant(item as object);
         }
 
         /// <summary>
@@ -220,18 +205,13 @@ namespace Swan
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Humanize(this object value)
-        {
-            switch (value)
+        public static string Humanize(this object value) =>
+            value switch
             {
-                case string stringValue:
-                    return stringValue.Humanize();
-                case bool boolValue:
-                    return boolValue.Humanize();
-                default:
-                    return value.Stringify();
-            }
-        }
+                string stringValue => stringValue.Humanize(),
+                bool boolValue => boolValue.Humanize(),
+                _ => value.Stringify()
+            };
 
         /// <summary>
         /// Indents the specified multi-line text with the given amount of leading spaces
@@ -305,7 +285,7 @@ namespace Swan
             value == null
                 ? throw new ArgumentNullException(nameof(value))
                 : InvalidFilenameChars.Value
-                    .Aggregate(value, (current, c) => current.Replace(c, string.Empty))
+                    .Aggregate(value, (current, c) => current.Replace(c, string.Empty, StringComparison.InvariantCulture))
                     .Slice(0, 220);
 
         /// <summary>
@@ -347,7 +327,7 @@ namespace Swan
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength) =>
+        public static string? Truncate(this string value, int maximumLength) =>
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
@@ -360,7 +340,7 @@ namespace Swan
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength, string omission)
+        public static string? Truncate(this string value, int maximumLength, string omission)
         {
             if (value == null)
                 return null;
@@ -384,7 +364,7 @@ namespace Swan
         /// <param name="chars">
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
-        public static bool Contains(this string value, params char[] chars) =>
+        public static bool Contains(this string value, params char[]? chars) =>
             chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
 
         /// <summary>
@@ -395,7 +375,18 @@ namespace Swan
         /// <param name="chars">The chars.</param>
         /// <returns>The string with the characters replaced.</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
-            chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue));
+            value.ReplaceAll(replaceValue, StringComparison.InvariantCulture, chars);
+        
+        /// <summary>
+        /// Replaces all chars in a string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="replaceValue">The replace value.</param>
+        /// <param name="stringComparison">The string comparison.</param>
+        /// <param name="chars">The chars.</param>
+        /// <returns>The string with the characters replaced.</returns>
+        public static string ReplaceAll(this string value, string replaceValue, StringComparison stringComparison, params char[] chars) =>
+                    chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue, stringComparison));
 
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something

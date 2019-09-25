@@ -111,7 +111,7 @@
         public static async Task<string> GetProcessEncodedOutputAsync(
             string filename, 
             string arguments = "",
-            Encoding encoding = null, 
+            Encoding? encoding = null, 
             CancellationToken cancellationToken = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, null, encoding, cancellationToken).ConfigureAwait(false);
@@ -176,8 +176,8 @@
         public static async Task<ProcessResult> GetProcessResultAsync(
             string filename, 
             string arguments,
-            string workingDirectory, 
-            Encoding encoding = null, 
+            string? workingDirectory, 
+            Encoding? encoding = null, 
             CancellationToken cancellationToken = default)
         {
             if (filename == null)
@@ -224,7 +224,7 @@
         public static Task<int> RunProcessAsync(
             string filename,
             string arguments,
-            string workingDirectory,
+            string? workingDirectory,
             ProcessDataReceivedCallback onOutputData,
             ProcessDataReceivedCallback onErrorData,
             Encoding encoding,
@@ -414,7 +414,7 @@
                             {
                                 try
                                 {
-                                    readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+                                    readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct).ConfigureAwait(false);
 
                                     if (readCount > 0)
                                     {
@@ -438,12 +438,12 @@
                         if (hasExited) break;
 
                         // Try reading from the stream. < 0 means no read occurred.
-                        readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+                        readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct).ConfigureAwait(false);
 
                         // When no read is done, we need to let is rest for a bit
                         if (readCount <= 0)
                         {
-                            await Task.Delay(1, ct); // do not hog CPU cycles doing nothing.
+                            await Task.Delay(1, ct).ConfigureAwait(false); // do not hog CPU cycles doing nothing.
                             continue;
                         }
 
