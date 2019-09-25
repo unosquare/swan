@@ -38,7 +38,7 @@
             protected virtual string[] IncludedProperties
                 => new[] {nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength)};
 
-            public byte[] ToArray() => _record.ToArray();
+            public Span<byte> ToArray() => _record.ToArray();
 
             public override string ToString()
                 => Json.SerializeOnly(this, true, IncludedProperties);
@@ -91,7 +91,7 @@
                 return records;
             }
 
-            public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
+            public static DnsResourceRecord FromArray(Span<byte> message, int offset, out int endOffset)
             {
                 var domain = DnsDomain.FromArray(message, offset, out offset);
                 var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
@@ -99,14 +99,14 @@
                 var data = new byte[tail.DataLength];
 
                 offset += Tail.SIZE;
-                Array.Copy(message, offset, data, 0, data.Length);
+                Array.Copy(message.ToArray(), offset, data, 0, data.Length);
 
                 endOffset = offset + data.Length;
 
                 return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
             }
 
-            public byte[] ToArray() =>
+            public Span<byte> ToArray() =>
                 new MemoryStream(Size)
                     .Append(Name.ToArray())
                     .Append(new Tail()
@@ -119,9 +119,8 @@
                     .Append(Data)
                     .ToArray();
 
-            public override string ToString()
-            {
-                return Json.SerializeOnly(
+            public override string ToString() =>
+                Json.SerializeOnly(
                     this,
                     true,
                     nameof(Name),
@@ -129,7 +128,6 @@
                     nameof(Class),
                     nameof(TimeToLive),
                     nameof(DataLength));
-            }
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 2)]
@@ -281,7 +279,7 @@
 
         public class DnsStartOfAuthorityResourceRecord : DnsResourceRecordBase
         {
-            public DnsStartOfAuthorityResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
+            public DnsStartOfAuthorityResourceRecord(IDnsResourceRecord record, Span<byte> message, int dataOffset)
                 : base(record)
             {
                 MasterDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);

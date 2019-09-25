@@ -12,6 +12,8 @@
 
         protected string NullString => null;
 
+        protected Span<byte> NullByteSpan => null;
+
         protected byte[] NullByteArray => null;
 
         protected List<string> NullStringList => null;

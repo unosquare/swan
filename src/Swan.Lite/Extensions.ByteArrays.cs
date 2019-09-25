@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -23,7 +23,7 @@ namespace Swan
         /// The specified string instance; no actual conversion is performed.
         /// </returns>
         /// <exception cref="ArgumentNullException">bytes.</exception>
-        public static string ToLowerHex(this byte[] bytes, bool addPrefix = false)
+        public static string ToLowerHex(this Span<byte> bytes, bool addPrefix = false)
             => ToHex(bytes, addPrefix, "x2");
 
         /// <summary>
@@ -35,26 +35,33 @@ namespace Swan
         /// The specified string instance; no actual conversion is performed.
         /// </returns>
         /// <exception cref="ArgumentNullException">bytes.</exception>
-        public static string ToUpperHex(this byte[] bytes, bool addPrefix = false)
+        public static string ToUpperHex(this Span<byte> bytes, bool addPrefix = false)
             => ToHex(bytes, addPrefix, "X2");
 
         /// <summary>
         /// Converts an array of bytes to a sequence of dash-separated, hexadecimal,
         /// uppercase characters.
         /// </summary>
-        /// <param name="bytes">The bytes.</param>
+        /// <param name="this">The bytes.</param>
         /// <returns>
         /// A string of hexadecimal pairs separated by hyphens, where each pair represents
         /// the corresponding element in value; for example, "7F-2C-4A-00".
         /// </returns>
-        public static string ToDashedHex(this byte[] bytes) => BitConverter.ToString(bytes);
+        public static string ToDashedHex(this Span<byte> @this) => BitConverter.ToString(@this.ToArray());
 
         /// <summary>
         /// Converts an array of bytes to a base-64 encoded string.
         /// </summary>
-        /// <param name="bytes">The bytes.</param>
+        /// <param name="this">The bytes.</param>
         /// <returns>A <see cref="string" /> converted from an array of bytes.</returns>
-        public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
+        public static string ToBase64(this byte[] @this) => Convert.ToBase64String(@this);
+
+        /// <summary>
+        /// Converts an array of bytes to a base-64 encoded string.
+        /// </summary>
+        /// <param name="this">The bytes.</param>
+        /// <returns>A <see cref="string" /> converted from an array of bytes.</returns>
+        public static string ToBase64(this Span<byte> @this) => Convert.ToBase64String(@this.ToArray());
 
         /// <summary>
         /// Converts a set of hexadecimal characters (uppercase or lowercase)
@@ -66,7 +73,7 @@ namespace Swan
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">hex.</exception>
-        public static byte[] ConvertHexadecimalToBytes(this string @this)
+        public static Span<byte> ConvertHexadecimalToBytes(this string @this)
         {
             if (string.IsNullOrWhiteSpace(@this))
                 throw new ArgumentNullException(nameof(@this));
@@ -170,7 +177,7 @@ namespace Swan
         /// </summary>
         /// <param name="this">The buffer.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] DeepClone(this byte[] @this)
+        public static byte[]? DeepClone(this byte[] @this)
         {
             if (@this == null)
                 return null;
@@ -181,6 +188,13 @@ namespace Swan
         }
 
         /// <summary>
+        /// Clones the specified buffer, byte by byte.
+        /// </summary>
+        /// <param name="this">The buffer.</param>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
+        public static Span<byte> DeepClone(this Span<byte> @this) => @this.Slice(0, @this.Length);
+
+        /// <summary>
         /// Removes the specified sequence from the start of the buffer if the buffer begins with such sequence.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
@@ -189,7 +203,7 @@ namespace Swan
         /// A new trimmed byte array.
         /// </returns>
         /// <exception cref="ArgumentNullException">buffer.</exception>
-        public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
+        public static byte[]? TrimStart(this byte[] buffer, params byte[] sequence)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -211,7 +225,7 @@ namespace Swan
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         /// <exception cref="ArgumentNullException">buffer.</exception>
-        public static byte[] TrimEnd(this byte[] buffer, params byte[] sequence)
+        public static byte[]? TrimEnd(this byte[] buffer, params byte[] sequence)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -231,11 +245,7 @@ namespace Swan
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] Trim(this byte[] buffer, params byte[] sequence)
-        {
-            var trimStart = buffer.TrimStart(sequence);
-            return trimStart.TrimEnd(sequence);
-        }
+        public static byte[]? Trim(this byte[] buffer, params byte[] sequence) => buffer.TrimStart(sequence)?.TrimEnd(sequence);
 
         /// <summary>
         /// Determines if the specified buffer ends with the given sequence of bytes.
@@ -347,7 +357,7 @@ namespace Swan
         /// or
         /// buffer.
         /// </exception>
-        public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
+        public static MemoryStream Append(this MemoryStream stream, Span<byte> buffer)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -355,37 +365,7 @@ namespace Swan
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
 
-            stream.Write(buffer, 0, buffer.Length);
-            return stream;
-        }
-
-        /// <summary>
-        /// Appends the Memory Stream with the specified buffer.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="buffer">The buffer.</param>
-        /// <returns>
-        /// Block of bytes to the current stream using data read from a buffer.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">buffer.</exception>
-        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer) => Append(stream, buffer?.ToArray());
-
-        /// <summary>
-        /// Appends the Memory Stream with the specified set of buffers.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="buffers">The buffers.</param>
-        /// <returns>
-        /// Block of bytes to the current stream using data read from a buffer.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">buffers.</exception>
-        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
-        {
-            if (buffers == null)
-                throw new ArgumentNullException(nameof(buffers));
-
-            foreach (var buffer in buffers)
-                Append(stream, buffer);
+            stream.Write(buffer.ToArray(), 0, buffer.Length);
 
             return stream;
         }
@@ -395,16 +375,33 @@ namespace Swan
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this IEnumerable<byte> buffer, Encoding encoding) => encoding.GetString(buffer.ToArray());
+        /// <returns>
+        /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">encoding.</exception>
+        public static string ToText(this Span<byte> buffer, Encoding? encoding = null)
+            => buffer.ToArray().ToText(encoding);
 
         /// <summary>
-        /// Converts an array of bytes into text with UTF8 encoding.
+        /// Converts an array of bytes into text with the specified encoding.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this IEnumerable<byte> buffer) => buffer.ToText(Encoding.UTF8);
-        
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">encoding.</exception>
+        public static string ToText(this IEnumerable<byte> buffer, Encoding? encoding = null)
+        {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            return encoding.GetString(buffer.ToArray());
+        }
+
         /// <summary>
         /// Reads the bytes asynchronous.
         /// </summary>
@@ -431,12 +428,12 @@ namespace Swan
                     if (length < bufferLength)
                         bufferLength = (int)length;
 
-                    var nread = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
-                    if (nread == 0)
+                    var readBytes = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
+                    if (readBytes == 0)
                         break;
 
-                    dest.Write(buff, 0, nread);
-                    length -= nread;
+                    await dest.WriteAsync(buff, 0, readBytes, cancellationToken).ConfigureAwait(false);
+                    length -= readBytes;
                 }
             }
             catch
@@ -468,12 +465,12 @@ namespace Swan
             {
                 while (length > 0)
                 {
-                    var nread = await stream.ReadAsync(buff, offset, length, cancellationToken).ConfigureAwait(false);
-                    if (nread == 0)
+                    var readBytes = await stream.ReadAsync(buff, offset, length, cancellationToken).ConfigureAwait(false);
+                    if (readBytes == 0)
                         break;
 
-                    offset += nread;
-                    length -= nread;
+                    offset += readBytes;
+                    length -= readBytes;
                 }
             }
             catch
@@ -484,7 +481,18 @@ namespace Swan
             return new ArraySegment<byte>(buff, 0, offset).ToArray();
         }
 
-        private static string ToHex(byte[] bytes, bool addPrefix, string format)
+        internal static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
+        {
+            if (buffers == null)
+                throw new ArgumentNullException(nameof(buffers));
+
+            foreach (var buffer in buffers)
+                Append(stream, buffer);
+
+            return stream;
+        }
+
+        private static string ToHex(Span<byte> bytes, bool addPrefix, string format)
         {
             if (bytes == null)
                 throw new ArgumentNullException(nameof(bytes));

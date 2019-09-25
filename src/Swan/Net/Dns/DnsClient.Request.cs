@@ -52,7 +52,7 @@
 
             public IPEndPoint Dns { get; set; }
 
-            public byte[] ToArray() => _request.ToArray();
+            public Span<byte> ToArray() => _request.ToArray();
 
             public override string ToString() => _request.ToString();
 
@@ -143,14 +143,15 @@
                 set => header.RecursionDesired = value;
             }
 
-            public byte[] ToArray()
+            public Span<byte> ToArray()
             {
                 UpdateHeader();
-                var result = new MemoryStream(Size);
+                using var result = new MemoryStream(Size);
 
-                result
-                    .Append(header.ToArray())
-                    .Append(Questions.Select(q => q.ToArray()));
+                result.Append(header.ToArray());
+
+                foreach (var q in Questions)
+                    result.Append(q.ToArray());
 
                 return result.ToArray();
             }
@@ -179,7 +180,7 @@
                     await tcp.Client.ConnectAsync(request.Dns).ConfigureAwait(false);
 
                     var stream = tcp.GetStream();
-                    var buffer = request.ToArray();
+                    var buffer = request.ToArray().ToArray();
                     var length = BitConverter.GetBytes((ushort)buffer.Length);
 
                     if (BitConverter.IsLittleEndian)
@@ -220,9 +221,7 @@
                 }
 
                 if (length > 0)
-                {
                     throw new IOException("Unexpected end of stream");
-                }
             }
         }
 
@@ -251,7 +250,7 @@
                     udp.Client.ReceiveTimeout = 7000;
                     await udp.Client.ConnectAsync(dns).ConfigureAwait(false);
 
-                    await udp.SendAsync(request.ToArray(), request.Size).ConfigureAwait(false);
+                    await udp.SendAsync(request.ToArray().ToArray(), request.Size).ConfigureAwait(false);
 
                     var bufferList = new List<byte>();
 
@@ -447,13 +446,13 @@
                 get => flag1;
                 set => flag1 = value;
             }
-            
-            public static DnsHeader FromArray(byte[] header) =>
+
+            public static DnsHeader FromArray(Span<byte> header) =>
                 header.Length < SIZE
                     ? throw new ArgumentException("Header length too small")
                     : header.ToStruct<DnsHeader>(0, SIZE);
 
-            public byte[] ToArray() => this.ToBytes();
+            public Span<byte> ToArray() => this.ToBytes();
 
             public override string ToString()
                 => Json.SerializeExcluding(this, true, nameof(Size));
@@ -478,9 +477,9 @@
             public static DnsDomain FromArray(byte[] message, int offset)
                 => FromArray(message, offset, out offset);
 
-            public static DnsDomain FromArray(byte[] message, int offset, out int endOffset)
+            public static DnsDomain FromArray(Span<byte> message, int offset, out int endOffset)
             {
-                var labels = new List<byte[]>();
+                var labels = new List<string>();
                 var endOffsetAssigned = false;
                 endOffset = 0;
                 byte lengthOrPointer;
@@ -508,10 +507,8 @@
                     }
 
                     var length = lengthOrPointer;
-                    var label = new byte[length];
-                    Array.Copy(message, offset, label, 0, length);
 
-                    labels.Add(label);
+                    labels.Add(message.Slice(offset, length).ToText(Encoding.ASCII));
 
                     offset += length;
                 }
@@ -521,13 +518,13 @@
                     endOffset = offset;
                 }
 
-                return new DnsDomain(labels.Select(l => l.ToText(Encoding.ASCII)).ToArray());
+                return new DnsDomain(labels.Select(l => l).ToArray());
             }
 
             public static DnsDomain PointerName(IPAddress ip)
                 => new DnsDomain(FormatReverseIP(ip));
 
-            public byte[] ToArray()
+            public Span<byte> ToArray()
             {
                 var result = new byte[Size];
                 var offset = 0;
@@ -585,7 +582,7 @@
             private readonly DnsRecordClass _klass;
 
             public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount) =>
-                GetAllFromArray(message, offset, questionCount, out offset);
+                GetAllFromArray(message, offset, questionCount, out _);
 
             public static IList<DnsQuestion> GetAllFromArray(
                 byte[] message,
@@ -604,7 +601,7 @@
                 return questions;
             }
 
-            public static DnsQuestion FromArray(byte[] message, int offset, out int endOffset)
+            public static DnsQuestion FromArray(Span<byte> message, int offset, out int endOffset)
             {
                 var domain = DnsDomain.FromArray(message, offset, out offset);
                 var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
@@ -632,14 +629,19 @@
 
             public int Size => Name.Size + Tail.SIZE;
 
-            public byte[] ToArray() =>
-                new MemoryStream(Size)
-                    .Append(Name.ToArray())
-                    .Append(new Tail { Type = Type, Class = Class }.ToBytes())
-                    .ToArray();
+            public Span<byte> ToArray() =>
+                Combine(Name.ToArray(), (new Tail { Type = Type, Class = Class }).ToBytes());
 
             public override string ToString()
                 => Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
+
+            private static Span<byte> Combine(Span<byte> first, Span<byte> second)
+            {
+                var ret = new byte[first.Length + second.Length];
+                Buffer.BlockCopy(first.ToArray(), 0, ret, 0, first.Length);
+                Buffer.BlockCopy(second.ToArray(), 0, ret, first.Length, second.Length);
+                return ret;
+            }
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 2)]

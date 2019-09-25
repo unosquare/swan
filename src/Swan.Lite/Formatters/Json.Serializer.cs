@@ -90,10 +90,7 @@ namespace Swan.Formatters
                 }
             }
 
-            internal static string Serialize(object obj, int depth, SerializerOptions options)
-            {
-                return new Serializer(obj, depth, options)._result;
-            }
+            internal static string Serialize(object obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
 
             #endregion
 

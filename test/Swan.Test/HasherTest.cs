@@ -55,9 +55,8 @@ namespace Swan.Test
             {
                 const string input = "HOLA";
 
-                Assert.AreEqual(
-                    "73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes(),
-                    Hasher.ComputeSha256(input));
+                Assert.IsTrue(
+                    "73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes() == Hasher.ComputeSha256(input));
             }
         }
 

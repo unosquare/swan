@@ -19,12 +19,8 @@ namespace Swan
         /// <param name="max">The maximum.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
         public static T Clamp<T>(this T @this, T min, T max)
-            where T : struct, IComparable
-        {
-            if (@this.CompareTo(min) < 0) return min;
-
-            return @this.CompareTo(max) > 0 ? max : @this;
-        }
+            where T : struct, IComparable =>
+            @this.CompareTo(min) < 0 ? min : @this.CompareTo(max) > 0 ? max : @this;
 
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum.
@@ -47,10 +43,8 @@ namespace Swan
         ///   <c>true</c> if the specified minimum is between; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsBetween<T>(this T @this, T min, T max)
-            where T : struct, IComparable
-        {
-            return @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
-        }
+            where T : struct, IComparable =>
+            @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.
@@ -58,11 +52,9 @@ namespace Swan
         /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="this">The data.</param>
         /// <returns>a struct type derived from convert an array of bytes ref=ToStruct".</returns>
-        public static T ToStruct<T>(this byte[] @this)
-            where T : struct
-        {
-            return @this == null ? throw new ArgumentNullException(nameof(@this)) : ToStruct<T>(@this, 0, @this.Length);
-        }
+        public static T ToStruct<T>(this Span<byte> @this)
+            where T : struct =>
+            ToStruct<T>(@this, 0, @this.Length);
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.
@@ -75,15 +67,10 @@ namespace Swan
         /// A managed object containing the data pointed to by the ptr parameter.
         /// </returns>
         /// <exception cref="ArgumentNullException">data.</exception>
-        public static T ToStruct<T>(this byte[] @this, int offset, int length)
+        public static T ToStruct<T>(this Span<byte> @this, int offset, int length)
             where T : struct
         {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
-
-            var buffer = new byte[length];
-            Array.Copy(@this, offset, buffer, 0, buffer.Length);
-            var handle = GCHandle.Alloc(GetStructBytes<T>(buffer), GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(GetStructBytes<T>(@this.Slice(offset, length)).ToArray(), GCHandleType.Pinned);
 
             try
             {
@@ -101,7 +88,7 @@ namespace Swan
         /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="this">The object.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        public static byte[] ToBytes<T>(this T @this)
+        public static Span<byte> ToBytes<T>(this T @this)
             where T : struct
         {
             var data = new byte[Marshal.SizeOf(@this)];
@@ -110,7 +97,7 @@ namespace Swan
             try
             {
                 Marshal.StructureToPtr(@this, handle.AddrOfPinnedObject(), false);
-                return GetStructBytes<T>(data);
+                return GetStructBytes<T>(new Span<byte>(data));
             }
             finally
             {
@@ -132,11 +119,8 @@ namespace Swan
                        ((@this & 0x00ff0000) >> 8) +
                        ((@this & 0xff000000) >> 24));
 
-        private static byte[] GetStructBytes<T>(byte[] data)
+        private static Span<byte> GetStructBytes<T>(Span<byte> data)
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
-
             var fields = typeof(T).GetTypeInfo()
                 .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -147,15 +131,12 @@ namespace Swan
                 if (endian == null && !field.IsDefined(typeof(StructEndiannessAttribute), false))
                     continue;
 
-                var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
-                var length = Marshal.SizeOf(field.FieldType);
-
                 endian ??= AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute>(field);
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))
                 {
-                    Array.Reverse(data, offset, length);
+                    data.Reverse();
                 }
             }
 

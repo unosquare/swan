@@ -11,7 +11,7 @@
     {
         protected const int Value = 123456789;
 
-        protected byte[] Bytes => BitConverter.GetBytes(Value);
+        protected Span<byte> Bytes => new Span<byte>(BitConverter.GetBytes(Value));
         protected MemoryStream NullMemoryStream => null;
     }
 
@@ -28,7 +28,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToLowerHex());
+            Assert.Throws<ArgumentNullException>(() => NullByteSpan.ToLowerHex());
         }
     }
 
@@ -45,7 +45,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToUpperHex());
+            Assert.Throws<ArgumentNullException>(() => NullByteSpan.ToUpperHex());
         }
     }
 
@@ -65,7 +65,7 @@
         [Test]
         public void WithValidBytes_ReturnsString()
         {
-            Assert.AreEqual("Fc1bBw==", Bytes.ToBase64(), "Get ToBase64 value");
+            Assert.AreEqual("Fc1bBw==", Bytes.ToArray().ToBase64(), "Get ToBase64 value");
         }
     }
 
@@ -88,7 +88,7 @@
             var expected = new List<byte[]> {new byte[] {91, 7}};
             var sequence = BitConverter.GetBytes(456);
 
-            Assert.AreEqual(expected, Bytes.Split(2, sequence), "Get Split value");
+            Assert.AreEqual(expected, Bytes.ToArray().Split(2, sequence), "Get Split value");
         }
 
         [Test]
@@ -97,7 +97,7 @@
             var expected = new List<byte[]> {new byte[] {21, 205, 91, 7}};
             var sequence = BitConverter.GetBytes(123456789);
 
-            Assert.AreEqual(expected, Bytes.Split(0, sequence), "Get Split value");
+            Assert.AreEqual(expected, Bytes.ToArray().Split(0, sequence), "Get Split value");
         }
 
         [Test]
@@ -105,13 +105,13 @@
         {
             var sequence = BitConverter.GetBytes(456);
 
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.Split(2, sequence));
+            Assert.Throws<ArgumentNullException>(() => NullByteSpan.ToArray().Split(2, sequence));
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Bytes.Split(2, null));
+            Assert.Throws<ArgumentNullException>(() => Bytes.ToArray().Split(2, null));
         }
     }
 
@@ -121,19 +121,19 @@
         [Test]
         public void WithValidBytes_ReturnsNegativeOne()
         {
-            Assert.AreEqual(-1, Bytes.GetIndexOf(new byte[0]), "Get index of empty array is -1");
+            Assert.AreEqual(-1, Bytes.ToArray().GetIndexOf(new byte[0]), "Get index of empty array is -1");
         }
 
         [Test]
         public void WithNullSequence_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Bytes.GetIndexOf(null));
+            Assert.Throws<ArgumentNullException>(() => Bytes.ToArray().GetIndexOf(null));
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.GetIndexOf(null));
+            Assert.Throws<ArgumentNullException>(() => NullByteSpan.ToArray().GetIndexOf(null));
         }
 
         [Test]
@@ -141,7 +141,7 @@
         {
             var bytes = BitConverter.GetBytes(4815162342);
 
-            Assert.AreEqual(-1, Bytes.GetIndexOf(bytes), "Get index of empty array is -1");
+            Assert.AreEqual(-1, Bytes.ToArray().GetIndexOf(bytes), "Get index of empty array is -1");
         }
 
         [Test]
@@ -149,7 +149,7 @@
         {
             var bytes = BitConverter.GetBytes(4815162342);
 
-            Assert.AreEqual(-1, bytes.GetIndexOf(Bytes, -1), "Get index of empty array is -1");
+            Assert.AreEqual(-1, bytes.GetIndexOf(Bytes.ToArray(), -1), "Get index of empty array is -1");
         }
     }
 
@@ -159,13 +159,13 @@
         [Test]
         public void WithValidBytes_ReturnsArray()
         {
-            Assert.AreEqual(Bytes, Bytes.DeepClone(), "Get DeepClone value");
+            Assert.IsTrue(Bytes == Bytes.DeepClone(), "Get DeepClone value");
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.IsNull(NullByteArray.DeepClone());
+            Assert.IsNull(NullByteSpan.ToArray().DeepClone());
         }
     }
 
@@ -175,7 +175,7 @@
         [Test]
         public void WithValidBytes_ReturnsTrimValue()
         {
-            Assert.AreEqual(new byte[] {21, 205, 91, 7}, Bytes.Trim(205), "Get Trim value");
+            Assert.AreEqual(new byte[] {21, 205, 91, 7}, Bytes.ToArray().Trim(205), "Get Trim value");
         }
     }
 
@@ -185,14 +185,13 @@
         [Test]
         public void WithValidBytes_ReturnsTrimStartValue()
         {
-            Assert.AreEqual(new byte[] {205, 91, 7}, Bytes.TrimStart(21), "Get TrimStart value");
+            Assert.AreEqual(new byte[] {205, 91, 7}, Bytes.ToArray().TrimStart(21), "Get TrimStart value");
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullByteArray.TrimStart(21));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.TrimStart(21));
         }
     }
 
@@ -202,7 +201,7 @@
         [Test]
         public void WithValidBytes_ReturnsTrimEndValue()
         {
-            Assert.AreEqual(new byte[] {21, 205, 91}, Bytes.TrimEnd(7), "Get TrimEnd value");
+            Assert.AreEqual(new byte[] {21, 205, 91}, Bytes.ToArray().TrimEnd(7), "Get TrimEnd value");
         }
 
         [Test]
@@ -219,7 +218,7 @@
         [TestCase(false, 21)]
         public void WithValidBytes_ReturnsEndsWithValue(bool expected, byte input)
         {
-            Assert.AreEqual(expected, Bytes.EndsWith(input), "Get EndsWith value");
+            Assert.AreEqual(expected, Bytes.ToArray().EndsWith(input), "Get EndsWith value");
         }
 
         [Test]
@@ -236,7 +235,7 @@
         [TestCase(true, 21)]
         public void WithValidBytes_ReturnsStartsWithValue(bool expected, byte input)
         {
-            Assert.AreEqual(expected, Bytes.StartsWith(input), "Get StartsWith value");
+            Assert.AreEqual(expected, Bytes.ToArray().StartsWith(input), "Get StartsWith value");
         }
     }
 
@@ -257,15 +256,14 @@
         [Test]
         public void WithValidBytes_ReturnsTrue()
         {
-            Assert.IsTrue(Bytes.IsEqualTo(Bytes), "Get IsEqualToTest value");
-            Assert.IsTrue(Bytes.IsEqualTo(BitConverter.GetBytes(Value)), "Get IsEqualToTest value");
+            Assert.IsTrue(Bytes.ToArray().IsEqualTo(Bytes.ToArray()), "Get IsEqualToTest value");
+            Assert.IsTrue(Bytes.ToArray().IsEqualTo(BitConverter.GetBytes(Value)), "Get IsEqualToTest value");
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullByteArray.IsEqualTo(BitConverter.GetBytes(Value)));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.IsEqualTo(BitConverter.GetBytes(Value)));
         }
     }
 
@@ -294,39 +292,28 @@
         public void WithNullBuffer_ThrowsArgumentNullException()
         {
             using var stream = new MemoryStream(10);
-            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteSpan));
         }
 
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullMemoryStream.Append(NullByteArray));
-        }
-
-        [Test]
-        public void WithValidIEnumerable_AppendBytes()
-        {
-            IEnumerable<byte> enumerableByte = BitConverter.GetBytes(Value);
-
-            using var stream = new MemoryStream(10);
-            stream.Append(enumerableByte);
-
-            Assert.AreEqual(4, stream.Length, "Get Append value");
+                NullMemoryStream.Append(NullByteSpan));
         }
 
         [Test]
         public void WithNullIEnumerable_AppendBytes()
         {
             using var stream = new MemoryStream(10);
-            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteSpan));
         }
 
         [Test]
         public void WithValidIEnumerableArray_AppendBytes()
         {
             using var stream = new MemoryStream(10);
-            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteSpan));
         }
     }
 
@@ -430,7 +417,7 @@
         [Test]
         public void WithValidHex_ReturnsString()
         {
-            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes(), "Get ConvertHexadecimalToBytes value");
+            Assert.IsTrue(Bytes == "15CD5B07".ConvertHexadecimalToBytes());
         }
 
         [Test]

@@ -49,7 +49,7 @@
         [Test]
         public void WithArrayOfBytes_ReturnsStruct()
         {
-            var smallArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+            var smallArray = new Span<byte>(new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 });
             var result = smallArray.ToStruct<int>();
 
             Assert.AreEqual(538976288, result);
@@ -58,7 +58,7 @@
         [Test]
         public void WithNullArrayOfBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToStruct<int>(0, 0)); 
+            Assert.Throws<ArgumentNullException>(() => NullByteSpan.ToStruct<int>(0, 0)); 
         }
     }
 }

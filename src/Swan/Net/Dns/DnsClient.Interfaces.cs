@@ -14,7 +14,7 @@
             IList<DnsQuestion> Questions { get; }
 
             int Size { get; }
-            byte[] ToArray();
+            Span<byte> ToArray();
         }
 
         public interface IDnsMessageEntry
@@ -24,7 +24,7 @@
             DnsRecordClass Class { get; }
 
             int Size { get; }
-            byte[] ToArray();
+            Span<byte> ToArray();
         }
 
         public interface IDnsResourceRecord : IDnsMessageEntry

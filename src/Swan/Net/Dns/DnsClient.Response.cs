@@ -29,7 +29,7 @@
 
             public int Id
             {
-                get { return _response.Id; }
+                get => _response.Id;
                 set { }
             }
 
@@ -43,13 +43,13 @@
 
             public bool IsRecursionAvailable
             {
-                get { return _response.IsRecursionAvailable; }
+                get => _response.IsRecursionAvailable;
                 set { }
             }
 
             public bool IsAuthorativeServer
             {
-                get { return _response.IsAuthorativeServer; }
+                get => _response.IsAuthorativeServer;
                 set { }
             }
 
@@ -61,13 +61,13 @@
 
             public DnsOperationCode OperationCode
             {
-                get { return _response.OperationCode; }
+                get => _response.OperationCode;
                 set { }
             }
 
             public DnsResponseCode ResponseCode
             {
-                get { return _response.ResponseCode; }
+                get => _response.ResponseCode;
                 set { }
             }
 
@@ -75,7 +75,7 @@
 
             public int Size => _message.Length;
 
-            public byte[] ToArray() => _message;
+            public Span<byte> ToArray() => _message;
 
             public override string ToString() => _response.ToString();
         }
@@ -175,17 +175,24 @@
                     DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount, out offset));
             }
 
-            public byte[] ToArray()
+            public Span<byte> ToArray()
             {
                 UpdateHeader();
-                var result = new MemoryStream(Size);
+                using var result = new MemoryStream(Size);
 
-                result
-                    .Append(_header.ToArray())
-                    .Append(Questions.Select(q => q.ToArray()))
-                    .Append(AnswerRecords.Select(a => a.ToArray()))
-                    .Append(AuthorityRecords.Select(a => a.ToArray()))
-                    .Append(AdditionalRecords.Select(a => a.ToArray()));
+                result.Append(_header.ToArray());
+
+                foreach (var q in Questions)
+                    result.Append(q.ToArray());
+
+                foreach (var q in AnswerRecords)
+                    result.Append(q.ToArray());
+
+                foreach (var q in AuthorityRecords)
+                    result.Append(q.ToArray());
+
+                foreach (var q in AdditionalRecords)
+                    result.Append(q.ToArray());
 
                 return result.ToArray();
             }
