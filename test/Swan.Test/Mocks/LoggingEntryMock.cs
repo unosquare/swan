@@ -1,4 +1,6 @@
-﻿namespace Swan.Test.Mocks
+﻿using Swan.Logging;
+
+namespace Swan.Test.Mocks
 {
     using System;
 

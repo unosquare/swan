@@ -1,6 +1,5 @@
 ﻿namespace Swan.Net
 {
-    using JetBrains.Annotations;
     using Swan;
     using System;
     using System.Net;
@@ -57,7 +56,7 @@
         /// Initializes a new instance of the <see cref="ConnectionListener"/> class.
         /// </summary>
         /// <param name="listenEndPoint">The listen end point.</param>
-        public ConnectionListener([NotNull] IPEndPoint listenEndPoint)
+        public ConnectionListener(IPEndPoint listenEndPoint)
         {
             Id = Guid.NewGuid();
             LocalEndPoint = listenEndPoint ?? throw new ArgumentNullException(nameof(listenEndPoint));

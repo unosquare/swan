@@ -1,6 +1,5 @@
 ﻿namespace Swan.DependencyInjection
 {
-    using JetBrains.Annotations;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -284,14 +283,11 @@
         /// <param name="name">Name of registration.</param>
         /// <returns>RegisterOptions for fluent API.</returns>
         public RegisterOptions Register<TRegister>(
-            [NotNull] Func<DependencyContainer, Dictionary<string, object>, TRegister> factory, string name = "")
-            where TRegister : class
-        {
-            if (factory == null)
-                throw new ArgumentNullException(nameof(factory));
-
-            return Register(typeof(TRegister), factory, name);
-        }
+            Func<DependencyContainer, Dictionary<string, object>, TRegister> factory, string name = "")
+            where TRegister : class =>
+            factory == null
+                ? throw new ArgumentNullException(nameof(factory))
+                : Register(typeof(TRegister), factory, name);
 
         /// <summary>
         /// Register multiple implementations of a type.
@@ -312,7 +308,7 @@
         /// <param name="registrationType">Type that each implementation implements.</param>
         /// <param name="implementationTypes">Types that implement RegisterType.</param>
         /// <returns>MultiRegisterOptions for the fluent API.</returns>
-        public MultiRegisterOptions RegisterMultiple([NotNull] Type registrationType, [NotNull] IEnumerable<Type> implementationTypes)
+        public MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable<Type> implementationTypes)
         {
             if (implementationTypes == null)
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
