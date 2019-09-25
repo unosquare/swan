@@ -211,15 +211,15 @@ namespace Swan.Formatters
                 if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
                     objectDictionary[_options.TypeSpecifier] = targetType;
 
-                foreach (var field in fields)
+                foreach (var (key, value) in fields)
                 {
                     // Build the dictionary using property names and values
                     // Note: used to be: property.GetValue(target); but we would be reading private properties
                     try
                     {
-                        objectDictionary[field.Key] = field.Value is PropertyInfo property
+                        objectDictionary[key] = value is PropertyInfo property
                             ? property.GetCacheGetMethod(_options.IncludeNonPublic)?.Invoke(target)
-                            : (field.Value as FieldInfo)?.GetValue(target);
+                            : (value as FieldInfo)?.GetValue(target);
                     }
                     catch
                     {

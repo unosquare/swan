@@ -327,9 +327,10 @@ namespace Swan.Formatters
 
             private FormatException CreateParserException(string expected)
             {
-                var textPosition = _json.TextPositionAt(_index);
+                var (line, col) = _json.TextPositionAt(_index);
+
                 return new FormatException(
-                    $"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {_state}): Expected {expected} but got '{_json[_index]}'.");
+                    $"Parser error (Line {line}, Col {col}, State {_state}): Expected {expected} but got '{_json[_index]}'.");
             }
 
             /// <summary>

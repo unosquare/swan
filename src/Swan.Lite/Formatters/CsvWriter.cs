@@ -253,33 +253,26 @@ namespace Swan.Formatters
                 var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
                 var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
 
-                // Declare state variables here to avoid recreation, allocation and
-                // reassignment in every loop
-                bool needsEnclosing;
-                string textValue;
-                byte[] output;
-
                 for (var i = 0; i < length; i++)
                 {
-                    textValue = items.ElementAt(i);
+                    var textValue = items.ElementAt(i);
 
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
-                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                                     || textValue.IndexOf(EscapeCharacter) >= 0
-                                     || textValue.IndexOf('\r') >= 0
-                                     || textValue.IndexOf('\n') >= 0;
+                    var needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
+                                          || textValue.IndexOf(EscapeCharacter) >= 0
+                                          || textValue.IndexOf('\r') >= 0
+                                          || textValue.IndexOf('\n') >= 0;
 
                     // Escape the escape characters by repeating them twice for every instance
-                    textValue = textValue.Replace($"{EscapeCharacter}",
-                        $"{EscapeCharacter}{EscapeCharacter}");
+                    textValue = textValue.Replace($"{EscapeCharacter}", $"{EscapeCharacter}{EscapeCharacter}");
 
                     // Enclose the text value if we need to
                     if (needsEnclosing)
                         textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
 
                     // Get the bytes to write to the stream and write them
-                    output = _encoding.GetBytes(textValue);
+                    var output = _encoding.GetBytes(textValue);
                     _outputStream.Write(output, 0, output.Length);
 
                     // only write a separator if we are moving in between values.

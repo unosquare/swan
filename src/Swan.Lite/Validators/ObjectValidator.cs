@@ -154,15 +154,15 @@ namespace Swan.Validators
 
             var properties = AttributeCache.DefaultCache.Value.RetrieveFromType<T, IValidator>();
 
-            foreach (var prop in properties)
+            foreach (var (key, value) in properties)
             {
-                foreach (var attribute in prop.Value)
+                foreach (var attribute in value)
                 {
                     var val = (IValidator)attribute;
 
-                    if (val.IsValid(prop.Key.GetValue(obj, null))) continue;
+                    if (val.IsValid(key.GetValue(obj, null))) continue;
 
-                    action?.Invoke(prop.Key.Name, val.ErrorMessage);
+                    action?.Invoke(key.Name, val.ErrorMessage);
                     if (returnOnError) return false;
                 }
             }

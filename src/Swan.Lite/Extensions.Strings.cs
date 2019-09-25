@@ -267,10 +267,10 @@ namespace Swan
         /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
         /// <returns>A 2-tuple whose value is (item1, item2).</returns>
-        public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
+        public static (int Line, int Col) TextPositionAt(this string value, int charIndex)
         {
             if (value == null)
-                return Tuple.Create(0, 0);
+                return (0, 0);
 
             var index = charIndex.Clamp(0, value.Length - 1);
 
@@ -290,7 +290,7 @@ namespace Swan
                     colNumber++;
             }
 
-            return Tuple.Create(lineIndex + 1, colNumber);
+            return (lineIndex + 1, colNumber);
         }
 
         /// <summary>

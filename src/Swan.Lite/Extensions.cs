@@ -281,19 +281,13 @@ namespace Swan
             }
         }
 
-        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase)
-        {
-            switch (jsonSerializerCase)
+        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) =>
+            jsonSerializerCase switch
             {
-                case JsonSerializerCase.PascalCase:
-                    return char.ToUpperInvariant(name[0]) + name.Substring(1);
-                case JsonSerializerCase.CamelCase:
-                    return char.ToLowerInvariant(name[0]) + name.Substring(1);
-                case JsonSerializerCase.None:
-                    return name;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null);
-            }
-        }
+                JsonSerializerCase.PascalCase => (char.ToUpperInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.CamelCase => (char.ToLowerInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.None => name,
+                _ => throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null)
+            };
     }
 }
