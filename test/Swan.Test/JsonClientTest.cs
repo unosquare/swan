@@ -29,6 +29,7 @@
             Assert.IsNotNull(data);
             Assert.IsTrue(data.ContainsKey(AuthorizationToken));
             Assert.AreEqual(responseObj[AuthorizationToken], data[AuthorizationToken]);
+            //Assert.That(data[AuthorizationToken], Is.EqualTo(responseObj[AuthorizationToken]));
         }
 
         [Test]
