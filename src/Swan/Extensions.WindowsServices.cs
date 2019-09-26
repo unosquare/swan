@@ -22,6 +22,7 @@
         /// <param name="this">The service to run.</param>
         /// <param name="loggerSource">The logger source.</param>
         /// <exception cref="ArgumentNullException">this.</exception>
+        [Obsolete("This extension method will be removed in version 3.0")]
         public static void RunInConsoleMode(this ServiceBase @this, string loggerSource = null)
         {
             if (@this == null)
@@ -37,6 +38,7 @@
         /// <param name="loggerSource">The logger source.</param>
         /// <exception cref="ArgumentNullException">this.</exception>
         /// <exception cref="InvalidOperationException">The ServiceBase class isn't available.</exception>
+        [Obsolete("This extension method will be removed in version 3.0")]
         public static void RunInConsoleMode(this ServiceBase[] @this, string loggerSource = null)
         {
             if (@this == null)

@@ -14,6 +14,7 @@ namespace Swan.Formatters
     /// where they can be quickly changed and then a new bitmap
     /// can be created from the byte data.
     /// </summary>
+    [Obsolete("This class will be removed in version 3.0")]
     public class BitmapBuffer
     {
         /// <summary>

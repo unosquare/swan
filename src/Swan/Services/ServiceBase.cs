@@ -1,10 +1,13 @@
-﻿#if !NET461
+﻿using System;
+
+#if !NET461
 namespace Swan.Services
 {
     /// <summary>
     /// Mimic a Windows ServiceBase class. Useful to keep compatibility with applications
     /// running as services in OS different to Windows.
     /// </summary>
+    [Obsolete("This abstract class will be removed in version 3.0")]
     public abstract class ServiceBase
     {
         /// <summary>

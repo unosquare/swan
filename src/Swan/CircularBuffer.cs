@@ -1,4 +1,4 @@
-namespace Swan
+﻿namespace Swan
 {
     using System;
     using System.Runtime.InteropServices;
@@ -10,6 +10,7 @@ namespace Swan
     /// Only for Windows.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
+    [Obsolete("This class will be removed in version 3.0")]
     public sealed class CircularBuffer : IDisposable
     {
         private readonly object _syncLock = new object();
