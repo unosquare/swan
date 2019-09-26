@@ -98,7 +98,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.CircularBuffer.html",
-          "hash": "XbAdfRDN+FcbNMc6hF4vtA=="
+          "hash": "L3WbV+W9rylpYTmbS0WUXg=="
         }
       },
       "is_incremental": false,
@@ -2354,7 +2354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.WindowsServicesExtensions.html",
-          "hash": "N0YXzzSNsKAjj5PE5va0GQ=="
+          "hash": "Z2s9cm2pthXNB6nM6oFHAQ=="
         }
       },
       "is_incremental": false,
@@ -2431,11 +2431,10 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 191,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -2444,17 +2443,18 @@
           "total_file_count": 3,
           "skipped_file_count": 0
         },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 191,
           "skipped_file_count": 0
         }
       }
