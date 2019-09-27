@@ -314,5 +314,36 @@
                 }
             }
         }
+
+        [Test]
+        public void ChangeSeparator()
+        {
+            var stringHeaders = new[]
+            {
+                "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
+                "AccessDate",
+            };
+
+            var stringHeadersOutput = string.Join("#", stringHeaders);
+
+            var objHeaders = new SampleCsvRecord();
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.SeparatorCharacter = '#';
+                    writer.WriteHeadings(objHeaders);
+
+                    stream.Position = 0;
+                    var sr = new StreamReader(stream);
+                    var value = sr.ReadToEnd();
+                    var values = value.Split('#');
+
+                    Assert.AreEqual(stringHeadersOutput, value.Trim());
+                    Assert.AreEqual(stringHeaders.Length, values.Length);
+                }
+            }
+        }
     }
 }

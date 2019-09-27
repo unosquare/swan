@@ -1,6 +1,7 @@
 ﻿namespace Swan.Test
 {
     using NUnit.Framework;
+    using System;
     using System.Threading.Tasks;
     using Threading;
 
@@ -111,6 +112,29 @@
                 Task.Run(ExchangeTask));
 
             Assert.GreaterOrEqual(2, (int) atomic.Value);
+        }
+
+        [Test]
+        public void AtomicityDateTime()
+        {
+            var currentDate = DateTime.Now;
+
+            AtomicTypeBase<DateTime> atomic = new AtomicDateTime(currentDate);
+
+            void ToggleValueTask()
+            {
+                for (var x = 0; x < 100; x++)
+                    atomic.Value = atomic.Value.AddDays(1);
+            }
+
+            Task.WaitAll(
+                Task.Factory.StartNew(ToggleValueTask),
+                Task.Factory.StartNew(ToggleValueTask),
+                Task.Factory.StartNew(ToggleValueTask));
+
+            var _expected = currentDate.AddDays(300).Date;
+
+            Assert.That(atomic.Value.Date == _expected);
         }
     }
 }
