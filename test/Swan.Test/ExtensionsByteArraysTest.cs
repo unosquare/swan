@@ -165,7 +165,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.IsNull(NullByteArray.DeepClone());
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.DeepClone());
         }
     }
 
