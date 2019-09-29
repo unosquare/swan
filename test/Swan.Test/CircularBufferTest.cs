@@ -34,5 +34,34 @@ namespace Swan.Test
             Assert.Throws<InvalidOperationException>(
                 () => buffer.Read(10, new byte[10], 0));
         }
+
+        [Test]
+        public void CapacityPercent()
+        {
+            var buffer = new CircularBuffer(10);
+            Assert.That(buffer.CapacityPercent, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ReadableCount()
+        {
+            var buffer = new CircularBuffer(10);
+            Assert.That(buffer.ReadableCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Clear()
+        {
+            var buffer = new CircularBuffer(10);
+            var tag = new TimeSpan();
+
+            // buffer.Write(new IntPtr(1), 1, tag); // Fix reference to DLL
+            buffer.Clear();
+
+            Assert.That(buffer.WriteIndex, Is.EqualTo(0));
+            Assert.That(buffer.ReadIndex, Is.EqualTo(0));
+            Assert.That(buffer.WriteTag, Is.EqualTo(TimeSpan.MinValue));
+            Assert.That(buffer.ReadableCount, Is.EqualTo(0));
+        }
     }
 }
