@@ -1,8 +1,8 @@
-language: csharp
+﻿language: csharp
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
 mono: none
-dotnet: 2.2.101
+dotnet: 3.0.100
 matrix:
   include:
     - os: linux
@@ -11,7 +11,7 @@ matrix:
     - os: osx
       osx_image: xcode9.1
 install:
-  - npm install
+  - npm ci
   - dotnet restore
 script:
   - node ./mail.js &

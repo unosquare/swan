@@ -1,8 +1,8 @@
-version: '1.00.{build}'
+﻿version: '1.00.{build}'
 image: 
-- Visual Studio 2017
+- Visual Studio 2019
 - Ubuntu1804
-stack: node 9
+stack: node 10
 notifications:
 - provider: Slack
   auth_token:
@@ -26,10 +26,9 @@ before_build:
 - ps: |
         if($isWindows)
         {
-            Install-Product node 8
+            Install-Product node 10
         }
-- npm i npm@latest -g
-- npm install -q
+- npm ci
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
