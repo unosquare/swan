@@ -105,12 +105,13 @@
         {
             var result = _date.GetDateTimeSpan(new DateTime(1969, 8, 15, 5, 7, 10, 100));
 
-            Assert.AreEqual(result.Years, 32);
-            Assert.AreEqual(result.Months, 10);
-            Assert.AreEqual(result.Days, 18);
-            Assert.AreEqual(result.Minutes, 52);
-            Assert.AreEqual(result.Seconds, 50);
-            Assert.AreEqual(result.Milliseconds, 100);
+            Assert.That(result.Years, Is.EqualTo(32));
+            Assert.That(result.Months, Is.EqualTo(10));
+            Assert.That(result.Days, Is.EqualTo(18));
+            Assert.That(result.Hours, Is.EqualTo(6));
+            Assert.That(result.Minutes, Is.EqualTo(52));
+            Assert.That(result.Seconds, Is.EqualTo(50));
+            Assert.That(result.Milliseconds, Is.EqualTo(100));
         }
 
         [Test]
