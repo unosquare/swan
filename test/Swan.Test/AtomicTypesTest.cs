@@ -27,9 +27,9 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask));
+                Task.Run(SumTask),
+                Task.Run(SumTask),
+                Task.Run(SumTask));
 
             Assert.That(atomic.Value, Is.EqualTo(9000));
         }
@@ -46,12 +46,9 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask));
-
-            if (atomic.Value < 900)
-                Assert.Ignore("We need to fix this");
+                Task.Run(SumTask),
+                Task.Run(SumTask),
+                Task.Run(SumTask));
 
             Assert.That(atomic.Value, Is.EqualTo(900));
         }
@@ -68,12 +65,9 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(ToggleValueTask),
-                Task.Factory.StartNew(ToggleValueTask),
-                Task.Factory.StartNew(ToggleValueTask));
-
-            if (atomic.Value)
-                Assert.Ignore("We need to fix this");
+                Task.Run(ToggleValueTask),
+                Task.Run(ToggleValueTask),
+                Task.Run(ToggleValueTask));
 
             Assert.IsFalse(atomic.Value);
         }
@@ -90,9 +84,9 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask));
+                Task.Run(SumTask),
+                Task.Run(SumTask),
+                Task.Run(SumTask));
 
             Assert.That(atomic.Value, Is.EqualTo(900));
         }
@@ -123,18 +117,62 @@
 
             void ToggleValueTask()
             {
-                for (var x = 0; x < 100; x++)
-                    atomic.Value = atomic.Value.AddDays(1);
+                for (var x = 0; x < 10; x++)
+                    atomic++;
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(ToggleValueTask),
-                Task.Factory.StartNew(ToggleValueTask),
-                Task.Factory.StartNew(ToggleValueTask));
+                Task.Run(ToggleValueTask),
+                Task.Run(ToggleValueTask),
+                Task.Run(ToggleValueTask));
 
-            var _expected = currentDate.AddDays(300).Date;
+            var expected = currentDate.AddTicks(30).Date;
 
-            Assert.That(atomic.Value.Date == _expected);
+            Assert.That(atomic.Value.Date == expected);
+        }
+
+        [Test]
+        public void CompareTo()
+        {
+            long objectValue = 10;
+            long objectOtherValue = 100;
+            AtomicTypeBase<long> original = new AtomicLong(10);
+            AtomicTypeBase<long> copy = new AtomicLong(10);
+            AtomicTypeBase<long> other = new AtomicLong(100);
+
+            Assert.That(original.CompareTo(copy), Is.EqualTo(0));
+            Assert.That(original.CompareTo(other), Is.Not.EqualTo(0));
+
+            Assert.That(original.CompareTo(copy as object), Is.EqualTo(0));
+            Assert.That(original.CompareTo(objectValue as object), Is.EqualTo(0));
+            Assert.That(original.CompareTo(null as object), Is.EqualTo(1));
+
+            Assert.That(original.CompareTo(objectValue), Is.EqualTo(0));
+            Assert.That(original.CompareTo(objectOtherValue), Is.Not.EqualTo(0));
+
+            Assert.Throws<ArgumentException>(() => original.CompareTo(new object()));
+        }
+
+        [Test]
+        public void Equals()
+        {
+            long objectValue = 10;
+            long objectOtherValue = 100;
+            AtomicTypeBase<long> original = new AtomicLong(10);
+            AtomicTypeBase<long> copy = new AtomicLong(10);
+            AtomicTypeBase<long> other = new AtomicLong(100);
+
+            Assert.That(original.Equals(copy));
+            Assert.That(!original.Equals(other));
+
+            Assert.That(original.Equals(copy as object));
+            Assert.That(original.Equals(objectValue as object));
+            Assert.That(!original.Equals(null as object));
+
+            Assert.That(original.Equals(objectValue));
+            Assert.That(!original.Equals(objectOtherValue));
+
+            //Assert.Throws<ArgumentException>(() => original.Equals(new object()));
         }
     }
 }
