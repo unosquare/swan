@@ -9,7 +9,7 @@ matrix:
       dist: xenial
       sudo: false
     - os: osx
-      osx_image: xcode9.1
+      osx_image: xcode11
 install:
   - npm ci
   - dotnet restore

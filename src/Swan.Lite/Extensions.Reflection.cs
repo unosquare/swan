@@ -154,7 +154,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, object value, out object result)
+        public static bool TryParseBasicType(this Type type, object value, out object? result)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -178,7 +178,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, string value, out object result)
+        public static bool TryParseBasicType(this Type type, string value, out object? result)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -305,7 +305,7 @@ namespace Swan
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="target">The object.</param>
         /// <returns>The property value or null.</returns>
-        public static string ToFormattedString(this PropertyInfo propertyInfo, object target)
+        public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
         {
             try
             {

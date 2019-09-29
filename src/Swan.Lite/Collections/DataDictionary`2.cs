@@ -190,7 +190,7 @@ namespace Swan.Collections
         }
 
         /// <inheritdoc cref="ConcurrentDictionary{TKey,TValue}.GetOrAdd(TKey,TValue)"/>
-        public TValue GetOrAdd(TKey key, TValue value)
+        public TValue? GetOrAdd(TKey key, TValue value)
         {
             // _dictionary.TryGetValue will take care of throwing on a null key.
             if (_dictionary.TryGetValue(key, out var result))

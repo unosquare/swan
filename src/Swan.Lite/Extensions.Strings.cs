@@ -46,7 +46,7 @@ namespace Swan
         /// </summary>
         /// <param name="this">The item.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToStringInvariant(this object @this)
+        public static string? ToStringInvariant(this object @this)
         {
             if (@this == null)
                 return string.Empty;
@@ -220,18 +220,13 @@ namespace Swan
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Humanize(this object value)
-        {
-            switch (value)
+        public static string Humanize(this object value) =>
+            value switch
             {
-                case string stringValue:
-                    return stringValue.Humanize();
-                case bool boolValue:
-                    return boolValue.Humanize();
-                default:
-                    return value.Stringify();
-            }
-        }
+                string stringValue => stringValue.Humanize(),
+                bool boolValue => boolValue.Humanize(),
+                _ => value.Stringify()
+            };
 
         /// <summary>
         /// Indents the specified multi-line text with the given amount of leading spaces
@@ -347,7 +342,7 @@ namespace Swan
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength) =>
+        public static string? Truncate(this string value, int maximumLength) =>
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
@@ -360,7 +355,7 @@ namespace Swan
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string Truncate(this string value, int maximumLength, string omission)
+        public static string? Truncate(this string value, int maximumLength, string omission)
         {
             if (value == null)
                 return null;
