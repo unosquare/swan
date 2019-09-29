@@ -2,7 +2,10 @@
 using Moq.Protected;
 using NUnit.Framework;
 using System;
-using Swan.Test.Entropy;
+using AutoFixture;
+using System.Linq;
+using AutoFixture.AutoMoq;
+using System.Collections.Generic;
 
 namespace Swan.Test
 {
@@ -38,8 +41,9 @@ namespace Swan.Test
         [Test]
         public void RunInConsoleModeArray()
         {
-            var (services, mocks) =
-                GenerateArray.GetMockList<Services.ServiceBase>();
+            var fixture = new Fixture();
+            fixture.Customize(new AutoMoqCustomization());
+            var services = fixture.CreateMany<Services.ServiceBase>();
 
             services.ToArray().RunInConsoleMode();
             Assert.That(true);
@@ -69,20 +73,38 @@ namespace Swan.Test
         [Test]
         public void RunInConsoleModeOnManyStop()
         {
-            var (objects, mocks) = 
-                GenerateArray.GetMockList<Services.ServiceBase>();
+            var size = new Random().Next(25);
+            var mocks = new List<Mock<Services.ServiceBase>>();
+            var services = new List<Services.ServiceBase>();
 
-            objects.ToArray().RunInConsoleMode();
+            for (int i = 0; i < size; i++)
+            {
+                var fixture = new Fixture();
+                fixture.Customize(new AutoMoqCustomization());
+                mocks.Add(fixture.Freeze<Mock<Services.ServiceBase>>());
+                services.Add(fixture.Create<Services.ServiceBase>());
+            }
+
+            services.ToArray().RunInConsoleMode();
             mocks.ForEach(x => x.Protected().Verify("OnStop", Times.Once()));
         }
 
         [Test]
         public void RunInConsoleModeOnManyStart()
         {
-            var (objects, mocks) =
-                GenerateArray.GetMockList<Services.ServiceBase>();
+            var size = new Random().Next(25);
+            var mocks = new List<Mock<Services.ServiceBase>>();
+            var services = new List<Services.ServiceBase>();
 
-            objects.ToArray().RunInConsoleMode();
+            for (int i = 0; i < size; i++)
+            {
+                var fixture = new Fixture();
+                fixture.Customize(new AutoMoqCustomization());
+                mocks.Add(fixture.Freeze<Mock<Services.ServiceBase>>());
+                services.Add(fixture.Create<Services.ServiceBase>());
+            }
+
+            services.ToArray().RunInConsoleMode();
             mocks.ForEach(x => x.Protected().Verify(
                 "OnStart",
                 Times.Once(),
