@@ -1,7 +1,7 @@
 ﻿version: '1.00.{build}'
 image: 
 - Visual Studio 2019
-- Ubuntu1804
+#- Ubuntu1804
 stack: node 10
 notifications:
 - provider: Slack
