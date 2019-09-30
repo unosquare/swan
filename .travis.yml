@@ -18,7 +18,6 @@ script:
   - node ./web.js &
   - node ./tcp.js &
   - node ./ntp.js &
-  - dotnet build 
   - cd ./test/Swan.Test/
   - #dotnet test -c Release Swan.Test.csproj
 after_script:
