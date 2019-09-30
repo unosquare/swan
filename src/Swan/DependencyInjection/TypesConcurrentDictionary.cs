@@ -63,7 +63,7 @@
         
         internal object ResolveInternal(
             DependencyContainer.TypeRegistration registration,
-            DependencyContainerResolveOptions options = null)
+            DependencyContainerResolveOptions? options = null)
         {
             if (options == null)
                 options = DependencyContainerResolveOptions.Default;
@@ -142,7 +142,7 @@
         
         internal bool CanResolve(
             DependencyContainer.TypeRegistration registration,
-            DependencyContainerResolveOptions options = null)
+            DependencyContainerResolveOptions? options = null)
         {
             if (options == null)
                 options = DependencyContainerResolveOptions.Default;
@@ -202,7 +202,7 @@
         internal object ConstructType(
             Type implementationType,
             ConstructorInfo constructor,
-            DependencyContainerResolveOptions options = null)
+            DependencyContainerResolveOptions? options = null)
         {
             var typeToConstruct = implementationType;
 
@@ -306,7 +306,7 @@
                    type.GetGenericArguments()[1] == typeof(IDictionary<string, object>);
         }
         
-        private ObjectFactoryBase GetParentObjectFactory(DependencyContainer.TypeRegistration registration)
+        private ObjectFactoryBase? GetParentObjectFactory(DependencyContainer.TypeRegistration registration)
         {
             if (_dependencyContainer.Parent == null)
                 return null;
@@ -316,13 +316,13 @@
                 : _dependencyContainer.Parent.RegisteredTypes.GetParentObjectFactory(registration);
         }
 
-        private ConstructorInfo GetBestConstructor(
+        private ConstructorInfo? GetBestConstructor(
             Type type,
             DependencyContainerResolveOptions options)
             => type.IsValueType ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
         
         private bool CanConstruct(
-            ConstructorInfo ctor,
+            MethodBase ctor,
             DependencyContainerResolveOptions options)
         {
             foreach (var parameter in ctor.GetParameters())

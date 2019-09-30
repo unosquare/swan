@@ -41,7 +41,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)
+        public static int CopyPropertiesTo(this object source, object target, params string[]? ignoreProperties)
             => ObjectMapper.Copy(source, target, null, ignoreProperties);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy)
+        public static int CopyOnlyPropertiesTo(this object source, object target, params string[]? propertiesToCopy)
             => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Swan
         /// The specified type with properties copied.
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
-        public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
+        public static T CopyPropertiesToNew<T>(this object source, string[]? ignoreProperties = null)
             where T : class
         {
             if (source == null)
@@ -171,7 +171,7 @@ namespace Swan
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-            Retry<object>(() =>
+            Retry<object?>(() =>
                 {
                     action();
                     return null;
@@ -247,7 +247,7 @@ namespace Swan
             this object source,
             Type targetType,
             bool includeNonPublic,
-            ref object target)
+            ref object? target)
         {
             switch (source)
             {
@@ -281,19 +281,13 @@ namespace Swan
             }
         }
 
-        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase)
-        {
-            switch (jsonSerializerCase)
+        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) =>
+            jsonSerializerCase switch
             {
-                case JsonSerializerCase.PascalCase:
-                    return char.ToUpperInvariant(name[0]) + name.Substring(1);
-                case JsonSerializerCase.CamelCase:
-                    return char.ToLowerInvariant(name[0]) + name.Substring(1);
-                case JsonSerializerCase.None:
-                    return name;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null);
-            }
-        }
+                JsonSerializerCase.PascalCase => (char.ToUpperInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.CamelCase => (char.ToLowerInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.None => name,
+                _ => throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null)
+            };
     }
 }

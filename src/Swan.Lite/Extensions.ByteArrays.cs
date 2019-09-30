@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -169,11 +169,14 @@ namespace Swan
         /// Clones the specified buffer, byte by byte.
         /// </summary>
         /// <param name="this">The buffer.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">this</exception>
         public static byte[] DeepClone(this byte[] @this)
         {
             if (@this == null)
-                return null;
+                throw new ArgumentNullException(nameof(@this));
 
             var result = new byte[@this.Length];
             Array.Copy(@this, result, @this.Length);

@@ -1,40 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea. Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</Description>
-    <Copyright>Copyright (c) 2016-2019 - Unosquare</Copyright>
-    <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Swan.Lite</AssemblyName>
-    <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-    <Version>2.3.0</Version>
-    <Authors>Unosquare</Authors>
-    <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
-    <LangVersion>7.3</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+    <PropertyGroup>
+        <Description>Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea. Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</Description>
+        <Copyright>Copyright (c) 2016-2019 - Unosquare</Copyright>
+        <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <AssemblyName>Swan.Lite</AssemblyName>
+        <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
+        <Version>2.3.0</Version>
+        <Authors>Unosquare</Authors>
+        <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
+        <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
+        <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Release' And Exists('codesigning.pfx')">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>codesigning.pfx</AssemblyOriginatorKeyFile>
-    <Optimize>true</Optimize>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release' And Exists('codesigning.pfx')">
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>codesigning.pfx</AssemblyOriginatorKeyFile>
+        <Optimize>true</Optimize>
+        <DelaySign>false</DelaySign>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
+    </ItemGroup>
 </Project>

@@ -192,7 +192,8 @@ namespace Swan
 
         private static bool? GetElementParts(string parts, string type, int value)
         {
-            if (string.IsNullOrWhiteSpace(parts) || parts == "*") return null;
+            if (string.IsNullOrWhiteSpace(parts) || parts == "*")
+                return null;
             
             if (parts.Contains(","))
             {
