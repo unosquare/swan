@@ -47,7 +47,7 @@
             using (var cn = new Connection(Client))
             {
                 Assert.IsTrue(cn.IsConnected, "It's connected");
-                Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
+                Assert.AreEqual(cn.LocalEndPoint.Address.AddressFamily == AddressFamily.InterNetworkV6 ? IPAddress.IPv6Loopback : IPAddress.Loopback, cn.LocalEndPoint.Address, "Local Address");
                 Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
                 Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
             }
