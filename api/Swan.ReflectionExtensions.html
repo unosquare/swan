@@ -129,7 +129,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPropertyProxy CreatePropertyProxy(this PropertyInfo this)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IPropertyProxy? CreatePropertyProxy(this PropertyInfo this)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,7 +159,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IPropertyProxy</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">IPropertyProxy</span>&gt;</td>
         <td><p>The property proxy.</p>
 </td>
       </tr>
@@ -219,7 +219,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Func&lt;object, object&gt; GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Func&lt;object, object&gt;? GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -255,7 +255,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">Func</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><p>The cached MethodInfo.</p>
 </td>
       </tr>
@@ -270,7 +270,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Action&lt;object, object[]&gt; GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Action&lt;object, object[]&gt;? GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -306,7 +306,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">Action</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]&gt;&gt;</td>
         <td><p>The cached MethodInfo.</p>
 </td>
       </tr>
@@ -635,7 +635,7 @@ will be formatted accordingly.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string ToFormattedString(this PropertyInfo propertyInfo, object target)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -671,7 +671,7 @@ will be formatted accordingly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>The property value or null.</p>
 </td>
       </tr>
@@ -680,13 +680,13 @@ will be formatted accordingly.</p>
   
   
   <a id="Swan_ReflectionExtensions_TryParseBasicType_" data-uid="Swan.ReflectionExtensions.TryParseBasicType*"></a>
-  <h4 id="Swan_ReflectionExtensions_TryParseBasicType_Type_System_Object_System_Object__" data-uid="Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Object@)">TryParseBasicType(Type, Object, out Object)</h4>
+  <h4 id="Swan_ReflectionExtensions_TryParseBasicType_Type_System_Object_System_Nullable_System_Object___" data-uid="Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Nullable{System.Object}@)">TryParseBasicType(Type, Object, out Nullable&lt;Object&gt;)</h4>
   <div class="markdown level1 summary"><p>Tries to parse using the basic types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryParseBasicType(this Type type, object value, out object result)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryParseBasicType(this Type type, object value, out object? result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -711,7 +711,7 @@ will be formatted accordingly.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><span class="parametername">result</span></td>
         <td><p>The result.</p>
 </td>
@@ -737,13 +737,13 @@ will be formatted accordingly.</p>
   
   
   <a id="Swan_ReflectionExtensions_TryParseBasicType_" data-uid="Swan.ReflectionExtensions.TryParseBasicType*"></a>
-  <h4 id="Swan_ReflectionExtensions_TryParseBasicType_Type_System_String_System_Object__" data-uid="Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Object@)">TryParseBasicType(Type, String, out Object)</h4>
+  <h4 id="Swan_ReflectionExtensions_TryParseBasicType_Type_System_String_System_Nullable_System_Object___" data-uid="Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Nullable{System.Object}@)">TryParseBasicType(Type, String, out Nullable&lt;Object&gt;)</h4>
   <div class="markdown level1 summary"><p>Tries to parse using the basic types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryParseBasicType(this Type type, string value, out object result)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryParseBasicType(this Type type, string value, out object? result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -768,7 +768,7 @@ will be formatted accordingly.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><span class="parametername">result</span></td>
         <td><p>The result.</p>
 </td>

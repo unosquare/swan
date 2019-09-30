@@ -272,7 +272,7 @@ subscription and the message sending are done in the same place but this is only
   
   
   <a id="Swan_Messaging_MessageHub_Subscribe_" data-uid="Swan.Messaging.MessageHub.Subscribe*"></a>
-  <h4 id="Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Boolean_Swan_Messaging_IMessageHubProxy_" data-uid="Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Boolean, IMessageHubProxy)</h4>
+  <h4 id="Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Boolean_System_Nullable_Swan_Messaging_IMessageHubProxy__" data-uid="Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Boolean, Nullable&lt;IMessageHubProxy&gt;)</h4>
   <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action.
 Messages will be delivered via the specified proxy.</p>
 <p>All messages of this type will be delivered.</p>
@@ -280,7 +280,7 @@ Messages will be delivered via the specified proxy.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, bool useStrongReferences = true, IMessageHubProxy proxy = null)
+    <pre><code class="lang-csharp hljs">public MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, bool useStrongReferences = true, IMessageHubProxy? proxy = default(IMessageHubProxy? ))
     where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -306,7 +306,7 @@ Messages will be delivered via the specified proxy.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Swan.Messaging.IMessageHubProxy.html">IMessageHubProxy</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="Swan.Messaging.IMessageHubProxy.html">IMessageHubProxy</a>&gt;</td>
         <td><span class="parametername">proxy</span></td>
         <td><p>Proxy to use when delivering the messages.</p>
 </td>
@@ -348,7 +348,7 @@ Messages will be delivered via the specified proxy.</p>
   
   
   <a id="Swan_Messaging_MessageHub_Subscribe_" data-uid="Swan.Messaging.MessageHub.Subscribe*"></a>
-  <h4 id="Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Swan_Messaging_IMessageHubProxy_" data-uid="Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Func&lt;TMessage, Boolean&gt;, Boolean, IMessageHubProxy)</h4>
+  <h4 id="Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_System_Nullable_Swan_Messaging_IMessageHubProxy__" data-uid="Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Func&lt;TMessage, Boolean&gt;, Boolean, Nullable&lt;IMessageHubProxy&gt;)</h4>
   <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action with the given filter.
 Messages will be delivered via the specified proxy.
 All references are held with WeakReferences
@@ -357,7 +357,7 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, bool useStrongReferences = true, IMessageHubProxy proxy = null)
+    <pre><code class="lang-csharp hljs">public MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, bool useStrongReferences = true, IMessageHubProxy? proxy = default(IMessageHubProxy? ))
     where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -389,7 +389,7 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Swan.Messaging.IMessageHubProxy.html">IMessageHubProxy</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="Swan.Messaging.IMessageHubProxy.html">IMessageHubProxy</a>&gt;</td>
         <td><span class="parametername">proxy</span></td>
         <td><p>Proxy to use when delivering the messages.</p>
 </td>

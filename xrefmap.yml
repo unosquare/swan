@@ -3432,15 +3432,15 @@ references:
   fullName.vb: Swan.Extensions.CopyKeyValuePairToNew(Of T)(IDictionary(Of System.String, System.Object), System.String())
   nameWithType: Extensions.CopyKeyValuePairToNew<T>(IDictionary<String, Object>, String[])
   nameWithType.vb: Extensions.CopyKeyValuePairToNew(Of T)(IDictionary(Of String, Object), String())
-- uid: Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])
-  name: CopyOnlyPropertiesTo(Object, Object, String[])
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___
-  commentId: M:Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])
-  name.vb: CopyOnlyPropertiesTo(Object, Object, String())
-  fullName: Swan.Extensions.CopyOnlyPropertiesTo(System.Object, System.Object, System.String[])
-  fullName.vb: Swan.Extensions.CopyOnlyPropertiesTo(System.Object, System.Object, System.String())
-  nameWithType: Extensions.CopyOnlyPropertiesTo(Object, Object, String[])
-  nameWithType.vb: Extensions.CopyOnlyPropertiesTo(Object, Object, String())
+- uid: Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[],propertiesToCopy)
+  name: CopyOnlyPropertiesTo(Object, Object, String[], propertiesToCopy)
+  href: api/Swan.Extensions.html#Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___propertiesToCopy_
+  commentId: M:Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[],propertiesToCopy)
+  name.vb: CopyOnlyPropertiesTo(Object, Object, String(), propertiesToCopy)
+  fullName: Swan.Extensions.CopyOnlyPropertiesTo(System.Object, System.Object, System.String[], propertiesToCopy)
+  fullName.vb: Swan.Extensions.CopyOnlyPropertiesTo(System.Object, System.Object, System.String(), propertiesToCopy)
+  nameWithType: Extensions.CopyOnlyPropertiesTo(Object, Object, String[], propertiesToCopy)
+  nameWithType.vb: Extensions.CopyOnlyPropertiesTo(Object, Object, String(), propertiesToCopy)
 - uid: Swan.Extensions.CopyOnlyPropertiesTo*
   name: CopyOnlyPropertiesTo
   href: api/Swan.Extensions.html#Swan_Extensions_CopyOnlyPropertiesTo_
@@ -3473,15 +3473,15 @@ references:
   fullName.vb: Swan.Extensions.CopyOnlyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyOnlyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyOnlyPropertiesToNew(Of T)(Object, String())
-- uid: Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])
-  name: CopyPropertiesTo(Object, Object, String[])
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___
-  commentId: M:Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])
-  name.vb: CopyPropertiesTo(Object, Object, String())
-  fullName: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String[])
-  fullName.vb: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String())
-  nameWithType: Extensions.CopyPropertiesTo(Object, Object, String[])
-  nameWithType.vb: Extensions.CopyPropertiesTo(Object, Object, String())
+- uid: Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[],ignoreProperties)
+  name: CopyPropertiesTo(Object, Object, String[], ignoreProperties)
+  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___ignoreProperties_
+  commentId: M:Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[],ignoreProperties)
+  name.vb: CopyPropertiesTo(Object, Object, String(), ignoreProperties)
+  fullName: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String[], ignoreProperties)
+  fullName.vb: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String(), ignoreProperties)
+  nameWithType: Extensions.CopyPropertiesTo(Object, Object, String[], ignoreProperties)
+  nameWithType.vb: Extensions.CopyPropertiesTo(Object, Object, String(), ignoreProperties)
 - uid: Swan.Extensions.CopyPropertiesTo*
   name: CopyPropertiesTo
   href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo_
@@ -3505,15 +3505,15 @@ references:
   isSpec: "True"
   fullName: Swan.Extensions.CopyPropertiesToNew
   nameWithType: Extensions.CopyPropertiesToNew
-- uid: Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[])
-  name: CopyPropertiesToNew<T>(Object, String[])
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesToNew__1_System_Object_System_String___
-  commentId: M:Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[])
-  name.vb: CopyPropertiesToNew(Of T)(Object, String())
-  fullName: Swan.Extensions.CopyPropertiesToNew<T>(System.Object, System.String[])
-  fullName.vb: Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
-  nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
-  nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
+- uid: Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[],ignoreProperties)
+  name: CopyPropertiesToNew<T>(Object, String[], ignoreProperties)
+  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesToNew__1_System_Object_System_String___ignoreProperties_
+  commentId: M:Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[],ignoreProperties)
+  name.vb: CopyPropertiesToNew(Of T)(Object, String(), ignoreProperties)
+  fullName: Swan.Extensions.CopyPropertiesToNew<T>(System.Object, System.String[], ignoreProperties)
+  fullName.vb: Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String(), ignoreProperties)
+  nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[], ignoreProperties)
+  nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String(), ignoreProperties)
 - uid: Swan.Extensions.ForEach*
   name: ForEach
   href: api/Swan.Extensions.html#Swan_Extensions_ForEach_
@@ -5703,24 +5703,24 @@ references:
   commentId: T:Swan.Mappers.ObjectMapper
   fullName: Swan.Mappers.ObjectMapper
   nameWithType: ObjectMapper
-- uid: Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],System.String[])
-  name: Copy(IDictionary<String, Object>, Object, String[], String[])
-  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_IDictionary_System_String_System_Object__System_Object_System_String___System_String___
-  commentId: M:Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],System.String[])
-  name.vb: Copy(IDictionary(Of String, Object), Object, String(), String())
-  fullName: Swan.Mappers.ObjectMapper.Copy(IDictionary<System.String, System.Object>, System.Object, System.String[], System.String[])
-  fullName.vb: Swan.Mappers.ObjectMapper.Copy(IDictionary(Of System.String, System.Object), System.Object, System.String(), System.String())
-  nameWithType: ObjectMapper.Copy(IDictionary<String, Object>, Object, String[], String[])
-  nameWithType.vb: ObjectMapper.Copy(IDictionary(Of String, Object), Object, String(), String())
-- uid: Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
-  name: Copy(Object, Object, String[], String[])
-  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Object_System_Object_System_String___System_String___
-  commentId: M:Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
-  name.vb: Copy(Object, Object, String(), String())
-  fullName: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String[], System.String[])
-  fullName.vb: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String(), System.String())
-  nameWithType: ObjectMapper.Copy(Object, Object, String[], String[])
-  nameWithType.vb: ObjectMapper.Copy(Object, Object, String(), String())
+- uid: Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],propertiesToCopy,System.String[])
+  name: Copy(IDictionary<String, Object>, Object, String[], propertiesToCopy, String[])
+  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_IDictionary_System_String_System_Object__System_Object_System_String___propertiesToCopy_System_String___
+  commentId: M:Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],propertiesToCopy,System.String[])
+  name.vb: Copy(IDictionary(Of String, Object), Object, String(), propertiesToCopy, String())
+  fullName: Swan.Mappers.ObjectMapper.Copy(IDictionary<System.String, System.Object>, System.Object, System.String[], propertiesToCopy, System.String[])
+  fullName.vb: Swan.Mappers.ObjectMapper.Copy(IDictionary(Of System.String, System.Object), System.Object, System.String(), propertiesToCopy, System.String())
+  nameWithType: ObjectMapper.Copy(IDictionary<String, Object>, Object, String[], propertiesToCopy, String[])
+  nameWithType.vb: ObjectMapper.Copy(IDictionary(Of String, Object), Object, String(), propertiesToCopy, String())
+- uid: Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],propertiesToCopy,System.String[])
+  name: Copy(Object, Object, String[], propertiesToCopy, String[])
+  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Object_System_Object_System_String___propertiesToCopy_System_String___
+  commentId: M:Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],propertiesToCopy,System.String[])
+  name.vb: Copy(Object, Object, String(), propertiesToCopy, String())
+  fullName: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String[], propertiesToCopy, System.String[])
+  fullName.vb: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String(), propertiesToCopy, System.String())
+  nameWithType: ObjectMapper.Copy(Object, Object, String[], propertiesToCopy, String[])
+  nameWithType.vb: ObjectMapper.Copy(Object, Object, String(), propertiesToCopy, String())
 - uid: Swan.Mappers.ObjectMapper.Copy*
   name: Copy
   href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_
@@ -5986,24 +5986,24 @@ references:
   isSpec: "True"
   fullName: Swan.Messaging.MessageHub.Subscribe
   nameWithType: MessageHub.Subscribe
-- uid: Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
-  href: api/Swan.Messaging.MessageHub.html#Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Boolean_Swan_Messaging_IMessageHubProxy_
-  commentId: M:Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-  fullName: Swan.Messaging.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean, Swan.Messaging.IMessageHubProxy)
-  fullName.vb: Swan.Messaging.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Swan.Messaging.IMessageHubProxy)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-- uid: Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
-  href: api/Swan.Messaging.MessageHub.html#Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Swan_Messaging_IMessageHubProxy_
-  commentId: M:Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
-  fullName: Swan.Messaging.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean, Swan.Messaging.IMessageHubProxy)
-  fullName.vb: Swan.Messaging.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Swan.Messaging.IMessageHubProxy)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
+- uid: Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean, Nullable<IMessageHubProxy>)
+  href: api/Swan.Messaging.MessageHub.html#Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Boolean_System_Nullable_Swan_Messaging_IMessageHubProxy__
+  commentId: M:Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean, Nullable(Of IMessageHubProxy))
+  fullName: Swan.Messaging.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean, System.Nullable<Swan.Messaging.IMessageHubProxy>)
+  fullName.vb: Swan.Messaging.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, System.Nullable(Of Swan.Messaging.IMessageHubProxy))
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, Nullable<IMessageHubProxy>)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, Nullable(Of IMessageHubProxy))
+- uid: Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, Nullable<IMessageHubProxy>)
+  href: api/Swan.Messaging.MessageHub.html#Swan_Messaging_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_System_Nullable_Swan_Messaging_IMessageHubProxy__
+  commentId: M:Swan.Messaging.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,System.Nullable{Swan.Messaging.IMessageHubProxy})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, Nullable(Of IMessageHubProxy))
+  fullName: Swan.Messaging.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean, System.Nullable<Swan.Messaging.IMessageHubProxy>)
+  fullName.vb: Swan.Messaging.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, System.Nullable(Of Swan.Messaging.IMessageHubProxy))
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, Nullable<IMessageHubProxy>)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, Nullable(Of IMessageHubProxy))
 - uid: Swan.Messaging.MessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Swan.Messaging.MessageHub.html#Swan_Messaging_MessageHub_Unsubscribe_
@@ -10952,24 +10952,24 @@ references:
   isSpec: "True"
   fullName: Swan.ReflectionExtensions.ToFormattedString
   nameWithType: ReflectionExtensions.ToFormattedString
-- uid: Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Object@)
-  name: TryParseBasicType(Type, Object, out Object)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_Type_System_Object_System_Object__
-  commentId: M:Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Object@)
-  name.vb: TryParseBasicType(Type, Object, ByRef Object)
-  fullName: Swan.ReflectionExtensions.TryParseBasicType(Type, System.Object, out System.Object)
-  fullName.vb: Swan.ReflectionExtensions.TryParseBasicType(Type, System.Object, ByRef System.Object)
-  nameWithType: ReflectionExtensions.TryParseBasicType(Type, Object, out Object)
-  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, Object, ByRef Object)
-- uid: Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Object@)
-  name: TryParseBasicType(Type, String, out Object)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_Type_System_String_System_Object__
-  commentId: M:Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Object@)
-  name.vb: TryParseBasicType(Type, String, ByRef Object)
-  fullName: Swan.ReflectionExtensions.TryParseBasicType(Type, System.String, out System.Object)
-  fullName.vb: Swan.ReflectionExtensions.TryParseBasicType(Type, System.String, ByRef System.Object)
-  nameWithType: ReflectionExtensions.TryParseBasicType(Type, String, out Object)
-  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, String, ByRef Object)
+- uid: Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Nullable{System.Object}@)
+  name: TryParseBasicType(Type, Object, out Nullable<Object>)
+  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_Type_System_Object_System_Nullable_System_Object___
+  commentId: M:Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Nullable{System.Object}@)
+  name.vb: TryParseBasicType(Type, Object, ByRef Nullable(Of Object))
+  fullName: Swan.ReflectionExtensions.TryParseBasicType(Type, System.Object, out System.Nullable<System.Object>)
+  fullName.vb: Swan.ReflectionExtensions.TryParseBasicType(Type, System.Object, ByRef System.Nullable(Of System.Object))
+  nameWithType: ReflectionExtensions.TryParseBasicType(Type, Object, out Nullable<Object>)
+  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, Object, ByRef Nullable(Of Object))
+- uid: Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Nullable{System.Object}@)
+  name: TryParseBasicType(Type, String, out Nullable<Object>)
+  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_Type_System_String_System_Nullable_System_Object___
+  commentId: M:Swan.ReflectionExtensions.TryParseBasicType(Type,System.String,System.Nullable{System.Object}@)
+  name.vb: TryParseBasicType(Type, String, ByRef Nullable(Of Object))
+  fullName: Swan.ReflectionExtensions.TryParseBasicType(Type, System.String, out System.Nullable<System.Object>)
+  fullName.vb: Swan.ReflectionExtensions.TryParseBasicType(Type, System.String, ByRef System.Nullable(Of System.Object))
+  nameWithType: ReflectionExtensions.TryParseBasicType(Type, String, out Nullable<Object>)
+  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, String, ByRef Nullable(Of Object))
 - uid: Swan.ReflectionExtensions.TryParseBasicType*
   name: TryParseBasicType
   href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_
@@ -11284,54 +11284,6 @@ references:
   commentId: T:Swan.StringExtensions
   fullName: Swan.StringExtensions
   nameWithType: StringExtensions
-- uid: Swan.StringExtensions.Contains(System.String,System.Char[])
-  name: Contains(String, Char[])
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Contains_System_String_System_Char___
-  commentId: M:Swan.StringExtensions.Contains(System.String,System.Char[])
-  name.vb: Contains(String, Char())
-  fullName: Swan.StringExtensions.Contains(System.String, System.Char[])
-  fullName.vb: Swan.StringExtensions.Contains(System.String, System.Char())
-  nameWithType: StringExtensions.Contains(String, Char[])
-  nameWithType.vb: StringExtensions.Contains(String, Char())
-- uid: Swan.StringExtensions.Contains*
-  name: Contains
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Contains_
-  commentId: Overload:Swan.StringExtensions.Contains
-  isSpec: "True"
-  fullName: Swan.StringExtensions.Contains
-  nameWithType: StringExtensions.Contains
-- uid: Swan.StringExtensions.FormatBytes(System.Int64)
-  name: FormatBytes(Int64)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_FormatBytes_System_Int64_
-  commentId: M:Swan.StringExtensions.FormatBytes(System.Int64)
-  fullName: Swan.StringExtensions.FormatBytes(System.Int64)
-  nameWithType: StringExtensions.FormatBytes(Int64)
-- uid: Swan.StringExtensions.FormatBytes(System.UInt64)
-  name: FormatBytes(UInt64)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_FormatBytes_System_UInt64_
-  commentId: M:Swan.StringExtensions.FormatBytes(System.UInt64)
-  fullName: Swan.StringExtensions.FormatBytes(System.UInt64)
-  nameWithType: StringExtensions.FormatBytes(UInt64)
-- uid: Swan.StringExtensions.FormatBytes*
-  name: FormatBytes
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_FormatBytes_
-  commentId: Overload:Swan.StringExtensions.FormatBytes
-  isSpec: "True"
-  fullName: Swan.StringExtensions.FormatBytes
-  nameWithType: StringExtensions.FormatBytes
-- uid: Swan.StringExtensions.Hex2Int(System.Char)
-  name: Hex2Int(Char)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Hex2Int_System_Char_
-  commentId: M:Swan.StringExtensions.Hex2Int(System.Char)
-  fullName: Swan.StringExtensions.Hex2Int(System.Char)
-  nameWithType: StringExtensions.Hex2Int(Char)
-- uid: Swan.StringExtensions.Hex2Int*
-  name: Hex2Int
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Hex2Int_
-  commentId: Overload:Swan.StringExtensions.Hex2Int
-  isSpec: "True"
-  fullName: Swan.StringExtensions.Hex2Int
-  nameWithType: StringExtensions.Hex2Int
 - uid: Swan.StringExtensions.Humanize(System.Boolean)
   name: Humanize(Boolean)
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_Humanize_System_Boolean_
@@ -11357,19 +11309,6 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.Humanize
   nameWithType: StringExtensions.Humanize
-- uid: Swan.StringExtensions.Indent(System.String,System.Int32)
-  name: Indent(String, Int32)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Indent_System_String_System_Int32_
-  commentId: M:Swan.StringExtensions.Indent(System.String,System.Int32)
-  fullName: Swan.StringExtensions.Indent(System.String, System.Int32)
-  nameWithType: StringExtensions.Indent(String, Int32)
-- uid: Swan.StringExtensions.Indent*
-  name: Indent
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Indent_
-  commentId: Overload:Swan.StringExtensions.Indent
-  isSpec: "True"
-  fullName: Swan.StringExtensions.Indent
-  nameWithType: StringExtensions.Indent
 - uid: Swan.StringExtensions.RemoveControlChars(System.String)
   name: RemoveControlChars(String)
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlChars_System_String_
@@ -11399,22 +11338,6 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.RemoveControlCharsExcept
   nameWithType: StringExtensions.RemoveControlCharsExcept
-- uid: Swan.StringExtensions.ReplaceAll(System.String,System.String,System.Char[])
-  name: ReplaceAll(String, String, Char[])
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ReplaceAll_System_String_System_String_System_Char___
-  commentId: M:Swan.StringExtensions.ReplaceAll(System.String,System.String,System.Char[])
-  name.vb: ReplaceAll(String, String, Char())
-  fullName: Swan.StringExtensions.ReplaceAll(System.String, System.String, System.Char[])
-  fullName.vb: Swan.StringExtensions.ReplaceAll(System.String, System.String, System.Char())
-  nameWithType: StringExtensions.ReplaceAll(String, String, Char[])
-  nameWithType.vb: StringExtensions.ReplaceAll(String, String, Char())
-- uid: Swan.StringExtensions.ReplaceAll*
-  name: ReplaceAll
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ReplaceAll_
-  commentId: Overload:Swan.StringExtensions.ReplaceAll
-  isSpec: "True"
-  fullName: Swan.StringExtensions.ReplaceAll
-  nameWithType: StringExtensions.ReplaceAll
 - uid: Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
   name: Slice(String, Int32, Int32)
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_Slice_System_String_System_Int32_System_Int32_
@@ -11454,19 +11377,6 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.Stringify
   nameWithType: StringExtensions.Stringify
-- uid: Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
-  name: TextPositionAt(String, Int32)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_TextPositionAt_System_String_System_Int32_
-  commentId: M:Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
-  fullName: Swan.StringExtensions.TextPositionAt(System.String, System.Int32)
-  nameWithType: StringExtensions.TextPositionAt(String, Int32)
-- uid: Swan.StringExtensions.TextPositionAt*
-  name: TextPositionAt
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_TextPositionAt_
-  commentId: Overload:Swan.StringExtensions.TextPositionAt
-  isSpec: "True"
-  fullName: Swan.StringExtensions.TextPositionAt
-  nameWithType: StringExtensions.TextPositionAt
 - uid: Swan.StringExtensions.ToJson(System.Object,System.Boolean)
   name: ToJson(Object, Boolean)
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToJson_System_Object_System_Boolean_
@@ -11493,19 +11403,6 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.ToLines
   nameWithType: StringExtensions.ToLines
-- uid: Swan.StringExtensions.ToSafeFilename(System.String)
-  name: ToSafeFilename(String)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToSafeFilename_System_String_
-  commentId: M:Swan.StringExtensions.ToSafeFilename(System.String)
-  fullName: Swan.StringExtensions.ToSafeFilename(System.String)
-  nameWithType: StringExtensions.ToSafeFilename(String)
-- uid: Swan.StringExtensions.ToSafeFilename*
-  name: ToSafeFilename
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToSafeFilename_
-  commentId: Overload:Swan.StringExtensions.ToSafeFilename
-  isSpec: "True"
-  fullName: Swan.StringExtensions.ToSafeFilename
-  nameWithType: StringExtensions.ToSafeFilename
 - uid: Swan.StringExtensions.ToStringInvariant(System.Object)
   name: ToStringInvariant(Object)
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToStringInvariant_System_Object_
@@ -11528,25 +11425,6 @@ references:
   fullName.vb: Swan.StringExtensions.ToStringInvariant(Of T)(T)
   nameWithType: StringExtensions.ToStringInvariant<T>(T)
   nameWithType.vb: StringExtensions.ToStringInvariant(Of T)(T)
-- uid: Swan.StringExtensions.Truncate(System.String,System.Int32)
-  name: Truncate(String, Int32)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Truncate_System_String_System_Int32_
-  commentId: M:Swan.StringExtensions.Truncate(System.String,System.Int32)
-  fullName: Swan.StringExtensions.Truncate(System.String, System.Int32)
-  nameWithType: StringExtensions.Truncate(String, Int32)
-- uid: Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
-  name: Truncate(String, Int32, String)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Truncate_System_String_System_Int32_System_String_
-  commentId: M:Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
-  fullName: Swan.StringExtensions.Truncate(System.String, System.Int32, System.String)
-  nameWithType: StringExtensions.Truncate(String, Int32, String)
-- uid: Swan.StringExtensions.Truncate*
-  name: Truncate
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_Truncate_
-  commentId: Overload:Swan.StringExtensions.Truncate
-  isSpec: "True"
-  fullName: Swan.StringExtensions.Truncate
-  nameWithType: StringExtensions.Truncate
 - uid: Swan.StructEndiannessAttribute
   name: StructEndiannessAttribute
   href: api/Swan.StructEndiannessAttribute.html
