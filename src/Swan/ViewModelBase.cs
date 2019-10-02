@@ -12,7 +12,7 @@ namespace Swan
     /// This class is ideal for implementing MVVM driven UIs.
     /// </summary>
     /// <seealso cref="INotifyPropertyChanged" />
-    public abstract class ViewModelBase1 : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         private readonly ConcurrentDictionary<string, bool> _queuedNotifications = new ConcurrentDictionary<string, bool>();
         private readonly bool _useDeferredNotifications;
@@ -21,7 +21,7 @@ namespace Swan
         /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
         /// </summary>
         /// <param name="useDeferredNotifications">Set to <c>true</c> to use deferred notifications in the background.</param>
-        protected ViewModelBase1(bool useDeferredNotifications)
+        protected ViewModelBase(bool useDeferredNotifications)
         {
             _useDeferredNotifications = useDeferredNotifications;
         }
@@ -29,7 +29,7 @@ namespace Swan
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
         /// </summary>
-        protected ViewModelBase1()
+        protected ViewModelBase()
             : this(false)
         {
             // placeholder
