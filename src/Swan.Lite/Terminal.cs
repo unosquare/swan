@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
@@ -39,7 +39,6 @@ namespace Swan
 
                 if (IsConsolePresent)
                 {
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     Console.CursorVisible = false;
                 }
 
@@ -58,7 +57,7 @@ namespace Swan
         /// </summary>
         /// <value>
         /// The cursor left.
-        /// </value>
+        /// </value>    
         public static int CursorLeft
         {
             get
@@ -92,6 +91,7 @@ namespace Swan
             get
             {
                 if (IsConsolePresent == false) return -1;
+
                 lock (SyncLock)
                 {
                     Flush();
@@ -149,7 +149,7 @@ namespace Swan
         /// The available writers.
         /// </value>
         public static TerminalWriters AvailableWriters =>
-            IsConsolePresent 
+            IsConsolePresent
                 ? TerminalWriters.StandardError | TerminalWriters.StandardOutput
                 : TerminalWriters.None;
 
@@ -223,7 +223,7 @@ namespace Swan
         /// length of the console width.
         /// </summary>
         public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
-        
+
         /// <summary>
         /// Writes a standard banner to the standard output
         /// containing the company name, product name, assembly version and trademark.
@@ -302,7 +302,7 @@ namespace Swan
                 {
                     Console.Error.Write(context.OutputText);
                 }
-                
+
                 Console.ResetColor();
                 Console.ForegroundColor = context.OriginalColor;
             }
@@ -332,7 +332,7 @@ namespace Swan
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
             public TerminalWriters OutputWriters { get; set; }
-	    }
+        }
 
         #endregion
     }

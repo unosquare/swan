@@ -1,7 +1,5 @@
 ﻿namespace Swan.Net
 {
-    using JetBrains.Annotations;
-    using Swan;
     using System;
     using System.Net;
     using System.Net.Sockets;
@@ -15,16 +13,12 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class ConnectionListener : IDisposable
     {
-        #region Private Declarations
-
         private readonly object _stateLock = new object();
         private TcpListener _listenerSocket;
         private bool _cancellationPending;
         private CancellationTokenSource _cancelListening;
-        private Task _backgroundWorkerTask;
+        private Task? _backgroundWorkerTask;
         private bool _hasDisposed;
-
-        #endregion
 
         #region Events
 
@@ -57,7 +51,7 @@
         /// Initializes a new instance of the <see cref="ConnectionListener"/> class.
         /// </summary>
         /// <param name="listenEndPoint">The listen end point.</param>
-        public ConnectionListener([NotNull] IPEndPoint listenEndPoint)
+        public ConnectionListener(IPEndPoint listenEndPoint)
         {
             Id = Guid.NewGuid();
             LocalEndPoint = listenEndPoint ?? throw new ArgumentNullException(nameof(listenEndPoint));

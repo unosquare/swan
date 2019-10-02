@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Swan.Lite.Logging;
 
 namespace Swan.Logging
@@ -126,7 +125,7 @@ namespace Swan.Logging
         public LogLevel LogLevel { get; set; } = DebugLogger.IsDebuggerAttached ? LogLevel.Trace : LogLevel.Info;
 
         /// <inheritdoc />
-        public void Log([NotNull] LogMessageReceivedEventArgs logEvent)
+        public void Log(LogMessageReceivedEventArgs logEvent)
         {
             // Select the writer based on the message type
             var writer = logEvent.MessageType == LogLevel.Error

@@ -133,7 +133,7 @@
         /// or
         /// ex.
         /// </exception>
-        public ConnectionListenerStoppedEventArgs(IPEndPoint listenerEndPoint, Exception ex = null)
+        public ConnectionListenerStoppedEventArgs(IPEndPoint listenerEndPoint, Exception? ex = null)
         {
             EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
             Error = ex;
@@ -153,6 +153,6 @@
         /// <value>
         /// The error.
         /// </value>
-        public Exception Error { get; }
+        public Exception? Error { get; }
     }
 }

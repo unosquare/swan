@@ -1,7 +1,6 @@
 ﻿namespace Swan.Messaging
 {
     using System;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Base class for messages that provides weak reference storage of the sender.
@@ -20,7 +19,7 @@
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <exception cref="System.ArgumentNullException">sender.</exception>
-        protected MessageHubMessageBase([NotNull] object sender)
+        protected MessageHubMessageBase(object sender)
         {
             if (sender == null)
                 throw new ArgumentNullException(nameof(sender));
@@ -29,7 +28,7 @@
         }
 
         /// <inheritdoc />
-        public object Sender => _sender?.Target;
+        public object Sender => _sender.Target;
     }
 
     /// <summary>

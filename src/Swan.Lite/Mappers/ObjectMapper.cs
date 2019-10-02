@@ -245,8 +245,8 @@ namespace Swan.Mappers
 
         private static int Copy(object target,
             Dictionary<string, Tuple<Type, object>> sourceProperties,
-            IEnumerable<string> propertiesToCopy,
-            IEnumerable<string> ignoreProperties)
+            IEnumerable<string>? propertiesToCopy,
+            IEnumerable<string>? ignoreProperties)
         {
             // Filter properties
             var requiredProperties = propertiesToCopy?

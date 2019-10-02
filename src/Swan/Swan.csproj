@@ -8,7 +8,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AssemblyName>Swan</AssemblyName>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-        <Version>2.3.1</Version>
+        <Version>2.4.0</Version>
         <Authors>Unosquare</Authors>
         <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
         <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
@@ -26,7 +26,6 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">

@@ -25,14 +25,14 @@ namespace Swan.Formatters
 
             private static readonly ConcurrentDictionary<Type, Type> ListAddMethodCache = new ConcurrentDictionary<Type, Type>();
 
-            private readonly object _target;
+            private readonly object? _target;
             private readonly Type _targetType;
             private readonly bool _includeNonPublic;
             private readonly JsonSerializerCase _jsonSerializerCase;
 
             private Converter(object source,
                 Type targetType,
-                ref object targetInstance,
+                ref object? targetInstance,
                 bool includeNonPublic, 
                 JsonSerializerCase jsonSerializerCase)
             {
@@ -60,33 +60,33 @@ namespace Swan.Formatters
                 ResolveObject(source, ref _target);
             }
 
-            internal static object FromJsonResult(
+            internal static object? FromJsonResult(
                 object source,
                 JsonSerializerCase jsonSerializerCase,
-                Type targetType = null,
+                Type? targetType = null,
                 bool includeNonPublic = false)
             {
-                object nullRef = null;
+                object? nullRef = null;
                 return new Converter(source, targetType ?? typeof(object), ref nullRef, includeNonPublic, jsonSerializerCase).GetResult();
             }
 
-            private static object FromJsonResult(object source,
+            private static object? FromJsonResult(object source,
                 Type targetType,
-                ref object targetInstance,
+                ref object? targetInstance,
                 bool includeNonPublic)
             {
                 return new Converter(source, targetType, ref targetInstance, includeNonPublic, JsonSerializerCase.None).GetResult();
             }
 
-            private static Type GetAddMethodParameterType(Type targetType)
+            private static Type? GetAddMethodParameterType(Type targetType)
                 => ListAddMethodCache.GetOrAdd(targetType,
                     x => x.GetMethods()
                         .FirstOrDefault(
-                            m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1)?
+                            m => m.Name == AddMethodName && m.IsPublic && m.GetParameters().Length == 1)?
                         .GetParameters()[0]
                         .ParameterType);
 
-            private static void GetByteArray(string sourceString, ref object target)
+            private static void GetByteArray(string sourceString, ref object? target)
             {
                 try
                 {
@@ -109,7 +109,7 @@ namespace Swan.Formatters
                 return sourceProperties.GetValueOrDefault(targetPropertyName);
             }
 
-            private bool TrySetInstance(object targetInstance, object source, ref object target)
+            private bool TrySetInstance(object? targetInstance, object source, ref object? target)
             {
                 if (targetInstance == null)
                 {
@@ -131,9 +131,9 @@ namespace Swan.Formatters
                 return true;
             }
 
-            private object GetResult() => _target ?? _targetType.GetDefault();
+            private object? GetResult() => _target ?? _targetType.GetDefault();
 
-            private void ResolveObject(object source, ref object target)
+            private void ResolveObject(object source, ref object? target)
             {
                 switch (source)
                 {
@@ -219,7 +219,7 @@ namespace Swan.Formatters
                 }
             }
 
-            private void GetEnumValue(string sourceStringValue, ref object target)
+            private void GetEnumValue(string sourceStringValue, ref object? target)
             {
                 var enumType = Nullable.GetUnderlyingType(_targetType);
                 if (enumType == null && _targetType.IsEnum) enumType = _targetType;

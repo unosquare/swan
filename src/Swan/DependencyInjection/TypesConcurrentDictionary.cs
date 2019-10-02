@@ -220,7 +220,7 @@
                 throw new DependencyContainerResolutionException(typeToConstruct);
 
             var ctorParams = constructor.GetParameters();
-            var args = new object[ctorParams.Length];
+            var args = new object?[ctorParams.Length];
 
             for (var parameterIndex = 0; parameterIndex < ctorParams.Length; parameterIndex++)
             {
@@ -323,7 +323,7 @@
         
         private bool CanConstruct(
             MethodBase ctor,
-            DependencyContainerResolveOptions options)
+            DependencyContainerResolveOptions? options)
         {
             foreach (var parameter in ctor.GetParameters())
             {

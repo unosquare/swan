@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using Swan.Formatters;
 using Swan.Reflection;
 
@@ -107,7 +106,7 @@ namespace Swan.Configuration
         /// A list of settings of type ref="ExtendedPropertyInfo".
         /// </returns>
         /// <exception cref="ArgumentNullException">propertyList.</exception>
-        public List<string> RefreshFromList([ItemNotNull] List<ExtendedPropertyInfo<T>> propertyList)
+        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
             if (propertyList == null)
                 throw new ArgumentNullException(nameof(propertyList));
@@ -139,7 +138,7 @@ namespace Swan.Configuration
         /// Gets the list.
         /// </summary>
         /// <returns>A List of ExtendedPropertyInfo of the type T.</returns>
-        public List<ExtendedPropertyInfo<T>> GetList()
+        public List<ExtendedPropertyInfo<T>>? GetList()
         {
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;
 
