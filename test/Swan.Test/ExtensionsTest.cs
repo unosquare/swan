@@ -68,7 +68,7 @@
             Assert.Throws<AggregateException>(() =>
             {
                 var action =
-                    new Action(() => JsonClient.GetString("http://accesscore.azurewebsites.net/api/token").Wait());
+                    new Action(() => JsonClient.GetString(new Uri("http://accesscore.azurewebsites.net/api/token")).Wait());
 
                 action.Retry();
             });

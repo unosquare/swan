@@ -23,7 +23,7 @@ namespace Swan.Reflection
         /// Initializes a new instance of the <see cref="AttributeCache"/> class.
         /// </summary>
         /// <param name="propertyCache">The property cache object.</param>
-        public AttributeCache(PropertyTypeCache propertyCache = null)
+        public AttributeCache(PropertyTypeCache? propertyCache = null)
         {
             PropertyTypeCache = propertyCache ?? PropertyTypeCache.DefaultCache.Value;
         }
