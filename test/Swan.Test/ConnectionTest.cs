@@ -49,7 +49,6 @@
             using (var cn = new Connection(Client))
             {
                 Assert.IsTrue(cn.IsConnected, "It's connected");
-                Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
                 Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
                 Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
             }

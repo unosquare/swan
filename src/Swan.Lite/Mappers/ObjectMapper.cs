@@ -110,7 +110,7 @@ namespace Swan.Mappers
         public static int Copy(
             object source,
             object target,
-            string[] propertiesToCopy = null,
+            string[]? propertiesToCopy = null,
             params string[] ignoreProperties)
         {
             if (source == null)
@@ -144,7 +144,7 @@ namespace Swan.Mappers
         public static int Copy(
             IDictionary<string, object> source,
             object target,
-            string[] propertiesToCopy = null,
+            string[]? propertiesToCopy = null,
             params string[] ignoreProperties)
         {
             if (source == null)
@@ -306,12 +306,12 @@ namespace Swan.Mappers
             return false;
         }
 
-        private static object GetValue(object source, Type targetType)
+        private static object? GetValue(object source, Type targetType)
         {
             if (source == null)
                 return null;
 
-            object target = null;
+            object? target = null;
 
             source.CreateTarget(targetType, false, ref target);
 

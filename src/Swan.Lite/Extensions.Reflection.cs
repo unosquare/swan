@@ -154,7 +154,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, object value, out object result)
+        public static bool TryParseBasicType(this Type type, object value, out object? result)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -178,7 +178,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, string value, out object result)
+        public static bool TryParseBasicType(this Type type, string value, out object? result)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -305,7 +305,7 @@ namespace Swan
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="target">The object.</param>
         /// <returns>The property value or null.</returns>
-        public static string ToFormattedString(this PropertyInfo propertyInfo, object target)
+        public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
         {
             try
             {
@@ -334,7 +334,7 @@ namespace Swan
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static Func<object, object> GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        public static Func<object, object>? GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
         {
             var key = Tuple.Create(!nonPublic, propertyInfo);
 
@@ -355,7 +355,7 @@ namespace Swan
         /// <returns>
         /// The cached MethodInfo.
         /// </returns>
-        public static Action<object, object[]> GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
+        public static Action<object, object[]>? GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
         {
             var key = Tuple.Create(!nonPublic, propertyInfo);
 
@@ -405,7 +405,7 @@ namespace Swan
         /// The property proxy.
         /// </returns>
         /// <exception cref="ArgumentNullException">this.</exception>
-        public static IPropertyProxy CreatePropertyProxy(this PropertyInfo @this)
+        public static IPropertyProxy? CreatePropertyProxy(this PropertyInfo @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));

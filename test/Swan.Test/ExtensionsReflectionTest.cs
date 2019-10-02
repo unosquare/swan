@@ -127,7 +127,7 @@
         [Test]
         public void WithNullAssembly_ThrowsArgumentNullException()
         {
-            Assembly assembly = null;
+            Assembly? assembly = null;
 
             Assert.Throws<ArgumentNullException>(() => assembly.GetAllTypes());
         }
@@ -137,7 +137,7 @@
         {
             var data = typeof(string).Assembly.GetAllTypes();
 
-            Assert.AreEqual("System.Type[]", data.ToString());
+            Assert.AreEqual("System.RuntimeType[]", data.ToString());
         }
     }
 

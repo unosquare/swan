@@ -15,7 +15,6 @@
 namespace Swan.Messaging
 {
     using System.Threading.Tasks;
-    using JetBrains.Annotations;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -210,7 +209,7 @@ namespace Swan.Messaging
             /// or
             /// messageFilter.</exception>
             public WeakMessageSubscription(
-                [NotNull] MessageHubSubscriptionToken subscriptionToken,
+                MessageHubSubscriptionToken subscriptionToken,
                 Action<TMessage> deliveryAction,
                 Func<TMessage, bool> messageFilter)
             {
@@ -254,7 +253,7 @@ namespace Swan.Messaging
             /// or
             /// messageFilter.</exception>
             public StrongMessageSubscription(
-                [NotNull] MessageHubSubscriptionToken subscriptionToken,
+                MessageHubSubscriptionToken subscriptionToken,
                 Action<TMessage> deliveryAction,
                 Func<TMessage, bool> messageFilter)
             {
@@ -304,7 +303,7 @@ namespace Swan.Messaging
         public MessageHubSubscriptionToken Subscribe<TMessage>(
             Action<TMessage> deliveryAction,
             bool useStrongReferences = true,
-            IMessageHubProxy proxy = null)
+            IMessageHubProxy? proxy = null)
             where TMessage : class, IMessageHubMessage
         {
             return Subscribe(deliveryAction, m => true, useStrongReferences, proxy);
@@ -325,10 +324,10 @@ namespace Swan.Messaging
         /// MessageSubscription used to unsubscribing.
         /// </returns>
         public MessageHubSubscriptionToken Subscribe<TMessage>(
-            [NotNull] Action<TMessage> deliveryAction,
-            [NotNull] Func<TMessage, bool> messageFilter,
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter,
             bool useStrongReferences = true,
-            IMessageHubProxy proxy = null)
+            IMessageHubProxy? proxy = null)
             where TMessage : class, IMessageHubMessage
         {
             if (deliveryAction == null)
@@ -370,7 +369,7 @@ namespace Swan.Messaging
         }
 
         /// <inheritdoc />
-        public void Unsubscribe<TMessage>([NotNull] MessageHubSubscriptionToken subscriptionToken)
+        public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
             where TMessage : class, IMessageHubMessage
         {
             if (subscriptionToken == null)
@@ -394,7 +393,7 @@ namespace Swan.Messaging
         /// </summary>
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="message">Message to deliver.</param>
-        public void Publish<TMessage>([NotNull] TMessage message)
+        public void Publish<TMessage>(TMessage message)
             where TMessage : class, IMessageHubMessage
         {
             if (message == null)
@@ -430,7 +429,7 @@ namespace Swan.Messaging
         /// <typeparam name="TMessage">Type of message.</typeparam>
         /// <param name="message">Message to deliver.</param>
         /// <returns>A task with the publish.</returns>
-        public Task PublishAsync<TMessage>([NotNull] TMessage message)
+        public Task PublishAsync<TMessage>(TMessage message)
             where TMessage : class, IMessageHubMessage
         {
             return Task.Run(() => Publish(message));
