@@ -14,16 +14,16 @@ namespace Swan.Parsers
         {
             private readonly string _selectedVerb;
 
-            private PropertyInfo[] _properties;
+            private PropertyInfo[]? _properties;
 
             public TypeResolver(string selectedVerb)
             {
                 _selectedVerb = selectedVerb;
             }
 
-            public PropertyInfo[] Properties => _properties?.Any() == true ? _properties : null;
+            public PropertyInfo[]? Properties => _properties?.Any() == true ? _properties : null;
 
-            public object GetOptionsObject(T instance)
+            public object? GetOptionsObject(T instance)
             {
                 _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>(true).ToArray();
 

@@ -33,6 +33,5 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
     </ItemGroup>
 </Project>

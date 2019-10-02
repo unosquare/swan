@@ -28,7 +28,7 @@
         }
 
         /// <inheritdoc />
-        public object Sender => _sender?.Target;
+        public object Sender => _sender.Target;
     }
 
     /// <summary>

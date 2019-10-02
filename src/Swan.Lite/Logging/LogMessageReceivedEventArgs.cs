@@ -28,7 +28,7 @@ namespace Swan
             DateTime utcDate,
             string source,
             string message,
-            object extendedData,
+            object? extendedData,
             string callerMemberName,
             string callerFilePath,
             int callerLineNumber)
@@ -117,7 +117,7 @@ namespace Swan
         /// <value>
         /// The extended data.
         /// </value>
-        public object ExtendedData { get; }
+        public object? ExtendedData { get; }
 
         /// <summary>
         /// Gets the Extended Data properties cast as an Exception (if possible)
@@ -126,6 +126,6 @@ namespace Swan
         /// <value>
         /// The exception.
         /// </value>
-        public Exception Exception => ExtendedData as Exception;
+        public Exception? Exception => ExtendedData as Exception;
     }
 }

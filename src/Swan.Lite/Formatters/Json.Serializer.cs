@@ -40,7 +40,7 @@ namespace Swan.Formatters
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="options">The options.</param>
-            private Serializer(object obj, int depth, SerializerOptions options)
+            private Serializer(object? obj, int depth, SerializerOptions options)
             {
                 if (depth > 20)
                 {
@@ -51,16 +51,16 @@ namespace Swan.Formatters
                 // Basic Type Handling (nulls, strings, number, date and bool)
                 _result = ResolveBasicType(obj);
 
-                if (string.IsNullOrWhiteSpace(_result) == false)
+                if (!string.IsNullOrWhiteSpace(_result))
                     return;
 
                 _options = options;
                 _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
                 // Handle circular references correctly and avoid them
-                if (options.IsObjectPresent(obj))
+                if (options.IsObjectPresent(obj!))
                 {
-                    _result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant(), false)}\" }}";
+                    _result = $"{{ \"$circref\": \"{Escape(obj!.GetHashCode().ToStringInvariant(), false)}\" }}";
                     return;
                 }
 
@@ -85,21 +85,18 @@ namespace Swan.Formatters
                         _result = ResolveEnumerable(enumerable, depth);
                         break;
                     default:
-                        _result = ResolveObject(obj, depth);
+                        _result = ResolveObject(obj!, depth);
                         break;
                 }
             }
 
-            internal static string Serialize(object obj, int depth, SerializerOptions options)
-            {
-                return new Serializer(obj, depth, options)._result;
-            }
+            internal static string Serialize(object? obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
 
             #endregion
 
             #region Helper Methods
 
-            private static string ResolveBasicType(object obj)
+            private static string ResolveBasicType(object? obj)
             {
                 switch (obj)
                 {
@@ -133,7 +130,7 @@ namespace Swan.Formatters
 
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
-                if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
+                if (serialized == EmptyObjectLiteral || serialized == EmptyArrayLiteral) return false;
 
                 // find the first position the character is not a space
                 return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
@@ -200,13 +197,13 @@ namespace Swan.Formatters
                 }
             }
 
-            private Dictionary<string, object> CreateDictionary(
+            private Dictionary<string, object?> CreateDictionary(
                 Dictionary<string, MemberInfo> fields,
                 string targetType,
                 object target)
             {
                 // Create the dictionary and extract the properties
-                var objectDictionary = new Dictionary<string, object>();
+                var objectDictionary = new Dictionary<string, object?>();
 
                 if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
                     objectDictionary[_options.TypeSpecifier] = targetType;

@@ -15,11 +15,9 @@ namespace Swan.Reflection
     /// </summary>
     public class ExtendedTypeInfo
     {
-        #region Static Declarations
-
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(ToString);
-
+        
         private static readonly Type[] NumericTypes = 
         {
             typeof(byte),
@@ -35,14 +33,8 @@ namespace Swan.Reflection
             typeof(ushort),
         };
 
-        #endregion
-
-        #region State Management
-
-        private readonly ParameterInfo[] _tryParseParameters;
+        private readonly ParameterInfo[]? _tryParseParameters;
         private readonly int _toStringArgumentLength;
-
-        #endregion
 
         #region Constructors
 
@@ -170,13 +162,6 @@ namespace Swan.Reflection
         #region Methods
 
         /// <summary>
-        /// Gets the default value of this type. For reference types it return null.
-        /// For value types it returns the default value.
-        /// </summary>
-        /// <returns>Default value of this type.</returns>
-        public object GetDefault() => IsValueType ? Activator.CreateInstance(Type) : null;
-
-        /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
         /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any.
@@ -184,15 +169,15 @@ namespace Swan.Reflection
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
-        public bool TryParse(string s, out object result)
+        public bool TryParse(string s, out object? result)
         {
-            result = GetDefault();
+            result = Type.GetDefault();
 
             try
             {
                 if (Type == typeof(string))
                 {
-                    result = Convert.ChangeType(s, Type);
+                    result = Convert.ChangeType(s, Type, CultureInfo.InvariantCulture);
                     return true;
                 }
 
@@ -202,7 +187,7 @@ namespace Swan.Reflection
                 }
 
                 // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object> { s };
+                var dynamicArguments = new List<object?> { s };
 
                 for (var pi = 1; pi < _tryParseParameters.Length - 1; pi++)
                 {
@@ -246,7 +231,7 @@ namespace Swan.Reflection
 
             return _toStringArgumentLength != 1
                 ? instance.ToString()
-                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string;
+                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string ?? string.Empty;
         }
 
         #endregion

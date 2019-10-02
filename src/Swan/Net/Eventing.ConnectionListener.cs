@@ -153,6 +153,6 @@
         /// <value>
         /// The error.
         /// </value>
-        public Exception Error { get; }
+        public Exception? Error { get; }
     }
 }

@@ -99,9 +99,9 @@ namespace Swan.Formatters
         public static string Serialize(
             object obj,
             bool format = false,
-            string typeSpecifier = null,
+            string? typeSpecifier = null,
             bool includeNonPublic = false,
-            string[] includedNames = null,
+            string[]? includedNames = null,
             params string[] excludedNames)
         {
             return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.None);
@@ -121,7 +121,7 @@ namespace Swan.Formatters
             object obj,
             JsonSerializerCase jsonSerializerCase,
             bool format = false,
-            string typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
+            string? typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
@@ -138,9 +138,9 @@ namespace Swan.Formatters
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
         public static string Serialize(
-            object obj,
+            object? obj,
             bool format,
-            string typeSpecifier,
+            string? typeSpecifier,
             bool includeNonPublic,
             string[] includedNames,
             string[] excludedNames,
@@ -172,7 +172,7 @@ namespace Swan.Formatters
         /// <returns>
         /// A <see cref="string" /> that represents the current object.
         /// </returns>
-        public static string Serialize(object obj, SerializerOptions options) => Serializer.Serialize(obj, 0, options);
+        public static string Serialize(object? obj, SerializerOptions options) => Serializer.Serialize(obj, 0, options);
 
         /// <summary>
         /// Serializes the specified object only including the specified property names.
@@ -203,7 +203,7 @@ namespace Swan.Formatters
         /// }
         /// </code>
         /// </example>
-        public static string SerializeOnly(object obj, bool format, params string[] includeNames) => Serialize(obj, new SerializerOptions(format, null, includeNames));
+        public static string SerializeOnly(object? obj, bool format, params string[] includeNames) => Serialize(obj, new SerializerOptions(format, null, includeNames));
 
         /// <summary>
         /// Serializes the specified object excluding the specified property names.
@@ -261,7 +261,7 @@ namespace Swan.Formatters
         /// }
         /// }
         /// </code></example>
-        public static object Deserialize(
+        public static object? Deserialize(
             string json,
             JsonSerializerCase jsonSerializerCase)
             => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
@@ -339,7 +339,7 @@ namespace Swan.Formatters
         /// <returns>
         /// Type of the current conversion from json result.
         /// </returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
+        public static object? Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
             => Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase, resultType, includeNonPublic);
 
         #endregion

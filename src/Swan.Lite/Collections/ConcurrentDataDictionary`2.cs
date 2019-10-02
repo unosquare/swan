@@ -162,7 +162,7 @@ namespace Swan.Collections
         public ICollection<TValue> Values => _dictionary.Values;
 
         /// <inheritdoc cref="IDataDictionary{TKey,TValue}.this"/>
-        public TValue this[TKey key]
+        public TValue? this[TKey key]
         {
             get => _dictionary.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value) ? value : null;
             set
@@ -185,7 +185,7 @@ namespace Swan.Collections
         public bool ContainsKey(TKey key) => _dictionary.ContainsKey(key);
 
         /// <inheritdoc cref="ConcurrentDictionary{TKey,TValue}.GetOrAdd(TKey,TValue)"/>
-        public TValue GetOrAdd(TKey key, TValue value)
+        public TValue? GetOrAdd(TKey key, TValue value)
         {
             if (key == null)
                 throw new ArgumentNullException(nameof(key));

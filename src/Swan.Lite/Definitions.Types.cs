@@ -96,7 +96,7 @@ namespace Swan
         public static IReadOnlyCollection<Type> AllNumericValueTypes { get; } = new ReadOnlyCollection<Type>(
             BasicTypesInfo
                 .Value
-                .Where(kvp => kvp.Value.IsNumeric && kvp.Value.IsNullableValueType == false)
+                .Where(kvp => kvp.Value.IsNumeric && !kvp.Value.IsNullableValueType)
                 .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>

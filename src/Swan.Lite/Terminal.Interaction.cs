@@ -85,7 +85,7 @@ namespace Swan
         /// Reads a line of text from the console.
         /// </summary>
         /// <returns>The read line.</returns>
-        public static string ReadLine()
+        public static string? ReadLine()
         {
             if (IsConsolePresent == false) return default;
 
@@ -112,7 +112,7 @@ namespace Swan
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns>The read line.</returns>
-        public static string ReadLine(string prompt)
+        public static string? ReadLine(string prompt)
         {
             if (!IsConsolePresent) return null;
 

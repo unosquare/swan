@@ -163,7 +163,7 @@ namespace Swan.Collections
         public ICollection<TValue> Values => _dictionary.Values;
 
         /// <inheritdoc cref="IDataDictionary{TKey,TValue}.this"/>
-        public TValue this[TKey key]
+        public TValue? this[TKey key]
         {
             get => _dictionary.TryGetValue(key ?? throw new ArgumentNullException(nameof(key)), out var value) ? value : null;
             set

@@ -9,53 +9,6 @@ namespace Swan
     public static partial class Terminal
     {
         /// <summary>
-        /// Prints all characters in the current code page.
-        /// This is provided for debugging purposes only.
-        /// </summary>
-        [Obsolete("This method will be remove in future version")]
-        public static void PrintCurrentCodePage()
-        {
-            if (!IsConsolePresent) return;
-
-            lock (SyncLock)
-            {
-                WriteLine($"Output Encoding: {OutputEncoding}");
-
-                for (var charValue = char.MinValue; charValue < 2000; charValue++)
-                {
-                    var value = (int)charValue;
-
-                    switch (charValue)
-                    {
-                        case '\b': // Backspace
-                        case '\t': // Tab
-                        case '\r': // Line feed
-                        case '\n': // Carriage return
-                            charValue = '.';
-                            break;
-                    }
-
-                    if (!(char.IsLetterOrDigit(charValue) || char.IsPunctuation(charValue) || char.IsSymbol(charValue)))
-                    {
-                        continue;
-                    }
-
-                    Write($"{value:000} {charValue}   ");
-
-                    // 7 is a beep -- Console.Beep() also works
-                    if (value == 7) Write(" ");
-
-                    if ((value + 1) % 8 == 0)
-                    {
-                        WriteLine();
-                    }
-                }
-
-                WriteLine();
-            }
-        }
-
-        /// <summary>
         /// Writes a character a number of times, optionally adding a new line at the end.
         /// </summary>
         /// <param name="charCode">The character code.</param>
@@ -92,7 +45,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(string? text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             if (text == null) return;
 
