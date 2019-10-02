@@ -152,7 +152,7 @@
             if (disableContinuousReading) return;
 
             ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
-            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var _);
+            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out _);
 
             var activeThreadPoolTreads = maxWorkerThreads - availableWorkerThreads;
 
@@ -470,7 +470,7 @@
         /// <returns>
         /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
         /// </returns>
-        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
+        public async Task<string?> ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             var buffer = await ReadDataAsync(timeout, cancellationToken).ConfigureAwait(false);
             return buffer == null ? null : TextEncoding.GetString(buffer);
@@ -483,7 +483,7 @@
         /// <returns>
         /// When this method completes successfully, it returns the contents of the file as a text string.
         /// </returns>
-        public Task<string> ReadTextAsync(CancellationToken cancellationToken = default)
+        public Task<string?> ReadTextAsync(CancellationToken cancellationToken = default)
             => ReadTextAsync(TimeSpan.FromSeconds(5), cancellationToken);
 
         /// <summary>
@@ -494,7 +494,7 @@
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read.
         /// </returns>
-        public Task<string> ReadLineAsync(CancellationToken cancellationToken = default)
+        public Task<string?> ReadLineAsync(CancellationToken cancellationToken = default)
             => ReadLineAsync(TimeSpan.FromSeconds(30), cancellationToken);
 
         /// <summary>
@@ -524,7 +524,8 @@
             while (true)
             {
                 var text = await ReadTextAsync(timeout, cancellationToken).ConfigureAwait(false);
-                if (text.Length == 0)
+
+                if (string.IsNullOrEmpty(text))
                     break;
 
                 builder.Append(text);

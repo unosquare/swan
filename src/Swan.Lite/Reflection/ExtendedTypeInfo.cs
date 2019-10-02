@@ -17,6 +17,21 @@ namespace Swan.Reflection
     {
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(ToString);
+        
+        private static readonly Type[] NumericTypes = 
+        {
+            typeof(byte),
+            typeof(sbyte),
+            typeof(decimal),
+            typeof(double),
+            typeof(float),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(short),
+            typeof(ushort),
+        };
 
         private readonly ParameterInfo[]? _tryParseParameters;
         private readonly int _toStringArgumentLength;
@@ -39,7 +54,7 @@ namespace Swan.Reflection
                 new NullableConverter(Type).UnderlyingType :
                 Type;
 
-            IsNumeric = Definitions.AllNumericValueTypes.Contains(UnderlyingType);
+            IsNumeric = NumericTypes.Contains(UnderlyingType);
 
             // Extract the TryParse method info
             try

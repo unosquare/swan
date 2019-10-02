@@ -56,7 +56,7 @@ namespace Swan
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
-        public static bool TryConvertTo(Type type, string str, out object result)
+        public static bool TryConvertTo(Type type, string str, out object? result)
         {
             var converter = TypeDescriptor.GetConverter(type);
             if (!converter.CanConvertFrom(typeof(string)))
@@ -162,7 +162,7 @@ namespace Swan
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
-        public static bool TryConvertTo(Type type, string[] strings, out object result)
+        public static bool TryConvertTo(Type type, string[] strings, out object? result)
         {
             if (strings == null)
             {
@@ -186,7 +186,7 @@ namespace Swan
         /// the result of the conversion. This parameter is passed uninitialized.</param>
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
-        public static bool TryConvertTo<TResult>(string[] strings, out TResult[] result)
+        public static bool TryConvertTo<TResult>(string[] strings, out TResult[]? result)
         {
             if (strings == null)
             {
@@ -227,7 +227,7 @@ namespace Swan
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
         /// <exception cref="StringConversionException">The conversion of at least one
         /// of the elements of <paramref name="strings"/>was not successful.</exception>
-        public static object ConvertTo(Type type, string[] strings)
+        public static object? ConvertTo(Type type, string[] strings)
         {
             if (strings == null)
                 return null;
@@ -245,7 +245,7 @@ namespace Swan
         /// <returns>An array of <typeparamref name="TResult" />.</returns>
         /// <exception cref="StringConversionException">The conversion of at least one
         /// of the elements of <paramref name="strings"/>was not successful.</exception>
-        public static TResult[] ConvertTo<TResult>(string[] strings)
+        public static TResult[]? ConvertTo<TResult>(string[] strings)
         {
             if (strings == null)
                 return null;
@@ -273,9 +273,10 @@ namespace Swan
         /// <param name="type">The type.</param>
         /// <param name="str">The string.</param>
         /// <returns>A new expression where the previous expression is converted to string.</returns>
-        public static Expression ConvertExpressionTo(Type type, Expression str)
+        public static Expression? ConvertExpressionTo(Type type, Expression str)
         {
             var converter = TypeDescriptor.GetConverter(type);
+
             return converter.CanConvertFrom(typeof(string))
                 ? Expression.Convert(
                     Expression.Call(Expression.Constant(converter), ConvertFromInvariantStringMethod, str),
@@ -292,7 +293,7 @@ namespace Swan
             return lambda.Compile();
         }
 
-        private static (bool Success, object Result) TryConvertToInternal<TResult>(string[] strings)
+        private static (bool Success, object? Result) TryConvertToInternal<TResult>(string[] strings)
         {
             var converter = TypeDescriptor.GetConverter(typeof(TResult));
             if (!converter.CanConvertFrom(typeof(string)))

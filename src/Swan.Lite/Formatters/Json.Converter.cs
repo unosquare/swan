@@ -60,7 +60,7 @@ namespace Swan.Formatters
                 ResolveObject(source, ref _target);
             }
 
-            internal static object FromJsonResult(
+            internal static object? FromJsonResult(
                 object source,
                 JsonSerializerCase jsonSerializerCase,
                 Type? targetType = null,
@@ -70,7 +70,7 @@ namespace Swan.Formatters
                 return new Converter(source, targetType ?? typeof(object), ref nullRef, includeNonPublic, jsonSerializerCase).GetResult();
             }
 
-            private static object FromJsonResult(object source,
+            private static object? FromJsonResult(object source,
                 Type targetType,
                 ref object? targetInstance,
                 bool includeNonPublic)

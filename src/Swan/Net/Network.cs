@@ -140,11 +140,9 @@
         /// <returns>A public IP address of the result produced by this Task.</returns>
         public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken cancellationToken = default)
         {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
-                return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-            }
+            using var client = new HttpClient();
+            var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
+            return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
         
         /// <summary>

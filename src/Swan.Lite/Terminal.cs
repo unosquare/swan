@@ -57,7 +57,7 @@ namespace Swan
         /// </summary>
         /// <value>
         /// The cursor left.
-        /// </value>
+        /// </value>    
         public static int CursorLeft
         {
             get

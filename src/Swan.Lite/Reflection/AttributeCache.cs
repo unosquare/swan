@@ -166,7 +166,7 @@ namespace Swan.Reflection
                 .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
         }
 
-        private static T ConvertToAttribute<T>(IEnumerable<object> attr) 
+        private static T ConvertToAttribute<T>(IEnumerable<object> attr)
             where T : Attribute
         {
             if (attr?.Any() != true)

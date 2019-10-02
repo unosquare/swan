@@ -34,7 +34,7 @@
         public static async Task<T> Post<T>(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken cancellationToken = default)
         {
             var jsonString = await PostString(requestUri, payload, authorization, cancellationToken)
@@ -56,7 +56,7 @@
         public static async Task<IDictionary<string, object>> Post(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken cancellationToken = default)
         {
             var jsonString = await PostString(requestUri, payload, authorization, cancellationToken)
@@ -82,7 +82,7 @@
         public static Task<string> PostString(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken cancellationToken = default)
             => SendAsync(HttpMethod.Post, requestUri, payload, authorization, cancellationToken);
 
@@ -100,7 +100,7 @@
         public static async Task<T> Put<T>(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
         {
             var jsonString = await PutString(requestUri, payload, authorization, ct)
@@ -119,10 +119,10 @@
         /// <returns>
         /// A task with a result of the requested collection of key/value pairs.
         /// </returns>
-        public static async Task<IDictionary<string, object>> Put(
+        public static async Task<IDictionary<string, object>?> Put(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken cancellationToken = default)
         {
             var response = await Put<object>(requestUri, payload, authorization, cancellationToken)
@@ -146,7 +146,7 @@
         public static Task<string> PutString(
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default) => SendAsync(HttpMethod.Put, requestUri, payload, authorization, ct);
 
         /// <summary>
@@ -162,7 +162,7 @@
         /// <exception cref="JsonRequestException">Error GET JSON.</exception>
         public static Task<string> GetString(
             string requestUri,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
             => GetString(new Uri(requestUri), null, authorization, ct);
 
@@ -179,7 +179,7 @@
         public static async Task<string> GetString(
             Uri uri,
             IDictionary<string, IEnumerable<string>> headers,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
         {
             var response = await GetHttpContent(uri, ct, authorization, headers)
@@ -202,7 +202,7 @@
         /// </returns>
         public static async Task<T> Get<T>(
             string requestUri,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
         {
             var jsonString = await GetString(requestUri, authorization, ct)
@@ -224,7 +224,7 @@
         /// <exception cref="JsonRequestException">Error GET Binary.</exception>
         public static async Task<byte[]> GetBinary(
             string requestUri,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
         {
             var response = await GetHttpContent(new Uri(requestUri), ct, authorization)
@@ -262,17 +262,15 @@
 
             // ignore empty password for now
             var content = $"grant_type=password&username={username}&password={password}";
-            using (var requestContent = new StringContent(content, Encoding.UTF8, FormType))
-            {
-                var response = await HttpClient.PostAsync(requestUri, requestContent, ct).ConfigureAwait(false);
+            using var requestContent = new StringContent(content, Encoding.UTF8, FormType);
+            var response = await HttpClient.PostAsync(requestUri, requestContent, ct).ConfigureAwait(false);
 
-                if (!response.IsSuccessStatusCode)
-                    throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
+            if (!response.IsSuccessStatusCode)
+                throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
 
-                var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
-            }
+            return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
         }
 
         /// <summary>
@@ -290,7 +288,7 @@
             string requestUri,
             byte[] buffer,
             string fileName,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default) =>
             PostString(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
 
@@ -310,7 +308,7 @@
             string requestUri,
             byte[] buffer,
             string fileName,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default) =>
             Post<T>(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
 
@@ -331,31 +329,29 @@
             HttpMethod method,
             string requestUri,
             object payload,
-            string authorization = null,
+            string? authorization = null,
             CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(requestUri))
                 throw new ArgumentNullException(nameof(requestUri));
 
-            using (var response = await GetResponse(new Uri(requestUri), authorization, null, payload, method, ct).ConfigureAwait(false))
+            using var response = await GetResponse(new Uri(requestUri), authorization, null, payload, method, ct).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
             {
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new JsonRequestException(
-                        $"Error {method} JSON",
-                        (int)response.StatusCode,
-                        await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-                }
-
-                return await response.Content.ReadAsStringAsync()
-                    .ConfigureAwait(false);
+                throw new JsonRequestException(
+                    $"Error {method} JSON",
+                    (int)response.StatusCode,
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
+
+            return await response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         private static async Task<HttpContent> GetHttpContent(
             Uri uri,
             CancellationToken ct,
-            string authorization = null,
+            string? authorization = null,
             IDictionary<string, IEnumerable<string>> headers = null)
         {
             var response = await GetResponse(uri, authorization, headers, ct)
@@ -379,28 +375,26 @@
 
             var httpMethod = method ?? HttpMethod.Get;
 
-            using (var requestMessage = new HttpRequestMessage(httpMethod, uri))
+            using var requestMessage = new HttpRequestMessage(httpMethod, uri);
+            if (!string.IsNullOrWhiteSpace(authorization))
             {
-                if (!string.IsNullOrWhiteSpace(authorization))
-                {
-                    requestMessage.Headers.Authorization
-                        = new AuthenticationHeaderValue("Bearer", authorization);
-                }
-
-                if (headers != null)
-                {
-                    foreach (var header in headers)
-                        requestMessage.Headers.Add(header.Key, header.Value);
-                }
-
-                if (payload != null && httpMethod != HttpMethod.Get)
-                {
-                    requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-                }
-
-                return await HttpClient.SendAsync(requestMessage, ct)
-                    .ConfigureAwait(false);
+                requestMessage.Headers.Authorization
+                    = new AuthenticationHeaderValue("Bearer", authorization);
             }
+
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                    requestMessage.Headers.Add(header.Key, header.Value);
+            }
+
+            if (payload != null && httpMethod != HttpMethod.Get)
+            {
+                requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+            }
+
+            return await HttpClient.SendAsync(requestMessage, ct)
+                .ConfigureAwait(false);
         }
     }
 }
