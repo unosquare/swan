@@ -1,6 +1,5 @@
 ﻿namespace Swan.DependencyInjection
 {
-    using JetBrains.Annotations;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -160,7 +159,7 @@
 
         public DelegateFactory(
             Type registerType,
-            [NotNull] Func<DependencyContainer, Dictionary<string, object>, object> factory)
+            Func<DependencyContainer, Dictionary<string, object>, object> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
@@ -204,7 +203,7 @@
 
         public WeakDelegateFactory(
             Type registerType,
-            [NotNull] Func<DependencyContainer, Dictionary<string, object>, object> factory)
+            Func<DependencyContainer, Dictionary<string, object>, object> factory)
         {
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
