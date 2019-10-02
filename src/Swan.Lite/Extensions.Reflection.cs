@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Swan.Configuration;
@@ -57,7 +58,7 @@ namespace Swan
         /// Default value of this type.
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
-        public static object GetDefault(this Type type)
+        public static object? GetDefault(this Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -191,19 +192,23 @@ namespace Swan
         /// <summary>
         /// Tries the type of the set basic value to a property.
         /// </summary>
-        /// <param name="property">The property.</param>
+        /// <param name="propertyInfo">The property information.</param>
         /// <param name="value">The value.</param>
         /// <param name="target">The object.</param>
         /// <returns>
-        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetBasicType(this PropertyInfo property, object value, object target)
+        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
+        public static bool TrySetBasicType(this PropertyInfo propertyInfo, object value, object target)
         {
+            if (propertyInfo == null)
+                throw new ArgumentNullException(nameof(propertyInfo));
+
             try
             {
-                if (property.PropertyType.TryParseBasicType(value, out var propertyValue))
+                if (propertyInfo.PropertyType.TryParseBasicType(value, out var propertyValue))
                 {
-                    property.SetValue(target, propertyValue);
+                    propertyInfo.SetValue(target, propertyValue);
                     return true;
                 }
             }
@@ -271,9 +276,13 @@ namespace Swan
         /// <returns>
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
-        public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object> value, object obj)
+        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
+        public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable<object>? value, object obj)
         {
-            var elementType = propertyInfo?.PropertyType.GetElementType();
+            if (propertyInfo == null)
+                throw new ArgumentNullException(nameof(propertyInfo));
+
+            var elementType = propertyInfo.PropertyType.GetElementType();
 
             if (elementType == null || value == null)
                 return false;
@@ -305,8 +314,12 @@ namespace Swan
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="target">The object.</param>
         /// <returns>The property value or null.</returns>
+        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
         public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
         {
+            if (propertyInfo == null)
+                throw new ArgumentNullException(nameof(propertyInfo));
+
             try
             {
                 var value = propertyInfo.GetValue(target);
@@ -428,15 +441,15 @@ namespace Swan
         private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
-                return Convert.ToDateTime(value).ToString(format);
+                return Convert.ToDateTime(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(int) || propertyType == typeof(int?))
-                return Convert.ToInt32(value).ToString(format);
+                return Convert.ToInt32(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
-                return Convert.ToDecimal(value).ToString(format);
+                return Convert.ToDecimal(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(double) || propertyType == typeof(double?))
-                return Convert.ToDouble(value).ToString(format);
+                return Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(format);
             if (propertyType == typeof(byte) || propertyType == typeof(byte?))
-                return Convert.ToByte(value).ToString(format);
+                return Convert.ToByte(value, CultureInfo.InvariantCulture).ToString(format);
 
             return value?.ToString() ?? string.Empty;
         }

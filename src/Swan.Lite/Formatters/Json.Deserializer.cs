@@ -20,13 +20,13 @@ namespace Swan.Formatters
         {
             #region State Variables
 
-            private readonly object _result;
+            private readonly object? _result;
             private readonly string _json;
 
             private Dictionary<string, object> _resultObject;
             private List<object> _resultArray;
             private ReadState _state = ReadState.WaitingForRootOpen;
-            private string _currentFieldName;
+            private string? _currentFieldName;
 
             private int _index;
 
@@ -107,7 +107,7 @@ namespace Swan.Formatters
                 }
             }
 
-            internal static object DeserializeInternal(string json) => new Deserializer(json, 0)._result;
+            internal static object? DeserializeInternal(string json) => new Deserializer(json, 0)._result;
 
             private void WaitForRootOpen()
             {

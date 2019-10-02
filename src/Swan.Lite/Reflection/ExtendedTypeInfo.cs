@@ -39,7 +39,7 @@ namespace Swan.Reflection
 
         #region State Management
 
-        private readonly ParameterInfo[] _tryParseParameters;
+        private readonly ParameterInfo[]? _tryParseParameters;
         private readonly int _toStringArgumentLength;
 
         #endregion
@@ -174,7 +174,7 @@ namespace Swan.Reflection
         /// For value types it returns the default value.
         /// </summary>
         /// <returns>Default value of this type.</returns>
-        public object GetDefault() => IsValueType ? Activator.CreateInstance(Type) : null;
+        public object? GetDefault() => IsValueType ? Activator.CreateInstance(Type) : null;
 
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
@@ -184,7 +184,7 @@ namespace Swan.Reflection
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
-        public bool TryParse(string s, out object result)
+        public bool TryParse(string s, out object? result)
         {
             result = GetDefault();
 
@@ -192,7 +192,7 @@ namespace Swan.Reflection
             {
                 if (Type == typeof(string))
                 {
-                    result = Convert.ChangeType(s, Type);
+                    result = Convert.ChangeType(s, Type, CultureInfo.InvariantCulture);
                     return true;
                 }
 
@@ -202,7 +202,7 @@ namespace Swan.Reflection
                 }
 
                 // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object> { s };
+                var dynamicArguments = new List<object?> { s };
 
                 for (var pi = 1; pi < _tryParseParameters.Length - 1; pi++)
                 {
@@ -239,7 +239,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public string ToStringInvariant(object instance)
+        public string? ToStringInvariant(object instance)
         {
             if (instance == null)
                 return string.Empty;

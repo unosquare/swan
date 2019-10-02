@@ -46,7 +46,7 @@ namespace Swan
         /// </summary>
         /// <param name="this">The item.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string? ToStringInvariant(this object @this)
+        public static string ToStringInvariant(this object? @this)
         {
             if (@this == null)
                 return string.Empty;
@@ -54,7 +54,7 @@ namespace Swan
             var itemType = @this.GetType();
 
             if (itemType == typeof(string))
-                return @this as string;
+                return @this as string ?? string.Empty;
 
             return Definitions.BasicTypesInfo.Value.ContainsKey(itemType)
                 ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(@this)
@@ -71,10 +71,7 @@ namespace Swan
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant<T>(this T item)
         {
-            if (typeof(string) == typeof(T))
-                return Equals(item, default(T)) ? string.Empty : item as string;
-
-            return ToStringInvariant(item as object);
+            return typeof(string) == typeof(T) ? item as string ?? string.Empty : ToStringInvariant(item as object);
         }
 
         /// <summary>

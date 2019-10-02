@@ -508,7 +508,7 @@
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A task with a string line from the queue.</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
-        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
+        public async Task<string?> ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             if (IsContinuousReadingEnabled)
             {
@@ -627,7 +627,7 @@
 
             _writeDone.WaitOne();
 
-            SslStream secureStream = null;
+            SslStream? secureStream = null;
 
             try
             {
@@ -652,8 +652,8 @@
         /// <param name="callback">The callback.</param>
         /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c>.</returns>
         public async Task<bool> UpgradeToSecureAsClientAsync(
-            string hostname = null,
-            RemoteCertificateValidationCallback callback = null)
+            string? hostname = null,
+            RemoteCertificateValidationCallback? callback = null)
         {
             if (IsActiveStreamSecure)
                 return true;

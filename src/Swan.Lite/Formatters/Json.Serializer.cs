@@ -133,7 +133,7 @@ namespace Swan.Formatters
 
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
-                if (serialized.Equals(EmptyObjectLiteral) || serialized.Equals(EmptyArrayLiteral)) return false;
+                if (serialized == EmptyObjectLiteral || serialized == EmptyArrayLiteral) return false;
 
                 // find the first position the character is not a space
                 return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
@@ -200,13 +200,13 @@ namespace Swan.Formatters
                 }
             }
 
-            private Dictionary<string, object> CreateDictionary(
+            private Dictionary<string, object?> CreateDictionary(
                 Dictionary<string, MemberInfo> fields,
                 string targetType,
                 object target)
             {
                 // Create the dictionary and extract the properties
-                var objectDictionary = new Dictionary<string, object>();
+                var objectDictionary = new Dictionary<string, object?>();
 
                 if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
                     objectDictionary[_options.TypeSpecifier] = targetType;
