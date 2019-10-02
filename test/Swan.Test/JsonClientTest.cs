@@ -27,7 +27,7 @@
             var data = await JsonClient.Authenticate(new Uri($"{DefaultHttp}/Authenticate"), "admin", "password");
 
             Assert.IsNotNull(data);
-            Assert.IsTrue(data.ContainsKey(AuthorizationToken));
+            Assert.IsTrue(data!.ContainsKey(AuthorizationToken));
             Assert.AreEqual(responseObj[AuthorizationToken], data[AuthorizationToken]);
         }
 
@@ -36,13 +36,6 @@
         {
             Assert.ThrowsAsync<SecurityException>(async () =>
                 await JsonClient.Authenticate(new Uri($"{DefaultHttp}/511"), "admin", "password"));
-        }
-
-        [Test]
-        public void WithNullUrl_ThrowsArgumentNullException()
-        {
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await JsonClient.Authenticate(null, "admin", "password"));
         }
 
         [Test]
@@ -79,7 +72,7 @@
                 AuthorizationToken);
 
             Assert.IsNotNull(data);
-            Assert.IsTrue(data.ContainsKey(Authorization));
+            Assert.IsTrue(data!.ContainsKey(Authorization));
             Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
         }
 
@@ -151,7 +144,7 @@
                 AuthorizationToken);
 
             Assert.IsNotNull(data);
-            Assert.IsTrue(data.ContainsKey(Authorization));
+            Assert.IsTrue(data!.ContainsKey(Authorization));
             Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
         }
 
