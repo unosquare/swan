@@ -212,58 +212,6 @@
   </table>
   
   
-  <a id="Swan_FromString_ConvertExpressionTo_" data-uid="Swan.FromString.ConvertExpressionTo*"></a>
-  <h4 id="Swan_FromString_ConvertExpressionTo_Type_Expression_" data-uid="Swan.FromString.ConvertExpressionTo(Type,Expression)">ConvertExpressionTo(Type, Expression)</h4>
-  <div class="markdown level1 summary"><p>Converts a expression, if the type can be converted to string, to a new expression including
-the conversion to string.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Expression ConvertExpressionTo(Type type, Expression str)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Type</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Expression</span></td>
-        <td><span class="parametername">str</span></td>
-        <td><p>The string.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span></td>
-        <td><p>A new expression where the previous expression is converted to string.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Swan_FromString_ConvertTo_" data-uid="Swan.FromString.ConvertTo*"></a>
   <h4 id="Swan_FromString_ConvertTo_Type_System_String_" data-uid="Swan.FromString.ConvertTo(Type,System.String)">ConvertTo(Type, String)</h4>
   <div class="markdown level1 summary"><p>Converts a string to the specified type.</p>
@@ -338,7 +286,7 @@ the conversion to string.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static object ConvertTo(Type type, string[] strings)</code></pre>
+    <pre><code class="lang-csharp hljs">public static object? ConvertTo(Type type, string[] strings)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -375,7 +323,7 @@ element of <code data-dev-comment-type="paramref" class="paramref">strings</code
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><p>An array of <code data-dev-comment-type="paramref" class="paramref">type</code>.</p>
 </td>
       </tr>
@@ -477,93 +425,14 @@ of the elements of <code data-dev-comment-type="paramref" class="paramref">strin
   </table>
   
   
-  <a id="Swan_FromString_ConvertTo_" data-uid="Swan.FromString.ConvertTo*"></a>
-  <h4 id="Swan_FromString_ConvertTo__1_System_String___" data-uid="Swan.FromString.ConvertTo``1(System.String[])">ConvertTo&lt;TResult&gt;(String[])</h4>
-  <div class="markdown level1 summary"><p>Converts an array of strings to an array of the specified type.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TResult[] ConvertTo&lt;TResult&gt;(string[] strings)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername">strings</span></td>
-        <td><p>The array to convert.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>TResult[]</td>
-        <td><p>An array of <code data-dev-comment-type="typeparamref" class="typeparamref">TResult</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TResult</span></td>
-        <td><p>The type resulting from the conversion of each
-element of <code data-dev-comment-type="paramref" class="paramref">strings</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Swan.StringConversionException.html">StringConversionException</a></td>
-        <td><p>The conversion of at least one
-of the elements of <code data-dev-comment-type="paramref" class="paramref">strings</code>was not successful.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Swan_FromString_TryConvertTo_" data-uid="Swan.FromString.TryConvertTo*"></a>
-  <h4 id="Swan_FromString_TryConvertTo_Type_System_String_System_Object__" data-uid="Swan.FromString.TryConvertTo(Type,System.String,System.Object@)">TryConvertTo(Type, String, out Object)</h4>
+  <h4 id="Swan_FromString_TryConvertTo_Type_System_String_System_Nullable_System_Object___" data-uid="Swan.FromString.TryConvertTo(Type,System.String,System.Nullable{System.Object}@)">TryConvertTo(Type, String, out Nullable&lt;Object&gt;)</h4>
   <div class="markdown level1 summary"><p>Attempts to convert a string to the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryConvertTo(Type type, string str, out object result)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryConvertTo(Type type, string str, out object? result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -588,7 +457,7 @@ of the elements of <code data-dev-comment-type="paramref" class="paramref">strin
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><span class="parametername">result</span></td>
         <td><p>When this method returns <span class="xref">true</span>,
 the result of the conversion. This parameter is passed uninitialized.</p>
@@ -616,13 +485,13 @@ the result of the conversion. This parameter is passed uninitialized.</p>
   
   
   <a id="Swan_FromString_TryConvertTo_" data-uid="Swan.FromString.TryConvertTo*"></a>
-  <h4 id="Swan_FromString_TryConvertTo_Type_System_String___System_Object__" data-uid="Swan.FromString.TryConvertTo(Type,System.String[],System.Object@)">TryConvertTo(Type, String[], out Object)</h4>
+  <h4 id="Swan_FromString_TryConvertTo_Type_System_String___System_Nullable_System_Object___" data-uid="Swan.FromString.TryConvertTo(Type,System.String[],System.Nullable{System.Object}@)">TryConvertTo(Type, String[], out Nullable&lt;Object&gt;)</h4>
   <div class="markdown level1 summary"><p>Attempts to convert an array of strings to an array of the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryConvertTo(Type type, string[] strings, out object result)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryConvertTo(Type type, string[] strings, out object? result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -648,7 +517,7 @@ element of <code data-dev-comment-type="paramref" class="paramref">strings</code
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><span class="parametername">result</span></td>
         <td><p>When this method returns <span class="xref">true</span>,
 the result of the conversion. This parameter is passed uninitialized.</p>
@@ -745,13 +614,13 @@ the result of the conversion. This parameter is passed uninitialized.</p>
   
   
   <a id="Swan_FromString_TryConvertTo_" data-uid="Swan.FromString.TryConvertTo*"></a>
-  <h4 id="Swan_FromString_TryConvertTo__1_System_String_____0____" data-uid="Swan.FromString.TryConvertTo``1(System.String[],``0[]@)">TryConvertTo&lt;TResult&gt;(String[], out TResult[])</h4>
+  <h4 id="Swan_FromString_TryConvertTo__1_System_String_____0____result_" data-uid="Swan.FromString.TryConvertTo``1(System.String[],``0[]@,result)">TryConvertTo&lt;TResult&gt;(String[], out TResult[], result)</h4>
   <div class="markdown level1 summary"><p>Attempts to convert an array of strings to an array of the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryConvertTo&lt;TResult&gt;(string[] strings, out TResult[] result)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryConvertTo&lt;TResult&gt;(string[] strings, out TResult[], result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -771,10 +640,13 @@ the result of the conversion. This parameter is passed uninitialized.</p>
       </tr>
       <tr>
         <td>TResult[]</td>
-        <td><span class="parametername">result</span></td>
-        <td><p>When this method returns <span class="xref">true</span>,
-the result of the conversion. This parameter is passed uninitialized.</p>
-</td>
+        <td><span class="parametername"></span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">result</span></td>
+        <td><span class="parametername"></span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

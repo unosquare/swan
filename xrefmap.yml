@@ -360,171 +360,6 @@ references:
   isSpec: "True"
   fullName: Swan.ByteArrayExtensions.TrimStart
   nameWithType: ByteArrayExtensions.TrimStart
-- uid: Swan.CircularBuffer
-  name: CircularBuffer
-  href: api/Swan.CircularBuffer.html
-  commentId: T:Swan.CircularBuffer
-  fullName: Swan.CircularBuffer
-  nameWithType: CircularBuffer
-- uid: Swan.CircularBuffer.#ctor(System.Int32)
-  name: CircularBuffer(Int32)
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer__ctor_System_Int32_
-  commentId: M:Swan.CircularBuffer.#ctor(System.Int32)
-  fullName: Swan.CircularBuffer.CircularBuffer(System.Int32)
-  nameWithType: CircularBuffer.CircularBuffer(Int32)
-- uid: Swan.CircularBuffer.#ctor*
-  name: CircularBuffer
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer__ctor_
-  commentId: Overload:Swan.CircularBuffer.#ctor
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.CircularBuffer
-  nameWithType: CircularBuffer.CircularBuffer
-- uid: Swan.CircularBuffer.CapacityPercent
-  name: CapacityPercent
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_CapacityPercent
-  commentId: P:Swan.CircularBuffer.CapacityPercent
-  fullName: Swan.CircularBuffer.CapacityPercent
-  nameWithType: CircularBuffer.CapacityPercent
-- uid: Swan.CircularBuffer.CapacityPercent*
-  name: CapacityPercent
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_CapacityPercent_
-  commentId: Overload:Swan.CircularBuffer.CapacityPercent
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.CapacityPercent
-  nameWithType: CircularBuffer.CapacityPercent
-- uid: Swan.CircularBuffer.Clear
-  name: Clear()
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Clear
-  commentId: M:Swan.CircularBuffer.Clear
-  fullName: Swan.CircularBuffer.Clear()
-  nameWithType: CircularBuffer.Clear()
-- uid: Swan.CircularBuffer.Clear*
-  name: Clear
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Clear_
-  commentId: Overload:Swan.CircularBuffer.Clear
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.Clear
-  nameWithType: CircularBuffer.Clear
-- uid: Swan.CircularBuffer.Dispose
-  name: Dispose()
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Dispose
-  commentId: M:Swan.CircularBuffer.Dispose
-  fullName: Swan.CircularBuffer.Dispose()
-  nameWithType: CircularBuffer.Dispose()
-- uid: Swan.CircularBuffer.Dispose*
-  name: Dispose
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Dispose_
-  commentId: Overload:Swan.CircularBuffer.Dispose
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.Dispose
-  nameWithType: CircularBuffer.Dispose
-- uid: Swan.CircularBuffer.Length
-  name: Length
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Length
-  commentId: P:Swan.CircularBuffer.Length
-  fullName: Swan.CircularBuffer.Length
-  nameWithType: CircularBuffer.Length
-- uid: Swan.CircularBuffer.Length*
-  name: Length
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Length_
-  commentId: Overload:Swan.CircularBuffer.Length
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.Length
-  nameWithType: CircularBuffer.Length
-- uid: Swan.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
-  name: Read(Int32, Byte[], Int32)
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Read_System_Int32_System_Byte___System_Int32_
-  commentId: M:Swan.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
-  name.vb: Read(Int32, Byte(), Int32)
-  fullName: Swan.CircularBuffer.Read(System.Int32, System.Byte[], System.Int32)
-  fullName.vb: Swan.CircularBuffer.Read(System.Int32, System.Byte(), System.Int32)
-  nameWithType: CircularBuffer.Read(Int32, Byte[], Int32)
-  nameWithType.vb: CircularBuffer.Read(Int32, Byte(), Int32)
-- uid: Swan.CircularBuffer.Read*
-  name: Read
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Read_
-  commentId: Overload:Swan.CircularBuffer.Read
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.Read
-  nameWithType: CircularBuffer.Read
-- uid: Swan.CircularBuffer.ReadableCount
-  name: ReadableCount
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_ReadableCount
-  commentId: P:Swan.CircularBuffer.ReadableCount
-  fullName: Swan.CircularBuffer.ReadableCount
-  nameWithType: CircularBuffer.ReadableCount
-- uid: Swan.CircularBuffer.ReadableCount*
-  name: ReadableCount
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_ReadableCount_
-  commentId: Overload:Swan.CircularBuffer.ReadableCount
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.ReadableCount
-  nameWithType: CircularBuffer.ReadableCount
-- uid: Swan.CircularBuffer.ReadIndex
-  name: ReadIndex
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_ReadIndex
-  commentId: P:Swan.CircularBuffer.ReadIndex
-  fullName: Swan.CircularBuffer.ReadIndex
-  nameWithType: CircularBuffer.ReadIndex
-- uid: Swan.CircularBuffer.ReadIndex*
-  name: ReadIndex
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_ReadIndex_
-  commentId: Overload:Swan.CircularBuffer.ReadIndex
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.ReadIndex
-  nameWithType: CircularBuffer.ReadIndex
-- uid: Swan.CircularBuffer.WritableCount
-  name: WritableCount
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WritableCount
-  commentId: P:Swan.CircularBuffer.WritableCount
-  fullName: Swan.CircularBuffer.WritableCount
-  nameWithType: CircularBuffer.WritableCount
-- uid: Swan.CircularBuffer.WritableCount*
-  name: WritableCount
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WritableCount_
-  commentId: Overload:Swan.CircularBuffer.WritableCount
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.WritableCount
-  nameWithType: CircularBuffer.WritableCount
-- uid: Swan.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
-  name: Write(IntPtr, Int32, TimeSpan)
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Write_System_IntPtr_System_Int32_System_TimeSpan_
-  commentId: M:Swan.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
-  fullName: Swan.CircularBuffer.Write(System.IntPtr, System.Int32, System.TimeSpan)
-  nameWithType: CircularBuffer.Write(IntPtr, Int32, TimeSpan)
-- uid: Swan.CircularBuffer.Write*
-  name: Write
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_Write_
-  commentId: Overload:Swan.CircularBuffer.Write
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.Write
-  nameWithType: CircularBuffer.Write
-- uid: Swan.CircularBuffer.WriteIndex
-  name: WriteIndex
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WriteIndex
-  commentId: P:Swan.CircularBuffer.WriteIndex
-  fullName: Swan.CircularBuffer.WriteIndex
-  nameWithType: CircularBuffer.WriteIndex
-- uid: Swan.CircularBuffer.WriteIndex*
-  name: WriteIndex
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WriteIndex_
-  commentId: Overload:Swan.CircularBuffer.WriteIndex
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.WriteIndex
-  nameWithType: CircularBuffer.WriteIndex
-- uid: Swan.CircularBuffer.WriteTag
-  name: WriteTag
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WriteTag
-  commentId: P:Swan.CircularBuffer.WriteTag
-  fullName: Swan.CircularBuffer.WriteTag
-  nameWithType: CircularBuffer.WriteTag
-- uid: Swan.CircularBuffer.WriteTag*
-  name: WriteTag
-  href: api/Swan.CircularBuffer.html#Swan_CircularBuffer_WriteTag_
-  commentId: Overload:Swan.CircularBuffer.WriteTag
-  isSpec: "True"
-  fullName: Swan.CircularBuffer.WriteTag
-  nameWithType: CircularBuffer.WriteTag
 - uid: Swan.Collections
   name: Swan.Collections
   href: api/Swan.Collections.html
@@ -4146,36 +3981,42 @@ references:
   fullName.vb: Swan.Formatters.Json.Deserialize(Of T)(System.String, System.Boolean)
   nameWithType: Json.Deserialize<T>(String, Boolean)
   nameWithType.vb: Json.Deserialize(Of T)(String, Boolean)
-- uid: Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.SerializerOptions)
-  name: Serialize(Object, SerializerOptions)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_Formatters_SerializerOptions_
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.SerializerOptions)
-  fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.Formatters.SerializerOptions)
-  nameWithType: Json.Serialize(Object, SerializerOptions)
-- uid: Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.String)
-  name: Serialize(Object, JsonSerializerCase, Boolean, String)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_JsonSerializerCase_System_Boolean_System_String_
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.String)
-  fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.JsonSerializerCase, System.Boolean, System.String)
-  nameWithType: Json.Serialize(Object, JsonSerializerCase, Boolean, String)
-- uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
-  name: Serialize(Object, Boolean, String, Boolean, String[], String[])
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
-  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String())
-  fullName: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[])
-  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String())
-  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[])
-  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String())
-- uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],List{WeakReference},Swan.JsonSerializerCase)
-  name: Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___List_WeakReference__Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],List{WeakReference},Swan.JsonSerializerCase)
-  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
-  fullName: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], List<WeakReference>, Swan.JsonSerializerCase)
-  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), List(Of WeakReference), Swan.JsonSerializerCase)
-  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
-  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
+- uid: Swan.Formatters.Json.Serialize(System.Nullable{System.Object},Swan.Formatters.SerializerOptions)
+  name: Serialize(Nullable<Object>, SerializerOptions)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Nullable_System_Object__Swan_Formatters_SerializerOptions_
+  commentId: M:Swan.Formatters.Json.Serialize(System.Nullable{System.Object},Swan.Formatters.SerializerOptions)
+  name.vb: Serialize(Nullable(Of Object), SerializerOptions)
+  fullName: Swan.Formatters.Json.Serialize(System.Nullable<System.Object>, Swan.Formatters.SerializerOptions)
+  fullName.vb: Swan.Formatters.Json.Serialize(System.Nullable(Of System.Object), Swan.Formatters.SerializerOptions)
+  nameWithType: Json.Serialize(Nullable<Object>, SerializerOptions)
+  nameWithType.vb: Json.Serialize(Nullable(Of Object), SerializerOptions)
+- uid: Swan.Formatters.Json.Serialize(System.Nullable{System.Object},System.Boolean,System.Nullable{System.String},System.Boolean,System.String[],System.String[],List{WeakReference},Swan.JsonSerializerCase)
+  name: Serialize(Nullable<Object>, Boolean, Nullable<String>, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Nullable_System_Object__System_Boolean_System_Nullable_System_String__System_Boolean_System_String___System_String___List_WeakReference__Swan_JsonSerializerCase_
+  commentId: M:Swan.Formatters.Json.Serialize(System.Nullable{System.Object},System.Boolean,System.Nullable{System.String},System.Boolean,System.String[],System.String[],List{WeakReference},Swan.JsonSerializerCase)
+  name.vb: Serialize(Nullable(Of Object), Boolean, Nullable(Of String), Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
+  fullName: Swan.Formatters.Json.Serialize(System.Nullable<System.Object>, System.Boolean, System.Nullable<System.String>, System.Boolean, System.String[], System.String[], List<WeakReference>, Swan.JsonSerializerCase)
+  fullName.vb: Swan.Formatters.Json.Serialize(System.Nullable(Of System.Object), System.Boolean, System.Nullable(Of System.String), System.Boolean, System.String(), System.String(), List(Of WeakReference), Swan.JsonSerializerCase)
+  nameWithType: Json.Serialize(Nullable<Object>, Boolean, Nullable<String>, Boolean, String[], String[], List<WeakReference>, JsonSerializerCase)
+  nameWithType.vb: Json.Serialize(Nullable(Of Object), Boolean, Nullable(Of String), Boolean, String(), String(), List(Of WeakReference), JsonSerializerCase)
+- uid: Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.Nullable{System.String})
+  name: Serialize(Object, JsonSerializerCase, Boolean, Nullable<String>)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_JsonSerializerCase_System_Boolean_System_Nullable_System_String__
+  commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.Nullable{System.String})
+  name.vb: Serialize(Object, JsonSerializerCase, Boolean, Nullable(Of String))
+  fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.JsonSerializerCase, System.Boolean, System.Nullable<System.String>)
+  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, Swan.JsonSerializerCase, System.Boolean, System.Nullable(Of System.String))
+  nameWithType: Json.Serialize(Object, JsonSerializerCase, Boolean, Nullable<String>)
+  nameWithType.vb: Json.Serialize(Object, JsonSerializerCase, Boolean, Nullable(Of String))
+- uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.Nullable{System.String},System.Boolean,System.String[],includedNames,System.String[])
+  name: Serialize(Object, Boolean, Nullable<String>, Boolean, String[], includedNames, String[])
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_Nullable_System_String__System_Boolean_System_String___includedNames_System_String___
+  commentId: M:Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.Nullable{System.String},System.Boolean,System.String[],includedNames,System.String[])
+  name.vb: Serialize(Object, Boolean, Nullable(Of String), Boolean, String(), includedNames, String())
+  fullName: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.Nullable<System.String>, System.Boolean, System.String[], includedNames, System.String[])
+  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.Nullable(Of System.String), System.Boolean, System.String(), includedNames, System.String())
+  nameWithType: Json.Serialize(Object, Boolean, Nullable<String>, Boolean, String[], includedNames, String[])
+  nameWithType.vb: Json.Serialize(Object, Boolean, Nullable(Of String), Boolean, String(), includedNames, String())
 - uid: Swan.Formatters.Json.Serialize*
   name: Serialize
   href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_
@@ -4199,15 +4040,15 @@ references:
   isSpec: "True"
   fullName: Swan.Formatters.Json.SerializeExcluding
   nameWithType: Json.SerializeExcluding
-- uid: Swan.Formatters.Json.SerializeOnly(System.Object,System.Boolean,System.String[])
-  name: SerializeOnly(Object, Boolean, String[])
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_SerializeOnly_System_Object_System_Boolean_System_String___
-  commentId: M:Swan.Formatters.Json.SerializeOnly(System.Object,System.Boolean,System.String[])
-  name.vb: SerializeOnly(Object, Boolean, String())
-  fullName: Swan.Formatters.Json.SerializeOnly(System.Object, System.Boolean, System.String[])
-  fullName.vb: Swan.Formatters.Json.SerializeOnly(System.Object, System.Boolean, System.String())
-  nameWithType: Json.SerializeOnly(Object, Boolean, String[])
-  nameWithType.vb: Json.SerializeOnly(Object, Boolean, String())
+- uid: Swan.Formatters.Json.SerializeOnly(System.Nullable{System.Object},System.Boolean,System.String[])
+  name: SerializeOnly(Nullable<Object>, Boolean, String[])
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_SerializeOnly_System_Nullable_System_Object__System_Boolean_System_String___
+  commentId: M:Swan.Formatters.Json.SerializeOnly(System.Nullable{System.Object},System.Boolean,System.String[])
+  name.vb: SerializeOnly(Nullable(Of Object), Boolean, String())
+  fullName: Swan.Formatters.Json.SerializeOnly(System.Nullable<System.Object>, System.Boolean, System.String[])
+  fullName.vb: Swan.Formatters.Json.SerializeOnly(System.Nullable(Of System.Object), System.Boolean, System.String())
+  nameWithType: Json.SerializeOnly(Nullable<Object>, Boolean, String[])
+  nameWithType.vb: Json.SerializeOnly(Nullable(Of Object), Boolean, String())
 - uid: Swan.Formatters.Json.SerializeOnly*
   name: SerializeOnly
   href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_SerializeOnly_
@@ -4266,15 +4107,15 @@ references:
   commentId: T:Swan.Formatters.SerializerOptions
   fullName: Swan.Formatters.SerializerOptions
   nameWithType: SerializerOptions
-- uid: Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,IReadOnlyCollection{WeakReference},Swan.JsonSerializerCase)
-  name: SerializerOptions(Boolean, String, String[], String[], Boolean, IReadOnlyCollection<WeakReference>, JsonSerializerCase)
-  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions__ctor_System_Boolean_System_String_System_String___System_String___System_Boolean_IReadOnlyCollection_WeakReference__Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,IReadOnlyCollection{WeakReference},Swan.JsonSerializerCase)
-  name.vb: SerializerOptions(Boolean, String, String(), String(), Boolean, IReadOnlyCollection(Of WeakReference), JsonSerializerCase)
-  fullName: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String[], System.String[], System.Boolean, IReadOnlyCollection<WeakReference>, Swan.JsonSerializerCase)
-  fullName.vb: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String(), System.String(), System.Boolean, IReadOnlyCollection(Of WeakReference), Swan.JsonSerializerCase)
-  nameWithType: SerializerOptions.SerializerOptions(Boolean, String, String[], String[], Boolean, IReadOnlyCollection<WeakReference>, JsonSerializerCase)
-  nameWithType.vb: SerializerOptions.SerializerOptions(Boolean, String, String(), String(), Boolean, IReadOnlyCollection(Of WeakReference), JsonSerializerCase)
+- uid: Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],excludeProperties,System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.JsonSerializerCase)
+  name: SerializerOptions(Boolean, String, String[], String[], excludeProperties, Boolean, Nullable<IReadOnlyCollection<WeakReference>>, JsonSerializerCase)
+  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions__ctor_System_Boolean_System_String_System_String___System_String___excludeProperties_System_Boolean_System_Nullable_IReadOnlyCollection_WeakReference___Swan_JsonSerializerCase_
+  commentId: M:Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],excludeProperties,System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.JsonSerializerCase)
+  name.vb: SerializerOptions(Boolean, String, String(), String(), excludeProperties, Boolean, Nullable(Of IReadOnlyCollection(Of WeakReference)), JsonSerializerCase)
+  fullName: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String[], System.String[], excludeProperties, System.Boolean, System.Nullable<IReadOnlyCollection<WeakReference>>, Swan.JsonSerializerCase)
+  fullName.vb: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String(), System.String(), excludeProperties, System.Boolean, System.Nullable(Of IReadOnlyCollection(Of WeakReference)), Swan.JsonSerializerCase)
+  nameWithType: SerializerOptions.SerializerOptions(Boolean, String, String[], String[], excludeProperties, Boolean, Nullable<IReadOnlyCollection<WeakReference>>, JsonSerializerCase)
+  nameWithType.vb: SerializerOptions.SerializerOptions(Boolean, String, String(), String(), excludeProperties, Boolean, Nullable(Of IReadOnlyCollection(Of WeakReference)), JsonSerializerCase)
 - uid: Swan.Formatters.SerializerOptions.#ctor*
   name: SerializerOptions
   href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions__ctor_
@@ -4362,19 +4203,6 @@ references:
   fullName.vb: Swan.FromString.CanConvertTo(Of TResult)()
   nameWithType: FromString.CanConvertTo<TResult>()
   nameWithType.vb: FromString.CanConvertTo(Of TResult)()
-- uid: Swan.FromString.ConvertExpressionTo(Type,Expression)
-  name: ConvertExpressionTo(Type, Expression)
-  href: api/Swan.FromString.html#Swan_FromString_ConvertExpressionTo_Type_Expression_
-  commentId: M:Swan.FromString.ConvertExpressionTo(Type,Expression)
-  fullName: Swan.FromString.ConvertExpressionTo(Type, Expression)
-  nameWithType: FromString.ConvertExpressionTo(Type, Expression)
-- uid: Swan.FromString.ConvertExpressionTo*
-  name: ConvertExpressionTo
-  href: api/Swan.FromString.html#Swan_FromString_ConvertExpressionTo_
-  commentId: Overload:Swan.FromString.ConvertExpressionTo
-  isSpec: "True"
-  fullName: Swan.FromString.ConvertExpressionTo
-  nameWithType: FromString.ConvertExpressionTo
 - uid: Swan.FromString.ConvertTo(Type,System.String)
   name: ConvertTo(Type, String)
   href: api/Swan.FromString.html#Swan_FromString_ConvertTo_Type_System_String_
@@ -4406,33 +4234,24 @@ references:
   fullName.vb: Swan.FromString.ConvertTo(Of TResult)(System.String)
   nameWithType: FromString.ConvertTo<TResult>(String)
   nameWithType.vb: FromString.ConvertTo(Of TResult)(String)
-- uid: Swan.FromString.ConvertTo``1(System.String[])
-  name: ConvertTo<TResult>(String[])
-  href: api/Swan.FromString.html#Swan_FromString_ConvertTo__1_System_String___
-  commentId: M:Swan.FromString.ConvertTo``1(System.String[])
-  name.vb: ConvertTo(Of TResult)(String())
-  fullName: Swan.FromString.ConvertTo<TResult>(System.String[])
-  fullName.vb: Swan.FromString.ConvertTo(Of TResult)(System.String())
-  nameWithType: FromString.ConvertTo<TResult>(String[])
-  nameWithType.vb: FromString.ConvertTo(Of TResult)(String())
-- uid: Swan.FromString.TryConvertTo(Type,System.String,System.Object@)
-  name: TryConvertTo(Type, String, out Object)
-  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo_Type_System_String_System_Object__
-  commentId: M:Swan.FromString.TryConvertTo(Type,System.String,System.Object@)
-  name.vb: TryConvertTo(Type, String, ByRef Object)
-  fullName: Swan.FromString.TryConvertTo(Type, System.String, out System.Object)
-  fullName.vb: Swan.FromString.TryConvertTo(Type, System.String, ByRef System.Object)
-  nameWithType: FromString.TryConvertTo(Type, String, out Object)
-  nameWithType.vb: FromString.TryConvertTo(Type, String, ByRef Object)
-- uid: Swan.FromString.TryConvertTo(Type,System.String[],System.Object@)
-  name: TryConvertTo(Type, String[], out Object)
-  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo_Type_System_String___System_Object__
-  commentId: M:Swan.FromString.TryConvertTo(Type,System.String[],System.Object@)
-  name.vb: TryConvertTo(Type, String(), ByRef Object)
-  fullName: Swan.FromString.TryConvertTo(Type, System.String[], out System.Object)
-  fullName.vb: Swan.FromString.TryConvertTo(Type, System.String(), ByRef System.Object)
-  nameWithType: FromString.TryConvertTo(Type, String[], out Object)
-  nameWithType.vb: FromString.TryConvertTo(Type, String(), ByRef Object)
+- uid: Swan.FromString.TryConvertTo(Type,System.String,System.Nullable{System.Object}@)
+  name: TryConvertTo(Type, String, out Nullable<Object>)
+  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo_Type_System_String_System_Nullable_System_Object___
+  commentId: M:Swan.FromString.TryConvertTo(Type,System.String,System.Nullable{System.Object}@)
+  name.vb: TryConvertTo(Type, String, ByRef Nullable(Of Object))
+  fullName: Swan.FromString.TryConvertTo(Type, System.String, out System.Nullable<System.Object>)
+  fullName.vb: Swan.FromString.TryConvertTo(Type, System.String, ByRef System.Nullable(Of System.Object))
+  nameWithType: FromString.TryConvertTo(Type, String, out Nullable<Object>)
+  nameWithType.vb: FromString.TryConvertTo(Type, String, ByRef Nullable(Of Object))
+- uid: Swan.FromString.TryConvertTo(Type,System.String[],System.Nullable{System.Object}@)
+  name: TryConvertTo(Type, String[], out Nullable<Object>)
+  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo_Type_System_String___System_Nullable_System_Object___
+  commentId: M:Swan.FromString.TryConvertTo(Type,System.String[],System.Nullable{System.Object}@)
+  name.vb: TryConvertTo(Type, String(), ByRef Nullable(Of Object))
+  fullName: Swan.FromString.TryConvertTo(Type, System.String[], out System.Nullable<System.Object>)
+  fullName.vb: Swan.FromString.TryConvertTo(Type, System.String(), ByRef System.Nullable(Of System.Object))
+  nameWithType: FromString.TryConvertTo(Type, String[], out Nullable<Object>)
+  nameWithType.vb: FromString.TryConvertTo(Type, String(), ByRef Nullable(Of Object))
 - uid: Swan.FromString.TryConvertTo*
   name: TryConvertTo
   href: api/Swan.FromString.html#Swan_FromString_TryConvertTo_
@@ -4449,15 +4268,15 @@ references:
   fullName.vb: Swan.FromString.TryConvertTo(Of TResult)(System.String, ByRef TResult)
   nameWithType: FromString.TryConvertTo<TResult>(String, out TResult)
   nameWithType.vb: FromString.TryConvertTo(Of TResult)(String, ByRef TResult)
-- uid: Swan.FromString.TryConvertTo``1(System.String[],``0[]@)
-  name: TryConvertTo<TResult>(String[], out TResult[])
-  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo__1_System_String_____0____
-  commentId: M:Swan.FromString.TryConvertTo``1(System.String[],``0[]@)
-  name.vb: TryConvertTo(Of TResult)(String(), ByRef TResult())
-  fullName: Swan.FromString.TryConvertTo<TResult>(System.String[], out TResult[])
-  fullName.vb: Swan.FromString.TryConvertTo(Of TResult)(System.String(), ByRef TResult())
-  nameWithType: FromString.TryConvertTo<TResult>(String[], out TResult[])
-  nameWithType.vb: FromString.TryConvertTo(Of TResult)(String(), ByRef TResult())
+- uid: Swan.FromString.TryConvertTo``1(System.String[],``0[]@,result)
+  name: TryConvertTo<TResult>(String[], out TResult[], result)
+  href: api/Swan.FromString.html#Swan_FromString_TryConvertTo__1_System_String_____0____result_
+  commentId: M:Swan.FromString.TryConvertTo``1(System.String[],``0[]@,result)
+  name.vb: TryConvertTo(Of TResult)(String(), ByRef TResult(), result)
+  fullName: Swan.FromString.TryConvertTo<TResult>(System.String[], out TResult[], result)
+  fullName.vb: Swan.FromString.TryConvertTo(Of TResult)(System.String(), ByRef TResult(), result)
+  nameWithType: FromString.TryConvertTo<TResult>(String[], out TResult[], result)
+  nameWithType.vb: FromString.TryConvertTo(Of TResult)(String(), ByRef TResult(), result)
 - uid: Swan.FunctionalExtensions
   name: FunctionalExtensions
   href: api/Swan.FunctionalExtensions.html
@@ -5401,12 +5220,15 @@ references:
   commentId: T:Swan.LogMessageReceivedEventArgs
   fullName: Swan.LogMessageReceivedEventArgs
   nameWithType: LogMessageReceivedEventArgs
-- uid: Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
-  name: LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Object, String, String, Int32)
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs__ctor_System_UInt64_Swan_LogLevel_DateTime_System_String_System_String_System_Object_System_String_System_String_System_Int32_
-  commentId: M:Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
-  fullName: Swan.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(System.UInt64, Swan.LogLevel, DateTime, System.String, System.String, System.Object, System.String, System.String, System.Int32)
-  nameWithType: LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Object, String, String, Int32)
+- uid: Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Nullable{System.Object},System.String,System.String,System.Int32)
+  name: LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Nullable<Object>, String, String, Int32)
+  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs__ctor_System_UInt64_Swan_LogLevel_DateTime_System_String_System_String_System_Nullable_System_Object__System_String_System_String_System_Int32_
+  commentId: M:Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Nullable{System.Object},System.String,System.String,System.Int32)
+  name.vb: LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Nullable(Of Object), String, String, Int32)
+  fullName: Swan.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(System.UInt64, Swan.LogLevel, DateTime, System.String, System.String, System.Nullable<System.Object>, System.String, System.String, System.Int32)
+  fullName.vb: Swan.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(System.UInt64, Swan.LogLevel, DateTime, System.String, System.String, System.Nullable(Of System.Object), System.String, System.String, System.Int32)
+  nameWithType: LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Nullable<Object>, String, String, Int32)
+  nameWithType.vb: LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Nullable(Of Object), String, String, Int32)
 - uid: Swan.LogMessageReceivedEventArgs.#ctor*
   name: LogMessageReceivedEventArgs
   href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs__ctor_
@@ -6518,12 +6340,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.Connection.TextEncoding
   nameWithType: Connection.TextEncoding
-- uid: Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)
-  name: UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)
-  href: api/Swan.Net.Connection.html#Swan_Net_Connection_UpgradeToSecureAsClientAsync_System_String_RemoteCertificateValidationCallback_
-  commentId: M:Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)
-  fullName: Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.String, RemoteCertificateValidationCallback)
-  nameWithType: Connection.UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)
+- uid: Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback})
+  name: UpgradeToSecureAsClientAsync(Nullable<String>, Nullable<RemoteCertificateValidationCallback>)
+  href: api/Swan.Net.Connection.html#Swan_Net_Connection_UpgradeToSecureAsClientAsync_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__
+  commentId: M:Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback})
+  name.vb: UpgradeToSecureAsClientAsync(Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback))
+  fullName: Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.Nullable<System.String>, System.Nullable<RemoteCertificateValidationCallback>)
+  fullName.vb: Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.Nullable(Of System.String), System.Nullable(Of RemoteCertificateValidationCallback))
+  nameWithType: Connection.UpgradeToSecureAsClientAsync(Nullable<String>, Nullable<RemoteCertificateValidationCallback>)
+  nameWithType.vb: Connection.UpgradeToSecureAsClientAsync(Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback))
 - uid: Swan.Net.Connection.UpgradeToSecureAsClientAsync*
   name: UpgradeToSecureAsClientAsync
   href: api/Swan.Net.Connection.html#Swan_Net_Connection_UpgradeToSecureAsClientAsync_
@@ -7644,12 +7469,12 @@ references:
   commentId: T:Swan.Net.JsonClient
   fullName: Swan.Net.JsonClient
   nameWithType: JsonClient
-- uid: Swan.Net.JsonClient.Authenticate(System.String,System.String,System.String,System.Threading.CancellationToken)
-  name: Authenticate(String, String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Authenticate_System_String_System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Authenticate(System.String,System.String,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.Authenticate(System.String, System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Authenticate(String, String, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Authenticate(Uri,System.String,System.String,System.Threading.CancellationToken)
+  name: Authenticate(Uri, String, String, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Authenticate_Uri_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Authenticate(Uri,System.String,System.String,System.Threading.CancellationToken)
+  fullName: Swan.Net.JsonClient.Authenticate(Uri, System.String, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.Authenticate(Uri, String, String, CancellationToken)
 - uid: Swan.Net.JsonClient.Authenticate*
   name: Authenticate
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Authenticate_
@@ -7664,21 +7489,33 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.Get
   nameWithType: JsonClient.Get
-- uid: Swan.Net.JsonClient.Get``1(System.String,System.String,System.Threading.CancellationToken)
-  name: Get<T>(String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Get__1_System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Get``1(System.String,System.String,System.Threading.CancellationToken)
-  name.vb: Get(Of T)(String, String, CancellationToken)
-  fullName: Swan.Net.JsonClient.Get<T>(System.String, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.Get(Of T)(System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Get<T>(String, String, CancellationToken)
-  nameWithType.vb: JsonClient.Get(Of T)(String, String, CancellationToken)
-- uid: Swan.Net.JsonClient.GetBinary(System.String,System.String,System.Threading.CancellationToken)
-  name: GetBinary(String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetBinary_System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.GetBinary(System.String,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.GetBinary(System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.GetBinary(String, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Get<T>(Uri, Nullable<IDictionary<String, IEnumerable<String>>>, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Get__1_Uri_System_Nullable_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String____System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Get(Of T)(Uri, Nullable(Of IDictionary(Of String, IEnumerable(Of String))), Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Get<T>(Uri, System.Nullable<System.Collections.Generic.IDictionary<System.String, System.Collections.Generic.IEnumerable<System.String>>>, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Get(Of T)(Uri, System.Nullable(Of System.Collections.Generic.IDictionary(Of System.String, System.Collections.Generic.IEnumerable(Of System.String))), System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Get<T>(Uri, Nullable<IDictionary<String, IEnumerable<String>>>, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Get(Of T)(Uri, Nullable(Of IDictionary(Of String, IEnumerable(Of String))), Nullable(Of String), CancellationToken)
+- uid: Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Get<T>(Uri, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Get__1_Uri_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Get(Of T)(Uri, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Get<T>(Uri, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Get(Of T)(Uri, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Get<T>(Uri, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Get(Of T)(Uri, Nullable(Of String), CancellationToken)
+- uid: Swan.Net.JsonClient.GetBinary(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: GetBinary(Uri, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetBinary_Uri_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.GetBinary(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: GetBinary(Uri, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.GetBinary(Uri, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.GetBinary(Uri, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.GetBinary(Uri, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.GetBinary(Uri, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.GetBinary*
   name: GetBinary
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetBinary_
@@ -7686,21 +7523,24 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.GetBinary
   nameWithType: JsonClient.GetBinary
-- uid: Swan.Net.JsonClient.GetString(System.String,System.String,System.Threading.CancellationToken)
-  name: GetString(String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetString_System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.GetString(System.String,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.GetString(System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.GetString(String, String, CancellationToken)
-- uid: Swan.Net.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Threading.CancellationToken)
-  name: GetString(Uri, IDictionary<String, IEnumerable<String>>, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetString_Uri_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String___System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Threading.CancellationToken)
-  name.vb: GetString(Uri, IDictionary(Of String, IEnumerable(Of String)), String, CancellationToken)
-  fullName: Swan.Net.JsonClient.GetString(Uri, System.Collections.Generic.IDictionary<System.String, System.Collections.Generic.IEnumerable<System.String>>, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.GetString(Uri, System.Collections.Generic.IDictionary(Of System.String, System.Collections.Generic.IEnumerable(Of System.String)), System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.GetString(Uri, IDictionary<String, IEnumerable<String>>, String, CancellationToken)
-  nameWithType.vb: JsonClient.GetString(Uri, IDictionary(Of String, IEnumerable(Of String)), String, CancellationToken)
+- uid: Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)
+  name: GetString(Uri, Nullable<IDictionary<String, IEnumerable<String>>>, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetString_Uri_System_Nullable_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String____System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: GetString(Uri, Nullable(Of IDictionary(Of String, IEnumerable(Of String))), Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.GetString(Uri, System.Nullable<System.Collections.Generic.IDictionary<System.String, System.Collections.Generic.IEnumerable<System.String>>>, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.GetString(Uri, System.Nullable(Of System.Collections.Generic.IDictionary(Of System.String, System.Collections.Generic.IEnumerable(Of System.String))), System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.GetString(Uri, Nullable<IDictionary<String, IEnumerable<String>>>, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.GetString(Uri, Nullable(Of IDictionary(Of String, IEnumerable(Of String))), Nullable(Of String), CancellationToken)
+- uid: Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: GetString(Uri, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetString_Uri_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: GetString(Uri, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.GetString(Uri, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.GetString(Uri, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.GetString(Uri, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.GetString(Uri, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.GetString*
   name: GetString
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_GetString_
@@ -7708,12 +7548,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.GetString
   nameWithType: JsonClient.GetString
-- uid: Swan.Net.JsonClient.Post(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: Post(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Post_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Post(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.Post(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Post(String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Post(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Post(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Post_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Post(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Post(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Post(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Post(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Post(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Post(Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.Post*
   name: Post
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Post_
@@ -7721,15 +7564,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.Post
   nameWithType: JsonClient.Post
-- uid: Swan.Net.JsonClient.Post``1(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: Post<T>(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Post__1_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Post``1(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name.vb: Post(Of T)(String, Object, String, CancellationToken)
-  fullName: Swan.Net.JsonClient.Post<T>(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.Post(Of T)(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Post<T>(String, Object, String, CancellationToken)
-  nameWithType.vb: JsonClient.Post(Of T)(String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Post``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Post<T>(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Post__1_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Post``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Post(Of T)(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Post<T>(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Post(Of T)(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Post<T>(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Post(Of T)(Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.PostFile*
   name: PostFile
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFile_
@@ -7737,24 +7580,24 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.PostFile
   nameWithType: JsonClient.PostFile
-- uid: Swan.Net.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
-  name: PostFile<T>(String, Byte[], String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
-  name.vb: PostFile(Of T)(String, Byte(), String, String, CancellationToken)
-  fullName: Swan.Net.JsonClient.PostFile<T>(System.String, System.Byte[], System.String, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.PostFile(Of T)(System.String, System.Byte(), System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.PostFile<T>(String, Byte[], String, String, CancellationToken)
-  nameWithType.vb: JsonClient.PostFile(Of T)(String, Byte(), String, String, CancellationToken)
-- uid: Swan.Net.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
-  name: PostFileString(String, Byte[], String, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String,System.Threading.CancellationToken)
-  name.vb: PostFileString(String, Byte(), String, String, CancellationToken)
-  fullName: Swan.Net.JsonClient.PostFileString(System.String, System.Byte[], System.String, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.PostFileString(System.String, System.Byte(), System.String, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.PostFileString(String, Byte[], String, String, CancellationToken)
-  nameWithType.vb: JsonClient.PostFileString(String, Byte(), String, String, CancellationToken)
+- uid: Swan.Net.JsonClient.PostFile``1(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: PostFile<T>(Uri, Byte[], String, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFile__1_Uri_System_Byte___System_String_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.PostFile``1(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: PostFile(Of T)(Uri, Byte(), String, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.PostFile<T>(Uri, System.Byte[], System.String, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.PostFile(Of T)(Uri, System.Byte(), System.String, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostFile<T>(Uri, Byte[], String, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.PostFile(Of T)(Uri, Byte(), String, Nullable(Of String), CancellationToken)
+- uid: Swan.Net.JsonClient.PostFileString(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: PostFileString(Uri, Byte[], String, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFileString_Uri_System_Byte___System_String_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.PostFileString(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: PostFileString(Uri, Byte(), String, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.PostFileString(Uri, System.Byte[], System.String, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.PostFileString(Uri, System.Byte(), System.String, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostFileString(Uri, Byte[], String, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.PostFileString(Uri, Byte(), String, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.PostFileString*
   name: PostFileString
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostFileString_
@@ -7762,12 +7605,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.PostFileString
   nameWithType: JsonClient.PostFileString
-- uid: Swan.Net.JsonClient.PostString(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: PostString(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostString_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.PostString(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.PostString(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.PostString(String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.PostString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: PostString(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostString_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.PostString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: PostString(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.PostString(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.PostString(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostString(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.PostString(Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.PostString*
   name: PostString
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PostString_
@@ -7775,12 +7621,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.PostString
   nameWithType: JsonClient.PostString
-- uid: Swan.Net.JsonClient.Put(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: Put(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Put_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Put(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.Put(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Put(String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Put(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Put(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Put_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Put(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Put(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Put(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Put(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Put(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Put(Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.Put*
   name: Put
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Put_
@@ -7788,21 +7637,24 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.Put
   nameWithType: JsonClient.Put
-- uid: Swan.Net.JsonClient.Put``1(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: Put<T>(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Put__1_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.Put``1(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name.vb: Put(Of T)(String, Object, String, CancellationToken)
-  fullName: Swan.Net.JsonClient.Put<T>(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.JsonClient.Put(Of T)(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.Put<T>(String, Object, String, CancellationToken)
-  nameWithType.vb: JsonClient.Put(Of T)(String, Object, String, CancellationToken)
-- uid: Swan.Net.JsonClient.PutString(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: PutString(String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PutString_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.PutString(System.String,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.PutString(System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.PutString(String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.Put``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: Put<T>(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_Put__1_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.Put``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: Put(Of T)(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.Put<T>(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.Put(Of T)(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.Put<T>(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.Put(Of T)(Uri, Object, Nullable(Of String), CancellationToken)
+- uid: Swan.Net.JsonClient.PutString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: PutString(Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PutString_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.PutString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: PutString(Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.PutString(Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.PutString(Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.PutString(Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.PutString(Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.PutString*
   name: PutString
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_PutString_
@@ -7810,12 +7662,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.PutString
   nameWithType: JsonClient.PutString
-- uid: Swan.Net.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
-  name: SendAsync(HttpMethod, String, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_HttpMethod_System_String_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.SendAsync(HttpMethod, System.String, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.SendAsync(HttpMethod, String, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name: SendAsync(HttpMethod, Uri, Object, Nullable<String>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)
+  name.vb: SendAsync(HttpMethod, Uri, Object, Nullable(Of String), CancellationToken)
+  fullName: Swan.Net.JsonClient.SendAsync(HttpMethod, Uri, System.Object, System.Nullable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.SendAsync(HttpMethod, Uri, System.Object, System.Nullable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: JsonClient.SendAsync(HttpMethod, Uri, Object, Nullable<String>, CancellationToken)
+  nameWithType.vb: JsonClient.SendAsync(HttpMethod, Uri, Object, Nullable(Of String), CancellationToken)
 - uid: Swan.Net.JsonClient.SendAsync*
   name: SendAsync
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_
@@ -8149,27 +8004,33 @@ references:
   isSpec: "True"
   fullName: Swan.Net.Smtp.SmtpClient.Port
   nameWithType: SmtpClient.Port
-- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  name: SendMailAsync(MailMessage, String, RemoteCertificateValidationCallback, CancellationToken)
-  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_MailMessage_System_String_RemoteCertificateValidationCallback_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage, System.String, RemoteCertificateValidationCallback, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(MailMessage, String, RemoteCertificateValidationCallback, CancellationToken)
-- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  name: SendMailAsync(SmtpSessionState, String, RemoteCertificateValidationCallback, CancellationToken)
-  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_Swan_Net_Smtp_SmtpSessionState_System_String_RemoteCertificateValidationCallback_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState, System.String, RemoteCertificateValidationCallback, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, String, RemoteCertificateValidationCallback, CancellationToken)
-- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  name: SendMailAsync(IEnumerable<SmtpSessionState>, String, RemoteCertificateValidationCallback, CancellationToken)
-  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Swan_Net_Smtp_SmtpSessionState__System_String_RemoteCertificateValidationCallback_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.String,RemoteCertificateValidationCallback,System.Threading.CancellationToken)
-  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), String, RemoteCertificateValidationCallback, CancellationToken)
-  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Swan.Net.Smtp.SmtpSessionState>, System.String, RemoteCertificateValidationCallback, System.Threading.CancellationToken)
-  fullName.vb: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Swan.Net.Smtp.SmtpSessionState), System.String, RemoteCertificateValidationCallback, System.Threading.CancellationToken)
-  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, String, RemoteCertificateValidationCallback, CancellationToken)
-  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), String, RemoteCertificateValidationCallback, CancellationToken)
+- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name: SendMailAsync(MailMessage, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_MailMessage_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name.vb: SendMailAsync(MailMessage, Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
+  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage, System.Nullable<System.String>, System.Nullable<RemoteCertificateValidationCallback>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage, System.Nullable(Of System.String), System.Nullable(Of RemoteCertificateValidationCallback), System.Threading.CancellationToken)
+  nameWithType: SmtpClient.SendMailAsync(MailMessage, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  nameWithType.vb: SmtpClient.SendMailAsync(MailMessage, Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
+- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name: SendMailAsync(SmtpSessionState, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_Swan_Net_Smtp_SmtpSessionState_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name.vb: SendMailAsync(SmtpSessionState, Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
+  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState, System.Nullable<System.String>, System.Nullable<RemoteCertificateValidationCallback>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState, System.Nullable(Of System.String), System.Nullable(Of RemoteCertificateValidationCallback), System.Threading.CancellationToken)
+  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  nameWithType.vb: SmtpClient.SendMailAsync(SmtpSessionState, Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
+- uid: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name: SendMailAsync(IEnumerable<SmtpSessionState>, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Swan_Net_Smtp_SmtpSessionState__System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_
+  commentId: M:Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)
+  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
+  fullName: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Swan.Net.Smtp.SmtpSessionState>, System.Nullable<System.String>, System.Nullable<RemoteCertificateValidationCallback>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Swan.Net.Smtp.SmtpSessionState), System.Nullable(Of System.String), System.Nullable(Of RemoteCertificateValidationCallback), System.Threading.CancellationToken)
+  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, Nullable<String>, Nullable<RemoteCertificateValidationCallback>, CancellationToken)
+  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), Nullable(Of String), Nullable(Of RemoteCertificateValidationCallback), CancellationToken)
 - uid: Swan.Net.Smtp.SmtpClient.SendMailAsync*
   name: SendMailAsync
   href: api/Swan.Net.Smtp.SmtpClient.html#Swan_Net_Smtp_SmtpClient_SendMailAsync_
@@ -10036,12 +9897,15 @@ references:
   commentId: T:Swan.Reflection.AttributeCache
   fullName: Swan.Reflection.AttributeCache
   nameWithType: AttributeCache
-- uid: Swan.Reflection.AttributeCache.#ctor(Swan.Reflection.PropertyTypeCache)
-  name: AttributeCache(PropertyTypeCache)
-  href: api/Swan.Reflection.AttributeCache.html#Swan_Reflection_AttributeCache__ctor_Swan_Reflection_PropertyTypeCache_
-  commentId: M:Swan.Reflection.AttributeCache.#ctor(Swan.Reflection.PropertyTypeCache)
-  fullName: Swan.Reflection.AttributeCache.AttributeCache(Swan.Reflection.PropertyTypeCache)
-  nameWithType: AttributeCache.AttributeCache(PropertyTypeCache)
+- uid: Swan.Reflection.AttributeCache.#ctor(System.Nullable{Swan.Reflection.PropertyTypeCache})
+  name: AttributeCache(Nullable<PropertyTypeCache>)
+  href: api/Swan.Reflection.AttributeCache.html#Swan_Reflection_AttributeCache__ctor_System_Nullable_Swan_Reflection_PropertyTypeCache__
+  commentId: M:Swan.Reflection.AttributeCache.#ctor(System.Nullable{Swan.Reflection.PropertyTypeCache})
+  name.vb: AttributeCache(Nullable(Of PropertyTypeCache))
+  fullName: Swan.Reflection.AttributeCache.AttributeCache(System.Nullable<Swan.Reflection.PropertyTypeCache>)
+  fullName.vb: Swan.Reflection.AttributeCache.AttributeCache(System.Nullable(Of Swan.Reflection.PropertyTypeCache))
+  nameWithType: AttributeCache.AttributeCache(Nullable<PropertyTypeCache>)
+  nameWithType.vb: AttributeCache.AttributeCache(Nullable(Of PropertyTypeCache))
 - uid: Swan.Reflection.AttributeCache.#ctor*
   name: AttributeCache
   href: api/Swan.Reflection.AttributeCache.html#Swan_Reflection_AttributeCache__ctor_
@@ -10340,19 +10204,6 @@ references:
   isSpec: "True"
   fullName: Swan.Reflection.ExtendedTypeInfo.CanParseNatively
   nameWithType: ExtendedTypeInfo.CanParseNatively
-- uid: Swan.Reflection.ExtendedTypeInfo.GetDefault
-  name: GetDefault()
-  href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_GetDefault
-  commentId: M:Swan.Reflection.ExtendedTypeInfo.GetDefault
-  fullName: Swan.Reflection.ExtendedTypeInfo.GetDefault()
-  nameWithType: ExtendedTypeInfo.GetDefault()
-- uid: Swan.Reflection.ExtendedTypeInfo.GetDefault*
-  name: GetDefault
-  href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_GetDefault_
-  commentId: Overload:Swan.Reflection.ExtendedTypeInfo.GetDefault
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedTypeInfo.GetDefault
-  nameWithType: ExtendedTypeInfo.GetDefault
 - uid: Swan.Reflection.ExtendedTypeInfo.IsNullableValueType
   name: IsNullableValueType
   href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_IsNullableValueType
@@ -10418,15 +10269,15 @@ references:
   isSpec: "True"
   fullName: Swan.Reflection.ExtendedTypeInfo.ToStringMethodInfo
   nameWithType: ExtendedTypeInfo.ToStringMethodInfo
-- uid: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Object@)
-  name: TryParse(String, out Object)
-  href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_TryParse_System_String_System_Object__
-  commentId: M:Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Object@)
-  name.vb: TryParse(String, ByRef Object)
-  fullName: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String, out System.Object)
-  fullName.vb: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String, ByRef System.Object)
-  nameWithType: ExtendedTypeInfo.TryParse(String, out Object)
-  nameWithType.vb: ExtendedTypeInfo.TryParse(String, ByRef Object)
+- uid: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Nullable{System.Object}@)
+  name: TryParse(String, out Nullable<Object>)
+  href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_TryParse_System_String_System_Nullable_System_Object___
+  commentId: M:Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Nullable{System.Object}@)
+  name.vb: TryParse(String, ByRef Nullable(Of Object))
+  fullName: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String, out System.Nullable<System.Object>)
+  fullName.vb: Swan.Reflection.ExtendedTypeInfo.TryParse(System.String, ByRef System.Nullable(Of System.Object))
+  nameWithType: ExtendedTypeInfo.TryParse(String, out Nullable<Object>)
+  nameWithType.vb: ExtendedTypeInfo.TryParse(String, ByRef Nullable(Of Object))
 - uid: Swan.Reflection.ExtendedTypeInfo.TryParse*
   name: TryParse
   href: api/Swan.Reflection.ExtendedTypeInfo.html#Swan_Reflection_ExtendedTypeInfo_TryParse_
@@ -10989,15 +10840,15 @@ references:
   isSpec: "True"
   fullName: Swan.ReflectionExtensions.TryParseBasicType
   nameWithType: ReflectionExtensions.TryParseBasicType
-- uid: Swan.ReflectionExtensions.TrySetArray(PropertyInfo,IEnumerable{System.Object},System.Object)
-  name: TrySetArray(PropertyInfo, IEnumerable<Object>, Object)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TrySetArray_PropertyInfo_IEnumerable_System_Object__System_Object_
-  commentId: M:Swan.ReflectionExtensions.TrySetArray(PropertyInfo,IEnumerable{System.Object},System.Object)
-  name.vb: TrySetArray(PropertyInfo, IEnumerable(Of Object), Object)
-  fullName: Swan.ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable<System.Object>, System.Object)
-  fullName.vb: Swan.ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable(Of System.Object), System.Object)
-  nameWithType: ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable<Object>, Object)
-  nameWithType.vb: ReflectionExtensions.TrySetArray(PropertyInfo, IEnumerable(Of Object), Object)
+- uid: Swan.ReflectionExtensions.TrySetArray(PropertyInfo,System.Nullable{IEnumerable{System.Object}},System.Object)
+  name: TrySetArray(PropertyInfo, Nullable<IEnumerable<Object>>, Object)
+  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TrySetArray_PropertyInfo_System_Nullable_IEnumerable_System_Object___System_Object_
+  commentId: M:Swan.ReflectionExtensions.TrySetArray(PropertyInfo,System.Nullable{IEnumerable{System.Object}},System.Object)
+  name.vb: TrySetArray(PropertyInfo, Nullable(Of IEnumerable(Of Object)), Object)
+  fullName: Swan.ReflectionExtensions.TrySetArray(PropertyInfo, System.Nullable<IEnumerable<System.Object>>, System.Object)
+  fullName.vb: Swan.ReflectionExtensions.TrySetArray(PropertyInfo, System.Nullable(Of IEnumerable(Of System.Object)), System.Object)
+  nameWithType: ReflectionExtensions.TrySetArray(PropertyInfo, Nullable<IEnumerable<Object>>, Object)
+  nameWithType.vb: ReflectionExtensions.TrySetArray(PropertyInfo, Nullable(Of IEnumerable(Of Object)), Object)
 - uid: Swan.ReflectionExtensions.TrySetArray*
   name: TrySetArray
   href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TrySetArray_
@@ -11415,12 +11266,15 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.ToLines
   nameWithType: StringExtensions.ToLines
-- uid: Swan.StringExtensions.ToStringInvariant(System.Object)
-  name: ToStringInvariant(Object)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToStringInvariant_System_Object_
-  commentId: M:Swan.StringExtensions.ToStringInvariant(System.Object)
-  fullName: Swan.StringExtensions.ToStringInvariant(System.Object)
-  nameWithType: StringExtensions.ToStringInvariant(Object)
+- uid: Swan.StringExtensions.ToStringInvariant(System.Nullable{System.Object})
+  name: ToStringInvariant(Nullable<Object>)
+  href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToStringInvariant_System_Nullable_System_Object__
+  commentId: M:Swan.StringExtensions.ToStringInvariant(System.Nullable{System.Object})
+  name.vb: ToStringInvariant(Nullable(Of Object))
+  fullName: Swan.StringExtensions.ToStringInvariant(System.Nullable<System.Object>)
+  fullName.vb: Swan.StringExtensions.ToStringInvariant(System.Nullable(Of System.Object))
+  nameWithType: StringExtensions.ToStringInvariant(Nullable<Object>)
+  nameWithType.vb: StringExtensions.ToStringInvariant(Nullable(Of Object))
 - uid: Swan.StringExtensions.ToStringInvariant*
   name: ToStringInvariant
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_ToStringInvariant_
@@ -11803,19 +11657,6 @@ references:
   isSpec: "True"
   fullName: Swan.Terminal.OverwriteLine
   nameWithType: Terminal.OverwriteLine
-- uid: Swan.Terminal.PrintCurrentCodePage
-  name: PrintCurrentCodePage()
-  href: api/Swan.Terminal.html#Swan_Terminal_PrintCurrentCodePage
-  commentId: M:Swan.Terminal.PrintCurrentCodePage
-  fullName: Swan.Terminal.PrintCurrentCodePage()
-  nameWithType: Terminal.PrintCurrentCodePage()
-- uid: Swan.Terminal.PrintCurrentCodePage*
-  name: PrintCurrentCodePage
-  href: api/Swan.Terminal.html#Swan_Terminal_PrintCurrentCodePage_
-  commentId: Overload:Swan.Terminal.PrintCurrentCodePage
-  isSpec: "True"
-  fullName: Swan.Terminal.PrintCurrentCodePage
-  nameWithType: Terminal.PrintCurrentCodePage
 - uid: Swan.Terminal.ReadKey(System.Boolean,System.Boolean)
   name: ReadKey(Boolean, Boolean)
   href: api/Swan.Terminal.html#Swan_Terminal_ReadKey_System_Boolean_System_Boolean_
@@ -11963,15 +11804,15 @@ references:
   fullName.vb: Swan.Terminal.Write(System.Char, System.Nullable(Of ConsoleColor), System.Int32, System.Boolean, Swan.TerminalWriters)
   nameWithType: Terminal.Write(Char, Nullable<ConsoleColor>, Int32, Boolean, TerminalWriters)
   nameWithType.vb: Terminal.Write(Char, Nullable(Of ConsoleColor), Int32, Boolean, TerminalWriters)
-- uid: Swan.Terminal.Write(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)
-  name: Write(String, Nullable<ConsoleColor>, TerminalWriters)
-  href: api/Swan.Terminal.html#Swan_Terminal_Write_System_String_System_Nullable_ConsoleColor__Swan_TerminalWriters_
-  commentId: M:Swan.Terminal.Write(System.String,System.Nullable{ConsoleColor},Swan.TerminalWriters)
-  name.vb: Write(String, Nullable(Of ConsoleColor), TerminalWriters)
-  fullName: Swan.Terminal.Write(System.String, System.Nullable<ConsoleColor>, Swan.TerminalWriters)
-  fullName.vb: Swan.Terminal.Write(System.String, System.Nullable(Of ConsoleColor), Swan.TerminalWriters)
-  nameWithType: Terminal.Write(String, Nullable<ConsoleColor>, TerminalWriters)
-  nameWithType.vb: Terminal.Write(String, Nullable(Of ConsoleColor), TerminalWriters)
+- uid: Swan.Terminal.Write(System.Nullable{System.String},System.Nullable{ConsoleColor},Swan.TerminalWriters)
+  name: Write(Nullable<String>, Nullable<ConsoleColor>, TerminalWriters)
+  href: api/Swan.Terminal.html#Swan_Terminal_Write_System_Nullable_System_String__System_Nullable_ConsoleColor__Swan_TerminalWriters_
+  commentId: M:Swan.Terminal.Write(System.Nullable{System.String},System.Nullable{ConsoleColor},Swan.TerminalWriters)
+  name.vb: Write(Nullable(Of String), Nullable(Of ConsoleColor), TerminalWriters)
+  fullName: Swan.Terminal.Write(System.Nullable<System.String>, System.Nullable<ConsoleColor>, Swan.TerminalWriters)
+  fullName.vb: Swan.Terminal.Write(System.Nullable(Of System.String), System.Nullable(Of ConsoleColor), Swan.TerminalWriters)
+  nameWithType: Terminal.Write(Nullable<String>, Nullable<ConsoleColor>, TerminalWriters)
+  nameWithType.vb: Terminal.Write(Nullable(Of String), Nullable(Of ConsoleColor), TerminalWriters)
 - uid: Swan.Terminal.Write*
   name: Write
   href: api/Swan.Terminal.html#Swan_Terminal_Write_

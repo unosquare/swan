@@ -94,18 +94,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.CircularBuffer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.CircularBuffer.html",
-          "hash": "L3WbV+W9rylpYTmbS0WUXg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Collections.CollectionCacheRepository-1.yml",
       "output": {
         ".html": {
@@ -134,7 +122,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Collections.ConcurrentDataDictionary-2.html",
-          "hash": "h0ECIz/Y1gbbvcluyDSAVA=="
+          "hash": "9wLHx2rnedtOtvLOcRQuHg=="
         }
       },
       "is_incremental": false,
@@ -146,7 +134,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Collections.DataDictionary-2.html",
-          "hash": "pAIn8jzU1BJSRbTQuvxGWQ=="
+          "hash": "F0vzAfa83+dZGNSY/9G4Rg=="
         }
       },
       "is_incremental": false,
@@ -242,7 +230,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Configuration.SettingsProvider-1.html",
-          "hash": "k9GzugQXMBNha8azIj2SFw=="
+          "hash": "g6EvuRHIXB50f1mt7KEq5w=="
         }
       },
       "is_incremental": false,
@@ -626,7 +614,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Formatters.Json.html",
-          "hash": "RUyxR4/JJis/lBXI8swJng=="
+          "hash": "F6C5DId7UKob6Nw3UT9U1w=="
         }
       },
       "is_incremental": false,
@@ -650,7 +638,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Formatters.SerializerOptions.html",
-          "hash": "aVdXqn49CabAhhGb8KK5rQ=="
+          "hash": "fNObvK+aelAgtTkGhAEZuQ=="
         }
       },
       "is_incremental": false,
@@ -674,7 +662,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.FromString.html",
-          "hash": "ED3OgEGSwUiKw0+N9BzxrQ=="
+          "hash": "6Ez5Ddy6MoZ4li7sQDGyAw=="
         }
       },
       "is_incremental": false,
@@ -770,7 +758,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.LogMessageReceivedEventArgs.html",
-          "hash": "LA/sOS1c98/BiKi5KdJ2Gw=="
+          "hash": "wvYwGSKlaOBuQaBiUCuCvw=="
         }
       },
       "is_incremental": false,
@@ -1034,7 +1022,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.Connection.html",
-          "hash": "IdW3AqKGRga4cmuhKsA9Kw=="
+          "hash": "ruhb7jU2nqW7muqR7/Z/SQ=="
         }
       },
       "is_incremental": false,
@@ -1130,7 +1118,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.ConnectionListenerStoppedEventArgs.html",
-          "hash": "ZZl0GN6IHCB0CzqdCcEvgg=="
+          "hash": "p5FSm6uVWgNL+PADwABTwg=="
         }
       },
       "is_incremental": false,
@@ -1238,7 +1226,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.JsonClient.html",
-          "hash": "qTlXa7D7kAleWOZGquZH0Q=="
+          "hash": "r7HoZKpl2zzxtypC2j2ApA=="
         }
       },
       "is_incremental": false,
@@ -1274,7 +1262,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.Smtp.SmtpClient.html",
-          "hash": "yuY2ODLNR0vh2dCotuRDVA=="
+          "hash": "jMskgU4s4tdYR2x7QjGAQw=="
         }
       },
       "is_incremental": false,
@@ -1598,7 +1586,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.AttributeCache.html",
-          "hash": "lEPWQhIuTF3cAySR7JV6Cg=="
+          "hash": "5TsCwZAOAGK9wMbdC2TWnw=="
         }
       },
       "is_incremental": false,
@@ -1634,7 +1622,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.ExtendedTypeInfo-1.html",
-          "hash": "jBHjwwXUbT+1uDfEN7stxw=="
+          "hash": "Dp+HmhR1ozV3471Y2yzNyQ=="
         }
       },
       "is_incremental": false,
@@ -1646,7 +1634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.ExtendedTypeInfo.html",
-          "hash": "SCZUXpPmabVwZCfMFFb6ig=="
+          "hash": "lvrRRh+DAGbBa5JEQc3Cog=="
         }
       },
       "is_incremental": false,
@@ -1742,7 +1730,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.ReflectionExtensions.html",
-          "hash": "PrYlCnATsU6xp2Zhh4E8PQ=="
+          "hash": "458ijU3ylhuBjJmOGig5PQ=="
         }
       },
       "is_incremental": false,
@@ -1814,7 +1802,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.StringExtensions.html",
-          "hash": "tagdn62BpG+3brs2DN/vZQ=="
+          "hash": "pzAhvPohACsjmh+eBCheSw=="
         }
       },
       "is_incremental": false,
@@ -1874,7 +1862,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Terminal.html",
-          "hash": "rQfli4U1Py3UvX7MuWi9zQ=="
+          "hash": "1KDBeW9gCuGOmJ8WvcTasg=="
         }
       },
       "is_incremental": false,
@@ -2366,7 +2354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.html",
-          "hash": "L5p/J4or/am+jhSUS9xawA=="
+          "hash": "h1Hy1DkV7GxvhqEU4CCRYA=="
         }
       },
       "is_incremental": false,
@@ -2378,7 +2366,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "4naNg/qLutY+FIzCT/suUg=="
+          "hash": "loTv+sYAW4I6apU4aqkHnA=="
         }
       },
       "is_incremental": false,
@@ -2438,10 +2426,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 0
+        },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 191,
+          "total_file_count": 190,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
@@ -2449,12 +2443,6 @@
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
-          "skipped_file_count": 0
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 3,
           "skipped_file_count": 0
         }
       }

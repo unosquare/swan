@@ -321,7 +321,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static object GetDefault(this Type type)</code></pre>
+    <pre><code class="lang-csharp hljs">public static object? GetDefault(this Type type)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -351,7 +351,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
         <td><p>Default value of this type.</p>
 </td>
       </tr>
@@ -794,13 +794,13 @@ will be formatted accordingly.</p>
   
   
   <a id="Swan_ReflectionExtensions_TrySetArray_" data-uid="Swan.ReflectionExtensions.TrySetArray*"></a>
-  <h4 id="Swan_ReflectionExtensions_TrySetArray_PropertyInfo_IEnumerable_System_Object__System_Object_" data-uid="Swan.ReflectionExtensions.TrySetArray(PropertyInfo,IEnumerable{System.Object},System.Object)">TrySetArray(PropertyInfo, IEnumerable&lt;Object&gt;, Object)</h4>
+  <h4 id="Swan_ReflectionExtensions_TrySetArray_PropertyInfo_System_Nullable_IEnumerable_System_Object___System_Object_" data-uid="Swan.ReflectionExtensions.TrySetArray(PropertyInfo,System.Nullable{IEnumerable{System.Object}},System.Object)">TrySetArray(PropertyInfo, Nullable&lt;IEnumerable&lt;Object&gt;&gt;, Object)</h4>
   <div class="markdown level1 summary"><p>Tries to set a property array with another array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable&lt;object&gt; value, object obj)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TrySetArray(this PropertyInfo propertyInfo, IEnumerable&lt;object&gt;? value, object obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -819,7 +819,7 @@ will be formatted accordingly.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>The value.</p>
 </td>
@@ -920,7 +920,7 @@ will be formatted accordingly.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TrySetBasicType(this PropertyInfo property, object value, object target)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TrySetBasicType(this PropertyInfo propertyInfo, object value, object target)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -934,8 +934,8 @@ will be formatted accordingly.</p>
     <tbody>
       <tr>
         <td><span class="xref">PropertyInfo</span></td>
-        <td><span class="parametername">property</span></td>
-        <td><p>The property.</p>
+        <td><span class="parametername">propertyInfo</span></td>
+        <td><p>The property information.</p>
 </td>
       </tr>
       <tr>
