@@ -124,7 +124,7 @@ standard error and standard output streams.</p>
   
   
   <a id="Swan_ProcessRunner_GetProcessEncodedOutputAsync_" data-uid="Swan.ProcessRunner.GetProcessEncodedOutputAsync*"></a>
-  <h4 id="Swan_ProcessRunner_GetProcessEncodedOutputAsync_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)">GetProcessEncodedOutputAsync(String, String, Encoding, CancellationToken)</h4>
+  <h4 id="Swan_ProcessRunner_GetProcessEncodedOutputAsync_System_String_System_String_System_Nullable_System_Text_Encoding__System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)">GetProcessEncodedOutputAsync(String, String, Nullable&lt;Encoding&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Runs the process asynchronously and if the exit code is 0,
 returns all of the standard output text. If the exit code is something other than 0
 it returns the contents of standard error.
@@ -134,7 +134,7 @@ of text using a different encoder.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetProcessEncodedOutputAsync(string filename, string arguments = &quot;&quot;, Encoding encoding = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetProcessEncodedOutputAsync(string filename, string arguments = &quot;&quot;, Encoding? encoding = default(Encoding? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,7 +159,7 @@ of text using a different encoder.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>&gt;</td>
         <td><span class="parametername">encoding</span></td>
         <td><p>The encoding.</p>
 </td>
@@ -387,7 +387,7 @@ This method is meant to be used for programs that output a relatively small amou
   
   
   <a id="Swan_ProcessRunner_GetProcessResultAsync_" data-uid="Swan.ProcessRunner.GetProcessResultAsync*"></a>
-  <h4 id="Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)">GetProcessResultAsync(String, String, String, Encoding, CancellationToken)</h4>
+  <h4 id="Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Nullable_System_Text_Encoding__System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)">GetProcessResultAsync(String, String, String, Nullable&lt;Encoding&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Executes a process asynchronously and returns the text of the standard output and standard error streams
 along with the exit code. This method is meant to be used for programs that output a relatively small
 amount of text.</p>
@@ -395,7 +395,7 @@ amount of text.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;ProcessResult&gt; GetProcessResultAsync(string filename, string arguments, string workingDirectory, Encoding encoding = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;ProcessResult&gt; GetProcessResultAsync(string filename, string arguments, string workingDirectory, Encoding? encoding = default(Encoding? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -426,7 +426,7 @@ amount of text.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>&gt;</td>
         <td><span class="parametername">encoding</span></td>
         <td><p>The encoding.</p>
 </td>
@@ -455,8 +455,8 @@ amount of text.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken__examples">Examples</h5>
-  <p>The following code describes how to run an external process using the <a class="xref" href="Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_">GetProcessResultAsync(String, String, String, Encoding, CancellationToken)</a> method.</p>
+  <h5 id="Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Nullable_System_Text_Encoding__System_Threading_CancellationToken__examples">Examples</h5>
+  <p>The following code describes how to run an external process using the <see cref="!:GetProcessResultAsync(string, string, string, Encoding, CancellationToken)"></see> method.</p>
 <pre><code>class Example
 {
     using System.Threading.Tasks;
@@ -675,7 +675,7 @@ method.</p>
   
   
   <a id="Swan_ProcessRunner_RunProcessAsync_" data-uid="Swan.ProcessRunner.RunProcessAsync*"></a>
-  <h4 id="Swan_ProcessRunner_RunProcessAsync_System_String_System_String_System_String_Swan_ProcessRunner_ProcessDataReceivedCallback_Swan_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.String,Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)">RunProcessAsync(String, String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)</h4>
+  <h4 id="Swan_ProcessRunner_RunProcessAsync_System_String_System_String_System_Nullable_System_String__Swan_ProcessRunner_ProcessDataReceivedCallback_Swan_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_" data-uid="Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.Nullable{System.String},Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)">RunProcessAsync(String, String, Nullable&lt;String&gt;, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Runs an external process asynchronously, providing callbacks to
 capture binary data from the standard error and standard output streams.
 The callbacks contain a reference to the process so you can respond to output or
@@ -685,7 +685,7 @@ The exit code (return value) will be -1 for forceful termination of the process.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;int&gt; RunProcessAsync(string filename, string arguments, string workingDirectory, ProcessRunner.ProcessDataReceivedCallback onOutputData, ProcessRunner.ProcessDataReceivedCallback onErrorData, Encoding encoding, bool syncEvents = true, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;int&gt; RunProcessAsync(string filename, string arguments, string? workingDirectory, ProcessRunner.ProcessDataReceivedCallback onOutputData, ProcessRunner.ProcessDataReceivedCallback onErrorData, Encoding encoding, bool syncEvents = true, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -710,7 +710,7 @@ The exit code (return value) will be -1 for forceful termination of the process.
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">workingDirectory</span></td>
         <td><p>The working directory.</p>
 </td>

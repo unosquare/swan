@@ -7010,12 +7010,15 @@ references:
   commentId: T:Swan.Net.ConnectionListenerStoppedEventArgs
   fullName: Swan.Net.ConnectionListenerStoppedEventArgs
   nameWithType: ConnectionListenerStoppedEventArgs
-- uid: Swan.Net.ConnectionListenerStoppedEventArgs.#ctor(IPEndPoint,System.Exception)
-  name: ConnectionListenerStoppedEventArgs(IPEndPoint, Exception)
-  href: api/Swan.Net.ConnectionListenerStoppedEventArgs.html#Swan_Net_ConnectionListenerStoppedEventArgs__ctor_IPEndPoint_System_Exception_
-  commentId: M:Swan.Net.ConnectionListenerStoppedEventArgs.#ctor(IPEndPoint,System.Exception)
-  fullName: Swan.Net.ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, System.Exception)
-  nameWithType: ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, Exception)
+- uid: Swan.Net.ConnectionListenerStoppedEventArgs.#ctor(IPEndPoint,System.Nullable{System.Exception})
+  name: ConnectionListenerStoppedEventArgs(IPEndPoint, Nullable<Exception>)
+  href: api/Swan.Net.ConnectionListenerStoppedEventArgs.html#Swan_Net_ConnectionListenerStoppedEventArgs__ctor_IPEndPoint_System_Nullable_System_Exception__
+  commentId: M:Swan.Net.ConnectionListenerStoppedEventArgs.#ctor(IPEndPoint,System.Nullable{System.Exception})
+  name.vb: ConnectionListenerStoppedEventArgs(IPEndPoint, Nullable(Of Exception))
+  fullName: Swan.Net.ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, System.Nullable<System.Exception>)
+  fullName.vb: Swan.Net.ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, System.Nullable(Of System.Exception))
+  nameWithType: ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, Nullable<Exception>)
+  nameWithType.vb: ConnectionListenerStoppedEventArgs.ConnectionListenerStoppedEventArgs(IPEndPoint, Nullable(Of Exception))
 - uid: Swan.Net.ConnectionListenerStoppedEventArgs.#ctor*
   name: ConnectionListenerStoppedEventArgs
   href: api/Swan.Net.ConnectionListenerStoppedEventArgs.html#Swan_Net_ConnectionListenerStoppedEventArgs__ctor_
@@ -9930,12 +9933,15 @@ references:
   commentId: T:Swan.ProcessRunner
   fullName: Swan.ProcessRunner
   nameWithType: ProcessRunner
-- uid: Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  name: GetProcessEncodedOutputAsync(String, String, Encoding, CancellationToken)
-  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessEncodedOutputAsync_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
-  commentId: M:Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  fullName: Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.GetProcessEncodedOutputAsync(String, String, Encoding, CancellationToken)
+- uid: Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)
+  name: GetProcessEncodedOutputAsync(String, String, Nullable<Encoding>, CancellationToken)
+  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessEncodedOutputAsync_System_String_System_String_System_Nullable_System_Text_Encoding__System_Threading_CancellationToken_
+  commentId: M:Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)
+  name.vb: GetProcessEncodedOutputAsync(String, String, Nullable(Of Encoding), CancellationToken)
+  fullName: Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String, System.String, System.Nullable<System.Text.Encoding>, System.Threading.CancellationToken)
+  fullName.vb: Swan.ProcessRunner.GetProcessEncodedOutputAsync(System.String, System.String, System.Nullable(Of System.Text.Encoding), System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessEncodedOutputAsync(String, String, Nullable<Encoding>, CancellationToken)
+  nameWithType.vb: ProcessRunner.GetProcessEncodedOutputAsync(String, String, Nullable(Of Encoding), CancellationToken)
 - uid: Swan.ProcessRunner.GetProcessEncodedOutputAsync*
   name: GetProcessEncodedOutputAsync
   href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessEncodedOutputAsync_
@@ -9968,12 +9974,15 @@ references:
   isSpec: "True"
   fullName: Swan.ProcessRunner.GetProcessOutputAsync
   nameWithType: ProcessRunner.GetProcessOutputAsync
-- uid: Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  name: GetProcessResultAsync(String, String, String, Encoding, CancellationToken)
-  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
-  commentId: M:Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  fullName: Swan.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.GetProcessResultAsync(String, String, String, Encoding, CancellationToken)
+- uid: Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)
+  name: GetProcessResultAsync(String, String, String, Nullable<Encoding>, CancellationToken)
+  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_String_System_Nullable_System_Text_Encoding__System_Threading_CancellationToken_
+  commentId: M:Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.String,System.Nullable{System.Text.Encoding},System.Threading.CancellationToken)
+  name.vb: GetProcessResultAsync(String, String, String, Nullable(Of Encoding), CancellationToken)
+  fullName: Swan.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.String, System.Nullable<System.Text.Encoding>, System.Threading.CancellationToken)
+  fullName.vb: Swan.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.String, System.Nullable(Of System.Text.Encoding), System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.GetProcessResultAsync(String, String, String, Nullable<Encoding>, CancellationToken)
+  nameWithType.vb: ProcessRunner.GetProcessResultAsync(String, String, String, Nullable(Of Encoding), CancellationToken)
 - uid: Swan.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Threading.CancellationToken)
   name: GetProcessResultAsync(String, String, CancellationToken)
   href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -9999,12 +10008,15 @@ references:
   commentId: M:Swan.ProcessRunner.RunProcessAsync(System.String,System.String,Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Boolean,System.Threading.CancellationToken)
   fullName: Swan.ProcessRunner.RunProcessAsync(System.String, System.String, Swan.ProcessRunner.ProcessDataReceivedCallback, Swan.ProcessRunner.ProcessDataReceivedCallback, System.Boolean, System.Threading.CancellationToken)
   nameWithType: ProcessRunner.RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)
-- uid: Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.String,Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
-  name: RunProcessAsync(String, String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
-  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_RunProcessAsync_System_String_System_String_System_String_Swan_ProcessRunner_ProcessDataReceivedCallback_Swan_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_
-  commentId: M:Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.String,Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
-  fullName: Swan.ProcessRunner.RunProcessAsync(System.String, System.String, System.String, Swan.ProcessRunner.ProcessDataReceivedCallback, Swan.ProcessRunner.ProcessDataReceivedCallback, System.Text.Encoding, System.Boolean, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.RunProcessAsync(String, String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
+- uid: Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.Nullable{System.String},Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
+  name: RunProcessAsync(String, String, Nullable<String>, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
+  href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_RunProcessAsync_System_String_System_String_System_Nullable_System_String__Swan_ProcessRunner_ProcessDataReceivedCallback_Swan_ProcessRunner_ProcessDataReceivedCallback_System_Text_Encoding_System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Swan.ProcessRunner.RunProcessAsync(System.String,System.String,System.Nullable{System.String},Swan.ProcessRunner.ProcessDataReceivedCallback,Swan.ProcessRunner.ProcessDataReceivedCallback,System.Text.Encoding,System.Boolean,System.Threading.CancellationToken)
+  name.vb: RunProcessAsync(String, String, Nullable(Of String), ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
+  fullName: Swan.ProcessRunner.RunProcessAsync(System.String, System.String, System.Nullable<System.String>, Swan.ProcessRunner.ProcessDataReceivedCallback, Swan.ProcessRunner.ProcessDataReceivedCallback, System.Text.Encoding, System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: Swan.ProcessRunner.RunProcessAsync(System.String, System.String, System.Nullable(Of System.String), Swan.ProcessRunner.ProcessDataReceivedCallback, Swan.ProcessRunner.ProcessDataReceivedCallback, System.Text.Encoding, System.Boolean, System.Threading.CancellationToken)
+  nameWithType: ProcessRunner.RunProcessAsync(String, String, Nullable<String>, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
+  nameWithType.vb: ProcessRunner.RunProcessAsync(String, String, Nullable(Of String), ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Encoding, Boolean, CancellationToken)
 - uid: Swan.ProcessRunner.RunProcessAsync*
   name: RunProcessAsync
   href: api/Swan.ProcessRunner.html#Swan_ProcessRunner_RunProcessAsync_
