@@ -160,13 +160,11 @@ namespace Swan
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (type == typeof(bool))
-            {
-                result = value.ToBoolean();
-                return true;
-            }
+            if (type != typeof(bool))
+                return TryParseBasicType(type, value.ToStringInvariant(), out result);
 
-            return TryParseBasicType(type, value.ToStringInvariant(), out result);
+            result = value.ToBoolean();
+            return true;
         }
 
         /// <summary>

@@ -70,9 +70,7 @@ namespace Swan
         /// <param name="item">The item.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant<T>(this T item)
-        {
-            return typeof(string) == typeof(T) ? item as string ?? string.Empty : ToStringInvariant(item as object);
-        }
+            => typeof(string) == typeof(T) ? item as string ?? string.Empty : ToStringInvariant(item as object);
 
         /// <summary>
         /// Removes the control characters from a string except for those specified.

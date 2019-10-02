@@ -15,34 +15,11 @@ namespace Swan.Reflection
     /// </summary>
     public class ExtendedTypeInfo
     {
-        #region Static Declarations
-
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(ToString);
 
-        private static readonly Type[] NumericTypes = 
-        {
-            typeof(byte),
-            typeof(sbyte),
-            typeof(decimal),
-            typeof(double),
-            typeof(float),
-            typeof(int),
-            typeof(uint),
-            typeof(long),
-            typeof(ulong),
-            typeof(short),
-            typeof(ushort),
-        };
-
-        #endregion
-
-        #region State Management
-
         private readonly ParameterInfo[]? _tryParseParameters;
         private readonly int _toStringArgumentLength;
-
-        #endregion
 
         #region Constructors
 
@@ -62,7 +39,7 @@ namespace Swan.Reflection
                 new NullableConverter(Type).UnderlyingType :
                 Type;
 
-            IsNumeric = NumericTypes.Contains(UnderlyingType);
+            IsNumeric = Definitions.AllNumericValueTypes.Contains(UnderlyingType);
 
             // Extract the TryParse method info
             try
@@ -170,13 +147,6 @@ namespace Swan.Reflection
         #region Methods
 
         /// <summary>
-        /// Gets the default value of this type. For reference types it return null.
-        /// For value types it returns the default value.
-        /// </summary>
-        /// <returns>Default value of this type.</returns>
-        public object? GetDefault() => IsValueType ? Activator.CreateInstance(Type) : null;
-
-        /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
         /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any.
@@ -186,7 +156,7 @@ namespace Swan.Reflection
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
         public bool TryParse(string s, out object? result)
         {
-            result = GetDefault();
+            result = Type.GetDefault();
 
             try
             {
@@ -239,14 +209,14 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public string? ToStringInvariant(object instance)
+        public string ToStringInvariant(object instance)
         {
             if (instance == null)
                 return string.Empty;
 
             return _toStringArgumentLength != 1
                 ? instance.ToString()
-                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string;
+                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string ?? string.Empty;
         }
 
         #endregion
