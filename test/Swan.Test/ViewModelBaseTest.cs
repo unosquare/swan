@@ -68,20 +68,20 @@ namespace Swan.Test
 
         public void SetName(string value)
         {
-            this.SetProperty(ref name, value);
+            SetProperty(ref name, value);
         }
 
         public void SetProperties(string name, int age)
         {
             this.name = name;
             this.age = age;
-            this.NotifyPropertyChanged(new string[] { "name", "age" });
+            NotifyPropertyChanged(new string[] { "name", "age" });
         }
 
         public Task SetNameAsync(string value)
         {
             var actulaCount = ChangeCounter;
-            this.SetProperty(ref name, value);
+            SetProperty(ref name, value);
 
             return Task.Run(() => { while (ChangeCounter <= actulaCount) { } });
         }

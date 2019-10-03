@@ -163,16 +163,14 @@
             AtomicTypeBase<long> other = new AtomicLong(100);
 
             Assert.That(original.Equals(copy));
-            Assert.That(!original.Equals(other));
+            Assert.That(original.Equals(other), Is.False);
 
             Assert.That(original.Equals(copy as object));
             Assert.That(original.Equals(objectValue as object));
-            Assert.That(!original.Equals(null as object));
+            Assert.That(original.Equals(null as object), Is.False);
 
             Assert.That(original.Equals(objectValue));
-            Assert.That(!original.Equals(objectOtherValue));
-
-            //Assert.Throws<ArgumentException>(() => original.Equals(new object()));
+            Assert.That(original.Equals(objectOtherValue), Is.False);
         }
     }
 }
