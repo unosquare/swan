@@ -34,7 +34,6 @@ namespace Swan.Test
         [Test]
         [TestCase(typeof(StackOverflowException))]
         [TestCase(typeof(OutOfMemoryException))]
-        [TestCase(typeof(ThreadAbortException))]
         [TestCase(typeof(AccessViolationException))]
         public void IsFatalTrue(Type type)
         {
