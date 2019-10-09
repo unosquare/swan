@@ -50,7 +50,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 |---|---|---|
 | [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Parsers.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [CircularBuffer](https://unosquare.github.io/swan/api/Swan.CircularBuffer.html) | :x: | :heavy_check_mark: |
 | [Connection](https://unosquare.github.io/swan/api/Swan.Net.Connection.html) | :x: | :heavy_check_mark: |
 | [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Net.ConnectionListener.html) | :x: | :heavy_check_mark: |
 | [CsvReader](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
