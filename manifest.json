@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "tq/X/lgzYQjuKLi5Rey5hw=="
+          "hash": "UN3i+3ulBrG/ucWhZ1OUFA=="
         }
       },
       "is_incremental": false,
@@ -2389,19 +2389,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "3yYLZ30KwFyWTPXp5Tr6lw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/Home.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/Home.html",
-          "hash": "qViOxyK0jV0Q/CWafyC3xg=="
+          "hash": "+e9f6o9EzcAEBqz0JgvOKQ=="
         }
       },
       "is_incremental": false,
@@ -2419,18 +2407,6 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 3,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 190,
-          "skipped_file_count": 0
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -2438,11 +2414,23 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 0
+        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 190,
           "skipped_file_count": 0
         }
       }
