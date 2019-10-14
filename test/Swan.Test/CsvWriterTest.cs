@@ -77,10 +77,14 @@
                 {"ValidationResult", "true"},
             };
 
-            using var stream = File.OpenWrite(tempFile);
-            using var writer = new CsvWriter(stream);
-            writer.WriteHeadings(data);
-            writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
+            using (var stream = File.OpenWrite(tempFile))
+            {
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings(data);
+                    writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
+                }
+            }
 
             var valuesInFile = CsvReader.LoadRecords<object>(tempFile);
             Assert.AreEqual(1, valuesInFile.Count, "Same length");
