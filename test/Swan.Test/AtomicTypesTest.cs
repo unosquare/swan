@@ -46,9 +46,9 @@
             }
 
             Task.WaitAll(
-                Task.Run(SumTask),
-                Task.Run(SumTask),
-                Task.Run(SumTask));
+                Task.Factory.StartNew(SumTask),
+                Task.Factory.StartNew(SumTask),
+                Task.Factory.StartNew(SumTask));
 
             Assert.That(atomic.Value, Is.EqualTo(900));
         }
