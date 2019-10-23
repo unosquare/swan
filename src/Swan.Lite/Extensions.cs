@@ -21,42 +21,13 @@ namespace Swan
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful.</returns>
-        public static int CopyPropertiesTo<T>(this T source, object target)
-            where T : class
-        {
-            var copyable = GetCopyableProperties(target);
-            return copyable.Any()
-                ? CopyOnlyPropertiesTo(source, target, copyable.ToArray())
-                : CopyPropertiesTo(source, target, null);
-        }
-
-        /// <summary>
-        /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Number of properties that were successfully copied.
+        /// Number of properties that was copied successful.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, params string[]? ignoreProperties)
-            => ObjectMapper.Copy(source, target, null, ignoreProperties);
-
-        /// <summary>
-        /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination.
-        /// </summary>
-        /// <typeparam name="T">The type of the source.</typeparam>
-        /// <param name="source">The source.</param>
-        /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful.</returns>
-        public static int CopyOnlyPropertiesTo<T>(this T source, object target)
-            where T : class
-        {
-            return CopyOnlyPropertiesTo(source, target, null);
-        }
+        public static int CopyPropertiesTo<T>(this T source, object target, params string[] ignoreProperties)
+            where T : class =>
+            ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -88,12 +59,7 @@ namespace Swan
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            var copyable = target.GetCopyableProperties();
-
-            if (copyable.Any())
-                source.CopyOnlyPropertiesTo(target, copyable.ToArray());
-            else
-                source.CopyPropertiesTo(target, ignoreProperties);
+            ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
             return target;
         }
@@ -115,7 +81,8 @@ namespace Swan
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            source.CopyOnlyPropertiesTo(target, propertiesToCopy);
+            ObjectMapper.Copy(source, target, propertiesToCopy);
+
             return target;
         }
 
@@ -225,22 +192,31 @@ namespace Swan
 
         /// <summary>
         /// Gets the copyable properties.
+        ///
+        /// If there is no properties with the attribute <c>AttributeCache</c> returns all the properties.
         /// </summary>
         /// <param name="this">The object.</param>
         /// <returns>
         /// Array of properties.
         /// </returns>
         /// <exception cref="ArgumentNullException">model.</exception>
+        /// <seealso cref="AttributeCache"/>
         public static IEnumerable<string> GetCopyableProperties(this object @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            return PropertyTypeCache.DefaultCache.Value
-                .RetrieveAllProperties(@this.GetType(), true)
+            var collection = PropertyTypeCache.DefaultCache.Value
+                .RetrieveAllProperties(@this.GetType(), true);
+
+            var properties = collection
                 .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
+
+            return properties.Any()
+                ? properties
+                : collection.Select(x => x.Name);
         }
 
         internal static void CreateTarget(

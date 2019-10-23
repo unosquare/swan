@@ -253,7 +253,7 @@
         [Test]
         public void WithNullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<string, object> source = null;
+            Dictionary<string, object>? source = null;
 
             Assert.Throws<ArgumentNullException>(() => source.CopyKeyValuePairToNew<ObjectEnum>());
         }
