@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Extensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.45.1.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -249,14 +249,14 @@ instance, writable property in the destination.</p>
   
   
   <a id="Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Swan.Extensions.CopyOnlyPropertiesTo*"></a>
-  <h4 id="Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___propertiesToCopy_" data-uid="Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[],propertiesToCopy)">CopyOnlyPropertiesTo(Object, Object, String[], propertiesToCopy)</h4>
+  <h4 id="Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])">CopyOnlyPropertiesTo(Object, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
 tries to write a compatible value to a public, instance, writable property in the destination.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int CopyOnlyPropertiesTo(this object source, object target, params string[], propertiesToCopy)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int CopyOnlyPropertiesTo(this object source, object target, params string[] propertiesToCopy)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -282,13 +282,9 @@ tries to write a compatible value to a public, instance, writable property in th
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername"></span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">propertiesToCopy</span></td>
-        <td><span class="parametername"></span></td>
-        <td></td>
+        <td><span class="parametername">propertiesToCopy</span></td>
+        <td><p>Properties to copy.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -448,14 +444,14 @@ tries to write a compatible value to a public, instance, writable property in th
   
   
   <a id="Swan_Extensions_CopyPropertiesTo_" data-uid="Swan.Extensions.CopyPropertiesTo*"></a>
-  <h4 id="Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___ignoreProperties_" data-uid="Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[],ignoreProperties)">CopyPropertiesTo(Object, Object, String[], ignoreProperties)</h4>
+  <h4 id="Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])">CopyPropertiesTo(Object, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
 tries to write a compatible value to a public, instance, writable property in the destination.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int CopyPropertiesTo(this object source, object target, params string[], ignoreProperties)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int CopyPropertiesTo(this object source, object target, params string[] ignoreProperties)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -481,13 +477,9 @@ tries to write a compatible value to a public, instance, writable property in th
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername"></span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">ignoreProperties</span></td>
-        <td><span class="parametername"></span></td>
-        <td></td>
+        <td><span class="parametername">ignoreProperties</span></td>
+        <td><p>The ignore properties.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -579,13 +571,13 @@ tries to write a compatible value to a public, instance, writable property in th
   
   
   <a id="Swan_Extensions_CopyPropertiesToNew_" data-uid="Swan.Extensions.CopyPropertiesToNew*"></a>
-  <h4 id="Swan_Extensions_CopyPropertiesToNew__1_System_Object_System_String___ignoreProperties_" data-uid="Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[],ignoreProperties)">CopyPropertiesToNew&lt;T&gt;(Object, String[], ignoreProperties)</h4>
+  <h4 id="Swan_Extensions_CopyPropertiesToNew__1_System_Object_System_String___" data-uid="Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[])">CopyPropertiesToNew&lt;T&gt;(Object, String[])</h4>
   <div class="markdown level1 summary"><p>Copies the properties to new instance of T.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T CopyPropertiesToNew&lt;T&gt;(this object source, string[], ignoreProperties  = null)
+    <pre><code class="lang-csharp hljs">public static T CopyPropertiesToNew&lt;T&gt;(this object source, string[] ignoreProperties = null)
     where T : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -606,13 +598,9 @@ tries to write a compatible value to a public, instance, writable property in th
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername"></span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">ignoreProperties</span></td>
-        <td><span class="parametername"></span></td>
-        <td></td>
+        <td><span class="parametername">ignoreProperties</span></td>
+        <td><p>The ignore properties.</p>
+</td>
       </tr>
     </tbody>
   </table>

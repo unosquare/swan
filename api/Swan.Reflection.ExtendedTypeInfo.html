@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ExtendedTypeInfo
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.45.1.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -426,7 +426,7 @@ IFormat provider if the overload is available.</p>
   
   
   <a id="Swan_Reflection_ExtendedTypeInfo_TryParse_" data-uid="Swan.Reflection.ExtendedTypeInfo.TryParse*"></a>
-  <h4 id="Swan_Reflection_ExtendedTypeInfo_TryParse_System_String_System_Nullable_System_Object___" data-uid="Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Nullable{System.Object}@)">TryParse(String, out Nullable&lt;Object&gt;)</h4>
+  <h4 id="Swan_Reflection_ExtendedTypeInfo_TryParse_System_String_System_Object__" data-uid="Swan.Reflection.ExtendedTypeInfo.TryParse(System.String,System.Object@)">TryParse(String, out Object)</h4>
   <div class="markdown level1 summary"><p>Tries to parse the string into an object of the type this instance represents.
 Returns false when no suitable TryParse methods exists for the type or when parsing fails
 for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any.</p>
@@ -434,7 +434,7 @@ for any reason. When possible, this method uses CultureInfo.InvariantCulture and
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryParse(string s, out object? result)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryParse(string s, out object result)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -453,7 +453,7 @@ for any reason. When possible, this method uses CultureInfo.InvariantCulture and
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
         <td><span class="parametername">result</span></td>
         <td><p>The result.</p>
 </td>

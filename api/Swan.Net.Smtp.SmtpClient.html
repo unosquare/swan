@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SmtpClient
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.45.1.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -385,13 +385,13 @@ If set to false, communication between client and server will not be secured.</p
   
   
   <a id="Swan_Net_Smtp_SmtpClient_SendMailAsync_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync*"></a>
-  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_MailMessage_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(MailMessage, Nullable&lt;String&gt;, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_MailMessage_System_String_System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(MailMessage,System.String,System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(MailMessage, String, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends an email message asynchronously.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task SendMailAsync(MailMessage message, string? sessionId = default(string? ), RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task SendMailAsync(MailMessage message, string sessionId = null, RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -410,7 +410,7 @@ If set to false, communication between client and server will not be secured.</p
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">sessionId</span></td>
         <td><p>The session identifier.</p>
 </td>
@@ -464,7 +464,7 @@ If set to false, communication between client and server will not be secured.</p
   
   
   <a id="Swan_Net_Smtp_SmtpClient_SendMailAsync_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync*"></a>
-  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_Swan_Net_Smtp_SmtpSessionState_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(SmtpSessionState, Nullable&lt;String&gt;, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_Swan_Net_Smtp_SmtpSessionState_System_String_System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(Swan.Net.Smtp.SmtpSessionState,System.String,System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(SmtpSessionState, String, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends an email message using a session state object.
 Credentials, Enable SSL and Client Hostname are NOT taken from the state object but
 rather from the properties of this class.</p>
@@ -472,7 +472,7 @@ rather from the properties of this class.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task SendMailAsync(SmtpSessionState sessionState, string? sessionId = default(string? ), RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task SendMailAsync(SmtpSessionState sessionState, string sessionId = null, RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -491,7 +491,7 @@ rather from the properties of this class.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">sessionId</span></td>
         <td><p>The session identifier.</p>
 </td>
@@ -545,7 +545,7 @@ rather from the properties of this class.</p>
   
   
   <a id="Swan_Net_Smtp_SmtpClient_SendMailAsync_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync*"></a>
-  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Swan_Net_Smtp_SmtpSessionState__System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(IEnumerable&lt;SmtpSessionState&gt;, Nullable&lt;String&gt;, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_Smtp_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Swan_Net_Smtp_SmtpSessionState__System_String_System_Nullable_RemoteCertificateValidationCallback__System_Threading_CancellationToken_" data-uid="Swan.Net.Smtp.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Swan.Net.Smtp.SmtpSessionState},System.String,System.Nullable{RemoteCertificateValidationCallback},System.Threading.CancellationToken)">SendMailAsync(IEnumerable&lt;SmtpSessionState&gt;, String, Nullable&lt;RemoteCertificateValidationCallback&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends an array of email messages using a session state object.
 Credentials, Enable SSL and Client Hostname are NOT taken from the state object but
 rather from the properties of this class.</p>
@@ -553,7 +553,7 @@ rather from the properties of this class.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task SendMailAsync(IEnumerable&lt;SmtpSessionState&gt; sessionStates, string? sessionId = default(string? ), RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task SendMailAsync(IEnumerable&lt;SmtpSessionState&gt; sessionStates, string sessionId = null, RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -572,7 +572,7 @@ rather from the properties of this class.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">sessionId</span></td>
         <td><p>The session identifier.</p>
 </td>

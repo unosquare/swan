@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class JsonClient
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.45.1.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -130,7 +130,7 @@ and bearer tokens authentication.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;? &gt; Authenticate(Uri requestUri, string username, string password, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Authenticate(Uri requestUri, string username, string password, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -178,7 +178,7 @@ and bearer tokens authentication.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><p>A task with a Dictionary with authentication data.</p>
 </td>
       </tr>
@@ -210,14 +210,14 @@ username.</p>
   
   
   <a id="Swan_Net_JsonClient_Get_" data-uid="Swan.Net.JsonClient.Get*"></a>
-  <h4 id="Swan_Net_JsonClient_Get__1_Uri_System_Nullable_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String____System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)">Get&lt;T&gt;(Uri, Nullable&lt;IDictionary&lt;String, IEnumerable&lt;String&gt;&gt;&gt;, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Get__1_Uri_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String___System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Get``1(Uri,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Threading.CancellationToken)">Get&lt;T&gt;(Uri, IDictionary&lt;String, IEnumerable&lt;String&gt;&gt;, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the specified URL and return the JSON data as object
 with optional authorization token.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(Uri requestUri, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt;? headers, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(Uri requestUri, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt; headers, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -236,13 +236,13 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
         <td><span class="parametername">headers</span></td>
         <td><p>The headers.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -290,14 +290,14 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_Get_" data-uid="Swan.Net.JsonClient.Get*"></a>
-  <h4 id="Swan_Net_JsonClient_Get__1_Uri_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Get``1(Uri,System.Nullable{System.String},System.Threading.CancellationToken)">Get&lt;T&gt;(Uri, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Get__1_Uri_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Get``1(Uri,System.String,System.Threading.CancellationToken)">Get&lt;T&gt;(Uri, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the specified URL and return the JSON data as object
 with optional authorization token.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(Uri requestUri, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(Uri requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -316,7 +316,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -364,13 +364,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_GetBinary_" data-uid="Swan.Net.JsonClient.GetBinary*"></a>
-  <h4 id="Swan_Net_JsonClient_GetBinary_Uri_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetBinary(Uri,System.Nullable{System.String},System.Threading.CancellationToken)">GetBinary(Uri, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_GetBinary_Uri_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetBinary(Uri,System.String,System.Threading.CancellationToken)">GetBinary(Uri, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the binary.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(Uri requestUri, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(Uri requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -389,7 +389,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -442,13 +442,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_GetString_" data-uid="Swan.Net.JsonClient.GetString*"></a>
-  <h4 id="Swan_Net_JsonClient_GetString_Uri_System_Nullable_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String____System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.Nullable{System.String},System.Threading.CancellationToken)">GetString(Uri, Nullable&lt;IDictionary&lt;String, IEnumerable&lt;String&gt;&gt;&gt;, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_GetString_Uri_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String___System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetString(Uri,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Threading.CancellationToken)">GetString(Uri, IDictionary&lt;String, IEnumerable&lt;String&gt;&gt;, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the string.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(Uri uri, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt;? headers, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(Uri uri, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt; headers, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -467,13 +467,13 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
         <td><span class="parametername">headers</span></td>
         <td><p>The headers.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -505,13 +505,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_GetString_" data-uid="Swan.Net.JsonClient.GetString*"></a>
-  <h4 id="Swan_Net_JsonClient_GetString_Uri_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetString(Uri,System.Nullable{System.String},System.Threading.CancellationToken)">GetString(Uri, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_GetString_Uri_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.GetString(Uri,System.String,System.Threading.CancellationToken)">GetString(Uri, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets as string.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(Uri requestUri, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(Uri requestUri, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -530,7 +530,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -583,13 +583,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_Post_" data-uid="Swan.Net.JsonClient.Post*"></a>
-  <h4 id="Swan_Net_JsonClient_Post_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Post(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">Post(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Post_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Post(Uri,System.Object,System.String,System.Threading.CancellationToken)">Post(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the specified URL.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;? &gt; Post(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(Uri requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -614,7 +614,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -637,7 +637,7 @@ with optional authorization token.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><p>A task with a result as a collection of key/value pairs.</p>
 </td>
       </tr>
@@ -646,13 +646,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_Post_" data-uid="Swan.Net.JsonClient.Post*"></a>
-  <h4 id="Swan_Net_JsonClient_Post__1_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Post``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">Post&lt;T&gt;(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Post__1_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Post``1(Uri,System.Object,System.String,System.Threading.CancellationToken)">Post&lt;T&gt;(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Post a object as JSON with optional authorization token.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(Uri requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -677,7 +677,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -725,13 +725,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_PostFile_" data-uid="Swan.Net.JsonClient.PostFile*"></a>
-  <h4 id="Swan_Net_JsonClient_PostFile__1_Uri_System_Byte___System_String_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostFile``1(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)">PostFile&lt;T&gt;(Uri, Byte[], String, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_PostFile__1_Uri_System_Byte___System_String_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostFile``1(Uri,System.Byte[],System.String,System.String,System.Threading.CancellationToken)">PostFile&lt;T&gt;(Uri, Byte[], String, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(Uri requestUri, byte[] buffer, string fileName, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(Uri requestUri, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -762,7 +762,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -810,13 +810,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_PostFileString_" data-uid="Swan.Net.JsonClient.PostFileString*"></a>
-  <h4 id="Swan_Net_JsonClient_PostFileString_Uri_System_Byte___System_String_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostFileString(Uri,System.Byte[],System.String,System.Nullable{System.String},System.Threading.CancellationToken)">PostFileString(Uri, Byte[], String, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_PostFileString_Uri_System_Byte___System_String_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostFileString(Uri,System.Byte[],System.String,System.String,System.Threading.CancellationToken)">PostFileString(Uri, Byte[], String, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(Uri requestUri, byte[] buffer, string fileName, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(Uri requestUri, byte[] buffer, string fileName, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -847,7 +847,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -879,13 +879,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_PostString_" data-uid="Swan.Net.JsonClient.PostString*"></a>
-  <h4 id="Swan_Net_JsonClient_PostString_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">PostString(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_PostString_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PostString(Uri,System.Object,System.String,System.Threading.CancellationToken)">PostString(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts the specified URL.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(Uri requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -910,7 +910,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -963,13 +963,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_Put_" data-uid="Swan.Net.JsonClient.Put*"></a>
-  <h4 id="Swan_Net_JsonClient_Put_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Put(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">Put(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Put_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Put(Uri,System.Object,System.String,System.Threading.CancellationToken)">Put(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Puts the specified URL.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;? &gt; Put(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Put(Uri requestUri, object payload, string authorization = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -994,7 +994,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -1017,7 +1017,7 @@ with optional authorization token.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><p>A task with a result of the requested collection of key/value pairs.</p>
 </td>
       </tr>
@@ -1026,13 +1026,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_Put_" data-uid="Swan.Net.JsonClient.Put*"></a>
-  <h4 id="Swan_Net_JsonClient_Put__1_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Put``1(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">Put&lt;T&gt;(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_Put__1_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.Put``1(Uri,System.Object,System.String,System.Threading.CancellationToken)">Put&lt;T&gt;(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Puts the specified URL.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(Uri requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1057,7 +1057,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -1105,13 +1105,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_PutString_" data-uid="Swan.Net.JsonClient.PutString*"></a>
-  <h4 id="Swan_Net_JsonClient_PutString_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PutString(Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">PutString(Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_PutString_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.PutString(Uri,System.Object,System.String,System.Threading.CancellationToken)">PutString(Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Puts as string.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(Uri requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1136,7 +1136,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>
@@ -1189,13 +1189,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_SendAsync_" data-uid="Swan.Net.JsonClient.SendAsync*"></a>
-  <h4 id="Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_Nullable_System_String__System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.Nullable{System.String},System.Threading.CancellationToken)">SendAsync(HttpMethod, Uri, Object, Nullable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Threading.CancellationToken)">SendAsync(HttpMethod, Uri, Object, String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends the asynchronous request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, Uri requestUri, object payload, string? authorization = default(string? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, Uri requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1226,7 +1226,7 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">authorization</span></td>
         <td><p>The authorization.</p>
 </td>

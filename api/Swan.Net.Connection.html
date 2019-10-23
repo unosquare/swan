@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Connection
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.45.1.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -919,7 +919,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string? &gt; ReadLineAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -949,7 +949,7 @@ determined by this property has been received. Useful for fixed-length message p
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A task that represents the asynchronous read operation. The value of the TResult parameter 
 contains the next line from the stream, or is null if all the characters have been read.</p>
 </td>
@@ -969,7 +969,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string? &gt; ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1005,7 +1005,7 @@ and the rest of the read methods are not called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A task with a string line from the queue.</p>
 </td>
       </tr>
@@ -1036,7 +1036,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string? &gt; ReadTextAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1066,7 +1066,7 @@ and the rest of the read methods are not called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>When this method completes successfully, it returns the contents of the file as a text string.</p>
 </td>
       </tr>
@@ -1081,7 +1081,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string? &gt; ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1117,7 +1117,7 @@ and the rest of the read methods are not called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> that contains the results of decoding the specified sequence of bytes.</p>
 </td>
       </tr>
@@ -1126,13 +1126,13 @@ and the rest of the read methods are not called.</p>
   
   
   <a id="Swan_Net_Connection_UpgradeToSecureAsClientAsync_" data-uid="Swan.Net.Connection.UpgradeToSecureAsClientAsync*"></a>
-  <h4 id="Swan_Net_Connection_UpgradeToSecureAsClientAsync_System_Nullable_System_String__System_Nullable_RemoteCertificateValidationCallback__" data-uid="Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.Nullable{System.String},System.Nullable{RemoteCertificateValidationCallback})">UpgradeToSecureAsClientAsync(Nullable&lt;String&gt;, Nullable&lt;RemoteCertificateValidationCallback&gt;)</h4>
+  <h4 id="Swan_Net_Connection_UpgradeToSecureAsClientAsync_System_String_System_Nullable_RemoteCertificateValidationCallback__" data-uid="Swan.Net.Connection.UpgradeToSecureAsClientAsync(System.String,System.Nullable{RemoteCertificateValidationCallback})">UpgradeToSecureAsClientAsync(String, Nullable&lt;RemoteCertificateValidationCallback&gt;)</h4>
   <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string? hostname = default(string? ), RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string hostname = null, RemoteCertificateValidationCallback? callback = default(RemoteCertificateValidationCallback? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1145,7 +1145,7 @@ and the rest of the read methods are not called.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">hostname</span></td>
         <td><p>The hostname.</p>
 </td>
