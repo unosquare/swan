@@ -3283,15 +3283,6 @@ references:
   isSpec: "True"
   fullName: Swan.Extensions.CopyOnlyPropertiesTo
   nameWithType: Extensions.CopyOnlyPropertiesTo
-- uid: Swan.Extensions.CopyOnlyPropertiesTo``1(``0,System.Object)
-  name: CopyOnlyPropertiesTo<T>(T, Object)
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyOnlyPropertiesTo__1___0_System_Object_
-  commentId: M:Swan.Extensions.CopyOnlyPropertiesTo``1(``0,System.Object)
-  name.vb: CopyOnlyPropertiesTo(Of T)(T, Object)
-  fullName: Swan.Extensions.CopyOnlyPropertiesTo<T>(T, System.Object)
-  fullName.vb: Swan.Extensions.CopyOnlyPropertiesTo(Of T)(T, System.Object)
-  nameWithType: Extensions.CopyOnlyPropertiesTo<T>(T, Object)
-  nameWithType.vb: Extensions.CopyOnlyPropertiesTo(Of T)(T, Object)
 - uid: Swan.Extensions.CopyOnlyPropertiesToNew*
   name: CopyOnlyPropertiesToNew
   href: api/Swan.Extensions.html#Swan_Extensions_CopyOnlyPropertiesToNew_
@@ -3308,15 +3299,6 @@ references:
   fullName.vb: Swan.Extensions.CopyOnlyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyOnlyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyOnlyPropertiesToNew(Of T)(Object, String())
-- uid: Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])
-  name: CopyPropertiesTo(Object, Object, String[])
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___
-  commentId: M:Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])
-  name.vb: CopyPropertiesTo(Object, Object, String())
-  fullName: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String[])
-  fullName.vb: Swan.Extensions.CopyPropertiesTo(System.Object, System.Object, System.String())
-  nameWithType: Extensions.CopyPropertiesTo(Object, Object, String[])
-  nameWithType.vb: Extensions.CopyPropertiesTo(Object, Object, String())
 - uid: Swan.Extensions.CopyPropertiesTo*
   name: CopyPropertiesTo
   href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo_
@@ -3324,15 +3306,15 @@ references:
   isSpec: "True"
   fullName: Swan.Extensions.CopyPropertiesTo
   nameWithType: Extensions.CopyPropertiesTo
-- uid: Swan.Extensions.CopyPropertiesTo``1(``0,System.Object)
-  name: CopyPropertiesTo<T>(T, Object)
-  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo__1___0_System_Object_
-  commentId: M:Swan.Extensions.CopyPropertiesTo``1(``0,System.Object)
-  name.vb: CopyPropertiesTo(Of T)(T, Object)
-  fullName: Swan.Extensions.CopyPropertiesTo<T>(T, System.Object)
-  fullName.vb: Swan.Extensions.CopyPropertiesTo(Of T)(T, System.Object)
-  nameWithType: Extensions.CopyPropertiesTo<T>(T, Object)
-  nameWithType.vb: Extensions.CopyPropertiesTo(Of T)(T, Object)
+- uid: Swan.Extensions.CopyPropertiesTo``1(``0,System.Object,System.String[])
+  name: CopyPropertiesTo<T>(T, Object, String[])
+  href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesTo__1___0_System_Object_System_String___
+  commentId: M:Swan.Extensions.CopyPropertiesTo``1(``0,System.Object,System.String[])
+  name.vb: CopyPropertiesTo(Of T)(T, Object, String())
+  fullName: Swan.Extensions.CopyPropertiesTo<T>(T, System.Object, System.String[])
+  fullName.vb: Swan.Extensions.CopyPropertiesTo(Of T)(T, System.Object, System.String())
+  nameWithType: Extensions.CopyPropertiesTo<T>(T, Object, String[])
+  nameWithType.vb: Extensions.CopyPropertiesTo(Of T)(T, Object, String())
 - uid: Swan.Extensions.CopyPropertiesToNew*
   name: CopyPropertiesToNew
   href: api/Swan.Extensions.html#Swan_Extensions_CopyPropertiesToNew_
@@ -5538,24 +5520,24 @@ references:
   commentId: T:Swan.Mappers.ObjectMapper
   fullName: Swan.Mappers.ObjectMapper
   nameWithType: ObjectMapper
-- uid: Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],System.String[])
-  name: Copy(IDictionary<String, Object>, Object, String[], String[])
-  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_IDictionary_System_String_System_Object__System_Object_System_String___System_String___
-  commentId: M:Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.String[],System.String[])
-  name.vb: Copy(IDictionary(Of String, Object), Object, String(), String())
-  fullName: Swan.Mappers.ObjectMapper.Copy(IDictionary<System.String, System.Object>, System.Object, System.String[], System.String[])
-  fullName.vb: Swan.Mappers.ObjectMapper.Copy(IDictionary(Of System.String, System.Object), System.Object, System.String(), System.String())
-  nameWithType: ObjectMapper.Copy(IDictionary<String, Object>, Object, String[], String[])
-  nameWithType.vb: ObjectMapper.Copy(IDictionary(Of String, Object), Object, String(), String())
-- uid: Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
-  name: Copy(Object, Object, String[], String[])
-  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Object_System_Object_System_String___System_String___
-  commentId: M:Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
-  name.vb: Copy(Object, Object, String(), String())
-  fullName: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String[], System.String[])
-  fullName.vb: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.String(), System.String())
-  nameWithType: ObjectMapper.Copy(Object, Object, String[], String[])
-  nameWithType.vb: ObjectMapper.Copy(Object, Object, String(), String())
+- uid: Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name: Copy(IDictionary<String, Object>, Object, Nullable<IEnumerable<String>>, String[])
+  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_IDictionary_System_String_System_Object__System_Object_System_Nullable_IEnumerable_System_String___System_String___
+  commentId: M:Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name.vb: Copy(IDictionary(Of String, Object), Object, Nullable(Of IEnumerable(Of String)), String())
+  fullName: Swan.Mappers.ObjectMapper.Copy(IDictionary<System.String, System.Object>, System.Object, System.Nullable<IEnumerable<System.String>>, System.String[])
+  fullName.vb: Swan.Mappers.ObjectMapper.Copy(IDictionary(Of System.String, System.Object), System.Object, System.Nullable(Of IEnumerable(Of System.String)), System.String())
+  nameWithType: ObjectMapper.Copy(IDictionary<String, Object>, Object, Nullable<IEnumerable<String>>, String[])
+  nameWithType.vb: ObjectMapper.Copy(IDictionary(Of String, Object), Object, Nullable(Of IEnumerable(Of String)), String())
+- uid: Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name: Copy(Object, Object, Nullable<IEnumerable<String>>, String[])
+  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Object_System_Object_System_Nullable_IEnumerable_System_String___System_String___
+  commentId: M:Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name.vb: Copy(Object, Object, Nullable(Of IEnumerable(Of String)), String())
+  fullName: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.Nullable<IEnumerable<System.String>>, System.String[])
+  fullName.vb: Swan.Mappers.ObjectMapper.Copy(System.Object, System.Object, System.Nullable(Of IEnumerable(Of System.String)), System.String())
+  nameWithType: ObjectMapper.Copy(Object, Object, Nullable<IEnumerable<String>>, String[])
+  nameWithType.vb: ObjectMapper.Copy(Object, Object, Nullable(Of IEnumerable(Of String)), String())
 - uid: Swan.Mappers.ObjectMapper.Copy*
   name: Copy
   href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_
