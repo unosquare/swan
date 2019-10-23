@@ -13,7 +13,7 @@ namespace Swan.Diagnostics
         {
             private readonly string _identifier;
             private bool _isDisposed; // To detect redundant calls
-            private Stopwatch _stopwatch = new Stopwatch();
+            private Stopwatch? _stopwatch = new Stopwatch();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="BenchmarkUnit" /> class.
@@ -22,7 +22,7 @@ namespace Swan.Diagnostics
             public BenchmarkUnit(string identifier)
             {
                 _identifier = identifier;
-                _stopwatch.Start();
+                _stopwatch?.Start();
             }
 
             /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace Swan.Diagnostics
 
                 if (alsoManaged)
                 {
-                    Add(_identifier, _stopwatch.Elapsed);
+                    Add(_identifier, _stopwatch?.Elapsed ?? default);
                     _stopwatch?.Stop();
                 }
 

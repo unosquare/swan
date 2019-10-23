@@ -141,7 +141,7 @@
         /// <summary>
         /// Gets or sets the state change task.
         /// </summary>
-        protected Task<WorkerState> StateChangeTask { get; set; }
+        protected Task<WorkerState>? StateChangeTask { get; set; }
 
         /// <inheritdoc />
         public abstract Task<WorkerState> StartAsync();

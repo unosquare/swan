@@ -70,7 +70,9 @@ namespace Swan.Formatters
         ///     }
         /// }
         /// </code>
+        /// 
         /// The following example details how to serialize an object using the <see cref="JsonPropertyAttribute"/>.
+        /// 
         /// <code>
         /// using Swan.Attributes;
         /// using Swan.Formatters;
@@ -142,9 +144,9 @@ namespace Swan.Formatters
             bool format,
             string? typeSpecifier,
             bool includeNonPublic,
-            string[] includedNames,
+            string[]? includedNames,
             string[] excludedNames,
-            List<WeakReference> parentReferences,
+            List<WeakReference>? parentReferences,
             JsonSerializerCase jsonSerializerCase)
         {
             if (obj != null && (obj is string || Definitions.AllBasicValueTypes.Contains(obj.GetType())))

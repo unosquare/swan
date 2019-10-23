@@ -55,7 +55,6 @@ namespace Swan.Formatters
                     return;
 
                 _options = options;
-                _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
                 // Handle circular references correctly and avoid them
                 if (options.IsObjectPresent(obj!))
@@ -65,29 +64,18 @@ namespace Swan.Formatters
                 }
 
                 // At this point, we will need to construct the object with a StringBuilder.
+                _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
                 _builder = new StringBuilder();
 
-                switch (obj)
+                _result = obj switch
                 {
-                    case IDictionary itemsZero when itemsZero.Count == 0:
-                        _result = EmptyObjectLiteral;
-                        break;
-                    case IDictionary items:
-                        _result = ResolveDictionary(items, depth);
-                        break;
-                    case IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any():
-                        _result = EmptyArrayLiteral;
-                        break;
-                    case IEnumerable enumerableBytes when enumerableBytes is byte[] bytes:
-                        _result = Serialize(bytes.ToBase64(), depth, _options);
-                        break;
-                    case IEnumerable enumerable:
-                        _result = ResolveEnumerable(enumerable, depth);
-                        break;
-                    default:
-                        _result = ResolveObject(obj!, depth);
-                        break;
-                }
+                    IDictionary itemsZero when itemsZero.Count == 0 => EmptyObjectLiteral,
+                    IDictionary items => ResolveDictionary(items, depth),
+                    IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
+                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options),
+                    IEnumerable enumerable => ResolveEnumerable(enumerable, depth),
+                    _ => ResolveObject(obj!, depth)
+                };
             }
 
             internal static string Serialize(object? obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
