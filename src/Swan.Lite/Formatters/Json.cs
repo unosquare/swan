@@ -99,7 +99,7 @@ namespace Swan.Formatters
         /// </code>
         /// </example>
         public static string Serialize(
-            object obj,
+            object? obj,
             bool format = false,
             string? typeSpecifier = null,
             bool includeNonPublic = false,
@@ -120,7 +120,7 @@ namespace Swan.Formatters
         /// A <see cref="System.String" /> that represents the current object.
         /// </returns>
         public static string Serialize(
-            object obj,
+            object? obj,
             JsonSerializerCase jsonSerializerCase,
             bool format = false,
             string? typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
@@ -145,7 +145,7 @@ namespace Swan.Formatters
             string? typeSpecifier,
             bool includeNonPublic,
             string[]? includedNames,
-            string[] excludedNames,
+            string[]? excludedNames,
             List<WeakReference>? parentReferences,
             JsonSerializerCase jsonSerializerCase)
         {
@@ -205,7 +205,8 @@ namespace Swan.Formatters
         /// }
         /// </code>
         /// </example>
-        public static string SerializeOnly(object? obj, bool format, params string[] includeNames) => Serialize(obj, new SerializerOptions(format, null, includeNames));
+        public static string SerializeOnly(object? obj, bool format, params string[] includeNames)
+            => Serialize(obj, new SerializerOptions(format, null, includeNames));
 
         /// <summary>
         /// Serializes the specified object excluding the specified property names.
@@ -236,7 +237,7 @@ namespace Swan.Formatters
         /// }
         /// </code>
         /// </example>
-        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames) 
+        public static string SerializeExcluding(object? obj, bool format, params string[] excludeNames) 
             => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
 
         /// <summary>
@@ -291,7 +292,7 @@ namespace Swan.Formatters
         /// }
         /// }
         /// </code></example>
-        public static object Deserialize(string json)
+        public static object? Deserialize(string json)
             => Deserialize(json, JsonSerializerCase.None);
 
         /// <summary>
@@ -348,7 +349,7 @@ namespace Swan.Formatters
 
         #region Private API
 
-        private static string[] GetExcludedNames(Type type, string[] excludedNames)
+        private static string[]? GetExcludedNames(Type? type, string[]? excludedNames)
         {
             if (type == null)
                 return excludedNames;
@@ -365,18 +366,14 @@ namespace Swan.Formatters
                 : excludedByAttr.ToArray();
         }
 
-        private static string SerializePrimitiveValue(object obj)
-        {
-            switch (obj)
+        private static string SerializePrimitiveValue(object obj) =>
+            obj switch
             {
-                case string stringValue:
-                    return stringValue;
-                case bool boolValue:
-                    return boolValue ? TrueLiteral : FalseLiteral;
-                default:
-                    return obj.ToString();
-            }
-        }
+                string stringValue => stringValue,
+                bool boolValue => boolValue ? TrueLiteral : FalseLiteral,
+                _ => obj.ToString()
+            };
+
         #endregion
     }
 }
