@@ -138,7 +138,8 @@ namespace Swan
 
             lock (SyncLock)
             {
-                Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} (default is {defaultNumber}): ", ConsoleColor.White);
+                Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} (default is {defaultNumber}): ",
+                    ConsoleColor.White);
 
                 var input = ReadLine();
                 return int.TryParse(input, out var parsedInt) ? parsedInt : defaultNumber;
@@ -151,13 +152,19 @@ namespace Swan
         /// <param name="title">The title.</param>
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
-        /// <returns>A value that identifies the console key that was pressed.</returns>
+        /// <returns>
+        /// A value that identifies the console key that was pressed.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">options.</exception>
         public static ConsoleKeyInfo ReadPrompt(
             string title,
             IDictionary<ConsoleKey, string> options,
             string anyKeyOption)
         {
             if (!IsConsolePresent) return default;
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
 
             const ConsoleColor textColor = ConsoleColor.White;
             var lineLength = Console.WindowWidth;
@@ -195,8 +202,11 @@ namespace Swan
                 foreach (var kvp in options)
                 {
                     Table.Vertical();
-                    Write(string.Format(CultureInfo.CurrentCulture, textFormat,
-                        $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}"), textColor);
+                    Write(string.Format(
+                            CultureInfo.CurrentCulture,
+                            textFormat,
+                            $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}"),
+                        textColor);
                     Table.Vertical();
                 }
 
@@ -208,8 +218,11 @@ namespace Swan
                     Table.Vertical();
 
                     Table.Vertical();
-                    Write(string.Format(CultureInfo.CurrentCulture, textFormat,
-                        $"    {" ",-10}  {anyKeyOption}"), ConsoleColor.Gray);
+                    Write(string.Format(
+                            CultureInfo.CurrentCulture,
+                            textFormat,
+                            $"    {" ",-10}  {anyKeyOption}"),
+                        ConsoleColor.Gray);
                     Table.Vertical();
                 }
 
@@ -220,7 +233,8 @@ namespace Swan
                     Table.RightTee();
 
                     Table.Vertical();
-                    Write(string.Format(CultureInfo.CurrentCulture, textFormat, Settings.UserOptionText), ConsoleColor.Green);
+                    Write(string.Format(CultureInfo.CurrentCulture, textFormat, Settings.UserOptionText),
+                        ConsoleColor.Green);
                     Table.Vertical();
 
                     Table.BottomLeft();

@@ -231,11 +231,11 @@ namespace Swan
         {
             switch (source)
             {
+                // do nothing. Simply skip creation
                 case string _:
-                    break; // do nothing. Simply skip creation
-                case IList sourceObjectList
-                    when targetType.IsArray
-                    : // When using arrays, there is no default constructor, attempt to build a compatible array
+                    break;
+                // When using arrays, there is no default constructor, attempt to build a compatible array
+                case IList sourceObjectList when targetType.IsArray:
                     var elementType = targetType.GetElementType();
 
                     if (elementType != null)
