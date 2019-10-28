@@ -74,23 +74,6 @@
 
             public int Size => Name.Size + Tail.SIZE + Data.Length;
 
-            public static IList<DnsResourceRecord> GetAllFromArray(
-                byte[] message,
-                int offset,
-                int count,
-                out int endOffset)
-            {
-                IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
-
-                for (var i = 0; i < count; i++)
-                {
-                    records.Add(FromArray(message, offset, out offset));
-                }
-
-                endOffset = offset;
-                return records;
-            }
-
             public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
             {
                 var domain = DnsDomain.FromArray(message, offset, out offset);
@@ -199,13 +182,7 @@
             public IPAddress IPAddress { get; }
 
             protected override string[] IncludedProperties
-            {
-                get
-                {
-                    var temp = new List<string>(base.IncludedProperties) {nameof(IPAddress)};
-                    return temp.ToArray();
-                }
-            }
+                => new List<string>(base.IncludedProperties) {nameof(IPAddress)}.ToArray();
         }
 
         public class DnsNameServerResourceRecord : DnsResourceRecordBase
@@ -219,13 +196,7 @@
             public DnsDomain NSDomainName { get; }
 
             protected override string[] IncludedProperties
-            {
-                get
-                {
-                    var temp = new List<string>(base.IncludedProperties) {nameof(NSDomainName)};
-                    return temp.ToArray();
-                }
-            }
+                => new List<string>(base.IncludedProperties) {nameof(NSDomainName)}.ToArray();
         }
 
         public class DnsCanonicalNameResourceRecord : DnsResourceRecordBase
@@ -238,10 +209,8 @@
 
             public DnsDomain CanonicalDomainName { get; }
 
-            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
-            {
-                nameof(CanonicalDomainName),
-            }.ToArray();
+            protected override string[] IncludedProperties
+                => new List<string>(base.IncludedProperties) {nameof(CanonicalDomainName)}.ToArray();
         }
 
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
@@ -331,7 +300,7 @@
             public TimeSpan ExpireInterval { get; }
 
             public TimeSpan MinimumTimeToLive { get; }
-            
+
             protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
             {
                 nameof(MasterDomainName),
@@ -433,24 +402,17 @@
                 var record = DnsResourceRecord.FromArray(message, offset, out endOffset);
                 var dataOffset = endOffset - record.DataLength;
 
-                switch (record.Type)
+                return record.Type switch
                 {
-                    case DnsRecordType.A:
-                    case DnsRecordType.AAAA:
-                        return new DnsIPAddressResourceRecord(record);
-                    case DnsRecordType.NS:
-                        return new DnsNameServerResourceRecord(record, message, dataOffset);
-                    case DnsRecordType.CNAME:
-                        return new DnsCanonicalNameResourceRecord(record, message, dataOffset);
-                    case DnsRecordType.SOA:
-                        return new DnsStartOfAuthorityResourceRecord(record, message, dataOffset);
-                    case DnsRecordType.PTR:
-                        return new DnsPointerResourceRecord(record, message, dataOffset);
-                    case DnsRecordType.MX:
-                        return new DnsMailExchangeResourceRecord(record, message, dataOffset);
-                    default:
-                        return record;
-                }
+                    DnsRecordType.A => (IDnsResourceRecord) new DnsIPAddressResourceRecord(record),
+                    DnsRecordType.AAAA => new DnsIPAddressResourceRecord(record),
+                    DnsRecordType.NS => new DnsNameServerResourceRecord(record, message, dataOffset),
+                    DnsRecordType.CNAME => new DnsCanonicalNameResourceRecord(record, message, dataOffset),
+                    DnsRecordType.SOA => new DnsStartOfAuthorityResourceRecord(record, message, dataOffset),
+                    DnsRecordType.PTR => new DnsPointerResourceRecord(record, message, dataOffset),
+                    DnsRecordType.MX => new DnsMailExchangeResourceRecord(record, message, dataOffset),
+                    _ => record
+                };
             }
         }
     }

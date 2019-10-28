@@ -7,15 +7,15 @@
     /// </summary>
     public class DnsQueryResult
     {
-        private readonly List<DnsRecord> m_AnswerRecords = new List<DnsRecord>();
-        private readonly List<DnsRecord> m_AdditionalRecords = new List<DnsRecord>();
-        private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
+        private readonly List<DnsRecord> _mAnswerRecords = new List<DnsRecord>();
+        private readonly List<DnsRecord> _mAdditionalRecords = new List<DnsRecord>();
+        private readonly List<DnsRecord> _mAuthorityRecords = new List<DnsRecord>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
-        internal DnsQueryResult(DnsClient.DnsClientResponse response)
+        internal DnsQueryResult(DnsClient.IDnsResponse response)
             : this()
         {
             Id = response.Id;
@@ -102,7 +102,7 @@
         /// <value>
         /// The answer records.
         /// </value>
-        public IList<DnsRecord> AnswerRecords => m_AnswerRecords;
+        public IList<DnsRecord> AnswerRecords => _mAnswerRecords;
 
         /// <summary>
         /// Gets the additional records.
@@ -110,7 +110,7 @@
         /// <value>
         /// The additional records.
         /// </value>
-        public IList<DnsRecord> AdditionalRecords => m_AdditionalRecords;
+        public IList<DnsRecord> AdditionalRecords => _mAdditionalRecords;
 
         /// <summary>
         /// Gets the authority records.
@@ -118,6 +118,6 @@
         /// <value>
         /// The authority records.
         /// </value>
-        public IList<DnsRecord> AuthorityRecords => m_AuthorityRecords;
+        public IList<DnsRecord> AuthorityRecords => _mAuthorityRecords;
     }
 }
