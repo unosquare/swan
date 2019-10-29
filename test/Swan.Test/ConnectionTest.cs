@@ -325,22 +325,4 @@
 
         public override int Port { get; } = 12450;
     }
-
-    [TestFixture]
-    public class ConnectionTests : ConnectionTest
-    {
-        public override int Port { get; } = 12451;
-
-        [Test]
-        public async Task ConnectionId()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync(Localhost, Port);
-
-            using (var cn = new Connection(Client))
-            {
-                Assert.That(cn.Id, Is.Not.Null);
-            }
-        }
-    }
 }
