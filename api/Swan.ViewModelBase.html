@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ViewModelBase
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.46.0.0">
+    <meta name="generator" content="docfx 2.47.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -90,14 +90,10 @@ This class is ideal for implementing MVVM driven UIs.</p>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">ViewModelBase</span></div>
   </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><span class="xref">INotifyPropertyChanged</span></div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Swan.html">Swan</a></h6>
   <h5 id="Swan_ViewModelBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ViewModelBase : INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -112,46 +108,6 @@ This class is ideal for implementing MVVM driven UIs.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected ViewModelBase()</code></pre>
   </div>
-  
-  
-  <a id="Swan_ViewModelBase__ctor_" data-uid="Swan.ViewModelBase.#ctor*"></a>
-  <h4 id="Swan_ViewModelBase__ctor" data-uid="Swan.ViewModelBase.#ctor">ViewModelBase()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.ViewModelBase.html">ViewModelBase</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ViewModelBase()</code></pre>
-  </div>
-  
-  
-  <a id="Swan_ViewModelBase__ctor_" data-uid="Swan.ViewModelBase.#ctor*"></a>
-  <h4 id="Swan_ViewModelBase__ctor_System_Boolean_" data-uid="Swan.ViewModelBase.#ctor(System.Boolean)">ViewModelBase(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.ViewModelBase.html">ViewModelBase</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ViewModelBase(bool useDeferredNotifications)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">useDeferredNotifications</span></td>
-        <td><p>Set to <code>true</code> to use deferred notifications in the background.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
   <a id="Swan_ViewModelBase__ctor_" data-uid="Swan.ViewModelBase.#ctor*"></a>
@@ -208,118 +164,6 @@ This class is ideal for implementing MVVM driven UIs.</p>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
         <td><span class="parametername">propertyNames</span></td>
         <td><p>The property names.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_ViewModelBase_NotifyPropertyChanged_" data-uid="Swan.ViewModelBase.NotifyPropertyChanged*"></a>
-  <h4 id="Swan_ViewModelBase_NotifyPropertyChanged_System_String___" data-uid="Swan.ViewModelBase.NotifyPropertyChanged(System.String[])">NotifyPropertyChanged(String[])</h4>
-  <div class="markdown level1 summary"><p>Notifies one or more properties changed.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void NotifyPropertyChanged(params string[] propertyNames)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername">propertyNames</span></td>
-        <td><p>The property names.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_ViewModelBase_SetProperty_" data-uid="Swan.ViewModelBase.SetProperty*"></a>
-  <h4 id="Swan_ViewModelBase_SetProperty__1___0____0_System_String_System_String___" data-uid="Swan.ViewModelBase.SetProperty``1(``0@,``0,System.String,System.String[])">SetProperty&lt;T&gt;(ref T, T, String, String[])</h4>
-  <div class="markdown level1 summary"><p>Checks if a property already matches a desired value.  Sets the property and
-notifies listeners only when necessary.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool SetProperty&lt;T&gt;(ref T storage, T value, string propertyName = &quot;&quot;, string[] notifyAlso = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">storage</span></td>
-        <td><p>Reference to a property with both getter and setter.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>Desired value for the property.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">propertyName</span></td>
-        <td><p>Name of the property used to notify listeners.  This
-value is optional and can be provided automatically when invoked from compilers that
-support CallerMemberName.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
-        <td><span class="parametername">notifyAlso</span></td>
-        <td><p>An array of property names to notify in addition to notifying the changes on the current property name.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p>True if the value was changed, false if the existing value matched the
-desired value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>Type of the property.</p>
 </td>
       </tr>
     </tbody>
@@ -433,34 +277,6 @@ desired value.</p>
       </tr>
     </tbody>
   </table>
-  
-  
-  <h4 id="Swan_ViewModelBase_PropertyChanged" data-uid="Swan.ViewModelBase.PropertyChanged">PropertyChanged</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event PropertyChangedEventHandler PropertyChanged</code></pre>
-  </div>
-  <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">PropertyChangedEventHandler</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <span class="xref">INotifyPropertyChanged</span>
-  </div>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>
