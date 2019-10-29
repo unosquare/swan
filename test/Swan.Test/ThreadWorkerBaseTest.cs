@@ -15,7 +15,7 @@ namespace Swan.Test
         public async Task ThreadWorkerCycle()
         {
             var worker = new WorkerTest("Test", TimeSpan.FromSeconds(1));
-            await worker.StartAsync();
+            _ = worker.StartAsync();
             await Task.Delay(1000);
             Assert.That(worker.Counter.Value, Is.GreaterThan(0));
         }
