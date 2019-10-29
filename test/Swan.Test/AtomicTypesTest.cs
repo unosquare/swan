@@ -37,7 +37,10 @@
         [Test]
         public void AtomicityDouble()
         {
-            AtomicTypeBase<double> atomic = new AtomicDouble();
+            AtomicTypeBase<double> atomic = new AtomicDouble(0);
+
+            var expected = BitConverter.DoubleToInt64Bits(0);
+            expected += 900;
 
             void SumTask()
             {
@@ -46,11 +49,11 @@
             }
 
             Task.WaitAll(
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask),
-                Task.Factory.StartNew(SumTask));
+                Task.Run(SumTask),
+                Task.Run(SumTask),
+                Task.Run(SumTask));
 
-            Assert.That(atomic.Value, Is.EqualTo(900));
+            Assert.That(atomic.Value, Is.EqualTo(BitConverter.Int64BitsToDouble(expected)));
         }
 
         [Test]
