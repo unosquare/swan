@@ -81,7 +81,7 @@ namespace Swan.Parsers
         /// <value>
         /// The default value.
         /// </value>
-        public object DefaultValue { get; set; }
+        public object? DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a command line option is required.
@@ -97,6 +97,6 @@ namespace Swan.Parsers
         /// <value>
         /// The help text.
         /// </value>
-        public string HelpText { get; set; }
+        public string? HelpText { get; set; }
     }
 }

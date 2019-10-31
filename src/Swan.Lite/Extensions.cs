@@ -96,7 +96,7 @@ namespace Swan
         /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyKeyValuePairTo(
             this IDictionary<string, object> source,
-            object target,
+            object? target,
             params string[] ignoreKeys) =>
             source == null
                 ? throw new ArgumentNullException(nameof(source))
@@ -181,7 +181,9 @@ namespace Swan
 
                     return action();
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     exceptions.Add(ex);
                 }
@@ -234,6 +236,7 @@ namespace Swan
                 // do nothing. Simply skip creation
                 case string _:
                     break;
+
                 // When using arrays, there is no default constructor, attempt to build a compatible array
                 case IList sourceObjectList when targetType.IsArray:
                     var elementType = targetType.GetElementType();

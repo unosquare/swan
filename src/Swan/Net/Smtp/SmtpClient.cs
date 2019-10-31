@@ -113,7 +113,7 @@
         /// <value>
         /// The credentials.
         /// </value>
-        public NetworkCredential Credentials { get; set; }
+        public NetworkCredential? Credentials { get; set; }
 
         /// <summary>
         /// Gets the host.
@@ -318,7 +318,7 @@
 
                         await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true, cancellationToken).ConfigureAwait(false);
 
-                        if (!dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator))
+                        if (!dataTerminator.EndsWith(SmtpDefinitions.SmtpDataCommandTerminator, StringComparison.OrdinalIgnoreCase))
                             await connection.WriteTextAsync(SmtpDefinitions.SmtpDataCommandTerminator, cancellationToken).ConfigureAwait(false);
 
                         sender.ReplyText = await connection.ReadLineAsync(cancellationToken).ConfigureAwait(false);

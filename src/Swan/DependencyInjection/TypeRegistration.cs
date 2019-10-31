@@ -16,7 +16,7 @@
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="name">The name.</param>
-            public TypeRegistration(Type type, string name = null)
+            public TypeRegistration(Type type, string? name = null)
             {
                 Type = type;
                 Name = name ?? string.Empty;
@@ -47,13 +47,9 @@
             /// <returns>
             ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
             /// </returns>
-            public override bool Equals(object obj)
-            {
-                if (!(obj is TypeRegistration typeRegistration) || typeRegistration.Type != Type)
-                    return false;
-
-                return string.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) == 0;
-            }
+            public override bool Equals(object obj) =>
+                obj is TypeRegistration typeRegistration && typeRegistration.Type == Type &&
+                string.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) == 0;
 
             /// <summary>
             /// Returns a hash code for this instance.

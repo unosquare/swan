@@ -53,7 +53,7 @@
             if (ip == null)
                 throw new ArgumentNullException(nameof(ip));
 
-            var response = await Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
+            var response = await Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR).ConfigureAwait(false);
             var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
             return ptr == null

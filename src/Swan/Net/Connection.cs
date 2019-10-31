@@ -97,12 +97,12 @@
         private int _disconnectCalls;
 
         // Continuous Reading
-        private Thread _continuousReadingThread;
+        private Thread? _continuousReadingThread;
 
         private int _receiveBufferPointer;
 
         // Reading and writing
-        private Task<int> _readTask;
+        private Task<int>? _readTask;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection"/> class.
@@ -369,7 +369,9 @@
 
                     return pollResult;
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     Disconnect();
                     return false;
@@ -530,7 +532,7 @@
 
                 builder.Append(text);
 
-                if (!text.EndsWith(_newLineSequence)) continue;
+                if (!text.EndsWith(_newLineSequence, StringComparison.OrdinalIgnoreCase)) continue;
 
                 var lines = builder.ToString().TrimEnd(_newLineSequenceChars)
                     .Split(_newLineSequenceLineSplitter, StringSplitOptions.None);

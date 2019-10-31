@@ -76,7 +76,7 @@
         public void AutoRegister(
             DependencyContainerDuplicateImplementationAction duplicateAction =
                 DependencyContainerDuplicateImplementationAction.RegisterSingle,
-            Func<Type, bool> registrationPredicate = null)
+            Func<Type, bool>? registrationPredicate = null)
         {
             AutoRegister(
                 AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)),
@@ -95,7 +95,7 @@
             IEnumerable<Assembly> assemblies,
             DependencyContainerDuplicateImplementationAction duplicateAction =
                 DependencyContainerDuplicateImplementationAction.RegisterSingle,
-            Func<Type, bool> registrationPredicate = null)
+            Func<Type, bool>? registrationPredicate = null)
         {
             lock (_autoRegisterLock)
             {
@@ -139,9 +139,7 @@
                             throw new DependencyContainerRegistrationException(type, implementations);
 
                         if (duplicateAction == DependencyContainerDuplicateImplementationAction.RegisterMultiple)
-                        {
                             RegisterMultiple(type, implementations);
-                        }
                     }
 
                     var firstImplementation = implementations.FirstOrDefault();
@@ -380,8 +378,8 @@
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
         public object Resolve(
             Type resolveType, 
-            string name = null, 
-            DependencyContainerResolveOptions options = null)
+            string? name = null, 
+            DependencyContainerResolveOptions? options = null)
             => RegisteredTypes.ResolveInternal(new TypeRegistration(resolveType, name), options ?? DependencyContainerResolveOptions.Default);
 
         /// <summary>
@@ -396,8 +394,8 @@
         /// <returns>Instance of type.</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
         public TResolveType Resolve<TResolveType>(
-            string name = null,
-            DependencyContainerResolveOptions options = null)
+            string? name = null,
+            DependencyContainerResolveOptions? options = null)
             where TResolveType : class
         {
             return (TResolveType)Resolve(typeof(TResolveType), name, options);
@@ -417,8 +415,8 @@
         /// </returns>
         public bool CanResolve(
             Type resolveType,
-            string name = null,
-            DependencyContainerResolveOptions options = null) =>
+            string? name = null,
+            DependencyContainerResolveOptions? options = null) =>
             RegisteredTypes.CanResolve(new TypeRegistration(resolveType, name), options);
 
         /// <summary>
@@ -434,8 +432,8 @@
         /// <param name="options">Resolution options.</param>
         /// <returns>Bool indicating whether the type can be resolved.</returns>
         public bool CanResolve<TResolveType>(
-            string name = null, 
-            DependencyContainerResolveOptions options = null)
+            string? name = null, 
+            DependencyContainerResolveOptions? options = null)
             where TResolveType : class
         {
             return CanResolve(typeof(TResolveType), name, options);
@@ -447,7 +445,7 @@
         /// <param name="resolveType">Type to resolve.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(Type resolveType, out object resolvedType)
+        public bool TryResolve(Type resolveType, out object? resolvedType)
         {
             try
             {
@@ -468,7 +466,7 @@
         /// <param name="options">Resolution options.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(Type resolveType, DependencyContainerResolveOptions options, out object resolvedType)
+        public bool TryResolve(Type resolveType, DependencyContainerResolveOptions options, out object? resolvedType)
         {
             try
             {
@@ -489,7 +487,7 @@
         /// <param name="name">Name of registration.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve(Type resolveType, string name, out object resolvedType)
+        public bool TryResolve(Type resolveType, string name, out object? resolvedType)
         {
             try
             {
@@ -515,7 +513,7 @@
             Type resolveType, 
             string name, 
             DependencyContainerResolveOptions options,
-            out object resolvedType)
+            out object? resolvedType)
         {
             try
             {
@@ -535,7 +533,7 @@
         /// <typeparam name="TResolveType">Type to resolve.</typeparam>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(out TResolveType resolvedType)
+        public bool TryResolve<TResolveType>(out TResolveType? resolvedType)
             where TResolveType : class
         {
             try
@@ -557,7 +555,7 @@
         /// <param name="options">Resolution options.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(DependencyContainerResolveOptions options, out TResolveType resolvedType)
+        public bool TryResolve<TResolveType>(DependencyContainerResolveOptions options, out TResolveType? resolvedType)
             where TResolveType : class
         {
             try
@@ -579,7 +577,7 @@
         /// <param name="name">Name of registration.</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
-        public bool TryResolve<TResolveType>(string name, out TResolveType resolvedType)
+        public bool TryResolve<TResolveType>(string name, out TResolveType? resolvedType)
             where TResolveType : class
         {
             try
@@ -605,7 +603,7 @@
         public bool TryResolve<TResolveType>(
             string name,
             DependencyContainerResolveOptions options,
-            out TResolveType resolvedType)
+            out TResolveType? resolvedType)
             where TResolveType : class
         {
             try
@@ -646,7 +644,7 @@
         /// </summary>
         /// <param name="input">Object to "build up".</param>
         /// <param name="resolveOptions">Resolve options to use.</param>
-        public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions = null)
+        public void BuildUp(object input, DependencyContainerResolveOptions? resolveOptions = null)
         {
             if (resolveOptions == null)
                 resolveOptions = DependencyContainerResolveOptions.Default;
@@ -713,7 +711,7 @@
             return ignoreChecks.Any(check => check(assembly));
         }
 
-        private static bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
+        private static bool IsIgnoredType(Type type, Func<Type, bool>? registrationPredicate)
         {
             // TODO - find a better way to remove "system" types from the auto registration
             var ignoreChecks = new List<Func<Type, bool>>()
@@ -734,9 +732,15 @@
             return ignoreChecks.Any(check => check(type));
         }
 
-        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation) => registerType.IsInterface || registerType.IsAbstract
-            ? (ObjectFactoryBase)new SingletonFactory(registerType, registerImplementation)
-            : new MultiInstanceFactory(registerType, registerImplementation);
+        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
+        {
+            if (registerType == null)
+                throw new ArgumentNullException(nameof(registerType));
+
+            return registerType.IsInterface || registerType.IsAbstract
+                ? (ObjectFactoryBase) new SingletonFactory(registerType, registerImplementation)
+                : new MultiInstanceFactory(registerType, registerImplementation);
+        }
 
         #endregion
     }

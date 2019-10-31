@@ -16,7 +16,7 @@
         /// <param name="message">The message.</param>
         /// <param name="httpErrorCode">The HTTP error code.</param>
         /// <param name="errorContent">Content of the error.</param>
-        public JsonRequestException(string message, int httpErrorCode = 500, string errorContent = null)
+        public JsonRequestException(string message, int httpErrorCode = 500, string? errorContent = null)
             : base(message)
         {
             HttpErrorCode = httpErrorCode;
@@ -37,7 +37,7 @@
         /// <value>
         /// The content of the HTTP error.
         /// </value>
-        public string HttpErrorContent { get; }
+        public string? HttpErrorContent { get; }
 
         /// <inheritdoc />
         public override string ToString() => string.IsNullOrEmpty(HttpErrorContent)

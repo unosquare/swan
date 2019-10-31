@@ -142,8 +142,8 @@ namespace Swan.Mappers
         /// target.
         /// </exception>
         public static int Copy(
-            IDictionary<string, object> source,
-            object target,
+            IDictionary<string, object>? source,
+            object? target,
             IEnumerable<string>? propertiesToCopy = null,
             params string[] ignoreProperties)
         {

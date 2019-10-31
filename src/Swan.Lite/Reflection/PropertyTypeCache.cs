@@ -57,17 +57,17 @@ namespace Swan.Reflection
                 onlyPublic ? GetAllPublicPropertiesFunc(filter) : GetAllPropertiesFunc(filter));
 
         private static Func<Type, IEnumerable<PropertyInfo>> GetAllPropertiesFunc(
-            Func<PropertyInfo, bool> filter = null)
+            Func<PropertyInfo, bool>? filter = null)
             => GetPropertiesFunc(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
                 filter);
 
         private static Func<Type, IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(
-            Func<PropertyInfo, bool> filter = null)
+            Func<PropertyInfo, bool>? filter = null)
             => GetPropertiesFunc(BindingFlags.Public | BindingFlags.Instance, filter);
 
         private static Func<Type, IEnumerable<PropertyInfo>> GetPropertiesFunc(BindingFlags flags,
-            Func<PropertyInfo, bool> filter = null)
+            Func<PropertyInfo, bool>? filter = null)
             => t => t.GetProperties(flags)
                 .Where(filter ?? (p => p.CanRead || p.CanWrite));
     }

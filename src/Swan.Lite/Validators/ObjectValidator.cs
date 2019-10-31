@@ -136,7 +136,7 @@ namespace Swan.Validators
             existing.Add(Tuple.Create((Delegate)predicate, message));
         }
 
-        private bool ValidateObject<T>(T obj, bool returnOnError = true, Action<string, string> action = null)
+        private bool ValidateObject<T>(T obj, bool returnOnError = true, Action<string, string>? action = null)
         {
             if (Equals(obj, null))
                 throw new ArgumentNullException(nameof(obj));

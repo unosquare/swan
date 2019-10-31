@@ -106,7 +106,7 @@ namespace Swan.Threading
         private sealed class SyncLocker : ISyncLocker, ISyncReleasable
         {
             private bool _isDisposed;
-            private ReaderWriterLock _locker = new ReaderWriterLock();
+            private ReaderWriterLock? _locker = new ReaderWriterLock();
 
             /// <inheritdoc />
             public IDisposable AcquireReaderLock()

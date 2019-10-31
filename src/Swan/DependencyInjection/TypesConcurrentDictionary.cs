@@ -201,7 +201,7 @@
         
         internal object ConstructType(
             Type implementationType,
-            ConstructorInfo constructor,
+            ConstructorInfo? constructor,
             DependencyContainerResolveOptions? options = null)
         {
             var typeToConstruct = implementationType;
@@ -228,7 +228,8 @@
 
                 try
                 {
-                    args[parameterIndex] = options?.ConstructorParameters.GetValueOrDefault(currentParam.Name, ResolveInternal(new DependencyContainer.TypeRegistration(currentParam.ParameterType), options.Clone()));
+                    args[parameterIndex] = options?.ConstructorParameters
+                        .GetValueOrDefault(currentParam.Name, ResolveInternal(new DependencyContainer.TypeRegistration(currentParam.ParameterType), options.Clone()));
                 }
                 catch (DependencyContainerResolutionException ex)
                 {
@@ -318,7 +319,7 @@
 
         private ConstructorInfo? GetBestConstructor(
             Type type,
-            DependencyContainerResolveOptions options)
+            DependencyContainerResolveOptions? options)
             => type.IsValueType ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
         
         private bool CanConstruct(

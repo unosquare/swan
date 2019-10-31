@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -172,8 +173,8 @@ namespace Swan.Formatters
                                     Array.Reverse(escapeBytes);
 
                                 builder.Append("\\u")
-                                    .Append(escapeBytes[1].ToString("X").PadLeft(2, '0'))
-                                    .Append(escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                                    .Append(escapeBytes[1].ToString("X", CultureInfo.InvariantCulture).PadLeft(2, '0'))
+                                    .Append(escapeBytes[0].ToString("X", CultureInfo.InvariantCulture).PadLeft(2, '0'));
                             }
                             else
                             {
@@ -193,8 +194,8 @@ namespace Swan.Formatters
                 // Create the dictionary and extract the properties
                 var objectDictionary = new Dictionary<string, object?>();
 
-                if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
-                    objectDictionary[_options.TypeSpecifier] = targetType;
+                if (!string.IsNullOrWhiteSpace(_options.TypeSpecifier))
+                    objectDictionary[_options.TypeSpecifier!] = targetType;
 
                 foreach (var field in fields)
                 {
@@ -206,7 +207,9 @@ namespace Swan.Formatters
                             ? property.GetCacheGetMethod(_options.IncludeNonPublic)?.Invoke(target)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         /* ignored */
                     }
@@ -255,7 +258,7 @@ namespace Swan.Formatters
                 var targetType = target.GetType();
 
                 if (targetType.IsEnum)
-                    return Convert.ToInt64(target, System.Globalization.CultureInfo.InvariantCulture).ToString();
+                    return Convert.ToInt64(target, CultureInfo.InvariantCulture).ToStringInvariant();
 
                 var fields = _options.GetProperties(targetType);
 

@@ -23,13 +23,14 @@ namespace Swan.Reflection
             Property = propertyInfo.Name;
             DataType = propertyInfo.PropertyType.Name;
 
-            foreach (PropertyDisplayAttribute display in AttributeCache.DefaultCache.Value.Retrieve<PropertyDisplayAttribute>(propertyInfo, true))
-            {
-                Name = display.Name;
-                Description = display.Description;
-                GroupName = display.GroupName;
-                DefaultValue = display.DefaultValue;
-            }
+            var display = AttributeCache.DefaultCache.Value.RetrieveOne<PropertyDisplayAttribute>(propertyInfo, true);
+
+            if (display == null) return;
+
+            Name = display.Name;
+            Description = display.Description;
+            GroupName = display.GroupName;
+            DefaultValue = display.DefaultValue;
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Swan.Reflection
         /// <value>
         /// The value.
         /// </value>
-        public object Value { get; set; }
+        public object? Value { get; set; }
 
         /// <summary>
         /// Gets or sets the default value.
@@ -62,7 +63,7 @@ namespace Swan.Reflection
         /// <value>
         /// The default value.
         /// </value>
-        public object DefaultValue { get; }
+        public object? DefaultValue { get; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -70,7 +71,7 @@ namespace Swan.Reflection
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get;  }
+        public string? Name { get;  }
 
         /// <summary>
         /// Gets or sets the description.
@@ -78,7 +79,7 @@ namespace Swan.Reflection
         /// <value>
         /// The description.
         /// </value>
-        public string Description { get; }
+        public string? Description { get; }
 
         /// <summary>
         /// Gets or sets the name of the group.
@@ -86,7 +87,7 @@ namespace Swan.Reflection
         /// <value>
         /// The name of the group.
         /// </value>
-        public string GroupName { get; }
+        public string? GroupName { get; }
     }
 
     /// <summary>

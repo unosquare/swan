@@ -15,7 +15,7 @@ namespace Swan.Validators
         /// <param name="regex">A regex string.</param>
         /// <param name="errorMessage">The error message.</param>
         /// <exception cref="ArgumentNullException">Expression.</exception>
-        public MatchAttribute(string regex, string errorMessage = null)
+        public MatchAttribute(string regex, string? errorMessage = null)
         {
             Expression = regex ?? throw new ArgumentNullException(nameof(regex));
             ErrorMessage = errorMessage ?? "String does not match the specified regular expression";
@@ -55,7 +55,7 @@ namespace Swan.Validators
         /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
         /// </summary>
         /// <param name="errorMessage">The error message.</param>
-        public EmailAttribute(string errorMessage = null)
+        public EmailAttribute(string? errorMessage = null)
             : base(EmailRegExp, errorMessage ?? "String is not an email")
         {
         }

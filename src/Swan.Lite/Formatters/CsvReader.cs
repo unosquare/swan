@@ -78,7 +78,7 @@ namespace Swan.Formatters
         private bool _hasDisposed; // To detect redundant calls
         private string[] _headings;
         private Dictionary<string, string> _defaultMap;
-        private StreamReader _reader;
+        private StreamReader? _reader;
         
         #region Constructors
 
@@ -614,7 +614,7 @@ namespace Swan.Formatters
             {
                 try
                 {
-                    _reader.Dispose();
+                    _reader?.Dispose();
                 }
                 finally
                 {

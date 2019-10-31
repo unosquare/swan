@@ -35,7 +35,7 @@
         /// <returns>The type of the result produced by this Task.</returns>
         /// <example>
         /// The following code explains how to run an external process using the 
-        /// <see cref="GetProcessOutputAsync(string, string, CancellationToken)"/> method.
+        /// <see cref="GetProcessOutputAsync(string, string, string, CancellationToken)"/> method.
         /// <code>
         /// class Example
         /// {
@@ -195,8 +195,8 @@
             string filename,
             string arguments,
             string? workingDirectory,
-            ProcessDataReceivedCallback onOutputData,
-            ProcessDataReceivedCallback onErrorData,
+            ProcessDataReceivedCallback? onOutputData,
+            ProcessDataReceivedCallback? onErrorData,
             Encoding encoding,
             bool syncEvents = true,
             CancellationToken cancellationToken = default)
@@ -363,7 +363,7 @@
         private static Task<ulong> CopyStreamAsync(
             Process process,
             Stream baseStream,
-            ProcessDataReceivedCallback onDataCallback,
+            ProcessDataReceivedCallback? onDataCallback,
             bool syncEvents,
             CancellationToken ct) =>
             Task.Run(async () =>
@@ -431,7 +431,9 @@
                         // wait for the event to process before the next read occurs
                         if (syncEvents) eventTask.Wait(ct);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         break;
                     }

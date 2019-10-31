@@ -132,7 +132,7 @@ namespace Swan.Parsers
                 PropertyInfo targetProperty,
                 string propertyValueString,
                 object result,
-                ArgumentOptionAttribute optionAttr = null)
+                ArgumentOptionAttribute? optionAttr = null)
             {
                 if (!targetProperty.PropertyType.IsEnum)
                 {

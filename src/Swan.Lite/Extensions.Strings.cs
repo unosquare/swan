@@ -35,7 +35,7 @@ namespace Swan
         });
 
         private static readonly Lazy<string[]> InvalidFilenameChars =
-            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
+            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToStringInvariant()).ToArray());
 
         #endregion
 
@@ -81,7 +81,7 @@ namespace Swan
         /// A string that represents the current object.
         /// </returns>
         /// <exception cref="ArgumentNullException">input.</exception>
-        public static string RemoveControlCharsExcept(this string value, params char[] excludeChars)
+        public static string RemoveControlChars(this string value, params char[]? excludeChars)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -93,14 +93,6 @@ namespace Swan
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
                 .ToArray());
         }
-
-        /// <summary>
-        /// Removes all control characters from a string, including new line sequences.
-        /// </summary>
-        /// <param name="value">The input.</param>
-        /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        /// <exception cref="ArgumentNullException">input.</exception>
-        public static string RemoveControlChars(this string value) => value.RemoveControlCharsExcept(null);
 
         /// <summary>
         /// Outputs JSON string representing this object.
