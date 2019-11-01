@@ -638,7 +638,7 @@ namespace Swan.Logging
             _loggingSequence++;
 
             var loggerMessage = string.IsNullOrWhiteSpace(message) ?
-                string.Empty : message.RemoveControlCharsExcept('\n');
+                string.Empty : message.RemoveControlChars('\n');
 
             var eventArgs = new LogMessageReceivedEventArgs(
                 sequence,
