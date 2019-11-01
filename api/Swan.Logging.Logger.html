@@ -952,13 +952,13 @@ This method is expensive as it uses Stringify internally.</p>
   
   
   <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
-  <h4 id="Swan_Logging_Logger_Log_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)">Log(Exception, String, String, String, String, Int32)</h4>
+  <h4 id="Swan_Logging_Logger_Log_Exception_System_Nullable_Type__System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,System.Nullable{Type},System.String,System.String,System.String,System.Int32)">Log(Exception, Nullable&lt;Type&gt;, String, String, String, Int32)</h4>
   <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, string source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, Type? source = default(Type? ), string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -977,7 +977,7 @@ This method is expensive as it uses Stringify internally.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<span class="xref">Type</span>&gt;</td>
         <td><span class="parametername">source</span></td>
         <td><p>The source.</p>
 </td>
@@ -1011,13 +1011,13 @@ This method is expensive as it uses Stringify internally.</p>
   
   
   <a id="Swan_Logging_Logger_Log_" data-uid="Swan.Logging.Logger.Log*"></a>
-  <h4 id="Swan_Logging_Logger_Log_Exception_Type_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,Type,System.String,System.String,System.String,System.Int32)">Log(Exception, Type, String, String, String, Int32)</h4>
+  <h4 id="Swan_Logging_Logger_Log_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)">Log(Exception, String, String, String, String, Int32)</h4>
   <div class="markdown level1 summary"><p>Logs an error message to the console&apos;s standard error.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, Type source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Log(this Exception ex, string source = null, string message = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1036,7 +1036,7 @@ This method is expensive as it uses Stringify internally.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">source</span></td>
         <td><p>The source.</p>
 </td>

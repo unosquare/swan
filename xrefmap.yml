@@ -5026,18 +5026,21 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.Logger.Info
   nameWithType: Logger.Info
+- uid: Swan.Logging.Logger.Log(Exception,System.Nullable{Type},System.String,System.String,System.String,System.Int32)
+  name: Log(Exception, Nullable<Type>, String, String, String, Int32)
+  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_Exception_System_Nullable_Type__System_String_System_String_System_String_System_Int32_
+  commentId: M:Swan.Logging.Logger.Log(Exception,System.Nullable{Type},System.String,System.String,System.String,System.Int32)
+  name.vb: Log(Exception, Nullable(Of Type), String, String, String, Int32)
+  fullName: Swan.Logging.Logger.Log(Exception, System.Nullable<Type>, System.String, System.String, System.String, System.Int32)
+  fullName.vb: Swan.Logging.Logger.Log(Exception, System.Nullable(Of Type), System.String, System.String, System.String, System.Int32)
+  nameWithType: Logger.Log(Exception, Nullable<Type>, String, String, String, Int32)
+  nameWithType.vb: Logger.Log(Exception, Nullable(Of Type), String, String, String, Int32)
 - uid: Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)
   name: Log(Exception, String, String, String, String, Int32)
   href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_Exception_System_String_System_String_System_String_System_String_System_Int32_
   commentId: M:Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)
   fullName: Swan.Logging.Logger.Log(Exception, System.String, System.String, System.String, System.String, System.Int32)
   nameWithType: Logger.Log(Exception, String, String, String, String, Int32)
-- uid: Swan.Logging.Logger.Log(Exception,Type,System.String,System.String,System.String,System.Int32)
-  name: Log(Exception, Type, String, String, String, Int32)
-  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_Exception_Type_System_String_System_String_System_String_System_Int32_
-  commentId: M:Swan.Logging.Logger.Log(Exception,Type,System.String,System.String,System.String,System.Int32)
-  fullName: Swan.Logging.Logger.Log(Exception, Type, System.String, System.String, System.String, System.Int32)
-  nameWithType: Logger.Log(Exception, Type, String, String, String, Int32)
 - uid: Swan.Logging.Logger.Log(System.String,System.String,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)
   name: Log(String, String, LogLevel, Object, String, String, Int32)
   href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_System_String_System_String_Swan_LogLevel_System_Object_System_String_System_String_System_Int32_
@@ -5520,15 +5523,15 @@ references:
   commentId: T:Swan.Mappers.ObjectMapper
   fullName: Swan.Mappers.ObjectMapper
   nameWithType: ObjectMapper
-- uid: Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
-  name: Copy(IDictionary<String, Object>, Object, Nullable<IEnumerable<String>>, String[])
-  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_IDictionary_System_String_System_Object__System_Object_System_Nullable_IEnumerable_System_String___System_String___
-  commentId: M:Swan.Mappers.ObjectMapper.Copy(IDictionary{System.String,System.Object},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
-  name.vb: Copy(IDictionary(Of String, Object), Object, Nullable(Of IEnumerable(Of String)), String())
-  fullName: Swan.Mappers.ObjectMapper.Copy(IDictionary<System.String, System.Object>, System.Object, System.Nullable<IEnumerable<System.String>>, System.String[])
-  fullName.vb: Swan.Mappers.ObjectMapper.Copy(IDictionary(Of System.String, System.Object), System.Object, System.Nullable(Of IEnumerable(Of System.String)), System.String())
-  nameWithType: ObjectMapper.Copy(IDictionary<String, Object>, Object, Nullable<IEnumerable<String>>, String[])
-  nameWithType.vb: ObjectMapper.Copy(IDictionary(Of String, Object), Object, Nullable(Of IEnumerable(Of String)), String())
+- uid: Swan.Mappers.ObjectMapper.Copy(System.Nullable{IDictionary{System.String,System.Object}},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name: Copy(Nullable<IDictionary<String, Object>>, Object, Nullable<IEnumerable<String>>, String[])
+  href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Nullable_IDictionary_System_String_System_Object___System_Object_System_Nullable_IEnumerable_System_String___System_String___
+  commentId: M:Swan.Mappers.ObjectMapper.Copy(System.Nullable{IDictionary{System.String,System.Object}},System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
+  name.vb: Copy(Nullable(Of IDictionary(Of String, Object)), Object, Nullable(Of IEnumerable(Of String)), String())
+  fullName: Swan.Mappers.ObjectMapper.Copy(System.Nullable<IDictionary<System.String, System.Object>>, System.Object, System.Nullable<IEnumerable<System.String>>, System.String[])
+  fullName.vb: Swan.Mappers.ObjectMapper.Copy(System.Nullable(Of IDictionary(Of System.String, System.Object)), System.Object, System.Nullable(Of IEnumerable(Of System.String)), System.String())
+  nameWithType: ObjectMapper.Copy(Nullable<IDictionary<String, Object>>, Object, Nullable<IEnumerable<String>>, String[])
+  nameWithType.vb: ObjectMapper.Copy(Nullable(Of IDictionary(Of String, Object)), Object, Nullable(Of IEnumerable(Of String)), String())
 - uid: Swan.Mappers.ObjectMapper.Copy(System.Object,System.Object,System.Nullable{IEnumerable{System.String}},System.String[])
   name: Copy(Object, Object, Nullable<IEnumerable<String>>, String[])
   href: api/Swan.Mappers.ObjectMapper.html#Swan_Mappers_ObjectMapper_Copy_System_Object_System_Object_System_Nullable_IEnumerable_System_String___System_String___
@@ -5641,24 +5644,24 @@ references:
   isSpec: "True"
   fullName: Swan.Messaging.IMessageHub.Subscribe
   nameWithType: IMessageHub.Subscribe
-- uid: Swan.Messaging.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
-  href: api/Swan.Messaging.IMessageHub.html#Swan_Messaging_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_Swan_Messaging_IMessageHubProxy_
-  commentId: M:Swan.Messaging.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-  fullName: Swan.Messaging.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean, Swan.Messaging.IMessageHubProxy)
-  fullName.vb: Swan.Messaging.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Swan.Messaging.IMessageHubProxy)
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-- uid: Swan.Messaging.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
+- uid: Swan.Messaging.IMessageHub.Subscribe``1(Action{``0},Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
-  href: api/Swan.Messaging.IMessageHub.html#Swan_Messaging_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Swan_Messaging_IMessageHubProxy_
-  commentId: M:Swan.Messaging.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
+  href: api/Swan.Messaging.IMessageHub.html#Swan_Messaging_IMessageHub_Subscribe__1_Action___0__Func___0_System_Boolean__System_Boolean_Swan_Messaging_IMessageHubProxy_
+  commentId: M:Swan.Messaging.IMessageHub.Subscribe``1(Action{``0},Func{``0,System.Boolean},System.Boolean,Swan.Messaging.IMessageHubProxy)
   name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
-  fullName: Swan.Messaging.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean, Swan.Messaging.IMessageHubProxy)
-  fullName.vb: Swan.Messaging.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Swan.Messaging.IMessageHubProxy)
+  fullName: Swan.Messaging.IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, System.Boolean>, System.Boolean, Swan.Messaging.IMessageHubProxy)
+  fullName.vb: Swan.Messaging.IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, System.Boolean), System.Boolean, Swan.Messaging.IMessageHubProxy)
   nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
+- uid: Swan.Messaging.IMessageHub.Subscribe``1(Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
+  href: api/Swan.Messaging.IMessageHub.html#Swan_Messaging_IMessageHub_Subscribe__1_Action___0__System_Boolean_Swan_Messaging_IMessageHubProxy_
+  commentId: M:Swan.Messaging.IMessageHub.Subscribe``1(Action{``0},System.Boolean,Swan.Messaging.IMessageHubProxy)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
+  fullName: Swan.Messaging.IMessageHub.Subscribe<TMessage>(Action<TMessage>, System.Boolean, Swan.Messaging.IMessageHubProxy)
+  fullName.vb: Swan.Messaging.IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), System.Boolean, Swan.Messaging.IMessageHubProxy)
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
 - uid: Swan.Messaging.IMessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Swan.Messaging.IMessageHub.html#Swan_Messaging_IMessageHub_Unsubscribe_
@@ -11180,12 +11183,15 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.Indent
   nameWithType: StringExtensions.Indent
-- uid: Swan.StringExtensions.RemoveControlChars(System.String)
-  name: RemoveControlChars(String)
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlChars_System_String_
-  commentId: M:Swan.StringExtensions.RemoveControlChars(System.String)
-  fullName: Swan.StringExtensions.RemoveControlChars(System.String)
-  nameWithType: StringExtensions.RemoveControlChars(String)
+- uid: Swan.StringExtensions.RemoveControlChars(System.String,System.Char[])
+  name: RemoveControlChars(String, Char[])
+  href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlChars_System_String_System_Char___
+  commentId: M:Swan.StringExtensions.RemoveControlChars(System.String,System.Char[])
+  name.vb: RemoveControlChars(String, Char())
+  fullName: Swan.StringExtensions.RemoveControlChars(System.String, System.Char[])
+  fullName.vb: Swan.StringExtensions.RemoveControlChars(System.String, System.Char())
+  nameWithType: StringExtensions.RemoveControlChars(String, Char[])
+  nameWithType.vb: StringExtensions.RemoveControlChars(String, Char())
 - uid: Swan.StringExtensions.RemoveControlChars*
   name: RemoveControlChars
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlChars_
@@ -11193,22 +11199,6 @@ references:
   isSpec: "True"
   fullName: Swan.StringExtensions.RemoveControlChars
   nameWithType: StringExtensions.RemoveControlChars
-- uid: Swan.StringExtensions.RemoveControlCharsExcept(System.String,System.Char[])
-  name: RemoveControlCharsExcept(String, Char[])
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlCharsExcept_System_String_System_Char___
-  commentId: M:Swan.StringExtensions.RemoveControlCharsExcept(System.String,System.Char[])
-  name.vb: RemoveControlCharsExcept(String, Char())
-  fullName: Swan.StringExtensions.RemoveControlCharsExcept(System.String, System.Char[])
-  fullName.vb: Swan.StringExtensions.RemoveControlCharsExcept(System.String, System.Char())
-  nameWithType: StringExtensions.RemoveControlCharsExcept(String, Char[])
-  nameWithType.vb: StringExtensions.RemoveControlCharsExcept(String, Char())
-- uid: Swan.StringExtensions.RemoveControlCharsExcept*
-  name: RemoveControlCharsExcept
-  href: api/Swan.StringExtensions.html#Swan_StringExtensions_RemoveControlCharsExcept_
-  commentId: Overload:Swan.StringExtensions.RemoveControlCharsExcept
-  isSpec: "True"
-  fullName: Swan.StringExtensions.RemoveControlCharsExcept
-  nameWithType: StringExtensions.RemoveControlCharsExcept
 - uid: Swan.StringExtensions.ReplaceAll(System.String,System.String,System.Char[])
   name: ReplaceAll(String, String, Char[])
   href: api/Swan.StringExtensions.html#Swan_StringExtensions_ReplaceAll_System_String_System_String_System_Char___
@@ -14377,6 +14367,19 @@ references:
   commentId: T:Swan.Validators.ObjectValidationResult.ValidationError
   fullName: Swan.Validators.ObjectValidationResult.ValidationError
   nameWithType: ObjectValidationResult.ValidationError
+- uid: Swan.Validators.ObjectValidationResult.ValidationError.#ctor(System.String,System.String)
+  name: ValidationError(String, String)
+  href: api/Swan.Validators.ObjectValidationResult.ValidationError.html#Swan_Validators_ObjectValidationResult_ValidationError__ctor_System_String_System_String_
+  commentId: M:Swan.Validators.ObjectValidationResult.ValidationError.#ctor(System.String,System.String)
+  fullName: Swan.Validators.ObjectValidationResult.ValidationError.ValidationError(System.String, System.String)
+  nameWithType: ObjectValidationResult.ValidationError.ValidationError(String, String)
+- uid: Swan.Validators.ObjectValidationResult.ValidationError.#ctor*
+  name: ValidationError
+  href: api/Swan.Validators.ObjectValidationResult.ValidationError.html#Swan_Validators_ObjectValidationResult_ValidationError__ctor_
+  commentId: Overload:Swan.Validators.ObjectValidationResult.ValidationError.#ctor
+  isSpec: "True"
+  fullName: Swan.Validators.ObjectValidationResult.ValidationError.ValidationError
+  nameWithType: ObjectValidationResult.ValidationError.ValidationError
 - uid: Swan.Validators.ObjectValidationResult.ValidationError.ErrorMessage
   name: ErrorMessage
   href: api/Swan.Validators.ObjectValidationResult.ValidationError.html#Swan_Validators_ObjectValidationResult_ValidationError_ErrorMessage

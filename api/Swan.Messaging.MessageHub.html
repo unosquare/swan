@@ -151,7 +151,7 @@ subscription and the message sending are done in the same place but this is only
          // the string &apos;SWAN&apos;
          messageHub.Publish(message);
 
-        // unsuscribe, we will no longer receive any messages 
+        // unsubscribe, we will no longer receive any messages 
         messageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string>>(token);
 
         Terminal.Flush();
