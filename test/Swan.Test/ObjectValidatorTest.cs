@@ -152,7 +152,7 @@
         {
             var res = ObjectValidator.Current.Validate(new EmailMock { To = null });
             Assert.IsFalse(res.IsValid);
-            Assert.AreEqual(res.Errors.First().ErrorMessage, "String is not an email");
+            Assert.AreEqual("String is not an email", res.Errors.First().ErrorMessage);
         }
     }
 }

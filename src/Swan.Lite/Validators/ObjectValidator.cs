@@ -147,7 +147,7 @@ namespace Swan.Validators
                 {
                     if ((bool)@delegate.DynamicInvoke(obj)) continue;
 
-                    action?.Invoke(string.Empty, value);
+                    action?.Invoke(value, string.Empty);
                     if (returnOnError) return false;
                 }
             }
@@ -162,7 +162,7 @@ namespace Swan.Validators
 
                     if (val.IsValid(prop.Key.GetValue(obj, null))) continue;
 
-                    action?.Invoke(prop.Key.Name, val.ErrorMessage);
+                    action?.Invoke(val.ErrorMessage, prop.Key.Name);
                     if (returnOnError) return false;
                 }
             }

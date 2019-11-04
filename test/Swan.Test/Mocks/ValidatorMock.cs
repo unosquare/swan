@@ -44,6 +44,6 @@
     public class EmailMock
     {
         [Email]
-        public string To { get; set; }
+        public string? To { get; set; }
     }
 }
