@@ -16,5 +16,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Build with dotnet
-      run: dotnet build -c Release
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1.1.0
+      with:
+        version: 10
+    - name: npm daemons
+      run: |
+        npm ci
+        $SMTP = Start-Process node mail.js -PassThru
+        $WEB = Start-Process node web.js -PassThru
+        $TCP = Start-Process node tcp.js -PassThru
+        $NTP = Start-Process node ntp.js -PassThru
+    - name: Test with dotnet
+      run: |
+        dotnet restore
+        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
