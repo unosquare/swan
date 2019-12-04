@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    needs: [docfx]
     runs-on: windows-latest
     
     steps:
@@ -29,3 +30,13 @@ jobs:
       with:
         file: test/Swan.Test/coverage.info
         token: ${{ secrets.CODECOV_TOKEN }}
+
+  docfx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Choco install docfx
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: install docfx
