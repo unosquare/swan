@@ -33,5 +33,5 @@ jobs:
         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
     - uses: codecov/codecov-action@v1
       with:
-        file: test/Swan.Test/coverage.lcov.xml
+        file: test/Swan.Test/coverage.info
         token: ${{ secrets.CODECOV_TOKEN }}
