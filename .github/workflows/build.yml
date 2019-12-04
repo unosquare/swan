@@ -35,6 +35,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         path: test/Swan.Test/coverage.info
+        name: coverage
     - uses: codecov/codecov-action@v1
       with:
         file: test/Swan.Test/coverage.info
