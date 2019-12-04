@@ -4,12 +4,8 @@ on: [push]
 
 jobs:
   build:
-    name: Test on .NET Core ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-        
+    runs-on: windows-latest
+    
     steps:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
@@ -28,14 +24,7 @@ jobs:
         $TCP = Start-Process node tcp.js -PassThru
         $NTP = Start-Process node ntp.js -PassThru
     - name: Test with dotnet
-      run: |
-        dotnet restore
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        path: test/Swan.Test/coverage.info
-        name: coverage
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
     - uses: codecov/codecov-action@v1
       with:
         file: test/Swan.Test/coverage.info
