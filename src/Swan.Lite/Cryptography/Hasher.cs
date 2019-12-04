@@ -31,7 +31,7 @@ namespace Swan.Cryptography
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            var md5 = MD5.Create();
+            using var md5 = MD5.Create();
             const int bufferSize = 4096;
 
             var readAheadBuffer = new byte[bufferSize];

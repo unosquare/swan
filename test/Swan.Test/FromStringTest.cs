@@ -17,7 +17,7 @@
         private static string[] ValidStringValues
             => ValidIntValues.Select(i => i.ToString()).ToArray();
 
-        private static string[] InvalidStringValues => new[] { "foo", "42", null, "bar" };
+        private static string?[] InvalidStringValues => new[] { "foo", "42", null, "bar" };
 
         [Test]
         public void CanConvertTo_NonGeneric_OnNullType_ThrowsArgumentNullException()

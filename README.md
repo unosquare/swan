@@ -1,6 +1,5 @@
-[![NuGet](https://img.shields.io/nuget/dt/Unosquare.Swan.svg)](https://www.nuget.org/packages/Unosquare.Swan)
+﻿[![NuGet](https://img.shields.io/nuget/dt/Unosquare.Swan.svg)](https://www.nuget.org/packages/Unosquare.Swan)
 [![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/swan/)](https://github.com/igrigorik/ga-beacon)
-[![Build Status](https://travis-ci.org/unosquare/swan.svg?branch=master)](https://travis-ci.org/unosquare/swan)
 [![Build status](https://ci.appveyor.com/api/projects/status/063tybvog8mb1sic/branch/master?svg=true)](https://ci.appveyor.com/project/geoperez/swan/branch/master)
 ![Buils status](https://github.com/unosquare/swan/workflows/.NET%20Core%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master)](https://coveralls.io/github/unosquare/swan?branch=master)
@@ -44,7 +43,7 @@ Table of contents
   * [Running Unit Tests](#running-unit-tests)
 
 ## 📚 Libraries
-We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
+We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, DI and more. See the following table to understand the components available to these flavors of Swan.
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|
