@@ -214,11 +214,7 @@
 
                         if (acceptingArgs.Cancel)
                         {
-#if !NET461
-                            client.Dispose();
-#else
                             client.Close();
-#endif
                             continue;
                         }
 

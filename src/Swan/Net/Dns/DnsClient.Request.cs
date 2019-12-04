@@ -171,15 +171,12 @@
         {
             public async Task<DnsClientResponse> Request(DnsClientRequest request)
             {
-                var tcp = new TcpClient();
+                using var tcp = new TcpClient();
 
                 try
                 {
-#if !NET461
                     await tcp.Client.ConnectAsync(request.Dns).ConfigureAwait(false);
-#else
-                    tcp.Client.Connect(request.Dns);
-#endif
+
                     var stream = tcp.GetStream();
                     var buffer = request.ToArray();
                     var length = BitConverter.GetBytes((ushort)buffer.Length);
@@ -205,11 +202,7 @@
                 }
                 finally
                 {
-#if NET461
                     tcp.Close();
-#else
-                    tcp.Dispose();
-#endif
                 }
             }
 
@@ -248,18 +241,14 @@
 
             public async Task<DnsClientResponse> Request(DnsClientRequest request)
             {
-                var udp = new UdpClient();
+                using var udp = new UdpClient();
                 var dns = request.Dns;
 
                 try
                 {
                     udp.Client.SendTimeout = 7000;
                     udp.Client.ReceiveTimeout = 7000;
-#if !NET461
                     await udp.Client.ConnectAsync(dns).ConfigureAwait(false);
-#else
-                    udp.Client.Connect(dns);
-#endif
 
                     await udp.SendAsync(request.ToArray(), request.Size).ConfigureAwait(false);
 
@@ -282,11 +271,7 @@
                 }
                 finally
                 {
-#if NET461
                     udp.Close();
-#else
-                    udp.Dispose();
-#endif
                 }
             }
         }
