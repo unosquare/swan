@@ -12,19 +12,15 @@ namespace Swan
     /// </summary>
     public static partial class Terminal
     {
-        #region Private Declarations
-
         private const int OutputFlushInterval = 15;
         private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly object SyncLock = new object();
-        private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
+        private static readonly BlockingCollection<OutputContext> OutputQueue = new BlockingCollection<OutputContext>();
 
         private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
         private static bool? _isConsolePresent;
-
-        #endregion
 
         #region Constructors
 
@@ -257,7 +253,7 @@ namespace Swan
                     return;
 
                 OutputDone.Reset();
-                OutputQueue.Enqueue(context);
+                OutputQueue.TryAdd(context);
             }
         }
 
@@ -282,10 +278,8 @@ namespace Swan
 
             OutputDone.Reset();
 
-            while (OutputQueue.Count > 0)
+            foreach (var context in OutputQueue.GetConsumingEnumerable())
             {
-                if (!OutputQueue.TryDequeue(out var context)) continue;
-
                 // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
                 if (!IsConsolePresent) continue;
 
@@ -293,15 +287,11 @@ namespace Swan
 
                 // Output to the standard output
                 if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                {
                     Console.Out.Write(context.OutputText);
-                }
 
                 // output to the standard error
                 if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                {
                     Console.Error.Write(context.OutputText);
-                }
 
                 Console.ResetColor();
                 Console.ForegroundColor = context.OriginalColor;
