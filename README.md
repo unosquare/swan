@@ -140,17 +140,14 @@ will not show up in your logging subsystem.
 // The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
 Terminal.WriteLine($"Hello, today is {DateTime.Today}");
 
-// A slightly better way using extension methods:
-$"Hello, today is {DateTime.Today}".WriteLine();
-
 // Now, let's add some color:
-$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green);
 
 // Write it out to the debugger as well!
-$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
 // You could have also set the color argument to null and just use the configured default
-$"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 ```
 
 #### Example 2: Configuring Output
