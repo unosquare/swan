@@ -319,17 +319,14 @@ will not show up in your logging subsystem.</p>
 <pre><code class="lang-csharp">// The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
 Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;);
 
-// A slightly better way using extension methods:
-$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine();
-
 // Now, let&#39;s add some color:
-$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(ConsoleColor.Green);
+Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;, ConsoleColor.Green);
 
 // Write it out to the debugger as well!
-$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;, ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
 // You could have also set the color argument to null and just use the configured default
-$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;, null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 </code></pre><h4 id="example-2-configuring-output">Example 2: Configuring Output</h4>
 <p>Swan&#39;s <code>Terminal</code> provides both, flexibility and consistency for all of its output. While it will pick the most
 common defaults for a given build or runtime scenario, you are able to modify such defaults and adjust them to your
