@@ -71,7 +71,7 @@
             }
 
             "Press any key to stop all services.".Info(loggerSource ?? SwanRuntime.EntryAssemblyName.Name);
-            Terminal.ReadKey(true, true);
+            Console.Read();
             "Stopping services . . .".Info(SwanRuntime.EntryAssemblyName.Name);
 
             foreach (var service in @this)
