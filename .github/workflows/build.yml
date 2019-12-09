@@ -32,7 +32,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
   docfx:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -40,3 +40,4 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v1
         with:
           args: install docfx
+      - run: docfx docfx.json --logLevel Error
