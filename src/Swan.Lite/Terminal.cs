@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Text;
+using System.Linq;
 using System.Threading;
 using Swan.Threading;
 
@@ -322,6 +323,7 @@ namespace Swan
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
             public TerminalWriters OutputWriters { get; set; }
+            public long TimeSpan { get; } = DateTime.Now.Ticks;
         }
 
         #endregion

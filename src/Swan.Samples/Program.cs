@@ -20,8 +20,14 @@
         /// </summary>
         public static async Task Main()
         {
-            for (var i = 0; i < 1000; i++)
-                Terminal.WriteLine($"{i} - {DateTime.Now}");
+            Parallel.ForEach(Enumerable.Range(0, 1000), i =>
+            {
+                var msg = $"{i} - {DateTime.Now}";
+                Terminal.WriteLine(msg);
+                msg.Info();
+                
+                Task.Delay(10).Wait();
+            });
 
             Terminal.Flush();
             Terminal.ReadKey("Enter any key to exit . . .");
