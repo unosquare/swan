@@ -323,7 +323,6 @@ namespace Swan
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
             public TerminalWriters OutputWriters { get; set; }
-            public long TimeSpan { get; } = DateTime.Now.Ticks;
         }
 
         #endregion
