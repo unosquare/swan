@@ -20,25 +20,9 @@
         /// </summary>
         public static async Task Main()
         {
-            Logger.RegisterLogger<FileLogger>();
+            for (var i = 0; i < 1000; i++)
+                Terminal.WriteLine($"{i} - {DateTime.Now}");
 
-            TestJson();
-            TestApplicationInfo();
-            await TestTerminalOutputs();
-			try
-			{
-				await TestNetworkUtilities();
-			}
-			catch (System.Net.Http.HttpRequestException x)
-			{
-				Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
-			}
-            TestContainerAndMessageHub();
-            TestExceptionLogging();
-
-            TestFastOutput();
-            TestReadPrompt();
-            TestCsvFormatters();
             Terminal.Flush();
             Terminal.ReadKey("Enter any key to exit . . .");
         }
