@@ -25,8 +25,6 @@
                 var msg = $"{i} - {DateTime.Now}";
                 Terminal.WriteLine(msg);
                 msg.Info();
-                
-                Task.Delay(10).Wait();
             });
 
             Terminal.Flush();

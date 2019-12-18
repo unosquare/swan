@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Swan.Threading;
 
 namespace Swan.Logging
 {
@@ -13,9 +15,13 @@ namespace Swan.Logging
     public static class Logger
     {
         private static readonly object SyncLock = new object();
+        private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly List<ILogger> Loggers = new List<ILogger>();
+        private static readonly BlockingCollection<LogMessageReceivedEventArgs> OutputQueue = new BlockingCollection<LogMessageReceivedEventArgs>();
 
         private static ulong _loggingSequence;
+
+        private const int OutputFlushInterval = 15;
 
         static Logger()
         {
@@ -24,6 +30,10 @@ namespace Swan.Logging
 
             if (DebugLogger.IsDebuggerAttached)
                 Loggers.Add(DebugLogger.Instance);
+            
+            // Here we start the output task, fire-and-forget
+            DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
+            DequeueOutputTimer.Resume(OutputFlushInterval);
         }
 
         #region Standard Public API
@@ -624,6 +634,18 @@ namespace Swan.Logging
             }
         }
 
+        private static void DequeueOutputCycle()
+        {
+            foreach (var context in OutputQueue.GetConsumingEnumerable())
+            {
+                Parallel.ForEach(Loggers, logger =>
+                {
+                    if (logger.LogLevel <= context.MessageType)
+                        logger.Log(context);
+                });
+            }
+        }
+
         private static void LogMessage(
             LogLevel logLevel,
             string message,
@@ -651,14 +673,7 @@ namespace Swan.Logging
                 callerFilePath,
                 callerLineNumber);
 
-            foreach (var logger in Loggers)
-            {
-                Task.Run(() =>
-                {
-                    if (logger.LogLevel <= logLevel)
-                        logger.Log(eventArgs);
-                });
-            }
+            OutputQueue.TryAdd(eventArgs);
         }
     }
 }
