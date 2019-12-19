@@ -42,7 +42,24 @@ namespace Swan
             CallerFilePath = callerFilePath;
             CallerLineNumber = callerLineNumber;
             ExtendedData = extendedData;
+            IsTerminalSource = false;
         }
+
+        internal LogMessageReceivedEventArgs(string message, ConsoleColor color, TerminalWriters writerFlags)
+        {
+            Message = message;
+            Color = color;
+            WriterFlags = writerFlags;
+            IsTerminalSource = true;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is terminal source.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is terminal source; otherwise, <c>false</c>.
+        /// </value>
+        internal bool IsTerminalSource {get; set; }
 
         /// <summary>
         /// Gets logging message sequence.
@@ -85,6 +102,22 @@ namespace Swan
         /// The message.
         /// </value>
         public string Message { get; }
+
+        /// <summary>
+        /// Gets the color.
+        /// </summary>
+        /// <value>
+        /// The color.
+        /// </value>
+        internal ConsoleColor Color { get; }
+
+        /// <summary>
+        /// Gets the writer flags.
+        /// </summary>
+        /// <value>
+        /// The writer flags.
+        /// </value>
+        internal TerminalWriters WriterFlags { get; }
 
         /// <summary>
         /// Gets the name of the caller member.

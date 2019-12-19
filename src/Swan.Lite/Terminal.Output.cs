@@ -1,4 +1,5 @@
 ﻿using System;
+using Swan.Logging;
 
 namespace Swan
 {
@@ -27,15 +28,7 @@ namespace Swan
                     text += Environment.NewLine;
                 }
 
-                var buffer = OutputEncoding.GetBytes(text);
-                var context = new OutputContext
-                {
-                    OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriters = writerFlags,
-                };
-
-                EnqueueOutput(context);
+                Logger.Write(text, color ?? Settings.DefaultColor, writerFlags);
             }
         }
 
@@ -51,15 +44,7 @@ namespace Swan
 
             lock (SyncLock)
             {
-                var buffer = OutputEncoding.GetBytes(text);
-                var context = new OutputContext
-                {
-                    OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriters = writerFlags,
-                };
-
-                EnqueueOutput(context);
+                Logger.Write(text, color ?? Settings.DefaultColor, writerFlags);
             }
         }
 

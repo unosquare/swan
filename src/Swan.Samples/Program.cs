@@ -20,15 +20,8 @@
         /// </summary>
         public static async Task Main()
         {
-            Parallel.ForEach(Enumerable.Range(0, 1000), i =>
-            {
-                var msg = $"{i} - {DateTime.Now}";
-                Terminal.WriteLine(msg);
-                msg.Info();
-            });
-
+            "Program finished.".Info();
             Terminal.Flush();
-            Terminal.ReadKey("Enter any key to exit . . .");
         }
 
         private static void TestExceptionLogging()

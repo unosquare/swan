@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Swan.Threading;
 
@@ -14,14 +15,15 @@ namespace Swan.Logging
     /// </summary>
     public static class Logger
     {
+        private const int OutputFlushInterval = 15;
+
         private static readonly object SyncLock = new object();
         private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly List<ILogger> Loggers = new List<ILogger>();
         private static readonly BlockingCollection<LogMessageReceivedEventArgs> OutputQueue = new BlockingCollection<LogMessageReceivedEventArgs>();
+        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
 
         private static ulong _loggingSequence;
-
-        private const int OutputFlushInterval = 15;
 
         static Logger()
         {
@@ -37,6 +39,37 @@ namespace Swan.Logging
         }
 
         #region Standard Public API
+        
+        /// <summary>
+        /// Waits for all of the queued output messages to be written out to the console.
+        /// Call this method if it is important to display console text before
+        /// quitting the application such as showing usage or help.
+        /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
+        /// </summary>
+        /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
+        public static void Flush(TimeSpan? timeout = null)
+        {
+            if (timeout == null) timeout = TimeSpan.Zero;
+            var startTime = DateTime.UtcNow;
+
+            while (OutputQueue.Count > 0)
+            {
+                // Manually trigger a timer cycle to run immediately
+                DequeueOutputTimer.Change(0, OutputFlushInterval);
+                
+                // Wait for the output to finish
+                if (OutputDone.Wait(OutputFlushInterval))
+                    break;
+
+                // infinite timeout
+                if (timeout.Value == TimeSpan.Zero)
+                    continue;
+
+                // break if we have reached a timeout condition
+                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
+                    break;
+            }
+        }
 
         /// <summary>
         /// Registers the logger.
@@ -619,6 +652,11 @@ namespace Swan.Logging
 
         #endregion
 
+        internal static void Write(string text, ConsoleColor defaultColor, TerminalWriters writerFlags)
+        {
+            OutputQueue.TryAdd(new LogMessageReceivedEventArgs(text, defaultColor, writerFlags));
+        }
+
         private static void RemoveLogger(Func<ILogger, bool> criteria)
         {
             lock (SyncLock)
@@ -636,8 +674,22 @@ namespace Swan.Logging
 
         private static void DequeueOutputCycle()
         {
+            if (OutputQueue.Count == 0)
+            {
+                OutputDone.Set();
+                return;
+            }
+
+            OutputDone.Reset();
+
             foreach (var context in OutputQueue.GetConsumingEnumerable())
             {
+                if (context.IsTerminalSource)
+                {
+                    ConsoleLogger.Write(context.Message, context.Color, context.WriterFlags);
+                    continue;
+                }
+
                 Parallel.ForEach(Loggers, logger =>
                 {
                     if (logger.LogLevel <= context.MessageType)
@@ -655,25 +707,23 @@ namespace Swan.Logging
             string callerFilePath,
             int callerLineNumber)
         {
-            var sequence = _loggingSequence;
-            var date = DateTime.UtcNow;
-            _loggingSequence++;
+            OutputDone.Reset();
 
             var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                 string.Empty : message.RemoveControlChars('\n');
 
-            var eventArgs = new LogMessageReceivedEventArgs(
-                sequence,
+            OutputQueue.TryAdd(new LogMessageReceivedEventArgs(
+                _loggingSequence,
                 logLevel,
-                date,
+                DateTime.UtcNow,
                 sourceName,
                 loggerMessage,
                 extendedData,
                 callerMemberName,
                 callerFilePath,
-                callerLineNumber);
+                callerLineNumber));
 
-            OutputQueue.TryAdd(eventArgs);
+            _loggingSequence++;
         }
     }
 }

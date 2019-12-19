@@ -127,14 +127,33 @@ namespace Swan.Logging
         /// <inheritdoc />
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
+            if (Terminal.AvailableWriters == TerminalWriters.None || !Terminal.IsConsolePresent)
+                return;
+
             // Select the writer based on the message type
             var writer = logEvent.MessageType == LogLevel.Error
-                    ? TerminalWriters.StandardError
-                    : TerminalWriters.StandardOutput;
+                ? TerminalWriters.StandardError
+                : TerminalWriters.StandardOutput;
 
             var (outputMessage, color) = GetOutputAndColor(logEvent);
 
-            Terminal.Write(outputMessage, color, writer);
+            Write(outputMessage, color, writer);
+        }
+        
+        internal static void Write(string text, ConsoleColor color, TerminalWriters writerFlags)
+        {
+            Console.ForegroundColor = color;
+
+            // Output to the standard output
+            if (writerFlags.HasFlag(TerminalWriters.StandardOutput))
+                Console.Out.Write(text);
+
+            // output to the standard error
+            if (writerFlags.HasFlag(TerminalWriters.StandardError))
+                Console.Error.Write(text);
+
+            Console.ResetColor();
+            Console.ForegroundColor = Terminal.Settings.DefaultColor;
         }
 
         /// <inheritdoc />

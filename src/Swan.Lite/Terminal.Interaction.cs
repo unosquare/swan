@@ -29,7 +29,6 @@ namespace Swan
             lock (SyncLock)
             {
                 Flush();
-                InputDone.Reset();
 
                 try
                 {
@@ -39,7 +38,6 @@ namespace Swan
                 finally
                 {
                     Console.CursorVisible = false;
-                    InputDone.Set();
                 }
             }
         }
@@ -57,9 +55,7 @@ namespace Swan
             lock (SyncLock)
             {
                 if (prompt != null)
-                {
                     Write($"{GetNowFormatted()}{Settings.UserInputPrefix} << {prompt} ", ConsoleColor.White);
-                }
 
                 var input = ReadKey(true);
                 var echo = preventEcho ? string.Empty : input.Key.ToString();
@@ -87,12 +83,11 @@ namespace Swan
         /// <returns>The read line.</returns>
         public static string? ReadLine()
         {
-            if (IsConsolePresent == false) return default;
+            if (!IsConsolePresent) return default;
 
             lock (SyncLock)
             {
                 Flush();
-                InputDone.Reset();
 
                 try
                 {
@@ -102,7 +97,6 @@ namespace Swan
                 finally
                 {
                     Console.CursorVisible = false;
-                    InputDone.Set();
                 }
             }
         }

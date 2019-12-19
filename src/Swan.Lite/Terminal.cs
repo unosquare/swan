@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Text;
 using System.Linq;
+using System.Text;
 using System.Threading;
-using Swan.Threading;
+using Swan.Logging;
 
 namespace Swan
 {
@@ -13,14 +12,7 @@ namespace Swan
     /// </summary>
     public static partial class Terminal
     {
-        private const int OutputFlushInterval = 15;
-        private static readonly ExclusiveTimer DequeueOutputTimer;
         private static readonly object SyncLock = new object();
-        private static readonly BlockingCollection<OutputContext> OutputQueue = new BlockingCollection<OutputContext>();
-
-        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
-        private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
-
         private static bool? _isConsolePresent;
 
         #region Constructors
@@ -32,16 +24,8 @@ namespace Swan
         {
             lock (SyncLock)
             {
-                if (DequeueOutputTimer != null) return;
-
                 if (IsConsolePresent)
-                {
                     Console.CursorVisible = false;
-                }
-
-                // Here we start the output task, fire-and-forget
-                DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
-                DequeueOutputTimer.Resume(OutputFlushInterval);
             }
         }
 
@@ -173,29 +157,7 @@ namespace Swan
         /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
         /// </summary>
         /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
-        public static void Flush(TimeSpan? timeout = null)
-        {
-            if (timeout == null) timeout = TimeSpan.Zero;
-            var startTime = DateTime.UtcNow;
-
-            while (OutputQueue.Count > 0)
-            {
-                // Manually trigger a timer cycle to run immediately
-                DequeueOutputTimer.Change(0, OutputFlushInterval);
-
-                // Wait for the output to finish
-                if (OutputDone.Wait(OutputFlushInterval))
-                    break;
-
-                // infinite timeout
-                if (timeout.Value == TimeSpan.Zero)
-                    continue;
-
-                // break if we have reached a timeout condition
-                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
-                    break;
-            }
-        }
+        public static void Flush(TimeSpan? timeout = null) => Logger.Flush(timeout);
 
         /// <summary>
         /// Sets the cursor position.
@@ -230,99 +192,6 @@ namespace Swan
         {
             WriteLine($"{SwanRuntime.CompanyName} {SwanRuntime.ProductName} [Version {SwanRuntime.EntryAssemblyVersion}]", color);
             WriteLine($"{SwanRuntime.ProductTrademark}", color);
-        }
-
-        /// <summary>
-        /// Enqueues the output to be written to the console
-        /// This is the only method that should enqueue to the output
-        /// Please note that if AvailableWriters is None, then no output will be enqueued.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        private static void EnqueueOutput(OutputContext context)
-        {
-            lock (SyncLock)
-            {
-                var availableWriters = AvailableWriters;
-
-                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
-                {
-                    OutputDone.Set();
-                    return;
-                }
-
-                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
-                    return;
-
-                OutputDone.Reset();
-                OutputQueue.TryAdd(context);
-            }
-        }
-
-        /// <summary>
-        /// Runs a Terminal I/O cycle in the <see cref="ThreadPool"/> thread.
-        /// </summary>
-        private static void DequeueOutputCycle()
-        {
-            if (AvailableWriters == TerminalWriters.None)
-            {
-                OutputDone.Set();
-                return;
-            }
-
-            InputDone.Wait();
-
-            if (OutputQueue.Count <= 0)
-            {
-                OutputDone.Set();
-                return;
-            }
-
-            OutputDone.Reset();
-
-            foreach (var context in OutputQueue.GetConsumingEnumerable())
-            {
-                // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                if (!IsConsolePresent) continue;
-
-                Console.ForegroundColor = context.OutputColor;
-
-                // Output to the standard output
-                if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                    Console.Out.Write(context.OutputText);
-
-                // output to the standard error
-                if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                    Console.Error.Write(context.OutputText);
-
-                Console.ResetColor();
-                Console.ForegroundColor = context.OriginalColor;
-            }
-        }
-
-        #endregion
-
-        #region Output Context
-
-        /// <summary>
-        /// Represents an asynchronous output context.
-        /// </summary>
-        private sealed class OutputContext
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="OutputContext"/> class.
-            /// </summary>
-            public OutputContext()
-            {
-                OriginalColor = Settings.DefaultColor;
-                OutputWriters = IsConsolePresent
-                    ? TerminalWriters.StandardOutput
-                    : TerminalWriters.None;
-            }
-
-            public ConsoleColor OriginalColor { get; }
-            public ConsoleColor OutputColor { get; set; }
-            public char[] OutputText { get; set; }
-            public TerminalWriters OutputWriters { get; set; }
         }
 
         #endregion
