@@ -102,6 +102,17 @@
         public string IgnoredData { get; set; }
     }
 
+    public class InnerJsonPropertySample
+    {
+        [JsonProperty("data")]
+        public string Data { get; set; }
+
+        [JsonProperty("ignoredData", true)]
+        public string IgnoredData { get; set; }
+
+        public JsonPropertySample Inner { get; set; }
+    }
+
     public class JsonFile
     {
         public string Filename { get; set; }
