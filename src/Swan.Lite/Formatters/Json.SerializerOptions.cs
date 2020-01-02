@@ -131,6 +131,7 @@ namespace Swan.Formatters
             }
 
             var value = fields
+                .Where(x => x.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored != true)
                 .ToDictionary(
                     x => Tuple.Create(x.Name,
                         x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name.GetNameWithCase(JsonSerializerCase)),
