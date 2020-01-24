@@ -694,6 +694,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Lite.CompositeHashCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Lite.CompositeHashCode.html",
+          "hash": "U5/ic2FFCkQZ46TYqXv7Bw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Lite.Logging.TextLogger.yml",
       "output": {
         ".html": {
@@ -735,6 +747,18 @@
         ".html": {
           "relative_path": "api/Swan.Lite.Reflection.html",
           "hash": "GYZHf8h2hgMc3qBxryQBPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Lite.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Lite.html",
+          "hash": "Gml5zanDNGuO83V13BQb+A=="
         }
       },
       "is_incremental": false,
@@ -2366,7 +2390,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "loTv+sYAW4I6apU4aqkHnA=="
+          "hash": "U3jckp6IJqNaKNjdrEylzg=="
         }
       },
       "is_incremental": false,
@@ -2407,10 +2431,17 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 190,
+          "total_file_count": 192,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -2422,13 +2453,6 @@
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0

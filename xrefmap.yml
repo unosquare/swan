@@ -4371,6 +4371,34 @@ references:
   commentId: F:Swan.JsonSerializerCase.PascalCase
   fullName: Swan.JsonSerializerCase.PascalCase
   nameWithType: JsonSerializerCase.PascalCase
+- uid: Swan.Lite
+  name: Swan.Lite
+  href: api/Swan.Lite.html
+  commentId: N:Swan.Lite
+  fullName: Swan.Lite
+  nameWithType: Swan.Lite
+- uid: Swan.Lite.CompositeHashCode
+  name: CompositeHashCode
+  href: api/Swan.Lite.CompositeHashCode.html
+  commentId: T:Swan.Lite.CompositeHashCode
+  fullName: Swan.Lite.CompositeHashCode
+  nameWithType: CompositeHashCode
+- uid: Swan.Lite.CompositeHashCode.Using(System.Object[])
+  name: Using(Object[])
+  href: api/Swan.Lite.CompositeHashCode.html#Swan_Lite_CompositeHashCode_Using_System_Object___
+  commentId: M:Swan.Lite.CompositeHashCode.Using(System.Object[])
+  name.vb: Using(Object())
+  fullName: Swan.Lite.CompositeHashCode.Using(System.Object[])
+  fullName.vb: Swan.Lite.CompositeHashCode.Using(System.Object())
+  nameWithType: CompositeHashCode.Using(Object[])
+  nameWithType.vb: CompositeHashCode.Using(Object())
+- uid: Swan.Lite.CompositeHashCode.Using*
+  name: Using
+  href: api/Swan.Lite.CompositeHashCode.html#Swan_Lite_CompositeHashCode_Using_
+  commentId: Overload:Swan.Lite.CompositeHashCode.Using
+  isSpec: "True"
+  fullName: Swan.Lite.CompositeHashCode.Using
+  nameWithType: CompositeHashCode.Using
 - uid: Swan.Lite.Logging
   name: Swan.Lite.Logging
   href: api/Swan.Lite.Logging.html
