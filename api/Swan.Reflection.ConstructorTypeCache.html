@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class TextLogger
+    <title>Class ConstructorTypeCache
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class TextLogger
+    <meta name="title" content="Class ConstructorTypeCache
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -76,61 +76,46 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.Lite.Logging.TextLogger">
+            <article class="content wrap" id="_content" data-uid="Swan.Reflection.ConstructorTypeCache">
   
   
-  <h1 id="Swan_Lite_Logging_TextLogger" data-uid="Swan.Lite.Logging.TextLogger" class="text-break">Class TextLogger
+  <h1 id="Swan_Reflection_ConstructorTypeCache" data-uid="Swan.Reflection.ConstructorTypeCache" class="text-break">Class ConstructorTypeCache
   </h1>
-  <div class="markdown level0 summary"><p>Use this class for text-based logger.</p>
+  <div class="markdown level0 summary"><p>A thread-safe cache of constructors belonging to a given type.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">TextLogger</span></div>
+    <div class="level1"><a class="xref" href="Swan.Reflection.TypeCache-1.html">TypeCache</a>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</div>
+    <div class="level2"><span class="xref">ConstructorTypeCache</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+      <a class="xref" href="Swan.Reflection.TypeCache-1.html#Swan_Reflection_TypeCache_1_Contains__1">TypeCache&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;.Contains&lt;TOut&gt;()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+      <a class="xref" href="Swan.Reflection.TypeCache-1.html#Swan_Reflection_TypeCache_1_Retrieve__1_Func_Type_IEnumerable__0___">TypeCache&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;.Retrieve&lt;TOut&gt;(Func&lt;Type, IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;&gt;)</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Lite.Logging.html">Swan.Lite.Logging</a></h6>
-  <h5 id="Swan_Lite_Logging_TextLogger_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Reflection.html">Swan.Reflection</a></h6>
+  <h5 id="Swan_Reflection_ConstructorTypeCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class TextLogger</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConstructorTypeCache : TypeCache&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Swan_Lite_Logging_TextLogger_LoggingTimeFormat_" data-uid="Swan.Lite.Logging.TextLogger.LoggingTimeFormat*"></a>
-  <h4 id="Swan_Lite_Logging_TextLogger_LoggingTimeFormat" data-uid="Swan.Lite.Logging.TextLogger.LoggingTimeFormat">LoggingTimeFormat</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the logging time format.
-set to null or empty to prevent output.</p>
+  <a id="Swan_Reflection_ConstructorTypeCache_DefaultCache_" data-uid="Swan.Reflection.ConstructorTypeCache.DefaultCache*"></a>
+  <h4 id="Swan_Reflection_ConstructorTypeCache_DefaultCache" data-uid="Swan.Reflection.ConstructorTypeCache.DefaultCache">DefaultCache</h4>
+  <div class="markdown level1 summary"><p>Gets the default cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string LoggingTimeFormat { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static Lazy&lt;ConstructorTypeCache&gt; DefaultCache { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,8 +127,8 @@ set to null or empty to prevent output.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><p>The logging time format.</p>
+        <td><span class="xref">Lazy</span>&lt;<a class="xref" href="Swan.Reflection.ConstructorTypeCache.html">ConstructorTypeCache</a>&gt;</td>
+        <td><p>The default cache.</p>
 </td>
       </tr>
     </tbody>
@@ -152,14 +137,14 @@ set to null or empty to prevent output.</p>
   </h3>
   
   
-  <a id="Swan_Lite_Logging_TextLogger_GetOutputAndColor_" data-uid="Swan.Lite.Logging.TextLogger.GetOutputAndColor*"></a>
-  <h4 id="Swan_Lite_Logging_TextLogger_GetOutputAndColor_Swan_LogMessageReceivedEventArgs_" data-uid="Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)">GetOutputAndColor(LogMessageReceivedEventArgs)</h4>
-  <div class="markdown level1 summary"><p>Gets the color of the output of the message (the output message has a new line char in the end).</p>
+  <a id="Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
+  <h4 id="Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_" data-uid="Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)">RetrieveAllConstructors(Type, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors(Type type, bool includeNonPublic = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -172,9 +157,15 @@ set to null or empty to prevent output.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Swan.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a></td>
-        <td><span class="parametername">logEvent</span></td>
-        <td><p>The <a class="xref" href="Swan.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a> instance containing the event data.</p>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">includeNonPublic</span></td>
+        <td><p>if set to <code>true</code> [include non public].</p>
 </td>
       </tr>
     </tbody>
@@ -189,8 +180,69 @@ set to null or empty to prevent output.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">ValueTuple</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <span class="xref">ConsoleColor</span>&gt;</td>
-        <td><p>The output message formatted and the color of the console to be used.</p>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
+        <td><p>A collection with all the constructors in the given type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
+  <h4 id="Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_" data-uid="Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)">RetrieveAllConstructors&lt;T&gt;(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors&lt;T&gt;(bool includeNonPublic = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">includeNonPublic</span></td>
+        <td><p>if set to <code>true</code> [include non public].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
+        <td><p>A collection with all the constructors in the given type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type to inspect.</p>
 </td>
       </tr>
     </tbody>

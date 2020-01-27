@@ -202,6 +202,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.CompositeHashCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.CompositeHashCode.html",
+          "hash": "WW5VqapyxZQGCMWOaC9g1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Configuration.ConfiguredObject.yml",
       "output": {
         ".html": {
@@ -243,18 +255,6 @@
         ".html": {
           "relative_path": "api/Swan.Configuration.html",
           "hash": "dI4iVSybre1Q6gcon0IMGg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.ConnectionDataReceivedTrigger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.ConnectionDataReceivedTrigger.html",
-          "hash": "YGo6Pmbm9vrh1rxwpaql0w=="
         }
       },
       "is_incremental": false,
@@ -694,107 +694,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.CompositeHashCode.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.CompositeHashCode.html",
-          "hash": "U5/ic2FFCkQZ46TYqXv7Bw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.Logging.TextLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.Logging.TextLogger.html",
-          "hash": "SViiX56M+d50Pj70kD93YQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.Logging.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.Logging.html",
-          "hash": "WLBEwsFcKkSGB+zyUReFhw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.Reflection.ConstructorTypeCache.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.Reflection.ConstructorTypeCache.html",
-          "hash": "RwYnOXWjiK17rv3IFNHKvA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.Reflection.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.Reflection.html",
-          "hash": "GYZHf8h2hgMc3qBxryQBPw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Lite.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Lite.html",
-          "hash": "Gml5zanDNGuO83V13BQb+A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.LogLevel.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.LogLevel.html",
-          "hash": "ycr65lXZvDQ1u94clwpv4Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.LogMessageReceivedEventArgs.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.LogMessageReceivedEventArgs.html",
-          "hash": "yrD4iUdNTnB+iCESReT4bA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Logging.ConsoleLogger.yml",
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.ConsoleLogger.html",
-          "hash": "EjaEuHdqG6r7068cLl9PwA=="
+          "hash": "mSmqX1Kzlz1YVOlPFj1YiA=="
         }
       },
       "is_incremental": false,
@@ -806,7 +710,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.DebugLogger.html",
-          "hash": "KXkxyOUUhEiwN/iV0HvNJg=="
+          "hash": "EzPfrWslHh3wEAbXFeaDQQ=="
         }
       },
       "is_incremental": false,
@@ -818,7 +722,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.FileLogger.html",
-          "hash": "KKtgBbGRRpTV9sBIw4kU8g=="
+          "hash": "zvRcngp3ytRdFTLKNvAsFg=="
         }
       },
       "is_incremental": false,
@@ -830,7 +734,31 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.ILogger.html",
-          "hash": "xpfwx5nV8Ff3SmVl/GEU4Q=="
+          "hash": "/fDM6N/eh2a6ECOwMAYmyA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Logging.LogLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Logging.LogLevel.html",
+          "hash": "4/HHxGJ45PIxJWyo0HGiRw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Logging.LogMessageReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Logging.LogMessageReceivedEventArgs.html",
+          "hash": "CoiJZ/DGYlhmUvV+dfkTpA=="
         }
       },
       "is_incremental": false,
@@ -842,7 +770,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.Logger.html",
-          "hash": "rD5sqrVkHLqQN2yM4t3b6g=="
+          "hash": "cHWdAJFXVYseIT28dtJcAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Logging.TextLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Logging.TextLogger.html",
+          "hash": "985k4TE/i5gZKeo2W2i/RQ=="
         }
       },
       "is_incremental": false,
@@ -854,7 +794,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Logging.html",
-          "hash": "DGLWxWkdxa1v+OvGrzG/NA=="
+          "hash": "1aRNgEQ8xqTCMwFLf5MwZA=="
         }
       },
       "is_incremental": false,
@@ -1082,7 +1022,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.ConnectionDataReceivedEventArgs.html",
-          "hash": "whjjx9nixRMXV/RpxGYIyg=="
+          "hash": "bMjTQsizHx1YrS9048keTQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Net.ConnectionDataReceivedTrigger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Net.ConnectionDataReceivedTrigger.html",
+          "hash": "s71tcYTQ+us+45jQBbrSJg=="
         }
       },
       "is_incremental": false,
@@ -1394,7 +1346,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.html",
-          "hash": "rCb8rtlv9O5jdHMjFIcjiQ=="
+          "hash": "+tNiT3c/8EHHmOCBWlWTIA=="
         }
       },
       "is_incremental": false,
@@ -1618,6 +1570,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Reflection.ConstructorTypeCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Reflection.ConstructorTypeCache.html",
+          "hash": "7NsOq9IfqdxCL3kuh5Cmug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Reflection.ExtendedPropertyInfo-1.yml",
       "output": {
         ".html": {
@@ -1730,7 +1694,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.TypeCache-1.html",
-          "hash": "Cs3IT1+vdC+T9CodEKI8Ag=="
+          "hash": "SrnZMp8R5idFC9TVgFJ5MQ=="
         }
       },
       "is_incremental": false,
@@ -1742,7 +1706,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.html",
-          "hash": "9lHS9oXcWqacemAJv3bg2w=="
+          "hash": "F6IroS+Sv+mpssxiR+5zRg=="
         }
       },
       "is_incremental": false,
@@ -2378,7 +2342,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.html",
-          "hash": "aRLcA9XkKANKznwINegYNg=="
+          "hash": "OwNl/cx1zJefrGO75G2ehQ=="
         }
       },
       "is_incremental": false,
@@ -2390,7 +2354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "U3jckp6IJqNaKNjdrEylzg=="
+          "hash": "Gg1zfZOfk+dbWdyWXOpf+A=="
         }
       },
       "is_incremental": false,
@@ -2441,7 +2405,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 192,
+          "total_file_count": 189,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {

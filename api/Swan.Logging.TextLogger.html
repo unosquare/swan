@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum ConnectionDataReceivedTrigger
+    <title>Class TextLogger
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum ConnectionDataReceivedTrigger
+    <meta name="title" content="Class TextLogger
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -76,51 +76,128 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.ConnectionDataReceivedTrigger">
+            <article class="content wrap" id="_content" data-uid="Swan.Logging.TextLogger">
   
   
-  <h1 id="Swan_ConnectionDataReceivedTrigger" data-uid="Swan.ConnectionDataReceivedTrigger" class="text-break">Enum ConnectionDataReceivedTrigger
+  <h1 id="Swan_Logging_TextLogger" data-uid="Swan.Logging.TextLogger" class="text-break">Class TextLogger
   </h1>
-  <div class="markdown level0 summary"><p>Enumerates the possible causes of the DataReceived event occurring.</p>
+  <div class="markdown level0 summary"><p>Use this class for text-based logger.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.html">Swan</a></h6>
-  <h5 id="Swan_ConnectionDataReceivedTrigger_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum ConnectionDataReceivedTrigger</code></pre>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">TextLogger</span></div>
+      <div class="level2"><a class="xref" href="Swan.Logging.ConsoleLogger.html">ConsoleLogger</a></div>
+      <div class="level2"><a class="xref" href="Swan.Logging.DebugLogger.html">DebugLogger</a></div>
+      <div class="level2"><a class="xref" href="Swan.Logging.FileLogger.html">FileLogger</a></div>
   </div>
-  <h3 id="fields">Fields
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Logging.html">Swan.Logging</a></h6>
+  <h5 id="Swan_Logging_TextLogger_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class TextLogger</code></pre>
+  </div>
+  <h3 id="properties">Properties
   </h3>
+  
+  
+  <a id="Swan_Logging_TextLogger_LoggingTimeFormat_" data-uid="Swan.Logging.TextLogger.LoggingTimeFormat*"></a>
+  <h4 id="Swan_Logging_TextLogger_LoggingTimeFormat" data-uid="Swan.Logging.TextLogger.LoggingTimeFormat">LoggingTimeFormat</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the logging time format.
+set to null or empty to prevent output.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string LoggingTimeFormat { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Type</th>
         <th>Description</th>
       </tr>
-    <thead>
+    </thead>
     <tbody>
       <tr>
-        <td id="Swan_ConnectionDataReceivedTrigger_BlockSizeReached">BlockSizeReached</td>
-        <td><p>The block size reached</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_ConnectionDataReceivedTrigger_BufferFull">BufferFull</td>
-        <td><p>The buffer was full</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_ConnectionDataReceivedTrigger_Flush">Flush</td>
-        <td><p>The trigger was a forceful flush of the buffer</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_ConnectionDataReceivedTrigger_NewLineSequenceEncountered">NewLineSequenceEncountered</td>
-        <td><p>The new line sequence bytes were received</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><p>The logging time format.</p>
 </td>
       </tr>
     </tbody>
-  </thead></thead></table>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Logging_TextLogger_GetOutputAndColor_" data-uid="Swan.Logging.TextLogger.GetOutputAndColor*"></a>
+  <h4 id="Swan_Logging_TextLogger_GetOutputAndColor_Swan_Logging_LogMessageReceivedEventArgs_" data-uid="Swan.Logging.TextLogger.GetOutputAndColor(Swan.Logging.LogMessageReceivedEventArgs)">GetOutputAndColor(LogMessageReceivedEventArgs)</h4>
+  <div class="markdown level1 summary"><p>Gets the color of the output of the message (the output message has a new line char in the end).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Logging.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a></td>
+        <td><span class="parametername">logEvent</span></td>
+        <td><p>The <a class="xref" href="Swan.Logging.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a> instance containing the event data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">ValueTuple</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <span class="xref">ConsoleColor</span>&gt;</td>
+        <td><p>The output message formatted and the color of the console to be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

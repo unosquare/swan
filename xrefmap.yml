@@ -1331,6 +1331,28 @@ references:
   fullName.vb: Swan.ComponentCollectionExtensions.Add(Of T)(IComponentCollection(Of T), T)
   nameWithType: ComponentCollectionExtensions.Add<T>(IComponentCollection<T>, T)
   nameWithType.vb: ComponentCollectionExtensions.Add(Of T)(IComponentCollection(Of T), T)
+- uid: Swan.CompositeHashCode
+  name: CompositeHashCode
+  href: api/Swan.CompositeHashCode.html
+  commentId: T:Swan.CompositeHashCode
+  fullName: Swan.CompositeHashCode
+  nameWithType: CompositeHashCode
+- uid: Swan.CompositeHashCode.Using(System.Object[])
+  name: Using(Object[])
+  href: api/Swan.CompositeHashCode.html#Swan_CompositeHashCode_Using_System_Object___
+  commentId: M:Swan.CompositeHashCode.Using(System.Object[])
+  name.vb: Using(Object())
+  fullName: Swan.CompositeHashCode.Using(System.Object[])
+  fullName.vb: Swan.CompositeHashCode.Using(System.Object())
+  nameWithType: CompositeHashCode.Using(Object[])
+  nameWithType.vb: CompositeHashCode.Using(Object())
+- uid: Swan.CompositeHashCode.Using*
+  name: Using
+  href: api/Swan.CompositeHashCode.html#Swan_CompositeHashCode_Using_
+  commentId: Overload:Swan.CompositeHashCode.Using
+  isSpec: "True"
+  fullName: Swan.CompositeHashCode.Using
+  nameWithType: CompositeHashCode.Using
 - uid: Swan.Configuration
   name: Swan.Configuration
   href: api/Swan.Configuration.html
@@ -1595,36 +1617,6 @@ references:
   fullName.vb: Swan.Configuration.SettingsProvider(Of T).ResetGlobalSettings
   nameWithType: SettingsProvider<T>.ResetGlobalSettings
   nameWithType.vb: SettingsProvider(Of T).ResetGlobalSettings
-- uid: Swan.ConnectionDataReceivedTrigger
-  name: ConnectionDataReceivedTrigger
-  href: api/Swan.ConnectionDataReceivedTrigger.html
-  commentId: T:Swan.ConnectionDataReceivedTrigger
-  fullName: Swan.ConnectionDataReceivedTrigger
-  nameWithType: ConnectionDataReceivedTrigger
-- uid: Swan.ConnectionDataReceivedTrigger.BlockSizeReached
-  name: BlockSizeReached
-  href: api/Swan.ConnectionDataReceivedTrigger.html#Swan_ConnectionDataReceivedTrigger_BlockSizeReached
-  commentId: F:Swan.ConnectionDataReceivedTrigger.BlockSizeReached
-  fullName: Swan.ConnectionDataReceivedTrigger.BlockSizeReached
-  nameWithType: ConnectionDataReceivedTrigger.BlockSizeReached
-- uid: Swan.ConnectionDataReceivedTrigger.BufferFull
-  name: BufferFull
-  href: api/Swan.ConnectionDataReceivedTrigger.html#Swan_ConnectionDataReceivedTrigger_BufferFull
-  commentId: F:Swan.ConnectionDataReceivedTrigger.BufferFull
-  fullName: Swan.ConnectionDataReceivedTrigger.BufferFull
-  nameWithType: ConnectionDataReceivedTrigger.BufferFull
-- uid: Swan.ConnectionDataReceivedTrigger.Flush
-  name: Flush
-  href: api/Swan.ConnectionDataReceivedTrigger.html#Swan_ConnectionDataReceivedTrigger_Flush
-  commentId: F:Swan.ConnectionDataReceivedTrigger.Flush
-  fullName: Swan.ConnectionDataReceivedTrigger.Flush
-  nameWithType: ConnectionDataReceivedTrigger.Flush
-- uid: Swan.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
-  name: NewLineSequenceEncountered
-  href: api/Swan.ConnectionDataReceivedTrigger.html#Swan_ConnectionDataReceivedTrigger_NewLineSequenceEncountered
-  commentId: F:Swan.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
-  fullName: Swan.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
-  nameWithType: ConnectionDataReceivedTrigger.NewLineSequenceEncountered
 - uid: Swan.Cryptography
   name: Swan.Cryptography
   href: api/Swan.Cryptography.html
@@ -4371,119 +4363,6 @@ references:
   commentId: F:Swan.JsonSerializerCase.PascalCase
   fullName: Swan.JsonSerializerCase.PascalCase
   nameWithType: JsonSerializerCase.PascalCase
-- uid: Swan.Lite
-  name: Swan.Lite
-  href: api/Swan.Lite.html
-  commentId: N:Swan.Lite
-  fullName: Swan.Lite
-  nameWithType: Swan.Lite
-- uid: Swan.Lite.CompositeHashCode
-  name: CompositeHashCode
-  href: api/Swan.Lite.CompositeHashCode.html
-  commentId: T:Swan.Lite.CompositeHashCode
-  fullName: Swan.Lite.CompositeHashCode
-  nameWithType: CompositeHashCode
-- uid: Swan.Lite.CompositeHashCode.Using(System.Object[])
-  name: Using(Object[])
-  href: api/Swan.Lite.CompositeHashCode.html#Swan_Lite_CompositeHashCode_Using_System_Object___
-  commentId: M:Swan.Lite.CompositeHashCode.Using(System.Object[])
-  name.vb: Using(Object())
-  fullName: Swan.Lite.CompositeHashCode.Using(System.Object[])
-  fullName.vb: Swan.Lite.CompositeHashCode.Using(System.Object())
-  nameWithType: CompositeHashCode.Using(Object[])
-  nameWithType.vb: CompositeHashCode.Using(Object())
-- uid: Swan.Lite.CompositeHashCode.Using*
-  name: Using
-  href: api/Swan.Lite.CompositeHashCode.html#Swan_Lite_CompositeHashCode_Using_
-  commentId: Overload:Swan.Lite.CompositeHashCode.Using
-  isSpec: "True"
-  fullName: Swan.Lite.CompositeHashCode.Using
-  nameWithType: CompositeHashCode.Using
-- uid: Swan.Lite.Logging
-  name: Swan.Lite.Logging
-  href: api/Swan.Lite.Logging.html
-  commentId: N:Swan.Lite.Logging
-  fullName: Swan.Lite.Logging
-  nameWithType: Swan.Lite.Logging
-- uid: Swan.Lite.Logging.TextLogger
-  name: TextLogger
-  href: api/Swan.Lite.Logging.TextLogger.html
-  commentId: T:Swan.Lite.Logging.TextLogger
-  fullName: Swan.Lite.Logging.TextLogger
-  nameWithType: TextLogger
-- uid: Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
-  name: GetOutputAndColor(LogMessageReceivedEventArgs)
-  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_GetOutputAndColor_Swan_LogMessageReceivedEventArgs_
-  commentId: M:Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
-  fullName: Swan.Lite.Logging.TextLogger.GetOutputAndColor(Swan.LogMessageReceivedEventArgs)
-  nameWithType: TextLogger.GetOutputAndColor(LogMessageReceivedEventArgs)
-- uid: Swan.Lite.Logging.TextLogger.GetOutputAndColor*
-  name: GetOutputAndColor
-  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_GetOutputAndColor_
-  commentId: Overload:Swan.Lite.Logging.TextLogger.GetOutputAndColor
-  isSpec: "True"
-  fullName: Swan.Lite.Logging.TextLogger.GetOutputAndColor
-  nameWithType: TextLogger.GetOutputAndColor
-- uid: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
-  name: LoggingTimeFormat
-  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_LoggingTimeFormat
-  commentId: P:Swan.Lite.Logging.TextLogger.LoggingTimeFormat
-  fullName: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
-  nameWithType: TextLogger.LoggingTimeFormat
-- uid: Swan.Lite.Logging.TextLogger.LoggingTimeFormat*
-  name: LoggingTimeFormat
-  href: api/Swan.Lite.Logging.TextLogger.html#Swan_Lite_Logging_TextLogger_LoggingTimeFormat_
-  commentId: Overload:Swan.Lite.Logging.TextLogger.LoggingTimeFormat
-  isSpec: "True"
-  fullName: Swan.Lite.Logging.TextLogger.LoggingTimeFormat
-  nameWithType: TextLogger.LoggingTimeFormat
-- uid: Swan.Lite.Reflection
-  name: Swan.Lite.Reflection
-  href: api/Swan.Lite.Reflection.html
-  commentId: N:Swan.Lite.Reflection
-  fullName: Swan.Lite.Reflection
-  nameWithType: Swan.Lite.Reflection
-- uid: Swan.Lite.Reflection.ConstructorTypeCache
-  name: ConstructorTypeCache
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html
-  commentId: T:Swan.Lite.Reflection.ConstructorTypeCache
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache
-  nameWithType: ConstructorTypeCache
-- uid: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
-  name: DefaultCache
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache
-  commentId: P:Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
-  nameWithType: ConstructorTypeCache.DefaultCache
-- uid: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache*
-  name: DefaultCache
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache_
-  commentId: Overload:Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
-  isSpec: "True"
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache
-  nameWithType: ConstructorTypeCache.DefaultCache
-- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
-  name: RetrieveAllConstructors(Type, Boolean)
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_
-  commentId: M:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type, System.Boolean)
-  nameWithType: ConstructorTypeCache.RetrieveAllConstructors(Type, Boolean)
-- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*
-  name: RetrieveAllConstructors
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_
-  commentId: Overload:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors
-  isSpec: "True"
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors
-  nameWithType: ConstructorTypeCache.RetrieveAllConstructors
-- uid: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
-  name: RetrieveAllConstructors<T>(Boolean)
-  href: api/Swan.Lite.Reflection.ConstructorTypeCache.html#Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_
-  commentId: M:Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
-  name.vb: RetrieveAllConstructors(Of T)(Boolean)
-  fullName: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors<T>(System.Boolean)
-  fullName.vb: Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Of T)(System.Boolean)
-  nameWithType: ConstructorTypeCache.RetrieveAllConstructors<T>(Boolean)
-  nameWithType.vb: ConstructorTypeCache.RetrieveAllConstructors(Of T)(Boolean)
 - uid: Swan.Logging
   name: Swan.Logging
   href: api/Swan.Logging.html
@@ -4639,11 +4518,11 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.ConsoleLogger.Instance
   nameWithType: ConsoleLogger.Instance
-- uid: Swan.Logging.ConsoleLogger.Log(Swan.LogMessageReceivedEventArgs)
+- uid: Swan.Logging.ConsoleLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
-  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_Log_Swan_LogMessageReceivedEventArgs_
-  commentId: M:Swan.Logging.ConsoleLogger.Log(Swan.LogMessageReceivedEventArgs)
-  fullName: Swan.Logging.ConsoleLogger.Log(Swan.LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.ConsoleLogger.html#Swan_Logging_ConsoleLogger_Log_Swan_Logging_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.ConsoleLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.ConsoleLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   nameWithType: ConsoleLogger.Log(LogMessageReceivedEventArgs)
 - uid: Swan.Logging.ConsoleLogger.Log*
   name: Log
@@ -4775,11 +4654,11 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.DebugLogger.IsDebuggerAttached
   nameWithType: DebugLogger.IsDebuggerAttached
-- uid: Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
+- uid: Swan.Logging.DebugLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
-  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Log_Swan_LogMessageReceivedEventArgs_
-  commentId: M:Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
-  fullName: Swan.Logging.DebugLogger.Log(Swan.LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.DebugLogger.html#Swan_Logging_DebugLogger_Log_Swan_Logging_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.DebugLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.DebugLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   nameWithType: DebugLogger.Log(LogMessageReceivedEventArgs)
 - uid: Swan.Logging.DebugLogger.Log*
   name: Log
@@ -4871,11 +4750,11 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.FileLogger.FilePath
   nameWithType: FileLogger.FilePath
-- uid: Swan.Logging.FileLogger.Log(Swan.LogMessageReceivedEventArgs)
+- uid: Swan.Logging.FileLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
-  href: api/Swan.Logging.FileLogger.html#Swan_Logging_FileLogger_Log_Swan_LogMessageReceivedEventArgs_
-  commentId: M:Swan.Logging.FileLogger.Log(Swan.LogMessageReceivedEventArgs)
-  fullName: Swan.Logging.FileLogger.Log(Swan.LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.FileLogger.html#Swan_Logging_FileLogger_Log_Swan_Logging_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.FileLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.FileLogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   nameWithType: FileLogger.Log(LogMessageReceivedEventArgs)
 - uid: Swan.Logging.FileLogger.Log*
   name: Log
@@ -4903,11 +4782,11 @@ references:
   commentId: T:Swan.Logging.ILogger
   fullName: Swan.Logging.ILogger
   nameWithType: ILogger
-- uid: Swan.Logging.ILogger.Log(Swan.LogMessageReceivedEventArgs)
+- uid: Swan.Logging.ILogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   name: Log(LogMessageReceivedEventArgs)
-  href: api/Swan.Logging.ILogger.html#Swan_Logging_ILogger_Log_Swan_LogMessageReceivedEventArgs_
-  commentId: M:Swan.Logging.ILogger.Log(Swan.LogMessageReceivedEventArgs)
-  fullName: Swan.Logging.ILogger.Log(Swan.LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.ILogger.html#Swan_Logging_ILogger_Log_Swan_Logging_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.ILogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.ILogger.Log(Swan.Logging.LogMessageReceivedEventArgs)
   nameWithType: ILogger.Log(LogMessageReceivedEventArgs)
 - uid: Swan.Logging.ILogger.Log*
   name: Log
@@ -5069,17 +4948,17 @@ references:
   commentId: M:Swan.Logging.Logger.Log(Exception,System.String,System.String,System.String,System.String,System.Int32)
   fullName: Swan.Logging.Logger.Log(Exception, System.String, System.String, System.String, System.String, System.Int32)
   nameWithType: Logger.Log(Exception, String, String, String, String, Int32)
-- uid: Swan.Logging.Logger.Log(System.String,System.String,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)
+- uid: Swan.Logging.Logger.Log(System.String,System.String,Swan.Logging.LogLevel,System.Object,System.String,System.String,System.Int32)
   name: Log(String, String, LogLevel, Object, String, String, Int32)
-  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_System_String_System_String_Swan_LogLevel_System_Object_System_String_System_String_System_Int32_
-  commentId: M:Swan.Logging.Logger.Log(System.String,System.String,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)
-  fullName: Swan.Logging.Logger.Log(System.String, System.String, Swan.LogLevel, System.Object, System.String, System.String, System.Int32)
+  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_System_String_System_String_Swan_Logging_LogLevel_System_Object_System_String_System_String_System_Int32_
+  commentId: M:Swan.Logging.Logger.Log(System.String,System.String,Swan.Logging.LogLevel,System.Object,System.String,System.String,System.Int32)
+  fullName: Swan.Logging.Logger.Log(System.String, System.String, Swan.Logging.LogLevel, System.Object, System.String, System.String, System.Int32)
   nameWithType: Logger.Log(String, String, LogLevel, Object, String, String, Int32)
-- uid: Swan.Logging.Logger.Log(System.String,Type,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)
+- uid: Swan.Logging.Logger.Log(System.String,Type,Swan.Logging.LogLevel,System.Object,System.String,System.String,System.Int32)
   name: Log(String, Type, LogLevel, Object, String, String, Int32)
-  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_System_String_Type_Swan_LogLevel_System_Object_System_String_System_String_System_Int32_
-  commentId: M:Swan.Logging.Logger.Log(System.String,Type,Swan.LogLevel,System.Object,System.String,System.String,System.Int32)
-  fullName: Swan.Logging.Logger.Log(System.String, Type, Swan.LogLevel, System.Object, System.String, System.String, System.Int32)
+  href: api/Swan.Logging.Logger.html#Swan_Logging_Logger_Log_System_String_Type_Swan_Logging_LogLevel_System_Object_System_String_System_String_System_Int32_
+  commentId: M:Swan.Logging.Logger.Log(System.String,Type,Swan.Logging.LogLevel,System.Object,System.String,System.String,System.Int32)
+  fullName: Swan.Logging.Logger.Log(System.String, Type, Swan.Logging.LogLevel, System.Object, System.String, System.String, System.Int32)
   nameWithType: Logger.Log(String, Type, LogLevel, Object, String, String, Int32)
 - uid: Swan.Logging.Logger.Log*
   name: Log
@@ -5195,203 +5074,235 @@ references:
   isSpec: "True"
   fullName: Swan.Logging.Logger.Warn
   nameWithType: Logger.Warn
-- uid: Swan.LogLevel
+- uid: Swan.Logging.LogLevel
   name: LogLevel
-  href: api/Swan.LogLevel.html
-  commentId: T:Swan.LogLevel
-  fullName: Swan.LogLevel
+  href: api/Swan.Logging.LogLevel.html
+  commentId: T:Swan.Logging.LogLevel
+  fullName: Swan.Logging.LogLevel
   nameWithType: LogLevel
-- uid: Swan.LogLevel.Debug
+- uid: Swan.Logging.LogLevel.Debug
   name: Debug
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Debug
-  commentId: F:Swan.LogLevel.Debug
-  fullName: Swan.LogLevel.Debug
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Debug
+  commentId: F:Swan.Logging.LogLevel.Debug
+  fullName: Swan.Logging.LogLevel.Debug
   nameWithType: LogLevel.Debug
-- uid: Swan.LogLevel.Error
+- uid: Swan.Logging.LogLevel.Error
   name: Error
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Error
-  commentId: F:Swan.LogLevel.Error
-  fullName: Swan.LogLevel.Error
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Error
+  commentId: F:Swan.Logging.LogLevel.Error
+  fullName: Swan.Logging.LogLevel.Error
   nameWithType: LogLevel.Error
-- uid: Swan.LogLevel.Fatal
+- uid: Swan.Logging.LogLevel.Fatal
   name: Fatal
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Fatal
-  commentId: F:Swan.LogLevel.Fatal
-  fullName: Swan.LogLevel.Fatal
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Fatal
+  commentId: F:Swan.Logging.LogLevel.Fatal
+  fullName: Swan.Logging.LogLevel.Fatal
   nameWithType: LogLevel.Fatal
-- uid: Swan.LogLevel.Info
+- uid: Swan.Logging.LogLevel.Info
   name: Info
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Info
-  commentId: F:Swan.LogLevel.Info
-  fullName: Swan.LogLevel.Info
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Info
+  commentId: F:Swan.Logging.LogLevel.Info
+  fullName: Swan.Logging.LogLevel.Info
   nameWithType: LogLevel.Info
-- uid: Swan.LogLevel.None
+- uid: Swan.Logging.LogLevel.None
   name: None
-  href: api/Swan.LogLevel.html#Swan_LogLevel_None
-  commentId: F:Swan.LogLevel.None
-  fullName: Swan.LogLevel.None
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_None
+  commentId: F:Swan.Logging.LogLevel.None
+  fullName: Swan.Logging.LogLevel.None
   nameWithType: LogLevel.None
-- uid: Swan.LogLevel.Trace
+- uid: Swan.Logging.LogLevel.Trace
   name: Trace
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Trace
-  commentId: F:Swan.LogLevel.Trace
-  fullName: Swan.LogLevel.Trace
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Trace
+  commentId: F:Swan.Logging.LogLevel.Trace
+  fullName: Swan.Logging.LogLevel.Trace
   nameWithType: LogLevel.Trace
-- uid: Swan.LogLevel.Warning
+- uid: Swan.Logging.LogLevel.Warning
   name: Warning
-  href: api/Swan.LogLevel.html#Swan_LogLevel_Warning
-  commentId: F:Swan.LogLevel.Warning
-  fullName: Swan.LogLevel.Warning
+  href: api/Swan.Logging.LogLevel.html#Swan_Logging_LogLevel_Warning
+  commentId: F:Swan.Logging.LogLevel.Warning
+  fullName: Swan.Logging.LogLevel.Warning
   nameWithType: LogLevel.Warning
-- uid: Swan.LogMessageReceivedEventArgs
+- uid: Swan.Logging.LogMessageReceivedEventArgs
   name: LogMessageReceivedEventArgs
-  href: api/Swan.LogMessageReceivedEventArgs.html
-  commentId: T:Swan.LogMessageReceivedEventArgs
-  fullName: Swan.LogMessageReceivedEventArgs
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html
+  commentId: T:Swan.Logging.LogMessageReceivedEventArgs
+  fullName: Swan.Logging.LogMessageReceivedEventArgs
   nameWithType: LogMessageReceivedEventArgs
-- uid: Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
+- uid: Swan.Logging.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.Logging.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
   name: LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Object, String, String, Int32)
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs__ctor_System_UInt64_Swan_LogLevel_DateTime_System_String_System_String_System_Object_System_String_System_String_System_Int32_
-  commentId: M:Swan.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
-  fullName: Swan.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(System.UInt64, Swan.LogLevel, DateTime, System.String, System.String, System.Object, System.String, System.String, System.Int32)
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs__ctor_System_UInt64_Swan_Logging_LogLevel_DateTime_System_String_System_String_System_Object_System_String_System_String_System_Int32_
+  commentId: M:Swan.Logging.LogMessageReceivedEventArgs.#ctor(System.UInt64,Swan.Logging.LogLevel,DateTime,System.String,System.String,System.Object,System.String,System.String,System.Int32)
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(System.UInt64, Swan.Logging.LogLevel, DateTime, System.String, System.String, System.Object, System.String, System.String, System.Int32)
   nameWithType: LogMessageReceivedEventArgs.LogMessageReceivedEventArgs(UInt64, LogLevel, DateTime, String, String, Object, String, String, Int32)
-- uid: Swan.LogMessageReceivedEventArgs.#ctor*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.#ctor*
   name: LogMessageReceivedEventArgs
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs__ctor_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.#ctor
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs__ctor_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.#ctor
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.LogMessageReceivedEventArgs
   nameWithType: LogMessageReceivedEventArgs.LogMessageReceivedEventArgs
-- uid: Swan.LogMessageReceivedEventArgs.CallerFilePath
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath
   name: CallerFilePath
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerFilePath
-  commentId: P:Swan.LogMessageReceivedEventArgs.CallerFilePath
-  fullName: Swan.LogMessageReceivedEventArgs.CallerFilePath
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerFilePath
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath
   nameWithType: LogMessageReceivedEventArgs.CallerFilePath
-- uid: Swan.LogMessageReceivedEventArgs.CallerFilePath*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath*
   name: CallerFilePath
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerFilePath_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.CallerFilePath
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerFilePath_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.CallerFilePath
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerFilePath
   nameWithType: LogMessageReceivedEventArgs.CallerFilePath
-- uid: Swan.LogMessageReceivedEventArgs.CallerLineNumber
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber
   name: CallerLineNumber
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerLineNumber
-  commentId: P:Swan.LogMessageReceivedEventArgs.CallerLineNumber
-  fullName: Swan.LogMessageReceivedEventArgs.CallerLineNumber
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerLineNumber
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber
   nameWithType: LogMessageReceivedEventArgs.CallerLineNumber
-- uid: Swan.LogMessageReceivedEventArgs.CallerLineNumber*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber*
   name: CallerLineNumber
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerLineNumber_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.CallerLineNumber
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerLineNumber_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.CallerLineNumber
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerLineNumber
   nameWithType: LogMessageReceivedEventArgs.CallerLineNumber
-- uid: Swan.LogMessageReceivedEventArgs.CallerMemberName
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName
   name: CallerMemberName
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerMemberName
-  commentId: P:Swan.LogMessageReceivedEventArgs.CallerMemberName
-  fullName: Swan.LogMessageReceivedEventArgs.CallerMemberName
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerMemberName
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName
   nameWithType: LogMessageReceivedEventArgs.CallerMemberName
-- uid: Swan.LogMessageReceivedEventArgs.CallerMemberName*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName*
   name: CallerMemberName
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_CallerMemberName_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.CallerMemberName
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_CallerMemberName_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.CallerMemberName
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.CallerMemberName
   nameWithType: LogMessageReceivedEventArgs.CallerMemberName
-- uid: Swan.LogMessageReceivedEventArgs.Exception
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Exception
   name: Exception
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Exception
-  commentId: P:Swan.LogMessageReceivedEventArgs.Exception
-  fullName: Swan.LogMessageReceivedEventArgs.Exception
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Exception
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.Exception
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Exception
   nameWithType: LogMessageReceivedEventArgs.Exception
-- uid: Swan.LogMessageReceivedEventArgs.Exception*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Exception*
   name: Exception
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Exception_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.Exception
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Exception_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.Exception
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.Exception
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Exception
   nameWithType: LogMessageReceivedEventArgs.Exception
-- uid: Swan.LogMessageReceivedEventArgs.ExtendedData
+- uid: Swan.Logging.LogMessageReceivedEventArgs.ExtendedData
   name: ExtendedData
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_ExtendedData
-  commentId: P:Swan.LogMessageReceivedEventArgs.ExtendedData
-  fullName: Swan.LogMessageReceivedEventArgs.ExtendedData
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_ExtendedData
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.ExtendedData
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.ExtendedData
   nameWithType: LogMessageReceivedEventArgs.ExtendedData
-- uid: Swan.LogMessageReceivedEventArgs.ExtendedData*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.ExtendedData*
   name: ExtendedData
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_ExtendedData_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.ExtendedData
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_ExtendedData_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.ExtendedData
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.ExtendedData
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.ExtendedData
   nameWithType: LogMessageReceivedEventArgs.ExtendedData
-- uid: Swan.LogMessageReceivedEventArgs.Message
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Message
   name: Message
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Message
-  commentId: P:Swan.LogMessageReceivedEventArgs.Message
-  fullName: Swan.LogMessageReceivedEventArgs.Message
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Message
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.Message
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Message
   nameWithType: LogMessageReceivedEventArgs.Message
-- uid: Swan.LogMessageReceivedEventArgs.Message*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Message*
   name: Message
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Message_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.Message
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Message_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.Message
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.Message
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Message
   nameWithType: LogMessageReceivedEventArgs.Message
-- uid: Swan.LogMessageReceivedEventArgs.MessageType
+- uid: Swan.Logging.LogMessageReceivedEventArgs.MessageType
   name: MessageType
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_MessageType
-  commentId: P:Swan.LogMessageReceivedEventArgs.MessageType
-  fullName: Swan.LogMessageReceivedEventArgs.MessageType
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_MessageType
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.MessageType
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.MessageType
   nameWithType: LogMessageReceivedEventArgs.MessageType
-- uid: Swan.LogMessageReceivedEventArgs.MessageType*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.MessageType*
   name: MessageType
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_MessageType_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.MessageType
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_MessageType_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.MessageType
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.MessageType
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.MessageType
   nameWithType: LogMessageReceivedEventArgs.MessageType
-- uid: Swan.LogMessageReceivedEventArgs.Sequence
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Sequence
   name: Sequence
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Sequence
-  commentId: P:Swan.LogMessageReceivedEventArgs.Sequence
-  fullName: Swan.LogMessageReceivedEventArgs.Sequence
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Sequence
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.Sequence
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Sequence
   nameWithType: LogMessageReceivedEventArgs.Sequence
-- uid: Swan.LogMessageReceivedEventArgs.Sequence*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Sequence*
   name: Sequence
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Sequence_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.Sequence
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Sequence_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.Sequence
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.Sequence
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Sequence
   nameWithType: LogMessageReceivedEventArgs.Sequence
-- uid: Swan.LogMessageReceivedEventArgs.Source
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Source
   name: Source
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Source
-  commentId: P:Swan.LogMessageReceivedEventArgs.Source
-  fullName: Swan.LogMessageReceivedEventArgs.Source
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Source
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.Source
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Source
   nameWithType: LogMessageReceivedEventArgs.Source
-- uid: Swan.LogMessageReceivedEventArgs.Source*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.Source*
   name: Source
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_Source_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.Source
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_Source_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.Source
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.Source
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.Source
   nameWithType: LogMessageReceivedEventArgs.Source
-- uid: Swan.LogMessageReceivedEventArgs.UtcDate
+- uid: Swan.Logging.LogMessageReceivedEventArgs.UtcDate
   name: UtcDate
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_UtcDate
-  commentId: P:Swan.LogMessageReceivedEventArgs.UtcDate
-  fullName: Swan.LogMessageReceivedEventArgs.UtcDate
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_UtcDate
+  commentId: P:Swan.Logging.LogMessageReceivedEventArgs.UtcDate
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.UtcDate
   nameWithType: LogMessageReceivedEventArgs.UtcDate
-- uid: Swan.LogMessageReceivedEventArgs.UtcDate*
+- uid: Swan.Logging.LogMessageReceivedEventArgs.UtcDate*
   name: UtcDate
-  href: api/Swan.LogMessageReceivedEventArgs.html#Swan_LogMessageReceivedEventArgs_UtcDate_
-  commentId: Overload:Swan.LogMessageReceivedEventArgs.UtcDate
+  href: api/Swan.Logging.LogMessageReceivedEventArgs.html#Swan_Logging_LogMessageReceivedEventArgs_UtcDate_
+  commentId: Overload:Swan.Logging.LogMessageReceivedEventArgs.UtcDate
   isSpec: "True"
-  fullName: Swan.LogMessageReceivedEventArgs.UtcDate
+  fullName: Swan.Logging.LogMessageReceivedEventArgs.UtcDate
   nameWithType: LogMessageReceivedEventArgs.UtcDate
+- uid: Swan.Logging.TextLogger
+  name: TextLogger
+  href: api/Swan.Logging.TextLogger.html
+  commentId: T:Swan.Logging.TextLogger
+  fullName: Swan.Logging.TextLogger
+  nameWithType: TextLogger
+- uid: Swan.Logging.TextLogger.GetOutputAndColor(Swan.Logging.LogMessageReceivedEventArgs)
+  name: GetOutputAndColor(LogMessageReceivedEventArgs)
+  href: api/Swan.Logging.TextLogger.html#Swan_Logging_TextLogger_GetOutputAndColor_Swan_Logging_LogMessageReceivedEventArgs_
+  commentId: M:Swan.Logging.TextLogger.GetOutputAndColor(Swan.Logging.LogMessageReceivedEventArgs)
+  fullName: Swan.Logging.TextLogger.GetOutputAndColor(Swan.Logging.LogMessageReceivedEventArgs)
+  nameWithType: TextLogger.GetOutputAndColor(LogMessageReceivedEventArgs)
+- uid: Swan.Logging.TextLogger.GetOutputAndColor*
+  name: GetOutputAndColor
+  href: api/Swan.Logging.TextLogger.html#Swan_Logging_TextLogger_GetOutputAndColor_
+  commentId: Overload:Swan.Logging.TextLogger.GetOutputAndColor
+  isSpec: "True"
+  fullName: Swan.Logging.TextLogger.GetOutputAndColor
+  nameWithType: TextLogger.GetOutputAndColor
+- uid: Swan.Logging.TextLogger.LoggingTimeFormat
+  name: LoggingTimeFormat
+  href: api/Swan.Logging.TextLogger.html#Swan_Logging_TextLogger_LoggingTimeFormat
+  commentId: P:Swan.Logging.TextLogger.LoggingTimeFormat
+  fullName: Swan.Logging.TextLogger.LoggingTimeFormat
+  nameWithType: TextLogger.LoggingTimeFormat
+- uid: Swan.Logging.TextLogger.LoggingTimeFormat*
+  name: LoggingTimeFormat
+  href: api/Swan.Logging.TextLogger.html#Swan_Logging_TextLogger_LoggingTimeFormat_
+  commentId: Overload:Swan.Logging.TextLogger.LoggingTimeFormat
+  isSpec: "True"
+  fullName: Swan.Logging.TextLogger.LoggingTimeFormat
+  nameWithType: TextLogger.LoggingTimeFormat
 - uid: Swan.Mappers
   name: Swan.Mappers
   href: api/Swan.Mappers.html
@@ -6519,13 +6430,13 @@ references:
   commentId: T:Swan.Net.ConnectionDataReceivedEventArgs
   fullName: Swan.Net.ConnectionDataReceivedEventArgs
   nameWithType: ConnectionDataReceivedEventArgs
-- uid: Swan.Net.ConnectionDataReceivedEventArgs.#ctor(System.Byte[],Swan.ConnectionDataReceivedTrigger,System.Boolean)
+- uid: Swan.Net.ConnectionDataReceivedEventArgs.#ctor(System.Byte[],Swan.Net.ConnectionDataReceivedTrigger,System.Boolean)
   name: ConnectionDataReceivedEventArgs(Byte[], ConnectionDataReceivedTrigger, Boolean)
-  href: api/Swan.Net.ConnectionDataReceivedEventArgs.html#Swan_Net_ConnectionDataReceivedEventArgs__ctor_System_Byte___Swan_ConnectionDataReceivedTrigger_System_Boolean_
-  commentId: M:Swan.Net.ConnectionDataReceivedEventArgs.#ctor(System.Byte[],Swan.ConnectionDataReceivedTrigger,System.Boolean)
+  href: api/Swan.Net.ConnectionDataReceivedEventArgs.html#Swan_Net_ConnectionDataReceivedEventArgs__ctor_System_Byte___Swan_Net_ConnectionDataReceivedTrigger_System_Boolean_
+  commentId: M:Swan.Net.ConnectionDataReceivedEventArgs.#ctor(System.Byte[],Swan.Net.ConnectionDataReceivedTrigger,System.Boolean)
   name.vb: ConnectionDataReceivedEventArgs(Byte(), ConnectionDataReceivedTrigger, Boolean)
-  fullName: Swan.Net.ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(System.Byte[], Swan.ConnectionDataReceivedTrigger, System.Boolean)
-  fullName.vb: Swan.Net.ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(System.Byte(), Swan.ConnectionDataReceivedTrigger, System.Boolean)
+  fullName: Swan.Net.ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(System.Byte[], Swan.Net.ConnectionDataReceivedTrigger, System.Boolean)
+  fullName.vb: Swan.Net.ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(System.Byte(), Swan.Net.ConnectionDataReceivedTrigger, System.Boolean)
   nameWithType: ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(Byte[], ConnectionDataReceivedTrigger, Boolean)
   nameWithType.vb: ConnectionDataReceivedEventArgs.ConnectionDataReceivedEventArgs(Byte(), ConnectionDataReceivedTrigger, Boolean)
 - uid: Swan.Net.ConnectionDataReceivedEventArgs.#ctor*
@@ -6587,6 +6498,36 @@ references:
   isSpec: "True"
   fullName: Swan.Net.ConnectionDataReceivedEventArgs.Trigger
   nameWithType: ConnectionDataReceivedEventArgs.Trigger
+- uid: Swan.Net.ConnectionDataReceivedTrigger
+  name: ConnectionDataReceivedTrigger
+  href: api/Swan.Net.ConnectionDataReceivedTrigger.html
+  commentId: T:Swan.Net.ConnectionDataReceivedTrigger
+  fullName: Swan.Net.ConnectionDataReceivedTrigger
+  nameWithType: ConnectionDataReceivedTrigger
+- uid: Swan.Net.ConnectionDataReceivedTrigger.BlockSizeReached
+  name: BlockSizeReached
+  href: api/Swan.Net.ConnectionDataReceivedTrigger.html#Swan_Net_ConnectionDataReceivedTrigger_BlockSizeReached
+  commentId: F:Swan.Net.ConnectionDataReceivedTrigger.BlockSizeReached
+  fullName: Swan.Net.ConnectionDataReceivedTrigger.BlockSizeReached
+  nameWithType: ConnectionDataReceivedTrigger.BlockSizeReached
+- uid: Swan.Net.ConnectionDataReceivedTrigger.BufferFull
+  name: BufferFull
+  href: api/Swan.Net.ConnectionDataReceivedTrigger.html#Swan_Net_ConnectionDataReceivedTrigger_BufferFull
+  commentId: F:Swan.Net.ConnectionDataReceivedTrigger.BufferFull
+  fullName: Swan.Net.ConnectionDataReceivedTrigger.BufferFull
+  nameWithType: ConnectionDataReceivedTrigger.BufferFull
+- uid: Swan.Net.ConnectionDataReceivedTrigger.Flush
+  name: Flush
+  href: api/Swan.Net.ConnectionDataReceivedTrigger.html#Swan_Net_ConnectionDataReceivedTrigger_Flush
+  commentId: F:Swan.Net.ConnectionDataReceivedTrigger.Flush
+  fullName: Swan.Net.ConnectionDataReceivedTrigger.Flush
+  nameWithType: ConnectionDataReceivedTrigger.Flush
+- uid: Swan.Net.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
+  name: NewLineSequenceEncountered
+  href: api/Swan.Net.ConnectionDataReceivedTrigger.html#Swan_Net_ConnectionDataReceivedTrigger_NewLineSequenceEncountered
+  commentId: F:Swan.Net.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
+  fullName: Swan.Net.ConnectionDataReceivedTrigger.NewLineSequenceEncountered
+  nameWithType: ConnectionDataReceivedTrigger.NewLineSequenceEncountered
 - uid: Swan.Net.ConnectionFailureEventArgs
   name: ConnectionFailureEventArgs
   href: api/Swan.Net.ConnectionFailureEventArgs.html
@@ -10014,6 +9955,47 @@ references:
   fullName.vb: Swan.Reflection.AttributeCache.RetrieveOne(Of TAttribute, T)(System.Boolean)
   nameWithType: AttributeCache.RetrieveOne<TAttribute, T>(Boolean)
   nameWithType.vb: AttributeCache.RetrieveOne(Of TAttribute, T)(Boolean)
+- uid: Swan.Reflection.ConstructorTypeCache
+  name: ConstructorTypeCache
+  href: api/Swan.Reflection.ConstructorTypeCache.html
+  commentId: T:Swan.Reflection.ConstructorTypeCache
+  fullName: Swan.Reflection.ConstructorTypeCache
+  nameWithType: ConstructorTypeCache
+- uid: Swan.Reflection.ConstructorTypeCache.DefaultCache
+  name: DefaultCache
+  href: api/Swan.Reflection.ConstructorTypeCache.html#Swan_Reflection_ConstructorTypeCache_DefaultCache
+  commentId: P:Swan.Reflection.ConstructorTypeCache.DefaultCache
+  fullName: Swan.Reflection.ConstructorTypeCache.DefaultCache
+  nameWithType: ConstructorTypeCache.DefaultCache
+- uid: Swan.Reflection.ConstructorTypeCache.DefaultCache*
+  name: DefaultCache
+  href: api/Swan.Reflection.ConstructorTypeCache.html#Swan_Reflection_ConstructorTypeCache_DefaultCache_
+  commentId: Overload:Swan.Reflection.ConstructorTypeCache.DefaultCache
+  isSpec: "True"
+  fullName: Swan.Reflection.ConstructorTypeCache.DefaultCache
+  nameWithType: ConstructorTypeCache.DefaultCache
+- uid: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
+  name: RetrieveAllConstructors(Type, Boolean)
+  href: api/Swan.Reflection.ConstructorTypeCache.html#Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_
+  commentId: M:Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)
+  fullName: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type, System.Boolean)
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors(Type, Boolean)
+- uid: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors*
+  name: RetrieveAllConstructors
+  href: api/Swan.Reflection.ConstructorTypeCache.html#Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors_
+  commentId: Overload:Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors
+  isSpec: "True"
+  fullName: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors
+- uid: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
+  name: RetrieveAllConstructors<T>(Boolean)
+  href: api/Swan.Reflection.ConstructorTypeCache.html#Swan_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_
+  commentId: M:Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)
+  name.vb: RetrieveAllConstructors(Of T)(Boolean)
+  fullName: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors<T>(System.Boolean)
+  fullName.vb: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Of T)(System.Boolean)
+  nameWithType: ConstructorTypeCache.RetrieveAllConstructors<T>(Boolean)
+  nameWithType.vb: ConstructorTypeCache.RetrieveAllConstructors(Of T)(Boolean)
 - uid: Swan.Reflection.ExtendedPropertyInfo
   name: ExtendedPropertyInfo
   href: api/Swan.Reflection.ExtendedPropertyInfo.html

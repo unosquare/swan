@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum LogLevel
+    <title>Enum ConnectionDataReceivedTrigger
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum LogLevel
+    <meta name="title" content="Enum ConnectionDataReceivedTrigger
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -76,18 +76,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.LogLevel">
+            <article class="content wrap" id="_content" data-uid="Swan.Net.ConnectionDataReceivedTrigger">
   
   
-  <h1 id="Swan_LogLevel" data-uid="Swan.LogLevel" class="text-break">Enum LogLevel
+  <h1 id="Swan_Net_ConnectionDataReceivedTrigger" data-uid="Swan.Net.ConnectionDataReceivedTrigger" class="text-break">Enum ConnectionDataReceivedTrigger
   </h1>
-  <div class="markdown level0 summary"><p>Defines the log levels.</p>
+  <div class="markdown level0 summary"><p>Enumerates the possible causes of the DataReceived event occurring.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.html">Swan</a></h6>
-  <h5 id="Swan_LogLevel_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Net.html">Swan.Net</a></h6>
+  <h5 id="Swan_Net_ConnectionDataReceivedTrigger_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum LogLevel</code></pre>
+    <pre><code class="lang-csharp hljs">public enum ConnectionDataReceivedTrigger</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
@@ -100,38 +100,23 @@
     <thead>
     <tbody>
       <tr>
-        <td id="Swan_LogLevel_Debug">Debug</td>
-        <td><p>The debug message type</p>
+        <td id="Swan_Net_ConnectionDataReceivedTrigger_BlockSizeReached">BlockSizeReached</td>
+        <td><p>The block size reached</p>
 </td>
       </tr>
       <tr>
-        <td id="Swan_LogLevel_Error">Error</td>
-        <td><p>The error message type</p>
+        <td id="Swan_Net_ConnectionDataReceivedTrigger_BufferFull">BufferFull</td>
+        <td><p>The buffer was full</p>
 </td>
       </tr>
       <tr>
-        <td id="Swan_LogLevel_Fatal">Fatal</td>
-        <td><p>The fatal message type</p>
+        <td id="Swan_Net_ConnectionDataReceivedTrigger_Flush">Flush</td>
+        <td><p>The trigger was a forceful flush of the buffer</p>
 </td>
       </tr>
       <tr>
-        <td id="Swan_LogLevel_Info">Info</td>
-        <td><p>The information message type</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_LogLevel_None">None</td>
-        <td><p>The none message type</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_LogLevel_Trace">Trace</td>
-        <td><p>The trace message type</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Swan_LogLevel_Warning">Warning</td>
-        <td><p>The warning message type</p>
+        <td id="Swan_Net_ConnectionDataReceivedTrigger_NewLineSequenceEncountered">NewLineSequenceEncountered</td>
+        <td><p>The new line sequence bytes were received</p>
 </td>
       </tr>
     </tbody>

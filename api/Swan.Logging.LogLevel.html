@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ConstructorTypeCache
+    <title>Enum LogLevel
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ConstructorTypeCache
+    <meta name="title" content="Enum LogLevel
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -76,167 +76,66 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.Lite.Reflection.ConstructorTypeCache">
+            <article class="content wrap" id="_content" data-uid="Swan.Logging.LogLevel">
   
   
-  <h1 id="Swan_Lite_Reflection_ConstructorTypeCache" data-uid="Swan.Lite.Reflection.ConstructorTypeCache" class="text-break">Class ConstructorTypeCache
+  <h1 id="Swan_Logging_LogLevel" data-uid="Swan.Logging.LogLevel" class="text-break">Enum LogLevel
   </h1>
-  <div class="markdown level0 summary"><p>A thread-safe cache of constructors belonging to a given type.</p>
+  <div class="markdown level0 summary"><p>Defines the log levels.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">ConstructorTypeCache</span></div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Lite.Reflection.html">Swan.Lite.Reflection</a></h6>
-  <h5 id="Swan_Lite_Reflection_ConstructorTypeCache_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Logging.html">Swan.Logging</a></h6>
+  <h5 id="Swan_Logging_LogLevel_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConstructorTypeCache : TypeCache&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public enum LogLevel</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="fields">Fields
   </h3>
-  
-  
-  <a id="Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache*"></a>
-  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_DefaultCache" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.DefaultCache">DefaultCache</h4>
-  <div class="markdown level1 summary"><p>Gets the default cache.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Lazy&lt;ConstructorTypeCache&gt; DefaultCache { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Lazy</span>&lt;<a class="xref" href="Swan.Lite.Reflection.ConstructorTypeCache.html">ConstructorTypeCache</a>&gt;</td>
-        <td><p>The default cache.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  
-  <a id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
-  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_Type_System_Boolean_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Type,System.Boolean)">RetrieveAllConstructors(Type, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors(Type type, bool includeNonPublic = false)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Type</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">includeNonPublic</span></td>
-        <td><p>if set to <code>true</code> [include non public].</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
-        <td><p>A collection with all the constructors in the given type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors*"></a>
-  <h4 id="Swan_Lite_Reflection_ConstructorTypeCache_RetrieveAllConstructors__1_System_Boolean_" data-uid="Swan.Lite.Reflection.ConstructorTypeCache.RetrieveAllConstructors``1(System.Boolean)">RetrieveAllConstructors&lt;T&gt;(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Retrieves all constructors order by the number of parameters ascending.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Tuple&lt;ConstructorInfo, ParameterInfo[]&gt;&gt; RetrieveAllConstructors&lt;T&gt;(bool includeNonPublic = false)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">includeNonPublic</span></td>
-        <td><p>if set to <code>true</code> [include non public].</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Tuple</span>&lt;<span class="xref">ConstructorInfo</span>, <span class="xref">ParameterInfo</span>[]&gt;&gt;</td>
-        <td><p>A collection with all the constructors in the given type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
         <th>Description</th>
       </tr>
-    </thead>
+    <thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type to inspect.</p>
+        <td id="Swan_Logging_LogLevel_Debug">Debug</td>
+        <td><p>The debug message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_Error">Error</td>
+        <td><p>The error message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_Fatal">Fatal</td>
+        <td><p>The fatal message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_Info">Info</td>
+        <td><p>The information message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_None">None</td>
+        <td><p>The none message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_Trace">Trace</td>
+        <td><p>The trace message type</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Swan_Logging_LogLevel_Warning">Warning</td>
+        <td><p>The warning message type</p>
 </td>
       </tr>
     </tbody>
-  </table>
+  </thead></thead></table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

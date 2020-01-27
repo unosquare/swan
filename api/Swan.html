@@ -91,6 +91,32 @@
       <h4><a class="xref" href="Swan.ComponentCollectionExtensions.html">ComponentCollectionExtensions</a></h4>
       <section><p>Provides extension methods for types implementing <see cref="!:IComponentCollection&lt;T>"></see>.</p>
 </section>
+      <h4><a class="xref" href="Swan.CompositeHashCode.html">CompositeHashCode</a></h4>
+      <section><p>Provides a way for types that override <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">GetHashCode()</a>
+to correctly generate a hash code from the actual status of an instance.</p>
+<p><code>CompositeHashCode</code> must be used ONLY as a helper when implementing
+<see cref="!:IEquatable&lt;T>">IEquatable&lt;T&gt;</see> in a STANDARD way, i.e. when:</p>
+<ul><li>two instances having the same hash code are actually
+    interchangeable, i.e. they represent exactly the same object (for instance,
+    they should not coexist in a
+<see cref="!:SortedSet&lt;T>">SortedSet</see>);</li><li><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">GetHashCode()</a> and
+<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Equals(Object)</a> are BOTH overridden, and the <code>Equals</code>
+override either calls to the <see cref="!:IEquatable&lt;T>.Equals(T)">IEquatable&lt;T&gt;.Equals</see>
+(recommended) or performs exactly the same equality checks;</li><li>only &quot;standard&quot; equality checks are performed, i.e. by means of the
+<code>==</code> operator, <see cref="!:IEquatable&lt;T>">IEquatable&lt;T&gt;</see> interfaces, and
+the <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Equals(Object)</a> method (for instance, this excludes case-insensitive
+and/or culture-dependent string comparisons);
+</li><li>the hash code is constructed (via <code>Using</code> calls) from the very same
+fields and / or properties that are checked for equality.</li></ul>
+<p>For hashing to work correctly, all fields and/or properties involved in hashing must either
+be immutable, or at least not change while an object is referenced in a hashtable.
+This does not refer just to <code>System.Collections.Hashtable</code>; the .NET
+Framework makes a fairly extensive use of hashing, for example in
+<see cref="!:SortedSet&lt;T>">SortedSet&lt;T&gt;</see>
+and in various parts of LINQ. As a thumb rule, an object must stay the same during the execution of a
+LINQ query on an <see cref="!:IEnumerable&lt;T>">IEnumerable</see>
+in which it is contained, as well as all the time it is referenced in a <code>Hashtable</code> or <code>SortedSet</code>.</p>
+</section>
       <h4><a class="xref" href="Swan.DateExtensions.html">DateExtensions</a></h4>
       <section><p>Provides extension methods for <see cref="!:DateTime"></see>.</p>
 </section>
@@ -111,11 +137,6 @@
 </section>
       <h4><a class="xref" href="Swan.FunctionalExtensions.html">FunctionalExtensions</a></h4>
       <section><p>Functional programming extension methods.</p>
-</section>
-      <h4><a class="xref" href="Swan.LogMessageReceivedEventArgs.html">LogMessageReceivedEventArgs</a></h4>
-      <section><p>Event arguments representing the message that is logged
-on to the terminal. Use the properties to forward the data to
-your logger of choice.</p>
 </section>
       <h4><a class="xref" href="Swan.NetworkExtensions.html">NetworkExtensions</a></h4>
       <section><p>Provides various extension methods for networking-related tasks.</p>
@@ -187,17 +208,11 @@ separate fields the amount of time between those dates.</p>
 </section>
     <h3 id="enums">Enums
   </h3>
-      <h4><a class="xref" href="Swan.ConnectionDataReceivedTrigger.html">ConnectionDataReceivedTrigger</a></h4>
-      <section><p>Enumerates the possible causes of the DataReceived event occurring.</p>
-</section>
       <h4><a class="xref" href="Swan.Endianness.html">Endianness</a></h4>
       <section><p>Defines Endianness, big or little.</p>
 </section>
       <h4><a class="xref" href="Swan.JsonSerializerCase.html">JsonSerializerCase</a></h4>
       <section><p>Enumerates the JSON serializer cases to use: None (keeps the same case), PascalCase, or camelCase.</p>
-</section>
-      <h4><a class="xref" href="Swan.LogLevel.html">LogLevel</a></h4>
-      <section><p>Defines the log levels.</p>
 </section>
       <h4><a class="xref" href="Swan.OperatingSystem.html">OperatingSystem</a></h4>
       <section><p>Enumeration of Operating Systems.</p>
