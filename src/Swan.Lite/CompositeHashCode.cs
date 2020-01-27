@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.Lite
+namespace Swan
 {
     /// <summary>
     /// <para>Provides a way for types that override <see cref="object.GetHashCode"/>

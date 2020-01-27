@@ -7,6 +7,7 @@
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AssemblyName>Swan.Lite</AssemblyName>
+        <RootNamespace>Swan</RootNamespace>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
         <Version>2.5.0</Version>
         <Authors>Unosquare</Authors>
