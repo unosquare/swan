@@ -1,4 +1,4 @@
-﻿namespace Swan
+﻿namespace Swan.Logging
 {
     /// <summary>
     /// Defines the log levels.

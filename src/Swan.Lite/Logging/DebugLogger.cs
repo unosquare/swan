@@ -1,6 +1,4 @@
-﻿using Swan.Lite.Logging;
-
-namespace Swan.Logging
+﻿namespace Swan.Logging
 {
     /// <summary>
     /// Represents a logger target. This target will write to the

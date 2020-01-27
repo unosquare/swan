@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Logging
 {
     /// <summary>
     /// Event arguments representing the message that is logged

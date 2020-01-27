@@ -1,7 +1,6 @@
-﻿using Swan.Logging;
-using System;
+﻿using System;
 
-namespace Swan.Lite.Logging
+namespace Swan.Logging
 {
     /// <summary>
     /// Use this class for text-based logger.

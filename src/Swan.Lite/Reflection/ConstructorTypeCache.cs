@@ -1,10 +1,9 @@
-﻿using Swan.Reflection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Swan.Lite.Reflection
+namespace Swan.Reflection
 {
     /// <summary>
     /// A thread-safe cache of constructors belonging to a given type.
