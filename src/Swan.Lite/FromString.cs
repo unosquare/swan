@@ -301,6 +301,7 @@ namespace Swan
 
             var result = new TResult[strings.Length];
             var i = 0;
+
             try
             {
                 foreach (var str in strings)
@@ -320,6 +321,7 @@ namespace Swan
             var parameter = Expression.Parameter(typeof(string[]));
             var body = Expression.Call(methodInfo, parameter);
             var lambda = Expression.Lambda<Func<string[], object>>(body, parameter);
+
             return lambda.Compile();
         }
 
@@ -328,6 +330,7 @@ namespace Swan
             var converter = TypeDescriptor.GetConverter(typeof(TResult));
             var result = new TResult[strings.Length];
             var i = 0;
+
             try
             {
                 foreach (var str in strings)

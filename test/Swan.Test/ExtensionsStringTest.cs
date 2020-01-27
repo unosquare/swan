@@ -134,7 +134,7 @@
     }
 
     [TestFixture]
-    public class RemoveControlCharsExcept : TestFixtureBase
+    public class RemoveControlChars : TestFixtureBase
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
@@ -145,19 +145,9 @@
             string input,
             char[] excludeChars)
         {
-            Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
+            Assert.AreEqual(expected, input.RemoveControlChars(excludeChars), $"Testing with {input}");
         }
 
-        [Test]
-        public void WithNullString_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => NullString.RemoveControlCharsExcept(null));
-        }
-    }
-
-    [TestFixture]
-    public class RemoveControlChars
-    {
         [Test]
         public void WithValidString_ReturnsStringWithoutControlCharacters()
         {

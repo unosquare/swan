@@ -30,7 +30,7 @@
             Response = response;
         }
 
-        internal DnsClient.IDnsResponse Response { get; }
+        internal DnsClient.IDnsResponse? Response { get; }
 
         private static string Format(DnsClient.IDnsResponse response) => $"Invalid response received with code {response.ResponseCode}";
     }

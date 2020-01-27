@@ -110,8 +110,8 @@ namespace Swan.Mappers
         public static int Copy(
             object source,
             object target,
-            string[]? propertiesToCopy = null,
-            params string[] ignoreProperties)
+            IEnumerable<string>? propertiesToCopy = null,
+            params string[]? ignoreProperties)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -119,10 +119,10 @@ namespace Swan.Mappers
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            return Copy(
+            return CopyInternal(
                 target,
                 GetSourceMap(source),
-                (IEnumerable<string>)propertiesToCopy,
+                propertiesToCopy,
                 ignoreProperties);
         }
 
@@ -142,9 +142,9 @@ namespace Swan.Mappers
         /// target.
         /// </exception>
         public static int Copy(
-            IDictionary<string, object> source,
-            object target,
-            string[]? propertiesToCopy = null,
+            IDictionary<string, object>? source,
+            object? target,
+            IEnumerable<string>? propertiesToCopy = null,
             params string[] ignoreProperties)
         {
             if (source == null)
@@ -153,12 +153,12 @@ namespace Swan.Mappers
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            return Copy(
+            return CopyInternal(
                 target,
                 source.ToDictionary(
                     x => x.Key.ToLowerInvariant(),
                     x => Tuple.Create(typeof(object), x.Value)),
-                (IEnumerable<string>)propertiesToCopy,
+                propertiesToCopy,
                 ignoreProperties);
         }
 
@@ -243,7 +243,8 @@ namespace Swan.Mappers
             return destination;
         }
 
-        private static int Copy(object target,
+        private static int CopyInternal(
+            object target,
             Dictionary<string, Tuple<Type, object>> sourceProperties,
             IEnumerable<string>? propertiesToCopy,
             IEnumerable<string>? ignoreProperties)

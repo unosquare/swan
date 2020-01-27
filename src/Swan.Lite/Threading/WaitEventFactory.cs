@@ -86,7 +86,7 @@ namespace Swan.Threading
         /// </summary>
         private class WaitEvent : IWaitEvent
         {
-            private ManualResetEvent _event;
+            private ManualResetEvent? _event;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="WaitEvent"/> class.
@@ -116,16 +116,7 @@ namespace Swan.Threading
             }
 
             /// <inheritdoc />
-            public bool IsCompleted
-            {
-                get
-                {
-                    if (IsValid == false) 
-                        return true;
-
-                    return _event?.WaitOne(0) ?? true;
-                }
-            }
+            public bool IsCompleted => IsValid == false || (_event?.WaitOne(0) ?? true);
 
             /// <inheritdoc />
             public bool IsInProgress => !IsCompleted;
@@ -159,7 +150,7 @@ namespace Swan.Threading
         /// </summary>
         private class WaitEventSlim : IWaitEvent
         {
-            private ManualResetEventSlim _event;
+            private ManualResetEventSlim? _event;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="WaitEventSlim"/> class.
@@ -174,18 +165,12 @@ namespace Swan.Threading
             public bool IsDisposed { get; private set; }
 
             /// <inheritdoc />
-            public bool IsValid
-            {
-                get
-                {
-                    if (IsDisposed || _event?.WaitHandle?.SafeWaitHandle == null) return false;
-
-                    return !_event.WaitHandle.SafeWaitHandle.IsClosed && !_event.WaitHandle.SafeWaitHandle.IsInvalid;
-                }
-            }
+            public bool IsValid =>
+                !IsDisposed && _event?.WaitHandle?.SafeWaitHandle != null &&
+                (!_event.WaitHandle.SafeWaitHandle.IsClosed && !_event.WaitHandle.SafeWaitHandle.IsInvalid);
 
             /// <inheritdoc />
-            public bool IsCompleted => IsValid == false || _event.IsSet;
+            public bool IsCompleted => IsValid == false || _event?.IsSet == true;
 
             /// <inheritdoc />
             public bool IsInProgress => !IsCompleted;

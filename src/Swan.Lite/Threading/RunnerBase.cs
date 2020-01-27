@@ -13,7 +13,7 @@ namespace Swan.Threading
     {
         private Thread _worker;
         private CancellationTokenSource _cancelTokenSource;
-        private ManualResetEvent _workFinished;
+        private ManualResetEvent? _workFinished;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RunnerBase"/> class.
@@ -115,7 +115,7 @@ namespace Swan.Threading
             var waitRetries = 5;
             while (waitRetries >= 1)
             {
-                if (_workFinished.WaitOne(250))
+                if (_workFinished?.WaitOne(250) ?? true)
                 {
                     waitRetries = -1;
                     break;
@@ -133,13 +133,13 @@ namespace Swan.Threading
                 "Did not respond to stop request. Aborting thread and waiting . . .".Warn(Name);
                 _worker.Abort();
 
-                if (_workFinished.WaitOne(5000) == false)
+                if (_workFinished?.WaitOne(5000) == false)
                     "Waited and no response. Worker might have been left in an inconsistent state.".Error(Name);
                 else
                     "Waited for worker and it finally responded (OK).".Debug(Name);
             }
 
-            _workFinished.Dispose();
+            _workFinished?.Dispose();
             _workFinished = null;
         }
 

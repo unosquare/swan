@@ -17,7 +17,7 @@ namespace Swan.Configuration
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
@@ -25,7 +25,7 @@ namespace Swan.Configuration
         /// <value>
         /// The description.
         /// </value>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the group.
@@ -33,7 +33,7 @@ namespace Swan.Configuration
         /// <value>
         /// The name of the group.
         /// </value>
-        public string GroupName { get; set; }
+        public string? GroupName { get; set; }
 
         /// <summary>
         /// Gets or sets the default value.
@@ -41,7 +41,7 @@ namespace Swan.Configuration
         /// <value>
         /// The default value.
         /// </value>
-        public object DefaultValue { get; set; }
+        public object? DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets the format string to call with method <c>ToString</c>.
@@ -49,6 +49,6 @@ namespace Swan.Configuration
         /// <value>
         /// The format.
         /// </value>
-        public string Format { get; set; }
+        public string? Format { get; set; }
     }
 }

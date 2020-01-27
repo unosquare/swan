@@ -1,4 +1,4 @@
-﻿namespace Swan
+﻿namespace Swan.Net
 {
     /// <summary>
     /// Enumerates the possible causes of the DataReceived event occurring.

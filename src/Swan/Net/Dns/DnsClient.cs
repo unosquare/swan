@@ -14,21 +14,19 @@
         private readonly IPEndPoint _dns;
         private readonly IDnsRequestResolver _resolver;
 
-        public DnsClient(IPEndPoint dns, IDnsRequestResolver resolver = null)
+        public DnsClient(IPEndPoint dns, IDnsRequestResolver? resolver = null)
         {
             _dns = dns;
             _resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
         }
 
-        public DnsClient(IPAddress ip, int port = Network.DnsDefaultPort, IDnsRequestResolver resolver = null) 
+        public DnsClient(IPAddress ip, int port = Network.DnsDefaultPort, IDnsRequestResolver? resolver = null)
             : this(new IPEndPoint(ip, port), resolver)
         {
         }
-        
-        public DnsClientRequest Create(IDnsRequest request = null)
-        {
-            return new DnsClientRequest(_dns, request, _resolver);
-        }
+
+        public DnsClientRequest Create(IDnsRequest? request = null)
+            => new DnsClientRequest(_dns, request, _resolver);
 
         public async Task<IList<IPAddress>> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {
@@ -40,38 +38,31 @@
                 throw new ArgumentException("Invalid record type " + type);
             }
 
-            var response = await Resolve(domain, type);
+            var response = await Resolve(domain, type).ConfigureAwait(false);
             var ips = response.AnswerRecords
                 .Where(r => r.Type == type)
                 .Cast<DnsIPAddressResourceRecord>()
                 .Select(r => r.IPAddress)
                 .ToList();
 
-            if (ips.Count == 0)
-            {
-                throw new DnsQueryException(response, "No matching records");
-            }
-
-            return ips;
+            return ips.Count == 0 ? throw new DnsQueryException(response, "No matching records") : ips;
         }
-        
+
         public async Task<string> Reverse(IPAddress ip)
         {
             if (ip == null)
                 throw new ArgumentNullException(nameof(ip));
 
-            var response = await Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
+            var response = await Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR).ConfigureAwait(false);
             var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
-            if (ptr == null)
-            {
-                throw new DnsQueryException(response, "No matching records");
-            }
-
-            return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
+            return ptr == null
+                ? throw new DnsQueryException(response, "No matching records")
+                : ((DnsPointerResourceRecord) ptr).PointerDomainName.ToString();
         }
 
-        public Task<DnsClientResponse> Resolve(string domain, DnsRecordType type) => Resolve(new DnsDomain(domain), type);
+        public Task<DnsClientResponse> Resolve(string domain, DnsRecordType type) =>
+            Resolve(new DnsDomain(domain), type);
 
         public Task<DnsClientResponse> Resolve(DnsDomain domain, DnsRecordType type)
         {

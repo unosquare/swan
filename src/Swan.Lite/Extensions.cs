@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Swan.Lite.Reflection;
 using Swan.Mappers;
 using Swan.Reflection;
 
@@ -21,42 +20,13 @@ namespace Swan
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful.</returns>
-        public static int CopyPropertiesTo<T>(this T source, object target)
-            where T : class
-        {
-            var copyable = GetCopyableProperties(target);
-            return copyable.Any()
-                ? CopyOnlyPropertiesTo(source, target, copyable.ToArray())
-                : CopyPropertiesTo(source, target, null);
-        }
-
-        /// <summary>
-        /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Number of properties that were successfully copied.
+        /// Number of properties that was copied successful.
         /// </returns>
-        public static int CopyPropertiesTo(this object source, object target, params string[]? ignoreProperties)
-            => ObjectMapper.Copy(source, target, null, ignoreProperties);
-
-        /// <summary>
-        /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writable property in the destination.
-        /// </summary>
-        /// <typeparam name="T">The type of the source.</typeparam>
-        /// <param name="source">The source.</param>
-        /// <param name="target">The target.</param>
-        /// <returns>Number of properties that was copied successful.</returns>
-        public static int CopyOnlyPropertiesTo<T>(this T source, object target)
-            where T : class
-        {
-            return CopyOnlyPropertiesTo(source, target, null);
-        }
+        public static int CopyPropertiesTo<T>(this T source, object target, params string[]? ignoreProperties)
+            where T : class =>
+            ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -88,12 +58,7 @@ namespace Swan
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            var copyable = target.GetCopyableProperties();
-
-            if (copyable.Any())
-                source.CopyOnlyPropertiesTo(target, copyable.ToArray());
-            else
-                source.CopyPropertiesTo(target, ignoreProperties);
+            ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
             return target;
         }
@@ -115,7 +80,8 @@ namespace Swan
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            source.CopyOnlyPropertiesTo(target, propertiesToCopy);
+            ObjectMapper.Copy(source, target, propertiesToCopy);
+
             return target;
         }
 
@@ -129,14 +95,11 @@ namespace Swan
         /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyKeyValuePairTo(
             this IDictionary<string, object> source,
-            object target,
-            params string[] ignoreKeys)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            return ObjectMapper.Copy(source, target, null, ignoreKeys);
-        }
+            object? target,
+            params string[] ignoreKeys) =>
+            source == null
+                ? throw new ArgumentNullException(nameof(source))
+                : ObjectMapper.Copy(source, target, null, ignoreKeys);
 
         /// <summary>
         /// Iterates over the keys of the source and tries to write a compatible value to a public,
@@ -152,6 +115,9 @@ namespace Swan
             this IDictionary<string, object> source,
             params string[] ignoreKeys)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             var target = Activator.CreateInstance<T>();
             source.CopyKeyValuePairTo(target, ignoreKeys);
             return target;
@@ -214,7 +180,9 @@ namespace Swan
 
                     return action();
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     exceptions.Add(ex);
                 }
@@ -225,22 +193,35 @@ namespace Swan
 
         /// <summary>
         /// Gets the copyable properties.
+        ///
+        /// If there is no properties with the attribute <c>AttributeCache</c> returns all the properties.
         /// </summary>
         /// <param name="this">The object.</param>
         /// <returns>
         /// Array of properties.
         /// </returns>
         /// <exception cref="ArgumentNullException">model.</exception>
+        /// <seealso cref="AttributeCache"/>
         public static IEnumerable<string> GetCopyableProperties(this object @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            return PropertyTypeCache.DefaultCache.Value
-                .RetrieveAllProperties(@this.GetType(), true)
-                .Select(x => new { x.Name, HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null })
+            var collection = PropertyTypeCache.DefaultCache.Value
+                .RetrieveAllProperties(@this.GetType(), true);
+
+            var properties = collection
+                .Select(x => new
+                {
+                    x.Name,
+                    HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null,
+                })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
+
+            return properties.Any()
+                ? properties
+                : collection.Select(x => x.Name);
         }
 
         internal static void CreateTarget(
@@ -251,30 +232,34 @@ namespace Swan
         {
             switch (source)
             {
+                // do nothing. Simply skip creation
                 case string _:
-                    break; // do nothing. Simply skip creation
-                case IList sourceObjectList when targetType.IsArray: // When using arrays, there is no default constructor, attempt to build a compatible array
+                    break;
+
+                // When using arrays, there is no default constructor, attempt to build a compatible array
+                case IList sourceObjectList when targetType.IsArray:
                     var elementType = targetType.GetElementType();
 
                     if (elementType != null)
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    var ctors = ConstructorTypeCache.DefaultCache.Value
+                    var constructors = ConstructorTypeCache.DefaultCache.Value
                         .RetrieveAllConstructors(targetType, includeNonPublic);
 
                     // Try to check if empty constructor is available
-                    if (ctors.Any(x => x.Item2.Length == 0))
+                    if (constructors.Any(x => x.Item2.Length == 0))
                     {
                         target = Activator.CreateInstance(targetType, includeNonPublic);
                     }
                     else
                     {
-                        var firstCtor = ctors
+                        var firstCtor = constructors
                             .OrderBy(x => x.Item2.Length)
                             .FirstOrDefault();
 
-                        target = Activator.CreateInstance(targetType, firstCtor?.Item2.Select(arg => arg.GetType().GetDefault()).ToArray());
+                        target = Activator.CreateInstance(targetType,
+                            firstCtor?.Item2.Select(arg => arg.GetType().GetDefault()).ToArray());
                     }
 
                     break;
@@ -284,8 +269,8 @@ namespace Swan
         internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) =>
             jsonSerializerCase switch
             {
-                JsonSerializerCase.PascalCase => (char.ToUpperInvariant(name[0]) + name.Substring(1)),
-                JsonSerializerCase.CamelCase => (char.ToLowerInvariant(name[0]) + name.Substring(1)),
+                JsonSerializerCase.PascalCase => char.ToUpperInvariant(name[0]) + name.Substring(1),
+                JsonSerializerCase.CamelCase => char.ToLowerInvariant(name[0]) + name.Substring(1),
                 JsonSerializerCase.None => name,
                 _ => throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null)
             };

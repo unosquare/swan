@@ -136,7 +136,7 @@ namespace Swan.Parsers
         /// Gets the default operators.
         /// </summary>
         /// <returns>An array with the operators to use for the tokenizer.</returns>
-        public virtual Operator[] GetDefaultOperators() => new[] 
+        public virtual Operator[] GetDefaultOperators() => new[]
         {
             new Operator {Name = "=", Precedence = 1},
             new Operator {Name = "!=", Precedence = 1},
@@ -313,7 +313,11 @@ namespace Swan.Parsers
         }
 
         private int ExtractOperator(string input, int i) =>
-            ExtractData(input, i, x => TokenType.Operator, x => x == OpenFuncChar ||
+            ExtractData(
+                input,
+                i,
+                x => TokenType.Operator,
+                x => x == OpenFuncChar ||
                                                                 x == CommaChar ||
                                                                 x == PeriodChar ||
                                                                 x == StringQuotedChar ||
@@ -321,13 +325,20 @@ namespace Swan.Parsers
                                                                 char.IsNumber(x));
 
         private int ExtractFunctionOrMember(string input, int i) =>
-            ExtractData(input, i, ResolveFunctionOrMemberType, x => x == OpenFuncChar ||
+            ExtractData(
+                input,
+                i,
+                ResolveFunctionOrMemberType,
+                x => x == OpenFuncChar ||
                                                                     x == CloseFuncChar ||
                                                                     x == CommaChar ||
                                                                     char.IsWhiteSpace(x));
 
         private int ExtractNumber(string input, int i) =>
-            ExtractData(input, i, x => TokenType.Number,
+            ExtractData(
+                input,
+                i,
+                x => TokenType.Number,
                 x => !char.IsNumber(x) && x != PeriodChar && x != NegativeChar);
 
         private int ExtractString(string input, int i)
@@ -346,114 +357,5 @@ namespace Swan.Parsers
 
         private Operator GetOperatorOrDefault(string op)
             => _operators.FirstOrDefault(x => x.Name == op) ?? new Operator { Name = op, Precedence = 0 };
-    }
-
-    /// <summary>
-    /// Represents an operator with precedence.
-    /// </summary>
-    public class Operator
-    {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the precedence.
-        /// </summary>
-        /// <value>
-        /// The precedence.
-        /// </value>
-        public int Precedence { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [right associative].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [right associative]; otherwise, <c>false</c>.
-        /// </value>
-        public bool RightAssociative { get; set; }
-    }
-
-    /// <summary>
-    /// Represents a Token structure.
-    /// </summary>
-    public struct Token
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Token"/> struct.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        public Token(TokenType type, string value)
-        {
-            Type = type;
-            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
-        }
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        public TokenType Type { get; set; }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; }
-    }
-
-    /// <summary>
-    /// Enums the token types.
-    /// </summary>
-    public enum TokenType
-    {
-        /// <summary>
-        /// The number
-        /// </summary>
-        Number,
-
-        /// <summary>
-        /// The string
-        /// </summary>
-        String,
-
-        /// <summary>
-        /// The variable
-        /// </summary>
-        Variable,
-
-        /// <summary>
-        /// The function
-        /// </summary>
-        Function,
-
-        /// <summary>
-        /// The parenthesis
-        /// </summary>
-        Parenthesis,
-
-        /// <summary>
-        /// The operator
-        /// </summary>
-        Operator,
-
-        /// <summary>
-        /// The comma
-        /// </summary>
-        Comma,
-
-        /// <summary>
-        /// The wall, used to specified the end of argument list of the following function
-        /// </summary>
-        Wall,
     }
 }

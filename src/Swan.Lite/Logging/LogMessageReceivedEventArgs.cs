@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Logging
 {
     /// <summary>
     /// Event arguments representing the message that is logged
@@ -26,7 +26,7 @@ namespace Swan
             ulong sequence,
             LogLevel messageType,
             DateTime utcDate,
-            string source,
+            string? source,
             string message,
             object? extendedData,
             string callerMemberName,
@@ -76,7 +76,7 @@ namespace Swan
         /// <value>
         /// The source.
         /// </value>
-        public string Source { get; }
+        public string? Source { get; }
 
         /// <summary>
         /// Gets the body of the message.

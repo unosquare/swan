@@ -11,7 +11,7 @@ namespace Swan.Formatters
         private readonly string _indentStr;
         private readonly object _obj;
 
-        public HumanizeJson(object obj, int indent)
+        public HumanizeJson(object? obj, int indent)
         {
             if (obj == null)
             {

@@ -16,7 +16,7 @@
         private readonly object _stateLock = new object();
         private TcpListener _listenerSocket;
         private bool _cancellationPending;
-        private CancellationTokenSource _cancelListening;
+        private CancellationTokenSource? _cancelListening;
         private Task? _backgroundWorkerTask;
         private bool _hasDisposed;
 
@@ -224,7 +224,9 @@
 
                         OnConnectionAccepted(this, new ConnectionAcceptedEventArgs(client));
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         OnConnectionFailure(this, new ConnectionFailureEventArgs(ex));
                     }
@@ -236,7 +238,9 @@
             {
                 OnListenerStopped(this, new ConnectionListenerStoppedEventArgs(LocalEndPoint));
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 OnListenerStopped(this,
                     new ConnectionListenerStoppedEventArgs(LocalEndPoint, _cancellationPending ? null : ex));

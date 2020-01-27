@@ -21,7 +21,7 @@
             private readonly IDnsRequestResolver _resolver;
             private readonly IDnsRequest _request;
 
-            public DnsClientRequest(IPEndPoint dns, IDnsRequest request = null, IDnsRequestResolver resolver = null)
+            public DnsClientRequest(IPEndPoint dns, IDnsRequest? request = null, IDnsRequestResolver? resolver = null)
             {
                 Dns = dns;
                 _request = request == null ? new DnsRequest() : new DnsRequest(request);
@@ -146,13 +146,12 @@
             public byte[] ToArray()
             {
                 UpdateHeader();
-                var result = new MemoryStream(Size);
+                using var result = new MemoryStream(Size);
 
-                result
+                return result
                     .Append(header.ToArray())
-                    .Append(Questions.Select(q => q.ToArray()));
-
-                return result.ToArray();
+                    .Append(Questions.Select(q => q.ToArray()))
+                    .ToArray();
             }
 
             public override string ToString()

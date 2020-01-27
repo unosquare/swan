@@ -78,11 +78,7 @@
                 if (WorkerState != WorkerState.Running && WorkerState != WorkerState.Waiting)
                     return Task.FromResult(WorkerState);
 
-                if (IsStopRequested)
-                    return Task.FromResult(WorkerState);
-
-                var task = QueueStateChange(StateChangeRequest.Pause);
-                return task;
+                return IsStopRequested ? Task.FromResult(WorkerState) : QueueStateChange(StateChangeRequest.Pause);
             }
         }
 
@@ -97,11 +93,7 @@
                 if (WorkerState != WorkerState.Paused && WorkerState != WorkerState.Waiting)
                     return Task.FromResult(WorkerState);
 
-                if (IsStopRequested)
-                    return Task.FromResult(WorkerState);
-
-                var task = QueueStateChange(StateChangeRequest.Resume);
-                return task;
+                return IsStopRequested ? Task.FromResult(WorkerState) : QueueStateChange(StateChangeRequest.Resume);
             }
         }
 
@@ -116,8 +108,7 @@
                     return Task.FromResult(WorkerState);
                 }
 
-                var task = QueueStateChange(StateChangeRequest.Stop);
-                return task;
+                return QueueStateChange(StateChangeRequest.Stop);
             }
         }
 

@@ -227,7 +227,7 @@
         [Test]
         public void WithNullSource_ThrowsArgumentNullException()
         {
-            ObjectEnum source = null;
+            ObjectEnum? source = null;
 
             Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesToNew<ObjectEnum>());
         }
@@ -253,9 +253,21 @@
         [Test]
         public void WithNullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<string, object> source = null;
+            Dictionary<string, object>? source = null;
 
             Assert.Throws<ArgumentNullException>(() => source.CopyKeyValuePairToNew<ObjectEnum>());
+        }
+
+        [Test]
+        public void WithValidObjectAttr_CopyPropertiesToTarget()
+        {
+            var source = ObjectAttr.GetDefault();
+            var target = new ObjectAttr();
+
+            source.CopyPropertiesTo(target);
+
+            Assert.AreEqual(source.Name, target.Name);
+            Assert.AreEqual(source.IsActive, target.IsActive);
         }
     }
 
@@ -272,18 +284,6 @@
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
             Assert.AreNotEqual(source.StringData, destination.StringData);
-        }
-
-        [Test]
-        public void WithValidObjectAttr_CopyOnlyPropertiesToTarget()
-        {
-            var source = ObjectAttr.GetDefault();
-            var target = new ObjectAttr();
-
-            source.CopyOnlyPropertiesTo(target);
-
-            Assert.AreEqual(source.Name, target.Name);
-            Assert.AreEqual(source.IsActive, target.IsActive);
         }
     }
 

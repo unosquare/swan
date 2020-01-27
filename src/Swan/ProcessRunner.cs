@@ -29,24 +29,13 @@
         /// This method is meant to be used for programs that output a relatively small amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task.</returns>
-        public static Task<string> GetProcessOutputAsync(string filename, CancellationToken cancellationToken = default) =>
-            GetProcessOutputAsync(filename, string.Empty, cancellationToken);
-
-        /// <summary>
-        /// Runs the process asynchronously and if the exit code is 0,
-        /// returns all of the standard output text. If the exit code is something other than 0
-        /// it returns the contents of standard error.
-        /// This method is meant to be used for programs that output a relatively small amount of text.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">The working directory.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task.</returns>
         /// <example>
         /// The following code explains how to run an external process using the 
-        /// <see cref="GetProcessOutputAsync(string, string, CancellationToken)"/> method.
+        /// <see cref="GetProcessOutputAsync(string, string, string, CancellationToken)"/> method.
         /// <code>
         /// class Example
         /// {
@@ -66,28 +55,9 @@
         /// </code>
         /// </example>
         public static async Task<string> GetProcessOutputAsync(
-            string filename, 
-            string arguments,
-            CancellationToken cancellationToken = default)
-        {
-            var result = await GetProcessResultAsync(filename, arguments, cancellationToken).ConfigureAwait(false);
-            return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
-        }
-
-        /// <summary>
-        /// Gets the process output asynchronous.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <param name="arguments">The arguments.</param>
-        /// <param name="workingDirectory">The working directory.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>
-        /// The type of the result produced by this Task.
-        /// </returns>
-        public static async Task<string> GetProcessOutputAsync(
             string filename,
-            string arguments,
-            string workingDirectory,
+            string arguments = "",
+            string? workingDirectory = null,
             CancellationToken cancellationToken = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, workingDirectory, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -176,7 +146,7 @@
         public static async Task<ProcessResult> GetProcessResultAsync(
             string filename, 
             string arguments,
-            string workingDirectory, 
+            string? workingDirectory, 
             Encoding? encoding = null, 
             CancellationToken cancellationToken = default)
         {
@@ -225,8 +195,8 @@
             string filename,
             string arguments,
             string? workingDirectory,
-            ProcessDataReceivedCallback onOutputData,
-            ProcessDataReceivedCallback onErrorData,
+            ProcessDataReceivedCallback? onOutputData,
+            ProcessDataReceivedCallback? onErrorData,
             Encoding encoding,
             bool syncEvents = true,
             CancellationToken cancellationToken = default)
@@ -393,7 +363,7 @@
         private static Task<ulong> CopyStreamAsync(
             Process process,
             Stream baseStream,
-            ProcessDataReceivedCallback onDataCallback,
+            ProcessDataReceivedCallback? onDataCallback,
             bool syncEvents,
             CancellationToken ct) =>
             Task.Run(async () =>
@@ -461,7 +431,9 @@
                         // wait for the event to process before the next read occurs
                         if (syncEvents) eventTask.Wait(ct);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         break;
                     }

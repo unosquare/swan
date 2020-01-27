@@ -63,6 +63,7 @@ namespace Swan.Collections
 
             _components.Add(component);
             _componentsWithSafeNames.Add((name ?? $"<{component.GetType().Name}>", component));
+
             if (name != null)
                 _namedComponents.Add(name, component);
         }

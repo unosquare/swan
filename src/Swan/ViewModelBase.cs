@@ -49,7 +49,7 @@ namespace Swan
         /// <param name="notifyAlso">An array of property names to notify in addition to notifying the changes on the current property name.</param>
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "", string[] notifyAlso = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "", string[]? notifyAlso = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value))
                 return false;
@@ -70,11 +70,11 @@ namespace Swan
         /// </summary>
         /// <param name="mainProperty">The main property.</param>
         /// <param name="auxiliaryProperties">The auxiliary properties.</param>
-        private void NotifyPropertyChanged(string mainProperty, string[] auxiliaryProperties)
+        private void NotifyPropertyChanged(string? mainProperty, string[]? auxiliaryProperties)
         {
             // Queue property notification
-            if (string.IsNullOrWhiteSpace(mainProperty) == false)
-                _queuedNotifications[mainProperty] = true;
+            if (!string.IsNullOrWhiteSpace(mainProperty))
+                _queuedNotifications[mainProperty!] = true;
 
             // Set the state for notification properties
             if (auxiliaryProperties != null)

@@ -57,7 +57,7 @@
         /// <summary>
         /// Gets or sets the extended data supporting any additional field for storage by a responder implementation.
         /// </summary>
-        public object ExtendedData { get; set; }
+        public object? ExtendedData { get; set; }
 
         #endregion
 
@@ -71,17 +71,17 @@
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
         /// </summary>
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance has provided username.
         /// </summary>
-        public bool HasProvidedUsername => string.IsNullOrWhiteSpace(Username) == false;
+        public bool HasProvidedUsername => !string.IsNullOrWhiteSpace(Username);
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is authenticated.

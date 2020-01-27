@@ -50,7 +50,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 |---|---|---|
 | [ArgumentParser](https://unosquare.github.io/swan/api/Swan.Parsers.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ByteArrayExtensions](https://unosquare.github.io/swan/api/Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
-| [CircularBuffer](https://unosquare.github.io/swan/api/Swan.CircularBuffer.html) | :x: | :heavy_check_mark: |
 | [Connection](https://unosquare.github.io/swan/api/Swan.Net.Connection.html) | :x: | :heavy_check_mark: |
 | [ConnectionListener](https://unosquare.github.io/swan/api/Swan.Net.ConnectionListener.html) | :x: | :heavy_check_mark: |
 | [CsvReader](https://unosquare.github.io/swan/api/Swan.Formatters.CsvReader.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -141,17 +140,14 @@ will not show up in your logging subsystem.
 // The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
 Terminal.WriteLine($"Hello, today is {DateTime.Today}");
 
-// A slightly better way using extension methods:
-$"Hello, today is {DateTime.Today}".WriteLine();
-
 // Now, let's add some color:
-$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green);
 
 // Write it out to the debugger as well!
-$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
 // You could have also set the color argument to null and just use the configured default
-$"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+Terminal.WriteLine($"Hello, today is {DateTime.Today}", null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 ```
 
 #### Example 2: Configuring Output

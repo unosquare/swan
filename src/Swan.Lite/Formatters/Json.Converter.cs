@@ -30,7 +30,8 @@ namespace Swan.Formatters
             private readonly bool _includeNonPublic;
             private readonly JsonSerializerCase _jsonSerializerCase;
 
-            private Converter(object source,
+            private Converter(
+                object? source,
                 Type targetType,
                 ref object? targetInstance,
                 bool includeNonPublic, 
@@ -61,7 +62,7 @@ namespace Swan.Formatters
             }
 
             internal static object? FromJsonResult(
-                object source,
+                object? source,
                 JsonSerializerCase jsonSerializerCase,
                 Type? targetType = null,
                 bool includeNonPublic = false)

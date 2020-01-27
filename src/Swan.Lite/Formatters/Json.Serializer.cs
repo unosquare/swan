@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -55,7 +56,6 @@ namespace Swan.Formatters
                     return;
 
                 _options = options;
-                _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
 
                 // Handle circular references correctly and avoid them
                 if (options.IsObjectPresent(obj!))
@@ -65,29 +65,18 @@ namespace Swan.Formatters
                 }
 
                 // At this point, we will need to construct the object with a StringBuilder.
+                _lastCommaSearch = FieldSeparatorChar + (_options.Format ? Environment.NewLine : string.Empty);
                 _builder = new StringBuilder();
 
-                switch (obj)
+                _result = obj switch
                 {
-                    case IDictionary itemsZero when itemsZero.Count == 0:
-                        _result = EmptyObjectLiteral;
-                        break;
-                    case IDictionary items:
-                        _result = ResolveDictionary(items, depth);
-                        break;
-                    case IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any():
-                        _result = EmptyArrayLiteral;
-                        break;
-                    case IEnumerable enumerableBytes when enumerableBytes is byte[] bytes:
-                        _result = Serialize(bytes.ToBase64(), depth, _options);
-                        break;
-                    case IEnumerable enumerable:
-                        _result = ResolveEnumerable(enumerable, depth);
-                        break;
-                    default:
-                        _result = ResolveObject(obj!, depth);
-                        break;
-                }
+                    IDictionary itemsZero when itemsZero.Count == 0 => EmptyObjectLiteral,
+                    IDictionary items => ResolveDictionary(items, depth),
+                    IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
+                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options),
+                    IEnumerable enumerable => ResolveEnumerable(enumerable, depth),
+                    _ => ResolveObject(obj!, depth)
+                };
             }
 
             internal static string Serialize(object? obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
@@ -184,8 +173,8 @@ namespace Swan.Formatters
                                     Array.Reverse(escapeBytes);
 
                                 builder.Append("\\u")
-                                    .Append(escapeBytes[1].ToString("X").PadLeft(2, '0'))
-                                    .Append(escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                                    .Append(escapeBytes[1].ToString("X", CultureInfo.InvariantCulture).PadLeft(2, '0'))
+                                    .Append(escapeBytes[0].ToString("X", CultureInfo.InvariantCulture).PadLeft(2, '0'));
                             }
                             else
                             {
@@ -205,8 +194,8 @@ namespace Swan.Formatters
                 // Create the dictionary and extract the properties
                 var objectDictionary = new Dictionary<string, object?>();
 
-                if (string.IsNullOrWhiteSpace(_options.TypeSpecifier) == false)
-                    objectDictionary[_options.TypeSpecifier] = targetType;
+                if (!string.IsNullOrWhiteSpace(_options.TypeSpecifier))
+                    objectDictionary[_options.TypeSpecifier!] = targetType;
 
                 foreach (var field in fields)
                 {
@@ -218,7 +207,9 @@ namespace Swan.Formatters
                             ? property.GetCacheGetMethod(_options.IncludeNonPublic)?.Invoke(target)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         /* ignored */
                     }
@@ -267,7 +258,7 @@ namespace Swan.Formatters
                 var targetType = target.GetType();
 
                 if (targetType.IsEnum)
-                    return Convert.ToInt64(target, System.Globalization.CultureInfo.InvariantCulture).ToString();
+                    return Convert.ToInt64(target, CultureInfo.InvariantCulture).ToStringInvariant();
 
                 var fields = _options.GetProperties(targetType);
 

@@ -19,7 +19,7 @@ namespace Swan.Formatters
         private static readonly ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
             TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
 
-        private readonly string[] _includeProperties;
+        private readonly string[]? _includeProperties;
         private readonly string[]? _excludeProperties;
         private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
 
@@ -35,8 +35,8 @@ namespace Swan.Formatters
         /// <param name="jsonSerializerCase">The json serializer case.</param>
         public SerializerOptions(
             bool format,
-            string typeSpecifier,
-            string[] includeProperties,
+            string? typeSpecifier,
+            string[]? includeProperties,
             string[]? excludeProperties = null,
             bool includeNonPublic = true,
             IReadOnlyCollection<WeakReference>? parentReferences = null,
@@ -73,7 +73,7 @@ namespace Swan.Formatters
         /// <value>
         /// The type specifier.
         /// </value>
-        public string TypeSpecifier { get; }
+        public string? TypeSpecifier { get; }
 
         /// <summary>
         /// Gets a value indicating whether [include non public].
@@ -131,6 +131,7 @@ namespace Swan.Formatters
             }
 
             var value = fields
+                .Where(x => x.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored != true)
                 .ToDictionary(
                     x => Tuple.Create(x.Name,
                         x.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? x.Name.GetNameWithCase(JsonSerializerCase)),

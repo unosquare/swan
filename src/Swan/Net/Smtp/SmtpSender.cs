@@ -10,15 +10,15 @@
     /// </summary>
     internal class SmtpSender
     {
-        private readonly string _sessionId;
-        private string _requestText;
+        private readonly string? _sessionId;
+        private string? _requestText;
 
-        public SmtpSender(string sessionId)
+        public SmtpSender(string? sessionId)
         {
             _sessionId = sessionId;
         }
 
-        public string RequestText
+        public string? RequestText
         {
             get => _requestText;
             set
@@ -28,9 +28,9 @@
             }
         }
 
-        public string ReplyText { get; set; }
+        public string? ReplyText { get; set; }
 
-        public bool IsReplyOk => ReplyText.StartsWith("250 ", StringComparison.OrdinalIgnoreCase);
+        public bool IsReplyOk => ReplyText?.StartsWith("250 ", StringComparison.OrdinalIgnoreCase) == true;
 
         public void ValidateReply()
         {

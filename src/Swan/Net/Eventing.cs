@@ -77,7 +77,7 @@
         /// <returns>
         /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
         /// </returns>
-        /// <exception cref="ArgumentNullException">encoding</exception>
+        /// <exception cref="ArgumentNullException">encoding.</exception>
         public string GetStringFromBuffer(Encoding encoding) 
             => encoding?.GetString(Buffer).TrimEnd('\r', '\n') ?? throw new ArgumentNullException(nameof(encoding));
     }

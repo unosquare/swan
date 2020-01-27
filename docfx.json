@@ -23,9 +23,6 @@
       },
       {
         "files": [ "*.md", "toc.yml" ]
-      },
-      {
-        "files":["wiki/**/*.md"]
       }
     ],
     "resource": [

@@ -258,5 +258,30 @@
                 "{\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null}",
                 dataSerialized);
         }
+
+        [Test]
+        public void WithJsonProperty_ReturnsObjectSerializedExcludingProps()
+        {
+            var dataSerialized = Json.Serialize(new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" });
+
+            Assert.AreEqual(
+                "{\"data\": \"Data\"}",
+                dataSerialized);
+        }
+
+        [Test]
+        public void WithInnerJsonProperty_ReturnsObjectSerializedExcludingProps()
+        {
+            var dataSerialized = Json.Serialize(new InnerJsonPropertySample()
+            {
+                Data = "Data",
+                IgnoredData = "Ignored",
+                Inner = new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" },
+            });
+
+            Assert.AreEqual(
+                "{\"data\": \"Data\",\"Inner\": {\"data\": \"Data\"}}",
+                dataSerialized);
+        }
     }
 }

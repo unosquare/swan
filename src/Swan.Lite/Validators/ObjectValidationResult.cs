@@ -26,7 +26,7 @@ namespace Swan.Validators
         /// <param name="propertyName">The property name.</param>
         /// <param name="errorMessage">The error message.</param>
         public void Add(string propertyName, string errorMessage) =>
-            _errors.Add(new ValidationError { ErrorMessage = errorMessage, PropertyName = propertyName });
+            _errors.Add(new ValidationError(errorMessage, propertyName));
 
         /// <summary>
         /// Defines a validation error.
@@ -34,14 +34,25 @@ namespace Swan.Validators
         public class ValidationError
         {
             /// <summary>
+            /// Initializes a new instance of the <see cref="ValidationError"/> class.
+            /// </summary>
+            /// <param name="propertyName">Name of the property.</param>
+            /// <param name="errorMessage">The error message.</param>
+            public ValidationError(string propertyName, string errorMessage)
+            {
+                PropertyName = propertyName;
+                ErrorMessage = errorMessage;
+            }
+
+            /// <summary>
             /// The property name.
             /// </summary>
-            public string PropertyName { get; internal set; }
+            public string PropertyName { get; }
 
             /// <summary>
             /// The message error.
             /// </summary>
-            public string ErrorMessage { get; internal set; }
+            public string ErrorMessage { get; }
         }
     }
 }

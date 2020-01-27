@@ -1,7 +1,6 @@
-﻿using Swan.Logging;
-using System;
+﻿using System;
 
-namespace Swan.Lite.Logging
+namespace Swan.Logging
 {
     /// <summary>
     /// Use this class for text-based logger.
@@ -30,7 +29,7 @@ namespace Swan.Lite.Logging
 
             var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
                 ? string.Empty
-                : logEvent.Message.RemoveControlCharsExcept('\n');
+                : logEvent.Message.RemoveControlChars('\n');
 
             var outputMessage = CreateOutputMessage(logEvent.Source, loggerMessage, prefix, logEvent.UtcDate);
 
@@ -50,26 +49,17 @@ namespace Swan.Lite.Logging
             return (outputMessage, color);
         }
 
-        private static (string Prefix, ConsoleColor color) GetConsoleColorAndPrefix(LogLevel messageType)
-        {
-            switch (messageType)
+        private static (string Prefix, ConsoleColor color) GetConsoleColorAndPrefix(LogLevel messageType) =>
+            messageType switch
             {
-                case LogLevel.Debug:
-                    return (ConsoleLogger.DebugPrefix, ConsoleLogger.DebugColor);
-                case LogLevel.Error:
-                    return (ConsoleLogger.ErrorPrefix, ConsoleLogger.ErrorColor);
-                case LogLevel.Info:
-                    return (ConsoleLogger.InfoPrefix, ConsoleLogger.InfoColor);
-                case LogLevel.Trace:
-                    return (ConsoleLogger.TracePrefix, ConsoleLogger.TraceColor);
-                case LogLevel.Warning:
-                    return (ConsoleLogger.WarnPrefix, ConsoleLogger.WarnColor);
-                case LogLevel.Fatal:
-                    return (ConsoleLogger.FatalPrefix, ConsoleLogger.FatalColor);
-                default:
-                    return (new string(' ', ConsoleLogger.InfoPrefix.Length), Terminal.Settings.DefaultColor);
-            }
-        }
+                LogLevel.Debug => (ConsoleLogger.DebugPrefix, ConsoleLogger.DebugColor),
+                LogLevel.Error => (ConsoleLogger.ErrorPrefix, ConsoleLogger.ErrorColor),
+                LogLevel.Info => (ConsoleLogger.InfoPrefix, ConsoleLogger.InfoColor),
+                LogLevel.Trace => (ConsoleLogger.TracePrefix, ConsoleLogger.TraceColor),
+                LogLevel.Warning => (ConsoleLogger.WarnPrefix, ConsoleLogger.WarnColor),
+                LogLevel.Fatal => (ConsoleLogger.FatalPrefix, ConsoleLogger.FatalColor),
+                _ => (new string(' ', ConsoleLogger.InfoPrefix.Length), Terminal.Settings.DefaultColor)
+            };
 
         private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)
         {
