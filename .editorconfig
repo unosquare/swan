@@ -6,4 +6,3 @@ trim_trailing_whitespace = true
 charset = utf-8-bom
 indent_style = space
 indent_size = 4
-tab_width = 4
