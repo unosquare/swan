@@ -1,7 +1,7 @@
-root = true
+﻿root = true
 
 [*]
-insert_final_newline = true
+insert_final_newline = false
 trim_trailing_whitespace = true
 charset = utf-8-bom
 indent_style = space
