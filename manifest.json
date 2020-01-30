@@ -682,6 +682,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.InternalErrorException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.InternalErrorException.html",
+          "hash": "blPzH1c8zMUKiumcrJLkVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.JsonSerializerCase.yml",
       "output": {
         ".html": {
@@ -1198,6 +1210,42 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Net.IPAddressRange.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Net.IPAddressRange.html",
+          "hash": "ettGi3JZwLR4OWojHaiQ8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Net.IPAddressRangeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Net.IPAddressRangeExtensions.html",
+          "hash": "bDpPvG3bAmTVf6nvmUElxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Net.IPAddressUtility.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Net.IPAddressUtility.html",
+          "hash": "zPTuqboJ3LTRrJJKpv5jhw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Net.JsonClient.yml",
       "output": {
         ".html": {
@@ -1346,7 +1394,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.html",
-          "hash": "+tNiT3c/8EHHmOCBWlWTIA=="
+          "hash": "jz6SIhKeKjFzpIsA2Ysmxw=="
         }
       },
       "is_incremental": false,
@@ -1719,6 +1767,18 @@
         ".html": {
           "relative_path": "api/Swan.ReflectionExtensions.html",
           "hash": "hwFmlvLlG6lg1rDVZnknbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.SelfCheck.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.SelfCheck.html",
+          "hash": "+REmhQw4qtakVrDbRmOtQg=="
         }
       },
       "is_incremental": false,
@@ -2342,7 +2402,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.html",
-          "hash": "OwNl/cx1zJefrGO75G2ehQ=="
+          "hash": "R/CxeJOHSZ1ZHCv3hfFvdA=="
         }
       },
       "is_incremental": false,
@@ -2354,7 +2414,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Gg1zfZOfk+dbWdyWXOpf+A=="
+          "hash": "avLJ5lS5DclJQk6l/uCXaA=="
         }
       },
       "is_incremental": false,
@@ -2411,7 +2471,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 189,
+          "total_file_count": 194,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

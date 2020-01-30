@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Swan.Net
+    <title>Class InternalErrorException
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Swan.Net
+    <meta name="title" content="Class InternalErrorException
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -76,74 +76,27 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Swan.Net">
+            <article class="content wrap" id="_content" data-uid="Swan.InternalErrorException">
   
-  <h1 id="Swan_Net" data-uid="Swan.Net" class="text-break">Namespace Swan.Net
+  
+  <h1 id="Swan_InternalErrorException" data-uid="Swan.InternalErrorException" class="text-break">Class InternalErrorException
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>The exception that is thrown by methods of the <a class="xref" href="Swan.SelfCheck.html">SelfCheck</a> class
+to signal a condition most probably caused by an internal error in a library
+or application.</p>
+<p>Do not use this class directly; use the methods of the <a class="xref" href="Swan.SelfCheck.html">SelfCheck</a> class instead.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="Swan.Net.Connection.html">Connection</a></h4>
-      <section><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
-and its corresponding network streams. It is capable of working in 2 modes. Typically on the server side
-you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
-and use the Read methods available. In continuous reading mode Read methods are not available and will throw
-an invalid operation exceptions if they are used.
-Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don&apos;t use Read methods
-Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionAcceptedEventArgs.html">ConnectionAcceptedEventArgs</a></h4>
-      <section><p>The event arguments for when connections are accepted.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionAcceptingEventArgs.html">ConnectionAcceptingEventArgs</a></h4>
-      <section><p>Occurs before a connection is accepted. Set the Cancel property to true to prevent the connection from being accepted.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionDataReceivedEventArgs.html">ConnectionDataReceivedEventArgs</a></h4>
-      <section><p>Event arguments for when data is received.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionFailureEventArgs.html">ConnectionFailureEventArgs</a></h4>
-      <section><p>The event arguments for connection failure events.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionListener.html">ConnectionListener</a></h4>
-      <section><p>TCP Listener manager with built-in events and asynchronous functionality.
-This networking component is typically used when writing server software.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionListenerFailedEventArgs.html">ConnectionListenerFailedEventArgs</a></h4>
-      <section><p>Event arguments for when a server listener fails to start.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionListenerStartedEventArgs.html">ConnectionListenerStartedEventArgs</a></h4>
-      <section><p>Event arguments for when a server listener is started.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.ConnectionListenerStoppedEventArgs.html">ConnectionListenerStoppedEventArgs</a></h4>
-      <section><p>Event arguments for when a server listener stopped.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></h4>
-      <section><p>Represents an inclusive range of IP addresses.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.IPAddressRangeExtensions.html">IPAddressRangeExtensions</a></h4>
-      <section><p>Provides extension methods for instances and collections of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a>.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.IPAddressUtility.html">IPAddressUtility</a></h4>
-      <section><p>Provides utility methods to work with the <see cref="!:IPAddress"></see> class.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.JsonClient.html">JsonClient</a></h4>
-      <section><p>Represents a HttpClient with extended methods to use with JSON payloads 
-and bearer tokens authentication.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.JsonRequestException.html">JsonRequestException</a></h4>
-      <section><p>Represents errors that occurs requesting a JSON file through HTTP.</p>
-</section>
-      <h4><a class="xref" href="Swan.Net.Network.html">Network</a></h4>
-      <section><p>Provides miscellaneous network utilities such as a Public IP finder,
-a DNS client to query DNS records of any kind, and an NTP client.</p>
-</section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="Swan.Net.ConnectionDataReceivedTrigger.html">ConnectionDataReceivedTrigger</a></h4>
-      <section><p>Enumerates the possible causes of the DataReceived event occurring.</p>
-</section>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">InternalErrorException</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.html">Swan</a></h6>
+  <h5 id="Swan_InternalErrorException_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class InternalErrorException : Exception</code></pre>
+  </div>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

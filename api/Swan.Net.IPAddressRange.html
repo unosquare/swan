@@ -1,0 +1,830 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class IPAddressRange
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class IPAddressRange
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.48.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="logo" src="../best-practices/resources/images/unosquare_logo.svg" alt="Unosquare">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Swan.Net.IPAddressRange">
+  
+  
+  <h1 id="Swan_Net_IPAddressRange" data-uid="Swan.Net.IPAddressRange" class="text-break">Class IPAddressRange
+  </h1>
+  <div class="markdown level0 summary"><p>Represents an inclusive range of IP addresses.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">IPAddressRange</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Net.html">Swan.Net</a></h6>
+  <h5 id="Swan_Net_IPAddressRange_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class IPAddressRange : IEquatable&lt;IPAddressRange&gt;</code></pre>
+  </div>
+  <h5 id="Swan_Net_IPAddressRange_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This class makes no distinction between IPv4 addresses and the same addresses mapped to IPv6
+for the purpose of determining whether it belongs to a range: that is, the <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_">Contains(IPAddress)</a> method
+of an instance initialized with IPv4 addresses, or with the same addresses mapped to IPv6,
+will return <span class="xref">true</span> for both an in-range IPv4 address and the same address mapped to IPv6.</p>
+<p>The <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_IPAddress_IPAddress_">IPAddressRange(IPAddress, IPAddress)</a> constructor, however,
+does make such distinction: you cannot initialize a range using an IPv4 address and an IPv6 address,
+even if the latter is an IPv4 address mapped to IPv6, nor the other way around.</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Swan_Net_IPAddressRange__ctor_" data-uid="Swan.Net.IPAddressRange.#ctor*"></a>
+  <h4 id="Swan_Net_IPAddressRange__ctor_IPAddress_" data-uid="Swan.Net.IPAddressRange.#ctor(IPAddress)">IPAddressRange(IPAddress)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> class,
+representing a single IP address.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPAddressRange(IPAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>The IP address.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange__ctor_" data-uid="Swan.Net.IPAddressRange.#ctor*"></a>
+  <h4 id="Swan_Net_IPAddressRange__ctor_IPAddress_IPAddress_" data-uid="Swan.Net.IPAddressRange.#ctor(IPAddress,IPAddress)">IPAddressRange(IPAddress, IPAddress)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> class,
+representing a range of IP addresses between <code data-dev-comment-type="paramref" class="paramref">start</code>
+and <code data-dev-comment-type="paramref" class="paramref">end</code>, extremes included.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPAddressRange(IPAddress start, IPAddress end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting address of the range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending address of the range.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange__ctor_" data-uid="Swan.Net.IPAddressRange.#ctor*"></a>
+  <h4 id="Swan_Net_IPAddressRange__ctor_IPAddress_System_Byte_" data-uid="Swan.Net.IPAddressRange.#ctor(IPAddress,System.Byte)">IPAddressRange(IPAddress, Byte)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> class,
+representing a CIDR subnet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPAddressRange(IPAddress baseAddress, byte prefixLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">baseAddress</span></td>
+        <td><p>The base address of the subnet.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></td>
+        <td><span class="parametername">prefixLength</span></td>
+        <td><p>The prefix length of the subnet.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Swan_Net_IPAddressRange_All" data-uid="Swan.Net.IPAddressRange.All">All</h4>
+  <div class="markdown level1 summary"><p>Gets an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> that contains all possible IP addresses.</p>
+<p>The <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_">Contains(IPAddress)</a> method of the returned instance will always return <span class="xref">true</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly IPAddressRange All</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Swan_Net_IPAddressRange_AllIPv4" data-uid="Swan.Net.IPAddressRange.AllIPv4">AllIPv4</h4>
+  <div class="markdown level1 summary"><p>Gets an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> that contains all IPv4 addresses.</p>
+<p>The <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_">Contains(IPAddress)</a> method of the returned instance will return <span class="xref">true</span>
+for all IPv4 addresses, as well as their IPv6 mapped counterparts, and <span class="xref">false</span>
+for all other IPv6 addresses.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly IPAddressRange AllIPv4</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Swan_Net_IPAddressRange_None" data-uid="Swan.Net.IPAddressRange.None">None</h4>
+  <div class="markdown level1 summary"><p>Gets an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> that contains no addresses.</p>
+<p>The <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_">Contains(IPAddress)</a> method of the returned instance will always return <span class="xref">false</span>.</p>
+<p>This property is useful to initialize non-nullable properties 
+of type <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly IPAddressRange None</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Net_IPAddressRange_AddressFamily_" data-uid="Swan.Net.IPAddressRange.AddressFamily*"></a>
+  <h4 id="Swan_Net_IPAddressRange_AddressFamily" data-uid="Swan.Net.IPAddressRange.AddressFamily">AddressFamily</h4>
+  <div class="markdown level1 summary"><p>Gets the address family of the IP address range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AddressFamily AddressFamily { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">AddressFamily</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_AddressFamily_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Regardless of the value of this property, IPv4 addresses
+and their IPv6 mapped counterparts will be considered the same
+for the purposes of the <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_">Contains(IPAddress)</a> method.</p>
+</div>
+  
+  
+  <a id="Swan_Net_IPAddressRange_End_" data-uid="Swan.Net.IPAddressRange.End*"></a>
+  <h4 id="Swan_Net_IPAddressRange_End" data-uid="Swan.Net.IPAddressRange.End">End</h4>
+  <div class="markdown level1 summary"><p>Gets an instance of <see cref="!:IPAddress"></see> representing
+the last address in the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPAddress End { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange_IsSubnet_" data-uid="Swan.Net.IPAddressRange.IsSubnet*"></a>
+  <h4 id="Swan_Net_IPAddressRange_IsSubnet" data-uid="Swan.Net.IPAddressRange.IsSubnet">IsSubnet</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance represents a CIDR subnet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSubnet { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_IsSubnet_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property is <span class="xref">true</span> only for instances
+initialized via the <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_IPAddress_System_Byte_">IPAddressRange(IPAddress, Byte)</a> constructor.
+Instances constructed by specifying a range will have this property
+set to <span class="xref">false</span> even when they actually represent a subnet.</p>
+<p>For example, the instance returned by <code>IPAddressRange.Parse(&quot;192.168.0.0-192.168.0.255&quot;)</code>
+will have this property set to <span class="xref">false</span>; for this property to be <span class="xref">true</span>,
+the string passed to <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a> should instead be <code>&quot;192.168.0.0/24&quot;</code>
+(a CIDR subnet specification) or &quot;192.168.0.0/255.255.255.0&quot; (a base address / netmask pair,
+only accepted by <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a> and <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__">TryParse(String, out IPAddressRange)</a> for IPv4 addresses.)</p>
+</div>
+  
+  
+  <a id="Swan_Net_IPAddressRange_Start_" data-uid="Swan.Net.IPAddressRange.Start*"></a>
+  <h4 id="Swan_Net_IPAddressRange_Start" data-uid="Swan.Net.IPAddressRange.Start">Start</h4>
+  <div class="markdown level1 summary"><p>Gets an instance of <see cref="!:IPAddress"></see> representing
+the first address in the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPAddress Start { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Swan_Net_IPAddressRange_Contains_" data-uid="Swan.Net.IPAddressRange.Contains*"></a>
+  <h4 id="Swan_Net_IPAddressRange_Contains_IPAddress_" data-uid="Swan.Net.IPAddressRange.Contains(IPAddress)">Contains(IPAddress)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the given <code data-dev-comment-type="paramref" class="paramref">address</code>
+sa contained in this range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(IPAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>The IP address to check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><span class="xref">true</span> if <code data-dev-comment-type="paramref" class="paramref">address</code>
+    is between <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Start">Start</a> and <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_End">End</a>, inclusive;
+    otherwise, <see lamgword="false"></see>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_Contains_IPAddress__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method treats IPv4 addresses and their IPv6-mapped counterparts
+the same; that is, given a range obtained by parsing the string <code>192.168.1.0/24</code>,
+<code>Contains(IPAddress.Parse(&quot;192.168.1.55&quot;))</code> will return <span class="xref">true</span>,
+as will <code>Contains(IPAddress.Parse(&quot;192.168.1.55&quot;).MapToIPv6())</code>. This is true
+as well if a range is initialized with IPv6 addresses.</p>
+</div>
+  
+  
+  <a id="Swan_Net_IPAddressRange_Equals_" data-uid="Swan.Net.IPAddressRange.Equals*"></a>
+  <h4 id="Swan_Net_IPAddressRange_Equals_Swan_Net_IPAddressRange_" data-uid="Swan.Net.IPAddressRange.Equals(Swan.Net.IPAddressRange)">Equals(IPAddressRange)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(IPAddressRange other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange_Equals_" data-uid="Swan.Net.IPAddressRange.Equals*"></a>
+  <h4 id="Swan_Net_IPAddressRange_Equals_System_Object_" data-uid="Swan.Net.IPAddressRange.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange_GetHashCode_" data-uid="Swan.Net.IPAddressRange.GetHashCode*"></a>
+  <h4 id="Swan_Net_IPAddressRange_GetHashCode" data-uid="Swan.Net.IPAddressRange.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Net_IPAddressRange_Parse_" data-uid="Swan.Net.IPAddressRange.Parse*"></a>
+  <h4 id="Swan_Net_IPAddressRange_Parse_System_String_" data-uid="Swan.Net.IPAddressRange.Parse(System.String)">Parse(String)</h4>
+  <div class="markdown level1 summary"><p>Converts the string representation of a range of IP addresses
+to an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IPAddressRange Parse(string str)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">str</span></td>
+        <td><p>The string to convert.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td><p>An instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> representing the same range of
+IP addresses represented by <code data-dev-comment-type="paramref" class="paramref">str</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_Parse_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method supports the following formats for <code data-dev-comment-type="paramref" class="paramref">str</code>:</p>
+<table><thead><tr><th>FormatDescriptionExamples</th><th></th></tr></thead><tbody><tr><td>Single addressA single IP address.
+<p><code>192.168.23.199</code></p>
+<p><code>2001:db8:a0b:12f0::1</code></p>
+</td><td></td></tr><tr><td>Range of addressesStart and end address, separated by a hyphen (<code>-</code>).
+<p><code>192.168.0.100-192.168.11.255</code></p>
+<p><code>2001:db8:a0b:12f0::-2001:db8:a0b:12f0::ffff</code></p>
+</td><td></td></tr><tr><td>CIDR subnetBase address and prefix length, separated by a slash (<code>/</code>).
+<p><code>169.254.0.0/16</code></p>
+<p><code>192.168.123.0/24</code></p>
+<p><code>2001:db8:a0b:12f0::/64</code></p>
+</td><td></td></tr><tr><td>&quot;Legacy&quot; subnet
+<p>Base address and netmask, separated by a slash (<code>/</code>).</p>
+<p>Only accepted for IPv4 addresses.</p>
+
+<p><p><code>169.254.0.0/255.255.0.0</code></p>
+<p><code>192.168.123.0/255.255.255.0</code></p>
+</td><td></td></tr></tbody></table><p>
+</div>
+  <h5 id="Swan_Net_IPAddressRange_Parse_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__">TryParse(String, out IPAddressRange)</a></div>
+  </div>
+  
+  
+  <a id="Swan_Net_IPAddressRange_ToString_" data-uid="Swan.Net.IPAddressRange.ToString*"></a>
+  <h4 id="Swan_Net_IPAddressRange_ToString" data-uid="Swan.Net.IPAddressRange.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_ToString_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><p>The result of this method will be a string that,
+if passed to the <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a> or <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__">TryParse(String, out IPAddressRange)</a> method,
+will result in an instance identical to this one.</p>
+<p>If this instance has been created by means of the <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a>
+or <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__">TryParse(String, out IPAddressRange)</a> method, the returned string will not
+necessarily be identical to the parsed string. The possible differences
+include the following:</p>
+<ul><li></li><li></li><li></li><li></li></ul></p>
+</div>
+  
+  
+  <a id="Swan_Net_IPAddressRange_TryParse_" data-uid="Swan.Net.IPAddressRange.TryParse*"></a>
+  <h4 id="Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__" data-uid="Swan.Net.IPAddressRange.TryParse(System.String,Swan.Net.IPAddressRange@)">TryParse(String, out IPAddressRange)</h4>
+  <div class="markdown level1 summary"><p>Tries to convert the string representation of a range of IP addresses
+to an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string str, out IPAddressRange result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">str</span></td>
+        <td><p>The string to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>When this method returns <span class="xref">true</span>,
+an instance of <a class="xref" href="Swan.Net.IPAddressRange.html">IPAddressRange</a> representing the same range of
+IP addresses represented by <code data-dev-comment-type="paramref" class="paramref">str</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p><span class="xref">true</span> if the conversion was successful;
+    otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See the &quot;Remarks&quot; section of <a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a>
+for an overview of the formats accepted for <code data-dev-comment-type="paramref" class="paramref">str</code>.</p>
+</div>
+  <h5 id="Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange___seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_">Parse(String)</a></div>
+  </div>
+
+<h3 id="disqus_thread">Comments</h3>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://unolabs.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2017-2019 <a href="https://www.unosquare.com">Unosquare</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-8535255-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+  </body>
+</html>

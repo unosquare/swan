@@ -4339,6 +4339,12 @@ references:
   fullName.vb: Swan.FunctionalExtensions.When(Of T)(IQueryable(Of T), Func(Of System.Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
   nameWithType: FunctionalExtensions.When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
   nameWithType.vb: FunctionalExtensions.When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
+- uid: Swan.InternalErrorException
+  name: InternalErrorException
+  href: api/Swan.InternalErrorException.html
+  commentId: T:Swan.InternalErrorException
+  fullName: Swan.InternalErrorException
+  nameWithType: InternalErrorException
 - uid: Swan.JsonSerializerCase
   name: JsonSerializerCase
   href: api/Swan.JsonSerializerCase.html
@@ -7427,6 +7433,254 @@ references:
   commentId: F:Swan.Net.Dns.DnsResponseCode.YXRRSet
   fullName: Swan.Net.Dns.DnsResponseCode.YXRRSet
   nameWithType: DnsResponseCode.YXRRSet
+- uid: Swan.Net.IPAddressRange
+  name: IPAddressRange
+  href: api/Swan.Net.IPAddressRange.html
+  commentId: T:Swan.Net.IPAddressRange
+  fullName: Swan.Net.IPAddressRange
+  nameWithType: IPAddressRange
+- uid: Swan.Net.IPAddressRange.#ctor(IPAddress)
+  name: IPAddressRange(IPAddress)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_IPAddress_
+  commentId: M:Swan.Net.IPAddressRange.#ctor(IPAddress)
+  fullName: Swan.Net.IPAddressRange.IPAddressRange(IPAddress)
+  nameWithType: IPAddressRange.IPAddressRange(IPAddress)
+- uid: Swan.Net.IPAddressRange.#ctor(IPAddress,IPAddress)
+  name: IPAddressRange(IPAddress, IPAddress)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_IPAddress_IPAddress_
+  commentId: M:Swan.Net.IPAddressRange.#ctor(IPAddress,IPAddress)
+  fullName: Swan.Net.IPAddressRange.IPAddressRange(IPAddress, IPAddress)
+  nameWithType: IPAddressRange.IPAddressRange(IPAddress, IPAddress)
+- uid: Swan.Net.IPAddressRange.#ctor(IPAddress,System.Byte)
+  name: IPAddressRange(IPAddress, Byte)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_IPAddress_System_Byte_
+  commentId: M:Swan.Net.IPAddressRange.#ctor(IPAddress,System.Byte)
+  fullName: Swan.Net.IPAddressRange.IPAddressRange(IPAddress, System.Byte)
+  nameWithType: IPAddressRange.IPAddressRange(IPAddress, Byte)
+- uid: Swan.Net.IPAddressRange.#ctor*
+  name: IPAddressRange
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange__ctor_
+  commentId: Overload:Swan.Net.IPAddressRange.#ctor
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.IPAddressRange
+  nameWithType: IPAddressRange.IPAddressRange
+- uid: Swan.Net.IPAddressRange.AddressFamily
+  name: AddressFamily
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_AddressFamily
+  commentId: P:Swan.Net.IPAddressRange.AddressFamily
+  fullName: Swan.Net.IPAddressRange.AddressFamily
+  nameWithType: IPAddressRange.AddressFamily
+- uid: Swan.Net.IPAddressRange.AddressFamily*
+  name: AddressFamily
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_AddressFamily_
+  commentId: Overload:Swan.Net.IPAddressRange.AddressFamily
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.AddressFamily
+  nameWithType: IPAddressRange.AddressFamily
+- uid: Swan.Net.IPAddressRange.All
+  name: All
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_All
+  commentId: F:Swan.Net.IPAddressRange.All
+  fullName: Swan.Net.IPAddressRange.All
+  nameWithType: IPAddressRange.All
+- uid: Swan.Net.IPAddressRange.AllIPv4
+  name: AllIPv4
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_AllIPv4
+  commentId: F:Swan.Net.IPAddressRange.AllIPv4
+  fullName: Swan.Net.IPAddressRange.AllIPv4
+  nameWithType: IPAddressRange.AllIPv4
+- uid: Swan.Net.IPAddressRange.Contains(IPAddress)
+  name: Contains(IPAddress)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_IPAddress_
+  commentId: M:Swan.Net.IPAddressRange.Contains(IPAddress)
+  fullName: Swan.Net.IPAddressRange.Contains(IPAddress)
+  nameWithType: IPAddressRange.Contains(IPAddress)
+- uid: Swan.Net.IPAddressRange.Contains*
+  name: Contains
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Contains_
+  commentId: Overload:Swan.Net.IPAddressRange.Contains
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.Contains
+  nameWithType: IPAddressRange.Contains
+- uid: Swan.Net.IPAddressRange.End
+  name: End
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_End
+  commentId: P:Swan.Net.IPAddressRange.End
+  fullName: Swan.Net.IPAddressRange.End
+  nameWithType: IPAddressRange.End
+- uid: Swan.Net.IPAddressRange.End*
+  name: End
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_End_
+  commentId: Overload:Swan.Net.IPAddressRange.End
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.End
+  nameWithType: IPAddressRange.End
+- uid: Swan.Net.IPAddressRange.Equals(Swan.Net.IPAddressRange)
+  name: Equals(IPAddressRange)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Equals_Swan_Net_IPAddressRange_
+  commentId: M:Swan.Net.IPAddressRange.Equals(Swan.Net.IPAddressRange)
+  fullName: Swan.Net.IPAddressRange.Equals(Swan.Net.IPAddressRange)
+  nameWithType: IPAddressRange.Equals(IPAddressRange)
+- uid: Swan.Net.IPAddressRange.Equals(System.Object)
+  name: Equals(Object)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Equals_System_Object_
+  commentId: M:Swan.Net.IPAddressRange.Equals(System.Object)
+  fullName: Swan.Net.IPAddressRange.Equals(System.Object)
+  nameWithType: IPAddressRange.Equals(Object)
+- uid: Swan.Net.IPAddressRange.Equals*
+  name: Equals
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Equals_
+  commentId: Overload:Swan.Net.IPAddressRange.Equals
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.Equals
+  nameWithType: IPAddressRange.Equals
+- uid: Swan.Net.IPAddressRange.GetHashCode
+  name: GetHashCode()
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_GetHashCode
+  commentId: M:Swan.Net.IPAddressRange.GetHashCode
+  fullName: Swan.Net.IPAddressRange.GetHashCode()
+  nameWithType: IPAddressRange.GetHashCode()
+- uid: Swan.Net.IPAddressRange.GetHashCode*
+  name: GetHashCode
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_GetHashCode_
+  commentId: Overload:Swan.Net.IPAddressRange.GetHashCode
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.GetHashCode
+  nameWithType: IPAddressRange.GetHashCode
+- uid: Swan.Net.IPAddressRange.IsSubnet
+  name: IsSubnet
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_IsSubnet
+  commentId: P:Swan.Net.IPAddressRange.IsSubnet
+  fullName: Swan.Net.IPAddressRange.IsSubnet
+  nameWithType: IPAddressRange.IsSubnet
+- uid: Swan.Net.IPAddressRange.IsSubnet*
+  name: IsSubnet
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_IsSubnet_
+  commentId: Overload:Swan.Net.IPAddressRange.IsSubnet
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.IsSubnet
+  nameWithType: IPAddressRange.IsSubnet
+- uid: Swan.Net.IPAddressRange.None
+  name: None
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_None
+  commentId: F:Swan.Net.IPAddressRange.None
+  fullName: Swan.Net.IPAddressRange.None
+  nameWithType: IPAddressRange.None
+- uid: Swan.Net.IPAddressRange.Parse(System.String)
+  name: Parse(String)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_System_String_
+  commentId: M:Swan.Net.IPAddressRange.Parse(System.String)
+  fullName: Swan.Net.IPAddressRange.Parse(System.String)
+  nameWithType: IPAddressRange.Parse(String)
+- uid: Swan.Net.IPAddressRange.Parse*
+  name: Parse
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Parse_
+  commentId: Overload:Swan.Net.IPAddressRange.Parse
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.Parse
+  nameWithType: IPAddressRange.Parse
+- uid: Swan.Net.IPAddressRange.Start
+  name: Start
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Start
+  commentId: P:Swan.Net.IPAddressRange.Start
+  fullName: Swan.Net.IPAddressRange.Start
+  nameWithType: IPAddressRange.Start
+- uid: Swan.Net.IPAddressRange.Start*
+  name: Start
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_Start_
+  commentId: Overload:Swan.Net.IPAddressRange.Start
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.Start
+  nameWithType: IPAddressRange.Start
+- uid: Swan.Net.IPAddressRange.ToString
+  name: ToString()
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_ToString
+  commentId: M:Swan.Net.IPAddressRange.ToString
+  fullName: Swan.Net.IPAddressRange.ToString()
+  nameWithType: IPAddressRange.ToString()
+- uid: Swan.Net.IPAddressRange.ToString*
+  name: ToString
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_ToString_
+  commentId: Overload:Swan.Net.IPAddressRange.ToString
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.ToString
+  nameWithType: IPAddressRange.ToString
+- uid: Swan.Net.IPAddressRange.TryParse(System.String,Swan.Net.IPAddressRange@)
+  name: TryParse(String, out IPAddressRange)
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_System_String_Swan_Net_IPAddressRange__
+  commentId: M:Swan.Net.IPAddressRange.TryParse(System.String,Swan.Net.IPAddressRange@)
+  name.vb: TryParse(String, ByRef IPAddressRange)
+  fullName: Swan.Net.IPAddressRange.TryParse(System.String, out Swan.Net.IPAddressRange)
+  fullName.vb: Swan.Net.IPAddressRange.TryParse(System.String, ByRef Swan.Net.IPAddressRange)
+  nameWithType: IPAddressRange.TryParse(String, out IPAddressRange)
+  nameWithType.vb: IPAddressRange.TryParse(String, ByRef IPAddressRange)
+- uid: Swan.Net.IPAddressRange.TryParse*
+  name: TryParse
+  href: api/Swan.Net.IPAddressRange.html#Swan_Net_IPAddressRange_TryParse_
+  commentId: Overload:Swan.Net.IPAddressRange.TryParse
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRange.TryParse
+  nameWithType: IPAddressRange.TryParse
+- uid: Swan.Net.IPAddressRangeExtensions
+  name: IPAddressRangeExtensions
+  href: api/Swan.Net.IPAddressRangeExtensions.html
+  commentId: T:Swan.Net.IPAddressRangeExtensions
+  fullName: Swan.Net.IPAddressRangeExtensions
+  nameWithType: IPAddressRangeExtensions
+- uid: Swan.Net.IPAddressRangeExtensions.AnyContains(IEnumerable{Swan.Net.IPAddressRange},IPAddress)
+  name: AnyContains(IEnumerable<IPAddressRange>, IPAddress)
+  href: api/Swan.Net.IPAddressRangeExtensions.html#Swan_Net_IPAddressRangeExtensions_AnyContains_IEnumerable_Swan_Net_IPAddressRange__IPAddress_
+  commentId: M:Swan.Net.IPAddressRangeExtensions.AnyContains(IEnumerable{Swan.Net.IPAddressRange},IPAddress)
+  name.vb: AnyContains(IEnumerable(Of IPAddressRange), IPAddress)
+  fullName: Swan.Net.IPAddressRangeExtensions.AnyContains(IEnumerable<Swan.Net.IPAddressRange>, IPAddress)
+  fullName.vb: Swan.Net.IPAddressRangeExtensions.AnyContains(IEnumerable(Of Swan.Net.IPAddressRange), IPAddress)
+  nameWithType: IPAddressRangeExtensions.AnyContains(IEnumerable<IPAddressRange>, IPAddress)
+  nameWithType.vb: IPAddressRangeExtensions.AnyContains(IEnumerable(Of IPAddressRange), IPAddress)
+- uid: Swan.Net.IPAddressRangeExtensions.AnyContains*
+  name: AnyContains
+  href: api/Swan.Net.IPAddressRangeExtensions.html#Swan_Net_IPAddressRangeExtensions_AnyContains_
+  commentId: Overload:Swan.Net.IPAddressRangeExtensions.AnyContains
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRangeExtensions.AnyContains
+  nameWithType: IPAddressRangeExtensions.AnyContains
+- uid: Swan.Net.IPAddressRangeExtensions.NoneContains(IEnumerable{Swan.Net.IPAddressRange},IPAddress)
+  name: NoneContains(IEnumerable<IPAddressRange>, IPAddress)
+  href: api/Swan.Net.IPAddressRangeExtensions.html#Swan_Net_IPAddressRangeExtensions_NoneContains_IEnumerable_Swan_Net_IPAddressRange__IPAddress_
+  commentId: M:Swan.Net.IPAddressRangeExtensions.NoneContains(IEnumerable{Swan.Net.IPAddressRange},IPAddress)
+  name.vb: NoneContains(IEnumerable(Of IPAddressRange), IPAddress)
+  fullName: Swan.Net.IPAddressRangeExtensions.NoneContains(IEnumerable<Swan.Net.IPAddressRange>, IPAddress)
+  fullName.vb: Swan.Net.IPAddressRangeExtensions.NoneContains(IEnumerable(Of Swan.Net.IPAddressRange), IPAddress)
+  nameWithType: IPAddressRangeExtensions.NoneContains(IEnumerable<IPAddressRange>, IPAddress)
+  nameWithType.vb: IPAddressRangeExtensions.NoneContains(IEnumerable(Of IPAddressRange), IPAddress)
+- uid: Swan.Net.IPAddressRangeExtensions.NoneContains*
+  name: NoneContains
+  href: api/Swan.Net.IPAddressRangeExtensions.html#Swan_Net_IPAddressRangeExtensions_NoneContains_
+  commentId: Overload:Swan.Net.IPAddressRangeExtensions.NoneContains
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressRangeExtensions.NoneContains
+  nameWithType: IPAddressRangeExtensions.NoneContains
+- uid: Swan.Net.IPAddressUtility
+  name: IPAddressUtility
+  href: api/Swan.Net.IPAddressUtility.html
+  commentId: T:Swan.Net.IPAddressUtility
+  fullName: Swan.Net.IPAddressUtility
+  nameWithType: IPAddressUtility
+- uid: Swan.Net.IPAddressUtility.TryParse(System.String,IPAddress@)
+  name: TryParse(String, out IPAddress)
+  href: api/Swan.Net.IPAddressUtility.html#Swan_Net_IPAddressUtility_TryParse_System_String_IPAddress__
+  commentId: M:Swan.Net.IPAddressUtility.TryParse(System.String,IPAddress@)
+  name.vb: TryParse(String, ByRef IPAddress)
+  fullName: Swan.Net.IPAddressUtility.TryParse(System.String, out IPAddress)
+  fullName.vb: Swan.Net.IPAddressUtility.TryParse(System.String, ByRef IPAddress)
+  nameWithType: IPAddressUtility.TryParse(String, out IPAddress)
+  nameWithType.vb: IPAddressUtility.TryParse(String, ByRef IPAddress)
+- uid: Swan.Net.IPAddressUtility.TryParse*
+  name: TryParse
+  href: api/Swan.Net.IPAddressUtility.html#Swan_Net_IPAddressUtility_TryParse_
+  commentId: Overload:Swan.Net.IPAddressUtility.TryParse
+  isSpec: "True"
+  fullName: Swan.Net.IPAddressUtility.TryParse
+  nameWithType: IPAddressUtility.TryParse
 - uid: Swan.Net.JsonClient
   name: JsonClient
   href: api/Swan.Net.JsonClient.html
@@ -10842,6 +11096,25 @@ references:
   isSpec: "True"
   fullName: Swan.ReflectionExtensions.TrySetBasicType
   nameWithType: ReflectionExtensions.TrySetBasicType
+- uid: Swan.SelfCheck
+  name: SelfCheck
+  href: api/Swan.SelfCheck.html
+  commentId: T:Swan.SelfCheck
+  fullName: Swan.SelfCheck
+  nameWithType: SelfCheck
+- uid: Swan.SelfCheck.Failure(System.String,System.String,System.Int32)
+  name: Failure(String, String, Int32)
+  href: api/Swan.SelfCheck.html#Swan_SelfCheck_Failure_System_String_System_String_System_Int32_
+  commentId: M:Swan.SelfCheck.Failure(System.String,System.String,System.Int32)
+  fullName: Swan.SelfCheck.Failure(System.String, System.String, System.Int32)
+  nameWithType: SelfCheck.Failure(String, String, Int32)
+- uid: Swan.SelfCheck.Failure*
+  name: Failure
+  href: api/Swan.SelfCheck.html#Swan_SelfCheck_Failure_
+  commentId: Overload:Swan.SelfCheck.Failure
+  isSpec: "True"
+  fullName: Swan.SelfCheck.Failure
+  nameWithType: SelfCheck.Failure
 - uid: Swan.Services
   name: Swan.Services
   href: api/Swan.Services.html
