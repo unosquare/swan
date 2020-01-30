@@ -37,7 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Choco install docfx
-        uses: crazy-max/ghaction-chocolatey@v1
+        uses: crazy-max/ghaction-chocolatey@master
         with:
           args: install docfx
       - run: docfx docfx.json --logLevel Error
