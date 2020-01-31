@@ -42,7 +42,7 @@ namespace Swan.Collections
 
         /// <inheritdoc />
         /// <exception cref="InvalidOperationException">The collection is locked.</exception>
-        public void Add(string name, T component)
+        public void Add(string? name, T component)
         {
             EnsureConfigurationNotLocked();
 
