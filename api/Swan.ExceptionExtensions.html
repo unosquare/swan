@@ -214,6 +214,55 @@ will likely cause application failure.</p>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Swan_ExceptionExtensions_RethrowPreservingStackTrace_" data-uid="Swan.ExceptionExtensions.RethrowPreservingStackTrace*"></a>
+  <h4 id="Swan_ExceptionExtensions_RethrowPreservingStackTrace_Exception_" data-uid="Swan.ExceptionExtensions.RethrowPreservingStackTrace(Exception)">RethrowPreservingStackTrace(Exception)</h4>
+  <div class="markdown level1 summary"><p>Rethrows an already-thrown exception, preserving the stack trace of the original throw.</p>
+<p>This method does not return; its return type is an exception type so it can be used
+with <code>throw</code> semantics, e.g.: <code>throw ex.RethrowPreservingStackTrace();</code>,
+to let static code analysis tools that it throws instead of returning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static InternalErrorException RethrowPreservingStackTrace(this Exception this)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">this</span></td>
+        <td><p>The exception to rethrow.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Swan.InternalErrorException.html">InternalErrorException</a></td>
+        <td><p>This method should never return; if it does, it is an indication of an internal error,
+so it returns an instance of <a class="xref" href="Swan.InternalErrorException.html">InternalErrorException</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 <h3 id="disqus_thread">Comments</h3>
 <script>

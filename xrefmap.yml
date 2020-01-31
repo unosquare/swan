@@ -3221,6 +3221,19 @@ references:
   isSpec: "True"
   fullName: Swan.ExceptionExtensions.IsFatalException
   nameWithType: ExceptionExtensions.IsFatalException
+- uid: Swan.ExceptionExtensions.RethrowPreservingStackTrace(Exception)
+  name: RethrowPreservingStackTrace(Exception)
+  href: api/Swan.ExceptionExtensions.html#Swan_ExceptionExtensions_RethrowPreservingStackTrace_Exception_
+  commentId: M:Swan.ExceptionExtensions.RethrowPreservingStackTrace(Exception)
+  fullName: Swan.ExceptionExtensions.RethrowPreservingStackTrace(Exception)
+  nameWithType: ExceptionExtensions.RethrowPreservingStackTrace(Exception)
+- uid: Swan.ExceptionExtensions.RethrowPreservingStackTrace*
+  name: RethrowPreservingStackTrace
+  href: api/Swan.ExceptionExtensions.html#Swan_ExceptionExtensions_RethrowPreservingStackTrace_
+  commentId: Overload:Swan.ExceptionExtensions.RethrowPreservingStackTrace
+  isSpec: "True"
+  fullName: Swan.ExceptionExtensions.RethrowPreservingStackTrace
+  nameWithType: ExceptionExtensions.RethrowPreservingStackTrace
 - uid: Swan.Extensions
   name: Extensions
   href: api/Swan.Extensions.html
