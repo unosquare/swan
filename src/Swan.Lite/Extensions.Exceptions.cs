@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 
 namespace Swan
@@ -32,6 +33,21 @@ namespace Swan
             => @this.IsFatalExceptionCore()
             || (@this.InnerException?.IsFatalException() ?? false)
             || (@this is AggregateException aggregateException && aggregateException.InnerExceptions.Any(e => e.IsFatalException()));
+
+        /// <summary>
+        /// <para>Rethrows an already-thrown exception, preserving the stack trace of the original throw.</para>
+        /// <para>This method does not return; its return type is an exception type so it can be used
+        /// with <c>throw</c> semantics, e.g.: <c>throw ex.RethrowPreservingStackTrace();</c>,
+        /// to let static code analysis tools that it throws instead of returning.</para>
+        /// </summary>
+        /// <param name="this">The exception to rethrow.</param>
+        /// <returns>This method should never return; if it does, it is an indication of an internal error,
+        /// so it returns an instance of <see cref="InternalErrorException"/>.</returns>
+        public static InternalErrorException RethrowPreservingStackTrace(this Exception @this)
+        {
+            ExceptionDispatchInfo.Capture(@this).Throw();
+            return SelfCheck.Failure("Reached unreachable code.");
+        }
 
         private static bool IsCriticalExceptionCore(this Exception @this)
             => IsFatalExceptionCore(@this)
