@@ -9,7 +9,7 @@
         <AssemblyName>Swan.Lite</AssemblyName>
         <RootNamespace>Swan</RootNamespace>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-        <Version>2.6.0</Version>
+        <Version>2.6.1</Version>
         <Authors>Unosquare</Authors>
         <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
         <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
