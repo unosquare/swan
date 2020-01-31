@@ -49,6 +49,6 @@ namespace Swan.Collections
         /// </summary>
         /// <param name="name">The name given to the module, or <see langword="null"/>.</param>
         /// <param name="component">The component.</param>
-        void Add(string name, T component);
+        void Add(string? name, T component);
     }
 }
