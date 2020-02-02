@@ -41,7 +41,7 @@ namespace Swan
     /// <para>Notice that all relevant properties are immutable; this is not, as stated in the summary,
     /// an absolute requirement, but it surely helps and should be done every time it makes sense.</para>
     /// <code>using System;
-    /// using EmbedIO.Utilities;
+    /// using Swan;
     ///
     /// namespace Example
     /// {
