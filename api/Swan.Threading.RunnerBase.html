@@ -89,10 +89,14 @@
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">RunnerBase</span></div>
   </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IDisposable</span></div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Threading.html">Swan.Threading</a></h6>
   <h5 id="Swan_Threading_RunnerBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class RunnerBase : ConfiguredObject</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class RunnerBase : ConfiguredObject, IDisposable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -250,6 +254,16 @@
   </div>
   
   
+  <a id="Swan_Threading_RunnerBase_Dispose_" data-uid="Swan.Threading.RunnerBase.Dispose*"></a>
+  <h4 id="Swan_Threading_RunnerBase_Dispose" data-uid="Swan.Threading.RunnerBase.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
   <a id="Swan_Threading_RunnerBase_DoBackgroundWork_" data-uid="Swan.Threading.RunnerBase.DoBackgroundWork*"></a>
   <h4 id="Swan_Threading_RunnerBase_DoBackgroundWork_CancellationToken_" data-uid="Swan.Threading.RunnerBase.DoBackgroundWork(CancellationToken)">DoBackgroundWork(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Does the background work.</p>
@@ -320,6 +334,10 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
+  </div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">IDisposable</span>
   </div>
 
 <h3 id="disqus_thread">Comments</h3>

@@ -13612,6 +13612,19 @@ references:
   isSpec: "True"
   fullName: Swan.Threading.RunnerBase.Cleanup
   nameWithType: RunnerBase.Cleanup
+- uid: Swan.Threading.RunnerBase.Dispose
+  name: Dispose()
+  href: api/Swan.Threading.RunnerBase.html#Swan_Threading_RunnerBase_Dispose
+  commentId: M:Swan.Threading.RunnerBase.Dispose
+  fullName: Swan.Threading.RunnerBase.Dispose()
+  nameWithType: RunnerBase.Dispose()
+- uid: Swan.Threading.RunnerBase.Dispose*
+  name: Dispose
+  href: api/Swan.Threading.RunnerBase.html#Swan_Threading_RunnerBase_Dispose_
+  commentId: Overload:Swan.Threading.RunnerBase.Dispose
+  isSpec: "True"
+  fullName: Swan.Threading.RunnerBase.Dispose
+  nameWithType: RunnerBase.Dispose
 - uid: Swan.Threading.RunnerBase.DoBackgroundWork(CancellationToken)
   name: DoBackgroundWork(CancellationToken)
   href: api/Swan.Threading.RunnerBase.html#Swan_Threading_RunnerBase_DoBackgroundWork_CancellationToken_
