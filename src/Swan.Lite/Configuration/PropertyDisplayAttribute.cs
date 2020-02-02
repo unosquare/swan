@@ -9,6 +9,7 @@ namespace Swan.Configuration
     /// </summary>
     /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
+    [Obsolete("This attribute will be removed in next version")]
     public sealed class PropertyDisplayAttribute : Attribute
     {
         /// <summary>

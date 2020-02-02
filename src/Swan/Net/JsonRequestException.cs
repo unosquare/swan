@@ -1,4 +1,6 @@
-﻿namespace Swan.Net
+﻿using System.Net.Http;
+
+namespace Swan.Net
 {
     using System;
 
@@ -11,17 +13,36 @@
         : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonRequestException"/> class.
+        /// Initializes a new instance of the <see cref="JsonRequestException" /> class.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
         /// <param name="httpErrorCode">The HTTP error code.</param>
         /// <param name="errorContent">Content of the error.</param>
-        public JsonRequestException(string message, int httpErrorCode = 500, string? errorContent = null)
-            : base(message)
+        public JsonRequestException(Uri url, HttpMethod method, int httpErrorCode = 500, string? errorContent = null)
+            : base($"HTTP Request Error Url {url} Method {method} HTTP Status Code {httpErrorCode} Body Content {errorContent}")
         {
+            Url = url;
+            Method = method;
             HttpErrorCode = httpErrorCode;
             HttpErrorContent = errorContent;
         }
+
+        /// <summary>
+        /// Gets the URL.
+        /// </summary>
+        /// <value>
+        /// The URL.
+        /// </value>
+        public Uri Url { get; }
+
+        /// <summary>
+        /// Gets the method.
+        /// </summary>
+        /// <value>
+        /// The method.
+        /// </value>
+        public HttpMethod Method { get; }
 
         /// <summary>
         /// Gets the HTTP error code.

@@ -63,6 +63,7 @@ namespace Swan.Reflection
         /// <value>
         /// The default value.
         /// </value>
+        [Obsolete("This property will be removed in next version")]
         public object? DefaultValue { get; }
 
         /// <summary>
@@ -71,6 +72,7 @@ namespace Swan.Reflection
         /// <value>
         /// The name.
         /// </value>
+        [Obsolete("This property will be removed in next version")]
         public string? Name { get;  }
 
         /// <summary>
@@ -79,6 +81,7 @@ namespace Swan.Reflection
         /// <value>
         /// The description.
         /// </value>
+        [Obsolete("This property will be removed in next version")]
         public string? Description { get; }
 
         /// <summary>
@@ -87,6 +90,7 @@ namespace Swan.Reflection
         /// <value>
         /// The name of the group.
         /// </value>
+        [Obsolete("This property will be removed in next version")]
         public string? GroupName { get; }
     }
 

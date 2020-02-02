@@ -34,7 +34,7 @@
         /// </returns>
         public static async Task<T> Post<T>(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
             CancellationToken cancellationToken = default)
         {
@@ -56,7 +56,7 @@
         /// </returns>
         public static async Task<IDictionary<string, object>?> Post(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
             CancellationToken cancellationToken = default)
         {
@@ -82,10 +82,10 @@
         /// <exception cref="JsonRequestException">Error POST JSON.</exception>
         public static Task<string> PostString(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
             CancellationToken cancellationToken = default)
-            => SendAsync(HttpMethod.Post, requestUri, payload, authorization, cancellationToken);
+            => SendAsync(HttpMethod.Post, requestUri, payload, authorization, null, cancellationToken);
 
         /// <summary>
         /// Puts the specified URL.
@@ -100,7 +100,7 @@
         /// </returns>
         public static async Task<T> Put<T>(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
             CancellationToken ct = default)
         {
@@ -122,7 +122,7 @@
         /// </returns>
         public static async Task<IDictionary<string, object>?> Put(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
             CancellationToken cancellationToken = default)
         {
@@ -146,9 +146,9 @@
         /// <exception cref="JsonRequestException">Error PUT JSON.</exception>
         public static Task<string> PutString(
             Uri requestUri,
-            object payload,
+            object? payload,
             string? authorization = null,
-            CancellationToken ct = default) => SendAsync(HttpMethod.Put, requestUri, payload, authorization, ct);
+            CancellationToken ct = default) => SendAsync(HttpMethod.Put, requestUri, payload, authorization, null, ct);
 
         /// <summary>
         /// Gets as string.
@@ -276,7 +276,7 @@
         public static async Task<IDictionary<string, object>?> Authenticate(
             Uri requestUri,
             string username,
-            string password,
+            string? password,
             CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -306,13 +306,17 @@
         /// <returns>
         /// A task with a result of the requested string.
         /// </returns>
-        public static Task<string> PostFileString(
-            Uri requestUri,
-            byte[] buffer,
-            string fileName,
-            string? authorization = null,
-            CancellationToken ct = default) =>
-            PostString(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
+        /// <exception cref="ArgumentNullException">fileName</exception>
+        public static Task<string> PostFileString(Uri requestUri, byte[] buffer, string fileName, string? authorization = null, CancellationToken ct = default)
+        {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if (fileName == null)
+                throw new ArgumentNullException(nameof(fileName));
+
+            return PostString(requestUri, new {Filename = fileName, Data = buffer}, authorization, ct);
+        }
 
         /// <summary>
         /// Posts the file.
@@ -326,13 +330,21 @@
         /// <returns>
         /// A task with a result of the requested string.
         /// </returns>
-        public static Task<T> PostFile<T>(
-            Uri requestUri,
-            byte[] buffer,
-            string fileName,
-            string? authorization = null,
-            CancellationToken ct = default) =>
-            Post<T>(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
+        /// <exception cref="ArgumentNullException">
+        /// buffer
+        /// or
+        /// fileName
+        /// </exception>
+        public static Task<T> PostFile<T>(Uri requestUri, byte[] buffer, string fileName, string? authorization = null, CancellationToken ct = default)
+        {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if (fileName == null)
+                throw new ArgumentNullException(nameof(fileName));
+
+            return Post<T>(requestUri, new {Filename = fileName, Data = buffer}, authorization, ct);
+        }
 
         /// <summary>
         /// Sends the asynchronous request.
@@ -341,30 +353,34 @@
         /// <param name="requestUri">The request URI.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
+        /// <param name="headers">The headers.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
         /// A task with a result of the requested string.
         /// </returns>
-        /// <exception cref="ArgumentNullException">requestUri.</exception>
         /// <exception cref="JsonRequestException">Error {method} JSON.</exception>
+        /// <exception cref="ArgumentNullException">requestUri.</exception>
         public static async Task<string> SendAsync(
             HttpMethod method,
             Uri requestUri,
-            object payload,
+            object? payload = null,
             string? authorization = null,
+            IDictionary<string, IEnumerable<string>>? headers = null,
             CancellationToken ct = default)
         {
-            using var response = await GetResponse(requestUri, authorization, null, payload, method, ct).ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new JsonRequestException(
-                    $"Error {method} JSON",
-                    (int)response.StatusCode,
-                    await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-            }
-
-            return await response.Content.ReadAsStringAsync()
+            using var response = await GetResponse(requestUri, authorization, headers, payload, method, ct)
                 .ConfigureAwait(false);
+
+            var responseString = await response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            return !response.IsSuccessStatusCode
+                ? throw new JsonRequestException(
+                    requestUri,
+                    method,
+                    (int) response.StatusCode,
+                    responseString)
+                : responseString;
         }
 
         private static async Task<HttpContent> GetHttpContent(
@@ -378,7 +394,7 @@
 
             return response.IsSuccessStatusCode
                 ? response.Content
-                : throw new JsonRequestException("Error GET", (int)response.StatusCode);
+                : throw new JsonRequestException(uri, HttpMethod.Get, (int)response.StatusCode);
         }
 
         private static async Task<HttpResponseMessage> GetResponse(

@@ -138,6 +138,7 @@ namespace Swan.Configuration
         /// Gets the list.
         /// </summary>
         /// <returns>A List of ExtendedPropertyInfo of the type T.</returns>
+        [Obsolete("This method will be removed in next version")]
         public List<ExtendedPropertyInfo<T>>? GetList()
         {
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;
