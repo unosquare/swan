@@ -7875,12 +7875,15 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonClient.PutString
   nameWithType: JsonClient.PutString
-- uid: Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Threading.CancellationToken)
-  name: SendAsync(HttpMethod, Uri, Object, String, CancellationToken)
-  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_String_System_Threading_CancellationToken_
-  commentId: M:Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Threading.CancellationToken)
-  fullName: Swan.Net.JsonClient.SendAsync(HttpMethod, Uri, System.Object, System.String, System.Threading.CancellationToken)
-  nameWithType: JsonClient.SendAsync(HttpMethod, Uri, Object, String, CancellationToken)
+- uid: Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.Threading.CancellationToken)
+  name: SendAsync(HttpMethod, Uri, Object, String, IDictionary<String, IEnumerable<String>>, CancellationToken)
+  href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_String_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String___System_Threading_CancellationToken_
+  commentId: M:Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.Threading.CancellationToken)
+  name.vb: SendAsync(HttpMethod, Uri, Object, String, IDictionary(Of String, IEnumerable(Of String)), CancellationToken)
+  fullName: Swan.Net.JsonClient.SendAsync(HttpMethod, Uri, System.Object, System.String, System.Collections.Generic.IDictionary<System.String, System.Collections.Generic.IEnumerable<System.String>>, System.Threading.CancellationToken)
+  fullName.vb: Swan.Net.JsonClient.SendAsync(HttpMethod, Uri, System.Object, System.String, System.Collections.Generic.IDictionary(Of System.String, System.Collections.Generic.IEnumerable(Of System.String)), System.Threading.CancellationToken)
+  nameWithType: JsonClient.SendAsync(HttpMethod, Uri, Object, String, IDictionary<String, IEnumerable<String>>, CancellationToken)
+  nameWithType.vb: JsonClient.SendAsync(HttpMethod, Uri, Object, String, IDictionary(Of String, IEnumerable(Of String)), CancellationToken)
 - uid: Swan.Net.JsonClient.SendAsync*
   name: SendAsync
   href: api/Swan.Net.JsonClient.html#Swan_Net_JsonClient_SendAsync_
@@ -7894,12 +7897,12 @@ references:
   commentId: T:Swan.Net.JsonRequestException
   fullName: Swan.Net.JsonRequestException
   nameWithType: JsonRequestException
-- uid: Swan.Net.JsonRequestException.#ctor(System.String,System.Int32,System.String)
-  name: JsonRequestException(String, Int32, String)
-  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException__ctor_System_String_System_Int32_System_String_
-  commentId: M:Swan.Net.JsonRequestException.#ctor(System.String,System.Int32,System.String)
-  fullName: Swan.Net.JsonRequestException.JsonRequestException(System.String, System.Int32, System.String)
-  nameWithType: JsonRequestException.JsonRequestException(String, Int32, String)
+- uid: Swan.Net.JsonRequestException.#ctor(Uri,HttpMethod,System.Int32,System.String)
+  name: JsonRequestException(Uri, HttpMethod, Int32, String)
+  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException__ctor_Uri_HttpMethod_System_Int32_System_String_
+  commentId: M:Swan.Net.JsonRequestException.#ctor(Uri,HttpMethod,System.Int32,System.String)
+  fullName: Swan.Net.JsonRequestException.JsonRequestException(Uri, HttpMethod, System.Int32, System.String)
+  nameWithType: JsonRequestException.JsonRequestException(Uri, HttpMethod, Int32, String)
 - uid: Swan.Net.JsonRequestException.#ctor*
   name: JsonRequestException
   href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException__ctor_
@@ -7933,6 +7936,19 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonRequestException.HttpErrorContent
   nameWithType: JsonRequestException.HttpErrorContent
+- uid: Swan.Net.JsonRequestException.Method
+  name: Method
+  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException_Method
+  commentId: P:Swan.Net.JsonRequestException.Method
+  fullName: Swan.Net.JsonRequestException.Method
+  nameWithType: JsonRequestException.Method
+- uid: Swan.Net.JsonRequestException.Method*
+  name: Method
+  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException_Method_
+  commentId: Overload:Swan.Net.JsonRequestException.Method
+  isSpec: "True"
+  fullName: Swan.Net.JsonRequestException.Method
+  nameWithType: JsonRequestException.Method
 - uid: Swan.Net.JsonRequestException.ToString
   name: ToString()
   href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException_ToString
@@ -7946,6 +7962,19 @@ references:
   isSpec: "True"
   fullName: Swan.Net.JsonRequestException.ToString
   nameWithType: JsonRequestException.ToString
+- uid: Swan.Net.JsonRequestException.Url
+  name: Url
+  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException_Url
+  commentId: P:Swan.Net.JsonRequestException.Url
+  fullName: Swan.Net.JsonRequestException.Url
+  nameWithType: JsonRequestException.Url
+- uid: Swan.Net.JsonRequestException.Url*
+  name: Url
+  href: api/Swan.Net.JsonRequestException.html#Swan_Net_JsonRequestException_Url_
+  commentId: Overload:Swan.Net.JsonRequestException.Url
+  isSpec: "True"
+  fullName: Swan.Net.JsonRequestException.Url
+  nameWithType: JsonRequestException.Url
 - uid: Swan.Net.Network
   name: Network
   href: api/Swan.Net.Network.html

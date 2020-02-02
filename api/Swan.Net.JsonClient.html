@@ -807,6 +807,24 @@ with optional authorization token.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>buffer
+or
+fileName</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Swan_Net_JsonClient_PostFileString_" data-uid="Swan.Net.JsonClient.PostFileString*"></a>
@@ -872,6 +890,22 @@ with optional authorization token.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><p>A task with a result of the requested string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>fileName</p>
 </td>
       </tr>
     </tbody>
@@ -1189,13 +1223,13 @@ with optional authorization token.</p>
   
   
   <a id="Swan_Net_JsonClient_SendAsync_" data-uid="Swan.Net.JsonClient.SendAsync*"></a>
-  <h4 id="Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_String_System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Threading.CancellationToken)">SendAsync(HttpMethod, Uri, Object, String, CancellationToken)</h4>
+  <h4 id="Swan_Net_JsonClient_SendAsync_HttpMethod_Uri_System_Object_System_String_System_Collections_Generic_IDictionary_System_String_System_Collections_Generic_IEnumerable_System_String___System_Threading_CancellationToken_" data-uid="Swan.Net.JsonClient.SendAsync(HttpMethod,Uri,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.Threading.CancellationToken)">SendAsync(HttpMethod, Uri, Object, String, IDictionary&lt;String, IEnumerable&lt;String&gt;&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sends the asynchronous request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, Uri requestUri, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; SendAsync(HttpMethod method, Uri requestUri, object payload = null, string authorization = null, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt; headers = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1232,6 +1266,12 @@ with optional authorization token.</p>
 </td>
       </tr>
       <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</td>
+        <td><span class="parametername">headers</span></td>
+        <td><p>The headers.</p>
+</td>
+      </tr>
+      <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">ct</span></td>
         <td><p>The cancellation token.</p>
@@ -1265,13 +1305,13 @@ with optional authorization token.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>requestUri.</p>
+        <td><a class="xref" href="Swan.Net.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error {method} JSON.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Swan.Net.JsonRequestException.html">JsonRequestException</a></td>
-        <td><p>Error {method} JSON.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>requestUri.</p>
 </td>
       </tr>
     </tbody>
