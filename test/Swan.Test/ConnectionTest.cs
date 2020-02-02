@@ -7,6 +7,8 @@
     using NUnit.Framework;
     using Swan.Net;
     using System.Net;
+    using Moq;
+    using AutoFixture;
 
     public abstract class ConnectionTest
     {
