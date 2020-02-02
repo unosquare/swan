@@ -86,21 +86,25 @@ namespace Swan
                     try
                     {
                         // Try to open existing mutex.
-                        Mutex.OpenExisting(ApplicationMutexName);
+                        using var _ = Mutex.OpenExisting(ApplicationMutexName);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         try
                         {
                             // If exception occurred, there is no such mutex.
-                            var appMutex = new Mutex(true, ApplicationMutexName);
+                            using var appMutex = new Mutex(true, ApplicationMutexName);
                             $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(
                                 typeof(SwanRuntime));
 
                             // Only one instance.
                             return true;
                         }
+#pragma warning disable CA1031 // Do not catch general exception types
                         catch
+#pragma warning restore CA1031 // Do not catch general exception types
                         {
                             // Sometimes the user can't create the Global Mutex
                         }

@@ -14,8 +14,14 @@ namespace Swan
         /// but is meant to be called from a non-<see langword="async"/> method.</para>
         /// </summary>
         /// <param name="this">The <see cref="Task"/> on which this method is called.</param>
-        /// <exception cref="NullReferenceException"><paramref name="this"/> is <see langword="null"/>.</exception>
-        public static void Await(this Task @this) => @this.GetAwaiter().GetResult();
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        public static void Await(this Task @this)
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            @this.GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// <para>Suspends execution until the specified <see cref="Task"/> is completed
@@ -26,8 +32,14 @@ namespace Swan
         /// <typeparam name="TResult">The type of the task's result.</typeparam>
         /// <param name="this">The <see cref="Task{TResult}"/> on which this method is called.</param>
         /// <returns>The result of <paramref name="this"/>.</returns>
-        /// <exception cref="NullReferenceException"><paramref name="this"/> is <see langword="null"/>.</exception>
-        public static TResult Await<TResult>(this Task<TResult> @this) => @this.GetAwaiter().GetResult();
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        public static TResult Await<TResult>(this Task<TResult> @this)
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            return @this.GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// <para>Suspends execution until the specified <see cref="Task"/> is completed.</para>
@@ -39,9 +51,14 @@ namespace Swan
         /// attempts to marshal the continuation back to the original context captured.
         /// This parameter has the same effect as calling the <see cref="Task.ConfigureAwait"/>
         /// method.</param>
-        /// <exception cref="NullReferenceException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
         public static void Await(this Task @this, bool continueOnCapturedContext)
-            => @this.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            @this.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// <para>Suspends execution until the specified <see cref="Task"/> is completed
@@ -56,8 +73,13 @@ namespace Swan
         /// This parameter has the same effect as calling the <see cref="Task.ConfigureAwait"/>
         /// method.</param>
         /// <returns>The result of <paramref name="this"/>.</returns>
-        /// <exception cref="NullReferenceException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
         public static TResult Await<TResult>(this Task<TResult> @this, bool continueOnCapturedContext)
-            => @this.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            return @this.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
+        }
     }
 }

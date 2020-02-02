@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <inheritdoc />
     /// <summary>
     /// Provides a base implementation for application workers.
     /// </summary>
@@ -15,7 +16,7 @@
         private bool _isTimerAlive = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TimerWorkerBase"/> class.
+        /// Initializes a new instance of the <see cref="TimerWorkerBase" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="period">The execution interval.</param>
@@ -165,7 +166,9 @@
 
                     // Cancel any awaiters
                     try { StateChangedEvent.Set(); }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch { /* Ignore */ }
+#pragma warning restore CA1031 // Do not catch general exception types
 
                     return;
                 }
@@ -186,17 +189,18 @@
 
             try
             {
-                if (initialWorkerState == WorkerState.Waiting &&
-                    !interruptToken.IsCancellationRequested)
-                {
-                    // Mark the state as Running
-                    WorkerState = WorkerState.Running;
+                if (initialWorkerState != WorkerState.Waiting || interruptToken.IsCancellationRequested)
+                    return;
 
-                    // Call the execution logic
-                    ExecuteCycleLogic(interruptToken);
-                }
+                // Mark the state as Running
+                WorkerState = WorkerState.Running;
+
+                // Call the execution logic
+                ExecuteCycleLogic(interruptToken);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 OnCycleException(ex);
             }

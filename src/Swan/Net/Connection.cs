@@ -121,7 +121,7 @@
         {
             // Setup basic properties
             Id = Guid.NewGuid();
-            TextEncoding = textEncoding;
+            TextEncoding = textEncoding ?? throw new ArgumentNullException(nameof(textEncoding));
 
             // Setup new line sequence
             if (string.IsNullOrEmpty(newLineSequence))
@@ -138,7 +138,7 @@
             DataSentLastTimeUtc = ConnectionStartTimeUtc;
 
             // Setup connection properties
-            RemoteClient = client;
+            RemoteClient = client ?? throw new ArgumentNullException(nameof(client));
             LocalEndPoint = client.Client.LocalEndPoint as IPEndPoint;
             NetworkStream = RemoteClient.GetStream();
             RemoteEndPoint = RemoteClient.Client.RemoteEndPoint as IPEndPoint;
@@ -226,7 +226,7 @@
         /// <value>
         /// The active stream.
         /// </value>
-        public Stream ActiveStream => SecureStream ?? NetworkStream as Stream;
+        public Stream? ActiveStream => SecureStream ?? NetworkStream as Stream;
 
         /// <summary>
         /// Gets a value indicating whether the current connection stream is an SSL stream.
@@ -379,9 +379,9 @@
             }
         }
 
-        private NetworkStream NetworkStream { get; set; }
+        private NetworkStream? NetworkStream { get; set; }
 
-        private SslStream SecureStream { get; set; }
+        private SslStream? SecureStream { get; set; }
 
         #endregion
 
@@ -639,7 +639,9 @@
                 SecureStream = secureStream;
                 return true;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 ConnectionFailure(this, new ConnectionFailureEventArgs(ex));
                 secureStream?.Dispose();
@@ -670,7 +672,9 @@
                 await secureStream.AuthenticateAsClientAsync(hostname ?? Network.HostName.ToLowerInvariant()).ConfigureAwait(false);
                 SecureStream = secureStream;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 secureStream.Dispose();
                 ConnectionFailure(this, new ConnectionFailureEventArgs(ex));

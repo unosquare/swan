@@ -210,9 +210,7 @@ namespace Swan.Mappers
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)
-            {
                 throw new ArgumentNullException(nameof(source));
-            }
 
             var destination = Activator.CreateInstance<TDestination>();
             var map = _maps
@@ -237,7 +235,7 @@ namespace Swan.Mappers
                 }
 
                 // Missing mapping, try to use default behavior
-                Copy(source, destination);
+                Copy(source, destination!);
             }
 
             return destination;
@@ -299,7 +297,9 @@ namespace Swan.Mappers
 
                 return true;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // swallow
             }
@@ -338,7 +338,9 @@ namespace Swan.Mappers
                                 ? item
                                 : item.CopyPropertiesToNew<object>());
                         }
+#pragma warning disable CA1031 // Do not catch general exception types
                         catch
+#pragma warning restore CA1031 // Do not catch general exception types
                         {
                             // ignored
                         }
@@ -346,7 +348,7 @@ namespace Swan.Mappers
 
                     break;
                 default:
-                    source.CopyPropertiesTo(target);
+                    source.CopyPropertiesTo(target!);
                     break;
             }
 

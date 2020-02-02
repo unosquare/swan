@@ -16,7 +16,7 @@ namespace Swan.Test
             var view = new PersonView();
             var imax = new Random().Next(10);
 
-            for (int i = 0; i < imax; i++)
+            for (var i = 0; i < imax; i++)
                 view.SetName(fixture.Create<string>());
 
             Assert.That(view.ChangeCounter, Is.EqualTo(imax));
@@ -44,7 +44,7 @@ namespace Swan.Test
         [Test]
         public async Task ViewModelBaseDeferredNotification()
         {
-            var view = new PersonView("", true);
+            var view = new PersonView(string.Empty, true);
             var actualCount = view.ChangeCounter;
 
             await view.SetNameAsync("Unosquare");
@@ -54,36 +54,34 @@ namespace Swan.Test
 
     internal class PersonView : ViewModelBase
     {
-        private string name;
-        private int age;
+        private string _name;
 
         public int ChangeCounter { get; private set; }
 
         public PersonView(string initValue = "", bool deferredNotifications = false)
             : base(deferredNotifications)
         {
-            name = initValue;
-            this.PropertyChanged += Handler;
+            _name = initValue;
+            PropertyChanged += Handler;
         }
 
         public void SetName(string value)
         {
-            SetProperty(ref name, value);
+            SetProperty(ref _name, value);
         }
 
         public void SetProperties(string name, int age)
         {
-            this.name = name;
-            this.age = age;
-            NotifyPropertyChanged(new string[] { "name", "age" });
+            this._name = name;
+            NotifyPropertyChanged("name", "age");
         }
 
         public Task SetNameAsync(string value)
         {
-            var actulaCount = ChangeCounter;
-            SetProperty(ref name, value);
+            var actualCount = ChangeCounter;
+            SetProperty(ref _name, value);
 
-            return Task.Run(() => { while (ChangeCounter <= actulaCount) { } });
+            return Task.Run(() => { while (ChangeCounter <= actualCount) { } });
         }
 
         private void Handler(object sender, PropertyChangedEventArgs e) {

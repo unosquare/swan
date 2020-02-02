@@ -50,7 +50,9 @@ namespace Swan
                 var disposableInstance = LazyInstance.Value as IDisposable;
                 disposableInstance?.Dispose();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // swallow
             }

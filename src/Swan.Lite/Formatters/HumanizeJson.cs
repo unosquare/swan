@@ -9,26 +9,26 @@ namespace Swan.Formatters
         private readonly StringBuilder _builder = new StringBuilder();
         private readonly int _indent;
         private readonly string _indentStr;
-        private readonly object _obj;
+        private readonly object? _obj;
 
         public HumanizeJson(object? obj, int indent)
         {
-            if (obj == null)
-            {
-                return;
-            }
-
+            _obj = obj;
             _indent = indent;
             _indentStr = new string(' ', indent * 4);
-            _obj = obj;
 
             ParseObject();
         }
 
-        public string GetResult() => _builder == null ? string.Empty : _builder.ToString().TrimEnd();
+        public string GetResult() => _obj == null ? string.Empty : _builder.ToString().TrimEnd();
 
         private void ParseObject()
         {
+            if (_obj == null)
+            {
+                return;
+            }
+
             switch (_obj)
             {
                 case Dictionary<string, object> dictionary:
@@ -38,7 +38,7 @@ namespace Swan.Formatters
                     AppendList(list);
                     break;
                 default:
-                    AppendString();
+                    AppendString(_obj.ToString());
                     break;
             }
         }
@@ -84,7 +84,7 @@ namespace Swan.Formatters
             }
         }
 
-        private void AppendList(List<object> objects)
+        private void AppendList(IEnumerable<object> objects)
         {
             var index = 0;
             foreach (var value in objects)
@@ -126,24 +126,21 @@ namespace Swan.Formatters
             }
         }
 
-        private void AppendString()
+        private void AppendString(string stringValue)
         {
-            var stringValue = _obj.ToString();
-
-            if (stringValue.Length + _indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
-                stringValue.IndexOf('\n') >= 0)
-            {
-                _builder.AppendLine();
-                var stringLines = stringValue.ToLines().Select(l => l.Trim());
-
-                foreach (var line in stringLines)
-                {
-                    _builder.AppendLine($"{_indentStr}{line}");
-                }
-            }
-            else
+            if (stringValue.Length + _indentStr.Length <= 96 && stringValue.IndexOf('\r') < 0 &&
+                stringValue.IndexOf('\n') < 0)
             {
                 _builder.Append($"{stringValue}");
+                return;
+            }
+
+            _builder.AppendLine();
+            var stringLines = stringValue.ToLines().Select(l => l.Trim());
+
+            foreach (var line in stringLines)
+            {
+                _builder.AppendLine($"{_indentStr}{line}");
             }
         }
     }

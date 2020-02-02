@@ -48,19 +48,18 @@ namespace Swan.Mappers
                 Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
                 Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
+            if (destinationProperty == null)
+                throw new ArgumentNullException(nameof(destinationProperty));
+
             var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
-            {
                 throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
-            }
 
             var sourceMembers = GetSourceMembers(sourceProperty);
 
-            if (sourceMembers.Any() == false)
-            {
+            if (!sourceMembers.Any())
                 throw new ArgumentException("Invalid source expression", nameof(sourceProperty));
-            }
 
             // reverse order
             sourceMembers.Reverse();
@@ -82,6 +81,9 @@ namespace Swan.Mappers
         public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
         {
+            if (destinationProperty == null)
+                throw new ArgumentNullException(nameof(destinationProperty));
+
             var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
@@ -97,6 +99,9 @@ namespace Swan.Mappers
         
         private static List<PropertyInfo> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
+            if (sourceProperty == null)
+                throw new ArgumentNullException(nameof(sourceProperty));
+
             var sourceMembers = new List<PropertyInfo>();
             var initialExpression = sourceProperty.Body as MemberExpression;
 

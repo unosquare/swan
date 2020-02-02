@@ -9,10 +9,10 @@ namespace Swan.Threading
     /// <summary>
     /// Represents an background worker abstraction with a life cycle and running at a independent thread.
     /// </summary>
-    public abstract class RunnerBase : ConfiguredObject
+    public abstract class RunnerBase : ConfiguredObject, IDisposable
     {
-        private Thread _worker;
-        private CancellationTokenSource _cancelTokenSource;
+        private Thread? _worker;
+        private CancellationTokenSource? _cancelTokenSource;
         private ManualResetEvent? _workFinished;
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Swan.Threading
                 return;
 
             "Stop Requested".Debug(Name);
-            _cancelTokenSource.Cancel();
+            _cancelTokenSource?.Cancel();
             var waitRetries = 5;
             while (waitRetries >= 1)
             {
@@ -131,7 +131,7 @@ namespace Swan.Threading
             else
             {
                 "Did not respond to stop request. Aborting thread and waiting . . .".Warn(Name);
-                _worker.Abort();
+                _worker?.Abort();
 
                 if (_workFinished?.WaitOne(5000) == false)
                     "Waited and no response. Worker might have been left in an inconsistent state.".Error(Name);
@@ -141,6 +141,13 @@ namespace Swan.Threading
 
             _workFinished?.Dispose();
             _workFinished = null;
+        }
+        
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            _cancelTokenSource?.Dispose();
+            _workFinished?.Dispose();
         }
 
         /// <summary>

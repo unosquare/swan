@@ -23,7 +23,7 @@ namespace Swan.Formatters
             private static readonly ConcurrentDictionary<MemberInfo, string> MemberInfoNameCache =
                 new ConcurrentDictionary<MemberInfo, string>();
 
-            private static readonly ConcurrentDictionary<Type, Type> ListAddMethodCache = new ConcurrentDictionary<Type, Type>();
+            private static readonly ConcurrentDictionary<Type, Type?> ListAddMethodCache = new ConcurrentDictionary<Type, Type?>();
 
             private readonly object? _target;
             private readonly Type _targetType;
@@ -99,7 +99,7 @@ namespace Swan.Formatters
                 } // Get the string bytes in UTF8
             }
 
-            private object GetSourcePropertyValue(
+            private object? GetSourcePropertyValue(
                 IDictionary<string, object> sourceProperties,
                 MemberInfo targetProperty)
             {
@@ -107,7 +107,7 @@ namespace Swan.Formatters
                     targetProperty,
                     x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.PropertyName ?? x.Name.GetNameWithCase(_jsonSerializerCase));
 
-                return sourceProperties.GetValueOrDefault(targetPropertyName);
+                return sourceProperties!.GetValueOrDefault(targetPropertyName);
             }
 
             private bool TrySetInstance(object? targetInstance, object source, ref object? target)
@@ -119,7 +119,9 @@ namespace Swan.Formatters
                     {
                         source.CreateTarget(_targetType, _includeNonPublic, ref target);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         return false;
                     }
@@ -191,7 +193,9 @@ namespace Swan.Formatters
                             parameterType,
                             _includeNonPublic));
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         // ignored
                     }
@@ -213,7 +217,9 @@ namespace Swan.Formatters
                             _includeNonPublic);
                         array.SetValue(targetItem, i);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         // ignored
                     }
@@ -230,7 +236,9 @@ namespace Swan.Formatters
                 {
                     target = Enum.Parse(enumType, sourceStringValue);
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     // ignored
                 }
@@ -263,7 +271,9 @@ namespace Swan.Formatters
                             _includeNonPublic);
                         targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         // ignored
                     }
@@ -272,10 +282,11 @@ namespace Swan.Formatters
 
             private void PopulateObject(IDictionary<string, object> sourceProperties)
             {
+                if (sourceProperties == null)
+                    return;
+
                 if (_targetType.IsValueType)
-                {
                     PopulateFields(sourceProperties);
-                }
 
                 PopulateProperties(sourceProperties);
             }
@@ -303,7 +314,9 @@ namespace Swan.Formatters
 
                         property.GetCacheSetMethod(_includeNonPublic)(_target, new[] { targetPropertyValue });
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         // ignored
                     }
@@ -327,7 +340,9 @@ namespace Swan.Formatters
                     {
                         field.SetValue(_target, targetPropertyValue);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         // ignored
                     }

@@ -162,7 +162,7 @@ namespace Swan
         /// right.
         /// </exception>
         public static bool AreEnumerationsEquals<T>(T left, T right)
-            where T : IEnumerable
+            where T : IEnumerable?
         {
             if (Equals(left, default(T)))
                 throw new ArgumentNullException(nameof(left));

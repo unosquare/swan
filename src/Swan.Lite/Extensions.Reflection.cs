@@ -210,7 +210,9 @@ namespace Swan
                     return true;
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // swallow
             }
@@ -257,7 +259,9 @@ namespace Swan
                     return true;
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // swallow
             }
@@ -331,7 +335,9 @@ namespace Swan
                     ? (valueToFormat?.ToString() ?? string.Empty)
                     : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 return null;
             }
@@ -400,7 +406,9 @@ namespace Swan
             {
                 return Convert.ToBoolean(Convert.ToInt32(str));
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // ignored
             }
@@ -436,7 +444,7 @@ namespace Swan
         /// </returns>
         public static bool ToBoolean(this object value) => value.ToStringInvariant().ToBoolean();
 
-        private static string ConvertObjectAndFormat(Type propertyType, object value, string format)
+        private static string ConvertObjectAndFormat(Type propertyType, object? value, string? format)
         {
             if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
                 return Convert.ToDateTime(value, CultureInfo.InvariantCulture).ToString(format);

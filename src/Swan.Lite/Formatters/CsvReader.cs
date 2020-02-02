@@ -76,8 +76,8 @@ namespace Swan.Formatters
         private char _separatorCharacter = ',';
         
         private bool _hasDisposed; // To detect redundant calls
-        private string[] _headings;
-        private Dictionary<string, string> _defaultMap;
+        private string[]? _headings;
+        private Dictionary<string, string>? _defaultMap;
         private StreamReader? _reader;
         
         #region Constructors
@@ -218,7 +218,7 @@ namespace Swan.Formatters
             {
                 lock (_syncLock)
                 {
-                    return _reader.EndOfStream;
+                    return _reader?.EndOfStream ?? true;
                 }
             }
         }
@@ -234,12 +234,12 @@ namespace Swan.Formatters
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public string[] ReadLine()
         {
+            if (EndOfStream)
+                throw new EndOfStreamException("Cannot read past the end of the stream");
+
             lock (_syncLock)
             {
-                if (_reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                var values = ParseRecord(_reader, _escapeCharacter, _separatorCharacter);
+                var values = ParseRecord(_reader!, _escapeCharacter, _separatorCharacter);
                 _count++;
                 return values;
             }
@@ -258,12 +258,12 @@ namespace Swan.Formatters
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
         public void SkipRecord()
         {
+            if (EndOfStream)
+                throw new EndOfStreamException("Cannot read past the end of the stream");
+
             lock (_syncLock)
             {
-                if (_reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                ParseRecord(_reader, _escapeCharacter, _separatorCharacter);
+                ParseRecord(_reader!, _escapeCharacter, _separatorCharacter);
             }
         }
 
@@ -453,7 +453,7 @@ namespace Swan.Formatters
                 {
                     // Get the current and next character
                     var currentChar = line[charIndex];
-                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new char?();
+                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : default(char?);
 
                     // Perform logic based on state and decide on next state
                     switch (currentState)

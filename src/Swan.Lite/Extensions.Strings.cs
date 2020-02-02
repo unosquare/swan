@@ -122,7 +122,9 @@ namespace Swan
 
                 return new HumanizeJson(jsonData, 0).GetResult();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 return @this.ToStringInvariant();
             }
@@ -367,7 +369,8 @@ namespace Swan
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
         public static bool Contains(this string value, params char[] chars) =>
-            chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
+            chars != null &&
+            (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
 
         /// <summary>
         /// Replaces all chars in a string.
