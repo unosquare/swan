@@ -19,7 +19,7 @@
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.11.0" />
         <PackageReference Include="AutoFixture.AutoMoq" Version="4.11.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="Moq" Version="4.13.1" />
         <packagereference Include="NUnit3TestAdapter" Version="3.16.1">
           <PrivateAssets>all</PrivateAssets>
