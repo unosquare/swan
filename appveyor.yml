@@ -35,16 +35,10 @@ before_build:
 - ps: $NTP = Start-Process node ntp.js -PassThru
 - dotnet restore -v Minimal
 - cmd: mkdir tools
-- cmd: nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 build_script:
 - msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
-- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude=[NUnit3.TestAdapter]* test/Swan.Test/Swan.Test.csproj -c Release
-- ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
-        {
-            tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i test\Swan.Test\coverage.opencover.xml --serviceName appveyor --jobId $Env:APPVEYOR_BUILD_NUMBER
-        }
+- dotnet test test/Swan.Test/Swan.Test.csproj -c Release
 after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows -And $env:APPVEYOR_REPO_BRANCH -eq "master")
