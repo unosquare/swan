@@ -526,11 +526,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Diagnostics.RealTimeClock.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Diagnostics.RealTimeClock.html",
+          "hash": "uHxF5yONhGqElq0eZqTZEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Diagnostics.yml",
       "output": {
         ".html": {
           "relative_path": "api/Swan.Diagnostics.html",
-          "hash": "/K0e8kdmRpbz66S7HlX5yw=="
+          "hash": "8PMVp6b161/5sWgD5PWCFA=="
         }
       },
       "is_incremental": false,
@@ -2414,7 +2426,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "avLJ5lS5DclJQk6l/uCXaA=="
+          "hash": "HlbY9YxDkWCE7QKY/rDyQQ=="
         }
       },
       "is_incremental": false,
@@ -2462,16 +2474,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 195,
+          "skipped_file_count": 0
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 2,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 194,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
