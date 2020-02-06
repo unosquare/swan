@@ -8,6 +8,7 @@
     /// Generic Constraint Registration Exception.
     /// </summary>
     /// <seealso cref="Exception" />
+    [Serializable]
     public class DependencyContainerRegistrationException : Exception
     {
         private const string ConvertErrorText = "Cannot convert current registration of {0} to {1}";
@@ -38,9 +39,6 @@
         {
         }
 
-        private static string GetTypesString(IEnumerable<Type> types)
-        {
-            return string.Join(",", types.Select(type => type.FullName));
-        }
+        private static string GetTypesString(IEnumerable<Type> types) => string.Join(",", types.Select(type => type.FullName));
     }
 }

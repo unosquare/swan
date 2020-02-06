@@ -79,11 +79,9 @@
 
             using (var stream = File.OpenWrite(tempFile))
             {
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings(data);
-                    writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
-                }
+                using var writer = new CsvWriter(stream);
+                writer.WriteHeadings(data);
+                writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
             }
 
             var valuesInFile = CsvReader.LoadRecords<object>(tempFile);
@@ -145,7 +143,7 @@
             using var writer = new CsvWriter(stream);
             writer.WriteObjects(strings);
 
-            Assert.AreEqual((int) writer.Count, strings.Count);
+            Assert.AreEqual((int)writer.Count, strings.Count);
         }
 
         [Test]
@@ -159,7 +157,7 @@
             writer.WriteObject(dynObject);
 
             Assert.IsNotNull(writer);
-            Assert.AreEqual(1, (int) writer.Count);
+            Assert.AreEqual(1, (int)writer.Count);
         }
     }
 
@@ -181,7 +179,7 @@
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
 
-            Assert.Throws<ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                     writer.WriteHeadings(null as Dictionary<string, string>));
         }
 
@@ -245,7 +243,7 @@
         }
 
         [Test]
-        public void WriteHeadingNull ()
+        public void WriteHeadingNull()
         {
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
@@ -295,9 +293,8 @@
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
+            using var writer = new CsvWriter(stream) {SeparatorCharacter = '#'};
 
-            writer.SeparatorCharacter = '#';
             writer.WriteHeadings(objHeaders);
 
             stream.Position = 0;

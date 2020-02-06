@@ -125,7 +125,7 @@ namespace Swan
         /// <returns>
         /// A byte array containing the results the specified sequence of bytes.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// buffer
         /// or
         /// sequence.
@@ -172,7 +172,7 @@ namespace Swan
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">this</exception>
+        /// <exception cref="ArgumentNullException">this</exception>
         public static byte[] DeepClone(this byte[] @this)
         {
             if (@this == null)
@@ -398,14 +398,17 @@ namespace Swan
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this IEnumerable<byte> buffer, Encoding encoding) => encoding.GetString(buffer.ToArray());
+        /// <returns>A <see cref="string" /> that contains the results of decoding the specified sequence of bytes.</returns>
+        public static string ToText(this IEnumerable<byte> buffer, Encoding encoding) =>
+            encoding == null
+                ? throw new ArgumentNullException(nameof(encoding))
+                : encoding.GetString(buffer.ToArray());
 
         /// <summary>
         /// Converts an array of bytes into text with UTF8 encoding.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.</returns>
+        /// <returns>A <see cref="string" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string ToText(this IEnumerable<byte> buffer) => buffer.ToText(Encoding.UTF8);
         
         /// <summary>
@@ -424,31 +427,32 @@ namespace Swan
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            using (var dest = new MemoryStream())
+            using var dest = new MemoryStream();
+
+            try
             {
-                try
+                var buff = new byte[bufferLength];
+                while (length > 0)
                 {
-                    var buff = new byte[bufferLength];
-                    while (length > 0)
-                    {
-                        if (length < bufferLength)
-                            bufferLength = (int)length;
+                    if (length < bufferLength)
+                        bufferLength = (int)length;
 
-                        var nread = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
-                        if (nread == 0)
-                            break;
+                    var read = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
+                    if (read == 0)
+                        break;
 
-                        dest.Write(buff, 0, nread);
-                        length -= nread;
-                    }
+                    dest.Write(buff, 0, read);
+                    length -= read;
                 }
-                catch
-                {
-                    // ignored
-                }
-
-                return dest.ToArray();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch
+#pragma warning restore CA1031 // Do not catch general exception types
+            {
+                // ignored
+            }
+
+            return dest.ToArray();
         }
 
         /// <summary>
@@ -468,19 +472,22 @@ namespace Swan
 
             var buff = new byte[length];
             var offset = 0;
+
             try
             {
                 while (length > 0)
                 {
-                    var nread = await stream.ReadAsync(buff, offset, length, cancellationToken).ConfigureAwait(false);
-                    if (nread == 0)
+                    var read = await stream.ReadAsync(buff, offset, length, cancellationToken).ConfigureAwait(false);
+                    if (read == 0)
                         break;
 
-                    offset += nread;
-                    length -= nread;
+                    offset += read;
+                    length -= read;
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // ignored
             }

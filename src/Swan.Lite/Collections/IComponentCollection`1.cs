@@ -8,6 +8,7 @@ namespace Swan.Collections
     /// <para>Each component in the collection may be given a unique name for later retrieval.</para>
     /// </summary>
     /// <typeparam name="T">The type of components in the collection.</typeparam>
+    [Obsolete("This interface will be removed in the next major version")]
     public interface IComponentCollection<T> : IReadOnlyList<T>
     {
         /// <summary>
