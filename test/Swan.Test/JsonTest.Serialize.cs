@@ -88,7 +88,7 @@
 
         [TestCase("1", 1)]
         [TestCase("1", 1F)]
-        [TestCase("string", "string")]
+        [TestCase("\"string\"", "string")]
         [TestCase("true", true)]
         [TestCase("false", false)]
         [TestCase("null", null)]
