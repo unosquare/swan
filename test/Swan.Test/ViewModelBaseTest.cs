@@ -23,7 +23,8 @@ namespace Swan.Test
         }
 
         [Test]
-        public void ViewModelBaseNoChange() {
+        public void ViewModelBaseNoChange()
+        {
             var view = new PersonView("Unosquare");
             view.SetName("Unosquare");
 
@@ -72,7 +73,7 @@ namespace Swan.Test
 
         public void SetProperties(string name, int age)
         {
-            this._name = name;
+            _name = name;
             NotifyPropertyChanged("name", "age");
         }
 
@@ -84,7 +85,8 @@ namespace Swan.Test
             return Task.Run(() => { while (ChangeCounter <= actualCount) { } });
         }
 
-        private void Handler(object sender, PropertyChangedEventArgs e) {
+        private void Handler(object sender, PropertyChangedEventArgs e)
+        {
             ChangeCounter++;
         }
     }

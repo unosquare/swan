@@ -7,7 +7,7 @@
     /// <summary>
     /// A time measurement artifact.
     /// </summary>
-    internal sealed class RealTimeClock : IDisposable
+    public sealed class RealTimeClock : IDisposable
     {
         private readonly Stopwatch _chrono = new Stopwatch();
         private ISyncLocker? _locker = SyncLockerFactory.Create(useSlim: true);

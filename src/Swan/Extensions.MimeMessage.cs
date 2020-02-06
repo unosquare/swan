@@ -10,7 +10,7 @@
     /// </summary>
     public static class SmtpExtensions
     {
-        private static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+        private const BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
         /// <summary>
         /// The raw contents of this MailMessage as a MemoryStream.
@@ -38,6 +38,7 @@
                 null,
                 Array.Empty<object>(), 
                 null);
+
             result.Position = 0;
             return result;
         }
