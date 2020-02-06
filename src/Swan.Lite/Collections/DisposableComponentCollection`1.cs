@@ -10,6 +10,7 @@ namespace Swan.Collections
     /// <typeparam name="T">The type of components in the collection.</typeparam>
     /// <seealso cref="ComponentCollection{T}" />
     /// <seealso cref="IComponentCollection{T}" />
+    [Obsolete("This class will be removed in the next major version")]
     public class DisposableComponentCollection<T> : ComponentCollection<T>, IDisposable
     {
         /// <summary>

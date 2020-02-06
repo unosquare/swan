@@ -11,6 +11,7 @@ namespace Swan.Collections
     /// </summary>
     /// <typeparam name="T">The type of components in the collection.</typeparam>
     /// <seealso cref="IComponentCollection{T}" />
+    [Obsolete("This class will be removed in the next major version")]
     public class ComponentCollection<T> : ConfiguredObject, IComponentCollection<T>
     {
         private readonly List<T> _components = new List<T>();
