@@ -82,7 +82,9 @@ namespace Swan.Threading
                 {
                     $"{nameof(ThreadAbortException)} caught.".Warn(Name);
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     $"{ex.GetType()}: {ex.Message}\r\n{ex.StackTrace}".Error(Name);
                 }

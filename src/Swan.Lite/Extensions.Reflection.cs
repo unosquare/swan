@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using Swan.Configuration;
-using Swan.Reflection;
 
 namespace Swan
 {
@@ -335,21 +331,5 @@ namespace Swan
         ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
         /// </returns>
         public static bool ToBoolean(this object value) => value.ToStringInvariant().ToBoolean();
-
-        private static string ConvertObjectAndFormat(Type propertyType, object? value, string? format)
-        {
-            if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
-                return Convert.ToDateTime(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(int) || propertyType == typeof(int?))
-                return Convert.ToInt32(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
-                return Convert.ToDecimal(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(double) || propertyType == typeof(double?))
-                return Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(byte) || propertyType == typeof(byte?))
-                return Convert.ToByte(value, CultureInfo.InvariantCulture).ToString(format);
-
-            return value?.ToString() ?? string.Empty;
-        }
     }
 }

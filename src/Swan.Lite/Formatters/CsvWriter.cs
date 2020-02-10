@@ -193,12 +193,10 @@ namespace Swan.Formatters
             if (truncateData && stream.Length > 0)
                 stream.SetLength(0);
 
-            using (var writer = new CsvWriter(stream))
-            {
-                writer.WriteHeadings<T>();
-                writer.WriteObjects(items);
-                return (int)writer.Count;
-            }
+            using var writer = new CsvWriter(stream);
+            writer.WriteHeadings<T>();
+            writer.WriteObjects(items);
+            return (int)writer.Count;
         }
 
         /// <summary>
