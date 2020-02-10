@@ -84,44 +84,6 @@
     }
 
     [TestFixture]
-    public class ToFormattedString
-    {
-        private readonly PropertyInfoMock _mock = new PropertyInfoMock { BirthDate = new DateTime(2018, 1, 1) };
-
-        [Test]
-        public void WithPropertyNullWithoutDefaultValue_ReturnsStringEmpty()
-        {
-            Assert.AreEqual(
-                string.Empty,
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Name)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithPropertyNullWithDefaultValue_ReturnDefaultValue()
-        {
-            Assert.AreEqual(
-                "Unknown",
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Alias)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithIntPropertyNotNullWithFormat_ReturnFormattedValue()
-        {
-            Assert.AreEqual(
-                _mock.Age.ToString("P"),
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Age)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithDatePropertyNotNullWithFormat_ReturnFormattedValue()
-        {
-            Assert.AreEqual(
-                _mock.BirthDate.ToString("YYYY"),
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.BirthDate)).ToFormattedString(_mock));
-        }
-    }
-
-    [TestFixture]
     public class GetAllTypes
     {
         [Test]

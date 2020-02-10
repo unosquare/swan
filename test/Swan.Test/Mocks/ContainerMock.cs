@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections;
-    using Configuration;
     using System.Collections.Generic;
 
     public interface IAnimal
@@ -66,15 +65,9 @@
 
     public class StringEnumerable : IEnumerable<string>
     {
-        public IEnumerator<string> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerator<string> GetEnumerator() => throw new NotImplementedException();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
     }
 
     [AttributeUsage(AttributeTargets.All)]
@@ -101,17 +94,9 @@
         public override string GetFeeding() => "Seals";
     }
 
-    public class PropertyInfoMock
+    public class AppSettingMock
     {
-        public string Name { get; set; }
-        
-        [PropertyDisplay(DefaultValue = "Unknown")]
-        public string Alias { get; set; }
-
-        [PropertyDisplay(DefaultValue = "Unknown", Format = "P")]
-        public int Age { get; set; }
-
-        [PropertyDisplay(Format = "YYYY")]
-        public DateTime BirthDate { get; set; }
+        public string WebServerHostname { get; set; }
+        public string WebServerPort { get; set; }
     }
 }

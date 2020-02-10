@@ -296,44 +296,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Gets property actual value or <c>PropertyDisplayAttribute.DefaultValue</c> if presented.
-        ///
-        /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
-        /// will be formatted accordingly.
-        ///
-        /// If the object contains a null value, a empty string will be returned.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="target">The object.</param>
-        /// <returns>The property value or null.</returns>
-        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
-        public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
-        {
-            if (propertyInfo == null)
-                throw new ArgumentNullException(nameof(propertyInfo));
-
-            try
-            {
-                var value = propertyInfo.GetValue(target);
-                var attr = AttributeCache.DefaultCache.Value.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
-
-                if (attr == null) return value?.ToString() ?? string.Empty;
-
-                var valueToFormat = value ?? attr.DefaultValue;
-
-                return string.IsNullOrEmpty(attr.Format)
-                    ? (valueToFormat?.ToString() ?? string.Empty)
-                    : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Convert a string to a boolean.
         /// </summary>
         /// <param name="str">The string.</param>

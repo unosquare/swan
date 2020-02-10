@@ -307,7 +307,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="item">The item.</param>
         /// <exception cref="System.ArgumentNullException">item.</exception>
-        public void WriteObject(object item)
+        public void WriteObject(object? item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -323,8 +323,7 @@ namespace Swan.Formatters
                         WriteLine(typedItem.Cast<object>());
                         return;
                     default:
-                        WriteLine(GetFilteredTypeProperties(item.GetType())
-                            .Select(x => x.ToFormattedString(item)));
+                        WriteLine(GetFilteredTypeProperties(item.GetType()));
                         break;
                 }
             }
@@ -347,8 +346,12 @@ namespace Swan.Formatters
         /// </summary>
         /// <typeparam name="T">The type of object to write.</typeparam>
         /// <param name="items">The items.</param>
+        /// <exception cref="ArgumentNullException">items.</exception>
         public void WriteObjects<T>(IEnumerable<T> items)
         {
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+
             lock (_syncLock)
             {
                 foreach (var item in items)
