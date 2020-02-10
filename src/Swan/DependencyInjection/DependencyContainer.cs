@@ -646,22 +646,21 @@
         /// <param name="resolveOptions">Resolve options to use.</param>
         public void BuildUp(object input, DependencyContainerResolveOptions? resolveOptions = null)
         {
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
             if (resolveOptions == null)
                 resolveOptions = DependencyContainerResolveOptions.Default;
 
             var properties = input.GetType()
                 .GetProperties()
-                .Where(property => property.GetCacheGetMethod() != null && property.GetCacheSetMethod() != null &&
-                                   !property.PropertyType.IsValueType);
+                .Where(property => !property.PropertyType.IsValueType);
 
-            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
+            foreach (var property in properties.Where(property => input.ReadProperty(property.Name) == null))
             {
                 try
                 {
-                    property.SetValue(
-                        input,
-                        RegisteredTypes.ResolveInternal(new TypeRegistration(property.PropertyType), resolveOptions),
-                        null);
+                    input.WriteProperty(property.Name, RegisteredTypes.ResolveInternal(new TypeRegistration(property.PropertyType), resolveOptions));
                 }
                 catch (DependencyContainerResolutionException)
                 {

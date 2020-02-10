@@ -303,7 +303,7 @@ namespace Swan.Formatters
                     try
                     {
                         var currentPropertyValue = !property.PropertyType.IsArray
-                            ? property.GetCacheGetMethod(_includeNonPublic)(_target)
+                            ? _target.ReadProperty(property.Name)
                             : null;
 
                         var targetPropertyValue = FromJsonResult(
@@ -312,7 +312,7 @@ namespace Swan.Formatters
                             ref currentPropertyValue,
                             _includeNonPublic);
 
-                        property.GetCacheSetMethod(_includeNonPublic)(_target, new[] { targetPropertyValue });
+                        _target.WriteProperty(property.Name, targetPropertyValue);
                     }
 #pragma warning disable CA1031 // Do not catch general exception types
                     catch

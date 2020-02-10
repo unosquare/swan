@@ -181,8 +181,8 @@
         /// <returns>A new instance of SMTP server response object.</returns>
         public static SmtpServerReply Parse(string text)
         {
-            var lines = text.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
-            if (lines.Length == 0) return new SmtpServerReply();
+            var lines = text?.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            if (lines == null || lines.Length == 0) return new SmtpServerReply();
 
             var lastLineParts = lines.Last().Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
             var enhancedStatusCode = string.Empty;

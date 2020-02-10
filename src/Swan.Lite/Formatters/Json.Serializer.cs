@@ -204,7 +204,7 @@ namespace Swan.Formatters
                     try
                     {
                         objectDictionary[field.Key] = field.Value is PropertyInfo property
-                            ? property.GetCacheGetMethod(_options.IncludeNonPublic)?.Invoke(target)
+                            ? target.ReadProperty(field.Value.Name)
                             : (field.Value as FieldInfo)?.GetValue(target);
                     }
 #pragma warning disable CA1031 // Do not catch general exception types

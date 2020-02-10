@@ -15,14 +15,6 @@ namespace Swan
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>> CacheGetMethods =
-            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>(), true);
-
-        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>> CacheSetMethods =
-            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>(), true);
-
-        #region Assembly Extensions
-
         /// <summary>
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
@@ -45,8 +37,6 @@ namespace Swan
                 return e.Types.Where(t => t != null);
             }
         }
-
-        #endregion
 
         #region Type Extensions
 
@@ -344,47 +334,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Gets a MethodInfo from a Property Get method.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
-        /// <returns>
-        /// The cached MethodInfo.
-        /// </returns>
-        public static Func<object, object>? GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-        {
-            var key = Tuple.Create(!nonPublic, propertyInfo);
-
-            // TODO: Fix public logic
-            return !nonPublic && !CacheGetMethods.Value.ContainsKey(key) && !propertyInfo.GetGetMethod(true).IsPublic
-                ? null
-                : CacheGetMethods.Value
-                    .GetOrAdd(key,
-                        x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
-            //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
-        }
-
-        /// <summary>
-        /// Gets a MethodInfo from a Property Set method.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
-        /// <returns>
-        /// The cached MethodInfo.
-        /// </returns>
-        public static Action<object, object[]>? GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-        {
-            var key = Tuple.Create(!nonPublic, propertyInfo);
-
-            return !nonPublic && !CacheSetMethods.Value.ContainsKey(key) && !propertyInfo.GetSetMethod(true).IsPublic
-                ? null
-                : CacheSetMethods.Value
-                    .GetOrAdd(key,
-                        x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
-            //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
-        }
-
-        /// <summary>
         /// Convert a string to a boolean.
         /// </summary>
         /// <param name="str">The string.</param>
@@ -414,25 +363,6 @@ namespace Swan
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Creates a property proxy that stores getter and setter delegates.
-        /// </summary>
-        /// <param name="this">The property information.</param>
-        /// <returns>
-        /// The property proxy.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">this.</exception>
-        public static IPropertyProxy? CreatePropertyProxy(this PropertyInfo @this)
-        {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
-
-            var genericType = typeof(PropertyProxy<,>)
-                .MakeGenericType(@this.DeclaringType, @this.PropertyType);
-
-            return Activator.CreateInstance(genericType, @this) as IPropertyProxy;
         }
 
         /// <summary>
