@@ -108,9 +108,7 @@
             var addressList = new List<IPAddress>();
             var interfaces = NetworkInterface.GetAllNetworkInterfaces()
                 .Where(ni =>
-#if NET461
-                    ni.IsReceiveOnly == false &&
-#endif
+                    !ni.IsReceiveOnly &&
                     (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
                     ni.OperationalStatus == OperationalStatus.Up)
                 .ToArray();
@@ -276,11 +274,7 @@
             var endPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-#if !NET461
             await socket.ConnectAsync(endPoint).ConfigureAwait(false);
-#else
-            socket.Connect(endPoint);
-#endif
 
             socket.ReceiveTimeout = 3000; // Stops code hang if NTP is blocked
             socket.Send(ntpData);
