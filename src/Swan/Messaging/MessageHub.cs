@@ -60,7 +60,12 @@ namespace Swan.Messaging
         /// <param name="message">The message.</param>
         /// <param name="subscription">The subscription.</param>
         public void Deliver(IMessageHubMessage message, IMessageHubSubscription subscription)
-            => subscription.Deliver(message);
+        {
+            if (subscription == null)
+                throw new ArgumentNullException(nameof(subscription));
+
+            subscription.Deliver(message);
+        }
     }
 
     #endregion
@@ -145,11 +150,9 @@ namespace Swan.Messaging
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
-            public bool ShouldAttemptDelivery(IMessageHubMessage message)
-            {
-                return _deliveryAction.IsAlive && _messageFilter.IsAlive &&
-                       ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
-            }
+            public bool ShouldAttemptDelivery(IMessageHubMessage message) =>
+                _deliveryAction.IsAlive && _messageFilter.IsAlive &&
+                ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
 
             public void Deliver(IMessageHubMessage message)
             {
@@ -341,7 +344,9 @@ namespace Swan.Messaging
                 {
                     sub.Proxy.Deliver(message, sub.Subscription);
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     // Ignore any errors and carry on
                 }
@@ -355,10 +360,8 @@ namespace Swan.Messaging
         /// <param name="message">Message to deliver.</param>
         /// <returns>A task with the publish.</returns>
         public Task PublishAsync<TMessage>(TMessage message)
-            where TMessage : class, IMessageHubMessage
-        {
-            return Task.Run(() => Publish(message));
-        }
+            where TMessage : class, IMessageHubMessage =>
+            Task.Run(() => Publish(message));
 
         #endregion
     }

@@ -6,21 +6,21 @@
 
     public abstract class TestFixtureBase
     {
-        protected Dictionary<object, object> NullDict => null;
+        protected Dictionary<object, object>? NullDict => null;
 
-        protected object NullObj => null;
+        protected object? NullObj => null;
 
-        protected string NullString => null;
+        protected string? NullString => null;
 
-        protected byte[] NullByteArray => null;
+        protected byte[]? NullByteArray => null;
 
-        protected List<string> NullStringList => null;
+        protected List<string>? NullStringList => null;
 
-        protected Type NullType => null;
+        protected Type? NullType => null;
 
-        protected Action NullAction => null;
+        protected Action? NullAction => null;
 
-        protected Exception NullException => null;
+        protected Exception? NullException => null;
 
         protected DateBasicJson DefaultObject => new DateBasicJson
         {

@@ -266,7 +266,7 @@
         /// <value>
         /// The remote client.
         /// </value>
-        public TcpClient RemoteClient { get; private set; }
+        public TcpClient? RemoteClient { get; private set; }
 
         /// <summary>
         /// When in continuous reading mode, and if set to greater than 0,
@@ -871,7 +871,9 @@
                         doThreadSleep = _disconnectCalls <= 0;
                     }
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     ex.Log(nameof(PerformContinuousReading), "Continuous Read operation errored");
                 }

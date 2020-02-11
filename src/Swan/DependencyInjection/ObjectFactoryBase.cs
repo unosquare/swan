@@ -89,10 +89,8 @@
         public virtual ObjectFactoryBase GetFactoryForChildContainer(
             Type type,
             DependencyContainer parent,
-            DependencyContainer child)
-        {
-            return this;
-        }
+            DependencyContainer child) =>
+            this;
     }
 
     /// <inheritdoc />
