@@ -175,7 +175,11 @@
 
                 try
                 {
+#if !NET461
                     await tcp.Client.ConnectAsync(request.Dns).ConfigureAwait(false);
+#else
+                    tcp.Client.Connect(request.Dns);
+#endif
 
                     var stream = tcp.GetStream();
                     var buffer = request.ToArray();
@@ -248,7 +252,11 @@
                 {
                     udp.Client.SendTimeout = 7000;
                     udp.Client.ReceiveTimeout = 7000;
+#if !NET461
                     await udp.Client.ConnectAsync(dns).ConfigureAwait(false);
+#else
+                    udp.Client.Connect(dns);
+#endif
 
                     await udp.SendAsync(request.ToArray(), request.Size).ConfigureAwait(false);
 
@@ -446,7 +454,7 @@
                 get => flag1;
                 set => flag1 = value;
             }
-            
+
             public static DnsHeader FromArray(byte[] header) =>
                 header.Length < SIZE
                     ? throw new ArgumentException("Header length too small")
