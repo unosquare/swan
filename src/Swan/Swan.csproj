@@ -5,6 +5,7 @@
         <Copyright>Copyright (c) 2016-2020 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0</TargetFrameworks>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AssemblyName>Swan</AssemblyName>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
