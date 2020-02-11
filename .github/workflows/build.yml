@@ -1,4 +1,4 @@
-name: .NET Core CI
+﻿name: .NET Core CI
 
 on: [push]
 
@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, ubuntu-latest]
         
     steps:
     - uses: actions/checkout@v1

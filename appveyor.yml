@@ -1,8 +1,5 @@
 ﻿version: '1.00.{build}'
-image: 
-- Visual Studio 2019
-- Ubuntu
-stack: node 10
+image: Visual Studio 2019
 notifications:
 - provider: Slack
   auth_token:
@@ -18,30 +15,25 @@ environment:
        secure: HzWdswNyfQbQ0vLk9IQyO+Ei9mxoPYp9rvv6HPhtC9J/Fm7EHRzyV953pbPRXI9I
 before_build:
 - ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
             git checkout $env:APPVEYOR_REPO_BRANCH -q
             cinst docfx -y --no-progress
         }
-- ps: |
-        if($isWindows)
-        {
-            Install-Product node 10
-        }
+- ps: Install-Product node 10
 - npm ci
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
 - ps: $NTP = Start-Process node ntp.js -PassThru
 - dotnet restore -v Minimal
-- cmd: mkdir tools
 build_script:
 - msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
 - dotnet test test/Swan.Test/Swan.Test.csproj -c Release
 after_build:
 - ps: |
-        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows -And $env:APPVEYOR_REPO_BRANCH -eq "master")
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $env:APPVEYOR_REPO_BRANCH -eq "master")
         {
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
