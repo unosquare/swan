@@ -321,7 +321,7 @@ namespace Swan.Formatters
                         WriteLine(typedItem.Cast<object>());
                         return;
                     default:
-                        WriteLine(GetFilteredTypeProperties(item.GetType()));
+                        WriteLine(GetFilteredTypeProperties(item.GetType()).Select(x => item.ReadProperty(x.Name)));
                         break;
                 }
             }

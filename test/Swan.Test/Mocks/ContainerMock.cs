@@ -93,10 +93,4 @@
 
         public override string GetFeeding() => "Seals";
     }
-
-    public class AppSettingMock
-    {
-        public string WebServerHostname { get; set; }
-        public string WebServerPort { get; set; }
-    }
 }

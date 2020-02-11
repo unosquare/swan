@@ -341,7 +341,7 @@
             var container = new DependencyContainer();
 
             Assert.IsFalse(container.TryResolve(
-                new Shark().Name, out IAnimal instance));
+                new Shark().Name, out IAnimal _));
         }
 
         [Test]
@@ -350,7 +350,7 @@
             var container = new DependencyContainer();
 
             Assert.IsFalse(container.TryResolve(
-                new Shark().Name, DependencyContainerResolveOptions.Default, out IAnimal instance));
+                new Shark().Name, DependencyContainerResolveOptions.Default, out IAnimal _));
         }
 
         [TestCase("", true)]
