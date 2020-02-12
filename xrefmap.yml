@@ -410,927 +410,6 @@ references:
   fullName.vb: Swan.Collections.CollectionCacheRepository(Of TValue).Retrieve
   nameWithType: CollectionCacheRepository<TValue>.Retrieve
   nameWithType.vb: CollectionCacheRepository(Of TValue).Retrieve
-- uid: Swan.Collections.ComponentCollection`1
-  name: ComponentCollection<T>
-  href: api/Swan.Collections.ComponentCollection-1.html
-  commentId: T:Swan.Collections.ComponentCollection`1
-  name.vb: ComponentCollection(Of T)
-  fullName: Swan.Collections.ComponentCollection<T>
-  fullName.vb: Swan.Collections.ComponentCollection(Of T)
-  nameWithType: ComponentCollection<T>
-  nameWithType.vb: ComponentCollection(Of T)
-- uid: Swan.Collections.ComponentCollection`1.Add(System.String,`0)
-  name: Add(String, T)
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Add_System_String__0_
-  commentId: M:Swan.Collections.ComponentCollection`1.Add(System.String,`0)
-  fullName: Swan.Collections.ComponentCollection<T>.Add(System.String, T)
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Add(System.String, T)
-  nameWithType: ComponentCollection<T>.Add(String, T)
-  nameWithType.vb: ComponentCollection(Of T).Add(String, T)
-- uid: Swan.Collections.ComponentCollection`1.Add*
-  name: Add
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Add_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.Add
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.Add
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Add
-  nameWithType: ComponentCollection<T>.Add
-  nameWithType.vb: ComponentCollection(Of T).Add
-- uid: Swan.Collections.ComponentCollection`1.Count
-  name: Count
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Count
-  commentId: P:Swan.Collections.ComponentCollection`1.Count
-  fullName: Swan.Collections.ComponentCollection<T>.Count
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Count
-  nameWithType: ComponentCollection<T>.Count
-  nameWithType.vb: ComponentCollection(Of T).Count
-- uid: Swan.Collections.ComponentCollection`1.Count*
-  name: Count
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Count_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.Count
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.Count
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Count
-  nameWithType: ComponentCollection<T>.Count
-  nameWithType.vb: ComponentCollection(Of T).Count
-- uid: Swan.Collections.ComponentCollection`1.GetEnumerator
-  name: GetEnumerator()
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_GetEnumerator
-  commentId: M:Swan.Collections.ComponentCollection`1.GetEnumerator
-  fullName: Swan.Collections.ComponentCollection<T>.GetEnumerator()
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).GetEnumerator()
-  nameWithType: ComponentCollection<T>.GetEnumerator()
-  nameWithType.vb: ComponentCollection(Of T).GetEnumerator()
-- uid: Swan.Collections.ComponentCollection`1.GetEnumerator*
-  name: GetEnumerator
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_GetEnumerator_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.GetEnumerator
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.GetEnumerator
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).GetEnumerator
-  nameWithType: ComponentCollection<T>.GetEnumerator
-  nameWithType.vb: ComponentCollection(Of T).GetEnumerator
-- uid: Swan.Collections.ComponentCollection`1.Item(System.Int32)
-  name: Item[Int32]
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Item_System_Int32_
-  commentId: P:Swan.Collections.ComponentCollection`1.Item(System.Int32)
-  name.vb: Item(Int32)
-  fullName: Swan.Collections.ComponentCollection<T>.Item[System.Int32]
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Item(System.Int32)
-  nameWithType: ComponentCollection<T>.Item[Int32]
-  nameWithType.vb: ComponentCollection(Of T).Item(Int32)
-- uid: Swan.Collections.ComponentCollection`1.Item(System.String)
-  name: Item[String]
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Item_System_String_
-  commentId: P:Swan.Collections.ComponentCollection`1.Item(System.String)
-  name.vb: Item(String)
-  fullName: Swan.Collections.ComponentCollection<T>.Item[System.String]
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Item(System.String)
-  nameWithType: ComponentCollection<T>.Item[String]
-  nameWithType.vb: ComponentCollection(Of T).Item(String)
-- uid: Swan.Collections.ComponentCollection`1.Item*
-  name: Item
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Item_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.Item
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.Item
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Item
-  nameWithType: ComponentCollection<T>.Item
-  nameWithType.vb: ComponentCollection(Of T).Item
-- uid: Swan.Collections.ComponentCollection`1.Lock
-  name: Lock()
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Lock
-  commentId: M:Swan.Collections.ComponentCollection`1.Lock
-  fullName: Swan.Collections.ComponentCollection<T>.Lock()
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Lock()
-  nameWithType: ComponentCollection<T>.Lock()
-  nameWithType.vb: ComponentCollection(Of T).Lock()
-- uid: Swan.Collections.ComponentCollection`1.Lock*
-  name: Lock
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Lock_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.Lock
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.Lock
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Lock
-  nameWithType: ComponentCollection<T>.Lock
-  nameWithType.vb: ComponentCollection(Of T).Lock
-- uid: Swan.Collections.ComponentCollection`1.Named
-  name: Named
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Named
-  commentId: P:Swan.Collections.ComponentCollection`1.Named
-  fullName: Swan.Collections.ComponentCollection<T>.Named
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Named
-  nameWithType: ComponentCollection<T>.Named
-  nameWithType.vb: ComponentCollection(Of T).Named
-- uid: Swan.Collections.ComponentCollection`1.Named*
-  name: Named
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_Named_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.Named
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.Named
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).Named
-  nameWithType: ComponentCollection<T>.Named
-  nameWithType.vb: ComponentCollection(Of T).Named
-- uid: Swan.Collections.ComponentCollection`1.WithSafeNames
-  name: WithSafeNames
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_WithSafeNames
-  commentId: P:Swan.Collections.ComponentCollection`1.WithSafeNames
-  fullName: Swan.Collections.ComponentCollection<T>.WithSafeNames
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).WithSafeNames
-  nameWithType: ComponentCollection<T>.WithSafeNames
-  nameWithType.vb: ComponentCollection(Of T).WithSafeNames
-- uid: Swan.Collections.ComponentCollection`1.WithSafeNames*
-  name: WithSafeNames
-  href: api/Swan.Collections.ComponentCollection-1.html#Swan_Collections_ComponentCollection_1_WithSafeNames_
-  commentId: Overload:Swan.Collections.ComponentCollection`1.WithSafeNames
-  isSpec: "True"
-  fullName: Swan.Collections.ComponentCollection<T>.WithSafeNames
-  fullName.vb: Swan.Collections.ComponentCollection(Of T).WithSafeNames
-  nameWithType: ComponentCollection<T>.WithSafeNames
-  nameWithType.vb: ComponentCollection(Of T).WithSafeNames
-- uid: Swan.Collections.ConcurrentDataDictionary`2
-  name: ConcurrentDataDictionary<TKey, TValue>
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html
-  commentId: T:Swan.Collections.ConcurrentDataDictionary`2
-  name.vb: ConcurrentDataDictionary(Of TKey, TValue)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor
-  name: ConcurrentDataDictionary()
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary()
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary()
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary()
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary()
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}})
-  name: ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_IEnumerable_KeyValuePair__0__1___
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}})
-  name.vb: ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name: ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_IEnumerable_KeyValuePair__0__1___IEqualityComparer__0__
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name.vb: ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEqualityComparer{`0})
-  name: ConcurrentDataDictionary(IEqualityComparer<TKey>)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_IEqualityComparer__0__
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor(IEqualityComparer{`0})
-  name.vb: ConcurrentDataDictionary(IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEqualityComparer(Of TKey))
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(IEqualityComparer<TKey>)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(IEqualityComparer(Of TKey))
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor(System.Int32,IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name: ConcurrentDataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_System_Int32_IEnumerable_KeyValuePair__0__1___IEqualityComparer__0__
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor(System.Int32,IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name.vb: ConcurrentDataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Int32)
-  name: ConcurrentDataDictionary(Int32, Int32)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_System_Int32_System_Int32_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.#ctor(System.Int32,System.Int32)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(System.Int32, System.Int32)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(System.Int32, System.Int32)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary(Int32, Int32)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary(Int32, Int32)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.#ctor*
-  name: ConcurrentDataDictionary
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2__ctor_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.#ctor
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ConcurrentDataDictionary
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ConcurrentDataDictionary
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Clear
-  name: Clear()
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Clear
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.Clear
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Clear()
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Clear()
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Clear()
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Clear()
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Clear*
-  name: Clear
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Clear_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Clear
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Clear
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Clear
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Clear
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Clear
-- uid: Swan.Collections.ConcurrentDataDictionary`2.ContainsKey(`0)
-  name: ContainsKey(TKey)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_ContainsKey__0_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.ContainsKey(`0)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ContainsKey(TKey)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ContainsKey(TKey)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ContainsKey(TKey)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ContainsKey(TKey)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.ContainsKey*
-  name: ContainsKey
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_ContainsKey_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.ContainsKey
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.ContainsKey
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).ContainsKey
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.ContainsKey
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).ContainsKey
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Count
-  name: Count
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Count
-  commentId: P:Swan.Collections.ConcurrentDataDictionary`2.Count
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Count
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Count
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Count
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Count
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Count*
-  name: Count
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Count_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Count
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Count
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Count
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Count
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Count
-- uid: Swan.Collections.ConcurrentDataDictionary`2.GetOrAdd(`0,`1)
-  name: GetOrAdd(TKey, TValue)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_GetOrAdd__0__1_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.GetOrAdd(`0,`1)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.GetOrAdd*
-  name: GetOrAdd
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_GetOrAdd_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.GetOrAdd
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.GetOrAdd
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.GetOrAdd
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).GetOrAdd
-- uid: Swan.Collections.ConcurrentDataDictionary`2.IsEmpty
-  name: IsEmpty
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_IsEmpty
-  commentId: P:Swan.Collections.ConcurrentDataDictionary`2.IsEmpty
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.ConcurrentDataDictionary`2.IsEmpty*
-  name: IsEmpty
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_IsEmpty_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.IsEmpty
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Item(`0)
-  name: Item[TKey]
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Item__0_
-  commentId: P:Swan.Collections.ConcurrentDataDictionary`2.Item(`0)
-  name.vb: Item(TKey)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Item[TKey]
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Item(TKey)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Item[TKey]
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Item(TKey)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Item*
-  name: Item
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Item_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Item
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Item
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Item
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Item
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Item
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Keys
-  name: Keys
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Keys
-  commentId: P:Swan.Collections.ConcurrentDataDictionary`2.Keys
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Keys
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Keys
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Keys
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Keys
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Keys*
-  name: Keys
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Keys_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Keys
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Keys
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Keys
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Keys
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Keys
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Remove(`0)
-  name: Remove(TKey)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Remove__0_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.Remove(`0)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Remove(TKey)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Remove(TKey)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Remove(TKey)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Remove(TKey)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Remove*
-  name: Remove
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Remove_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Remove
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Remove
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Remove
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Remove
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Remove
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryAdd(`0,`1)
-  name: TryAdd(TKey, TValue)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryAdd__0__1_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.TryAdd(`0,`1)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryAdd*
-  name: TryAdd
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryAdd_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.TryAdd
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryAdd
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryAdd
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryAdd
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryAdd
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryGetValue(`0,`1@)
-  name: TryGetValue(TKey, out TValue)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryGetValue__0__1__
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.TryGetValue(`0,`1@)
-  name.vb: TryGetValue(TKey, ByRef TValue)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryGetValue*
-  name: TryGetValue
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryGetValue_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.TryGetValue
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryGetValue
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryGetValue
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryGetValue
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryGetValue
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryRemove(`0,`1@)
-  name: TryRemove(TKey, out TValue)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryRemove__0__1__
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.TryRemove(`0,`1@)
-  name.vb: TryRemove(TKey, ByRef TValue)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryRemove*
-  name: TryRemove
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryRemove_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.TryRemove
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryRemove
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryRemove
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryRemove
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryRemove
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryUpdate(`0,`1,`1)
-  name: TryUpdate(TKey, TValue, TValue)
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryUpdate__0__1__1_
-  commentId: M:Swan.Collections.ConcurrentDataDictionary`2.TryUpdate(`0,`1,`1)
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
-- uid: Swan.Collections.ConcurrentDataDictionary`2.TryUpdate*
-  name: TryUpdate
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_TryUpdate_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.TryUpdate
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.TryUpdate
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).TryUpdate
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.TryUpdate
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).TryUpdate
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Values
-  name: Values
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Values
-  commentId: P:Swan.Collections.ConcurrentDataDictionary`2.Values
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Values
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Values
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Values
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Values
-- uid: Swan.Collections.ConcurrentDataDictionary`2.Values*
-  name: Values
-  href: api/Swan.Collections.ConcurrentDataDictionary-2.html#Swan_Collections_ConcurrentDataDictionary_2_Values_
-  commentId: Overload:Swan.Collections.ConcurrentDataDictionary`2.Values
-  isSpec: "True"
-  fullName: Swan.Collections.ConcurrentDataDictionary<TKey, TValue>.Values
-  fullName.vb: Swan.Collections.ConcurrentDataDictionary(Of TKey, TValue).Values
-  nameWithType: ConcurrentDataDictionary<TKey, TValue>.Values
-  nameWithType.vb: ConcurrentDataDictionary(Of TKey, TValue).Values
-- uid: Swan.Collections.DataDictionary`2
-  name: DataDictionary<TKey, TValue>
-  href: api/Swan.Collections.DataDictionary-2.html
-  commentId: T:Swan.Collections.DataDictionary`2
-  name.vb: DataDictionary(Of TKey, TValue)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue)
-  nameWithType: DataDictionary<TKey, TValue>
-  nameWithType.vb: DataDictionary(Of TKey, TValue)
-- uid: Swan.Collections.DataDictionary`2.#ctor
-  name: DataDictionary()
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary()
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary()
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary()
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary()
-- uid: Swan.Collections.DataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}})
-  name: DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_IEnumerable_KeyValuePair__0__1___
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}})
-  name.vb: DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)))
-- uid: Swan.Collections.DataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name: DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_IEnumerable_KeyValuePair__0__1___IEqualityComparer__0__
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor(IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name.vb: DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-- uid: Swan.Collections.DataDictionary`2.#ctor(IEqualityComparer{`0})
-  name: DataDictionary(IEqualityComparer<TKey>)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_IEqualityComparer__0__
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor(IEqualityComparer{`0})
-  name.vb: DataDictionary(IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary(IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary(IEqualityComparer(Of TKey))
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(IEqualityComparer<TKey>)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(IEqualityComparer(Of TKey))
-- uid: Swan.Collections.DataDictionary`2.#ctor(System.Int32)
-  name: DataDictionary(Int32)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_System_Int32_
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor(System.Int32)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary(System.Int32)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary(System.Int32)
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(Int32)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(Int32)
-- uid: Swan.Collections.DataDictionary`2.#ctor(System.Int32,IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name: DataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_System_Int32_IEnumerable_KeyValuePair__0__1___IEqualityComparer__0__
-  commentId: M:Swan.Collections.DataDictionary`2.#ctor(System.Int32,IEnumerable{KeyValuePair{`0,`1}},IEqualityComparer{`0})
-  name.vb: DataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary(System.Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary(System.Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary(Int32, IEnumerable<KeyValuePair<TKey, TValue>>, IEqualityComparer<TKey>)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary(Int32, IEnumerable(Of KeyValuePair(Of TKey, TValue)), IEqualityComparer(Of TKey))
-- uid: Swan.Collections.DataDictionary`2.#ctor*
-  name: DataDictionary
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2__ctor_
-  commentId: Overload:Swan.Collections.DataDictionary`2.#ctor
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.DataDictionary
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).DataDictionary
-  nameWithType: DataDictionary<TKey, TValue>.DataDictionary
-  nameWithType.vb: DataDictionary(Of TKey, TValue).DataDictionary
-- uid: Swan.Collections.DataDictionary`2.Clear
-  name: Clear()
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Clear
-  commentId: M:Swan.Collections.DataDictionary`2.Clear
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Clear()
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Clear()
-  nameWithType: DataDictionary<TKey, TValue>.Clear()
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Clear()
-- uid: Swan.Collections.DataDictionary`2.Clear*
-  name: Clear
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Clear_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Clear
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Clear
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Clear
-  nameWithType: DataDictionary<TKey, TValue>.Clear
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Clear
-- uid: Swan.Collections.DataDictionary`2.ContainsKey(`0)
-  name: ContainsKey(TKey)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_ContainsKey__0_
-  commentId: M:Swan.Collections.DataDictionary`2.ContainsKey(`0)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.ContainsKey(TKey)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).ContainsKey(TKey)
-  nameWithType: DataDictionary<TKey, TValue>.ContainsKey(TKey)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).ContainsKey(TKey)
-- uid: Swan.Collections.DataDictionary`2.ContainsKey*
-  name: ContainsKey
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_ContainsKey_
-  commentId: Overload:Swan.Collections.DataDictionary`2.ContainsKey
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.ContainsKey
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).ContainsKey
-  nameWithType: DataDictionary<TKey, TValue>.ContainsKey
-  nameWithType.vb: DataDictionary(Of TKey, TValue).ContainsKey
-- uid: Swan.Collections.DataDictionary`2.Count
-  name: Count
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Count
-  commentId: P:Swan.Collections.DataDictionary`2.Count
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Count
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Count
-  nameWithType: DataDictionary<TKey, TValue>.Count
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Count
-- uid: Swan.Collections.DataDictionary`2.Count*
-  name: Count
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Count_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Count
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Count
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Count
-  nameWithType: DataDictionary<TKey, TValue>.Count
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Count
-- uid: Swan.Collections.DataDictionary`2.GetOrAdd(`0,`1)
-  name: GetOrAdd(TKey, TValue)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_GetOrAdd__0__1_
-  commentId: M:Swan.Collections.DataDictionary`2.GetOrAdd(`0,`1)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
-  nameWithType: DataDictionary<TKey, TValue>.GetOrAdd(TKey, TValue)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).GetOrAdd(TKey, TValue)
-- uid: Swan.Collections.DataDictionary`2.GetOrAdd*
-  name: GetOrAdd
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_GetOrAdd_
-  commentId: Overload:Swan.Collections.DataDictionary`2.GetOrAdd
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.GetOrAdd
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).GetOrAdd
-  nameWithType: DataDictionary<TKey, TValue>.GetOrAdd
-  nameWithType.vb: DataDictionary(Of TKey, TValue).GetOrAdd
-- uid: Swan.Collections.DataDictionary`2.IsEmpty
-  name: IsEmpty
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_IsEmpty
-  commentId: P:Swan.Collections.DataDictionary`2.IsEmpty
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: DataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: DataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.DataDictionary`2.IsEmpty*
-  name: IsEmpty
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_IsEmpty_
-  commentId: Overload:Swan.Collections.DataDictionary`2.IsEmpty
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: DataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: DataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.DataDictionary`2.Item(`0)
-  name: Item[TKey]
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Item__0_
-  commentId: P:Swan.Collections.DataDictionary`2.Item(`0)
-  name.vb: Item(TKey)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Item[TKey]
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Item(TKey)
-  nameWithType: DataDictionary<TKey, TValue>.Item[TKey]
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Item(TKey)
-- uid: Swan.Collections.DataDictionary`2.Item*
-  name: Item
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Item_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Item
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Item
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Item
-  nameWithType: DataDictionary<TKey, TValue>.Item
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Item
-- uid: Swan.Collections.DataDictionary`2.Keys
-  name: Keys
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Keys
-  commentId: P:Swan.Collections.DataDictionary`2.Keys
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Keys
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Keys
-  nameWithType: DataDictionary<TKey, TValue>.Keys
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Keys
-- uid: Swan.Collections.DataDictionary`2.Keys*
-  name: Keys
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Keys_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Keys
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Keys
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Keys
-  nameWithType: DataDictionary<TKey, TValue>.Keys
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Keys
-- uid: Swan.Collections.DataDictionary`2.Remove(`0)
-  name: Remove(TKey)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Remove__0_
-  commentId: M:Swan.Collections.DataDictionary`2.Remove(`0)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Remove(TKey)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Remove(TKey)
-  nameWithType: DataDictionary<TKey, TValue>.Remove(TKey)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Remove(TKey)
-- uid: Swan.Collections.DataDictionary`2.Remove*
-  name: Remove
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Remove_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Remove
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Remove
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Remove
-  nameWithType: DataDictionary<TKey, TValue>.Remove
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Remove
-- uid: Swan.Collections.DataDictionary`2.TryAdd(`0,`1)
-  name: TryAdd(TKey, TValue)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryAdd__0__1_
-  commentId: M:Swan.Collections.DataDictionary`2.TryAdd(`0,`1)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
-  nameWithType: DataDictionary<TKey, TValue>.TryAdd(TKey, TValue)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryAdd(TKey, TValue)
-- uid: Swan.Collections.DataDictionary`2.TryAdd*
-  name: TryAdd
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryAdd_
-  commentId: Overload:Swan.Collections.DataDictionary`2.TryAdd
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryAdd
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryAdd
-  nameWithType: DataDictionary<TKey, TValue>.TryAdd
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryAdd
-- uid: Swan.Collections.DataDictionary`2.TryGetValue(`0,`1@)
-  name: TryGetValue(TKey, out TValue)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryGetValue__0__1__
-  commentId: M:Swan.Collections.DataDictionary`2.TryGetValue(`0,`1@)
-  name.vb: TryGetValue(TKey, ByRef TValue)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
-  nameWithType: DataDictionary<TKey, TValue>.TryGetValue(TKey, out TValue)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryGetValue(TKey, ByRef TValue)
-- uid: Swan.Collections.DataDictionary`2.TryGetValue*
-  name: TryGetValue
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryGetValue_
-  commentId: Overload:Swan.Collections.DataDictionary`2.TryGetValue
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryGetValue
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryGetValue
-  nameWithType: DataDictionary<TKey, TValue>.TryGetValue
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryGetValue
-- uid: Swan.Collections.DataDictionary`2.TryRemove(`0,`1@)
-  name: TryRemove(TKey, out TValue)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryRemove__0__1__
-  commentId: M:Swan.Collections.DataDictionary`2.TryRemove(`0,`1@)
-  name.vb: TryRemove(TKey, ByRef TValue)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-  nameWithType: DataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-- uid: Swan.Collections.DataDictionary`2.TryRemove*
-  name: TryRemove
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryRemove_
-  commentId: Overload:Swan.Collections.DataDictionary`2.TryRemove
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryRemove
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryRemove
-  nameWithType: DataDictionary<TKey, TValue>.TryRemove
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryRemove
-- uid: Swan.Collections.DataDictionary`2.TryUpdate(`0,`1,`1)
-  name: TryUpdate(TKey, TValue, TValue)
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryUpdate__0__1__1_
-  commentId: M:Swan.Collections.DataDictionary`2.TryUpdate(`0,`1,`1)
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
-  nameWithType: DataDictionary<TKey, TValue>.TryUpdate(TKey, TValue, TValue)
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryUpdate(TKey, TValue, TValue)
-- uid: Swan.Collections.DataDictionary`2.TryUpdate*
-  name: TryUpdate
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_TryUpdate_
-  commentId: Overload:Swan.Collections.DataDictionary`2.TryUpdate
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.TryUpdate
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).TryUpdate
-  nameWithType: DataDictionary<TKey, TValue>.TryUpdate
-  nameWithType.vb: DataDictionary(Of TKey, TValue).TryUpdate
-- uid: Swan.Collections.DataDictionary`2.Values
-  name: Values
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Values
-  commentId: P:Swan.Collections.DataDictionary`2.Values
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Values
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Values
-  nameWithType: DataDictionary<TKey, TValue>.Values
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Values
-- uid: Swan.Collections.DataDictionary`2.Values*
-  name: Values
-  href: api/Swan.Collections.DataDictionary-2.html#Swan_Collections_DataDictionary_2_Values_
-  commentId: Overload:Swan.Collections.DataDictionary`2.Values
-  isSpec: "True"
-  fullName: Swan.Collections.DataDictionary<TKey, TValue>.Values
-  fullName.vb: Swan.Collections.DataDictionary(Of TKey, TValue).Values
-  nameWithType: DataDictionary<TKey, TValue>.Values
-  nameWithType.vb: DataDictionary(Of TKey, TValue).Values
-- uid: Swan.Collections.DisposableComponentCollection`1
-  name: DisposableComponentCollection<T>
-  href: api/Swan.Collections.DisposableComponentCollection-1.html
-  commentId: T:Swan.Collections.DisposableComponentCollection`1
-  name.vb: DisposableComponentCollection(Of T)
-  fullName: Swan.Collections.DisposableComponentCollection<T>
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T)
-  nameWithType: DisposableComponentCollection<T>
-  nameWithType.vb: DisposableComponentCollection(Of T)
-- uid: Swan.Collections.DisposableComponentCollection`1.Dispose
-  name: Dispose()
-  href: api/Swan.Collections.DisposableComponentCollection-1.html#Swan_Collections_DisposableComponentCollection_1_Dispose
-  commentId: M:Swan.Collections.DisposableComponentCollection`1.Dispose
-  fullName: Swan.Collections.DisposableComponentCollection<T>.Dispose()
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T).Dispose()
-  nameWithType: DisposableComponentCollection<T>.Dispose()
-  nameWithType.vb: DisposableComponentCollection(Of T).Dispose()
-- uid: Swan.Collections.DisposableComponentCollection`1.Dispose(System.Boolean)
-  name: Dispose(Boolean)
-  href: api/Swan.Collections.DisposableComponentCollection-1.html#Swan_Collections_DisposableComponentCollection_1_Dispose_System_Boolean_
-  commentId: M:Swan.Collections.DisposableComponentCollection`1.Dispose(System.Boolean)
-  fullName: Swan.Collections.DisposableComponentCollection<T>.Dispose(System.Boolean)
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T).Dispose(System.Boolean)
-  nameWithType: DisposableComponentCollection<T>.Dispose(Boolean)
-  nameWithType.vb: DisposableComponentCollection(Of T).Dispose(Boolean)
-- uid: Swan.Collections.DisposableComponentCollection`1.Dispose*
-  name: Dispose
-  href: api/Swan.Collections.DisposableComponentCollection-1.html#Swan_Collections_DisposableComponentCollection_1_Dispose_
-  commentId: Overload:Swan.Collections.DisposableComponentCollection`1.Dispose
-  isSpec: "True"
-  fullName: Swan.Collections.DisposableComponentCollection<T>.Dispose
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T).Dispose
-  nameWithType: DisposableComponentCollection<T>.Dispose
-  nameWithType.vb: DisposableComponentCollection(Of T).Dispose
-- uid: Swan.Collections.DisposableComponentCollection`1.Finalize
-  name: Finalize()
-  href: api/Swan.Collections.DisposableComponentCollection-1.html#Swan_Collections_DisposableComponentCollection_1_Finalize
-  commentId: M:Swan.Collections.DisposableComponentCollection`1.Finalize
-  fullName: Swan.Collections.DisposableComponentCollection<T>.Finalize()
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T).Finalize()
-  nameWithType: DisposableComponentCollection<T>.Finalize()
-  nameWithType.vb: DisposableComponentCollection(Of T).Finalize()
-- uid: Swan.Collections.DisposableComponentCollection`1.Finalize*
-  name: Finalize
-  href: api/Swan.Collections.DisposableComponentCollection-1.html#Swan_Collections_DisposableComponentCollection_1_Finalize_
-  commentId: Overload:Swan.Collections.DisposableComponentCollection`1.Finalize
-  isSpec: "True"
-  fullName: Swan.Collections.DisposableComponentCollection<T>.Finalize
-  fullName.vb: Swan.Collections.DisposableComponentCollection(Of T).Finalize
-  nameWithType: DisposableComponentCollection<T>.Finalize
-  nameWithType.vb: DisposableComponentCollection(Of T).Finalize
-- uid: Swan.Collections.IComponentCollection`1
-  name: IComponentCollection<T>
-  href: api/Swan.Collections.IComponentCollection-1.html
-  commentId: T:Swan.Collections.IComponentCollection`1
-  name.vb: IComponentCollection(Of T)
-  fullName: Swan.Collections.IComponentCollection<T>
-  fullName.vb: Swan.Collections.IComponentCollection(Of T)
-  nameWithType: IComponentCollection<T>
-  nameWithType.vb: IComponentCollection(Of T)
-- uid: Swan.Collections.IComponentCollection`1.Add(System.String,`0)
-  name: Add(String, T)
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Add_System_String__0_
-  commentId: M:Swan.Collections.IComponentCollection`1.Add(System.String,`0)
-  fullName: Swan.Collections.IComponentCollection<T>.Add(System.String, T)
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Add(System.String, T)
-  nameWithType: IComponentCollection<T>.Add(String, T)
-  nameWithType.vb: IComponentCollection(Of T).Add(String, T)
-- uid: Swan.Collections.IComponentCollection`1.Add*
-  name: Add
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Add_
-  commentId: Overload:Swan.Collections.IComponentCollection`1.Add
-  isSpec: "True"
-  fullName: Swan.Collections.IComponentCollection<T>.Add
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Add
-  nameWithType: IComponentCollection<T>.Add
-  nameWithType.vb: IComponentCollection(Of T).Add
-- uid: Swan.Collections.IComponentCollection`1.Item(System.String)
-  name: Item[String]
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Item_System_String_
-  commentId: P:Swan.Collections.IComponentCollection`1.Item(System.String)
-  name.vb: Item(String)
-  fullName: Swan.Collections.IComponentCollection<T>.Item[System.String]
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Item(System.String)
-  nameWithType: IComponentCollection<T>.Item[String]
-  nameWithType.vb: IComponentCollection(Of T).Item(String)
-- uid: Swan.Collections.IComponentCollection`1.Item*
-  name: Item
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Item_
-  commentId: Overload:Swan.Collections.IComponentCollection`1.Item
-  isSpec: "True"
-  fullName: Swan.Collections.IComponentCollection<T>.Item
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Item
-  nameWithType: IComponentCollection<T>.Item
-  nameWithType.vb: IComponentCollection(Of T).Item
-- uid: Swan.Collections.IComponentCollection`1.Named
-  name: Named
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Named
-  commentId: P:Swan.Collections.IComponentCollection`1.Named
-  fullName: Swan.Collections.IComponentCollection<T>.Named
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Named
-  nameWithType: IComponentCollection<T>.Named
-  nameWithType.vb: IComponentCollection(Of T).Named
-- uid: Swan.Collections.IComponentCollection`1.Named*
-  name: Named
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_Named_
-  commentId: Overload:Swan.Collections.IComponentCollection`1.Named
-  isSpec: "True"
-  fullName: Swan.Collections.IComponentCollection<T>.Named
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).Named
-  nameWithType: IComponentCollection<T>.Named
-  nameWithType.vb: IComponentCollection(Of T).Named
-- uid: Swan.Collections.IComponentCollection`1.WithSafeNames
-  name: WithSafeNames
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_WithSafeNames
-  commentId: P:Swan.Collections.IComponentCollection`1.WithSafeNames
-  fullName: Swan.Collections.IComponentCollection<T>.WithSafeNames
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).WithSafeNames
-  nameWithType: IComponentCollection<T>.WithSafeNames
-  nameWithType.vb: IComponentCollection(Of T).WithSafeNames
-- uid: Swan.Collections.IComponentCollection`1.WithSafeNames*
-  name: WithSafeNames
-  href: api/Swan.Collections.IComponentCollection-1.html#Swan_Collections_IComponentCollection_1_WithSafeNames_
-  commentId: Overload:Swan.Collections.IComponentCollection`1.WithSafeNames
-  isSpec: "True"
-  fullName: Swan.Collections.IComponentCollection<T>.WithSafeNames
-  fullName.vb: Swan.Collections.IComponentCollection(Of T).WithSafeNames
-  nameWithType: IComponentCollection<T>.WithSafeNames
-  nameWithType.vb: IComponentCollection(Of T).WithSafeNames
-- uid: Swan.Collections.IDataDictionary`2
-  name: IDataDictionary<TKey, TValue>
-  href: api/Swan.Collections.IDataDictionary-2.html
-  commentId: T:Swan.Collections.IDataDictionary`2
-  name.vb: IDataDictionary(Of TKey, TValue)
-  fullName: Swan.Collections.IDataDictionary<TKey, TValue>
-  fullName.vb: Swan.Collections.IDataDictionary(Of TKey, TValue)
-  nameWithType: IDataDictionary<TKey, TValue>
-  nameWithType.vb: IDataDictionary(Of TKey, TValue)
-- uid: Swan.Collections.IDataDictionary`2.IsEmpty
-  name: IsEmpty
-  href: api/Swan.Collections.IDataDictionary-2.html#Swan_Collections_IDataDictionary_2_IsEmpty
-  commentId: P:Swan.Collections.IDataDictionary`2.IsEmpty
-  fullName: Swan.Collections.IDataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.IDataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: IDataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: IDataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.IDataDictionary`2.IsEmpty*
-  name: IsEmpty
-  href: api/Swan.Collections.IDataDictionary-2.html#Swan_Collections_IDataDictionary_2_IsEmpty_
-  commentId: Overload:Swan.Collections.IDataDictionary`2.IsEmpty
-  isSpec: "True"
-  fullName: Swan.Collections.IDataDictionary<TKey, TValue>.IsEmpty
-  fullName.vb: Swan.Collections.IDataDictionary(Of TKey, TValue).IsEmpty
-  nameWithType: IDataDictionary<TKey, TValue>.IsEmpty
-  nameWithType.vb: IDataDictionary(Of TKey, TValue).IsEmpty
-- uid: Swan.Collections.IDataDictionary`2.TryRemove(`0,`1@)
-  name: TryRemove(TKey, out TValue)
-  href: api/Swan.Collections.IDataDictionary-2.html#Swan_Collections_IDataDictionary_2_TryRemove__0__1__
-  commentId: M:Swan.Collections.IDataDictionary`2.TryRemove(`0,`1@)
-  name.vb: TryRemove(TKey, ByRef TValue)
-  fullName: Swan.Collections.IDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  fullName.vb: Swan.Collections.IDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-  nameWithType: IDataDictionary<TKey, TValue>.TryRemove(TKey, out TValue)
-  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryRemove(TKey, ByRef TValue)
-- uid: Swan.Collections.IDataDictionary`2.TryRemove*
-  name: TryRemove
-  href: api/Swan.Collections.IDataDictionary-2.html#Swan_Collections_IDataDictionary_2_TryRemove_
-  commentId: Overload:Swan.Collections.IDataDictionary`2.TryRemove
-  isSpec: "True"
-  fullName: Swan.Collections.IDataDictionary<TKey, TValue>.TryRemove
-  fullName.vb: Swan.Collections.IDataDictionary(Of TKey, TValue).TryRemove
-  nameWithType: IDataDictionary<TKey, TValue>.TryRemove
-  nameWithType.vb: IDataDictionary(Of TKey, TValue).TryRemove
-- uid: Swan.ComponentCollectionExtensions
-  name: ComponentCollectionExtensions
-  href: api/Swan.ComponentCollectionExtensions.html
-  commentId: T:Swan.ComponentCollectionExtensions
-  fullName: Swan.ComponentCollectionExtensions
-  nameWithType: ComponentCollectionExtensions
-- uid: Swan.ComponentCollectionExtensions.Add*
-  name: Add
-  href: api/Swan.ComponentCollectionExtensions.html#Swan_ComponentCollectionExtensions_Add_
-  commentId: Overload:Swan.ComponentCollectionExtensions.Add
-  isSpec: "True"
-  fullName: Swan.ComponentCollectionExtensions.Add
-  nameWithType: ComponentCollectionExtensions.Add
-- uid: Swan.ComponentCollectionExtensions.Add``1(IComponentCollection{``0},``0)
-  name: Add<T>(IComponentCollection<T>, T)
-  href: api/Swan.ComponentCollectionExtensions.html#Swan_ComponentCollectionExtensions_Add__1_IComponentCollection___0____0_
-  commentId: M:Swan.ComponentCollectionExtensions.Add``1(IComponentCollection{``0},``0)
-  name.vb: Add(Of T)(IComponentCollection(Of T), T)
-  fullName: Swan.ComponentCollectionExtensions.Add<T>(IComponentCollection<T>, T)
-  fullName.vb: Swan.ComponentCollectionExtensions.Add(Of T)(IComponentCollection(Of T), T)
-  nameWithType: ComponentCollectionExtensions.Add<T>(IComponentCollection<T>, T)
-  nameWithType.vb: ComponentCollectionExtensions.Add(Of T)(IComponentCollection(Of T), T)
 - uid: Swan.CompositeHashCode
   name: CompositeHashCode
   href: api/Swan.CompositeHashCode.html
@@ -1417,77 +496,6 @@ references:
   isSpec: "True"
   fullName: Swan.Configuration.ConfiguredObject.OnBeforeLockConfiguration
   nameWithType: ConfiguredObject.OnBeforeLockConfiguration
-- uid: Swan.Configuration.PropertyDisplayAttribute
-  name: PropertyDisplayAttribute
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html
-  commentId: T:Swan.Configuration.PropertyDisplayAttribute
-  fullName: Swan.Configuration.PropertyDisplayAttribute
-  nameWithType: PropertyDisplayAttribute
-- uid: Swan.Configuration.PropertyDisplayAttribute.DefaultValue
-  name: DefaultValue
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_DefaultValue
-  commentId: P:Swan.Configuration.PropertyDisplayAttribute.DefaultValue
-  fullName: Swan.Configuration.PropertyDisplayAttribute.DefaultValue
-  nameWithType: PropertyDisplayAttribute.DefaultValue
-- uid: Swan.Configuration.PropertyDisplayAttribute.DefaultValue*
-  name: DefaultValue
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_DefaultValue_
-  commentId: Overload:Swan.Configuration.PropertyDisplayAttribute.DefaultValue
-  isSpec: "True"
-  fullName: Swan.Configuration.PropertyDisplayAttribute.DefaultValue
-  nameWithType: PropertyDisplayAttribute.DefaultValue
-- uid: Swan.Configuration.PropertyDisplayAttribute.Description
-  name: Description
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Description
-  commentId: P:Swan.Configuration.PropertyDisplayAttribute.Description
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Description
-  nameWithType: PropertyDisplayAttribute.Description
-- uid: Swan.Configuration.PropertyDisplayAttribute.Description*
-  name: Description
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Description_
-  commentId: Overload:Swan.Configuration.PropertyDisplayAttribute.Description
-  isSpec: "True"
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Description
-  nameWithType: PropertyDisplayAttribute.Description
-- uid: Swan.Configuration.PropertyDisplayAttribute.Format
-  name: Format
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Format
-  commentId: P:Swan.Configuration.PropertyDisplayAttribute.Format
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Format
-  nameWithType: PropertyDisplayAttribute.Format
-- uid: Swan.Configuration.PropertyDisplayAttribute.Format*
-  name: Format
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Format_
-  commentId: Overload:Swan.Configuration.PropertyDisplayAttribute.Format
-  isSpec: "True"
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Format
-  nameWithType: PropertyDisplayAttribute.Format
-- uid: Swan.Configuration.PropertyDisplayAttribute.GroupName
-  name: GroupName
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_GroupName
-  commentId: P:Swan.Configuration.PropertyDisplayAttribute.GroupName
-  fullName: Swan.Configuration.PropertyDisplayAttribute.GroupName
-  nameWithType: PropertyDisplayAttribute.GroupName
-- uid: Swan.Configuration.PropertyDisplayAttribute.GroupName*
-  name: GroupName
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_GroupName_
-  commentId: Overload:Swan.Configuration.PropertyDisplayAttribute.GroupName
-  isSpec: "True"
-  fullName: Swan.Configuration.PropertyDisplayAttribute.GroupName
-  nameWithType: PropertyDisplayAttribute.GroupName
-- uid: Swan.Configuration.PropertyDisplayAttribute.Name
-  name: Name
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Name
-  commentId: P:Swan.Configuration.PropertyDisplayAttribute.Name
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Name
-  nameWithType: PropertyDisplayAttribute.Name
-- uid: Swan.Configuration.PropertyDisplayAttribute.Name*
-  name: Name
-  href: api/Swan.Configuration.PropertyDisplayAttribute.html#Swan_Configuration_PropertyDisplayAttribute_Name_
-  commentId: Overload:Swan.Configuration.PropertyDisplayAttribute.Name
-  isSpec: "True"
-  fullName: Swan.Configuration.PropertyDisplayAttribute.Name
-  nameWithType: PropertyDisplayAttribute.Name
 - uid: Swan.Configuration.SettingsProvider`1
   name: SettingsProvider<T>
   href: api/Swan.Configuration.SettingsProvider-1.html
@@ -1514,23 +522,6 @@ references:
   fullName.vb: Swan.Configuration.SettingsProvider(Of T).ConfigurationFilePath
   nameWithType: SettingsProvider<T>.ConfigurationFilePath
   nameWithType.vb: SettingsProvider(Of T).ConfigurationFilePath
-- uid: Swan.Configuration.SettingsProvider`1.GetList
-  name: GetList()
-  href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_GetList
-  commentId: M:Swan.Configuration.SettingsProvider`1.GetList
-  fullName: Swan.Configuration.SettingsProvider<T>.GetList()
-  fullName.vb: Swan.Configuration.SettingsProvider(Of T).GetList()
-  nameWithType: SettingsProvider<T>.GetList()
-  nameWithType.vb: SettingsProvider(Of T).GetList()
-- uid: Swan.Configuration.SettingsProvider`1.GetList*
-  name: GetList
-  href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_GetList_
-  commentId: Overload:Swan.Configuration.SettingsProvider`1.GetList
-  isSpec: "True"
-  fullName: Swan.Configuration.SettingsProvider<T>.GetList
-  fullName.vb: Swan.Configuration.SettingsProvider(Of T).GetList
-  nameWithType: SettingsProvider<T>.GetList
-  nameWithType.vb: SettingsProvider(Of T).GetList
 - uid: Swan.Configuration.SettingsProvider`1.Global
   name: Global
   href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_Global
@@ -1565,24 +556,6 @@ references:
   fullName.vb: Swan.Configuration.SettingsProvider(Of T).PersistGlobalSettings
   nameWithType: SettingsProvider<T>.PersistGlobalSettings
   nameWithType.vb: SettingsProvider(Of T).PersistGlobalSettings
-- uid: Swan.Configuration.SettingsProvider`1.RefreshFromList(List{ExtendedPropertyInfo{`0}})
-  name: RefreshFromList(List<ExtendedPropertyInfo<T>>)
-  href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_RefreshFromList_List_ExtendedPropertyInfo__0___
-  commentId: M:Swan.Configuration.SettingsProvider`1.RefreshFromList(List{ExtendedPropertyInfo{`0}})
-  name.vb: RefreshFromList(List(Of ExtendedPropertyInfo(Of T)))
-  fullName: Swan.Configuration.SettingsProvider<T>.RefreshFromList(List<ExtendedPropertyInfo<T>>)
-  fullName.vb: Swan.Configuration.SettingsProvider(Of T).RefreshFromList(List(Of ExtendedPropertyInfo(Of T)))
-  nameWithType: SettingsProvider<T>.RefreshFromList(List<ExtendedPropertyInfo<T>>)
-  nameWithType.vb: SettingsProvider(Of T).RefreshFromList(List(Of ExtendedPropertyInfo(Of T)))
-- uid: Swan.Configuration.SettingsProvider`1.RefreshFromList*
-  name: RefreshFromList
-  href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_RefreshFromList_
-  commentId: Overload:Swan.Configuration.SettingsProvider`1.RefreshFromList
-  isSpec: "True"
-  fullName: Swan.Configuration.SettingsProvider<T>.RefreshFromList
-  fullName.vb: Swan.Configuration.SettingsProvider(Of T).RefreshFromList
-  nameWithType: SettingsProvider<T>.RefreshFromList
-  nameWithType.vb: SettingsProvider(Of T).RefreshFromList
 - uid: Swan.Configuration.SettingsProvider`1.ReloadGlobalSettings
   name: ReloadGlobalSettings()
   href: api/Swan.Configuration.SettingsProvider-1.html#Swan_Configuration_SettingsProvider_1_ReloadGlobalSettings
@@ -4054,17 +3027,17 @@ references:
   commentId: M:Swan.Formatters.Json.Deserialize(System.String)
   fullName: Swan.Formatters.Json.Deserialize(System.String)
   nameWithType: Json.Deserialize(String)
-- uid: Swan.Formatters.Json.Deserialize(System.String,Swan.JsonSerializerCase)
+- uid: Swan.Formatters.Json.Deserialize(System.String,Swan.Formatters.JsonSerializerCase)
   name: Deserialize(String, JsonSerializerCase)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize_System_String_Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.Json.Deserialize(System.String,Swan.JsonSerializerCase)
-  fullName: Swan.Formatters.Json.Deserialize(System.String, Swan.JsonSerializerCase)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize_System_String_Swan_Formatters_JsonSerializerCase_
+  commentId: M:Swan.Formatters.Json.Deserialize(System.String,Swan.Formatters.JsonSerializerCase)
+  fullName: Swan.Formatters.Json.Deserialize(System.String, Swan.Formatters.JsonSerializerCase)
   nameWithType: Json.Deserialize(String, JsonSerializerCase)
-- uid: Swan.Formatters.Json.Deserialize(System.String,Type,System.Boolean,Swan.JsonSerializerCase)
+- uid: Swan.Formatters.Json.Deserialize(System.String,Type,System.Boolean,Swan.Formatters.JsonSerializerCase)
   name: Deserialize(String, Type, Boolean, JsonSerializerCase)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize_System_String_Type_System_Boolean_Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.Json.Deserialize(System.String,Type,System.Boolean,Swan.JsonSerializerCase)
-  fullName: Swan.Formatters.Json.Deserialize(System.String, Type, System.Boolean, Swan.JsonSerializerCase)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize_System_String_Type_System_Boolean_Swan_Formatters_JsonSerializerCase_
+  commentId: M:Swan.Formatters.Json.Deserialize(System.String,Type,System.Boolean,Swan.Formatters.JsonSerializerCase)
+  fullName: Swan.Formatters.Json.Deserialize(System.String, Type, System.Boolean, Swan.Formatters.JsonSerializerCase)
   nameWithType: Json.Deserialize(String, Type, Boolean, JsonSerializerCase)
 - uid: Swan.Formatters.Json.Deserialize*
   name: Deserialize
@@ -4073,13 +3046,13 @@ references:
   isSpec: "True"
   fullName: Swan.Formatters.Json.Deserialize
   nameWithType: Json.Deserialize
-- uid: Swan.Formatters.Json.Deserialize``1(System.String,Swan.JsonSerializerCase)
+- uid: Swan.Formatters.Json.Deserialize``1(System.String,Swan.Formatters.JsonSerializerCase)
   name: Deserialize<T>(String, JsonSerializerCase)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize__1_System_String_Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.Json.Deserialize``1(System.String,Swan.JsonSerializerCase)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Deserialize__1_System_String_Swan_Formatters_JsonSerializerCase_
+  commentId: M:Swan.Formatters.Json.Deserialize``1(System.String,Swan.Formatters.JsonSerializerCase)
   name.vb: Deserialize(Of T)(String, JsonSerializerCase)
-  fullName: Swan.Formatters.Json.Deserialize<T>(System.String, Swan.JsonSerializerCase)
-  fullName.vb: Swan.Formatters.Json.Deserialize(Of T)(System.String, Swan.JsonSerializerCase)
+  fullName: Swan.Formatters.Json.Deserialize<T>(System.String, Swan.Formatters.JsonSerializerCase)
+  fullName.vb: Swan.Formatters.Json.Deserialize(Of T)(System.String, Swan.Formatters.JsonSerializerCase)
   nameWithType: Json.Deserialize<T>(String, JsonSerializerCase)
   nameWithType.vb: Json.Deserialize(Of T)(String, JsonSerializerCase)
 - uid: Swan.Formatters.Json.Deserialize``1(System.String,System.Boolean)
@@ -4091,18 +3064,18 @@ references:
   fullName.vb: Swan.Formatters.Json.Deserialize(Of T)(System.String, System.Boolean)
   nameWithType: Json.Deserialize<T>(String, Boolean)
   nameWithType.vb: Json.Deserialize(Of T)(String, Boolean)
+- uid: Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.JsonSerializerCase,System.Boolean,System.String)
+  name: Serialize(Object, JsonSerializerCase, Boolean, String)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_Formatters_JsonSerializerCase_System_Boolean_System_String_
+  commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.JsonSerializerCase,System.Boolean,System.String)
+  fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.Formatters.JsonSerializerCase, System.Boolean, System.String)
+  nameWithType: Json.Serialize(Object, JsonSerializerCase, Boolean, String)
 - uid: Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.SerializerOptions)
   name: Serialize(Object, SerializerOptions)
   href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_Formatters_SerializerOptions_
   commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.Formatters.SerializerOptions)
   fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.Formatters.SerializerOptions)
   nameWithType: Json.Serialize(Object, SerializerOptions)
-- uid: Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.String)
-  name: Serialize(Object, JsonSerializerCase, Boolean, String)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_Swan_JsonSerializerCase_System_Boolean_System_String_
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,Swan.JsonSerializerCase,System.Boolean,System.String)
-  fullName: Swan.Formatters.Json.Serialize(System.Object, Swan.JsonSerializerCase, System.Boolean, System.String)
-  nameWithType: Json.Serialize(Object, JsonSerializerCase, Boolean, String)
 - uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
   name: Serialize(Object, Boolean, String, Boolean, String[], String[])
   href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___
@@ -4112,13 +3085,13 @@ references:
   fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String())
   nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[])
   nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String())
-- uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Nullable{List{WeakReference}},Swan.JsonSerializerCase)
+- uid: Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Nullable{List{WeakReference}},Swan.Formatters.JsonSerializerCase)
   name: Serialize(Object, Boolean, String, Boolean, String[], String[], Nullable<List<WeakReference>>, JsonSerializerCase)
-  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Nullable_List_WeakReference___Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Nullable{List{WeakReference}},Swan.JsonSerializerCase)
+  href: api/Swan.Formatters.Json.html#Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Nullable_List_WeakReference___Swan_Formatters_JsonSerializerCase_
+  commentId: M:Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Nullable{List{WeakReference}},Swan.Formatters.JsonSerializerCase)
   name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), Nullable(Of List(Of WeakReference)), JsonSerializerCase)
-  fullName: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Nullable<List<WeakReference>>, Swan.JsonSerializerCase)
-  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Nullable(Of List(Of WeakReference)), Swan.JsonSerializerCase)
+  fullName: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Nullable<List<WeakReference>>, Swan.Formatters.JsonSerializerCase)
+  fullName.vb: Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Nullable(Of List(Of WeakReference)), Swan.Formatters.JsonSerializerCase)
   nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], Nullable<List<WeakReference>>, JsonSerializerCase)
   nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), Nullable(Of List(Of WeakReference)), JsonSerializerCase)
 - uid: Swan.Formatters.Json.Serialize*
@@ -4205,19 +3178,43 @@ references:
   isSpec: "True"
   fullName: Swan.Formatters.JsonPropertyAttribute.PropertyName
   nameWithType: JsonPropertyAttribute.PropertyName
+- uid: Swan.Formatters.JsonSerializerCase
+  name: JsonSerializerCase
+  href: api/Swan.Formatters.JsonSerializerCase.html
+  commentId: T:Swan.Formatters.JsonSerializerCase
+  fullName: Swan.Formatters.JsonSerializerCase
+  nameWithType: JsonSerializerCase
+- uid: Swan.Formatters.JsonSerializerCase.CamelCase
+  name: CamelCase
+  href: api/Swan.Formatters.JsonSerializerCase.html#Swan_Formatters_JsonSerializerCase_CamelCase
+  commentId: F:Swan.Formatters.JsonSerializerCase.CamelCase
+  fullName: Swan.Formatters.JsonSerializerCase.CamelCase
+  nameWithType: JsonSerializerCase.CamelCase
+- uid: Swan.Formatters.JsonSerializerCase.None
+  name: None
+  href: api/Swan.Formatters.JsonSerializerCase.html#Swan_Formatters_JsonSerializerCase_None
+  commentId: F:Swan.Formatters.JsonSerializerCase.None
+  fullName: Swan.Formatters.JsonSerializerCase.None
+  nameWithType: JsonSerializerCase.None
+- uid: Swan.Formatters.JsonSerializerCase.PascalCase
+  name: PascalCase
+  href: api/Swan.Formatters.JsonSerializerCase.html#Swan_Formatters_JsonSerializerCase_PascalCase
+  commentId: F:Swan.Formatters.JsonSerializerCase.PascalCase
+  fullName: Swan.Formatters.JsonSerializerCase.PascalCase
+  nameWithType: JsonSerializerCase.PascalCase
 - uid: Swan.Formatters.SerializerOptions
   name: SerializerOptions
   href: api/Swan.Formatters.SerializerOptions.html
   commentId: T:Swan.Formatters.SerializerOptions
   fullName: Swan.Formatters.SerializerOptions
   nameWithType: SerializerOptions
-- uid: Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.JsonSerializerCase)
+- uid: Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.Formatters.JsonSerializerCase)
   name: SerializerOptions(Boolean, String, String[], String[], Boolean, Nullable<IReadOnlyCollection<WeakReference>>, JsonSerializerCase)
-  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions__ctor_System_Boolean_System_String_System_String___System_String___System_Boolean_System_Nullable_IReadOnlyCollection_WeakReference___Swan_JsonSerializerCase_
-  commentId: M:Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.JsonSerializerCase)
+  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions__ctor_System_Boolean_System_String_System_String___System_String___System_Boolean_System_Nullable_IReadOnlyCollection_WeakReference___Swan_Formatters_JsonSerializerCase_
+  commentId: M:Swan.Formatters.SerializerOptions.#ctor(System.Boolean,System.String,System.String[],System.String[],System.Boolean,System.Nullable{IReadOnlyCollection{WeakReference}},Swan.Formatters.JsonSerializerCase)
   name.vb: SerializerOptions(Boolean, String, String(), String(), Boolean, Nullable(Of IReadOnlyCollection(Of WeakReference)), JsonSerializerCase)
-  fullName: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String[], System.String[], System.Boolean, System.Nullable<IReadOnlyCollection<WeakReference>>, Swan.JsonSerializerCase)
-  fullName.vb: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String(), System.String(), System.Boolean, System.Nullable(Of IReadOnlyCollection(Of WeakReference)), Swan.JsonSerializerCase)
+  fullName: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String[], System.String[], System.Boolean, System.Nullable<IReadOnlyCollection<WeakReference>>, Swan.Formatters.JsonSerializerCase)
+  fullName.vb: Swan.Formatters.SerializerOptions.SerializerOptions(System.Boolean, System.String, System.String(), System.String(), System.Boolean, System.Nullable(Of IReadOnlyCollection(Of WeakReference)), Swan.Formatters.JsonSerializerCase)
   nameWithType: SerializerOptions.SerializerOptions(Boolean, String, String[], String[], Boolean, Nullable<IReadOnlyCollection<WeakReference>>, JsonSerializerCase)
   nameWithType.vb: SerializerOptions.SerializerOptions(Boolean, String, String(), String(), Boolean, Nullable(Of IReadOnlyCollection(Of WeakReference)), JsonSerializerCase)
 - uid: Swan.Formatters.SerializerOptions.#ctor*
@@ -4481,30 +3478,6 @@ references:
   commentId: T:Swan.InternalErrorException
   fullName: Swan.InternalErrorException
   nameWithType: InternalErrorException
-- uid: Swan.JsonSerializerCase
-  name: JsonSerializerCase
-  href: api/Swan.JsonSerializerCase.html
-  commentId: T:Swan.JsonSerializerCase
-  fullName: Swan.JsonSerializerCase
-  nameWithType: JsonSerializerCase
-- uid: Swan.JsonSerializerCase.CamelCase
-  name: CamelCase
-  href: api/Swan.JsonSerializerCase.html#Swan_JsonSerializerCase_CamelCase
-  commentId: F:Swan.JsonSerializerCase.CamelCase
-  fullName: Swan.JsonSerializerCase.CamelCase
-  nameWithType: JsonSerializerCase.CamelCase
-- uid: Swan.JsonSerializerCase.None
-  name: None
-  href: api/Swan.JsonSerializerCase.html#Swan_JsonSerializerCase_None
-  commentId: F:Swan.JsonSerializerCase.None
-  fullName: Swan.JsonSerializerCase.None
-  nameWithType: JsonSerializerCase.None
-- uid: Swan.JsonSerializerCase.PascalCase
-  name: PascalCase
-  href: api/Swan.JsonSerializerCase.html#Swan_JsonSerializerCase_PascalCase
-  commentId: F:Swan.JsonSerializerCase.PascalCase
-  fullName: Swan.JsonSerializerCase.PascalCase
-  nameWithType: JsonSerializerCase.PascalCase
 - uid: Swan.Logging
   name: Swan.Logging
   href: api/Swan.Logging.html
@@ -9434,12 +8407,6 @@ references:
   commentId: T:Swan.Parsers.ArgumentOptionAttribute
   fullName: Swan.Parsers.ArgumentOptionAttribute
   nameWithType: ArgumentOptionAttribute
-- uid: Swan.Parsers.ArgumentOptionAttribute.#ctor
-  name: ArgumentOptionAttribute()
-  href: api/Swan.Parsers.ArgumentOptionAttribute.html#Swan_Parsers_ArgumentOptionAttribute__ctor
-  commentId: M:Swan.Parsers.ArgumentOptionAttribute.#ctor
-  fullName: Swan.Parsers.ArgumentOptionAttribute.ArgumentOptionAttribute()
-  nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute()
 - uid: Swan.Parsers.ArgumentOptionAttribute.#ctor(System.Char)
   name: ArgumentOptionAttribute(Char)
   href: api/Swan.Parsers.ArgumentOptionAttribute.html#Swan_Parsers_ArgumentOptionAttribute__ctor_System_Char_
@@ -10226,6 +9193,115 @@ references:
   isSpec: "True"
   fullName: Swan.ProcessRunner.RunProcessAsync
   nameWithType: ProcessRunner.RunProcessAsync
+- uid: Swan.PropertyProxyExtensions
+  name: PropertyProxyExtensions
+  href: api/Swan.PropertyProxyExtensions.html
+  commentId: T:Swan.PropertyProxyExtensions
+  fullName: Swan.PropertyProxyExtensions
+  nameWithType: PropertyProxyExtensions
+- uid: Swan.PropertyProxyExtensions.PropertyProxies(Type)
+  name: PropertyProxies(Type)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxies_Type_
+  commentId: M:Swan.PropertyProxyExtensions.PropertyProxies(Type)
+  fullName: Swan.PropertyProxyExtensions.PropertyProxies(Type)
+  nameWithType: PropertyProxyExtensions.PropertyProxies(Type)
+- uid: Swan.PropertyProxyExtensions.PropertyProxies*
+  name: PropertyProxies
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxies_
+  commentId: Overload:Swan.PropertyProxyExtensions.PropertyProxies
+  isSpec: "True"
+  fullName: Swan.PropertyProxyExtensions.PropertyProxies
+  nameWithType: PropertyProxyExtensions.PropertyProxies
+- uid: Swan.PropertyProxyExtensions.PropertyProxies``1(``0)
+  name: PropertyProxies<T>(T)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxies__1___0_
+  commentId: M:Swan.PropertyProxyExtensions.PropertyProxies``1(``0)
+  name.vb: PropertyProxies(Of T)(T)
+  fullName: Swan.PropertyProxyExtensions.PropertyProxies<T>(T)
+  fullName.vb: Swan.PropertyProxyExtensions.PropertyProxies(Of T)(T)
+  nameWithType: PropertyProxyExtensions.PropertyProxies<T>(T)
+  nameWithType.vb: PropertyProxyExtensions.PropertyProxies(Of T)(T)
+- uid: Swan.PropertyProxyExtensions.PropertyProxy(Type,System.String)
+  name: PropertyProxy(Type, String)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxy_Type_System_String_
+  commentId: M:Swan.PropertyProxyExtensions.PropertyProxy(Type,System.String)
+  fullName: Swan.PropertyProxyExtensions.PropertyProxy(Type, System.String)
+  nameWithType: PropertyProxyExtensions.PropertyProxy(Type, String)
+- uid: Swan.PropertyProxyExtensions.PropertyProxy*
+  name: PropertyProxy
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxy_
+  commentId: Overload:Swan.PropertyProxyExtensions.PropertyProxy
+  isSpec: "True"
+  fullName: Swan.PropertyProxyExtensions.PropertyProxy
+  nameWithType: PropertyProxyExtensions.PropertyProxy
+- uid: Swan.PropertyProxyExtensions.PropertyProxy``1(``0,System.String)
+  name: PropertyProxy<T>(T, String)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxy__1___0_System_String_
+  commentId: M:Swan.PropertyProxyExtensions.PropertyProxy``1(``0,System.String)
+  name.vb: PropertyProxy(Of T)(T, String)
+  fullName: Swan.PropertyProxyExtensions.PropertyProxy<T>(T, System.String)
+  fullName.vb: Swan.PropertyProxyExtensions.PropertyProxy(Of T)(T, System.String)
+  nameWithType: PropertyProxyExtensions.PropertyProxy<T>(T, String)
+  nameWithType.vb: PropertyProxyExtensions.PropertyProxy(Of T)(T, String)
+- uid: Swan.PropertyProxyExtensions.PropertyProxy``2(``0,Expression{Func{``0,``1}})
+  name: PropertyProxy<T, V>(T, Expression<Func<T, V>>)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_PropertyProxy__2___0_Expression_Func___0___1___
+  commentId: M:Swan.PropertyProxyExtensions.PropertyProxy``2(``0,Expression{Func{``0,``1}})
+  name.vb: PropertyProxy(Of T, V)(T, Expression(Of Func(Of T, V)))
+  fullName: Swan.PropertyProxyExtensions.PropertyProxy<T, V>(T, Expression<Func<T, V>>)
+  fullName.vb: Swan.PropertyProxyExtensions.PropertyProxy(Of T, V)(T, Expression(Of Func(Of T, V)))
+  nameWithType: PropertyProxyExtensions.PropertyProxy<T, V>(T, Expression<Func<T, V>>)
+  nameWithType.vb: PropertyProxyExtensions.PropertyProxy(Of T, V)(T, Expression(Of Func(Of T, V)))
+- uid: Swan.PropertyProxyExtensions.ReadProperty*
+  name: ReadProperty
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_ReadProperty_
+  commentId: Overload:Swan.PropertyProxyExtensions.ReadProperty
+  isSpec: "True"
+  fullName: Swan.PropertyProxyExtensions.ReadProperty
+  nameWithType: PropertyProxyExtensions.ReadProperty
+- uid: Swan.PropertyProxyExtensions.ReadProperty``1(``0,System.String)
+  name: ReadProperty<T>(T, String)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_ReadProperty__1___0_System_String_
+  commentId: M:Swan.PropertyProxyExtensions.ReadProperty``1(``0,System.String)
+  name.vb: ReadProperty(Of T)(T, String)
+  fullName: Swan.PropertyProxyExtensions.ReadProperty<T>(T, System.String)
+  fullName.vb: Swan.PropertyProxyExtensions.ReadProperty(Of T)(T, System.String)
+  nameWithType: PropertyProxyExtensions.ReadProperty<T>(T, String)
+  nameWithType.vb: PropertyProxyExtensions.ReadProperty(Of T)(T, String)
+- uid: Swan.PropertyProxyExtensions.ReadProperty``2(``0,Expression{Func{``0,``1}})
+  name: ReadProperty<T, V>(T, Expression<Func<T, V>>)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_ReadProperty__2___0_Expression_Func___0___1___
+  commentId: M:Swan.PropertyProxyExtensions.ReadProperty``2(``0,Expression{Func{``0,``1}})
+  name.vb: ReadProperty(Of T, V)(T, Expression(Of Func(Of T, V)))
+  fullName: Swan.PropertyProxyExtensions.ReadProperty<T, V>(T, Expression<Func<T, V>>)
+  fullName.vb: Swan.PropertyProxyExtensions.ReadProperty(Of T, V)(T, Expression(Of Func(Of T, V)))
+  nameWithType: PropertyProxyExtensions.ReadProperty<T, V>(T, Expression<Func<T, V>>)
+  nameWithType.vb: PropertyProxyExtensions.ReadProperty(Of T, V)(T, Expression(Of Func(Of T, V)))
+- uid: Swan.PropertyProxyExtensions.WriteProperty*
+  name: WriteProperty
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_WriteProperty_
+  commentId: Overload:Swan.PropertyProxyExtensions.WriteProperty
+  isSpec: "True"
+  fullName: Swan.PropertyProxyExtensions.WriteProperty
+  nameWithType: PropertyProxyExtensions.WriteProperty
+- uid: Swan.PropertyProxyExtensions.WriteProperty``1(``0,System.String,System.Object)
+  name: WriteProperty<T>(T, String, Object)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_WriteProperty__1___0_System_String_System_Object_
+  commentId: M:Swan.PropertyProxyExtensions.WriteProperty``1(``0,System.String,System.Object)
+  name.vb: WriteProperty(Of T)(T, String, Object)
+  fullName: Swan.PropertyProxyExtensions.WriteProperty<T>(T, System.String, System.Object)
+  fullName.vb: Swan.PropertyProxyExtensions.WriteProperty(Of T)(T, System.String, System.Object)
+  nameWithType: PropertyProxyExtensions.WriteProperty<T>(T, String, Object)
+  nameWithType.vb: PropertyProxyExtensions.WriteProperty(Of T)(T, String, Object)
+- uid: Swan.PropertyProxyExtensions.WriteProperty``2(``0,Expression{Func{``0,``1}},``1)
+  name: WriteProperty<T, TV>(T, Expression<Func<T, TV>>, TV)
+  href: api/Swan.PropertyProxyExtensions.html#Swan_PropertyProxyExtensions_WriteProperty__2___0_Expression_Func___0___1_____1_
+  commentId: M:Swan.PropertyProxyExtensions.WriteProperty``2(``0,Expression{Func{``0,``1}},``1)
+  name.vb: WriteProperty(Of T, TV)(T, Expression(Of Func(Of T, TV)), TV)
+  fullName: Swan.PropertyProxyExtensions.WriteProperty<T, TV>(T, Expression<Func<T, TV>>, TV)
+  fullName.vb: Swan.PropertyProxyExtensions.WriteProperty(Of T, TV)(T, Expression(Of Func(Of T, TV)), TV)
+  nameWithType: PropertyProxyExtensions.WriteProperty<T, TV>(T, Expression<Func<T, TV>>, TV)
+  nameWithType.vb: PropertyProxyExtensions.WriteProperty(Of T, TV)(T, Expression(Of Func(Of T, TV)), TV)
 - uid: Swan.Reflection
   name: Swan.Reflection
   href: api/Swan.Reflection.html
@@ -10415,142 +9491,6 @@ references:
   fullName.vb: Swan.Reflection.ConstructorTypeCache.RetrieveAllConstructors(Of T)(System.Boolean)
   nameWithType: ConstructorTypeCache.RetrieveAllConstructors<T>(Boolean)
   nameWithType.vb: ConstructorTypeCache.RetrieveAllConstructors(Of T)(Boolean)
-- uid: Swan.Reflection.ExtendedPropertyInfo
-  name: ExtendedPropertyInfo
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html
-  commentId: T:Swan.Reflection.ExtendedPropertyInfo
-  fullName: Swan.Reflection.ExtendedPropertyInfo
-  nameWithType: ExtendedPropertyInfo
-- uid: Swan.Reflection.ExtendedPropertyInfo.#ctor(PropertyInfo)
-  name: ExtendedPropertyInfo(PropertyInfo)
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo__ctor_PropertyInfo_
-  commentId: M:Swan.Reflection.ExtendedPropertyInfo.#ctor(PropertyInfo)
-  fullName: Swan.Reflection.ExtendedPropertyInfo.ExtendedPropertyInfo(PropertyInfo)
-  nameWithType: ExtendedPropertyInfo.ExtendedPropertyInfo(PropertyInfo)
-- uid: Swan.Reflection.ExtendedPropertyInfo.#ctor*
-  name: ExtendedPropertyInfo
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo__ctor_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.#ctor
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.ExtendedPropertyInfo
-  nameWithType: ExtendedPropertyInfo.ExtendedPropertyInfo
-- uid: Swan.Reflection.ExtendedPropertyInfo.DataType
-  name: DataType
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_DataType
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.DataType
-  fullName: Swan.Reflection.ExtendedPropertyInfo.DataType
-  nameWithType: ExtendedPropertyInfo.DataType
-- uid: Swan.Reflection.ExtendedPropertyInfo.DataType*
-  name: DataType
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_DataType_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.DataType
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.DataType
-  nameWithType: ExtendedPropertyInfo.DataType
-- uid: Swan.Reflection.ExtendedPropertyInfo.DefaultValue
-  name: DefaultValue
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_DefaultValue
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.DefaultValue
-  fullName: Swan.Reflection.ExtendedPropertyInfo.DefaultValue
-  nameWithType: ExtendedPropertyInfo.DefaultValue
-- uid: Swan.Reflection.ExtendedPropertyInfo.DefaultValue*
-  name: DefaultValue
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_DefaultValue_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.DefaultValue
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.DefaultValue
-  nameWithType: ExtendedPropertyInfo.DefaultValue
-- uid: Swan.Reflection.ExtendedPropertyInfo.Description
-  name: Description
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Description
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.Description
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Description
-  nameWithType: ExtendedPropertyInfo.Description
-- uid: Swan.Reflection.ExtendedPropertyInfo.Description*
-  name: Description
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Description_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.Description
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Description
-  nameWithType: ExtendedPropertyInfo.Description
-- uid: Swan.Reflection.ExtendedPropertyInfo.GroupName
-  name: GroupName
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_GroupName
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.GroupName
-  fullName: Swan.Reflection.ExtendedPropertyInfo.GroupName
-  nameWithType: ExtendedPropertyInfo.GroupName
-- uid: Swan.Reflection.ExtendedPropertyInfo.GroupName*
-  name: GroupName
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_GroupName_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.GroupName
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.GroupName
-  nameWithType: ExtendedPropertyInfo.GroupName
-- uid: Swan.Reflection.ExtendedPropertyInfo.Name
-  name: Name
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Name
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.Name
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Name
-  nameWithType: ExtendedPropertyInfo.Name
-- uid: Swan.Reflection.ExtendedPropertyInfo.Name*
-  name: Name
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Name_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.Name
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Name
-  nameWithType: ExtendedPropertyInfo.Name
-- uid: Swan.Reflection.ExtendedPropertyInfo.Property
-  name: Property
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Property
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.Property
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Property
-  nameWithType: ExtendedPropertyInfo.Property
-- uid: Swan.Reflection.ExtendedPropertyInfo.Property*
-  name: Property
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Property_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.Property
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Property
-  nameWithType: ExtendedPropertyInfo.Property
-- uid: Swan.Reflection.ExtendedPropertyInfo.Value
-  name: Value
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Value
-  commentId: P:Swan.Reflection.ExtendedPropertyInfo.Value
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Value
-  nameWithType: ExtendedPropertyInfo.Value
-- uid: Swan.Reflection.ExtendedPropertyInfo.Value*
-  name: Value
-  href: api/Swan.Reflection.ExtendedPropertyInfo.html#Swan_Reflection_ExtendedPropertyInfo_Value_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo.Value
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo.Value
-  nameWithType: ExtendedPropertyInfo.Value
-- uid: Swan.Reflection.ExtendedPropertyInfo`1
-  name: ExtendedPropertyInfo<T>
-  href: api/Swan.Reflection.ExtendedPropertyInfo-1.html
-  commentId: T:Swan.Reflection.ExtendedPropertyInfo`1
-  name.vb: ExtendedPropertyInfo(Of T)
-  fullName: Swan.Reflection.ExtendedPropertyInfo<T>
-  fullName.vb: Swan.Reflection.ExtendedPropertyInfo(Of T)
-  nameWithType: ExtendedPropertyInfo<T>
-  nameWithType.vb: ExtendedPropertyInfo(Of T)
-- uid: Swan.Reflection.ExtendedPropertyInfo`1.#ctor(System.String)
-  name: ExtendedPropertyInfo(String)
-  href: api/Swan.Reflection.ExtendedPropertyInfo-1.html#Swan_Reflection_ExtendedPropertyInfo_1__ctor_System_String_
-  commentId: M:Swan.Reflection.ExtendedPropertyInfo`1.#ctor(System.String)
-  fullName: Swan.Reflection.ExtendedPropertyInfo<T>.ExtendedPropertyInfo(System.String)
-  fullName.vb: Swan.Reflection.ExtendedPropertyInfo(Of T).ExtendedPropertyInfo(System.String)
-  nameWithType: ExtendedPropertyInfo<T>.ExtendedPropertyInfo(String)
-  nameWithType.vb: ExtendedPropertyInfo(Of T).ExtendedPropertyInfo(String)
-- uid: Swan.Reflection.ExtendedPropertyInfo`1.#ctor*
-  name: ExtendedPropertyInfo
-  href: api/Swan.Reflection.ExtendedPropertyInfo-1.html#Swan_Reflection_ExtendedPropertyInfo_1__ctor_
-  commentId: Overload:Swan.Reflection.ExtendedPropertyInfo`1.#ctor
-  isSpec: "True"
-  fullName: Swan.Reflection.ExtendedPropertyInfo<T>.ExtendedPropertyInfo
-  fullName.vb: Swan.Reflection.ExtendedPropertyInfo(Of T).ExtendedPropertyInfo
-  nameWithType: ExtendedPropertyInfo<T>.ExtendedPropertyInfo
-  nameWithType.vb: ExtendedPropertyInfo(Of T).ExtendedPropertyInfo
 - uid: Swan.Reflection.ExtendedTypeInfo
   name: ExtendedTypeInfo
   href: api/Swan.Reflection.ExtendedTypeInfo.html
@@ -10793,6 +9733,19 @@ references:
   commentId: T:Swan.Reflection.IPropertyProxy
   fullName: Swan.Reflection.IPropertyProxy
   nameWithType: IPropertyProxy
+- uid: Swan.Reflection.IPropertyProxy.EnclosingType
+  name: EnclosingType
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_EnclosingType
+  commentId: P:Swan.Reflection.IPropertyProxy.EnclosingType
+  fullName: Swan.Reflection.IPropertyProxy.EnclosingType
+  nameWithType: IPropertyProxy.EnclosingType
+- uid: Swan.Reflection.IPropertyProxy.EnclosingType*
+  name: EnclosingType
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_EnclosingType_
+  commentId: Overload:Swan.Reflection.IPropertyProxy.EnclosingType
+  isSpec: "True"
+  fullName: Swan.Reflection.IPropertyProxy.EnclosingType
+  nameWithType: IPropertyProxy.EnclosingType
 - uid: Swan.Reflection.IPropertyProxy.GetValue(System.Object)
   name: GetValue(Object)
   href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_GetValue_System_Object_
@@ -10806,6 +9759,45 @@ references:
   isSpec: "True"
   fullName: Swan.Reflection.IPropertyProxy.GetValue
   nameWithType: IPropertyProxy.GetValue
+- uid: Swan.Reflection.IPropertyProxy.Name
+  name: Name
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_Name
+  commentId: P:Swan.Reflection.IPropertyProxy.Name
+  fullName: Swan.Reflection.IPropertyProxy.Name
+  nameWithType: IPropertyProxy.Name
+- uid: Swan.Reflection.IPropertyProxy.Name*
+  name: Name
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_Name_
+  commentId: Overload:Swan.Reflection.IPropertyProxy.Name
+  isSpec: "True"
+  fullName: Swan.Reflection.IPropertyProxy.Name
+  nameWithType: IPropertyProxy.Name
+- uid: Swan.Reflection.IPropertyProxy.Property
+  name: Property
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_Property
+  commentId: P:Swan.Reflection.IPropertyProxy.Property
+  fullName: Swan.Reflection.IPropertyProxy.Property
+  nameWithType: IPropertyProxy.Property
+- uid: Swan.Reflection.IPropertyProxy.Property*
+  name: Property
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_Property_
+  commentId: Overload:Swan.Reflection.IPropertyProxy.Property
+  isSpec: "True"
+  fullName: Swan.Reflection.IPropertyProxy.Property
+  nameWithType: IPropertyProxy.Property
+- uid: Swan.Reflection.IPropertyProxy.PropertyType
+  name: PropertyType
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_PropertyType
+  commentId: P:Swan.Reflection.IPropertyProxy.PropertyType
+  fullName: Swan.Reflection.IPropertyProxy.PropertyType
+  nameWithType: IPropertyProxy.PropertyType
+- uid: Swan.Reflection.IPropertyProxy.PropertyType*
+  name: PropertyType
+  href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_PropertyType_
+  commentId: Overload:Swan.Reflection.IPropertyProxy.PropertyType
+  isSpec: "True"
+  fullName: Swan.Reflection.IPropertyProxy.PropertyType
+  nameWithType: IPropertyProxy.PropertyType
 - uid: Swan.Reflection.IPropertyProxy.SetValue(System.Object,System.Object)
   name: SetValue(Object, Object)
   href: api/Swan.Reflection.IPropertyProxy.html#Swan_Reflection_IPropertyProxy_SetValue_System_Object_System_Object_
@@ -10883,70 +9875,6 @@ references:
   fullName.vb: Swan.Reflection.MethodInfoCache.Retrieve(Of T)(System.String, Type())
   nameWithType: MethodInfoCache.Retrieve<T>(String, Type[])
   nameWithType.vb: MethodInfoCache.Retrieve(Of T)(String, Type())
-- uid: Swan.Reflection.PropertyProxy`2
-  name: PropertyProxy<TClass, TProperty>
-  href: api/Swan.Reflection.PropertyProxy-2.html
-  commentId: T:Swan.Reflection.PropertyProxy`2
-  name.vb: PropertyProxy(Of TClass, TProperty)
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty)
-  nameWithType: PropertyProxy<TClass, TProperty>
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty)
-- uid: Swan.Reflection.PropertyProxy`2.#ctor(PropertyInfo)
-  name: PropertyProxy(PropertyInfo)
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2__ctor_PropertyInfo_
-  commentId: M:Swan.Reflection.PropertyProxy`2.#ctor(PropertyInfo)
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.PropertyProxy(PropertyInfo)
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).PropertyProxy(PropertyInfo)
-  nameWithType: PropertyProxy<TClass, TProperty>.PropertyProxy(PropertyInfo)
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).PropertyProxy(PropertyInfo)
-- uid: Swan.Reflection.PropertyProxy`2.#ctor*
-  name: PropertyProxy
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2__ctor_
-  commentId: Overload:Swan.Reflection.PropertyProxy`2.#ctor
-  isSpec: "True"
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.PropertyProxy
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).PropertyProxy
-  nameWithType: PropertyProxy<TClass, TProperty>.PropertyProxy
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).PropertyProxy
-- uid: Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#GetValue(System.Object)
-  name: IPropertyProxy.GetValue(Object)
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2_Swan_Reflection_IPropertyProxy_GetValue_System_Object_
-  commentId: M:Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#GetValue(System.Object)
-  name.vb: Swan.Reflection.IPropertyProxy.GetValue(Object)
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.Swan.Reflection.IPropertyProxy.GetValue(System.Object)
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.GetValue(System.Object)
-  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.GetValue(Object)
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.GetValue(Object)
-- uid: Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#GetValue*
-  name: IPropertyProxy.GetValue
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2_Swan_Reflection_IPropertyProxy_GetValue_
-  commentId: Overload:Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#GetValue
-  isSpec: "True"
-  name.vb: Swan.Reflection.IPropertyProxy.GetValue
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.Swan.Reflection.IPropertyProxy.GetValue
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.GetValue
-  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.GetValue
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.GetValue
-- uid: Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#SetValue(System.Object,System.Object)
-  name: IPropertyProxy.SetValue(Object, Object)
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2_Swan_Reflection_IPropertyProxy_SetValue_System_Object_System_Object_
-  commentId: M:Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#SetValue(System.Object,System.Object)
-  name.vb: Swan.Reflection.IPropertyProxy.SetValue(Object, Object)
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.Swan.Reflection.IPropertyProxy.SetValue(System.Object, System.Object)
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.SetValue(System.Object, System.Object)
-  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.SetValue(Object, Object)
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.SetValue(Object, Object)
-- uid: Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#SetValue*
-  name: IPropertyProxy.SetValue
-  href: api/Swan.Reflection.PropertyProxy-2.html#Swan_Reflection_PropertyProxy_2_Swan_Reflection_IPropertyProxy_SetValue_
-  commentId: Overload:Swan.Reflection.PropertyProxy`2.Swan#Reflection#IPropertyProxy#SetValue
-  isSpec: "True"
-  name.vb: Swan.Reflection.IPropertyProxy.SetValue
-  fullName: Swan.Reflection.PropertyProxy<TClass, TProperty>.Swan.Reflection.IPropertyProxy.SetValue
-  fullName.vb: Swan.Reflection.PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.SetValue
-  nameWithType: PropertyProxy<TClass, TProperty>.IPropertyProxy.SetValue
-  nameWithType.vb: PropertyProxy(Of TClass, TProperty).Swan.Reflection.IPropertyProxy.SetValue
 - uid: Swan.Reflection.PropertyTypeCache
   name: PropertyTypeCache
   href: api/Swan.Reflection.PropertyTypeCache.html
@@ -11055,19 +9983,6 @@ references:
   commentId: T:Swan.ReflectionExtensions
   fullName: Swan.ReflectionExtensions
   nameWithType: ReflectionExtensions
-- uid: Swan.ReflectionExtensions.CreatePropertyProxy(PropertyInfo)
-  name: CreatePropertyProxy(PropertyInfo)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_CreatePropertyProxy_PropertyInfo_
-  commentId: M:Swan.ReflectionExtensions.CreatePropertyProxy(PropertyInfo)
-  fullName: Swan.ReflectionExtensions.CreatePropertyProxy(PropertyInfo)
-  nameWithType: ReflectionExtensions.CreatePropertyProxy(PropertyInfo)
-- uid: Swan.ReflectionExtensions.CreatePropertyProxy*
-  name: CreatePropertyProxy
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_CreatePropertyProxy_
-  commentId: Overload:Swan.ReflectionExtensions.CreatePropertyProxy
-  isSpec: "True"
-  fullName: Swan.ReflectionExtensions.CreatePropertyProxy
-  nameWithType: ReflectionExtensions.CreatePropertyProxy
 - uid: Swan.ReflectionExtensions.GetAllTypes(Assembly)
   name: GetAllTypes(Assembly)
   href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetAllTypes_Assembly_
@@ -11081,32 +9996,6 @@ references:
   isSpec: "True"
   fullName: Swan.ReflectionExtensions.GetAllTypes
   nameWithType: ReflectionExtensions.GetAllTypes
-- uid: Swan.ReflectionExtensions.GetCacheGetMethod(PropertyInfo,System.Boolean)
-  name: GetCacheGetMethod(PropertyInfo, Boolean)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetCacheGetMethod_PropertyInfo_System_Boolean_
-  commentId: M:Swan.ReflectionExtensions.GetCacheGetMethod(PropertyInfo,System.Boolean)
-  fullName: Swan.ReflectionExtensions.GetCacheGetMethod(PropertyInfo, System.Boolean)
-  nameWithType: ReflectionExtensions.GetCacheGetMethod(PropertyInfo, Boolean)
-- uid: Swan.ReflectionExtensions.GetCacheGetMethod*
-  name: GetCacheGetMethod
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetCacheGetMethod_
-  commentId: Overload:Swan.ReflectionExtensions.GetCacheGetMethod
-  isSpec: "True"
-  fullName: Swan.ReflectionExtensions.GetCacheGetMethod
-  nameWithType: ReflectionExtensions.GetCacheGetMethod
-- uid: Swan.ReflectionExtensions.GetCacheSetMethod(PropertyInfo,System.Boolean)
-  name: GetCacheSetMethod(PropertyInfo, Boolean)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetCacheSetMethod_PropertyInfo_System_Boolean_
-  commentId: M:Swan.ReflectionExtensions.GetCacheSetMethod(PropertyInfo,System.Boolean)
-  fullName: Swan.ReflectionExtensions.GetCacheSetMethod(PropertyInfo, System.Boolean)
-  nameWithType: ReflectionExtensions.GetCacheSetMethod(PropertyInfo, Boolean)
-- uid: Swan.ReflectionExtensions.GetCacheSetMethod*
-  name: GetCacheSetMethod
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetCacheSetMethod_
-  commentId: Overload:Swan.ReflectionExtensions.GetCacheSetMethod
-  isSpec: "True"
-  fullName: Swan.ReflectionExtensions.GetCacheSetMethod
-  nameWithType: ReflectionExtensions.GetCacheSetMethod
 - uid: Swan.ReflectionExtensions.GetDefault(Type)
   name: GetDefault(Type)
   href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_GetDefault_Type_
@@ -11181,19 +10070,6 @@ references:
   isSpec: "True"
   fullName: Swan.ReflectionExtensions.ToBoolean
   nameWithType: ReflectionExtensions.ToBoolean
-- uid: Swan.ReflectionExtensions.ToFormattedString(PropertyInfo,System.Object)
-  name: ToFormattedString(PropertyInfo, Object)
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_ToFormattedString_PropertyInfo_System_Object_
-  commentId: M:Swan.ReflectionExtensions.ToFormattedString(PropertyInfo,System.Object)
-  fullName: Swan.ReflectionExtensions.ToFormattedString(PropertyInfo, System.Object)
-  nameWithType: ReflectionExtensions.ToFormattedString(PropertyInfo, Object)
-- uid: Swan.ReflectionExtensions.ToFormattedString*
-  name: ToFormattedString
-  href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_ToFormattedString_
-  commentId: Overload:Swan.ReflectionExtensions.ToFormattedString
-  isSpec: "True"
-  fullName: Swan.ReflectionExtensions.ToFormattedString
-  nameWithType: ReflectionExtensions.ToFormattedString
 - uid: Swan.ReflectionExtensions.TryParseBasicType(Type,System.Object,System.Object@)
   name: TryParseBasicType(Type, Object, out Object)
   href: api/Swan.ReflectionExtensions.html#Swan_ReflectionExtensions_TryParseBasicType_Type_System_Object_System_Object__
@@ -11280,138 +10156,6 @@ references:
   isSpec: "True"
   fullName: Swan.SelfCheck.Failure
   nameWithType: SelfCheck.Failure
-- uid: Swan.Services
-  name: Swan.Services
-  href: api/Swan.Services.html
-  commentId: N:Swan.Services
-  fullName: Swan.Services
-  nameWithType: Swan.Services
-- uid: Swan.Services.ServiceBase
-  name: ServiceBase
-  href: api/Swan.Services.ServiceBase.html
-  commentId: T:Swan.Services.ServiceBase
-  fullName: Swan.Services.ServiceBase
-  nameWithType: ServiceBase
-- uid: Swan.Services.ServiceBase.AutoLog
-  name: AutoLog
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_AutoLog
-  commentId: P:Swan.Services.ServiceBase.AutoLog
-  fullName: Swan.Services.ServiceBase.AutoLog
-  nameWithType: ServiceBase.AutoLog
-- uid: Swan.Services.ServiceBase.AutoLog*
-  name: AutoLog
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_AutoLog_
-  commentId: Overload:Swan.Services.ServiceBase.AutoLog
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.AutoLog
-  nameWithType: ServiceBase.AutoLog
-- uid: Swan.Services.ServiceBase.CanPauseAndContinue
-  name: CanPauseAndContinue
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanPauseAndContinue
-  commentId: P:Swan.Services.ServiceBase.CanPauseAndContinue
-  fullName: Swan.Services.ServiceBase.CanPauseAndContinue
-  nameWithType: ServiceBase.CanPauseAndContinue
-- uid: Swan.Services.ServiceBase.CanPauseAndContinue*
-  name: CanPauseAndContinue
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanPauseAndContinue_
-  commentId: Overload:Swan.Services.ServiceBase.CanPauseAndContinue
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.CanPauseAndContinue
-  nameWithType: ServiceBase.CanPauseAndContinue
-- uid: Swan.Services.ServiceBase.CanShutdown
-  name: CanShutdown
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanShutdown
-  commentId: P:Swan.Services.ServiceBase.CanShutdown
-  fullName: Swan.Services.ServiceBase.CanShutdown
-  nameWithType: ServiceBase.CanShutdown
-- uid: Swan.Services.ServiceBase.CanShutdown*
-  name: CanShutdown
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanShutdown_
-  commentId: Overload:Swan.Services.ServiceBase.CanShutdown
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.CanShutdown
-  nameWithType: ServiceBase.CanShutdown
-- uid: Swan.Services.ServiceBase.CanStop
-  name: CanStop
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanStop
-  commentId: P:Swan.Services.ServiceBase.CanStop
-  fullName: Swan.Services.ServiceBase.CanStop
-  nameWithType: ServiceBase.CanStop
-- uid: Swan.Services.ServiceBase.CanStop*
-  name: CanStop
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_CanStop_
-  commentId: Overload:Swan.Services.ServiceBase.CanStop
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.CanStop
-  nameWithType: ServiceBase.CanStop
-- uid: Swan.Services.ServiceBase.ExitCode
-  name: ExitCode
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_ExitCode
-  commentId: P:Swan.Services.ServiceBase.ExitCode
-  fullName: Swan.Services.ServiceBase.ExitCode
-  nameWithType: ServiceBase.ExitCode
-- uid: Swan.Services.ServiceBase.ExitCode*
-  name: ExitCode
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_ExitCode_
-  commentId: Overload:Swan.Services.ServiceBase.ExitCode
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.ExitCode
-  nameWithType: ServiceBase.ExitCode
-- uid: Swan.Services.ServiceBase.OnStart(System.String[])
-  name: OnStart(String[])
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_OnStart_System_String___
-  commentId: M:Swan.Services.ServiceBase.OnStart(System.String[])
-  name.vb: OnStart(String())
-  fullName: Swan.Services.ServiceBase.OnStart(System.String[])
-  fullName.vb: Swan.Services.ServiceBase.OnStart(System.String())
-  nameWithType: ServiceBase.OnStart(String[])
-  nameWithType.vb: ServiceBase.OnStart(String())
-- uid: Swan.Services.ServiceBase.OnStart*
-  name: OnStart
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_OnStart_
-  commentId: Overload:Swan.Services.ServiceBase.OnStart
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.OnStart
-  nameWithType: ServiceBase.OnStart
-- uid: Swan.Services.ServiceBase.OnStop
-  name: OnStop()
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_OnStop
-  commentId: M:Swan.Services.ServiceBase.OnStop
-  fullName: Swan.Services.ServiceBase.OnStop()
-  nameWithType: ServiceBase.OnStop()
-- uid: Swan.Services.ServiceBase.OnStop*
-  name: OnStop
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_OnStop_
-  commentId: Overload:Swan.Services.ServiceBase.OnStop
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.OnStop
-  nameWithType: ServiceBase.OnStop
-- uid: Swan.Services.ServiceBase.ServiceName
-  name: ServiceName
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_ServiceName
-  commentId: P:Swan.Services.ServiceBase.ServiceName
-  fullName: Swan.Services.ServiceBase.ServiceName
-  nameWithType: ServiceBase.ServiceName
-- uid: Swan.Services.ServiceBase.ServiceName*
-  name: ServiceName
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_ServiceName_
-  commentId: Overload:Swan.Services.ServiceBase.ServiceName
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.ServiceName
-  nameWithType: ServiceBase.ServiceName
-- uid: Swan.Services.ServiceBase.Stop
-  name: Stop()
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_Stop
-  commentId: M:Swan.Services.ServiceBase.Stop
-  fullName: Swan.Services.ServiceBase.Stop()
-  nameWithType: ServiceBase.Stop()
-- uid: Swan.Services.ServiceBase.Stop*
-  name: Stop
-  href: api/Swan.Services.ServiceBase.html#Swan_Services_ServiceBase_Stop_
-  commentId: Overload:Swan.Services.ServiceBase.Stop
-  isSpec: "True"
-  fullName: Swan.Services.ServiceBase.Stop
-  nameWithType: ServiceBase.Stop
 - uid: Swan.SingletonBase`1
   name: SingletonBase<T>
   href: api/Swan.SingletonBase-1.html
@@ -15175,31 +13919,3 @@ references:
   fullName.vb: Swan.ViewModelBase.SetProperty(Of T)(ByRef T, T, System.String, System.String())
   nameWithType: ViewModelBase.SetProperty<T>(ref T, T, String, String[])
   nameWithType.vb: ViewModelBase.SetProperty(Of T)(ByRef T, T, String, String())
-- uid: Swan.WindowsServicesExtensions
-  name: WindowsServicesExtensions
-  href: api/Swan.WindowsServicesExtensions.html
-  commentId: T:Swan.WindowsServicesExtensions
-  fullName: Swan.WindowsServicesExtensions
-  nameWithType: WindowsServicesExtensions
-- uid: Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase,System.String)
-  name: RunInConsoleMode(ServiceBase, String)
-  href: api/Swan.WindowsServicesExtensions.html#Swan_WindowsServicesExtensions_RunInConsoleMode_Swan_Services_ServiceBase_System_String_
-  commentId: M:Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase,System.String)
-  fullName: Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase, System.String)
-  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase, String)
-- uid: Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase[],System.String)
-  name: RunInConsoleMode(ServiceBase[], String)
-  href: api/Swan.WindowsServicesExtensions.html#Swan_WindowsServicesExtensions_RunInConsoleMode_Swan_Services_ServiceBase___System_String_
-  commentId: M:Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase[],System.String)
-  name.vb: RunInConsoleMode(ServiceBase(), String)
-  fullName: Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase[], System.String)
-  fullName.vb: Swan.WindowsServicesExtensions.RunInConsoleMode(Swan.Services.ServiceBase(), System.String)
-  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase[], String)
-  nameWithType.vb: WindowsServicesExtensions.RunInConsoleMode(ServiceBase(), String)
-- uid: Swan.WindowsServicesExtensions.RunInConsoleMode*
-  name: RunInConsoleMode
-  href: api/Swan.WindowsServicesExtensions.html#Swan_WindowsServicesExtensions_RunInConsoleMode_
-  commentId: Overload:Swan.WindowsServicesExtensions.RunInConsoleMode
-  isSpec: "True"
-  fullName: Swan.WindowsServicesExtensions.RunInConsoleMode
-  nameWithType: WindowsServicesExtensions.RunInConsoleMode

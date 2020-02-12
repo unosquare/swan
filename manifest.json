@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "AwvIZ4efZvmTTjUl4LbhRg=="
+          "hash": "UQgGQKVKca5ZrIRcfSza4A=="
         }
       },
       "is_incremental": false,
@@ -98,79 +98,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Collections.CollectionCacheRepository-1.html",
-          "hash": "6prEGf5WmOjtkw+9HlUWNw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.ComponentCollection-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.ComponentCollection-1.html",
-          "hash": "FTAfka2sjY+mTDXBaWHI2A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.ConcurrentDataDictionary-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.ConcurrentDataDictionary-2.html",
-          "hash": "btbLOvLOKBxZgkLsq/BeNQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.DataDictionary-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.DataDictionary-2.html",
-          "hash": "7oUhw4KUncSTjvngracD8A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.DisposableComponentCollection-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.DisposableComponentCollection-1.html",
-          "hash": "5zrYg29MLCllMoz3yAzjOQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.IComponentCollection-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.IComponentCollection-1.html",
-          "hash": "gMx6RYzsmQVXNt0sbwaExQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Collections.IDataDictionary-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Collections.IDataDictionary-2.html",
-          "hash": "9XHdYXaWWfbtSFKc5k3YLw=="
+          "hash": "CFWm6XDCG3N0pD3AxtAMXg=="
         }
       },
       "is_incremental": false,
@@ -182,19 +110,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Collections.html",
-          "hash": "I87b+CRvZMGARSFXPb2Y2g=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.ComponentCollectionExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.ComponentCollectionExtensions.html",
-          "hash": "cODgmWQXL8vH17eYmosg2g=="
+          "hash": "VhNmhzwg2ORvvqvwunyNYA=="
         }
       },
       "is_incremental": false,
@@ -226,23 +142,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Configuration.PropertyDisplayAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Configuration.PropertyDisplayAttribute.html",
-          "hash": "M1O27Vd5J7UidfjgTCKseQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Configuration.SettingsProvider-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/Swan.Configuration.SettingsProvider-1.html",
-          "hash": "SMsK/X5V12IiK3IyEvWq3g=="
+          "hash": "CYzjq5kc9A4TUeD99C+gIg=="
         }
       },
       "is_incremental": false,
@@ -254,7 +158,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Configuration.html",
-          "hash": "dI4iVSybre1Q6gcon0IMGg=="
+          "hash": "cioHXKAntNmt4GVWf8JUFg=="
         }
       },
       "is_incremental": false,
@@ -626,7 +530,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Formatters.Json.html",
-          "hash": "JBldqgCdFH+vdEkE6YKHWg=="
+          "hash": "P4lFMwtWvCL6OKsHZ2cepA=="
         }
       },
       "is_incremental": false,
@@ -646,11 +550,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.Formatters.JsonSerializerCase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.Formatters.JsonSerializerCase.html",
+          "hash": "39cnpAosN6Wl295X1h4L3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Formatters.SerializerOptions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Swan.Formatters.SerializerOptions.html",
-          "hash": "iWpR4BUmq4yISi2h+IyGpA=="
+          "hash": "WQEXF+gjIj+ARIoNp/oCsQ=="
         }
       },
       "is_incremental": false,
@@ -662,7 +578,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Formatters.html",
-          "hash": "Zh7NIf3QaU5wGzfvz9I+qw=="
+          "hash": "OLpq/+dgvn7X46TLw5/Oig=="
         }
       },
       "is_incremental": false,
@@ -699,18 +615,6 @@
         ".html": {
           "relative_path": "api/Swan.InternalErrorException.html",
           "hash": "blPzH1c8zMUKiumcrJLkVw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.JsonSerializerCase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.JsonSerializerCase.html",
-          "hash": "2f11+AC9NnoSEM1t2NKolw=="
         }
       },
       "is_incremental": false,
@@ -1010,7 +914,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Net.Connection.html",
-          "hash": "7kt5SMl53qdr+QlLPOHs8w=="
+          "hash": "exjeWonuAjzVdBGhkaeV2A=="
         }
       },
       "is_incremental": false,
@@ -1466,7 +1370,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Parsers.ArgumentOptionAttribute.html",
-          "hash": "5fZfhbgJ3aT0+c+v+fNVIA=="
+          "hash": "00zEvN4qn87dijXePkiFYg=="
         }
       },
       "is_incremental": false,
@@ -1618,6 +1522,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Swan.PropertyProxyExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Swan.PropertyProxyExtensions.html",
+          "hash": "AwNiVxVp/rtr3QY0Bh1jHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.Reflection.AttributeCache.yml",
       "output": {
         ".html": {
@@ -1635,30 +1551,6 @@
         ".html": {
           "relative_path": "api/Swan.Reflection.ConstructorTypeCache.html",
           "hash": "7NsOq9IfqdxCL3kuh5Cmug=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Reflection.ExtendedPropertyInfo-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Reflection.ExtendedPropertyInfo-1.html",
-          "hash": "GLioSz9r6pxe+sFpgkElsQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Reflection.ExtendedPropertyInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Reflection.ExtendedPropertyInfo.html",
-          "hash": "J5QNi2Ykl4CoeQfw8aXfbw=="
         }
       },
       "is_incremental": false,
@@ -1706,7 +1598,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.IPropertyProxy.html",
-          "hash": "A8UZn2zailf03RQr1iFc5Q=="
+          "hash": "HiqxiWWjpbS/4uXCpnwqdA=="
         }
       },
       "is_incremental": false,
@@ -1719,18 +1611,6 @@
         ".html": {
           "relative_path": "api/Swan.Reflection.MethodInfoCache.html",
           "hash": "ww/TPW+30yjRPLk82bAzqg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Reflection.PropertyProxy-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Reflection.PropertyProxy-2.html",
-          "hash": "mXcwWIxTnDSxBuPw5R9Dlw=="
         }
       },
       "is_incremental": false,
@@ -1766,7 +1646,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.Reflection.html",
-          "hash": "F6IroS+Sv+mpssxiR+5zRg=="
+          "hash": "vSO231ez+7y39QG+iavGfQ=="
         }
       },
       "is_incremental": false,
@@ -1778,7 +1658,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Swan.ReflectionExtensions.html",
-          "hash": "hwFmlvLlG6lg1rDVZnknbA=="
+          "hash": "stdoJ5jo4mAQiUsTHGksaQ=="
         }
       },
       "is_incremental": false,
@@ -1791,30 +1671,6 @@
         ".html": {
           "relative_path": "api/Swan.SelfCheck.html",
           "hash": "+REmhQw4qtakVrDbRmOtQg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Services.ServiceBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Services.ServiceBase.html",
-          "hash": "q9jtLRAqdOLPALMVJEJ1Kg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.Services.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.Services.html",
-          "hash": "Om2yYxKvP0YPRXkfEoL1CQ=="
         }
       },
       "is_incremental": false,
@@ -2398,23 +2254,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Swan.WindowsServicesExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Swan.WindowsServicesExtensions.html",
-          "hash": "Xdpja2NHVd0EAHufunNm5w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Swan.yml",
       "output": {
         ".html": {
           "relative_path": "api/Swan.html",
-          "hash": "R/CxeJOHSZ1ZHCv3hfFvdA=="
+          "hash": "sDaiO/6WyzHTt8APZDMDqg=="
         }
       },
       "is_incremental": false,
@@ -2426,7 +2270,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "HlbY9YxDkWCE7QKY/rDyQQ=="
+          "hash": "nTq3lA9mEsji4od1H4cHqg=="
         }
       },
       "is_incremental": false,
@@ -2467,6 +2311,19 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 0
+        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -2477,20 +2334,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 195,
-          "skipped_file_count": 0
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 2,
-          "skipped_file_count": 0
-        },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 182,
           "skipped_file_count": 0
         }
       }

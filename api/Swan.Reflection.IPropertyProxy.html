@@ -81,7 +81,7 @@
   
   <h1 id="Swan_Reflection_IPropertyProxy" data-uid="Swan.Reflection.IPropertyProxy" class="text-break">Interface IPropertyProxy
   </h1>
-  <div class="markdown level0 summary"><p>Represents a generic interface to store getters and setters.</p>
+  <div class="markdown level0 summary"><p>Represents a generic interface to store getters and setters for high speed access to properties.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Swan.Reflection.html">Swan.Reflection</a></h6>
@@ -89,6 +89,112 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public interface IPropertyProxy</code></pre>
   </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Swan_Reflection_IPropertyProxy_EnclosingType_" data-uid="Swan.Reflection.IPropertyProxy.EnclosingType*"></a>
+  <h4 id="Swan_Reflection_IPropertyProxy_EnclosingType" data-uid="Swan.Reflection.IPropertyProxy.EnclosingType">EnclosingType</h4>
+  <div class="markdown level1 summary"><p>Gets the type owning this property proxy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Type EnclosingType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Reflection_IPropertyProxy_Name_" data-uid="Swan.Reflection.IPropertyProxy.Name*"></a>
+  <h4 id="Swan_Reflection_IPropertyProxy_Name" data-uid="Swan.Reflection.IPropertyProxy.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the property.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Reflection_IPropertyProxy_Property_" data-uid="Swan.Reflection.IPropertyProxy.Property*"></a>
+  <h4 id="Swan_Reflection_IPropertyProxy_Property" data-uid="Swan.Reflection.IPropertyProxy.Property">Property</h4>
+  <div class="markdown level1 summary"><p>Gets the associated reflection property info.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PropertyInfo Property { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PropertyInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Swan_Reflection_IPropertyProxy_PropertyType_" data-uid="Swan.Reflection.IPropertyProxy.PropertyType*"></a>
+  <h4 id="Swan_Reflection_IPropertyProxy_PropertyType" data-uid="Swan.Reflection.IPropertyProxy.PropertyType">PropertyType</h4>
+  <div class="markdown level1 summary"><p>Gets the type of the property.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Type PropertyType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   
