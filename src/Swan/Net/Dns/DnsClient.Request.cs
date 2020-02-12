@@ -180,6 +180,7 @@
 #else
                     tcp.Client.Connect(request.Dns);
 #endif
+
                     var stream = tcp.GetStream();
                     var buffer = request.ToArray();
                     var length = BitConverter.GetBytes((ushort)buffer.Length);
@@ -205,11 +206,7 @@
                 }
                 finally
                 {
-#if NET461
-                    tcp.Close();
-#else
                     tcp.Dispose();
-#endif
                 }
             }
 
@@ -282,11 +279,7 @@
                 }
                 finally
                 {
-#if NET461
-                    udp.Close();
-#else
                     udp.Dispose();
-#endif
                 }
             }
         }
@@ -461,7 +454,7 @@
                 get => flag1;
                 set => flag1 = value;
             }
-            
+
             public static DnsHeader FromArray(byte[] header) =>
                 header.Length < SIZE
                     ? throw new ArgumentException("Header length too small")

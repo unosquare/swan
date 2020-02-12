@@ -3,7 +3,6 @@
     using Formatters;
     using Mocks;
     using NUnit.Framework;
-    using Reflection;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -98,14 +97,6 @@
             Assert.AreEqual(BasicAObj.Id, data.Id);
             Assert.IsNotNull(data.Properties);
             Assert.AreEqual(string.Join(",", BasicAObj.Properties), string.Join(",", data.Properties));
-        }
-
-        [Test]
-        public void WithArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
-        {
-            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(BasicAObjStr);
-
-            Assert.IsNotNull(data);
         }
 
         [Test]

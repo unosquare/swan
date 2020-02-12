@@ -75,19 +75,17 @@ namespace Swan
 
             foreach (var propertyTarget in properties)
             {
-                var targetPropertyGetMethod = propertyTarget.GetCacheGetMethod();
-                
                 if (propertyTarget.PropertyType.IsArray)
                 {
-                    var leftObj = targetPropertyGetMethod(left) as IEnumerable;
-                    var rightObj = targetPropertyGetMethod(right) as IEnumerable;
+                    var leftObj = left.ReadProperty(propertyTarget.Name) as IEnumerable;
+                    var rightObj = right.ReadProperty(propertyTarget.Name) as IEnumerable;
 
                     if (!AreEnumerationsEquals(leftObj, rightObj))
                         return false;
                 }
                 else
                 {
-                    if (!Equals(targetPropertyGetMethod(left), targetPropertyGetMethod(right)))
+                    if (!Equals(left.ReadProperty(propertyTarget.Name), right.ReadProperty(propertyTarget.Name)))
                         return false;
                 }
             }
@@ -131,14 +129,11 @@ namespace Swan
                 switch (targetMember)
                 {
                     case FieldInfo field:
-                        if (Equals(field.GetValue(left), field.GetValue(right)) == false)
+                        if (!Equals(field.GetValue(left), field.GetValue(right)))
                             return false;
                         break;
                     case PropertyInfo property:
-                        var targetPropertyGetMethod = property.GetCacheGetMethod();
-
-                        if (targetPropertyGetMethod != null &&
-                            !Equals(targetPropertyGetMethod(left), targetPropertyGetMethod(right)))
+                        if (!Equals(left.ReadProperty(property.Name), right.ReadProperty(property.Name)))
                             return false;
                         break;
                 }

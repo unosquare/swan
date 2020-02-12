@@ -266,7 +266,7 @@
         /// <value>
         /// The remote client.
         /// </value>
-        public TcpClient RemoteClient { get; private set; }
+        public TcpClient? RemoteClient { get; private set; }
 
         /// <summary>
         /// When in continuous reading mode, and if set to greater than 0,
@@ -699,22 +699,18 @@
             {
                 ClientDisconnected(this, EventArgs.Empty);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // ignore
             }
 
             try
             {
-#if !NET461
                 RemoteClient.Dispose();
                 SecureStream?.Dispose();
                 NetworkStream?.Dispose();
-#else
-                RemoteClient.Close();
-                SecureStream?.Close();
-                NetworkStream?.Close();
-#endif
             }
             finally
             {
@@ -875,7 +871,9 @@
                         doThreadSleep = _disconnectCalls <= 0;
                     }
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     ex.Log(nameof(PerformContinuousReading), "Continuous Read operation errored");
                 }

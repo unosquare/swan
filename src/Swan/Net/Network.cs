@@ -108,9 +108,7 @@
             var addressList = new List<IPAddress>();
             var interfaces = NetworkInterface.GetAllNetworkInterfaces()
                 .Where(ni =>
-#if NET461
-                    ni.IsReceiveOnly == false &&
-#endif
+                    !ni.IsReceiveOnly &&
                     (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
                     ni.OperationalStatus == OperationalStatus.Up)
                 .ToArray();

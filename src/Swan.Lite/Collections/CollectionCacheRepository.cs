@@ -37,7 +37,6 @@ namespace Swan.Collections
         /// or
         /// factory.
         /// </exception>
-        /// <exception cref="System.ArgumentNullException">type.</exception>
         public IEnumerable<TValue> Retrieve(Type key, Func<Type, IEnumerable<TValue>> factory)
         {
             if (key == null)

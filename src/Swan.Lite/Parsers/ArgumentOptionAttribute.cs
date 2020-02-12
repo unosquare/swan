@@ -12,15 +12,6 @@ namespace Swan.Parsers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
-        /// The default long name will be inferred from target property.
-        /// </summary>
-        public ArgumentOptionAttribute()
-            : this(string.Empty, string.Empty)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// </summary>
         /// <param name="longName">The long name of the option.</param>
         public ArgumentOptionAttribute(string longName)

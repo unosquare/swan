@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using Swan.Configuration;
-using Swan.Reflection;
 
 namespace Swan
 {
@@ -15,14 +11,6 @@ namespace Swan
     /// </summary>
     public static class ReflectionExtensions
     {
-        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>> CacheGetMethods =
-            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Func<object, object>>(), true);
-
-        private static readonly Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>> CacheSetMethods =
-            new Lazy<ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>>(() => new ConcurrentDictionary<Tuple<bool, PropertyInfo>, Action<object, object[]>>(), true);
-
-        #region Assembly Extensions
-
         /// <summary>
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
@@ -45,8 +33,6 @@ namespace Swan
                 return e.Types.Where(t => t != null);
             }
         }
-
-        #endregion
 
         #region Type Extensions
 
@@ -306,85 +292,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Gets property actual value or <c>PropertyDisplayAttribute.DefaultValue</c> if presented.
-        ///
-        /// If the <c>PropertyDisplayAttribute.Format</c> value is presented, the property value
-        /// will be formatted accordingly.
-        ///
-        /// If the object contains a null value, a empty string will be returned.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="target">The object.</param>
-        /// <returns>The property value or null.</returns>
-        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
-        public static string? ToFormattedString(this PropertyInfo propertyInfo, object target)
-        {
-            if (propertyInfo == null)
-                throw new ArgumentNullException(nameof(propertyInfo));
-
-            try
-            {
-                var value = propertyInfo.GetValue(target);
-                var attr = AttributeCache.DefaultCache.Value.RetrieveOne<PropertyDisplayAttribute>(propertyInfo);
-
-                if (attr == null) return value?.ToString() ?? string.Empty;
-
-                var valueToFormat = value ?? attr.DefaultValue;
-
-                return string.IsNullOrEmpty(attr.Format)
-                    ? (valueToFormat?.ToString() ?? string.Empty)
-                    : ConvertObjectAndFormat(propertyInfo.PropertyType, valueToFormat, attr.Format);
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets a MethodInfo from a Property Get method.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
-        /// <returns>
-        /// The cached MethodInfo.
-        /// </returns>
-        public static Func<object, object>? GetCacheGetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-        {
-            var key = Tuple.Create(!nonPublic, propertyInfo);
-
-            // TODO: Fix public logic
-            return !nonPublic && !CacheGetMethods.Value.ContainsKey(key) && !propertyInfo.GetGetMethod(true).IsPublic
-                ? null
-                : CacheGetMethods.Value
-                    .GetOrAdd(key,
-                        x => y => x.Item2.GetGetMethod(nonPublic).Invoke(y, null));
-            //y => x => y.Item2.CreatePropertyProxy().GetValue(x));
-        }
-
-        /// <summary>
-        /// Gets a MethodInfo from a Property Set method.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
-        /// <returns>
-        /// The cached MethodInfo.
-        /// </returns>
-        public static Action<object, object[]>? GetCacheSetMethod(this PropertyInfo propertyInfo, bool nonPublic = false)
-        {
-            var key = Tuple.Create(!nonPublic, propertyInfo);
-
-            return !nonPublic && !CacheSetMethods.Value.ContainsKey(key) && !propertyInfo.GetSetMethod(true).IsPublic
-                ? null
-                : CacheSetMethods.Value
-                    .GetOrAdd(key,
-                        x => (obj, args) => x.Item2.GetSetMethod(nonPublic).Invoke(obj, args));
-            //y => (obj, args) => y.Item2.CreatePropertyProxy().SetValue(obj, args));
-        }
-
-        /// <summary>
         /// Convert a string to a boolean.
         /// </summary>
         /// <param name="str">The string.</param>
@@ -417,25 +324,6 @@ namespace Swan
         }
 
         /// <summary>
-        /// Creates a property proxy that stores getter and setter delegates.
-        /// </summary>
-        /// <param name="this">The property information.</param>
-        /// <returns>
-        /// The property proxy.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">this.</exception>
-        public static IPropertyProxy? CreatePropertyProxy(this PropertyInfo @this)
-        {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
-
-            var genericType = typeof(PropertyProxy<,>)
-                .MakeGenericType(@this.DeclaringType, @this.PropertyType);
-
-            return Activator.CreateInstance(genericType, @this) as IPropertyProxy;
-        }
-
-        /// <summary>
         /// Convert a object to a boolean.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -443,21 +331,5 @@ namespace Swan
         ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
         /// </returns>
         public static bool ToBoolean(this object value) => value.ToStringInvariant().ToBoolean();
-
-        private static string ConvertObjectAndFormat(Type propertyType, object? value, string? format)
-        {
-            if (propertyType == typeof(DateTime) || propertyType == typeof(DateTime?))
-                return Convert.ToDateTime(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(int) || propertyType == typeof(int?))
-                return Convert.ToInt32(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(decimal) || propertyType == typeof(decimal?))
-                return Convert.ToDecimal(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(double) || propertyType == typeof(double?))
-                return Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(format);
-            if (propertyType == typeof(byte) || propertyType == typeof(byte?))
-                return Convert.ToByte(value, CultureInfo.InvariantCulture).ToString(format);
-
-            return value?.ToString() ?? string.Empty;
-        }
     }
 }

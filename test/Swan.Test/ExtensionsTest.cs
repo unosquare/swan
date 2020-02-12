@@ -50,13 +50,7 @@
         {
             var total = 0;
 
-            var action = new Func<int>(() =>
-            {
-                if (total++ < 2)
-                    throw new Exception();
-
-                return total;
-            });
+            var action = new Func<int>(() => total++ < 2 ? throw new Exception() : total);
 
             var result = action.Retry();
             Assert.AreEqual(3, result);

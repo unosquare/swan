@@ -264,8 +264,8 @@ namespace Swan.Mappers
                 .Distinct()
                 .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.Name == x))
                 .Where(x => sourceProperties.Keys.Contains(x.Key))
-                .When(() => requiredProperties != null, q => q.Where(y => requiredProperties.Contains(y.Key)))
-                .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties.Contains(y.Key)))
+                .When(() => requiredProperties != null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
+                .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
                 .Sum(x => TrySetValue(x.Key, x.Value, target) ? 1 : 0);
         }

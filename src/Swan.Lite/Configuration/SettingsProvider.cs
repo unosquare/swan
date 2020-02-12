@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Swan.Formatters;
+using System;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using Swan.Formatters;
-using Swan.Reflection;
 
 namespace Swan.Configuration
 {
@@ -99,56 +94,6 @@ namespace Swan.Configuration
         public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global, true));
 
         /// <summary>
-        /// Updates settings from list.
-        /// </summary>
-        /// <param name="propertyList">The list.</param>
-        /// <returns>
-        /// A list of settings of type ref="ExtendedPropertyInfo".
-        /// </returns>
-        /// <exception cref="ArgumentNullException">propertyList.</exception>
-        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
-        {
-            if (propertyList == null)
-                throw new ArgumentNullException(nameof(propertyList));
-
-            var changedSettings = new List<string>();
-            var globalProps = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>();
-
-            foreach (var property in propertyList)
-            {
-                var propertyInfo = globalProps.FirstOrDefault(x => x.Name == property.Property);
-
-                if (propertyInfo == null) continue;
-
-                var originalValue = propertyInfo.GetValue(Global);
-                var isChanged = propertyInfo.PropertyType.IsArray
-                    ? property.Value is IEnumerable enumerable && propertyInfo.TrySetArray(enumerable.Cast<object>(), Global)
-                    : SetValue(property.Value, originalValue, propertyInfo);
-
-                if (!isChanged) continue;
-
-                changedSettings.Add(property.Property);
-                PersistGlobalSettings();
-            }
-
-            return changedSettings;
-        }
-
-        /// <summary>
-        /// Gets the list.
-        /// </summary>
-        /// <returns>A List of ExtendedPropertyInfo of the type T.</returns>
-        [Obsolete("This method will be removed in next version")]
-        public List<ExtendedPropertyInfo<T>>? GetList()
-        {
-            var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;
-
-            return jsonData?.Keys
-                .Select(p => new ExtendedPropertyInfo<T>(p) { Value = jsonData[p] })
-                .ToList();
-        }
-
-        /// <summary>
         /// Resets the global settings.
         /// </summary>
         public void ResetGlobalSettings()
@@ -157,29 +102,6 @@ namespace Swan.Configuration
                 _global = Activator.CreateInstance<T>();
 
             PersistGlobalSettings();
-        }
-
-        private bool SetValue(object property, object originalValue, PropertyInfo propertyInfo)
-        {
-            switch (property)
-            {
-                case null when originalValue == null:
-                    break;
-                case null:
-                    propertyInfo.SetValue(Global, null);
-                    return true;
-                default:
-                    if (propertyInfo.PropertyType.TryParseBasicType(property, out var propertyValue) &&
-                        !propertyValue.Equals(originalValue))
-                    {
-                        propertyInfo.SetValue(Global, propertyValue);
-                        return true;
-                    }
-
-                    break;
-            }
-
-            return false;
         }
     }
 }

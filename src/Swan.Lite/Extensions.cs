@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Swan.Formatters;
+using Swan.Mappers;
+using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Swan.Mappers;
-using Swan.Reflection;
 
 namespace Swan
 {

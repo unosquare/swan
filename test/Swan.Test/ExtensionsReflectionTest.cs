@@ -84,44 +84,6 @@
     }
 
     [TestFixture]
-    public class ToFormattedString
-    {
-        private readonly PropertyInfoMock _mock = new PropertyInfoMock { BirthDate = new DateTime(2018, 1, 1) };
-
-        [Test]
-        public void WithPropertyNullWithoutDefaultValue_ReturnsStringEmpty()
-        {
-            Assert.AreEqual(
-                string.Empty,
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Name)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithPropertyNullWithDefaultValue_ReturnDefaultValue()
-        {
-            Assert.AreEqual(
-                "Unknown",
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Alias)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithIntPropertyNotNullWithFormat_ReturnFormattedValue()
-        {
-            Assert.AreEqual(
-                _mock.Age.ToString("P"),
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.Age)).ToFormattedString(_mock));
-        }
-
-        [Test]
-        public void WithDatePropertyNotNullWithFormat_ReturnFormattedValue()
-        {
-            Assert.AreEqual(
-                _mock.BirthDate.ToString("YYYY"),
-                typeof(PropertyInfoMock).GetProperty(nameof(PropertyInfoMock.BirthDate)).ToFormattedString(_mock));
-        }
-    }
-
-    [TestFixture]
     public class GetAllTypes
     {
         [Test]
@@ -186,71 +148,6 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
                 _type.GetMethod(Flags, _methodName, _genericTypes, null));
-        }
-    }
-
-    public abstract class GetCacheMethodInfo : TestFixtureBase
-    {
-        public PropertyInfo PublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.Animal));
-
-        public PropertyInfo NonPublicProperty { get; } = typeof(Controller).GetProperty(nameof(Controller.IsReadonly));
-    }
-
-    [TestFixture]
-    public class GetCacheGetMethod : GetCacheMethodInfo
-    {
-        [Test]
-        public void PublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
-        {
-            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
-        }
-
-        [Test]
-        public void PublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
-        {
-            Assert.IsNotNull(PublicProperty.GetCacheGetMethod(true));
-        }
-
-        [Test]
-        public void NonPublicPropertyOnlyPublicFlag_ReturnsGetMethodInfo()
-        {
-            Assert.IsNull(NonPublicProperty.GetCacheGetMethod());
-        }
-
-        [Test]
-        public void NonPublicPropertyNoPublicFlag_ReturnsGetMethodInfo()
-        {
-            Assert.IsNotNull(NonPublicProperty.GetCacheGetMethod(true));
-        }
-
-        [Test]
-        public void CallTwice_ReturnsCache()
-        {
-            PublicProperty.GetCacheGetMethod();
-
-            Assert.IsNotNull(PublicProperty.GetCacheGetMethod());
-        }
-    }
-
-    [TestFixture]
-    public class GetCacheSetMethod : GetCacheMethodInfo
-    {
-        [Test]
-        public void PublicPropertyOnlyPublicFlag_ReturnsSetMethodInfo()
-        {
-            Assert.IsNotNull(PublicProperty.GetCacheSetMethod());
-        }
-
-        [Test]
-        public void PublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
-        {
-            Assert.IsNotNull(PublicProperty.GetCacheSetMethod(true));
-        }
-
-        [Test]
-        public void NonPublicPropertyNoPublicFlag_ReturnsSetMethodInfo()
-        {
-            Assert.IsNotNull(NonPublicProperty.GetCacheSetMethod(true));
         }
     }
 }

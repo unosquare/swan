@@ -29,11 +29,10 @@
 
         public bool BoolData { get; set; }
 
-        public string StringNull { get; set; }
+        public string? StringNull { get; set; }
 
-        public static BasicJson GetDefault()
-        {
-            return new BasicJson
+        public static BasicJson GetDefault() =>
+            new BasicJson
             {
                 StringData = "string,\r\ndata\\",
                 IntData = 1,
@@ -41,7 +40,6 @@
                 DecimalData = 10.33M,
                 BoolData = true,
             };
-        }
 
         public static string GetControlValue() =>
             "\"StringData\": \"string,\\r\\ndata\\\\\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
@@ -85,7 +83,7 @@
     {
         public int Id { get; set; } = 1;
 
-        public string[] Properties { get; set; } = new[] { "ONE", "TWO" };
+        public string[] Properties { get; set; } = { "ONE", "TWO" };
     }
 
     public class DateTimeJson

@@ -5,11 +5,12 @@
         <Copyright>Copyright (c) 2016-2020 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0</TargetFrameworks>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AssemblyName>Swan.Lite</AssemblyName>
         <RootNamespace>Swan</RootNamespace>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-        <Version>2.6.2</Version>
+        <Version>3.0.0</Version>
         <Authors>Unosquare</Authors>
         <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
         <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>

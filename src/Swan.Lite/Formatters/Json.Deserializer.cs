@@ -23,8 +23,8 @@ namespace Swan.Formatters
             private readonly object? _result;
             private readonly string _json;
 
-            private Dictionary<string, object> _resultObject;
-            private List<object> _resultArray;
+            private Dictionary<string, object?> _resultObject;
+            private List<object?> _resultArray;
             private ReadState _state = ReadState.WaitingForRootOpen;
             private string? _currentFieldName;
 
@@ -116,11 +116,11 @@ namespace Swan.Formatters
                 switch (_json[_index])
                 {
                     case OpenObjectChar:
-                        _resultObject = new Dictionary<string, object>();
+                        _resultObject = new Dictionary<string, object?>();
                         _state = ReadState.WaitingForField;
                         return;
                     case OpenArrayChar:
-                        _resultArray = new List<object>();
+                        _resultArray = new List<object?>();
                         _state = ReadState.WaitingForValue;
                         return;
                     default:
@@ -151,7 +151,7 @@ namespace Swan.Formatters
                         break;
 
                     case 'n': // expect null
-                        ExtractConstant(NullLiteral, null);
+                        ExtractConstant(NullLiteral);
                         break;
 
                     default: // expect number
@@ -288,7 +288,7 @@ namespace Swan.Formatters
                 _index += charCount - 1;
             }
 
-            private void ExtractConstant(string boolValue, bool? value)
+            private void ExtractConstant(string boolValue, bool? value = null)
             {
                 if (_json.SliceLength(_index, boolValue.Length) != boolValue)
                     throw CreateParserException($"'{ValueSeparatorChar}'");
@@ -327,9 +327,9 @@ namespace Swan.Formatters
 
             private FormatException CreateParserException(string expected)
             {
-                var textPosition = _json.TextPositionAt(_index);
+                var (line, col) = _json.TextPositionAt(_index);
                 return new FormatException(
-                    $"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {_state}): Expected {expected} but got '{_json[_index]}'.");
+                    $"Parser error (Line {line}, Col {col}, State {_state}): Expected {expected} but got '{_json[_index]}'.");
             }
 
             /// <summary>

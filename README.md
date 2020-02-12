@@ -44,7 +44,7 @@ Table of contents
   * [Running Unit Tests](#running-unit-tests)
 
 ## 📚 Libraries
-We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
+We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, DI and more. See the following table to understand the components available to these flavors of Swan.
 
 | Component | Swan Lite | Swan Standard |
 |---|---|---|

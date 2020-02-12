@@ -411,6 +411,9 @@ namespace Swan.Formatters
         public T ReadObject<T>(IDictionary<string, string> map)
             where T : new()
         {
+            if (map == null)
+                throw new ArgumentNullException(nameof(map));
+
             var result = Activator.CreateInstance<T>();
             ReadObject(map, ref result);
             return result;
@@ -423,10 +426,8 @@ namespace Swan.Formatters
         /// <typeparam name="T">The type of object.</typeparam>
         /// <returns>The conversion of specific type of object.</returns>
         public T ReadObject<T>()
-            where T : new()
-        {
-            return ReadObject<T>(_defaultMap);
-        }
+            where T : new() =>
+            ReadObject<T>(_defaultMap);
 
         #endregion
 
@@ -593,10 +594,8 @@ namespace Swan.Formatters
         /// <param name="filePath">The file path.</param>
         /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
         public static IList<T> LoadRecords<T>(string filePath)
-            where T : new()
-        {
-            return LoadRecords<T>(File.OpenRead(filePath));
-        }
+            where T : new() =>
+            LoadRecords<T>(File.OpenRead(filePath));
 
         #endregion
 
