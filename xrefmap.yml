@@ -3472,6 +3472,28 @@ references:
   fullName.vb: Swan.FunctionalExtensions.When(Of T)(IQueryable(Of T), Func(Of System.Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
   nameWithType: FunctionalExtensions.When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
   nameWithType.vb: FunctionalExtensions.When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
+- uid: Swan.IEnumerableExtensions
+  name: IEnumerableExtensions
+  href: api/Swan.IEnumerableExtensions.html
+  commentId: T:Swan.IEnumerableExtensions
+  fullName: Swan.IEnumerableExtensions
+  nameWithType: IEnumerableExtensions
+- uid: Swan.IEnumerableExtensions.UnionNull*
+  name: UnionNull
+  href: api/Swan.IEnumerableExtensions.html#Swan_IEnumerableExtensions_UnionNull_
+  commentId: Overload:Swan.IEnumerableExtensions.UnionNull
+  isSpec: "True"
+  fullName: Swan.IEnumerableExtensions.UnionNull
+  nameWithType: IEnumerableExtensions.UnionNull
+- uid: Swan.IEnumerableExtensions.UnionNull``1(IEnumerable{``0},IEnumerable{``0})
+  name: UnionNull<T>(IEnumerable<T>, IEnumerable<T>)
+  href: api/Swan.IEnumerableExtensions.html#Swan_IEnumerableExtensions_UnionNull__1_IEnumerable___0__IEnumerable___0__
+  commentId: M:Swan.IEnumerableExtensions.UnionNull``1(IEnumerable{``0},IEnumerable{``0})
+  name.vb: UnionNull(Of T)(IEnumerable(Of T), IEnumerable(Of T))
+  fullName: Swan.IEnumerableExtensions.UnionNull<T>(IEnumerable<T>, IEnumerable<T>)
+  fullName.vb: Swan.IEnumerableExtensions.UnionNull(Of T)(IEnumerable(Of T), IEnumerable(Of T))
+  nameWithType: IEnumerableExtensions.UnionNull<T>(IEnumerable<T>, IEnumerable<T>)
+  nameWithType.vb: IEnumerableExtensions.UnionNull(Of T)(IEnumerable(Of T), IEnumerable(Of T))
 - uid: Swan.InternalErrorException
   name: InternalErrorException
   href: api/Swan.InternalErrorException.html
