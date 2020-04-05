@@ -4,7 +4,7 @@ using System.Linq;
 namespace Swan
 {
     /// <summary>
-    /// This class contains extension methods for types implementing IEnumerable<T>
+    /// This class contains extension methods for types implementing IEnumerable&lt;T&gt;
     /// </summary>
     public static class EnumerableExtensions
     {
