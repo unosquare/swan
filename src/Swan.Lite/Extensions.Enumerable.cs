@@ -9,7 +9,7 @@ namespace Swan
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// This method returns the <see cref="System.Linq.Enumerable.Union"/>
+        /// This method returns the <see cref="Enumerable.Union{TSource}">Union</see>
         /// of all non-null parameters.
         /// </summary>
         /// <returns> An <see cref="IEnumerable{TSource}"/> that contains the elements from non-null input sequences, excluding duplicates. </returns>
