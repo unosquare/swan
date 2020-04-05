@@ -14,9 +14,8 @@ namespace Swan
         /// </summary>
         /// <returns> An <see cref="IEnumerable{TSource}"/> that contains the elements from non-null input sequences, excluding duplicates. </returns>
         public static IEnumerable<TSource> UnionExcludingNulls<TSource>(this IEnumerable<TSource> @this, IEnumerable<TSource> second)
-        {
-            if (@this == null) return second ?? Enumerable.Empty<TSource>();
-            return second == null ? @this : @this.Union(second);
-        }
+            => Enumerable.Union(
+                @this ?? Enumerable.Empty<TSource>(),
+                second ?? Enumerable.Empty<TSource>());
     }
 }
