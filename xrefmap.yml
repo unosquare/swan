@@ -2163,6 +2163,37 @@ references:
   commentId: F:Swan.Endianness.Little
   fullName: Swan.Endianness.Little
   nameWithType: Endianness.Little
+- uid: Swan.EnumerableExtensions
+  name: EnumerableExtensions
+  href: api/Swan.EnumerableExtensions.html
+  commentId: T:Swan.EnumerableExtensions
+  fullName: Swan.EnumerableExtensions
+  nameWithType: EnumerableExtensions
+- uid: Swan.EnumerableExtensions.UnionExcludingNulls*
+  name: UnionExcludingNulls
+  href: api/Swan.EnumerableExtensions.html#Swan_EnumerableExtensions_UnionExcludingNulls_
+  commentId: Overload:Swan.EnumerableExtensions.UnionExcludingNulls
+  isSpec: "True"
+  fullName: Swan.EnumerableExtensions.UnionExcludingNulls
+  nameWithType: EnumerableExtensions.UnionExcludingNulls
+- uid: Swan.EnumerableExtensions.UnionExcludingNulls``1(IEnumerable{``0},IEnumerable{``0})
+  name: UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>)
+  href: api/Swan.EnumerableExtensions.html#Swan_EnumerableExtensions_UnionExcludingNulls__1_IEnumerable___0__IEnumerable___0__
+  commentId: M:Swan.EnumerableExtensions.UnionExcludingNulls``1(IEnumerable{``0},IEnumerable{``0})
+  name.vb: UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource))
+  fullName: Swan.EnumerableExtensions.UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>)
+  fullName.vb: Swan.EnumerableExtensions.UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource))
+  nameWithType: EnumerableExtensions.UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>)
+  nameWithType.vb: EnumerableExtensions.UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource))
+- uid: Swan.EnumerableExtensions.UnionExcludingNulls``1(IEnumerable{``0},IEnumerable{``0},IEqualityComparer{``0})
+  name: UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>, IEqualityComparer<TSource>)
+  href: api/Swan.EnumerableExtensions.html#Swan_EnumerableExtensions_UnionExcludingNulls__1_IEnumerable___0__IEnumerable___0__IEqualityComparer___0__
+  commentId: M:Swan.EnumerableExtensions.UnionExcludingNulls``1(IEnumerable{``0},IEnumerable{``0},IEqualityComparer{``0})
+  name.vb: UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource), IEqualityComparer(Of TSource))
+  fullName: Swan.EnumerableExtensions.UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>, IEqualityComparer<TSource>)
+  fullName.vb: Swan.EnumerableExtensions.UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource), IEqualityComparer(Of TSource))
+  nameWithType: EnumerableExtensions.UnionExcludingNulls<TSource>(IEnumerable<TSource>, IEnumerable<TSource>, IEqualityComparer<TSource>)
+  nameWithType.vb: EnumerableExtensions.UnionExcludingNulls(Of TSource)(IEnumerable(Of TSource), IEnumerable(Of TSource), IEqualityComparer(Of TSource))
 - uid: Swan.EnumHelper
   name: EnumHelper
   href: api/Swan.EnumHelper.html
