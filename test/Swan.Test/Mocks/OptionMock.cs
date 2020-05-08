@@ -12,7 +12,7 @@
         [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set background color.")]
         public ConsoleColor BgColor { get; set; }
 
-        [ArgumentOption('n', Required = true, HelpText = "Set user name.")]
+        [ArgumentOption('n', DefaultArg = true, Required = true, HelpText = "Set user name.")]
         public string Username { get; set; }
 
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Specify additional options.")]

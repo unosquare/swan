@@ -89,5 +89,13 @@ namespace Swan.Parsers
         /// The help text.
         /// </value>
         public string? HelpText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default argument.
+        /// </summary>
+        /// <value>
+        /// The default argument.
+        /// </value>
+        public bool DefaultArg { get; set; }
     }
 }
