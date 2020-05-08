@@ -19,6 +19,7 @@ namespace Swan.Parsers
             private readonly IEnumerable<string> _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
             private readonly ArgumentParserSettings _settings;
+            const char dash = '-';
 
             private readonly PropertyInfo[] _properties;
 
@@ -34,6 +35,7 @@ namespace Swan.Parsers
                 _properties = properties;
 
                 PopulateInstance();
+                SetDefaultArg();
                 SetDefaultValues();
                 GetRequiredList();
             }
@@ -79,9 +81,28 @@ namespace Swan.Parsers
                 }
             }
 
+            private void SetDefaultArg()
+            {
+                foreach (var targetProperty in _properties.Except(_updatedList))
+                {
+                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+
+                    var isDefaultArg = optionAttr.DefaultArg;
+
+                    if (!isDefaultArg)
+                        continue;
+
+                    var defaultArgValue = _args.FirstOrDefault();
+                    if (string.IsNullOrWhiteSpace(defaultArgValue) || defaultArgValue[0] == dash)
+                        continue;
+
+                    if (SetPropertyValue(targetProperty, defaultArgValue, _instance, optionAttr))
+                        _updatedList.Add(targetProperty);
+                }
+            }
+
             private void PopulateInstance()
             {
-                const char dash = '-';
                 var propertyName = string.Empty;
 
                 foreach (var arg in _args)

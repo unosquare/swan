@@ -22,6 +22,18 @@
         }
 
         [Test]
+        public void BasicDefaultArgument_ReturnsEquals()
+        {
+            var dumpArgs = new[] { "kezo", "--verbose" };
+            var result = ArgumentParser.Current.ParseArguments<OptionMock>(dumpArgs, out var options);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(options.Verbose);
+            Assert.AreEqual(dumpArgs[0], options.Username);
+            Assert.AreEqual(ConsoleColor.Red, options.BgColor, "Default color");
+        }
+
+        [Test]
         public void InvalidDataConversion_ReturnsFalse()
         {
             var options = new OptionIntRequiredMock();
