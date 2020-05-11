@@ -96,6 +96,6 @@ namespace Swan.Parsers
         /// <value>
         /// The default argument.
         /// </value>
-        public bool DefaultArg { get; set; }
+        public bool IsDefault { get; set; }
     }
 }
