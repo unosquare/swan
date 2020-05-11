@@ -87,13 +87,13 @@ namespace Swan.Parsers
                 {
                     var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
-                    var isDefaultArg = optionAttr.DefaultArg;
+                    var isDefaultArg = optionAttr.IsDefault;
 
                     if (!isDefaultArg)
                         continue;
 
                     var defaultArgValue = _args.FirstOrDefault();
-                    if (string.IsNullOrWhiteSpace(defaultArgValue) || defaultArgValue[0] == dash)
+                    if (string.IsNullOrWhiteSpace(defaultArgValue) || defaultArgValue[0] == OptionSwitchChar)
                         continue;
 
                     if (SetPropertyValue(targetProperty, defaultArgValue, _instance, optionAttr))
@@ -111,11 +111,11 @@ namespace Swan.Parsers
 
                     if (ignoreSetValue)
                     {
-                        if (string.IsNullOrWhiteSpace(arg) || arg[0] != dash) continue;
+                        if (string.IsNullOrWhiteSpace(arg) || arg[0] != OptionSwitchChar) continue;
 
                         propertyName = arg.Substring(1);
 
-                        if (!string.IsNullOrWhiteSpace(propertyName) && propertyName[0] == dash)
+                        if (!string.IsNullOrWhiteSpace(propertyName) && propertyName[0] == OptionSwitchChar)
                             propertyName = propertyName.Substring(1);
                     }
 
