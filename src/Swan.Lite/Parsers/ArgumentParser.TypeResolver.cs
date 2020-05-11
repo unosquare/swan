@@ -12,7 +12,7 @@ namespace Swan.Parsers
     {
         private sealed class TypeResolver<T>
         {
-            public bool HasVerb { get => _hasVerb; }
+            public bool HasVerb { get; }
 
             private bool _hasVerb = false;
 
