@@ -27,7 +27,8 @@ namespace Swan.Parsers
                 PropertyInfo[] properties,
                 IEnumerable<string> args,
                 object instance,
-                ArgumentParserSettings settings)
+                ArgumentParserSettings settings,
+                bool hasVerb = false)
             {
                 _args = args;
                 _instance = instance;
@@ -35,7 +36,7 @@ namespace Swan.Parsers
                 _properties = properties;
 
                 PopulateInstance();
-                SetDefaultArg();
+                if (!hasVerb) SetDefaultArgument();
                 SetDefaultValues();
                 GetRequiredList();
             }
@@ -81,7 +82,7 @@ namespace Swan.Parsers
                 }
             }
 
-            private void SetDefaultArg()
+            private void SetDefaultArgument()
             {
                 foreach (var targetProperty in _properties.Except(_updatedList))
                 {

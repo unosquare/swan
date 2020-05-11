@@ -1,4 +1,4 @@
-using Swan.Reflection;
+﻿using Swan.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -196,7 +196,7 @@ namespace Swan.Parsers
             if (typeResolver.Properties == null)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
-            var validator = new Validator(typeResolver.Properties, args, options, Settings);
+            var validator = new Validator(typeResolver.Properties, args, options, Settings, typeResolver.HasVerb);
 
             if (validator.IsValid())
                 return true;
