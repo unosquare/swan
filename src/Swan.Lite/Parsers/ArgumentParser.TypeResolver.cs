@@ -12,6 +12,10 @@ namespace Swan.Parsers
     {
         private sealed class TypeResolver<T>
         {
+            public bool HasVerb { get => _hasVerb; }
+
+            private bool _hasVerb = false;
+
             private readonly string _selectedVerb;
 
             private PropertyInfo[]? _properties;
@@ -29,6 +33,8 @@ namespace Swan.Parsers
 
                 if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                     return instance;
+
+                _hasVerb = true;
 
                 var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
                     ? null
