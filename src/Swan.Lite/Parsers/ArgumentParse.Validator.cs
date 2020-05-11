@@ -87,9 +87,7 @@ namespace Swan.Parsers
                 {
                     var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
-                    var isDefaultArg = optionAttr.IsDefault;
-
-                    if (!isDefaultArg)
+                    if (!optionAttr.IsDefault)
                         continue;
 
                     var defaultArgValue = _args.FirstOrDefault();
