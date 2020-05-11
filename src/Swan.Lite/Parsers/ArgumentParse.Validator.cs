@@ -15,11 +15,11 @@ namespace Swan.Parsers
     {
         private sealed class Validator
         {
+            private const char OptionSwitchChar = '-';
             private readonly object _instance;
             private readonly IEnumerable<string> _args;
             private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
             private readonly ArgumentParserSettings _settings;
-            const char dash = '-';
 
             private readonly PropertyInfo[] _properties;
 
