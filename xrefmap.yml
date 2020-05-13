@@ -8511,6 +8511,19 @@ references:
   isSpec: "True"
   fullName: Swan.Parsers.ArgumentOptionAttribute.HelpText
   nameWithType: ArgumentOptionAttribute.HelpText
+- uid: Swan.Parsers.ArgumentOptionAttribute.IsDefault
+  name: IsDefault
+  href: api/Swan.Parsers.ArgumentOptionAttribute.html#Swan_Parsers_ArgumentOptionAttribute_IsDefault
+  commentId: P:Swan.Parsers.ArgumentOptionAttribute.IsDefault
+  fullName: Swan.Parsers.ArgumentOptionAttribute.IsDefault
+  nameWithType: ArgumentOptionAttribute.IsDefault
+- uid: Swan.Parsers.ArgumentOptionAttribute.IsDefault*
+  name: IsDefault
+  href: api/Swan.Parsers.ArgumentOptionAttribute.html#Swan_Parsers_ArgumentOptionAttribute_IsDefault_
+  commentId: Overload:Swan.Parsers.ArgumentOptionAttribute.IsDefault
+  isSpec: "True"
+  fullName: Swan.Parsers.ArgumentOptionAttribute.IsDefault
+  nameWithType: ArgumentOptionAttribute.IsDefault
 - uid: Swan.Parsers.ArgumentOptionAttribute.LongName
   name: LongName
   href: api/Swan.Parsers.ArgumentOptionAttribute.html#Swan_Parsers_ArgumentOptionAttribute_LongName
