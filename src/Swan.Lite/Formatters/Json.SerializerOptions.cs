@@ -20,7 +20,6 @@ namespace Swan.Formatters
             TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
 
         private readonly string[]? _includeProperties;
-        private readonly string[]? _excludeProperties;
         private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
 
         /// <summary>
@@ -43,8 +42,8 @@ namespace Swan.Formatters
             JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None)
         {
             _includeProperties = includeProperties;
-            _excludeProperties = excludeProperties;
 
+            ExcludeProperties = excludeProperties;
             IncludeNonPublic = includeNonPublic;
             Format = format;
             TypeSpecifier = typeSpecifier;
@@ -91,6 +90,14 @@ namespace Swan.Formatters
         /// </value>
         public JsonSerializerCase JsonSerializerCase { get; }
 
+        /// <summary>
+        /// Gets or sets the exclude properties.
+        /// </summary>
+        /// <value>
+        /// The exclude properties.
+        /// </value>
+        public string[]? ExcludeProperties { get; set; }
+
         internal bool IsObjectPresent(object target)
         {
             var hashCode = target.GetHashCode();
@@ -112,8 +119,8 @@ namespace Swan.Formatters
             => GetPropertiesCache(targetType)
                 .When(() => _includeProperties?.Length > 0,
                     query => query.Where(p => _includeProperties.Contains(p.Key.Item1)))
-                .When(() => _excludeProperties?.Length > 0,
-                    query => query.Where(p => !_excludeProperties.Contains(p.Key.Item1)))
+                .When(() => ExcludeProperties?.Length > 0,
+                    query => query.Where(p => !ExcludeProperties.Contains(p.Key.Item1)))
                 .ToDictionary(x => x.Key.Item2, x => x.Value);
         
         private Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)

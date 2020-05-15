@@ -156,12 +156,12 @@ namespace Swan.Formatters
                 format,
                 typeSpecifier,
                 includedNames,
-                GetExcludedNames(obj?.GetType(), excludedNames),
+                Serializer.GetExcludedNames(obj?.GetType(), excludedNames),
                 includeNonPublic,
                 parentReferences,
                 jsonSerializerCase);
 
-            return Serialize(obj, options);
+            return Serializer.Serialize(obj, 0, options, excludedNames); 
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Swan.Formatters
         /// </code>
         /// </example>
         public static string SerializeExcluding(object? obj, bool format, params string[] excludeNames) 
-            => Serialize(obj, new SerializerOptions(format, null, null, excludeNames));
+            => Serializer.Serialize(obj, 0, new SerializerOptions(format, null, null), excludeNames);
 
         /// <summary>
         /// Deserializes the specified json string as either a Dictionary[string, object] or as a List[object]
@@ -323,7 +323,7 @@ namespace Swan.Formatters
         public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T) Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
+                : (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -337,7 +337,7 @@ namespace Swan.Formatters
         public static T Deserialize<T>(string json, bool includeNonPublic) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T) Deserialize(json, typeof(T), includeNonPublic);
+                : (T)Deserialize(json, typeof(T), includeNonPublic);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -361,24 +361,6 @@ namespace Swan.Formatters
         #endregion
 
         #region Private API
-
-        private static string[]? GetExcludedNames(Type? type, string[]? excludedNames)
-        {
-            if (type == null)
-                return excludedNames;
-
-            var excludedByAttr = IgnoredPropertiesCache.Retrieve(type, t => t.GetProperties()
-                .Where(x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
-                .Select(x => x.Name));
-
-            if (excludedByAttr?.Any() != true)
-                return excludedNames;
-
-            return excludedNames?.Any(string.IsNullOrWhiteSpace) == true
-                ? excludedByAttr.Intersect(excludedNames.Where(y => !string.IsNullOrWhiteSpace(y))).ToArray()
-                : excludedByAttr.ToArray();
-        }
-
         private static string SerializePrimitiveValue(object obj) =>
             obj switch
             {

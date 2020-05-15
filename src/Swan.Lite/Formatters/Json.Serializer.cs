@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,6 +31,7 @@ namespace Swan.Formatters
             private readonly string _result;
             private readonly StringBuilder _builder;
             private readonly string _lastCommaSearch;
+            private readonly string[]? _excludedNames = null;
 
             #endregion
 
@@ -41,7 +43,7 @@ namespace Swan.Formatters
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="options">The options.</param>
-            private Serializer(object? obj, int depth, SerializerOptions options)
+            private Serializer(object? obj, int depth, SerializerOptions options, string[]? excludedNames = null)
             {
                 if (depth > 20)
                 {
@@ -56,6 +58,8 @@ namespace Swan.Formatters
                     return;
 
                 _options = options;
+                _excludedNames ??= excludedNames;
+                _options.ExcludeProperties = GetExcludedNames(obj?.GetType(), _excludedNames);
 
                 // Handle circular references correctly and avoid them
                 if (options.IsObjectPresent(obj!))
@@ -73,17 +77,33 @@ namespace Swan.Formatters
                     IDictionary itemsZero when itemsZero.Count == 0 => EmptyObjectLiteral,
                     IDictionary items => ResolveDictionary(items, depth),
                     IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
-                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options),
+                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options, _excludedNames),
                     IEnumerable enumerable => ResolveEnumerable(enumerable, depth),
                     _ => ResolveObject(obj!, depth)
                 };
             }
 
-            internal static string Serialize(object? obj, int depth, SerializerOptions options) => new Serializer(obj, depth, options)._result;
+            internal static string Serialize(object? obj, int depth, SerializerOptions options, string[]? excludedNames = null) => new Serializer(obj, depth, options, excludedNames)._result;
 
             #endregion
 
             #region Helper Methods
+            internal static string[]? GetExcludedNames(Type? type, string[]? excludedNames)
+            {
+                if (type == null)
+                    return excludedNames;
+
+                var excludedByAttr = IgnoredPropertiesCache.Retrieve(type, t => t.GetProperties()
+                    .Where(x => AttributeCache.DefaultCache.Value.RetrieveOne<JsonPropertyAttribute>(x)?.Ignored == true)
+                    .Select(x => x.Name));
+
+                if (excludedByAttr?.Any() != true)
+                    return excludedNames;
+
+                return excludedNames?.Any(string.IsNullOrWhiteSpace) == true
+                    ? excludedByAttr.Intersect(excludedNames.Where(y => !string.IsNullOrWhiteSpace(y))).ToArray()
+                    : excludedByAttr.ToArray();
+            }
 
             private static string ResolveBasicType(object? obj)
             {
@@ -236,7 +256,7 @@ namespace Swan.Formatters
                         .Append(" ");
 
                     // Serialize and append the value
-                    var serializedValue = Serialize(items[key], depth + 1, _options);
+                    var serializedValue = Serialize(items[key], depth + 1, _options, _excludedNames);
 
                     if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
                     Append(serializedValue, 0);
@@ -270,7 +290,7 @@ namespace Swan.Formatters
                 // function again
                 var objectDictionary = CreateDictionary(fields, targetType.ToString(), target);
 
-                return Serialize(objectDictionary, depth, _options);
+                return Serialize(objectDictionary, depth, _options, _excludedNames);
             }
 
             private string ResolveEnumerable(IEnumerable target, int depth)
@@ -285,7 +305,7 @@ namespace Swan.Formatters
                 var writeCount = 0;
                 foreach (var entry in items)
                 {
-                    var serializedValue = Serialize(entry, depth + 1, _options);
+                    var serializedValue = Serialize(entry, depth + 1, _options, _excludedNames);
 
                     if (IsNonEmptyJsonArrayOrObject(serializedValue))
                         Append(serializedValue, 0);
@@ -344,7 +364,6 @@ namespace Swan.Formatters
                 if (_options.Format == false) return;
                 _builder.Append(Environment.NewLine);
             }
-
             #endregion
         }
     }
