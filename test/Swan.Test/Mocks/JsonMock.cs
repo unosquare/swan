@@ -111,6 +111,27 @@
         public JsonPropertySample Inner { get; set; }
     }
 
+    public class JsonIngoreNestedPropertySample
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("data")]
+        public int Data { get; set; }
+    }
+
+    public class JsonIngorePropertySample
+    {
+        [JsonProperty("id", true)]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("inner")]
+        public JsonIngoreNestedPropertySample Inner { get; set; }
+    }
+
     public class JsonFile
     {
         public string Filename { get; set; }

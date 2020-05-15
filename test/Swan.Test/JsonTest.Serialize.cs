@@ -283,5 +283,26 @@
                 "{\"data\": \"Data\",\"Inner\": {\"data\": \"Data\"}}",
                 dataSerialized);
         }
+
+        [Test]
+        public void WithInnerJsonProperty_ReturnsObjectSerializedWithoutExcludingRepeatedProps()
+        {
+            var data = new JsonIngorePropertySample
+            {
+                Id = "22332",
+                Name = "Yeyo",
+                Inner = new JsonIngoreNestedPropertySample
+                {
+                    Id = "AESD",
+                    Data = 44,
+                },
+            };
+
+            var dataSerialized = Json.Serialize(data);
+
+            Assert.AreEqual(
+                "{\"name\": \"Yeyo\",\"inner\": {\"id\": \"AESD\",\"data\": 44}}",
+                dataSerialized);
+        }
     }
 }
