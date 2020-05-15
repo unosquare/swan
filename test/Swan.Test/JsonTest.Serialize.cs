@@ -304,5 +304,26 @@
                 "{\"name\": \"Yeyo\",\"inner\": {\"id\": \"AESD\",\"data\": 44}}",
                 dataSerialized);
         }
+
+        [Test]
+        public void WithInnerJsonProperty_ReturnsObjectSerializedWithNestedExcluededNames()
+        {
+            var data = new JsonIngorePropertySample
+            {
+                Id = "22332",
+                Name = "Yeyo",
+                Inner = new JsonIngoreNestedPropertySample
+                {
+                    Id = "AESD",
+                    Data = 44,
+                },
+            };
+
+            var dataSerialized = Json.SerializeExcluding(data, false, nameof(JsonIngoreNestedPropertySample.Data));
+
+            Assert.AreEqual(
+                "{\"name\": \"Yeyo\",\"inner\": {\"id\": \"AESD\"}}",
+                dataSerialized);
+        }
     }
 }
