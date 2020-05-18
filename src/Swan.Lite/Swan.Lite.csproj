@@ -10,7 +10,7 @@
         <AssemblyName>Swan.Lite</AssemblyName>
         <RootNamespace>Swan</RootNamespace>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-        <Version>3.0.0</Version>
+        <Version>3.1.0</Version>
         <Authors>Unosquare</Authors>
         <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
         <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
@@ -28,7 +28,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
