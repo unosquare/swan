@@ -3255,6 +3255,19 @@ references:
   isSpec: "True"
   fullName: Swan.Formatters.SerializerOptions.SerializerOptions
   nameWithType: SerializerOptions.SerializerOptions
+- uid: Swan.Formatters.SerializerOptions.ExcludeProperties
+  name: ExcludeProperties
+  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions_ExcludeProperties
+  commentId: P:Swan.Formatters.SerializerOptions.ExcludeProperties
+  fullName: Swan.Formatters.SerializerOptions.ExcludeProperties
+  nameWithType: SerializerOptions.ExcludeProperties
+- uid: Swan.Formatters.SerializerOptions.ExcludeProperties*
+  name: ExcludeProperties
+  href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions_ExcludeProperties_
+  commentId: Overload:Swan.Formatters.SerializerOptions.ExcludeProperties
+  isSpec: "True"
+  fullName: Swan.Formatters.SerializerOptions.ExcludeProperties
+  nameWithType: SerializerOptions.ExcludeProperties
 - uid: Swan.Formatters.SerializerOptions.Format
   name: Format
   href: api/Swan.Formatters.SerializerOptions.html#Swan_Formatters_SerializerOptions_Format
