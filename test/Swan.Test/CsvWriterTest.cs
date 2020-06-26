@@ -226,7 +226,7 @@
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join(",", stringHeaders);
+            var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
 
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
@@ -261,7 +261,7 @@
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join(",", stringHeaders);
+            var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
 
             var objHeaders = new SampleCsvRecord();
 
@@ -288,7 +288,7 @@
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join("#", stringHeaders);
+            var stringHeadersOutput = string.Join("#", stringHeaders.Select(x => x.Humanize()));
 
             var objHeaders = new SampleCsvRecord();
 
