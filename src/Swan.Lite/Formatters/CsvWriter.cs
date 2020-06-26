@@ -371,7 +371,7 @@ namespace Swan.Formatters
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>();
+            var properties = GetFilteredTypeProperties(type).Select(p => p.Name.Humanize()).Cast<object>();
             WriteLine(properties);
         }
 
