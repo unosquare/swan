@@ -31,7 +31,7 @@ namespace Swan.Threading
         /// <value>
         /// The error messages.
         /// </value>
-        public List<string> ErrorMessages { get; } = new List<string>();
+        public List<string> ErrorMessages { get; } = new();
 
         /// <summary>
         /// Gets the name.

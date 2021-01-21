@@ -18,10 +18,8 @@ namespace Swan
         /// <returns>
         /// An <see cref="IEnumerable{TSource}" /> that contains the elements from non-null input sequences, excluding duplicates.
         /// </returns>
-        public static IEnumerable<TSource> UnionExcludingNulls<TSource>(this IEnumerable<TSource> @this, IEnumerable<TSource> second)
-            => Enumerable.Union(
-                @this ?? Enumerable.Empty<TSource>(),
-                second ?? Enumerable.Empty<TSource>());
+        public static IEnumerable<TSource> UnionExcludingNulls<TSource>(this IEnumerable<TSource>? @this, IEnumerable<TSource>? second)
+            => (@this ?? Enumerable.Empty<TSource>()).Union(second ?? Enumerable.Empty<TSource>());
 
         /// <summary>
         /// This method returns the <see cref="Enumerable.Union{TSource}">Union</see>
@@ -34,10 +32,8 @@ namespace Swan
         /// <returns>
         /// An <see cref="IEnumerable{TSource}" /> that contains the elements from non-null input sequences, excluding duplicates.
         /// </returns>
-        public static IEnumerable<TSource> UnionExcludingNulls<TSource>(this IEnumerable<TSource> @this, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
-            => Enumerable.Union(
-                @this ?? Enumerable.Empty<TSource>(),
-                second ?? Enumerable.Empty<TSource>(),
+        public static IEnumerable<TSource> UnionExcludingNulls<TSource>(this IEnumerable<TSource>? @this, IEnumerable<TSource>? second, IEqualityComparer<TSource> comparer)
+            => (@this ?? Enumerable.Empty<TSource>()).Union(second ?? Enumerable.Empty<TSource>(),
                 comparer);
     }
 }

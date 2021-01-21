@@ -25,7 +25,7 @@ namespace Swan.Formatters
         {
             #region Private Declarations
 
-            private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
+            private static readonly Dictionary<int, string> IndentStrings = new();
 
             private readonly SerializerOptions _options;
             private readonly string _result;
@@ -43,6 +43,7 @@ namespace Swan.Formatters
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="options">The options.</param>
+            /// <param name="excludedNames">The exclude names list.</param>
             private Serializer(object? obj, int depth, SerializerOptions options, string[]? excludedNames = null)
             {
                 if (depth > 20)
@@ -74,7 +75,7 @@ namespace Swan.Formatters
 
                 _result = obj switch
                 {
-                    IDictionary itemsZero when itemsZero.Count == 0 => EmptyObjectLiteral,
+                    IDictionary {Count: 0} => EmptyObjectLiteral,
                     IDictionary items => ResolveDictionary(items, depth),
                     IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
                     IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options, _excludedNames),
@@ -105,36 +106,33 @@ namespace Swan.Formatters
                     : excludedByAttr.ToArray();
             }
 
-            private static string ResolveBasicType(object? obj)
-            {
-                switch (obj)
+            private static string ResolveBasicType(object? obj) =>
+                obj switch
                 {
-                    case null:
-                        return NullLiteral;
-                    case string s:
-                        return Escape(s, true);
-                    case bool b:
-                        return b ? TrueLiteral : FalseLiteral;
-                    case Type _:
-                    case Assembly _:
-                    case MethodInfo _:
-                    case PropertyInfo _:
-                    case EventInfo _:
-                        return Escape(obj.ToString(), true);
-                    case DateTime d:
-                        return $"{StringQuotedChar}{d:s}{StringQuotedChar}";
-                    default:
-                        var targetType = obj.GetType();
+                    null => NullLiteral,
+                    string s => Escape(s, true),
+                    bool b => b ? TrueLiteral : FalseLiteral,
+                    Type => Escape(obj.ToString(), true),
+                    Assembly => Escape(obj.ToString(), true),
+                    MethodInfo => Escape(obj.ToString(), true),
+                    PropertyInfo => Escape(obj.ToString(), true),
+                    EventInfo => Escape(obj.ToString(), true),
+                    DateTime d => $"{StringQuotedChar}{d:s}{StringQuotedChar}",
+                    _ => ResolveObject(obj)
+                };
 
-                        if (!Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
-                            return string.Empty;
+            private static string ResolveObject(object obj)
+            {
+                var targetType = obj.GetType();
 
-                        var escapedValue = Escape(Definitions.BasicTypesInfo.Value[targetType].ToStringInvariant(obj), false);
+                if (!Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
+                    return string.Empty;
 
-                        return decimal.TryParse(escapedValue, out _)
-                            ? $"{escapedValue}"
-                            : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
-                }
+                var escapedValue = Escape(Definitions.BasicTypesInfo.Value[targetType].ToStringInvariant(obj), false);
+
+                return decimal.TryParse(escapedValue, out _)
+                    ? $"{escapedValue}"
+                    : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }
 
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
@@ -145,7 +143,7 @@ namespace Swan.Formatters
                 return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
             }
 
-            private static string Escape(string str, bool quoted)
+            private static string Escape(string? str, bool quoted)
             {
                 if (str == null)
                     return string.Empty;
@@ -217,15 +215,15 @@ namespace Swan.Formatters
                 if (!string.IsNullOrWhiteSpace(_options.TypeSpecifier))
                     objectDictionary[_options.TypeSpecifier!] = targetType;
 
-                foreach (var field in fields)
+                foreach (var (key, value) in fields)
                 {
                     // Build the dictionary using property names and values
                     // Note: used to be: property.GetValue(target); but we would be reading private properties
                     try
                     {
-                        objectDictionary[field.Key] = field.Value is PropertyInfo property
+                        objectDictionary[key] = value is PropertyInfo property
                             ? target.ReadProperty(property.Name)
-                            : (field.Value as FieldInfo)?.GetValue(target);
+                            : (value as FieldInfo)?.GetValue(target);
                     }
 #pragma warning disable CA1031 // Do not catch general exception types
                     catch
@@ -339,9 +337,7 @@ namespace Swan.Formatters
                     return;
 
                 if (_lastCommaSearch.Where((t, i) => _builder[_builder.Length - _lastCommaSearch.Length + i] != t).Any())
-                {
                     return;
-                }
 
                 // If we got this far, we simply remove the comma character
                 _builder.Remove(_builder.Length - _lastCommaSearch.Length, 1);

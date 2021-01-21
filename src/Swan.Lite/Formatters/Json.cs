@@ -14,7 +14,7 @@ namespace Swan.Formatters
     /// </summary>
     public static partial class Json
     {
-        #region Constants 
+        #region Constants
 
         internal const string AddMethodName = "Add";
 
@@ -38,7 +38,7 @@ namespace Swan.Formatters
 
         #endregion
 
-        private static readonly CollectionCacheRepository<string> IgnoredPropertiesCache = new CollectionCacheRepository<string>();
+        private static readonly CollectionCacheRepository<string> IgnoredPropertiesCache = new();
 
         #region Public API
 
@@ -104,7 +104,8 @@ namespace Swan.Formatters
             bool includeNonPublic = false,
             string[]? includedNames = null,
             params string[] excludedNames) =>
-            Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null, JsonSerializerCase.None);
+            Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null,
+                JsonSerializerCase.None);
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
@@ -120,7 +121,8 @@ namespace Swan.Formatters
             object? obj,
             JsonSerializerCase jsonSerializerCase,
             bool format = false,
-            string? typeSpecifier = null) => Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
+            string? typeSpecifier = null) =>
+            Serialize(obj, format, typeSpecifier, false, null, null, null, jsonSerializerCase);
 
         /// <summary>
         /// Serializes the specified object into a JSON string.
@@ -160,7 +162,7 @@ namespace Swan.Formatters
                 parentReferences,
                 jsonSerializerCase);
 
-            return Serializer.Serialize(obj, 0, options, excludedNames); 
+            return Serializer.Serialize(obj, 0, options, excludedNames);
         }
 
         /// <summary>
@@ -234,7 +236,7 @@ namespace Swan.Formatters
         /// }
         /// </code>
         /// </example>
-        public static string SerializeExcluding(object? obj, bool format, params string[] excludeNames) 
+        public static string SerializeExcluding(object? obj, bool format, params string[] excludeNames)
             => Serializer.Serialize(obj, 0, new SerializerOptions(format, null, null), excludeNames);
 
         /// <summary>
@@ -261,7 +263,7 @@ namespace Swan.Formatters
         /// }
         /// }
         /// </code></example>
-        public static object? Deserialize(string json, JsonSerializerCase jsonSerializerCase) =>
+        public static object? Deserialize(string? json, JsonSerializerCase jsonSerializerCase) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
                 : Converter.FromJsonResult(Deserializer.DeserializeInternal(json), jsonSerializerCase);
@@ -289,7 +291,7 @@ namespace Swan.Formatters
         /// }
         /// }
         /// </code></example>
-        public static object? Deserialize(string json) =>
+        public static object? Deserialize(string? json) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
                 : Deserialize(json, JsonSerializerCase.None);
@@ -319,10 +321,10 @@ namespace Swan.Formatters
         /// }
         /// }
         /// </code></example>
-        public static T Deserialize<T>(string json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
+        public static T Deserialize<T>(string? json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
+                : (T) Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -333,10 +335,10 @@ namespace Swan.Formatters
         /// <returns>
         /// The deserialized specified type object.
         /// </returns>
-        public static T Deserialize<T>(string json, bool includeNonPublic) =>
+        public static T Deserialize<T>(string? json, bool includeNonPublic) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T)Deserialize(json, typeof(T), includeNonPublic);
+                : (T) Deserialize(json, typeof(T), includeNonPublic);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -348,7 +350,8 @@ namespace Swan.Formatters
         /// <returns>
         /// Type of the current conversion from json result.
         /// </returns>
-        public static object? Deserialize(string json, Type resultType, bool includeNonPublic = false, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
+        public static object? Deserialize(string? json, Type resultType, bool includeNonPublic = false,
+            JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
                 : Converter.FromJsonResult(
@@ -360,6 +363,7 @@ namespace Swan.Formatters
         #endregion
 
         #region Private API
+
         private static string SerializePrimitiveValue(object obj) =>
             obj switch
             {

@@ -2,45 +2,9 @@
 {
     using Mocks;
     using NUnit.Framework;
-    using Diagnostics;
     using Net;
     using System;
     using System.Collections.Generic;
-
-    [TestFixture]
-    public class BenchmarkTest : TestFixtureBase
-    {
-        [Test]
-        public void WithAction_ReturnsTimeSpan()
-        {
-            const int total = 0;
-            var action = new Action(() =>
-            {
-                if (total < 2)
-                    throw new Exception();
-            });
-
-            var result = Benchmark.BenchmarkAction(action);
-
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void WithEmptyAction_ReturnsTimeSpan()
-        {
-            var action = new Action(() => { });
-
-            var result = Benchmark.BenchmarkAction(action);
-
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void WithNullAction_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => Benchmark.BenchmarkAction(NullAction));
-        }
-    }
 
     [TestFixture]
     public class Retry : TestFixtureBase

@@ -39,7 +39,7 @@ namespace Swan.Configuration
     public sealed class SettingsProvider<T>
         : SingletonBase<SettingsProvider<T>>
     {
-        private readonly object _syncRoot = new object();
+        private readonly object _syncRoot = new();
 
         private T _global;
 

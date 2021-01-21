@@ -2,13 +2,13 @@
 
     <PropertyGroup>
         <Description>Some usage samples of the SWAN library</Description>
-        <Copyright>Copyright (c) 2016-2019 - Unosquare</Copyright>
+        <Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>Swan.Samples</AssemblyName>
         <OutputType>Exe</OutputType>
         <PackageId>Unosquare.Swan.Samples</PackageId>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>9.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 

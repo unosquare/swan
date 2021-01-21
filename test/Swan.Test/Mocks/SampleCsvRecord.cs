@@ -76,7 +76,7 @@
         }
 
         public static List<string[]> SampleStringList()
-            => new List<string[]>
+            => new()
             {
                 new[]
                 {

@@ -14,11 +14,11 @@
     {
         // Since these are API property backers, we use interlocked to read from them
         // to avoid deadlocked reads
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
 
-        private readonly AtomicBoolean _isDisposed = new AtomicBoolean();
-        private readonly AtomicBoolean _isDisposing = new AtomicBoolean();
-        private readonly AtomicEnum<WorkerState> _workerState = new AtomicEnum<WorkerState>(WorkerState.Created);
+        private readonly AtomicBoolean _isDisposed = new();
+        private readonly AtomicBoolean _isDisposing = new();
+        private readonly AtomicEnum<WorkerState> _workerState = new(WorkerState.Created);
         private readonly AtomicTimeSpan _timeSpan;
 
         /// <summary>
@@ -116,7 +116,7 @@
         /// <summary>
         /// Gets the cycle stopwatch.
         /// </summary>
-        protected Stopwatch CycleStopwatch { get; } = new Stopwatch();
+        protected Stopwatch CycleStopwatch { get; } = new();
 
         /// <summary>
         /// Gets the state change requests.
@@ -126,17 +126,17 @@
         /// <summary>
         /// Gets the cycle completed event.
         /// </summary>
-        protected ManualResetEventSlim CycleCompletedEvent { get; } = new ManualResetEventSlim(true);
+        protected ManualResetEventSlim CycleCompletedEvent { get; } = new(true);
 
         /// <summary>
         /// Gets the state changed event.
         /// </summary>
-        protected ManualResetEventSlim StateChangedEvent { get; } = new ManualResetEventSlim(true);
+        protected ManualResetEventSlim StateChangedEvent { get; } = new(true);
 
         /// <summary>
         /// Gets the cycle logic cancellation owner.
         /// </summary>
-        protected CancellationTokenOwner CycleCancellation { get; } = new CancellationTokenOwner();
+        protected CancellationTokenOwner CycleCancellation { get; } = new();
 
         /// <summary>
         /// Gets or sets the state change task.

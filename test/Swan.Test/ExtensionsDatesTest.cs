@@ -60,9 +60,9 @@
 
             var rangeExpected = new List<DateTime>
             {
-                new DateTime(2017, 1, 1, 0, 0, 0),
-                new DateTime(2017, 1, 2, 0, 0, 0),
-                new DateTime(2017, 1, 3, 0, 0, 0),
+                new(2017, 1, 1, 0, 0, 0),
+                new(2017, 1, 2, 0, 0, 0),
+                new(2017, 1, 3, 0, 0, 0),
             };
 
             CollectionAssert.AreEqual(rangeExpected, rangeActual);
@@ -98,7 +98,7 @@
     [TestFixture]
     public class CompareDates
     {
-        private readonly DateTime _date = new DateTime(2002, 7, 3, 12, 0, 0, 200);
+        private readonly DateTime _date = new(2002, 7, 3, 12, 0, 0, 200);
 
         [Test]
         public void WithFullDateTimes_ReturnsDateTimeSpan()
@@ -131,7 +131,7 @@
     [TestFixture]
     public class AsCronCanRun
     {
-        private readonly DateTime _date = new DateTime(2018, 7, 3, 11, 25, 0);
+        private readonly DateTime _date = new(2018, 7, 3, 11, 25, 0);
 
         [Test]
         public void WithNonNull_Minute()
@@ -230,7 +230,7 @@
     [TestFixture]
     public class ToRfc1123String
     {
-        private readonly DateTime _date = new DateTime(2002, 7, 3, 12, 0, 0, 200, DateTimeKind.Utc);
+        private readonly DateTime _date = new(2002, 7, 3, 12, 0, 0, 200, DateTimeKind.Utc);
 
         [Test]
         public void WithValidDate_ReturnsRfc1123String()

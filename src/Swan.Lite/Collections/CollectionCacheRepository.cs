@@ -12,7 +12,7 @@ namespace Swan.Collections
     public class CollectionCacheRepository<TValue>
     {
         private readonly Lazy<ConcurrentDictionary<Type, IEnumerable<TValue>>> _data =
-            new Lazy<ConcurrentDictionary<Type, IEnumerable<TValue>>>(() =>
+            new(() =>
                 new ConcurrentDictionary<Type, IEnumerable<TValue>>(), true);
 
         /// <summary>

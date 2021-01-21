@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found).
         /// </summary>
-        public static DependencyContainerResolveOptions Default { get; } = new DependencyContainerResolveOptions();
+        public static DependencyContainerResolveOptions Default { get; } = new();
 
         /// <summary>
         /// Gets or sets the unregistered resolution action.
@@ -36,13 +36,13 @@
         /// <value>
         /// The constructor parameters.
         /// </value>
-        public Dictionary<string, object> ConstructorParameters { get; } = new Dictionary<string, object>();
+        public Dictionary<string, object> ConstructorParameters { get; } = new();
 
         /// <summary>
         /// Clones this instance.
         /// </summary>
         /// <returns></returns>
-        public DependencyContainerResolveOptions Clone() => new DependencyContainerResolveOptions
+        public DependencyContainerResolveOptions Clone() => new()
         {
             NamedResolutionFailureAction = NamedResolutionFailureAction,
             UnregisteredResolutionAction = UnregisteredResolutionAction,

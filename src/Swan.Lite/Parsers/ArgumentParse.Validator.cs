@@ -18,7 +18,7 @@ namespace Swan.Parsers
             private const char OptionSwitchChar = '-';
             private readonly object _instance;
             private readonly IEnumerable<string> _args;
-            private readonly List<PropertyInfo> _updatedList = new List<PropertyInfo>();
+            private readonly List<PropertyInfo> _updatedList = new();
             private readonly ArgumentParserSettings _settings;
 
             private readonly PropertyInfo[] _properties;
@@ -41,8 +41,8 @@ namespace Swan.Parsers
                 GetRequiredList();
             }
 
-            public List<string> UnknownList { get; } = new List<string>();
-            public List<string> RequiredList { get; } = new List<string>();
+            public List<string> UnknownList { get; } = new();
+            public List<string> RequiredList { get; } = new();
 
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 

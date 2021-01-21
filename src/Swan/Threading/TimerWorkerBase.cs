@@ -11,7 +11,7 @@
     /// <seealso cref="IWorker" />
     public abstract class TimerWorkerBase : WorkerBase
     {
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
         private readonly Timer _timer;
         private bool _isTimerAlive = true;
 

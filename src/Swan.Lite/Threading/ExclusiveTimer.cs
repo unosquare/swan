@@ -10,12 +10,12 @@ namespace Swan.Threading
     /// </summary>
     public sealed class ExclusiveTimer : IDisposable
     {
-        private readonly object _syncLock = new object();
-        private readonly ManualResetEventSlim _cycleDoneEvent = new ManualResetEventSlim(true);
+        private readonly object _syncLock = new();
+        private readonly ManualResetEventSlim _cycleDoneEvent = new(true);
         private readonly Timer _backingTimer;
         private readonly TimerCallback _userCallback;
-        private readonly AtomicBoolean _isDisposing = new AtomicBoolean();
-        private readonly AtomicBoolean _isDisposed = new AtomicBoolean();
+        private readonly AtomicBoolean _isDisposing = new();
+        private readonly AtomicBoolean _isDisposed = new();
         private int _period;
 
         /// <summary>

@@ -50,7 +50,7 @@ namespace Swan.Reflection
         /// <value>
         /// The default cache.
         /// </value>
-        public static Lazy<FieldTypeCache> DefaultCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+        public static Lazy<FieldTypeCache> DefaultCache { get; } = new(() => new FieldTypeCache());
 
         /// <summary>
         /// Retrieves all fields.

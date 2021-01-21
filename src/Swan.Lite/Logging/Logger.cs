@@ -12,8 +12,8 @@ namespace Swan.Logging
     /// </summary>
     public static class Logger
     {
-        private static readonly object SyncLock = new object();
-        private static readonly List<ILogger> Loggers = new List<ILogger>();
+        private static readonly object SyncLock = new();
+        private static readonly List<ILogger> Loggers = new();
 
         private static ulong _loggingSequence;
 
@@ -521,7 +521,7 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Log(
-            this Exception ex,
+            this Exception? ex,
             string? source = null,
             string? message = null,
             [CallerMemberName] string callerMemberName = "",
@@ -544,7 +544,7 @@ namespace Swan.Logging
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
         public static void Log(
-            this Exception ex,
+            this Exception? ex,
             Type? source = null,
             string? message = null,
             [CallerMemberName] string callerMemberName = "",

@@ -18,7 +18,7 @@ namespace Swan.Parsers
 
         private const string OpenFuncStr = "(";
 
-        private readonly List<Operator> _operators = new List<Operator>();
+        private readonly List<Operator> _operators = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer"/> class.
@@ -107,7 +107,7 @@ namespace Swan.Parsers
         /// <value>
         /// The tokens.
         /// </value>
-        public List<Token> Tokens { get; } = new List<Token>();
+        public List<Token> Tokens { get; } = new();
 
         /// <summary>
         /// Validates the input and return the start index for tokenizer.

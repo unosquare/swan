@@ -88,8 +88,8 @@
         private readonly string[] _newLineSequenceLineSplitter;
         private readonly byte[] _receiveBuffer;
         private readonly TimeSpan _continuousReadingInterval = TimeSpan.FromMilliseconds(5);
-        private readonly Queue<string> _readLineBuffer = new Queue<string>();
-        private readonly ManualResetEvent _writeDone = new ManualResetEvent(true);
+        private readonly Queue<string> _readLineBuffer = new();
+        private readonly ManualResetEvent _writeDone = new(true);
 
         // Disconnect and Dispose
         private bool _hasDisposed;
@@ -423,8 +423,7 @@
                             $"Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} ms");
                     }
 
-                    if (_readTask == null)
-                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, cancellationToken);
+                    _readTask ??= ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, cancellationToken);
 
                     if (_readTask.Wait(_continuousReadingInterval))
                     {
@@ -850,8 +849,7 @@
 
                 try
                 {
-                    if (_readTask == null)
-                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
+                    _readTask ??= ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
 
                     if (_readTask.Wait(_continuousReadingInterval))
                     {

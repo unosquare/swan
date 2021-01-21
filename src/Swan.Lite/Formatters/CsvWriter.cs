@@ -48,9 +48,9 @@ namespace Swan.Formatters
     /// </example>
     public class CsvWriter : IDisposable
     {
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache TypeCache = new();
 
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
         private readonly Stream _outputStream;
         private readonly Encoding _encoding;
         private readonly bool _leaveStreamOpen;
@@ -155,7 +155,7 @@ namespace Swan.Formatters
         /// <value>
         /// The ignore property names.
         /// </value>
-        public List<string> IgnorePropertyNames { get; } = new List<string>();
+        public List<string> IgnorePropertyNames { get; } = new();
 
         /// <summary>
         /// Gets number of lines that have been written, including the headings line.
@@ -220,7 +220,7 @@ namespace Swan.Formatters
         /// If items are not string, the ToStringInvariant() method is called on them.
         /// </summary>
         /// <param name="items">The items.</param>
-        public void WriteLine(params object[] items)
+        public void WriteLine(params object?[] items)
             => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
         
         /// <summary>
@@ -229,7 +229,7 @@ namespace Swan.Formatters
         /// If items are not string, the ToStringInvariant() method is called on them.
         /// </summary>
         /// <param name="items">The items.</param>
-        public void WriteLine(IEnumerable<object> items)
+        public void WriteLine(IEnumerable<object?> items)
             => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
 
         /// <summary>

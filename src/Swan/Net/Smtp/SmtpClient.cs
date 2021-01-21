@@ -242,7 +242,7 @@
                 throw new ArgumentNullException(nameof(sessionStates));
 
             using var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(Host, Port).ConfigureAwait(false);
+            await tcpClient.ConnectAsync(Host, Port, cancellationToken).ConfigureAwait(false);
 
             using var connection = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 1000);
             var sender = new SmtpSender(sessionId);

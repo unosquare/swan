@@ -128,7 +128,7 @@ namespace Swan.Parsers
         /// <value>
         /// The current.
         /// </value>
-        public static ArgumentParser Current { get; } = new ArgumentParser();
+        public static ArgumentParser Current { get; } = new();
 
         /// <summary>
         /// Gets the instance that implements <see cref="ArgumentParserSettings" /> in use.

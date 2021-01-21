@@ -16,7 +16,7 @@ namespace Swan
         /// </summary>
         /// <typeparam name="T">The type of the attribute to be retrieved.</typeparam>
         /// <returns>A tuple of enumerator names and their value stored for the specified type.</returns>
-        public static IEnumerable<Tuple<string, object>> Retrieve<T>()
+        public static IEnumerable<Tuple<string?, object>> Retrieve<T>()
             where T : struct, IConvertible
         {
             return Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
@@ -50,13 +50,11 @@ namespace Swan
         /// A list of values in the flag.
         /// </returns>
         public static IEnumerable<int> GetFlagValues<TEnum>(int value, bool ignoreZero = false)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .Select(x => (int) x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
-        }
 
         /// <summary>
         /// Gets the flag values.
@@ -68,13 +66,11 @@ namespace Swan
         /// A list of values in the flag.
         /// </returns>
         public static IEnumerable<long> GetFlagValues<TEnum>(long value, bool ignoreZero = false)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .Select(x => (long) x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
-        }
 
         /// <summary>
         /// Gets the flag values.
@@ -86,13 +82,11 @@ namespace Swan
         /// A list of values in the flag.
         /// </returns>
         public static IEnumerable<byte> GetFlagValues<TEnum>(byte value, bool ignoreZero = false)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .Select(x => (byte) x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
-        }
 
         /// <summary>
         /// Gets the flag names.
@@ -104,14 +98,12 @@ namespace Swan
         /// <returns>
         /// A list of flag names.
         /// </returns>
-        public static IEnumerable<string> GetFlagNames<TEnum>(int value, bool ignoreZero = false, bool humanize = true)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+        public static IEnumerable<string?> GetFlagNames<TEnum>(int value, bool ignoreZero = false, bool humanize = true)
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .When(() => ignoreZero, q => q.Where(f => (int) f.Item2 != 0))
                 .Where(x => ((int) x.Item2 & value) == (int) x.Item2)
-                .Select(x => humanize ? x.Item1.Humanize() : x.Item1);
-        }
+                .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
         /// Gets the flag names.
@@ -123,14 +115,12 @@ namespace Swan
         /// <returns>
         /// A list of flag names.
         /// </returns>
-        public static IEnumerable<string> GetFlagNames<TEnum>(long value, bool ignoreZero = false, bool humanize = true)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+        public static IEnumerable<string?> GetFlagNames<TEnum>(long value, bool ignoreZero = false, bool humanize = true)
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .When(() => ignoreZero, q => q.Where(f => (long) f.Item2 != 0))
                 .Where(x => ((long) x.Item2 & value) == (long) x.Item2)
-                .Select(x => humanize ? x.Item1.Humanize() : x.Item1);
-        }
+                .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
         /// Gets the flag names.
@@ -142,14 +132,12 @@ namespace Swan
         /// <returns>
         /// A list of flag names.
         /// </returns>
-        public static IEnumerable<string> GetFlagNames<TEnum>(byte value, bool ignoreZero = false, bool humanize = true)
-            where TEnum : struct, IConvertible
-        {
-            return Retrieve<TEnum>()
+        public static IEnumerable<string?> GetFlagNames<TEnum>(byte value, bool ignoreZero = false, bool humanize = true)
+            where TEnum : struct, IConvertible =>
+            Retrieve<TEnum>()
                 .When(() => ignoreZero, q => q.Where(f => (byte) f.Item2 != 0))
                 .Where(x => ((byte) x.Item2 & value) == (byte) x.Item2)
-                .Select(x => humanize ? x.Item1.Humanize() : x.Item1);
-        }
+                .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
         /// Gets the cached items with the enum item index.
@@ -159,13 +147,9 @@ namespace Swan
         /// <returns>
         /// A collection of Type/Tuple pairs that represents items with the enum item value.
         /// </returns>
-        public static IEnumerable<Tuple<int, string>> GetItemsWithIndex<T>(bool humanize = true)
-            where T : struct, IConvertible
-        {
-            var i = 0;
-
-            return Retrieve<T>()
-                .Select(x => Tuple.Create(i++, humanize ? x.Item1.Humanize() : x.Item1));
-        }
+        public static IEnumerable<Tuple<int, string?>> GetItemsWithIndex<T>(bool humanize = true)
+            where T : struct, IConvertible =>
+            Retrieve<T>()
+                .Select((x,y) => Tuple.Create(y, humanize ? x.Item1?.Humanize() : x.Item1));
     }
 }

@@ -140,7 +140,7 @@
         {
             using var client = new HttpClient();
             var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
-            return IPAddress.Parse(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            return IPAddress.Parse(await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false));
         }
         
         /// <summary>

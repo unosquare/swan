@@ -10,10 +10,10 @@ namespace Swan.Cryptography
     /// </summary>
     public static class Hasher
     {
-        private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
-        private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
-        private static readonly Lazy<SHA256> SHA256Hasher = new Lazy<SHA256>(SHA256.Create, true);
-        private static readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
+        private static readonly Lazy<MD5> Md5Hasher = new(MD5.Create, true);
+        private static readonly Lazy<SHA1> SHA1Hasher = new(SHA1.Create, true);
+        private static readonly Lazy<SHA256> SHA256Hasher = new(SHA256.Create, true);
+        private static readonly Lazy<SHA512> SHA512Hasher = new(SHA512.Create, true);
 
         /// <summary>
         /// Computes the MD5 hash of the given stream.

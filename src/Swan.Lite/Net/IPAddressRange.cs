@@ -34,13 +34,13 @@ namespace Swan.Net
         /// <para>This property is useful to initialize non-nullable properties 
         /// of type <see cref="IPAddressRange"/>.</para>
         /// </summary>
-        public static readonly IPAddressRange None = new IPAddressRange(IPAddressValue.MaxValue, IPAddressValue.MinValue, true, 0);
+        public static readonly IPAddressRange None = new(IPAddressValue.MaxValue, IPAddressValue.MinValue, true, 0);
 
         /// <summary>
         /// <para>Gets an instance of <see cref="IPAddressRange"/> that contains all possible IP addresses.</para>
         /// <para>The <see cref="Contains"/> method of the returned instance will always return <see langword="true"/>.</para>
         /// </summary>
-        public static readonly IPAddressRange All = new IPAddressRange(IPAddressValue.MinValue, IPAddressValue.MaxValue, true, 128);
+        public static readonly IPAddressRange All = new(IPAddressValue.MinValue, IPAddressValue.MaxValue, true, 128);
 
         /// <summary>
         /// <para>Gets an instance of <see cref="IPAddressRange"/> that contains all IPv4 addresses.</para>
@@ -48,7 +48,7 @@ namespace Swan.Net
         /// for all IPv4 addresses, as well as their IPv6 mapped counterparts, and <see langword="false"/>
         /// for all other IPv6 addresses.</para>
         /// </summary>
-        public static readonly IPAddressRange AllIPv4 = new IPAddressRange(IPAddressValue.MinIPv4Value, IPAddressValue.MaxIPv4Value, false, 32);
+        public static readonly IPAddressRange AllIPv4 = new(IPAddressValue.MinIPv4Value, IPAddressValue.MaxIPv4Value, false, 32);
 
         private readonly IPAddressValue _start;
         private readonly IPAddressValue _end;

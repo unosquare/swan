@@ -12,7 +12,7 @@
     /// <seealso cref="System.IDisposable" />
     public partial class DependencyContainer : IDisposable
     {
-        private readonly object _autoRegisterLock = new object();
+        private readonly object _autoRegisterLock = new();
 
         private bool _disposed;
 
@@ -38,7 +38,7 @@
         /// <summary>
         /// Lazy created Singleton instance of the container for simple scenarios.
         /// </summary>
-        public static DependencyContainer Current { get; } = new DependencyContainer();
+        public static DependencyContainer Current { get; } = new();
 
         internal DependencyContainer Parent { get; }
 
@@ -63,7 +63,7 @@
         /// Gets the child container.
         /// </summary>
         /// <returns>A new instance of the <see cref="DependencyContainer"/> class.</returns>
-        public DependencyContainer GetChildContainer() => new DependencyContainer(this);
+        public DependencyContainer GetChildContainer() => new(this);
 
         #region Registration
 
@@ -649,8 +649,7 @@
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
 
-            if (resolveOptions == null)
-                resolveOptions = DependencyContainerResolveOptions.Default;
+            resolveOptions ??= DependencyContainerResolveOptions.Default;
 
             var properties = input.GetType()
                 .GetProperties()

@@ -217,7 +217,7 @@ namespace Swan
         ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TrySetArrayBasicType(this Type type, object value, Array target, int index)
+        public static bool TrySetArrayBasicType(this Type type, object? value, Array? target, int index)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -302,7 +302,7 @@ namespace Swan
         {
             try
             {
-                return Convert.ToBoolean(str);
+                return Convert.ToBoolean(str, System.Globalization.CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
@@ -311,7 +311,7 @@ namespace Swan
 
             try
             {
-                return Convert.ToBoolean(Convert.ToInt32(str));
+                return Convert.ToBoolean(Convert.ToInt32(str, System.Globalization.CultureInfo.InvariantCulture));
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch

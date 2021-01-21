@@ -8,7 +8,7 @@ namespace Swan.Configuration
     /// </summary>
     public abstract class ConfiguredObject
     {
-        private readonly object _syncRoot = new object();
+        private readonly object _syncRoot = new();
         private bool _configurationLocked;
 
         /// <summary>

@@ -86,7 +86,7 @@
 
         private class TokenSleepDelay : IWorkerDelayProvider
         {
-            private readonly Stopwatch _elapsedWait = new Stopwatch();
+            private readonly Stopwatch _elapsedWait = new();
 
             public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
             {
@@ -108,7 +108,7 @@
         private class SteppedTokenDelay : IWorkerDelayProvider
         {
             private const int StepMilliseconds = 15;
-            private readonly Stopwatch _elapsedWait = new Stopwatch();
+            private readonly Stopwatch _elapsedWait = new();
 
             public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
             {

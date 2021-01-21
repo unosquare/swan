@@ -50,7 +50,7 @@ namespace Swan.Parsers
         /// <value>
         /// The long name.
         /// </value>
-        public string LongName { get; }
+        public string? LongName { get; }
 
         /// <summary>
         /// Gets a short name of this command line option, made of one character.

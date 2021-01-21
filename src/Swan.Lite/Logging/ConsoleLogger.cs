@@ -22,7 +22,7 @@ namespace Swan.Logging
         /// <value>
         /// The instance.
         /// </value>
-        public static ConsoleLogger Instance { get; } = new ConsoleLogger();
+        public static ConsoleLogger Instance { get; } = new();
 
         /// <summary>
         /// Gets or sets the debug logging prefix.

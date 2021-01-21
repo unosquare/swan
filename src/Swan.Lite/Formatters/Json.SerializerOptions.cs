@@ -17,10 +17,10 @@ namespace Swan.Formatters
     public class SerializerOptions
     {
         private static readonly ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>
-            TypeCache = new ConcurrentDictionary<Type, Dictionary<Tuple<string, string>, MemberInfo>>();
+            TypeCache = new();
 
         private readonly string[]? _includeProperties;
-        private readonly Dictionary<int, List<WeakReference>> _parentReferences = new Dictionary<int, List<WeakReference>>();
+        private readonly Dictionary<int, List<WeakReference>> _parentReferences = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializerOptions"/> class.
@@ -111,7 +111,7 @@ namespace Swan.Formatters
                 return false;
             }
 
-            _parentReferences.Add(hashCode, new List<WeakReference> { new WeakReference(target) });
+            _parentReferences.Add(hashCode, new List<WeakReference> { new(target) });
             return false;
         }
 

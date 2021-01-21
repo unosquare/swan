@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <Description>Unit Testing project</Description>
-        <Copyright>Copyright (c) 2016-2019 - Unosquare</Copyright>
+        <Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>Unosquare.Swan.Test</AssemblyName>
         <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>9.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -17,19 +17,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoFixture" Version="4.11.0" />
-        <PackageReference Include="AutoFixture.AutoMoq" Version="4.11.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-        <PackageReference Include="Moq" Version="4.14.1" />
-        <packagereference Include="NUnit3TestAdapter" Version="3.16.1">
+        <PackageReference Include="AutoFixture" Version="4.15.0" />
+        <PackageReference Include="AutoFixture.AutoMoq" Version="4.15.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+        <PackageReference Include="Moq" Version="4.16.0" />
+        <packagereference Include="NUnit3TestAdapter" Version="3.17.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </packagereference>
-        <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <PrivateAssets>All</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+        <PackageReference Include="NUnit" Version="3.13.0" />
+        <PackageReference Include="Portable.BouncyCastle" Version="1.8.9" />
     </ItemGroup>
 
 </Project>

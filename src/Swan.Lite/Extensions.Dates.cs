@@ -10,7 +10,7 @@ namespace Swan
     /// </summary>
     public static class DateExtensions
     {
-        private static readonly Dictionary<string, int> DateRanges = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> DateRanges = new()
         {
             { "minute", 59},
             { "hour", 23},
@@ -111,7 +111,7 @@ namespace Swan
         /// A new instance of the DateTime structure to the specified datetime and timespan ticks.
         /// </returns>
         public static DateTime RoundUp(this DateTime date, TimeSpan timeSpan)
-            => new DateTime(((date.Ticks + timeSpan.Ticks - 1) / timeSpan.Ticks) * timeSpan.Ticks);
+            => new(((date.Ticks + timeSpan.Ticks - 1) / timeSpan.Ticks) * timeSpan.Ticks);
 
         /// <summary>
         /// Get this datetime as a Unix epoch timestamp (seconds since Jan 1, 1970, midnight UTC).

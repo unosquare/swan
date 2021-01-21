@@ -67,9 +67,9 @@ namespace Swan.Formatters
     /// </example>
     public class CsvReader : IDisposable
     {
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache TypeCache = new();
 
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
         
         private ulong _count;
         private char _escapeCharacter = '"';
@@ -574,13 +574,11 @@ namespace Swan.Formatters
         {
             var result = new List<T>();
 
-            using (var reader = new CsvReader(stream))
+            using var reader = new CsvReader(stream);
+            reader.ReadHeadings();
+            while (!reader.EndOfStream)
             {
-                reader.ReadHeadings();
-                while (!reader.EndOfStream)
-                {
-                    result.Add(reader.ReadObject<T>());
-                }
+                result.Add(reader.ReadObject<T>());
             }
 
             return result;

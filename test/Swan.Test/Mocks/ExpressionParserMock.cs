@@ -9,7 +9,7 @@
     public class ExpressionParserMock : ExpressionParser
     {
         private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =
-            new Dictionary<string, Func<Expression[], Expression>>
+            new()
             {
                 {
                     "max",

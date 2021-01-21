@@ -29,11 +29,11 @@
     /// </example>
     public sealed class DelayProvider : IDisposable
     {
-        private readonly object _syncRoot = new object();
-        private readonly Stopwatch _delayStopwatch = new Stopwatch();
+        private readonly object _syncRoot = new();
+        private readonly Stopwatch _delayStopwatch = new();
 
         private bool _isDisposed;
-        private IWaitEvent _delayEvent;
+        private IWaitEvent? _delayEvent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
@@ -123,8 +123,7 @@
 
         private void DelayThreadPool()
         {
-            if (_delayEvent == null)
-                _delayEvent = WaitEventFactory.Create(isCompleted: true, useSlim: true);
+            _delayEvent ??= WaitEventFactory.Create(isCompleted: true, useSlim: true);
 
             _delayEvent.Begin();
             ThreadPool.QueueUserWorkItem(s =>

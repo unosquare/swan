@@ -11,23 +11,23 @@ namespace Swan
     /// </summary>
     public static class SwanRuntime
     {
-        private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
+        private static readonly Lazy<Assembly> EntryAssemblyLazy = new(Assembly.GetEntryAssembly);
         
-        private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
+        private static readonly Lazy<string> CompanyNameLazy = new(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
             return attribute?.Company ?? string.Empty;
         });
 
-        private static readonly Lazy<string> ProductNameLazy = new Lazy<string>(() =>
+        private static readonly Lazy<string> ProductNameLazy = new(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
             return attribute?.Product ?? string.Empty;
         });
 
-        private static readonly Lazy<string> ProductTrademarkLazy = new Lazy<string>(() =>
+        private static readonly Lazy<string> ProductTrademarkLazy = new(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
@@ -36,7 +36,7 @@ namespace Swan
         
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 
-        private static readonly object SyncLock = new object();
+        private static readonly object SyncLock = new();
 
         private static OperatingSystem? _oS;
 

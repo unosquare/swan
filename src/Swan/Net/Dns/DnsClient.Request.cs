@@ -94,7 +94,7 @@
 
         public class DnsRequest : IDnsRequest
         {
-            private static readonly Random Random = new Random();
+            private static readonly Random Random = new();
 
             private DnsHeader header;
 
@@ -532,7 +532,7 @@
             }
 
             public static DnsDomain PointerName(IPAddress ip)
-                => new DnsDomain(FormatReverseIP(ip));
+                => new(FormatReverseIP(ip));
 
             public byte[] ToArray()
             {
@@ -660,13 +660,13 @@
                 public DnsRecordType Type
                 {
                     get => (DnsRecordType)type;
-                    set => type = (ushort)value;
+                    init => type = (ushort)value;
                 }
 
                 public DnsRecordClass Class
                 {
                     get => (DnsRecordClass)klass;
-                    set => klass = (ushort)value;
+                    init => klass = (ushort)value;
                 }
             }
         }

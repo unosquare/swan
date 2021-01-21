@@ -17,7 +17,7 @@ namespace Swan
         /// <summary>
         /// The basic types information.
         /// </summary>
-        public static readonly Lazy<Dictionary<Type, ExtendedTypeInfo>> BasicTypesInfo = new Lazy<Dictionary<Type, ExtendedTypeInfo>>(() =>
+        public static readonly Lazy<Dictionary<Type, ExtendedTypeInfo>> BasicTypesInfo = new(() =>
             new Dictionary<Type, ExtendedTypeInfo>
             {
                 // Non-Nullables
