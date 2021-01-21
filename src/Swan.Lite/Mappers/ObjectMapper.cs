@@ -80,9 +80,9 @@ namespace Swan.Mappers
     /// </example>
     public partial class ObjectMapper
     {
-        private static readonly Lazy<ObjectMapper> LazyInstance = new Lazy<ObjectMapper>(() => new ObjectMapper());
+        private static readonly Lazy<ObjectMapper> LazyInstance = new(() => new ObjectMapper());
 
-        private readonly List<IObjectMap> _maps = new List<IObjectMap>();
+        private readonly List<IObjectMap> _maps = new();
 
         /// <summary>
         /// Gets the current.
@@ -307,7 +307,7 @@ namespace Swan.Mappers
             return false;
         }
 
-        private static object? GetValue(object source, Type targetType)
+        private static object? GetValue(object? source, Type targetType)
         {
             if (source == null)
                 return null;
@@ -318,7 +318,7 @@ namespace Swan.Mappers
 
             switch (source)
             {
-                case string _:
+                case string:
                     target = source;
                     break;
                 case IList sourceList when target is IList targetList:

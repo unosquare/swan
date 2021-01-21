@@ -20,22 +20,22 @@ namespace Swan
         private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
 
         private static readonly Lazy<Regex> SplitLinesRegex =
-            new Lazy<Regex>(() => new Regex("\r\n|\r|\n", StandardRegexOptions));
+            new(() => new Regex("\r\n|\r|\n", StandardRegexOptions));
 
         private static readonly Lazy<Regex> UnderscoreRegex =
-            new Lazy<Regex>(() => new Regex(@"_", StandardRegexOptions));
+            new(() => new Regex(@"_", StandardRegexOptions));
 
         private static readonly Lazy<Regex> CamelCaseRegEx =
-            new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", StandardRegexOptions));
+            new(() => new Regex(@"[a-z][A-Z]", StandardRegexOptions));
 
-        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => m =>
+        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new(() => m =>
         {
             var x = m.ToString();
             return x[0] + " " + x.Substring(1, x.Length - 1);
         });
 
         private static readonly Lazy<string[]> InvalidFilenameChars =
-            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToStringInvariant()).ToArray());
+            new(() => Path.GetInvalidFileNameChars().Select(c => c.ToStringInvariant()).ToArray());
 
         #endregion
 
@@ -86,8 +86,7 @@ namespace Swan
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            if (excludeChars == null)
-                excludeChars = Array.Empty<char>();
+            excludeChars ??= Array.Empty<char>();
 
             return new string(value
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
@@ -100,7 +99,7 @@ namespace Swan
         /// <param name="this">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToJson(this object @this, bool format = true) =>
+        public static string ToJson(this object? @this, bool format = true) =>
             @this == null ? string.Empty : Json.Serialize(@this, format);
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace Swan
         /// </summary>
         /// <param name="this">The object.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Stringify(this object @this)
+        public static string Stringify(this object? @this)
         {
             if (@this == null)
                 return "(null)";
@@ -139,7 +138,7 @@ namespace Swan
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string Slice(this string @this, int startIndex, int endIndex)
+        public static string Slice(this string? @this, int startIndex, int endIndex)
         {
             if (@this == null)
                 return string.Empty;
@@ -158,7 +157,7 @@ namespace Swan
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>Retrieves a substring from this instance.</returns>
-        public static string SliceLength(this string @this, int startIndex, int length)
+        public static string SliceLength(this string? @this, int startIndex, int length)
         {
             if (@this == null)
                 return string.Empty;
@@ -177,7 +176,7 @@ namespace Swan
         /// An array whose elements contain the substrings from this instance 
         /// that are delimited by one or more characters in separator.
         /// </returns>
-        public static string[] ToLines(this string @this) =>
+        public static string[] ToLines(this string? @this) =>
             @this == null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(@this);
 
         /// <summary>
@@ -187,7 +186,7 @@ namespace Swan
         /// </summary>
         /// <param name="value">The identifier-style string.</param>
         /// <returns>A <see cref="string" /> humanized.</returns>
-        public static string Humanize(this string value)
+        public static string Humanize(this string? value)
         {
             if (value == null)
                 return string.Empty;
@@ -224,9 +223,9 @@ namespace Swan
         /// <param name="value">The text.</param>
         /// <param name="spaces">The spaces.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Indent(this string value, int spaces = 4)
+        public static string Indent(this string? value, int spaces = 4)
         {
-            if (value == null) value = string.Empty;
+            value ??= string.Empty;
             if (spaces <= 0) return value;
 
             var lines = value.ToLines();
@@ -251,7 +250,7 @@ namespace Swan
         /// <param name="value">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
         /// <returns>A 2-tuple whose value is (item1, item2).</returns>
-        public static Tuple<int, int> TextPositionAt(this string value, int charIndex)
+        public static Tuple<int, int> TextPositionAt(this string? value, int charIndex)
         {
             if (value == null)
                 return Tuple.Create(0, 0);
@@ -285,7 +284,7 @@ namespace Swan
         /// A string with a safe file name.
         /// </returns>
         /// <exception cref="ArgumentNullException">s.</exception>
-        public static string ToSafeFilename(this string value) =>
+        public static string ToSafeFilename(this string? value) =>
             value == null
                 ? throw new ArgumentNullException(nameof(value))
                 : InvalidFilenameChars.Value
@@ -344,7 +343,7 @@ namespace Swan
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string? Truncate(this string value, int maximumLength, string omission)
+        public static string? Truncate(this string? value, int maximumLength, string? omission)
         {
             if (value == null)
                 return null;
@@ -368,7 +367,7 @@ namespace Swan
         /// <param name="chars">
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
-        public static bool Contains(this string value, params char[] chars) =>
+        public static bool Contains(this string value, params char[]? chars) =>
             chars != null &&
             (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
 

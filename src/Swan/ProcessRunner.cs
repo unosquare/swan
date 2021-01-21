@@ -153,8 +153,7 @@
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            if (encoding == null)
-                encoding = Definitions.CurrentAnsiEncoding;
+            encoding ??= Definitions.CurrentAnsiEncoding;
 
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
@@ -163,8 +162,8 @@
                 filename,
                 arguments,
                 workingDirectory,
-                (data, proc) => standardOutputBuilder.Append(encoding.GetString(data)),
-                (data, proc) => standardErrorBuilder.Append(encoding.GetString(data)),
+                (data, _) => standardOutputBuilder.Append(encoding.GetString(data)),
+                (data, _) => standardErrorBuilder.Append(encoding.GetString(data)),
                 encoding,
                 true,
                 cancellationToken)

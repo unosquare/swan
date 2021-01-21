@@ -12,7 +12,7 @@ namespace Swan
         /// <summary>
         /// The static, singleton instance reference.
         /// </summary>
-        protected static readonly Lazy<T> LazyInstance = new Lazy<T>(
+        protected static readonly Lazy<T> LazyInstance = new(
             valueFactory: () => Activator.CreateInstance(typeof(T), true) as T, 
             isThreadSafe: true);
 

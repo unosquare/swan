@@ -86,7 +86,7 @@ namespace Swan
         /// </summary>
         /// <param name="fields">The values of the fields and/or properties.</param>
         /// <returns>The computed has code.</returns>
-        public static int Using(params object[] fields)
+        public static int Using(params object?[] fields)
         {
             unchecked
             {

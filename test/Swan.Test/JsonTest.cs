@@ -10,7 +10,7 @@
     {
         protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
 
-        protected static readonly AdvJson AdvObj = new AdvJson
+        protected static readonly AdvJson AdvObj = new()
         {
             StringData = "string,\r\ndata\\",
             IntData = 1,
@@ -31,13 +31,13 @@
 
         protected string NumericAStr => "[1,2,3]";
 
-        protected BasicArrayJson BasicAObj => new BasicArrayJson
+        protected BasicArrayJson BasicAObj => new()
         {
             Id = 1,
             Properties = new[] {"One", "Two", "Babu"},
         };
 
-        protected AdvArrayJson AdvAObj => new AdvArrayJson
+        protected AdvArrayJson AdvAObj => new()
         {
             Id = 1,
             Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()},

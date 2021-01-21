@@ -1,10 +1,8 @@
 ﻿namespace Swan.Samples
 {
     using DependencyInjection;
-    using Diagnostics;
     using Formatters;
     using Logging;
-    using Messaging;
     using Net;
     using Net.Dns;
     using System;
@@ -117,20 +115,11 @@
 
         private static void TestContainerAndMessageHub()
         {
-            DependencyContainer.Current.Register<IMessageHub, MessageHub>();
-
             DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
             $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
             DependencyContainer.Current.Unregister<ISampleAnimal>();
             DependencyContainer.Current.Register<ISampleAnimal, SampleMonkey>();
             $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
-
-            var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
-            messageHub.Subscribe<SampleMessage>(m =>
-            {
-                $"Received the following message from '{m.Sender}': '{m.Content}'".Trace();
-            });
-            messageHub.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
         private static void TestFastOutput()
@@ -225,9 +214,6 @@
                 $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
                     .Info(nameof(TestCsvFormatters));
             });
-
-            var elapsed = Benchmark.BenchmarkAction(action);
-            $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
     }
 }

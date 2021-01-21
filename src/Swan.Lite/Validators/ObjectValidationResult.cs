@@ -8,7 +8,7 @@ namespace Swan.Validators
     /// </summary>
     public class ObjectValidationResult
     {
-        private readonly List<ValidationError> _errors = new List<ValidationError>();
+        private readonly List<ValidationError> _errors = new();
 
         /// <summary>
         /// A list of errors.

@@ -22,7 +22,7 @@
 
         protected Exception? NullException => null;
 
-        protected DateBasicJson DefaultObject => new DateBasicJson
+        protected DateBasicJson DefaultObject => new()
         {
             StringData = "string",
             IntData = 1,
@@ -32,15 +32,15 @@
             Date = new DateTime(2017, 10, 10),
         };
 
-        protected SampleStruct DefaultStruct => new SampleStruct
+        protected SampleStruct DefaultStruct => new()
         {
             Name = nameof(DefaultStruct),
             Value = 1,
         };
 
-        protected List<string> DefaultStringList => new List<string> { "A", "B", "C" };
+        protected List<string> DefaultStringList => new() { "A", "B", "C" };
 
-        protected Dictionary<int, string> DefaultDictionary => new Dictionary<int, string>
+        protected Dictionary<int, string> DefaultDictionary => new()
         {
             {1, "A"},
             {2, "B"},

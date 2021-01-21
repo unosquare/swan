@@ -7,9 +7,9 @@
     /// </summary>
     public class DnsQueryResult
     {
-        private readonly List<DnsRecord> _mAnswerRecords = new List<DnsRecord>();
-        private readonly List<DnsRecord> _mAdditionalRecords = new List<DnsRecord>();
-        private readonly List<DnsRecord> _mAuthorityRecords = new List<DnsRecord>();
+        private readonly List<DnsRecord> _mAnswerRecords = new();
+        private readonly List<DnsRecord> _mAdditionalRecords = new();
+        private readonly List<DnsRecord> _mAuthorityRecords = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.

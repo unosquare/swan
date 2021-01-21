@@ -13,7 +13,7 @@
     public class TypesConcurrentDictionary : ConcurrentDictionary<DependencyContainer.TypeRegistration, ObjectFactoryBase>
     {
         private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache =
-            new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
+            new();
 
         private readonly DependencyContainer _dependencyContainer;
 
@@ -65,8 +65,7 @@
             DependencyContainer.TypeRegistration registration,
             DependencyContainerResolveOptions? options = null)
         {
-            if (options == null)
-                options = DependencyContainerResolveOptions.Default;
+            options ??= DependencyContainerResolveOptions.Default;
 
             // Attempt container resolution
             if (TryGetValue(registration, out var factory))
@@ -144,8 +143,7 @@
             DependencyContainer.TypeRegistration registration,
             DependencyContainerResolveOptions? options = null)
         {
-            if (options == null)
-                options = DependencyContainerResolveOptions.Default;
+            options ??= DependencyContainerResolveOptions.Default;
 
             var checkType = registration.Type;
             var name = registration.Name;

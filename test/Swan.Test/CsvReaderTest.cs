@@ -17,7 +17,7 @@
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
-        protected readonly Dictionary<string, string> Map = new Dictionary<string, string>
+        protected readonly Dictionary<string, string> Map = new()
         {
             {"Company", "Warsong Clan"},
             {"OpenPositions", "Wolfrider"},

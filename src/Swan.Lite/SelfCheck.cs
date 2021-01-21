@@ -28,7 +28,7 @@ namespace Swan
         /// A newly-created instance of <see cref="InternalErrorException"/>.
         /// </returns>
         public static InternalErrorException Failure(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
-            => new InternalErrorException(BuildMessage(message, filePath, lineNumber));
+            => new(BuildMessage(message, filePath, lineNumber));
 
         private static string BuildMessage(string message, string filePath, int lineNumber)
         {

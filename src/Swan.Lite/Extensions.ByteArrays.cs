@@ -399,7 +399,7 @@ namespace Swan
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns>A <see cref="string" /> that contains the results of decoding the specified sequence of bytes.</returns>
-        public static string ToText(this IEnumerable<byte> buffer, Encoding encoding) =>
+        public static string ToText(this IEnumerable<byte> buffer, Encoding? encoding) =>
             encoding == null
                 ? throw new ArgumentNullException(nameof(encoding))
                 : encoding.GetString(buffer.ToArray());
@@ -427,7 +427,7 @@ namespace Swan
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            using var dest = new MemoryStream();
+            await using var dest = new MemoryStream();
 
             try
             {

@@ -19,7 +19,7 @@
         private const string JsonMimeType = "application/json";
         private const string FormType = "application/x-www-form-urlencoded";
 
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new();
 
         /// <summary>
         /// Post a object as JSON with optional authorization token.
@@ -186,7 +186,7 @@
             var response = await GetHttpContent(uri, ct, authorization, headers)
                 .ConfigureAwait(false);
 
-            return await response.ReadAsStringAsync()
+            return await response.ReadAsStringAsync(ct)
                 .ConfigureAwait(false);
         }
 
@@ -255,7 +255,7 @@
             var response = await GetHttpContent(requestUri, ct, authorization)
                 .ConfigureAwait(false);
 
-            return await response.ReadAsByteArrayAsync()
+            return await response.ReadAsByteArrayAsync(ct)
                 .ConfigureAwait(false);
         }
 
@@ -290,7 +290,7 @@
             if (!response.IsSuccessStatusCode)
                 throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}.");
 
-            var jsonPayload = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var jsonPayload = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
 
             return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
         }
@@ -307,7 +307,8 @@
         /// A task with a result of the requested string.
         /// </returns>
         /// <exception cref="ArgumentNullException">fileName</exception>
-        public static Task<string> PostFileString(Uri requestUri, byte[] buffer, string fileName, string? authorization = null, CancellationToken ct = default)
+        public static Task<string> PostFileString(Uri requestUri, byte[] buffer, string fileName,
+            string? authorization = null, CancellationToken ct = default)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -335,7 +336,8 @@
         /// or
         /// fileName
         /// </exception>
-        public static Task<T> PostFile<T>(Uri requestUri, byte[] buffer, string fileName, string? authorization = null, CancellationToken ct = default)
+        public static Task<T> PostFile<T>(Uri requestUri, byte[] buffer, string fileName, string? authorization = null,
+            CancellationToken ct = default)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -371,7 +373,7 @@
             using var response = await GetResponse(requestUri, authorization, headers, payload, method, ct)
                 .ConfigureAwait(false);
 
-            var responseString = await response.Content.ReadAsStringAsync()
+            var responseString = await response.Content.ReadAsStringAsync(ct)
                 .ConfigureAwait(false);
 
             return !response.IsSuccessStatusCode
@@ -394,7 +396,7 @@
 
             return response.IsSuccessStatusCode
                 ? response.Content
-                : throw new JsonRequestException(uri, HttpMethod.Get, (int)response.StatusCode);
+                : throw new JsonRequestException(uri, HttpMethod.Get, (int) response.StatusCode);
         }
 
         private static async Task<HttpResponseMessage> GetResponse(
@@ -418,8 +420,8 @@
 
             if (headers != null)
             {
-                foreach (var header in headers)
-                    requestMessage.Headers.Add(header.Key, header.Value);
+                foreach (var (key, value) in headers)
+                    requestMessage.Headers.Add(key, value);
             }
 
             if (payload != null && requestMessage.Method != HttpMethod.Get)

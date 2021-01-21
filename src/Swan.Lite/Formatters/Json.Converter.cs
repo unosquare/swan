@@ -21,9 +21,9 @@ namespace Swan.Formatters
         private class Converter
         {
             private static readonly ConcurrentDictionary<MemberInfo, string> MemberInfoNameCache =
-                new ConcurrentDictionary<MemberInfo, string>();
+                new();
 
-            private static readonly ConcurrentDictionary<Type, Type?> ListAddMethodCache = new ConcurrentDictionary<Type, Type?>();
+            private static readonly ConcurrentDictionary<Type, Type?> ListAddMethodCache = new();
 
             private readonly object? _target;
             private readonly Type _targetType;
@@ -280,7 +280,7 @@ namespace Swan.Formatters
                 }
             }
 
-            private void PopulateObject(IDictionary<string, object> sourceProperties)
+            private void PopulateObject(IDictionary<string, object>? sourceProperties)
             {
                 if (sourceProperties == null)
                     return;

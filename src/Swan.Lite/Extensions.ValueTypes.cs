@@ -47,10 +47,8 @@ namespace Swan
         ///   <c>true</c> if the specified minimum is between; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsBetween<T>(this T @this, T min, T max)
-            where T : struct, IComparable
-        {
-            return @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
-        }
+            where T : struct, IComparable =>
+            @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.
@@ -58,11 +56,9 @@ namespace Swan
         /// <typeparam name="T">The type of structure to convert.</typeparam>
         /// <param name="this">The data.</param>
         /// <returns>a struct type derived from convert an array of bytes ref=ToStruct".</returns>
-        public static T ToStruct<T>(this byte[] @this)
-            where T : struct
-        {
-            return @this == null ? throw new ArgumentNullException(nameof(@this)) : ToStruct<T>(@this, 0, @this.Length);
-        }
+        public static T ToStruct<T>(this byte[]? @this)
+            where T : struct =>
+            @this == null ? throw new ArgumentNullException(nameof(@this)) : ToStruct<T>(@this, 0, @this.Length);
 
         /// <summary>
         /// Converts an array of bytes into the given struct type.

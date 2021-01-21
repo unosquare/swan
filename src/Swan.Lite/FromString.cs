@@ -22,10 +22,10 @@ namespace Swan
             = typeof(FromString).GetMethod(nameof(ConvertToInternal), BindingFlags.Static | BindingFlags.NonPublic);
 
         private static readonly ConcurrentDictionary<Type, Func<string[], (bool Success, object Result)>> GenericTryConvertToMethods
-            = new ConcurrentDictionary<Type, Func<string[], (bool Success, object Result)>>();
+            = new();
 
         private static readonly ConcurrentDictionary<Type, Func<string[], object>> GenericConvertToMethods
-            = new ConcurrentDictionary<Type, Func<string[], object>>();
+            = new();
 
         /// <summary>
         /// Determines whether a string can be converted to the specified type.
@@ -86,7 +86,7 @@ namespace Swan
         /// the result of the conversion. This parameter is passed uninitialized.</param>
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
-        public static bool TryConvertTo<TResult>(string str, out TResult result)
+        public static bool TryConvertTo<TResult>(string str, out TResult? result)
         {
             var converter = TypeDescriptor.GetConverter(typeof(TResult));
             if (!converter.CanConvertFrom(typeof(string)))
@@ -162,7 +162,7 @@ namespace Swan
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
-        public static bool TryConvertTo(Type type, string[] strings, out object? result)
+        public static bool TryConvertTo(Type type, string[]? strings, out object? result)
         {
             if (strings == null)
             {
@@ -186,7 +186,7 @@ namespace Swan
         /// the result of the conversion. This parameter is passed uninitialized.</param>
         /// <returns><see langword="true" /> if the conversion is successful;
         /// otherwise, <see langword="false" />.</returns>
-        public static bool TryConvertTo<TResult>(string[] strings, out TResult[]? result)
+        public static bool TryConvertTo<TResult>(string[]? strings, out TResult[]? result)
         {
             if (strings == null)
             {
@@ -227,7 +227,7 @@ namespace Swan
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
         /// <exception cref="StringConversionException">The conversion of at least one
         /// of the elements of <paramref name="strings"/>was not successful.</exception>
-        public static object? ConvertTo(Type type, string[] strings)
+        public static object? ConvertTo(Type type, string[]? strings)
         {
             if (strings == null)
                 return null;
@@ -245,7 +245,7 @@ namespace Swan
         /// <returns>An array of <typeparamref name="TResult" />.</returns>
         /// <exception cref="StringConversionException">The conversion of at least one
         /// of the elements of <paramref name="strings"/>was not successful.</exception>
-        public static TResult[]? ConvertTo<TResult>(string[] strings)
+        public static TResult[]? ConvertTo<TResult>(string[]? strings)
         {
             if (strings == null)
                 return null;

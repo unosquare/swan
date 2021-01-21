@@ -16,7 +16,7 @@ namespace Swan
         /// <param name="this">The this.</param>
         /// <param name="second">The second.</param>
         /// <returns> The Union </returns>
-        public static IEnumerable<T> UnionNull<T>(this IEnumerable<T> @this, IEnumerable<T> second)
+        public static IEnumerable<T>? UnionNull<T>(this IEnumerable<T>? @this, IEnumerable<T>? second)
         {
             if (@this == null) return second;
             return second == null ? @this : @this.Union(second);

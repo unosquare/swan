@@ -13,9 +13,9 @@ namespace Swan
     /// </summary>
     public static class PropertyProxyExtensions
     {
-        private static readonly object SyncLock = new object();
+        private static readonly object SyncLock = new();
         private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> ProxyCache =
-            new Dictionary<Type, Dictionary<string, IPropertyProxy>>(32);
+            new(32);
 
         /// <summary>
         /// Gets the property proxies associated with a given type.

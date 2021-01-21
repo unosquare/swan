@@ -8,9 +8,9 @@ namespace Swan.Threading
     /// </summary>
     public sealed class CancellationTokenOwner : IDisposable
     {
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
         private bool _isDisposed;
-        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _tokenSource = new();
 
         /// <summary>
         /// Gets the token of the current.

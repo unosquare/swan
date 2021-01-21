@@ -18,7 +18,7 @@ namespace Swan.Threading
         }
 
         /// <inheritdoc />
-        protected override DateTime FromLong(long backingValue) => new DateTime(backingValue);
+        protected override DateTime FromLong(long backingValue) => new(backingValue);
 
         /// <inheritdoc />
         protected override long ToLong(DateTime value) => value.Ticks;

@@ -12,7 +12,7 @@
     /// <seealso cref="IWorker" />
     public abstract class ThreadWorkerBase : WorkerBase
     {
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
         private readonly Thread _thread;
 
         /// <summary>

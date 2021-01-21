@@ -10,8 +10,8 @@
 
     public abstract class AttributeCacheTest
     {
-        protected static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-        protected static readonly AttributeCache AttributeCache = new AttributeCache(TypeCache);
+        protected static readonly PropertyTypeCache TypeCache = new();
+        protected static readonly AttributeCache AttributeCache = new(TypeCache);
     }
 
     [TestFixture]

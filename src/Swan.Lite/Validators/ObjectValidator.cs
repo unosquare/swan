@@ -69,10 +69,10 @@ namespace Swan.Validators
     /// </example>
     public class ObjectValidator
     {
-        private static readonly Lazy<ObjectValidator> LazyInstance = new Lazy<ObjectValidator>(() => new ObjectValidator());
+        private static readonly Lazy<ObjectValidator> LazyInstance = new(() => new ObjectValidator());
 
         private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
-            new ConcurrentDictionary<Type, List<Tuple<Delegate, string>>>();
+            new();
         
         /// <summary>
         /// Gets the current.

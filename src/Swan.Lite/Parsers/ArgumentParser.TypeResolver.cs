@@ -12,9 +12,7 @@ namespace Swan.Parsers
     {
         private sealed class TypeResolver<T>
         {
-            public bool HasVerb { get; }
-
-            private bool _hasVerb = false;
+            private bool _hasVerb;
 
             private readonly string _selectedVerb;
 
@@ -24,6 +22,8 @@ namespace Swan.Parsers
             {
                 _selectedVerb = selectedVerb;
             }
+
+            public bool HasVerb { get; }
 
             public PropertyInfo[]? Properties => _properties?.Any() == true ? _properties : null;
 

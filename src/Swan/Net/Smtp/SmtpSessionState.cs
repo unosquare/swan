@@ -52,7 +52,7 @@
         /// <summary>
         /// Gets the recipients.
         /// </summary>
-        public List<string> Recipients { get; } = new List<string>();
+        public List<string> Recipients { get; } = new();
 
         /// <summary>
         /// Gets or sets the extended data supporting any additional field for storage by a responder implementation.

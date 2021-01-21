@@ -32,7 +32,7 @@
         public string? StringNull { get; set; }
 
         public static BasicJson GetDefault() =>
-            new BasicJson
+            new()
             {
                 StringData = "string,\r\ndata\\",
                 IntData = 1,
@@ -224,7 +224,7 @@
         public string Owner { get; set; }
 
         public static ObjectAttr GetDefault() =>
-            new ObjectAttr
+            new()
             {
                 Id = 1,
                 IsActive = true,

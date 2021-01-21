@@ -8,7 +8,7 @@
 
     public abstract class ObjectMapperTest : TestFixtureBase
     {
-        protected User SourceUser => new User
+        protected User SourceUser => new()
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
@@ -16,7 +16,7 @@
             StartDate = new DateTime(2000, 2, 5),
         };
 
-        protected Dictionary<string, object> SourceDict => new Dictionary<string, object>
+        protected Dictionary<string, object> SourceDict => new()
         {
             {"Name", "Armando"},
             {"Email", "armando.cifuentes@unosquare.com"},

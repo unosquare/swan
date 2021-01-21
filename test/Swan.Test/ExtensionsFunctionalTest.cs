@@ -11,7 +11,7 @@
 
         protected static IEnumerable<string> Enumerable = new List<string> {"Aragorn", "Gimli", "Legolas", "Gandalf"};
 
-        protected static List<object> Expected = new List<object>
+        protected static List<object> Expected = new()
         {
             "Aragorn",
             "Gimli",

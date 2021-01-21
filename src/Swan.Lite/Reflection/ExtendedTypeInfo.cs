@@ -203,9 +203,9 @@ namespace Swan.Reflection
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
 
-                if ((bool) TryParseMethodInfo.Invoke(null, parseArguments))
+                if ((bool) (TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
                 {
-                    result = parseArguments[parseArguments.Length - 1];
+                    result = parseArguments[^1];
                     return true;
                 }
             }
@@ -224,7 +224,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public string ToStringInvariant(object instance)
+        public string ToStringInvariant(object? instance)
         {
             if (instance == null)
                 return string.Empty;

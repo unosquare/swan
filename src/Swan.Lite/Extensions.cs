@@ -95,7 +95,7 @@ namespace Swan
         /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful.</returns>
         public static int CopyKeyValuePairTo(
-            this IDictionary<string, object> source,
+            this IDictionary<string, object>? source,
             object? target,
             params string[] ignoreKeys) =>
             source == null
@@ -234,7 +234,7 @@ namespace Swan
             switch (source)
             {
                 // do nothing. Simply skip creation
-                case string _:
+                case string:
                     break;
 
                 // When using arrays, there is no default constructor, attempt to build a compatible array

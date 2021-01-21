@@ -1,6 +1,5 @@
 ﻿namespace Swan.Samples
 {
-    using Messaging;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -8,13 +7,6 @@
     public static partial class Program
     {
         #region Message Hub and DI
-
-        internal class SampleMessage : MessageHubGenericMessage<string>
-        {
-            public SampleMessage(object sender, string content) : base(sender, content)
-            {
-            }
-        }
 
         internal interface ISampleAnimal
         {
@@ -123,7 +115,7 @@
                     new Exception("EXCEPTION 3"), new Exception("EXCEPTION 4"));
             }
 
-            public List<int> IntList { get; } = new List<int> { 1, 2, 3, 4, 5, 6 };
+            public List<int> IntList { get; } = new() { 1, 2, 3, 4, 5, 6 };
 
             public DateTime ThrownDateUtc { get; } = DateTime.UtcNow;
 

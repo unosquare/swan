@@ -16,10 +16,10 @@ namespace Swan.Net.Internal
     [Serializable]
     internal struct IPAddressValue : IEquatable<IPAddressValue>, IComparable<IPAddressValue>
     {
-        public static readonly IPAddressValue MinValue = new IPAddressValue(ulong.MinValue, ulong.MinValue, false);
-        public static readonly IPAddressValue MaxValue = new IPAddressValue(ulong.MaxValue, ulong.MaxValue, false);
-        public static readonly IPAddressValue MinIPv4Value = new IPAddressValue(0UL, 0xFFFF00000000UL, true);
-        public static readonly IPAddressValue MaxIPv4Value = new IPAddressValue(0UL, 0xFFFFFFFFFFFFUL, true);
+        public static readonly IPAddressValue MinValue = new(ulong.MinValue, ulong.MinValue, false);
+        public static readonly IPAddressValue MaxValue = new(ulong.MaxValue, ulong.MaxValue, false);
+        public static readonly IPAddressValue MinIPv4Value = new(0UL, 0xFFFF00000000UL, true);
+        public static readonly IPAddressValue MaxIPv4Value = new(0UL, 0xFFFFFFFFFFFFUL, true);
 
         private static readonly IReadOnlyList<ulong> LowBitMasks = BuildLowBitMasks();
         private static readonly IReadOnlyList<ulong> HighBitMasks = BuildHighBitMasks();
@@ -66,7 +66,7 @@ namespace Swan.Net.Internal
         // There are no overloads of IPAddress.HostToNetworkOrder for unsigned types;
         // hence the unchecked casts to signed types.
         public IPAddress ToIPAddress(bool forceV6)
-            => new IPAddress(_isV4 && !forceV6
+            => new(_isV4 && !forceV6
                 ? BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((int)(uint)_n1)))
                 : BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long) _n0)))
                     .Concat(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long) _n1))))

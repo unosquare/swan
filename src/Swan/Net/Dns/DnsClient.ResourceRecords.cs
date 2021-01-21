@@ -128,25 +128,25 @@
                 public DnsRecordType Type
                 {
                     get => (DnsRecordType) type;
-                    set => type = (ushort) value;
+                    init => type = (ushort) value;
                 }
 
                 public DnsRecordClass Class
                 {
                     get => (DnsRecordClass) klass;
-                    set => klass = (ushort) value;
+                    init => klass = (ushort) value;
                 }
 
                 public TimeSpan TimeToLive
                 {
                     get => TimeSpan.FromSeconds(ttl);
-                    set => ttl = (uint) value.TotalSeconds;
+                    init => ttl = (uint) value.TotalSeconds;
                 }
 
                 public int DataLength
                 {
                     get => dataLength;
-                    set => dataLength = (ushort) value;
+                    init => dataLength = (ushort) value;
                 }
             }
         }
@@ -404,7 +404,7 @@
 
                 return record.Type switch
                 {
-                    DnsRecordType.A => (IDnsResourceRecord) new DnsIPAddressResourceRecord(record),
+                    DnsRecordType.A => new DnsIPAddressResourceRecord(record),
                     DnsRecordType.AAAA => new DnsIPAddressResourceRecord(record),
                     DnsRecordType.NS => new DnsNameServerResourceRecord(record, message, dataOffset),
                     DnsRecordType.CNAME => new DnsCanonicalNameResourceRecord(record, message, dataOffset),

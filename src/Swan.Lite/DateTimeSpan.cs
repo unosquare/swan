@@ -8,7 +8,7 @@ namespace Swan
     /// 
     /// Based on https://stackoverflow.com/a/9216404/1096693.
     /// </summary>
-    public struct DateTimeSpan
+    public readonly struct DateTimeSpan
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeSpan"/> struct.

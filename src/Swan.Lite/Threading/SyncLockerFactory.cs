@@ -106,7 +106,7 @@ namespace Swan.Threading
         private sealed class SyncLocker : ISyncLocker, ISyncReleasable
         {
             private bool _isDisposed;
-            private ReaderWriterLock? _locker = new ReaderWriterLock();
+            private ReaderWriterLock? _locker = new();
 
             /// <inheritdoc />
             public IDisposable AcquireReaderLock()
@@ -148,7 +148,7 @@ namespace Swan.Threading
             private bool _isDisposed;
 
             private ReaderWriterLockSlim _locker
-                = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+                = new(LockRecursionPolicy.SupportsRecursion);
 
             /// <inheritdoc />
             public IDisposable AcquireReaderLock()

@@ -16,7 +16,7 @@ namespace Swan.Reflection
     public class AttributeCache
     {
         private readonly Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>> _data =
-            new Lazy<ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>>(() =>
+            new(() =>
                 new ConcurrentDictionary<Tuple<object, Type>, IEnumerable<object>>(), true);
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Swan.Reflection
         /// <value>
         /// The default cache.
         /// </value>
-        public static Lazy<AttributeCache> DefaultCache { get; } = new Lazy<AttributeCache>(() => new AttributeCache());
+        public static Lazy<AttributeCache> DefaultCache { get; } = new(() => new AttributeCache());
 
         /// <summary>
         /// A PropertyTypeCache object for caching properties and their attributes.
@@ -94,7 +94,7 @@ namespace Swan.Reflection
         /// <param name="member">The member.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>An attribute stored for the specified type.</returns>
-        public T RetrieveOne<T>(MemberInfo member, bool inherit = false)
+        public T? RetrieveOne<T>(MemberInfo member, bool inherit = false)
             where T : Attribute
         {
             if (member == null)
@@ -166,7 +166,7 @@ namespace Swan.Reflection
                 .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
         }
 
-        private static T ConvertToAttribute<T>(IEnumerable<object> attr)
+        private static T ConvertToAttribute<T>(IEnumerable<object>? attr)
             where T : Attribute
         {
             if (attr?.Any() != true)

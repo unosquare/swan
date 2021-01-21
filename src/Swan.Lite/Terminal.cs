@@ -16,11 +16,11 @@ namespace Swan
 
         private const int OutputFlushInterval = 15;
         private static readonly ExclusiveTimer DequeueOutputTimer;
-        private static readonly object SyncLock = new object();
-        private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
+        private static readonly object SyncLock = new();
+        private static readonly ConcurrentQueue<OutputContext> OutputQueue = new();
 
-        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
-        private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
+        private static readonly ManualResetEventSlim OutputDone = new(false);
+        private static readonly ManualResetEventSlim InputDone = new(true);
 
         private static bool? _isConsolePresent;
 
@@ -178,7 +178,7 @@ namespace Swan
         /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
         public static void Flush(TimeSpan? timeout = null)
         {
-            if (timeout == null) timeout = TimeSpan.Zero;
+            timeout ??= TimeSpan.Zero;
             var startTime = DateTime.UtcNow;
 
             while (OutputQueue.Count > 0)
@@ -329,9 +329,9 @@ namespace Swan
             }
 
             public ConsoleColor OriginalColor { get; }
-            public ConsoleColor OutputColor { get; set; }
-            public char[] OutputText { get; set; }
-            public TerminalWriters OutputWriters { get; set; }
+            public ConsoleColor OutputColor { get; init; }
+            public char[] OutputText { get; init; }
+            public TerminalWriters OutputWriters { get; init; }
         }
 
         #endregion

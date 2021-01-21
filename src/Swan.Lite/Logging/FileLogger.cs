@@ -13,8 +13,8 @@ namespace Swan.Logging
     /// <seealso cref="ILogger" />
     public class FileLogger : TextLogger, ILogger
     {
-        private readonly ManualResetEventSlim _doneEvent = new ManualResetEventSlim(true);
-        private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+        private readonly ManualResetEventSlim _doneEvent = new(true);
+        private readonly ConcurrentQueue<string> _logQueue = new();
         private readonly ExclusiveTimer _timer;
         private readonly string _filePath;
 
@@ -114,7 +114,7 @@ namespace Swan.Logging
 
             try
             {
-                using var file = File.AppendText(FilePath);
+                await using var file = File.AppendText(FilePath);
                 while (!_logQueue.IsEmpty)
                 {
                     if (_logQueue.TryDequeue(out var entry))

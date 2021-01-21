@@ -6,7 +6,7 @@ namespace Swan.Formatters
 {
     internal class HumanizeJson
     {
-        private readonly StringBuilder _builder = new StringBuilder();
+        private readonly StringBuilder _builder = new();
         private readonly int _indent;
         private readonly string _indentStr;
         private readonly object? _obj;

@@ -81,55 +81,55 @@
         /// Gets the command unrecognized reply.
         /// </summary>
         public static SmtpServerReply CommandUnrecognized =>
-            new SmtpServerReply(500, "Syntax error, command unrecognized");
+            new(500, "Syntax error, command unrecognized");
 
         /// <summary>
         /// Gets the syntax error arguments reply.
         /// </summary>
         public static SmtpServerReply SyntaxErrorArguments =>
-            new SmtpServerReply(501, "Syntax error in parameters or arguments");
+            new(501, "Syntax error in parameters or arguments");
 
         /// <summary>
         /// Gets the command not implemented reply.
         /// </summary>
-        public static SmtpServerReply CommandNotImplemented => new SmtpServerReply(502, "Command not implemented");
+        public static SmtpServerReply CommandNotImplemented => new(502, "Command not implemented");
 
         /// <summary>
         /// Gets the bad sequence of commands reply.
         /// </summary>
-        public static SmtpServerReply BadSequenceOfCommands => new SmtpServerReply(503, "Bad sequence of commands");
+        public static SmtpServerReply BadSequenceOfCommands => new(503, "Bad sequence of commands");
 
         /// <summary>
         /// Gets the protocol violation reply.
         /// </summary>=
         public static SmtpServerReply ProtocolViolation =>
-            new SmtpServerReply(451, "Requested action aborted: error in processing");
+            new(451, "Requested action aborted: error in processing");
 
         /// <summary>
         /// Gets the system status bye reply.
         /// </summary>
         public static SmtpServerReply SystemStatusBye =>
-            new SmtpServerReply(221, "Service closing transmission channel");
+            new(221, "Service closing transmission channel");
 
         /// <summary>
         /// Gets the system status help reply.
         /// </summary>=
-        public static SmtpServerReply SystemStatusHelp => new SmtpServerReply(221, "Refer to RFC 5321");
+        public static SmtpServerReply SystemStatusHelp => new(221, "Refer to RFC 5321");
 
         /// <summary>
         /// Gets the bad syntax command empty reply.
         /// </summary>
-        public static SmtpServerReply BadSyntaxCommandEmpty => new SmtpServerReply(400, "Error: bad syntax");
+        public static SmtpServerReply BadSyntaxCommandEmpty => new(400, "Error: bad syntax");
 
         /// <summary>
         /// Gets the OK reply.
         /// </summary>
-        public static SmtpServerReply Ok => new SmtpServerReply(250, "OK");
+        public static SmtpServerReply Ok => new(250, "OK");
 
         /// <summary>
         /// Gets the authorization required reply.
         /// </summary>
-        public static SmtpServerReply AuthorizationRequired => new SmtpServerReply(530, "Authorization Required");
+        public static SmtpServerReply AuthorizationRequired => new(530, "Authorization Required");
 
         #endregion
 

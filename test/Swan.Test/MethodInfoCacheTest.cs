@@ -8,7 +8,7 @@
     [TestFixture]
     public class Retrieve
     {
-        private static readonly MethodInfoCache Cache = new MethodInfoCache();
+        private static readonly MethodInfoCache Cache = new();
 
         [Test]
         public void SingleMethodWithType_ReturnsMethodInfo()

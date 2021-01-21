@@ -6,7 +6,7 @@
 
     public abstract class TypeCacheTest
     {
-        protected static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        protected static readonly PropertyTypeCache TypeCache = new();
     }
 
     [TestFixture]

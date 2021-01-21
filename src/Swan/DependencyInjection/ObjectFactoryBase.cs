@@ -361,8 +361,8 @@
     {
         private readonly Type _registerType;
         private readonly Type _registerImplementation;
-        private readonly object _singletonLock = new object();
-        private object _current;
+        private readonly object _singletonLock = new();
+        private object? _current;
 
         public SingletonFactory(Type registerType, Type registerImplementation)
         {
@@ -397,8 +397,7 @@
 
             lock (_singletonLock)
             {
-                if (_current == null)
-                    _current = container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, options);
+                _current ??= container.RegisteredTypes.ConstructType(_registerImplementation, Constructor, options);
             }
 
             return _current;

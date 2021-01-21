@@ -26,7 +26,7 @@
         }
 
         public DnsClientRequest Create(IDnsRequest? request = null)
-            => new DnsClientRequest(_dns, request, _resolver);
+            => new(_dns, request, _resolver);
 
         public async Task<IList<IPAddress>> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {

@@ -13,7 +13,7 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class ConnectionListener : IDisposable
     {
-        private readonly object _stateLock = new object();
+        private readonly object _stateLock = new();
         private TcpListener _listenerSocket;
         private bool _cancellationPending;
         private CancellationTokenSource? _cancelListening;

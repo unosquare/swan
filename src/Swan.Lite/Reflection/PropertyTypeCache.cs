@@ -16,7 +16,7 @@ namespace Swan.Reflection
         /// <value>
         /// The default cache.
         /// </value>
-        public static Lazy<PropertyTypeCache> DefaultCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        public static Lazy<PropertyTypeCache> DefaultCache { get; } = new(() => new PropertyTypeCache());
 
         /// <summary>
         /// Retrieves all properties.

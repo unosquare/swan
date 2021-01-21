@@ -42,7 +42,7 @@
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
             var instance = BasicJson.GetDefault();
-            var reference = new List<WeakReference> {new WeakReference(instance)};
+            var reference = new List<WeakReference> {new(instance)};
 
             var data = Json.Serialize(instance, false, null, false, null, null, reference, JsonSerializerCase.None);
 

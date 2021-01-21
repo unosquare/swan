@@ -21,7 +21,7 @@
         /// <value>
         /// The instance.
         /// </value>
-        public static DebugLogger Instance { get; } = new DebugLogger();
+        public static DebugLogger Instance { get; } = new();
 
         /// <summary>
         /// Gets a value indicating whether a debugger is attached.

@@ -17,7 +17,7 @@ namespace Swan.Reflection
         /// The default cache.
         /// </value>
         public static Lazy<ConstructorTypeCache> DefaultCache { get; } =
-            new Lazy<ConstructorTypeCache>(() => new ConstructorTypeCache());
+            new(() => new ConstructorTypeCache());
 
         /// <summary>
         /// Retrieves all constructors order by the number of parameters ascending.
