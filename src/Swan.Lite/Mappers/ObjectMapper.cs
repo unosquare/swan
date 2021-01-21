@@ -108,8 +108,8 @@ namespace Swan.Mappers
         /// target.
         /// </exception>
         public static int Copy(
-            object source,
-            object target,
+            object? source,
+            object? target,
             IEnumerable<string>? propertiesToCopy = null,
             params string[]? ignoreProperties)
         {

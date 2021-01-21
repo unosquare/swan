@@ -25,7 +25,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that was copied successful.
         /// </returns>
-        public static int CopyPropertiesTo<T>(this T source, object target, params string[]? ignoreProperties)
+        public static int CopyPropertiesTo<T>(this T? source, object? target, params string[]? ignoreProperties)
             where T : class =>
             ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
@@ -39,7 +39,7 @@ namespace Swan
         /// <returns>
         /// Number of properties that were successfully copied.
         /// </returns>
-        public static int CopyOnlyPropertiesTo(this object source, object target, params string[]? propertiesToCopy)
+        public static int CopyOnlyPropertiesTo(this object? source, object? target, params string[]? propertiesToCopy)
             => ObjectMapper.Copy(source, target, propertiesToCopy);
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Swan
         /// The specified type with properties copied.
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
-        public static T CopyPropertiesToNew<T>(this object source, string[]? ignoreProperties = null)
+        public static T CopyPropertiesToNew<T>(this object? source, string[]? ignoreProperties = null)
             where T : class
         {
             if (source == null)
@@ -113,7 +113,7 @@ namespace Swan
         /// The specified type with properties copied.
         /// </returns>
         public static T CopyKeyValuePairToNew<T>(
-            this IDictionary<string, object> source,
+            this IDictionary<string, object>? source,
             params string[] ignoreKeys)
         {
             if (source == null)
@@ -203,7 +203,7 @@ namespace Swan
         /// </returns>
         /// <exception cref="ArgumentNullException">model.</exception>
         /// <seealso cref="AttributeCache"/>
-        public static IEnumerable<string> GetCopyableProperties(this object @this)
+        public static IEnumerable<string> GetCopyableProperties(this object? @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
