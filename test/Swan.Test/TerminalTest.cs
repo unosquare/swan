@@ -1,14 +1,15 @@
-﻿namespace Swan.Test.TerminalTests
-{
-    using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 
+namespace Swan.Test.TerminalTests
+{
     [TestFixture]
     public class IsConsolePresent
     {
         [Test]
         public void ConsolePresent_ReturnsTrue()
         {
-            if (SwanRuntime.OS == OperatingSystem.Windows)
+            if (OperatingSystem.IsWindows())
                 Assert.Ignore("Failing test on Windows");
 
             Assert.IsTrue(Terminal.IsConsolePresent);
@@ -21,7 +22,7 @@
         [Test]
         public void Writers_ReturnsNotEqualWriters()
         {
-            if (SwanRuntime.OS == OperatingSystem.Windows)
+            if (OperatingSystem.IsWindows())
                 Assert.Ignore("Windows doesn't provide writers");
 
             var writers = Terminal.AvailableWriters;

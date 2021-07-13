@@ -220,9 +220,9 @@ namespace Swan.Threading
         public override int GetHashCode() => BackingValue.GetHashCode();
 
         /// <inheritdoc />
-        public bool Equals(AtomicTypeBase<T> other) => 
+        public bool Equals(AtomicTypeBase<T> other) =>
             BackingValue == (other?.BackingValue ?? default);
-        
+
         /// <inheritdoc />
         public bool Equals(T other) => Equals(Value, other);
 

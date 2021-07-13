@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System;
-    using System.IO;
+﻿using System;
+using System.IO;
 
+namespace Swan.Test.Mocks
+{
     internal static class Helper
     {
         /// <summary>
@@ -17,13 +17,11 @@
             var data = new byte[blockSize];
 
             var rng = new Random();
-            using (var stream = File.OpenWrite(fileName))
+            using var stream = File.OpenWrite(fileName);
+            for (var i = 0; i < sizeInMb * blocksPerMb; i++)
             {
-                for (var i = 0; i < sizeInMb * blocksPerMb; i++)
-                {
-                    rng.NextBytes(data);
-                    stream.Write(data, 0, data.Length);
-                }
+                rng.NextBytes(data);
+                stream.Write(data, 0, data.Length);
             }
         }
     }

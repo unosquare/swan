@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.Mocks
-{
-    using Formatters;
-    using System.Collections.Generic;
+﻿using Swan.Formatters;
+using System.Collections.Generic;
 
+namespace Swan.Test.Mocks
+{
     public class SmtpMock
     {
         [JsonProperty("id")]
@@ -34,7 +34,7 @@
         [JsonProperty("envelope")]
         public Envelope Envelope { get; set; }
     }
-    
+
     public class GenericMail
     {
         [JsonProperty("address")]

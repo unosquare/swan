@@ -249,16 +249,18 @@ namespace Swan.Parsers
             {
                 if (char.IsWhiteSpace(input, i)) continue;
 
-                if (input[i] == CommaChar)
+                switch (input[i])
                 {
-                    Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
-                    continue;
-                }
-
-                if (input[i] == StringQuotedChar)
-                {
-                    i = ExtractString(input, i);
-                    continue;
+                    case CommaChar:
+                        Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
+                        continue;
+                    case StringQuotedChar:
+                        i = ExtractString(input, i);
+                        continue;
+                    case OpenFuncChar:
+                    case CloseFuncChar:
+                        Tokens.Add(new Token(TokenType.Parenthesis, new string(new[] { input[i] })));
+                        continue;
                 }
 
                 if (char.IsLetter(input, i) || EvaluateFunctionOrMember(input, i))
@@ -273,13 +275,6 @@ namespace Swan.Parsers
                         ((Tokens.Any() && Tokens.Last().Type != TokenType.Number) || !Tokens.Any())))
                 {
                     i = ExtractNumber(input, i);
-                    continue;
-                }
-
-                if (input[i] == OpenFuncChar ||
-                    input[i] == CloseFuncChar)
-                {
-                    Tokens.Add(new Token(TokenType.Parenthesis, new string(new[] { input[i] })));
                     continue;
                 }
 
@@ -317,22 +312,14 @@ namespace Swan.Parsers
                 input,
                 i,
                 x => TokenType.Operator,
-                x => x == OpenFuncChar ||
-                                                                x == CommaChar ||
-                                                                x == PeriodChar ||
-                                                                x == StringQuotedChar ||
-                                                                char.IsWhiteSpace(x) ||
-                                                                char.IsNumber(x));
+                x => x is OpenFuncChar or CommaChar or PeriodChar or StringQuotedChar || char.IsWhiteSpace(x) || char.IsNumber(x));
 
         private int ExtractFunctionOrMember(string input, int i) =>
             ExtractData(
                 input,
                 i,
                 ResolveFunctionOrMemberType,
-                x => x == OpenFuncChar ||
-                                                                    x == CloseFuncChar ||
-                                                                    x == CommaChar ||
-                                                                    char.IsWhiteSpace(x));
+                x => x is OpenFuncChar or CloseFuncChar or CommaChar || char.IsWhiteSpace(x));
 
         private int ExtractNumber(string input, int i) =>
             ExtractData(
@@ -346,10 +333,10 @@ namespace Swan.Parsers
             var length = ExtractData(input, i, x => TokenType.String, x => x == StringQuotedChar, 1, 1);
 
             // open string, report issue
-            if (length == input.Length && input[length - 1] != StringQuotedChar)
-                throw new FormatException($"Parser error (Position {i}): Expected '\"' but got '{input[length - 1]}'.");
-
-            return length;
+            return length != input.Length || input[length - 1] == StringQuotedChar
+                ? length
+                : throw new FormatException(
+                    $"Parser error (Position {i}): Expected '\"' but got '{input[length - 1]}'.");
         }
 
         private bool CompareOperators(string op1, string op2)

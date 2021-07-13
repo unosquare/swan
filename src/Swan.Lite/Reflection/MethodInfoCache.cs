@@ -74,7 +74,7 @@ namespace Swan.Reflection
 
             return GetOrAdd(
                 alias,
-                x => type.GetMethod(name, types ?? Array.Empty<Type>()));
+                x => type.GetMethod(name, types));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Swan.Reflection
 
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
-            
+
             return GetOrAdd(
                 name,
                 type.GetMethod);

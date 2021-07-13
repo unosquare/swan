@@ -1,12 +1,12 @@
-﻿namespace Swan.Test.JsonTests
-{
-    using System.Linq;
-    using Formatters;
-    using Mocks;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
+﻿using NUnit.Framework;
+using Swan.Formatters;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.Test.JsonTests
+{
     [TestFixture]
     public class ToJson : JsonTest
     {
@@ -42,7 +42,7 @@
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
             var instance = BasicJson.GetDefault();
-            var reference = new List<WeakReference> {new(instance)};
+            var reference = new List<WeakReference> { new(instance) };
 
             var data = Json.Serialize(instance, false, null, false, null, null, reference, JsonSerializerCase.None);
 
@@ -101,12 +101,12 @@
         [Test]
         public void WithDateTest_ReturnsDateTestSerialized()
         {
-            var obj = new DateTimeJson {Date = new DateTime(2010, 1, 1)};
+            var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
             var data = Json.Serialize(obj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(
-                $"{{\"Date\": \"{obj.Date.Value:s}\"}}", 
+                $"{{\"Date\": \"{obj.Date.Value:s}\"}}",
                 data,
                 "Date must be formatted as ISO");
 
@@ -125,7 +125,7 @@
         [Test]
         public void WithStructureArray_ReturnsStructureArraySerialized()
         {
-            var result = new[] {new SampleStruct {Value = 1, Name = "A"}, new SampleStruct {Value = 2, Name = "B"}};
+            var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
 
             Assert.AreEqual(ArrayStruct, Json.Serialize(result));
         }

@@ -1,11 +1,11 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using Parsers;
+﻿using Swan.Parsers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
+namespace Swan.Test.Mocks
+{
     public class ExpressionParserMock : ExpressionParser
     {
         private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =
@@ -14,14 +14,14 @@
                 {
                     "max",
                     x => Expression.Call(null,
-                        typeof(Math).GetMethod(nameof(Math.Max), new[] {typeof(int), typeof(int)}),
+                        typeof(Math).GetMethod(nameof(Math.Max), new[] { typeof(int), typeof(int) }),
                         Expression.Convert(x.First(), typeof(int)),
                         Expression.Convert(x.Last(), typeof(int)))
                 },
                 {
                     "min",
                     x => Expression.Call(null,
-                        typeof(Math).GetMethod(nameof(Math.Min), new[] {typeof(int), typeof(int)}),
+                        typeof(Math).GetMethod(nameof(Math.Min), new[] { typeof(int), typeof(int) }),
                         Expression.Convert(x.First(), typeof(int)),
                         Expression.Convert(x.Last(), typeof(int)))
                 },
@@ -29,12 +29,12 @@
                     "iif",
                     x => Expression.Condition(x.First(), x.Skip(1).First(), x.Last())
                 },
-                {"+", x => Expression.Add(x.First(), x.Last())},
-                {"-", x => Expression.Subtract(x.First(), x.Last())},
-                {"*", x => Expression.Multiply(x.First(), x.Last())},
-                {"/", x => Expression.Divide(x.First(), x.Last())},
-                {"<", x => Expression.LessThan(x.First(), x.Last())},
-                {">", x => Expression.GreaterThan(x.First(), x.Last())},
+                { "+", x => Expression.Add(x.First(), x.Last()) },
+                { "-", x => Expression.Subtract(x.First(), x.Last()) },
+                { "*", x => Expression.Multiply(x.First(), x.Last()) },
+                { "/", x => Expression.Divide(x.First(), x.Last()) },
+                { "<", x => Expression.LessThan(x.First(), x.Last()) },
+                { ">", x => Expression.GreaterThan(x.First(), x.Last()) },
             };
 
         private readonly Dictionary<string, object> _variables;

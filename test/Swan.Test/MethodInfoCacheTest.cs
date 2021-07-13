@@ -1,10 +1,10 @@
-﻿namespace Swan.Test.MethodInfoCacheTest
-{
-    using System;
-    using Reflection;
-    using NUnit.Framework;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Reflection;
+using Swan.Test.Mocks;
+using System;
 
+namespace Swan.Test.MethodInfoCacheTest
+{
     [TestFixture]
     public class Retrieve
     {

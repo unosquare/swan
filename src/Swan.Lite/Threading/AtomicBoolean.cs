@@ -12,7 +12,7 @@
         public AtomicBoolean(bool initialValue = default)
             : base(initialValue ? 1 : 0)
         {
-           // placeholder
+            // placeholder
         }
 
         /// <inheritdoc/>

@@ -1,9 +1,9 @@
-﻿namespace Swan.Test.TypeCacheTest
-{
-    using NUnit.Framework;
-    using System;
-    using Reflection;
+﻿using NUnit.Framework;
+using Swan.Reflection;
+using System;
 
+namespace Swan.Test.TypeCacheTest
+{
     public abstract class TypeCacheTest
     {
         protected static readonly PropertyTypeCache TypeCache = new();

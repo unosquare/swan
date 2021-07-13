@@ -137,7 +137,7 @@ namespace Swan.Parsers
         /// The settings.
         /// </value>
         public ArgumentParserSettings Settings { get; }
-        
+
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
         /// </summary>
@@ -204,7 +204,7 @@ namespace Swan.Parsers
             ReportIssues(validator);
             return false;
         }
-        
+
         private static void ReportUnknownVerb<T>()
         {
             Terminal.WriteLine("No verb was specified", ConsoleColor.Red);

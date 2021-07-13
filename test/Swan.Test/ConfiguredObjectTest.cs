@@ -1,9 +1,9 @@
-﻿namespace Swan.Test
-{
-    using System;
-    using Configuration;
-    using NUnit.Framework;
+﻿using NUnit.Framework;
+using Swan.Configuration;
+using System;
 
+namespace Swan.Test
+{
     public class ConfiguredObjectTest
     {
         [Test]
@@ -58,7 +58,7 @@
             obj.LockConfiguration();
             Assert.Throws<InvalidOperationException>(() => obj.EnsureConfigurationNotLocked());
         }
-        
+
         private class TestObject : ConfiguredObject
         {
             public bool OnBeforeLockConfigurationCalled { get; private set; }

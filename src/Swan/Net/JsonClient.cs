@@ -1,15 +1,15 @@
-﻿namespace Swan.Net
-{
-    using Formatters;
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Security;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using Swan.Formatters;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Net
+{
     /// <summary>
     /// Represents a HttpClient with extended methods to use with JSON payloads 
     /// and bearer tokens authentication.
@@ -316,7 +316,7 @@
             if (fileName == null)
                 throw new ArgumentNullException(nameof(fileName));
 
-            return PostString(requestUri, new {Filename = fileName, Data = buffer}, authorization, ct);
+            return PostString(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
         }
 
         /// <summary>
@@ -345,7 +345,7 @@
             if (fileName == null)
                 throw new ArgumentNullException(nameof(fileName));
 
-            return Post<T>(requestUri, new {Filename = fileName, Data = buffer}, authorization, ct);
+            return Post<T>(requestUri, new { Filename = fileName, Data = buffer }, authorization, ct);
         }
 
         /// <summary>
@@ -380,7 +380,7 @@
                 ? throw new JsonRequestException(
                     requestUri,
                     method,
-                    (int) response.StatusCode,
+                    (int)response.StatusCode,
                     responseString)
                 : responseString;
         }
@@ -396,7 +396,7 @@
 
             return response.IsSuccessStatusCode
                 ? response.Content
-                : throw new JsonRequestException(uri, HttpMethod.Get, (int) response.StatusCode);
+                : throw new JsonRequestException(uri, HttpMethod.Get, (int)response.StatusCode);
         }
 
         private static async Task<HttpResponseMessage> GetResponse(

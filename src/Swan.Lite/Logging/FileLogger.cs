@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Swan.Threading;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Swan.Threading;
 
 namespace Swan.Logging
 {

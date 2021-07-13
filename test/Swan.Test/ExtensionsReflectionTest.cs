@@ -1,12 +1,12 @@
-﻿namespace Swan.Test.ExtensionsReflectionTest
-{
-    using Mocks;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 
+namespace Swan.Test.ExtensionsReflectionTest
+{
     [TestFixture]
     public class GetDefault : TestFixtureBase
     {
@@ -65,7 +65,7 @@
             Assert.GreaterOrEqual(expected, attributes.Length, $"Get GetCustomAttributes length of {input}");
         }
     }
-    
+
     [TestFixture]
     public class IsIEnumerable : TestFixtureBase
     {
@@ -74,12 +74,6 @@
         public void WithType_ReturnsABool(bool expected, Type input)
         {
             Assert.AreEqual(expected, input.IsIEnumerable(), $"Get IsIEnumerable value of {input}");
-        }
-
-        [Test]
-        public void WithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => NullType.IsIEnumerable());
         }
     }
 

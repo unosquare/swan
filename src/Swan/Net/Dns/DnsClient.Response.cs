@@ -1,12 +1,12 @@
-﻿namespace Swan.Net.Dns
-{
-    using Formatters;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Linq;
+﻿using Swan.Formatters;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// DnsClient Response inner class.
     /// </summary>

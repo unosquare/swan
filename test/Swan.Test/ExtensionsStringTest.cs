@@ -1,11 +1,10 @@
-﻿namespace Swan.Test.ExtensionsStringTest
-{
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test.ExtensionsStringTest
+{
     [TestFixture]
     public class Humanize
     {
@@ -215,7 +214,7 @@
             "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void WithValidParams_ReturnsASafeFileName(string expected, string input)
         {
-            if (SwanRuntime.OS != Swan.OperatingSystem.Windows)
+            if (!OperatingSystem.IsWindows())
                 Assert.Ignore("Ignored");
 
             Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
@@ -224,7 +223,7 @@
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            if (SwanRuntime.OS != Swan.OperatingSystem.Windows)
+            if (!OperatingSystem.IsWindows())
                 Assert.Ignore("Ignored");
 
             Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());

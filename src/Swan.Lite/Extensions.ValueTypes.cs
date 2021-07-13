@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Swan.Reflection;
 
 namespace Swan
 {

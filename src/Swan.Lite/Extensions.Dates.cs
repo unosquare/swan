@@ -12,11 +12,11 @@ namespace Swan
     {
         private static readonly Dictionary<string, int> DateRanges = new()
         {
-            { "minute", 59},
-            { "hour", 23},
-            { "dayOfMonth", 31},
-            { "month", 12},
-            { "dayOfWeek", 6},
+            { "minute", 59 },
+            { "hour", 23 },
+            { "dayOfMonth", 31 },
+            { "month", 12 },
+            { "dayOfWeek", 6 },
         };
 
         /// <summary>
@@ -188,13 +188,13 @@ namespace Swan
         public static string ToRfc1123String(this DateTime @this)
             => @this.ToUniversalTime().ToString("R", CultureInfo.InvariantCulture);
 
-        private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : (bool?) null;
+        private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : null;
 
         private static bool? GetElementParts(string parts, string type, int value)
         {
             if (string.IsNullOrWhiteSpace(parts) || parts == "*")
                 return null;
-            
+
             if (parts.Contains(","))
             {
                 return parts.Split(',').Select(int.Parse).Contains(value);
@@ -205,8 +205,8 @@ namespace Swan
             if (parts.Contains("/"))
             {
                 var multiple = int.Parse(parts.Split('/').Last());
-                var start = type == "dayOfMonth" || type == "month" ? 1 : 0;
-                
+                var start = type is "dayOfMonth" or "month" ? 1 : 0;
+
                 for (var i = start; i <= stop; i += multiple)
                     if (i == value) return true;
 
@@ -219,7 +219,7 @@ namespace Swan
                 var start = int.Parse(range.First());
                 stop = Math.Max(stop, int.Parse(range.Last()));
 
-                if ((type == "dayOfMonth" || type == "month") && start == 0)
+                if ((type is "dayOfMonth" or "month") && start == 0)
                     start = 1;
 
                 for (var i = start; i <= stop; i++)
@@ -227,7 +227,7 @@ namespace Swan
 
                 return false;
             }
-            
+
             return int.Parse(parts) == value;
         }
     }

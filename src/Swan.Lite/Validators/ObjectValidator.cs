@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Swan.Reflection;
 
 namespace Swan.Validators
 {
@@ -73,7 +73,7 @@ namespace Swan.Validators
 
         private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
             new();
-        
+
         /// <summary>
         /// Gets the current.
         /// </summary>

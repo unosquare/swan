@@ -1,10 +1,10 @@
-﻿namespace Swan.Threading
-{ 
-    using System;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Threading
+{
     /// <summary>
     /// Represents a class that implements delay logic for thread workers.
     /// </summary>
@@ -42,7 +42,7 @@
         {
             public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
             {
-                if (wantedDelay == 0 || wantedDelay < -1)
+                if (wantedDelay is 0 or < -1)
                     return;
 
                 // for wanted delays of less than 30ms it is not worth
@@ -66,7 +66,7 @@
         {
             public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
             {
-                if (wantedDelay == 0 || wantedDelay < -1)
+                if (wantedDelay is 0 or < -1)
                     return;
 
                 // for wanted delays of less than 30ms it is not worth
@@ -92,7 +92,7 @@
             {
                 _elapsedWait.Restart();
 
-                if (wantedDelay == 0 || wantedDelay < -1)
+                if (wantedDelay is 0 or < -1)
                     return;
 
                 while (!token.IsCancellationRequested)
@@ -114,7 +114,7 @@
             {
                 _elapsedWait.Restart();
 
-                if (wantedDelay == 0 || wantedDelay < -1)
+                if (wantedDelay is 0 or < -1)
                     return;
 
                 if (wantedDelay == Timeout.Infinite)

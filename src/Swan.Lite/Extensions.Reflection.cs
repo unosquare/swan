@@ -125,9 +125,7 @@ namespace Swan
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
         public static bool IsIEnumerable(this Type type)
-            => type == null
-                ? throw new ArgumentNullException(nameof(type))
-                : type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+            => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
 
         #endregion
 

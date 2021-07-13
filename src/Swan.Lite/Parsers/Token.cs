@@ -13,7 +13,7 @@
         public Token(TokenType type, string value)
         {
             Type = type;
-            Value = type == TokenType.Function || type == TokenType.Operator ? value.ToLowerInvariant() : value;
+            Value = type is TokenType.Function or TokenType.Operator ? value.ToLowerInvariant() : value;
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
-﻿namespace Swan
-{
-    using System;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Sockets;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
+namespace Swan
+{
     /// <summary>
     /// Provides various extension methods for networking-related tasks.
     /// </summary>

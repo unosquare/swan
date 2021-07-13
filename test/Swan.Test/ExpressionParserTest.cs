@@ -1,10 +1,10 @@
-﻿namespace Swan.Test
-{
-    using System;
-    using System.Collections.Generic;
-    using NUnit.Framework;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class ExpressionParserTest
     {
@@ -42,7 +42,7 @@
         {
             var result =
                 ExpressionParserMock.ResolveExpression<string>("=Global!Variable1",
-                    new Dictionary<string, object> {{"Global!Variable1", "hola"}});
+                    new Dictionary<string, object> { { "Global!Variable1", "hola" } });
 
             Assert.AreEqual("hola", result);
         }

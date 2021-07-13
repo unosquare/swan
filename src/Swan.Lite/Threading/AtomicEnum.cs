@@ -7,8 +7,8 @@ namespace Swan.Threading
     /// Defines an atomic generic Enum.
     /// </summary>
     /// <typeparam name="T">The type of enum.</typeparam>
-   public sealed class AtomicEnum<T>
-        where T : struct, IConvertible
+    public sealed class AtomicEnum<T>
+         where T : struct, IConvertible
     {
         private long _backingValue;
 

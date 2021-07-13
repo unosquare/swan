@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Swan.Reflection;
 
 namespace Swan.Formatters
 {
@@ -34,7 +34,7 @@ namespace Swan.Formatters
                 object? source,
                 Type targetType,
                 ref object? targetInstance,
-                bool includeNonPublic, 
+                bool includeNonPublic,
                 JsonSerializerCase jsonSerializerCase)
             {
                 _targetType = targetInstance != null ? targetInstance.GetType() : targetType;
@@ -48,7 +48,7 @@ namespace Swan.Formatters
 
                 var sourceType = source.GetType();
 
-                if (_targetType == null || _targetType == typeof(object)) _targetType = sourceType;
+                if (_targetType == typeof(object)) _targetType = sourceType;
                 if (sourceType == _targetType)
                 {
                     _target = source;

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Swan.Collections;
 
 namespace Swan
 {
@@ -37,7 +37,7 @@ namespace Swan
             where T : struct, IConvertible
         {
             return Retrieve<T>()
-                .Select(x => Tuple.Create((int) x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
+                .Select(x => Tuple.Create((int)x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Swan
         public static IEnumerable<int> GetFlagValues<TEnum>(int value, bool ignoreZero = false)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .Select(x => (int) x.Item2)
+                .Select(x => (int)x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
 
@@ -68,7 +68,7 @@ namespace Swan
         public static IEnumerable<long> GetFlagValues<TEnum>(long value, bool ignoreZero = false)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .Select(x => (long) x.Item2)
+                .Select(x => (long)x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
 
@@ -84,7 +84,7 @@ namespace Swan
         public static IEnumerable<byte> GetFlagValues<TEnum>(byte value, bool ignoreZero = false)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .Select(x => (byte) x.Item2)
+                .Select(x => (byte)x.Item2)
                 .When(() => ignoreZero, q => q.Where(f => f != 0))
                 .Where(x => (x & value) == x);
 
@@ -101,8 +101,8 @@ namespace Swan
         public static IEnumerable<string?> GetFlagNames<TEnum>(int value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .When(() => ignoreZero, q => q.Where(f => (int) f.Item2 != 0))
-                .Where(x => ((int) x.Item2 & value) == (int) x.Item2)
+                .When(() => ignoreZero, q => q.Where(f => (int)f.Item2 != 0))
+                .Where(x => ((int)x.Item2 & value) == (int)x.Item2)
                 .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace Swan
         public static IEnumerable<string?> GetFlagNames<TEnum>(long value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .When(() => ignoreZero, q => q.Where(f => (long) f.Item2 != 0))
-                .Where(x => ((long) x.Item2 & value) == (long) x.Item2)
+                .When(() => ignoreZero, q => q.Where(f => (long)f.Item2 != 0))
+                .Where(x => ((long)x.Item2 & value) == (long)x.Item2)
                 .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
@@ -135,8 +135,8 @@ namespace Swan
         public static IEnumerable<string?> GetFlagNames<TEnum>(byte value, bool ignoreZero = false, bool humanize = true)
             where TEnum : struct, IConvertible =>
             Retrieve<TEnum>()
-                .When(() => ignoreZero, q => q.Where(f => (byte) f.Item2 != 0))
-                .Where(x => ((byte) x.Item2 & value) == (byte) x.Item2)
+                .When(() => ignoreZero, q => q.Where(f => (byte)f.Item2 != 0))
+                .Where(x => ((byte)x.Item2 & value) == (byte)x.Item2)
                 .Select(x => humanize ? x.Item1?.Humanize() : x.Item1);
 
         /// <summary>
@@ -150,6 +150,6 @@ namespace Swan
         public static IEnumerable<Tuple<int, string?>> GetItemsWithIndex<T>(bool humanize = true)
             where T : struct, IConvertible =>
             Retrieve<T>()
-                .Select((x,y) => Tuple.Create(y, humanize ? x.Item1?.Humanize() : x.Item1));
+                .Select((x, y) => Tuple.Create(y, humanize ? x.Item1?.Humanize() : x.Item1));
     }
 }

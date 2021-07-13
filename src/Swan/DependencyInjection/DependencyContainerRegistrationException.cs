@@ -1,9 +1,9 @@
-﻿namespace Swan.DependencyInjection
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.DependencyInjection
+{
     /// <summary>
     /// Generic Constraint Registration Exception.
     /// </summary>
@@ -25,7 +25,7 @@
             : base(string.Format(ErrorText, registerType, GetTypesString(types)))
         {
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyContainerRegistrationException" /> class.
         /// </summary>

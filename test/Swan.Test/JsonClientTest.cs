@@ -1,14 +1,14 @@
-﻿namespace Swan.Test.JsonClientTest
-{
-    using Mocks;
-    using Swan.Net;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security;
-    using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using Swan.Net;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
+using System.Threading.Tasks;
 
+namespace Swan.Test.JsonClientTest
+{
     public abstract class JsonClientTest
     {
         protected const string Authorization = "Authorization";
@@ -22,7 +22,7 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
+            var responseObj = new Dictionary<string, object> { { AuthorizationToken, "123" } };
 
             var data = await JsonClient.Authenticate(new Uri($"{DefaultHttp}/Authenticate"), "admin", "password");
 

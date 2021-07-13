@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Swan.Reflection;
 
 namespace Swan.Formatters
 {
@@ -222,7 +222,7 @@ namespace Swan.Formatters
         /// <param name="items">The items.</param>
         public void WriteLine(params object?[] items)
             => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
-        
+
         /// <summary>
         /// Writes a line of CSV text. Items are converted to strings.
         /// If items are found to be null, empty strings are written out.
@@ -237,7 +237,7 @@ namespace Swan.Formatters
         /// If items are found to be null, empty strings are written out.
         /// </summary>
         /// <param name="items">The items.</param>
-        public void WriteLine(params string[] items) => WriteLine((IEnumerable<string>) items);
+        public void WriteLine(params string[] items) => WriteLine((IEnumerable<string>)items);
 
         /// <summary>
         /// Writes a line of CSV text.
@@ -247,7 +247,7 @@ namespace Swan.Formatters
         public void WriteLine(IEnumerable<string> items)
         {
             lock (_syncLock)
-            {   
+            {
                 var length = items.Count();
                 var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
                 var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
@@ -393,7 +393,7 @@ namespace Swan.Formatters
 
             WriteLine(GetFilteredDictionary(dictionary, true));
         }
-        
+
         /// <summary>
         /// Writes the headings.
         /// </summary>
@@ -436,7 +436,7 @@ namespace Swan.Formatters
         #endregion
 
         #region Support Methods
-        
+
         private IEnumerable<string> GetFilteredDictionary(IDictionary dictionary, bool filterKeys = false)
             => dictionary
                 .Keys

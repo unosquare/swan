@@ -1,9 +1,9 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System;
-    using Formatters;
-    using Mappers;
+﻿using Swan.Formatters;
+using Swan.Mappers;
+using System;
 
+namespace Swan.Test.Mocks
+{
     public class ErrorJson
     {
         public string Message { get; set; }

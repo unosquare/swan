@@ -13,7 +13,7 @@ namespace Swan
         /// The static, singleton instance reference.
         /// </summary>
         protected static readonly Lazy<T> LazyInstance = new(
-            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T, 
+            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T,
             isThreadSafe: true);
 
         private bool _isDisposing; // To detect redundant calls
@@ -29,7 +29,7 @@ namespace Swan
 
         /// <inheritdoc />
         public void Dispose() => Dispose(true);
-        
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// Call the GC.SuppressFinalize if you override this method and use
@@ -39,7 +39,7 @@ namespace Swan
         protected virtual void Dispose(bool disposeManaged)
         {
             if (_isDisposing) return;
-            
+
             _isDisposing = true;
 
             // free managed resources

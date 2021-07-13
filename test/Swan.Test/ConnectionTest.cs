@@ -1,15 +1,15 @@
-﻿namespace Swan.Test
-{
-    using System;
-    using System.Net.Sockets;
-    using System.Text;
-    using System.Threading.Tasks;
-    using NUnit.Framework;
-    using Swan.Net;
-    using System.Net;
-    using Moq;
-    using AutoFixture;
+﻿using AutoFixture;
+using Moq;
+using NUnit.Framework;
+using Swan.Net;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Swan.Test
+{
     public abstract class ConnectionTest
     {
         public const int DefaultPort = 1337;
@@ -46,12 +46,10 @@
         {
             Client.Connect(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client))
-            {
-                Assert.IsTrue(cn.IsConnected, "It's connected");
-                Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
-                Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
-            }
+            using var cn = new Connection(Client);
+            Assert.IsTrue(cn.IsConnected, "It's connected");
+            Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
+            Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
         }
 
         [Test]
@@ -74,12 +72,10 @@
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                var response = await cn.ReadTextAsync();
+            using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+            var response = await cn.ReadTextAsync();
 
-                Assert.AreEqual(Message, response);
-            }
+            Assert.AreEqual(Message, response);
         }
 
         [Test]
@@ -87,12 +83,10 @@
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                await cn.ReadTextAsync();
+            using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+            await cn.ReadTextAsync();
 
-                Assert.NotNull(cn.DataSentIdleDuration);
-            }
+            Assert.NotNull(cn.DataSentIdleDuration);
         }
 
         [Test]
@@ -100,12 +94,10 @@
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                await cn.ReadTextAsync();
+            using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+            await cn.ReadTextAsync();
 
-                Assert.IsNotNull(cn.DataReceivedIdleDuration);
-            }
+            Assert.IsNotNull(cn.DataReceivedIdleDuration);
         }
 
         public override int Port { get; }
@@ -119,12 +111,10 @@
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                var response = await cn.ReadLineAsync();
+            using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+            var response = await cn.ReadLineAsync();
 
-                Assert.AreEqual(Message.Trim(), response);
-            }
+            Assert.AreEqual(Message.Trim(), response);
         }
 
         [Test]
@@ -132,10 +122,8 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.WriteDataAsync(MessageBytes, true).Wait();
-                }
+                using var cn = new Connection(e.Client);
+                cn.WriteDataAsync(MessageBytes, true).Wait();
             };
 
             ConnectionListener.Start();
@@ -161,13 +149,11 @@
         {
             await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                var response = await cn.ReadDataAsync();
+            using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+            var response = await cn.ReadDataAsync();
 
-                Assert.IsNotNull(response);
-                Assert.AreEqual(MessageBytes, response);
-            }
+            Assert.IsNotNull(response);
+            Assert.AreEqual(MessageBytes, response);
         }
 
         [Test]
@@ -179,10 +165,8 @@
 
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
-                using (var cn = new Connection(Client))
-                {
-                    await cn.ReadDataAsync();
-                }
+                using var cn = new Connection(Client);
+                await cn.ReadDataAsync();
             });
         }
 
@@ -193,10 +177,8 @@
 
             Assert.ThrowsAsync<TimeoutException>(async () =>
             {
-                using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-                {
-                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(1));
-                }
+                using var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0);
+                await cn.ReadDataAsync(TimeSpan.FromMilliseconds(1));
             });
         }
 
@@ -213,10 +195,8 @@
             ConnectionListener = new ConnectionListener(port);
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.WriteDataAsync(MessageBytes, forceFlush).Wait();
-                }
+                using var cn = new Connection(e.Client);
+                cn.WriteDataAsync(MessageBytes, forceFlush).Wait();
             };
 
             ConnectionListener.Start();
@@ -242,10 +222,8 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.WriteTextAsync(Message).Wait();
-                }
+                using var cn = new Connection(e.Client);
+                cn.WriteTextAsync(Message).Wait();
             };
 
             ConnectionListener.Start();
@@ -271,10 +249,8 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.WriteLineAsync(Message).Wait();
-                }
+                using var cn = new Connection(e.Client);
+                cn.WriteLineAsync(Message).Wait();
             };
 
             ConnectionListener.Start();
@@ -308,10 +284,8 @@
 
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.UpgradeToSecureAsServerAsync(certificate).Wait();
-                }
+                using var cn = new Connection(e.Client);
+                cn.UpgradeToSecureAsServerAsync(certificate).Wait();
             };
 
             using (var cn = new Connection(Client))

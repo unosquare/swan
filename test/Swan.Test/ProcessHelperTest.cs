@@ -1,10 +1,10 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
-    using System;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class GetProcessOutputAsync
     {
@@ -29,7 +29,7 @@
             Assert.IsNotEmpty(data);
             Assert.IsTrue(data.StartsWith(".NET"));
         }
-        
+
         [Test]
         public async Task WithInvalidParams_ReturnsProcessError()
         {

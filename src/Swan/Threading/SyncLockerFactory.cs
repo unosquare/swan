@@ -39,7 +39,7 @@ namespace Swan.Threading
         #endregion
 
         #region Factory Methods
-        
+
         /// <summary>
         /// Creates a reader-writer lock backed by a standard ReaderWriterLock.
         /// </summary>
@@ -147,7 +147,7 @@ namespace Swan.Threading
         {
             private bool _isDisposed;
 
-            private ReaderWriterLockSlim _locker
+            private ReaderWriterLockSlim? _locker
                 = new(LockRecursionPolicy.SupportsRecursion);
 
             /// <inheritdoc />

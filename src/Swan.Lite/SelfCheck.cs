@@ -33,8 +33,6 @@ namespace Swan
         private static string BuildMessage(string message, string filePath, int lineNumber)
         {
             var frames = new StackTrace().GetFrames();
-            if (frames == null)
-                return message;
 
             try
             {

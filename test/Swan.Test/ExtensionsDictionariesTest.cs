@@ -1,9 +1,9 @@
-﻿namespace Swan.Test.ExtensionsDictionariesTests
-{
-    using System;
-    using System.Linq;
-    using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
+using System.Linq;
 
+namespace Swan.Test.ExtensionsDictionariesTests
+{
     [TestFixture]
     public class GetValueOrDefault : TestFixtureBase
     {

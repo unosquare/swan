@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Swan.Net.Internal;
+using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
-using Swan.Net.Internal;
 
 namespace Swan.Net
 {

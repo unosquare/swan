@@ -135,9 +135,6 @@ namespace Swan
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            if (sequence == null)
-                throw new ArgumentNullException(nameof(sequence));
-
             var seqOffset = offset.Clamp(0, @this.Length - 1);
 
             var result = new List<byte[]>();
@@ -371,7 +368,7 @@ namespace Swan
         /// Block of bytes to the current stream using data read from a buffer.
         /// </returns>
         /// <exception cref="ArgumentNullException">buffer.</exception>
-        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer) => Append(stream, buffer?.ToArray());
+        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer) => Append(stream, buffer.ToArray());
 
         /// <summary>
         /// Appends the Memory Stream with the specified set of buffers.
@@ -410,7 +407,7 @@ namespace Swan
         /// <param name="buffer">The buffer.</param>
         /// <returns>A <see cref="string" /> that contains the results of decoding the specified sequence of bytes.</returns>
         public static string ToText(this IEnumerable<byte> buffer) => buffer.ToText(Encoding.UTF8);
-        
+
         /// <summary>
         /// Reads the bytes asynchronous.
         /// </summary>

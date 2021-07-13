@@ -62,7 +62,7 @@ namespace Swan.Threading
         /// <param name="dueTime">The due time.</param>
         /// <param name="period">The period.</param>
         public ExclusiveTimer(Action timerCallback, int dueTime, int period)
-            : this(s => { timerCallback?.Invoke(); }, null, dueTime, period)
+            : this(_ => { timerCallback.Invoke(); }, null, dueTime, period)
         {
             // placeholder
         }
@@ -74,7 +74,7 @@ namespace Swan.Threading
         /// <param name="dueTime">The due time.</param>
         /// <param name="period">The period.</param>
         public ExclusiveTimer(Action timerCallback, TimeSpan dueTime, TimeSpan period)
-            : this(s => { timerCallback?.Invoke(); }, null, dueTime, period)
+            : this(_ => { timerCallback.Invoke(); }, null, dueTime, period)
         {
             // placeholder
         }
@@ -104,7 +104,7 @@ namespace Swan.Threading
         ///   <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
         /// </value>
         public bool IsDisposed => _isDisposed.Value;
-        
+
         /// <summary>
         /// Waits until the time is elapsed.
         /// </summary>

@@ -1,9 +1,9 @@
-﻿namespace Swan.Test
-{
-    using System;
-    using System.Collections.Generic;
-    using Mocks;
+﻿using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test
+{
     public abstract class TestFixtureBase
     {
         protected Dictionary<object, object>? NullDict => null;
@@ -42,11 +42,11 @@
 
         protected Dictionary<int, string> DefaultDictionary => new()
         {
-            {1, "A"},
-            {2, "B"},
-            {3, "C"},
-            {4, "D"},
-            {5, "E"},
+            { 1, "A" },
+            { 2, "B" },
+            { 3, "C" },
+            { 4, "D" },
+            { 5, "E" },
         };
     }
 }

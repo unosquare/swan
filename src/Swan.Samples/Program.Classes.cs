@@ -1,9 +1,9 @@
-﻿namespace Swan.Samples
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Swan.Samples
+{
     public static partial class Program
     {
         #region Message Hub and DI

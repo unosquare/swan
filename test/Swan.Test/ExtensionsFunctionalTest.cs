@@ -1,15 +1,15 @@
-﻿namespace Swan.Test.ExtensionsFunctionalTest
-{
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.Test.ExtensionsFunctionalTest
+{
     public abstract class ExtensionsFunctionalTest : TestFixtureBase
     {
         protected const string AdditionalName = "Sauron";
 
-        protected static IEnumerable<string> Enumerable = new List<string> {"Aragorn", "Gimli", "Legolas", "Gandalf"};
+        protected static IEnumerable<string> Enumerable = new List<string> { "Aragorn", "Gimli", "Legolas", "Gandalf" };
 
         protected static List<object> Expected = new()
         {
@@ -24,13 +24,13 @@
 
         protected List<string> List => Enumerable.ToList();
 
-        protected IEnumerable<string> AddName(IEnumerable<string> input) => input.Concat(new[] {AdditionalName});
+        protected IEnumerable<string> AddName(IEnumerable<string> input) => input.Concat(new[] { AdditionalName });
 
-        protected IQueryable<string> AddName(IQueryable<string> input) => input.Concat(new[] {AdditionalName});
+        protected IQueryable<string> AddName(IQueryable<string> input) => input.Concat(new[] { AdditionalName });
 
         protected string AddName() => AdditionalName;
 
-        protected IEnumerable<string> AddRange() => new[] {AdditionalName};
+        protected IEnumerable<string> AddRange() => new[] { AdditionalName };
     }
 
     [TestFixture]

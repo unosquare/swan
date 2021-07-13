@@ -9,12 +9,12 @@
         /// The none message type
         /// </summary>
         None,
-        
+
         /// <summary>
         /// The trace message type
         /// </summary>
         Trace,
-        
+
         /// <summary>
         /// The debug message type
         /// </summary>
@@ -24,7 +24,7 @@
         /// The information message type
         /// </summary>
         Info,
-        
+
         /// <summary>
         /// The warning message type
         /// </summary>

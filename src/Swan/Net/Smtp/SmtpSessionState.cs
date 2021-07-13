@@ -1,7 +1,7 @@
-﻿namespace Swan.Net.Smtp
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Swan.Net.Smtp
+{
     /// <summary>
     /// Represents the state of an SMTP session associated with a client.
     /// </summary>
@@ -146,7 +146,7 @@
         /// <returns>A clone.</returns>
         public virtual SmtpSessionState Clone()
         {
-            var clonedState = this.CopyPropertiesToNew<SmtpSessionState>(new[] {nameof(DataBuffer)});
+            var clonedState = this.CopyPropertiesToNew<SmtpSessionState>(new[] { nameof(DataBuffer) });
             clonedState.DataBuffer.AddRange(DataBuffer);
             clonedState.Recipients.AddRange(Recipients);
 

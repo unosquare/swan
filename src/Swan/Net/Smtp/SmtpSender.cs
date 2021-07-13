@@ -1,10 +1,10 @@
-﻿namespace Swan.Net.Smtp
-{
-    using Logging;
-    using System;
-    using System.Linq;
-    using System.Net.Mail;
+﻿using Swan.Logging;
+using System;
+using System.Linq;
+using System.Net.Mail;
 
+namespace Swan.Net.Smtp
+{
     /// <summary>
     /// Use this class to store the sender session data.
     /// </summary>

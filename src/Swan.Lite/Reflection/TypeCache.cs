@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Collections;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Swan.Collections;
 
 namespace Swan.Reflection
 {
@@ -69,7 +69,7 @@ namespace Swan.Reflection
         /// <returns>
         /// A collection with all the fields in the given type.
         /// </returns>
-        public IEnumerable<FieldInfo> RetrieveAllFields(Type type) 
+        public IEnumerable<FieldInfo> RetrieveAllFields(Type type)
             => Retrieve(type, GetAllFieldsFunc());
 
         private static Func<Type, IEnumerable<FieldInfo>> GetAllFieldsFunc()

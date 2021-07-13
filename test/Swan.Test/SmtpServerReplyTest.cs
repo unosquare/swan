@@ -1,8 +1,8 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
-    using Swan.Net.Smtp;
+﻿using NUnit.Framework;
+using Swan.Net.Smtp;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class Constructor
     {
@@ -19,7 +19,7 @@
         public void StatusCode_Return()
         {
             const string content = "Hello World!";
-            const int status = 600; 
+            const int status = 600;
 
             var serverReply = new SmtpServerReply(status, content);
 

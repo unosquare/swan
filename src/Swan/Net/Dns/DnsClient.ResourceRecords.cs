@@ -1,12 +1,12 @@
-﻿namespace Swan.Net.Dns
-{
-    using Formatters;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
-    using System.Runtime.InteropServices;
+﻿using Swan.Formatters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Runtime.InteropServices;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// DnsClient public methods.
     /// </summary>
@@ -36,7 +36,7 @@
             public int Size => _record.Size;
 
             protected virtual string[] IncludedProperties
-                => new[] {nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength)};
+                => new[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
 
             public byte[] ToArray() => _record.ToArray();
 
@@ -127,26 +127,26 @@
 
                 public DnsRecordType Type
                 {
-                    get => (DnsRecordType) type;
-                    init => type = (ushort) value;
+                    get => (DnsRecordType)type;
+                    init => type = (ushort)value;
                 }
 
                 public DnsRecordClass Class
                 {
-                    get => (DnsRecordClass) klass;
-                    init => klass = (ushort) value;
+                    get => (DnsRecordClass)klass;
+                    init => klass = (ushort)value;
                 }
 
                 public TimeSpan TimeToLive
                 {
                     get => TimeSpan.FromSeconds(ttl);
-                    init => ttl = (uint) value.TotalSeconds;
+                    init => ttl = (uint)value.TotalSeconds;
                 }
 
                 public int DataLength
                 {
                     get => dataLength;
-                    init => dataLength = (ushort) value;
+                    init => dataLength = (ushort)value;
                 }
             }
         }
@@ -165,7 +165,7 @@
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties) {nameof(PointerDomainName)};
+                    var temp = new List<string>(base.IncludedProperties) { nameof(PointerDomainName) };
                     return temp.ToArray();
                 }
             }
@@ -182,7 +182,7 @@
             public IPAddress IPAddress { get; }
 
             protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) {nameof(IPAddress)}.ToArray();
+                => new List<string>(base.IncludedProperties) { nameof(IPAddress) }.ToArray();
         }
 
         public class DnsNameServerResourceRecord : DnsResourceRecordBase
@@ -196,7 +196,7 @@
             public DnsDomain NSDomainName { get; }
 
             protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) {nameof(NSDomainName)}.ToArray();
+                => new List<string>(base.IncludedProperties) { nameof(NSDomainName) }.ToArray();
         }
 
         public class DnsCanonicalNameResourceRecord : DnsResourceRecordBase
@@ -210,7 +210,7 @@
             public DnsDomain CanonicalDomainName { get; }
 
             protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) {nameof(CanonicalDomainName)}.ToArray();
+                => new List<string>(base.IncludedProperties) { nameof(CanonicalDomainName) }.ToArray();
         }
 
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
@@ -349,31 +349,31 @@
                 public long SerialNumber
                 {
                     get => serialNumber;
-                    set => serialNumber = (uint) value;
+                    set => serialNumber = (uint)value;
                 }
 
                 public TimeSpan RefreshInterval
                 {
                     get => TimeSpan.FromSeconds(refreshInterval);
-                    set => refreshInterval = (uint) value.TotalSeconds;
+                    set => refreshInterval = (uint)value.TotalSeconds;
                 }
 
                 public TimeSpan RetryInterval
                 {
                     get => TimeSpan.FromSeconds(retryInterval);
-                    set => retryInterval = (uint) value.TotalSeconds;
+                    set => retryInterval = (uint)value.TotalSeconds;
                 }
 
                 public TimeSpan ExpireInterval
                 {
                     get => TimeSpan.FromSeconds(expireInterval);
-                    set => expireInterval = (uint) value.TotalSeconds;
+                    set => expireInterval = (uint)value.TotalSeconds;
                 }
 
                 public TimeSpan MinimumTimeToLive
                 {
                     get => TimeSpan.FromSeconds(ttl);
-                    set => ttl = (uint) value.TotalSeconds;
+                    set => ttl = (uint)value.TotalSeconds;
                 }
             }
         }

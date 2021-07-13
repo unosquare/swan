@@ -50,7 +50,7 @@ namespace Swan.Reflection
         ///   <c>true</c> if [contains] [the specified member]; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains<T>(MemberInfo member) => _data.Value.ContainsKey(new Tuple<object, Type>(member, typeof(T)));
-        
+
         /// <summary>
         /// Gets specific attributes from a member constrained to an attribute.
         /// </summary>
@@ -83,7 +83,7 @@ namespace Swan.Reflection
                 throw new ArgumentNullException(nameof(type));
 
             return Retrieve(
-                new Tuple<object, Type>(member, type), 
+                new Tuple<object, Type>(member, type),
                 t => member.GetCustomAttributes(type, inherit));
         }
 
@@ -101,7 +101,7 @@ namespace Swan.Reflection
                 return default;
 
             var attr = Retrieve(
-                new Tuple<object, Type>(member, typeof(T)), 
+                new Tuple<object, Type>(member, typeof(T)),
                 t => member.GetCustomAttributes(typeof(T), inherit));
 
             return ConvertToAttribute<T>(attr);
@@ -118,9 +118,9 @@ namespace Swan.Reflection
             where TAttribute : Attribute
         {
             var attr = Retrieve(
-                new Tuple<object, Type>(typeof(T), typeof(TAttribute)), 
+                new Tuple<object, Type>(typeof(T), typeof(TAttribute)),
                 t => typeof(T).GetCustomAttributes(typeof(TAttribute), inherit));
-            
+
             return ConvertToAttribute<TAttribute>(attr);
         }
 
@@ -173,11 +173,11 @@ namespace Swan.Reflection
                 return default;
 
             return attr.Count() == 1
-                ? (T) Convert.ChangeType(attr.First(), typeof(T))
+                ? (T)Convert.ChangeType(attr.First(), typeof(T))
                 : throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }
 
-        private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object>> factory)
+        private IEnumerable<object> Retrieve(Tuple<object, Type> key, Func<Tuple<object, Type>, IEnumerable<object?>> factory)
         {
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));

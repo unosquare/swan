@@ -1,7 +1,7 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
+﻿using NUnit.Framework;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class PaginatorTest
     {
@@ -32,7 +32,7 @@
             var stu = new Paginator(99, 10);
             Assert.AreEqual(9, stu.GetItemCount(9));
         }
-        
+
         [Test]
         public void WithValidDataAtIndexNine_ReturnGetFirstItemIndex()
         {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Swan.Formatters;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Swan.Formatters;
 
 namespace Swan
 {
@@ -349,7 +349,7 @@ namespace Swan
                 return null;
 
             return value.Length > maximumLength
-                ? value.Substring(0, maximumLength) + (omission ?? string.Empty)
+                ? value[..maximumLength] + (omission ?? string.Empty)
                 : value;
         }
 
@@ -367,8 +367,7 @@ namespace Swan
         /// <param name="chars">
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
-        public static bool Contains(this string value, params char[]? chars) =>
-            chars != null &&
+        public static bool Contains(this string value, params char[] chars) =>
             (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
 
         /// <summary>
@@ -388,12 +387,12 @@ namespace Swan
         /// <param name="value">The c.</param>
         /// <returns>Converted integer.</returns>
         public static int Hex2Int(this char value) =>
-            value >= '0' && value <= '9'
-                ? value - '0'
-                : value >= 'A' && value <= 'F'
-                    ? value - 'A' + 10
-                    : value >= 'a' && value <= 'f'
-                        ? value - 'a' + 10
-                        : -1;
+            value switch
+            {
+                >= '0' and <= '9' => value - '0',
+                >= 'A' and <= 'F' => value - 'A' + 10,
+                >= 'a' and <= 'f' => value - 'a' + 10,
+                _ => -1
+            };
     }
 }

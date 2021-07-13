@@ -1,11 +1,11 @@
-﻿namespace Swan.Test.ExtensionsTest
-{
-    using Mocks;
-    using NUnit.Framework;
-    using Net;
-    using System;
-    using System.Collections.Generic;
+﻿using NUnit.Framework;
+using Swan.Net;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test.ExtensionsTest
+{
     [TestFixture]
     public class Retry : TestFixtureBase
     {
@@ -58,7 +58,7 @@
         [Test]
         public void WithNullFunction_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ((Func<int>) null).Retry());
+            Assert.Throws<ArgumentNullException>(() => ((Func<int>)null).Retry());
         }
     }
 
@@ -129,7 +129,7 @@
         [Test]
         public void WithValidObjectWithArray_CopyPropertiesToTarget()
         {
-            var source = new ObjectWithArray {Data = new[] {"HOLA", "MUNDO "}};
+            var source = new ObjectWithArray { Data = new[] { "HOLA", "MUNDO " } };
             var target = new ObjectWithArray();
 
             source.CopyPropertiesTo(target);
@@ -236,7 +236,7 @@
         public void WithValidBasicJson_CopyOnlyPropertiesToTarget()
         {
             var source = BasicJson.GetDefault();
-            var destination = new BasicJson {NegativeInt = 800, BoolData = false};
+            var destination = new BasicJson { NegativeInt = 800, BoolData = false };
             source.CopyOnlyPropertiesTo(destination, nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData));
 
             Assert.AreEqual(source.BoolData, destination.BoolData);

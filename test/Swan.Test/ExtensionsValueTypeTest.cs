@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.ExtensionsValueTypeTest
+﻿using NUnit.Framework;
+using System;
+
+namespace Swan.Test.ExtensionsValueTypeTest
 {
-    using NUnit.Framework;
-    using System;
-    
     [TestFixture]
     public class Clamp
     {
@@ -20,7 +20,7 @@
             Assert.AreEqual(3m, 3m.Clamp(1m, 3m));
 
             Assert.AreEqual(-1m, -1m.Clamp(1m, 5m));
-            
+
             Assert.AreEqual(2m, 1m.Clamp(2m, 5m));
         }
     }
@@ -58,7 +58,7 @@
         [Test]
         public void WithNullArrayOfBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToStruct<int>(0, 0)); 
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToStruct<int>(0, 0));
         }
     }
 }

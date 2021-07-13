@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Swan.Reflection;
 
 namespace Swan.Formatters
 {
@@ -70,16 +70,16 @@ namespace Swan.Formatters
         private static readonly PropertyTypeCache TypeCache = new();
 
         private readonly object _syncLock = new();
-        
+
         private ulong _count;
         private char _escapeCharacter = '"';
         private char _separatorCharacter = ',';
-        
+
         private bool _hasDisposed; // To detect redundant calls
         private string[]? _headings;
         private Dictionary<string, string>? _defaultMap;
         private StreamReader? _reader;
-        
+
         #region Constructors
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Swan.Formatters
 
             if (textEncoding == null)
                 throw new ArgumentNullException(nameof(textEncoding));
-            
+
             _reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
         }
 
@@ -204,7 +204,7 @@ namespace Swan.Formatters
                 }
             }
         }
-        
+
         /// <summary>
         /// Gets a value indicating whether the stream reader is at the end of the stream
         /// In other words, if no more data can be read, this will be set to true.
@@ -287,7 +287,7 @@ namespace Swan.Formatters
 
                 if (_count != 0)
                     throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
-                
+
                 _headings = ReadLine();
                 _defaultMap = _headings.ToDictionary(x => x, x => x);
 
@@ -362,7 +362,7 @@ namespace Swan.Formatters
 
                     if (_headings == null)
                         throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
-                    
+
                     if (Equals(result, default(T)))
                         throw new ArgumentNullException(nameof(result));
                 }
@@ -388,7 +388,7 @@ namespace Swan.Formatters
 
                     // Prepare the target property
                     var propertyName = map[_headings[i]];
-                    
+
                     // Parse and assign the basic type value to the property if exists
                     properties
                         .FirstOrDefault(p => p.Name == propertyName)?
@@ -542,7 +542,7 @@ namespace Swan.Formatters
                     // push anything that has not been pushed (flush) into a last value
                     values.Add(currentValue.ToString());
                     currentValue.Clear();
-                    
+
                     // stop reading more lines we have reached the end of the CSV record
                     break;
                 }
@@ -621,7 +621,7 @@ namespace Swan.Formatters
 
             _hasDisposed = true;
         }
-        
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -630,7 +630,7 @@ namespace Swan.Formatters
         }
 
         #endregion
-        
+
         /// <summary>
         /// Defines the 3 different read states
         /// for the parsing state machine.

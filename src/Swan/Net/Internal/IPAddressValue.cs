@@ -68,8 +68,8 @@ namespace Swan.Net.Internal
         public IPAddress ToIPAddress(bool forceV6)
             => new(_isV4 && !forceV6
                 ? BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((int)(uint)_n1)))
-                : BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long) _n0)))
-                    .Concat(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long) _n1))))
+                : BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long)_n0)))
+                    .Concat(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(unchecked((long)_n1))))
                     .ToArray());
 
         public override int GetHashCode() => CompositeHashCode.Using(_n0, _n1, _isV4);
@@ -84,7 +84,7 @@ namespace Swan.Net.Internal
         public int CompareTo(IPAddressValue other)
         {
             var result = _n0.CompareTo(other._n0);
-            return result == 0 ?_n1.CompareTo(other._n1) : result;
+            return result == 0 ? _n1.CompareTo(other._n1) : result;
         }
 
         public bool IsStartOfSubnet(byte prefixLength)

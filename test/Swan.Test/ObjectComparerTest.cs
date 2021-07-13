@@ -1,11 +1,11 @@
-﻿namespace Swan.Test.ObjectComparerTests
-{
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.Test.ObjectComparerTests
+{
     [TestFixture]
     public class AreObjectsEqual : TestFixtureBase
     {
@@ -50,8 +50,8 @@
         [Test]
         public void ObjectsWithDifferentProps_ReturnsFalse()
         {
-            var leftArray = new {Numero = new Array[1, 2, 3], Letra = "A"};
-            var rightArray = new {Numero = new Array[1, 5, 3], Letra = "A"};
+            var leftArray = new { Numero = new Array[1, 2, 3], Letra = "A" };
+            var rightArray = new { Numero = new Array[1, 5, 3], Letra = "A" };
 
             Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
         }
@@ -99,8 +99,8 @@
         [Test]
         public void EqualArrays_ReturnsTrue()
         {
-            var leftArray = new[] {1, 2, 3, 4, 5};
-            var rightArray = new[] {1, 2, 3, 4, 5};
+            var leftArray = new[] { 1, 2, 3, 4, 5 };
+            var rightArray = new[] { 1, 2, 3, 4, 5 };
 
             Assert.IsTrue(ObjectComparer.AreEnumerationsEquals(leftArray, rightArray));
         }
@@ -108,8 +108,8 @@
         [Test]
         public void DifferentArrays_ReturnsFalse()
         {
-            var leftArray = new[] {1, 2, 3};
-            var rightArray = new[] {7, 1, 9};
+            var leftArray = new[] { 1, 2, 3 };
+            var rightArray = new[] { 7, 1, 9 };
 
             Assert.IsFalse(ObjectComparer.AreEnumerationsEquals(leftArray, rightArray));
         }
@@ -121,8 +121,8 @@
         [Test]
         public void EqualObjectsWithArrayProperties_ReturnsTrue()
         {
-            var leftObject = new AdvArrayJson {Id = 1, Properties = new[] {BasicJson.GetDefault()}};
-            var rightObject = new AdvArrayJson {Id = 1, Properties = new[] {BasicJson.GetDefault()}};
+            var leftObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+            var rightObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
 
             Assert.IsTrue(ObjectComparer.AreEqual(leftObject, rightObject));
         }
@@ -130,8 +130,8 @@
         [Test]
         public void EqualArraysWithObjects_ReturnsTrue()
         {
-            var leftArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
-            var rightArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
+            var leftArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
+            var rightArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
 
             Assert.IsTrue(ObjectComparer.AreEnumerationsEquals(leftArrayObject, rightArrayObject));
         }
@@ -143,7 +143,7 @@
         [Test]
         public void EnumsWithDifferentLengths_ReturnsFalse()
         {
-            var right = new List<string> {"Unosquare"};
+            var right = new List<string> { "Unosquare" };
 
             Assert.IsFalse(
                 ObjectComparer.AreEnumerationsEquals(DefaultStringList.AsEnumerable(), right.AsEnumerable()));
@@ -152,7 +152,7 @@
         [Test]
         public void LeftEnumNull_ThrowsArgumentNullException()
         {
-            var right = new List<string> {"Unosquare"};
+            var right = new List<string> { "Unosquare" };
 
             Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(NullStringList, right));
         }
@@ -160,7 +160,7 @@
         [Test]
         public void RightEnumNull_ThrowsArgumentNullException()
         {
-            var left = new List<string> {"Unosquare"};
+            var left = new List<string> { "Unosquare" };
 
             Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(left, NullStringList));
         }

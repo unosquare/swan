@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Swan.Reflection;
 
 namespace Swan.Formatters
 {
@@ -31,7 +31,7 @@ namespace Swan.Formatters
             private readonly string _result;
             private readonly StringBuilder _builder;
             private readonly string _lastCommaSearch;
-            private readonly string[]? _excludedNames = null;
+            private readonly string[]? _excludedNames;
 
             #endregion
 
@@ -75,10 +75,10 @@ namespace Swan.Formatters
 
                 _result = obj switch
                 {
-                    IDictionary {Count: 0} => EmptyObjectLiteral,
+                    IDictionary { Count: 0 } => EmptyObjectLiteral,
                     IDictionary items => ResolveDictionary(items, depth),
                     IEnumerable enumerableZero when !enumerableZero.Cast<object>().Any() => EmptyArrayLiteral,
-                    IEnumerable enumerableBytes when enumerableBytes is byte[] bytes => Serialize(bytes.ToBase64(), depth, _options, _excludedNames),
+                    IEnumerable and byte[] bytes => Serialize(bytes.ToBase64(), depth, _options, _excludedNames),
                     IEnumerable enumerable => ResolveEnumerable(enumerable, depth),
                     _ => ResolveObject(obj!, depth)
                 };
@@ -137,10 +137,10 @@ namespace Swan.Formatters
 
             private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
-                if (serialized == EmptyObjectLiteral || serialized == EmptyArrayLiteral) return false;
+                if (serialized is EmptyObjectLiteral or EmptyArrayLiteral) return false;
 
                 // find the first position the character is not a space
-                return serialized.Where(c => c != ' ').Select(c => c == OpenObjectChar || c == OpenArrayChar).FirstOrDefault();
+                return serialized.Where(c => c != ' ').Select(c => c is OpenObjectChar or OpenArrayChar).FirstOrDefault();
             }
 
             private static string Escape(string? str, bool quoted)

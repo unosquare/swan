@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System;
-    using Parsers;
+﻿using Swan.Parsers;
+using System;
 
+namespace Swan.Test.Mocks
+{
     public class CliVerbs
     {
         [VerbOption("verb")]
@@ -27,6 +27,7 @@
 
         [ArgumentOption('w', "password", DefaultValue = "raspberry", HelpText = "The password for the given username.", Required = false)]
         public string Password { get; set; }
+
         [ArgumentOption("pre", HelpText = "Command to execute prior file transfer to target", Required = false)]
         public string PreCommand { get; set; }
 
@@ -45,7 +46,7 @@
             {
                 var ignoreFileSuffixes = string.IsNullOrWhiteSpace(ExcludeFileSuffixes) ?
                     new string[] { } :
-                    ExcludeFileSuffixes.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    ExcludeFileSuffixes.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
                 return ignoreFileSuffixes;
             }

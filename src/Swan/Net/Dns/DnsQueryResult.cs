@@ -1,7 +1,7 @@
-﻿namespace Swan.Net.Dns
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// Represents a response from a DNS server.
     /// </summary>

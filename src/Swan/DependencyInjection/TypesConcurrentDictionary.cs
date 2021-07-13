@@ -1,12 +1,12 @@
-﻿namespace Swan.DependencyInjection
-{
-    using System;
-    using System.Linq.Expressions;
-    using System.Reflection;    
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
+namespace Swan.DependencyInjection
+{
     /// <summary>
     /// Represents a Concurrent Dictionary for TypeRegistration.
     /// </summary>
@@ -40,7 +40,7 @@
             return registrations.Select(registration =>
                 ResolveInternal(registration, DependencyContainerResolveOptions.Default));
         }
-        
+
         internal ObjectFactoryBase GetCurrentFactory(DependencyContainer.TypeRegistration registration)
         {
             TryGetValue(registration, out var current);
@@ -48,7 +48,7 @@
             return current;
         }
 
-        internal RegisterOptions Register(Type registerType, string name, ObjectFactoryBase factory) 
+        internal RegisterOptions Register(Type registerType, string name, ObjectFactoryBase factory)
             => AddUpdateRegistration(new DependencyContainer.TypeRegistration(registerType, name), factory);
 
         internal RegisterOptions AddUpdateRegistration(DependencyContainer.TypeRegistration typeRegistration, ObjectFactoryBase factory)
@@ -60,7 +60,7 @@
 
         internal bool RemoveRegistration(DependencyContainer.TypeRegistration typeRegistration)
             => TryRemove(typeRegistration, out _);
-        
+
         internal object ResolveInternal(
             DependencyContainer.TypeRegistration registration,
             DependencyContainerResolveOptions? options = null)
@@ -138,7 +138,7 @@
                 ? ConstructType(registration.Type, null, options)
                 : throw new DependencyContainerResolutionException(registration.Type);
         }
-        
+
         internal bool CanResolve(
             DependencyContainer.TypeRegistration registration,
             DependencyContainerResolveOptions? options = null)
@@ -196,7 +196,7 @@
             // Bubble resolution up the container tree if we have a parent
             return _dependencyContainer.Parent != null && _dependencyContainer.Parent.RegisteredTypes.CanResolve(registration, options.Clone());
         }
-        
+
         internal object ConstructType(
             Type implementationType,
             ConstructorInfo? constructor,
@@ -251,7 +251,7 @@
                 throw new DependencyContainerResolutionException(typeToConstruct, ex);
             }
         }
-        
+
         private static ObjectConstructor CreateObjectConstructionDelegateWithCache(ConstructorInfo constructor)
         {
             if (ObjectConstructorCache.TryGetValue(constructor, out var objectConstructor))
@@ -281,10 +281,10 @@
             ObjectConstructorCache[constructor] = objectConstructor;
             return objectConstructor;
         }
-        
+
         private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
             => type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
-        
+
         private static bool IsAutomaticLazyFactoryRequest(Type type)
         {
             if (!type.IsGenericType)
@@ -304,7 +304,7 @@
             return genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
                    type.GetGenericArguments()[1] == typeof(IDictionary<string, object>);
         }
-        
+
         private ObjectFactoryBase? GetParentObjectFactory(DependencyContainer.TypeRegistration registration)
         {
             if (_dependencyContainer.Parent == null)
@@ -319,7 +319,7 @@
             Type type,
             DependencyContainerResolveOptions? options)
             => type.IsValueType ? null : GetTypeConstructors(type).FirstOrDefault(ctor => CanConstruct(ctor, options));
-        
+
         private bool CanConstruct(
             MethodBase ctor,
             DependencyContainerResolveOptions? options)
@@ -343,7 +343,7 @@
         }
 
         private IEnumerable<DependencyContainer.TypeRegistration> GetParentRegistrationsForType(Type resolveType)
-            => _dependencyContainer.Parent == null 
+            => _dependencyContainer.Parent == null
                 ? Array.Empty<DependencyContainer.TypeRegistration>()
                 : _dependencyContainer.Parent.RegisteredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(_dependencyContainer.Parent.RegisteredTypes.GetParentRegistrationsForType(resolveType));
     }

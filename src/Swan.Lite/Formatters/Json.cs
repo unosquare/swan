@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Swan.Collections;
 
 namespace Swan.Formatters
 {
@@ -324,7 +324,7 @@ namespace Swan.Formatters
         public static T Deserialize<T>(string? json, JsonSerializerCase jsonSerializerCase = JsonSerializerCase.None) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T) Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
+                : (T)Deserialize(json, typeof(T), jsonSerializerCase: jsonSerializerCase);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.
@@ -338,7 +338,7 @@ namespace Swan.Formatters
         public static T Deserialize<T>(string? json, bool includeNonPublic) =>
             json == null
                 ? throw new ArgumentNullException(nameof(json))
-                : (T) Deserialize(json, typeof(T), includeNonPublic);
+                : (T)Deserialize(json, typeof(T), includeNonPublic);
 
         /// <summary>
         /// Deserializes the specified JSON string and converts it to the specified object type.

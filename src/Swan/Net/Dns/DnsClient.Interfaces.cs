@@ -1,9 +1,9 @@
-﻿namespace Swan.Net.Dns
-{
-    using System;
-    using System.Threading.Tasks;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// DnsClient public interfaces.
     /// </summary>
@@ -53,7 +53,7 @@
             DnsOperationCode OperationCode { get; set; }
             DnsResponseCode ResponseCode { get; set; }
         }
-        
+
         public interface IDnsRequestResolver
         {
             Task<DnsClientResponse> Request(DnsClientRequest request);

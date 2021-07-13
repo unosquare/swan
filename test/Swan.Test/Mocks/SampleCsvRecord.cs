@@ -1,9 +1,9 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Swan.Test.Mocks
+{
     public class SampleCsvRecord
     {
         private static readonly string[] RandomWords = (
@@ -23,10 +23,10 @@
             "\n \n \n \n \n \n \n \n \n \n \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"quoted\""
             +
             "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like."
-            + "SWAN also provides helpful extension methods for string manipulation").Split(new[] {" "},
+            + "SWAN also provides helpful extension methods for string manipulation").Split(new[] { " " },
             StringSplitOptions.None);
 
-        private static readonly string[] RandomNames = {"Alpha", "Beta", "Gamma", "Delta"};
+        private static readonly string[] RandomNames = { "Alpha", "Beta", "Gamma", "Delta" };
 
         public int Id { get; set; }
         public int? AlternateId { get; set; }
@@ -58,8 +58,8 @@
 
                 var record = new SampleCsvRecord
                 {
-                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : (DateTime?) null,
-                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : (int?) null,
+                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : null,
+                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : null,
                     CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
                     Description = descriptionSb.ToString(),
                     Id = i,

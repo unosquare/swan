@@ -1,18 +1,18 @@
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto.Operators;
+using Org.BouncyCastle.Crypto.Prng;
+using Org.BouncyCastle.Math;
+using Org.BouncyCastle.Pkcs;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.X509;
+using Swan.Logging;
+using System;
+using System.IO;
+
 namespace Swan.Test.Mocks
 {
-    using Swan.Logging;
-    using System;
-    using System.IO;
-    using Org.BouncyCastle.Asn1.X509;
-    using Org.BouncyCastle.Crypto;
-    using Org.BouncyCastle.Crypto.Generators;
-    using Org.BouncyCastle.Crypto.Operators;
-    using Org.BouncyCastle.Crypto.Prng;
-    using Org.BouncyCastle.Math;
-    using Org.BouncyCastle.Pkcs;
-    using Org.BouncyCastle.Security;
-    using Org.BouncyCastle.X509;
-
     /// <summary>
     /// Provides static methods to create, save and load certificate files
     /// </summary>
@@ -83,17 +83,15 @@ namespace Swan.Test.Mocks
 
             certificateStore.SetCertificateEntry(certificateAlias, certificateEntry);
             certificateStore.SetKeyEntry(
-                certificateAlias, 
+                certificateAlias,
                 new AsymmetricKeyEntry(keyPair.Private),
-                new[] {certificateEntry});
+                new[] { certificateEntry });
 
-            using (var outputFileStream = File.Create(outputFilePath))
-            {
-                certificateStore.Save(
-                    outputFileStream, 
-                    certificatePassword.ToCharArray(),
-                    new SecureRandom(new CryptoApiRandomGenerator()));
-            }
+            using var outputFileStream = File.Create(outputFilePath);
+            certificateStore.Save(
+                outputFileStream,
+                certificatePassword.ToCharArray(),
+                new SecureRandom(new CryptoApiRandomGenerator()));
         }
 
         internal static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(

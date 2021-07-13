@@ -1,13 +1,13 @@
-﻿namespace Swan.Test.CsvReaderTest
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-    using NUnit.Framework;
-    using Formatters;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Formatters;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
+namespace Swan.Test.CsvReaderTest
+{
     [TestFixture]
     public abstract class CsvReaderTest
     {
@@ -19,10 +19,10 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
         protected readonly Dictionary<string, string> Map = new()
         {
-            {"Company", "Warsong Clan"},
-            {"OpenPositions", "Wolfrider"},
-            {"MainTechnology", "Axe"},
-            {"Revenue", "$190000G"},
+            { "Company", "Warsong Clan" },
+            { "OpenPositions", "Wolfrider" },
+            { "MainTechnology", "Axe" },
+            { "Revenue", "$190000G" },
         };
     }
 
@@ -31,12 +31,10 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStreamAndValidEncoding_ReturnsReader()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream, true, Encoding.ASCII);
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream, true, Encoding.ASCII);
 
-                Assert.IsNotNull(reader);
-            }
+            Assert.IsNotNull(reader);
         }
 
         [Test]
@@ -51,13 +49,11 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithNullEncoding_ThrowsNullReferenceException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                Assert.Throws<ArgumentNullException>(() =>
-                {
-                    var csvReader = new CsvReader(stream, true, null);
-                });
-            }
+                var csvReader = new CsvReader(stream, true, null);
+            });
         }
     }
 
@@ -68,12 +64,10 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             var position = 0;
 
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream, Encoding.ASCII);
-                reader.SkipRecord();
-                Assert.AreNotEqual(stream.Position, position);
-            }
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream, Encoding.ASCII);
+            reader.SkipRecord();
+            Assert.AreNotEqual(stream.Position, position);
         }
 
         [Test]
@@ -82,14 +76,12 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             var position = 0;
             var data = "Orgrimmar,m";
 
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
-            {
-                var reader = new CsvReader(stream, Encoding.ASCII) { EscapeCharacter = 'm' };
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(data));
+            var reader = new CsvReader(stream, Encoding.ASCII) { EscapeCharacter = 'm' };
 
-                reader.SkipRecord();
+            reader.SkipRecord();
 
-                Assert.AreNotEqual(stream.Position, position);
-            }
+            Assert.AreNotEqual(stream.Position, position);
         }
 
         [Test]
@@ -107,37 +99,31 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_ReturnsAnArray()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                var headings = reader.ReadHeadings();
-                Assert.IsNotNull(headings);
-                Assert.AreEqual(Headers, headings);
-            }
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            var headings = reader.ReadHeadings();
+            Assert.IsNotNull(headings);
+            Assert.AreEqual(Headers, headings);
         }
 
         [Test]
         public void WithReadHeadingsAlreadyCalled_ThrowsInvalidOperationException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadHeadings();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadHeadings();
 
-                Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
-            }
+            Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
         }
 
         [Test]
         public void WithReadHeadingsAsSecondOperation_ThrowsInvalidOperationException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadLine();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadLine();
 
-                Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
-            }
+            Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
         }
     }
 
@@ -146,13 +132,11 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_ReturnsAnArray()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                var line = reader.ReadLine();
-                
-                Assert.IsNotEmpty(line);
-            }
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            var line = reader.ReadLine();
+
+            Assert.IsNotEmpty(line);
         }
 
         [Test]
@@ -179,48 +163,40 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_ReturnsADictionary()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadHeadings();
-                var readObj = reader.ReadObject();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadHeadings();
+            var readObj = reader.ReadObject();
 
-                Assert.IsNotNull(readObj);
-            }
+            Assert.IsNotNull(readObj);
         }
 
         [Test]
         public void WithoutReadHeadingsCall_ThrowsInvalidOperationException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
 
-                Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
-            }
+            Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
         }
 
         [Test]
         public void WithNullAsParam_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadHeadings();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadHeadings();
 
-                Assert.Throws<ArgumentNullException>(() => reader.ReadObject(null));
-            }
+            Assert.Throws<ArgumentNullException>(() => reader.ReadObject(null));
         }
 
         [Test]
         public void WithSampleDto_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
 
-                Assert.Throws<ArgumentNullException>(() => reader.ReadObject<UserDto>());
-            }
+            Assert.Throws<ArgumentNullException>(() => reader.ReadObject<UserDto>());
         }
 
         [Test]
@@ -228,13 +204,11 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             Dictionary<string, string> refDictionary = null;
 
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadHeadings();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadHeadings();
 
-                Assert.Throws<ArgumentNullException>(() => reader.ReadObject(Map, ref refDictionary));
-            }
+            Assert.Throws<ArgumentNullException>(() => reader.ReadObject(Map, ref refDictionary));
         }
 
         [Test]
@@ -242,18 +216,16 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             var tempFile = Path.GetTempFileName();
             var reader = new CsvReader(tempFile);
-            
+
             Assert.Throws<EndOfStreamException>(() => reader.ReadObject<UserDto>(Map));
         }
 
         [Test]
         public void WithNoReadHeadingsCall_ThrowsInvalidOperationException()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                Assert.Throws<InvalidOperationException>(() => reader.ReadObject<UserDto>(Map));
-            }
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            Assert.Throws<InvalidOperationException>(() => reader.ReadObject<UserDto>(Map));
         }
     }
 
@@ -262,14 +234,12 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_ReturnsNumberOfLines()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
 
-                reader.ReadHeadings();
+            reader.ReadHeadings();
 
-                Assert.AreEqual(1, reader.Count);
-            }
+            Assert.AreEqual(1, reader.Count);
         }
     }
 
@@ -300,17 +270,15 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithDisposeAlreadyCalled_SetsHasDisposeToTrue()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
-            {
-                var reader = new CsvReader(stream);
-                reader.ReadHeadings();
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+            var reader = new CsvReader(stream);
+            reader.ReadHeadings();
 
-                var readObj = reader.ReadObject();
-                reader.Dispose();
-                reader.Dispose();
+            var readObj = reader.ReadObject();
+            reader.Dispose();
+            reader.Dispose();
 
-                Assert.IsNotNull(readObj);
-            }
+            Assert.IsNotNull(readObj);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace Swan.Net.Dns
-{
-    using System;
-    using System.Net;
-    using System.Text;
+﻿using System;
+using System.Net;
+using System.Text;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// Represents a DNS record entry.
     /// </summary>
@@ -148,7 +148,7 @@
         /// The name of the mail exchanger domain.
         /// </value>
         public string MailExchangerDomainName { get; }
-        
+
         /// <summary>
         /// Gets the name of the soa master domain.
         /// </summary>

@@ -12,7 +12,7 @@ namespace Swan
     public static class SwanRuntime
     {
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new(Assembly.GetEntryAssembly);
-        
+
         private static readonly Lazy<string> CompanyNameLazy = new(() =>
         {
             var attribute =
@@ -33,44 +33,13 @@ namespace Swan
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute?.Trademark ?? string.Empty;
         });
-        
+
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 
         private static readonly object SyncLock = new();
 
-        private static OperatingSystem? _oS;
-
         #region Properties
 
-        /// <summary>
-        /// Gets the current Operating System.
-        /// </summary>
-        /// <value>
-        /// The os.
-        /// </value>
-        public static OperatingSystem OS
-        {
-            get
-            {
-                if (_oS.HasValue == false)
-                {
-                    var windowsDirectory = Environment.GetEnvironmentVariable("windir");
-                    if (string.IsNullOrEmpty(windowsDirectory) == false
-                        && windowsDirectory.Contains(@"\")
-                        && Directory.Exists(windowsDirectory))
-                    {
-                        _oS = OperatingSystem.Windows;
-                    }
-                    else
-                    {
-                        _oS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
-                    }
-                }
-
-                return _oS ?? OperatingSystem.Unknown;
-            }
-        }
-        
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
         /// </summary>
@@ -208,11 +177,11 @@ namespace Swan
                 return returnPath;
             }
         }
-        
+
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Build a full path pointing to the current user's desktop with the given filename.
         /// </summary>

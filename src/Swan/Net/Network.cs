@@ -1,16 +1,16 @@
-﻿namespace Swan.Net
-{
-    using Net.Dns;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.NetworkInformation;
-    using System.Net.Sockets;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using Swan.Net.Dns;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Net
+{
     /// <summary>
     /// Provides miscellaneous network utilities such as a Public IP finder,
     /// a DNS client to query DNS records of any kind, and an NTP client.
@@ -116,7 +116,7 @@
             foreach (var networkInterface in interfaces)
             {
                 var properties = networkInterface.GetIPProperties();
-                
+
                 if (properties.GatewayAddresses.All(g => g.Address.AddressFamily != AddressFamily.InterNetwork))
                     continue;
 
@@ -142,7 +142,7 @@
             var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
             return IPAddress.Parse(await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false));
         }
-        
+
         /// <summary>
         /// Gets the configured IPv4 DNS servers for the active network interfaces.
         /// </summary>
@@ -215,7 +215,7 @@
             var client = new DnsClient(dnsServer, port);
             return client.Reverse(query);
         }
-        
+
         /// <summary>
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
@@ -226,7 +226,7 @@
             var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
             return client.Reverse(query);
         }
-        
+
         /// <summary>
         /// Queries the DNS server for the specified record type.
         /// </summary>
@@ -244,7 +244,7 @@
             var response = await client.Resolve(query, recordType).ConfigureAwait(false);
             return new DnsQueryResult(response);
         }
-        
+
         /// <summary>
         /// Queries the DNS server for the specified record type.
         /// </summary>
@@ -305,7 +305,7 @@
             var milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
 
             // The time is given in UTC
-            return new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long) milliseconds);
+            return new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
         }
 
         /// <summary>

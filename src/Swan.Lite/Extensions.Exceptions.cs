@@ -51,16 +51,9 @@ namespace Swan
 
         private static bool IsCriticalExceptionCore(this Exception @this)
             => IsFatalExceptionCore(@this)
-            || @this is AppDomainUnloadedException
-            || @this is BadImageFormatException
-            || @this is CannotUnloadAppDomainException
-            || @this is InvalidProgramException
-            || @this is NullReferenceException;
+               || @this is AppDomainUnloadedException or BadImageFormatException or CannotUnloadAppDomainException or InvalidProgramException or NullReferenceException;
 
         private static bool IsFatalExceptionCore(this Exception @this)
-            => @this is StackOverflowException
-            || @this is OutOfMemoryException
-            || @this is ThreadAbortException
-            || @this is AccessViolationException;
+            => @this is StackOverflowException or OutOfMemoryException or ThreadAbortException or AccessViolationException;
     }
 }

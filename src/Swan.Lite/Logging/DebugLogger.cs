@@ -14,7 +14,7 @@
         {
             // Empty
         }
-        
+
         /// <summary>
         /// Gets the current instance of DebugLogger.
         /// </summary>
@@ -41,7 +41,7 @@
 
             System.Diagnostics.Debug.Write(outputMessage);
         }
-        
+
         /// <inheritdoc/>
         public void Dispose()
         {

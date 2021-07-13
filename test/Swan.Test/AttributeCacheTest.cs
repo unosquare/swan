@@ -1,13 +1,13 @@
-﻿namespace Swan.Test
-{
-    using Validators;
-    using System.Linq;
-    using Mocks;
-    using NUnit.Framework;
-    using Reflection;
-    using System;
-    using System.Reflection;
+﻿using NUnit.Framework;
+using Swan.Reflection;
+using Swan.Test.Mocks;
+using Swan.Validators;
+using System;
+using System.Linq;
+using System.Reflection;
 
+namespace Swan.Test
+{
     public abstract class AttributeCacheTest
     {
         protected static readonly PropertyTypeCache TypeCache = new();

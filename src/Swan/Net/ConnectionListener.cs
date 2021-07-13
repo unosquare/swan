@@ -1,11 +1,11 @@
-﻿namespace Swan.Net
-{
-    using System;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Net
+{
     /// <summary>
     /// TCP Listener manager with built-in events and asynchronous functionality.
     /// This networking component is typically used when writing server software.
@@ -190,7 +190,7 @@
 
             _hasDisposed = true;
         }
-        
+
         /// <summary>
         /// Continuously checks for client connections until the Close method has been called.
         /// </summary>

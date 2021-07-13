@@ -1,10 +1,10 @@
-﻿namespace Swan.DependencyInjection
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
+namespace Swan.DependencyInjection
+{
     /// <summary>
     /// The concrete implementation of a simple IoC container
     /// based largely on TinyIoC (https://github.com/grumpydev/TinyIoC).
@@ -40,10 +40,10 @@
         /// </summary>
         public static DependencyContainer Current { get; } = new();
 
-        internal DependencyContainer Parent { get; }
+        internal DependencyContainer? Parent { get; }
 
         internal TypesConcurrentDictionary RegisteredTypes { get; }
-        
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -377,8 +377,8 @@
         /// <returns>Instance of type.</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
         public object Resolve(
-            Type resolveType, 
-            string? name = null, 
+            Type resolveType,
+            string? name = null,
             DependencyContainerResolveOptions? options = null)
             => RegisteredTypes.ResolveInternal(new TypeRegistration(resolveType, name), options ?? DependencyContainerResolveOptions.Default);
 
@@ -432,7 +432,7 @@
         /// <param name="options">Resolution options.</param>
         /// <returns>Bool indicating whether the type can be resolved.</returns>
         public bool CanResolve<TResolveType>(
-            string? name = null, 
+            string? name = null,
             DependencyContainerResolveOptions? options = null)
             where TResolveType : class
         {
@@ -510,8 +510,8 @@
         /// <param name="resolvedType">Resolved type or default if resolve fails.</param>
         /// <returns><c>true</c> if resolved successfully, <c>false</c> otherwise.</returns>
         public bool TryResolve(
-            Type resolveType, 
-            string name, 
+            Type resolveType,
+            string name,
             DependencyContainerResolveOptions options,
             out object? resolvedType)
         {
@@ -526,7 +526,7 @@
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Attempts to resolve a type using the default options.
         /// </summary>
@@ -617,14 +617,14 @@
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Returns all registrations of a type.
         /// </summary>
         /// <param name="resolveType">Type to resolveAll.</param>
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations.</param>
         /// <returns>IEnumerable.</returns>
-        public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed = false) 
+        public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed = false)
             => RegisteredTypes.Resolve(resolveType, includeUnnamed);
 
         /// <summary>
@@ -671,7 +671,7 @@
         #endregion
 
         #region Internal Methods
-        
+
         internal static bool IsValidAssignment(Type registerType, Type registerImplementation)
         {
             if (!registerType.IsGenericTypeDefinition)
@@ -736,7 +736,7 @@
                 throw new ArgumentNullException(nameof(registerType));
 
             return registerType.IsInterface || registerType.IsAbstract
-                ? (ObjectFactoryBase) new SingletonFactory(registerType, registerImplementation)
+                ? new SingletonFactory(registerType, registerImplementation)
                 : new MultiInstanceFactory(registerType, registerImplementation);
         }
 

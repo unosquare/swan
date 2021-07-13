@@ -1,22 +1,22 @@
-﻿namespace Swan.Test.ExtensionsDatesTests
-{
-    using System;
-    using NUnit.Framework;
-    using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test.ExtensionsDatesTests
+{
     [TestFixture]
     public class ToSortableDate
     {
         [TestCase("2016-01-01", "00:00:00", 2016, 1, 1, 0, 0, 0)]
         [TestCase("2016-10-10", "10:10:10", 2016, 10, 10, 10, 10, 10)]
         public void ExtensionsDates_ReturnsEquals(
-            string expectedDate, 
-            string expectedTime, 
-            int year, 
+            string expectedDate,
+            string expectedTime,
+            int year,
             int month,
-            int day, 
+            int day,
             int hour,
-            int minute, 
+            int minute,
             int second)
         {
             var input = new DateTime(year, month, day, hour, minute, second);

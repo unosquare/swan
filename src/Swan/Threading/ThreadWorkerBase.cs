@@ -1,9 +1,9 @@
-﻿namespace Swan.Threading
-{
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Threading
+{
     /// <summary>
     /// Provides a base implementation for application workers
     /// that perform continuous, long-running tasks. This class
@@ -55,7 +55,7 @@
         {
             lock (_syncLock)
             {
-                if (WorkerState == WorkerState.Paused || WorkerState == WorkerState.Waiting)
+                if (WorkerState is WorkerState.Paused or WorkerState.Waiting)
                     return ResumeAsync();
 
                 if (WorkerState != WorkerState.Created)
@@ -102,7 +102,7 @@
         {
             lock (_syncLock)
             {
-                if (WorkerState == WorkerState.Stopped || WorkerState == WorkerState.Created)
+                if (WorkerState is WorkerState.Stopped or WorkerState.Created)
                 {
                     WorkerState = WorkerState.Stopped;
                     return Task.FromResult(WorkerState);

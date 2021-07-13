@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Swan.Reflection;
 
 namespace Swan.Parsers
 {

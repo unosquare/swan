@@ -105,10 +105,10 @@ namespace Swan.Threading
             {
                 get
                 {
-                    if (IsDisposed || _event == null) 
+                    if (IsDisposed || _event == null)
                         return false;
 
-                    if (_event?.SafeWaitHandle?.IsClosed ?? true) 
+                    if (_event?.SafeWaitHandle?.IsClosed ?? true)
                         return false;
 
                     return !(_event?.SafeWaitHandle?.IsInvalid ?? true);

@@ -86,7 +86,7 @@ namespace Swan
         /// The milliseconds.
         /// </value>
         public int Milliseconds { get; }
-        
+
         internal static DateTimeSpan CompareDates(DateTime date1, DateTime date2)
         {
             if (date2 < date1)
@@ -142,12 +142,12 @@ namespace Swan
                             current = current.AddDays(days);
                             var timespan = date2 - current;
                             span = new DateTimeSpan(
-                                years, 
-                                months, 
-                                days, 
-                                timespan.Hours, 
+                                years,
+                                months,
+                                days,
+                                timespan.Hours,
                                 timespan.Minutes,
-                                timespan.Seconds, 
+                                timespan.Seconds,
                                 timespan.Milliseconds);
                             phase = Phase.Done;
                         }

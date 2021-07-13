@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using Swan.Reflection;
 
 namespace Swan
 {
@@ -24,7 +24,7 @@ namespace Swan
         /// <returns>A dictionary with property names as keys and <see cref="IPropertyProxy"/> objects as values.</returns>
         public static Dictionary<string, IPropertyProxy> PropertyProxies(this Type t)
         {
-            if (t == null) 
+            if (t == null)
                 throw new ArgumentNullException(nameof(t));
 
             lock (SyncLock)
@@ -165,9 +165,9 @@ namespace Swan
 
         private static string PropertyName<T, TV>(this Expression<Func<T, TV>> propertyExpression)
         {
-            var memberExpression = !(propertyExpression.Body is MemberExpression)
-                ? (propertyExpression.Body as UnaryExpression).Operand as MemberExpression
-                : propertyExpression.Body as MemberExpression;
+            var memberExpression = propertyExpression.Body is MemberExpression body
+                ? body
+                : (propertyExpression.Body as UnaryExpression).Operand as MemberExpression;
 
             return memberExpression.Member.Name;
         }

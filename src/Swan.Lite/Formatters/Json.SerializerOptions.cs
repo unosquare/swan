@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Swan.Reflection;
 
 namespace Swan.Formatters
 {
@@ -122,7 +122,7 @@ namespace Swan.Formatters
                 .When(() => ExcludeProperties?.Length > 0,
                     query => query.Where(p => !ExcludeProperties.Contains(p.Key.Item1)))
                 .ToDictionary(x => x.Key.Item2, x => x.Value);
-        
+
         private Dictionary<Tuple<string, string>, MemberInfo> GetPropertiesCache(Type targetType)
         {
             if (TypeCache.TryGetValue(targetType, out var current))

@@ -1,9 +1,8 @@
 ﻿using Swan.Logging;
+using System;
 
 namespace Swan.Test.Mocks
 {
-    using System;
-
     public class LoggingEntryMock
     {
         public LogLevel Type { get; set; }

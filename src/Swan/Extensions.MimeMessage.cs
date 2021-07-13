@@ -1,10 +1,10 @@
-﻿namespace Swan
-{
-    using System;
-    using System.IO;
-    using System.Net.Mail;
-    using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Net.Mail;
+using System.Reflection;
 
+namespace Swan
+{
     /// <summary>
     /// Extension methods.
     /// </summary>
@@ -21,22 +21,22 @@
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
-            
+
             var result = new MemoryStream();
             var mailWriter = MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result });
             MimeMessageConstants.SendMethod.Invoke(
-                @this, 
-                PrivateInstanceFlags, 
-                null, 
-                MimeMessageConstants.IsRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true }, 
+                @this,
+                PrivateInstanceFlags,
+                null,
+                MimeMessageConstants.IsRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true },
                 null);
 
             result = new MemoryStream(result.ToArray());
             MimeMessageConstants.CloseMethod.Invoke(
-                mailWriter, 
-                PrivateInstanceFlags, 
+                mailWriter,
+                PrivateInstanceFlags,
                 null,
-                Array.Empty<object>(), 
+                Array.Empty<object>(),
                 null);
 
             result.Position = 0;

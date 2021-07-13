@@ -1,26 +1,26 @@
-﻿namespace Swan.Test.ObjectMapperTests
-{
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using Mappers;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Mappers;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
 
+namespace Swan.Test.ObjectMapperTests
+{
     public abstract class ObjectMapperTest : TestFixtureBase
     {
         protected User SourceUser => new()
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
-            Role = new Role {Name = "Admin"},
+            Role = new Role { Name = "Admin" },
             StartDate = new DateTime(2000, 2, 5),
         };
 
         protected Dictionary<string, object> SourceDict => new()
         {
-            {"Name", "Armando"},
-            {"Email", "armando.cifuentes@unosquare.com"},
-            {"Role", "Intern tester"},
+            { "Name", "Armando" },
+            { "Email", "armando.cifuentes@unosquare.com" },
+            { "Role", "Intern tester" },
         };
     }
 
@@ -131,7 +131,7 @@
         [Test]
         public void PropertyDestinationInfoNull_ReturnsException()
         {
-            Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ArgumentException>(() =>
                 new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
         }
     }
@@ -186,8 +186,8 @@
         {
             var target = new UserDto();
 
-            var propertiesToCopy = new[] {"Name", "Email"};
-            var ignoreProperties = new[] {"Role"};
+            var propertiesToCopy = new[] { "Name", "Email" };
+            var ignoreProperties = new[] { "Role" };
 
             ObjectMapper.Copy(SourceDict, target, propertiesToCopy, ignoreProperties);
 

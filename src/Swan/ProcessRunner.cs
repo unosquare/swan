@@ -1,13 +1,13 @@
-﻿namespace Swan
-{
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan
+{
     /// <summary>
     /// Provides methods to help create external processes, and efficiently capture the
     /// standard error and standard output streams.
@@ -79,9 +79,9 @@
         /// The type of the result produced by this Task.
         /// </returns>
         public static async Task<string> GetProcessEncodedOutputAsync(
-            string filename, 
+            string filename,
             string arguments = "",
-            Encoding? encoding = null, 
+            Encoding? encoding = null,
             CancellationToken cancellationToken = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, null, encoding, cancellationToken).ConfigureAwait(false);
@@ -101,7 +101,7 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">filename.</exception>
         public static Task<ProcessResult> GetProcessResultAsync(
-            string filename, 
+            string filename,
             string arguments = "",
             CancellationToken cancellationToken = default) =>
             GetProcessResultAsync(filename, arguments, null, Definitions.CurrentAnsiEncoding, cancellationToken);
@@ -144,10 +144,10 @@
         /// }
         /// </code></example>
         public static async Task<ProcessResult> GetProcessResultAsync(
-            string filename, 
+            string filename,
             string arguments,
-            string? workingDirectory, 
-            Encoding? encoding = null, 
+            string? workingDirectory,
+            Encoding? encoding = null,
             CancellationToken cancellationToken = default)
         {
             if (filename == null)
@@ -234,16 +234,16 @@
                 // Launch the asynchronous stream reading tasks
                 var readTasks = new Task[2];
                 readTasks[0] = CopyStreamAsync(
-                    process, 
-                    process.StandardOutput.BaseStream, 
-                    onOutputData, 
+                    process,
+                    process.StandardOutput.BaseStream,
+                    onOutputData,
                     syncEvents,
                     cancellationToken);
                 readTasks[1] = CopyStreamAsync(
-                    process, 
-                    process.StandardError.BaseStream, 
-                    onErrorData, 
-                    syncEvents, 
+                    process,
+                    process.StandardError.BaseStream,
+                    onErrorData,
+                    syncEvents,
                     cancellationToken);
 
                 try
@@ -332,20 +332,20 @@
         /// </code>
         /// </example>
         public static Task<int> RunProcessAsync(
-            string filename, 
+            string filename,
             string arguments,
-            ProcessDataReceivedCallback onOutputData, 
-            ProcessDataReceivedCallback onErrorData, 
+            ProcessDataReceivedCallback onOutputData,
+            ProcessDataReceivedCallback onErrorData,
             bool syncEvents = true,
             CancellationToken cancellationToken = default)
             => RunProcessAsync(
-                filename, 
-                arguments, 
-                null, 
-                onOutputData, 
-                onErrorData, 
+                filename,
+                arguments,
+                null,
+                onOutputData,
+                onErrorData,
                 Definitions.CurrentAnsiEncoding,
-                syncEvents, 
+                syncEvents,
                 cancellationToken);
 
         /// <summary>
@@ -387,7 +387,7 @@
 
                                     if (readCount > 0)
                                     {
-                                        totalCount += (ulong) readCount;
+                                        totalCount += (ulong)readCount;
                                         onDataCallback?.Invoke(swapBuffer.Skip(0).Take(readCount).ToArray(), process);
                                     }
                                     else
@@ -416,7 +416,7 @@
                             continue;
                         }
 
-                        totalCount += (ulong) readCount;
+                        totalCount += (ulong)readCount;
                         if (onDataCallback == null) continue;
 
                         // Create the buffer to pass to the callback

@@ -23,7 +23,7 @@ namespace Swan
 #pragma warning disable SA1642 // Constructor summary documentation should begin with standard text - the <para> tag confuses the analyzer.
         /// <summary>
         /// <para>Initializes a new instance of the <see cref="InternalErrorException"/> class.</para>
-        /// <para>Do not call this constrcutor directly; use the methods of the <see cref="SelfCheck"/> class instead.</para>
+        /// <para>Do not call this constructor directly; use the methods of the <see cref="SelfCheck"/> class instead.</para>
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
 #pragma warning disable SA1642

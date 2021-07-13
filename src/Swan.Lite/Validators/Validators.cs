@@ -35,9 +35,9 @@ namespace Swan.Validators
             if (Equals(value, default(T)))
                 return false;
 
-            return !(value is string)
-                ? throw new ArgumentException("Property is not a string")
-                : Regex.IsMatch(value.ToString(), Expression);
+            return value is string
+                ? Regex.IsMatch(value.ToString(), Expression)
+                : throw new ArgumentException("Property is not a string");
         }
     }
 

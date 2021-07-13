@@ -1,11 +1,11 @@
-﻿namespace Swan.Test.JsonTests
-{
-    using Formatters;
-    using Mocks;
-    using NUnit.Framework;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using NUnit.Framework;
+using Swan.Formatters;
+using Swan.Test.Mocks;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.Test.JsonTests
+{
     public abstract class JsonTest : TestFixtureBase
     {
         protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
@@ -27,20 +27,20 @@
 
         protected string BasicAStr => "[\"A\",\"B\",\"C\"]";
 
-        protected int[] NumericArray => new[] {1, 2, 3};
+        protected int[] NumericArray => new[] { 1, 2, 3 };
 
         protected string NumericAStr => "[1,2,3]";
 
         protected BasicArrayJson BasicAObj => new()
         {
             Id = 1,
-            Properties = new[] {"One", "Two", "Babu"},
+            Properties = new[] { "One", "Two", "Babu" },
         };
 
         protected AdvArrayJson AdvAObj => new()
         {
             Id = 1,
-            Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()},
+            Properties = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() },
         };
 
         protected string BasicAObjStr => "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
@@ -107,7 +107,7 @@
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.InnerChild);
 
-            foreach (var obj in new[] {data, data.InnerChild})
+            foreach (var obj in new[] { data, data.InnerChild })
             {
                 Assert.AreEqual(obj.StringData, AdvObj.StringData);
                 Assert.AreEqual(obj.IntData, AdvObj.IntData);
@@ -168,7 +168,7 @@
         [Test]
         public void WithJsonProperty_ReturnsPropertiesDeserialized()
         {
-            var obj = new JsonPropertySample {Data = "OK", IgnoredData = "OK"};
+            var obj = new JsonPropertySample { Data = "OK", IgnoredData = "OK" };
             var data = Json.Serialize(obj);
 
             Assert.AreEqual("{\"data\": \"OK\"}", data);

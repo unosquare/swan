@@ -1,16 +1,16 @@
-﻿namespace Swan.Net.Dns
-{
-    using Formatters;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Runtime.InteropServices;
-    using System.Text;
+﻿using Swan.Formatters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// DnsClient Request inner class.
     /// </summary>
@@ -84,7 +84,7 @@
                 }
                 catch (Exception e)
                 {
-                    if (e is ArgumentException || e is SocketException)
+                    if (e is ArgumentException or SocketException)
                         throw new DnsQueryException("Invalid response", e);
 
                     throw;

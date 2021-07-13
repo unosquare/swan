@@ -16,8 +16,8 @@ namespace Swan.Test
             [TestCase("45-9B-B4-0F-7B-36-1B-90-41-4A-72-D4-0B-5A-0E-D5", 53454)]
             public void WithValidStream_ReturnsMD5(string expected, int stream)
             {
-                using (var input = new MemoryStream(new byte[stream]))
-                    Assert.AreEqual(expected, Hasher.ComputeMD5(input).ToDashedHex());
+                using var input = new MemoryStream(new byte[stream]);
+                Assert.AreEqual(expected, Hasher.ComputeMD5(input).ToDashedHex());
             }
 
             [TestCase("50-82-83-2F-01-E0-EB-94-30-C9-DB-6E-AE-FE-BC-72", "Illidan")]

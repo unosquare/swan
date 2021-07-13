@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Swan.Configuration;
+using Swan.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using Swan.Configuration;
-using Swan.Logging;
 
 namespace Swan.Threading
 {
@@ -144,7 +144,7 @@ namespace Swan.Threading
             _workFinished?.Dispose();
             _workFinished = null;
         }
-        
+
         /// <inheritdoc/>
         public void Dispose()
         {

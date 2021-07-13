@@ -1,11 +1,11 @@
-﻿namespace Swan.Net.Smtp
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
+namespace Swan.Net.Smtp
+{
     /// <summary>
     /// Represents an SMTP server response object.
     /// </summary>
@@ -25,7 +25,7 @@
             ReplyCode = responseCode;
             EnhancedStatusCode = statusCode;
             Content.AddRange(content);
-            IsValid = responseCode >= 200 && responseCode < 600;
+            IsValid = responseCode is >= 200 and < 600;
             ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
             ReplyCodeCategory = SmtpReplyCodeCategories.Unknown;
 
@@ -39,7 +39,7 @@
             if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out var middleDigit))
             {
                 if (middleDigit >= 0 && middleDigit <= 5)
-                    ReplyCodeCategory = (SmtpReplyCodeCategories) middleDigit;
+                    ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
             }
         }
 
@@ -59,7 +59,7 @@
         /// <param name="statusCode">The status code.</param>
         /// <param name="content">The content.</param>
         public SmtpServerReply(int responseCode, string statusCode, string content)
-            : this(responseCode, statusCode, new[] {content})
+            : this(responseCode, statusCode, new[] { content })
         {
         }
 
@@ -168,7 +168,7 @@
         /// <summary>
         /// Gets a value indicating whether this instance is positive.
         /// </summary>
-        public bool IsPositive => ReplyCode >= 200 && ReplyCode <= 399;
+        public bool IsPositive => ReplyCode is >= 200 and <= 399;
 
         #endregion
 
@@ -179,14 +179,15 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns>A new instance of SMTP server response object.</returns>
-        public static SmtpServerReply Parse(string text)
+        public static SmtpServerReply Parse(string? text)
         {
-            var lines = text?.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            var lines = text?.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (lines == null || lines.Length == 0) return new SmtpServerReply();
 
-            var lastLineParts = lines.Last().Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var lastLineParts = lines.Last().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var enhancedStatusCode = string.Empty;
             int.TryParse(lastLineParts[0], out var responseCode);
+
             if (lastLineParts.Length > 1)
             {
                 if (lastLineParts[1].Split('.').Length == 3)
@@ -199,7 +200,7 @@
             {
                 var splitChar = i == lines.Length - 1 ? " " : "-";
 
-                var lineParts = lines[i].Split(new[] {splitChar}, 2, StringSplitOptions.None);
+                var lineParts = lines[i].Split(new[] { splitChar }, 2, StringSplitOptions.None);
                 var lineContent = lineParts.Last();
                 if (string.IsNullOrWhiteSpace(enhancedStatusCode) == false)
                     lineContent = lineContent.Replace(enhancedStatusCode, string.Empty).Trim();

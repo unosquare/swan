@@ -1,11 +1,11 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
-    using Threading;
-    using System;
-    using System.Threading.Tasks;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using Swan.Threading;
+using System;
+using System.Threading.Tasks;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class AppWorkerBaseTest
     {
@@ -44,7 +44,7 @@
 
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(2));
-            
+
             Assert.AreEqual(WorkerState.Waiting, mock.WorkerState);
             Assert.IsFalse(mock.ExitBecauseCancellation, "The AppWorker doesn't exit because cancellation");
             Assert.IsNotNull(mock.Exception, "The AppWorker had an exception");

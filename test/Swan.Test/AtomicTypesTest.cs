@@ -1,10 +1,10 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
-    using System;
-    using System.Threading.Tasks;
-    using Threading;
+﻿using NUnit.Framework;
+using Swan.Threading;
+using System;
+using System.Threading.Tasks;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class AtomicTypeTest
     {
@@ -108,7 +108,7 @@
                 Task.Run(ExchangeTask),
                 Task.Run(ExchangeTask));
 
-            Assert.GreaterOrEqual(2, (int) atomic.Value);
+            Assert.GreaterOrEqual(2, (int)atomic.Value);
         }
 
         [Test]

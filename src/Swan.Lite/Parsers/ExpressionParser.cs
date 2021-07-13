@@ -28,7 +28,7 @@ namespace Swan.Parsers
         /// <returns>The representation of the expression parsed.</returns>
         public virtual T ResolveExpression<T>(IEnumerable<Token> tokens, IFormatProvider formatProvider)
         {
-            var conversion = Expression.Convert(Parse(tokens,formatProvider), typeof(T));
+            var conversion = Expression.Convert(Parse(tokens, formatProvider), typeof(T));
             return Expression.Lambda<Func<T>>(conversion).Compile()();
         }
 

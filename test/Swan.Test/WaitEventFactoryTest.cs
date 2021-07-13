@@ -1,14 +1,14 @@
-﻿namespace Swan.Test
-{
-    using NUnit.Framework;
-    using Threading;
+﻿using NUnit.Framework;
+using Swan.Threading;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class WaitEvent
     {
         [Test]
-        [TestCase(true,true)]
-        [TestCase(true,false)]
+        [TestCase(true, true)]
+        [TestCase(true, false)]
         public void NormalCycle(bool initialValue, bool useSlim)
         {
             var wait = WaitEventFactory.Create(initialValue, useSlim);

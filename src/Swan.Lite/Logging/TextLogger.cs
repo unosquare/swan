@@ -25,7 +25,7 @@ namespace Swan.Logging
         /// </returns>
         protected (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)
         {
-            var (prefix , color) = GetConsoleColorAndPrefix(logEvent.MessageType);
+            var (prefix, color) = GetConsoleColorAndPrefix(logEvent.MessageType);
 
             var loggerMessage = string.IsNullOrWhiteSpace(logEvent.Message)
                 ? string.Empty

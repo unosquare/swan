@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Linq;
 using System.Reflection;
-using Swan.Reflection;
 
 namespace Swan.Parsers
 {
@@ -12,18 +12,13 @@ namespace Swan.Parsers
     {
         private sealed class TypeResolver<T>
         {
-            private bool _hasVerb;
-
             private readonly string _selectedVerb;
 
             private PropertyInfo[]? _properties;
 
-            public TypeResolver(string selectedVerb)
-            {
-                _selectedVerb = selectedVerb;
-            }
+            public TypeResolver(string selectedVerb) => _selectedVerb = selectedVerb;
 
-            public bool HasVerb { get; }
+            public bool HasVerb { get; private set; }
 
             public PropertyInfo[]? Properties => _properties?.Any() == true ? _properties : null;
 
@@ -34,7 +29,7 @@ namespace Swan.Parsers
                 if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                     return instance;
 
-                _hasVerb = true;
+                HasVerb = true;
 
                 var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
                     ? null

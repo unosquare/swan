@@ -20,7 +20,7 @@ namespace Swan.Mappers
             DestinationType = typeof(TDestination);
             Map = intersect.ToDictionary(
                 property => DestinationType.GetProperty(property.Name),
-                property => new List<PropertyInfo> {SourceType.GetProperty(property.Name)});
+                property => new List<PropertyInfo> { SourceType.GetProperty(property.Name) });
         }
 
         /// <inheritdoc/>
@@ -96,7 +96,7 @@ namespace Swan.Mappers
 
             return this;
         }
-        
+
         private static List<PropertyInfo> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
             if (sourceProperty == null)

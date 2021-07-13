@@ -1,9 +1,9 @@
-﻿namespace Swan.DependencyInjection
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.DependencyInjection
+{
     /// <summary>
     /// Registration options for "fluent" API.
     /// </summary>

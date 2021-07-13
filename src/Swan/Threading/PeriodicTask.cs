@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Swan.Logging;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Swan.Logging;
 
 namespace Swan.Threading
 {

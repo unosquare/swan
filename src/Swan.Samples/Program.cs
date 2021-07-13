@@ -1,16 +1,16 @@
-﻿namespace Swan.Samples
-{
-    using DependencyInjection;
-    using Formatters;
-    using Logging;
-    using Net;
-    using Net.Dns;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using Swan.DependencyInjection;
+using Swan.Formatters;
+using Swan.Logging;
+using Swan.Net;
+using Swan.Net.Dns;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace Swan.Samples
+{
     public static partial class Program
     {
         /// <summary>
@@ -23,14 +23,14 @@
             TestJson();
             TestApplicationInfo();
             await TestTerminalOutputs();
-			try
-			{
-				await TestNetworkUtilities();
-			}
-			catch (System.Net.Http.HttpRequestException x)
-			{
-				Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
-			}
+            try
+            {
+                await TestNetworkUtilities();
+            }
+            catch (System.Net.Http.HttpRequestException x)
+            {
+                Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
+            }
             TestContainerAndMessageHub();
             TestExceptionLogging();
 
@@ -56,14 +56,14 @@
         private static void TestApplicationInfo()
         {
             Terminal.WriteWelcomeBanner();
-            $"Operating System Type: {SwanRuntime.OS}    CLR Type: {(SwanRuntime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
+            $"Operating System Type: {Environment.OSVersion}    CLR Type: {(SwanRuntime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {SwanRuntime.LocalStoragePath}".Info();
         }
 
         private static void TestJson()
         {
             var instance = new SampleCopyTarget
-                {AlternateId = 10, CreationDate = new DateTime(2010, 1, 1), Id = 1, Score = "A"};
+            { AlternateId = 10, CreationDate = new DateTime(2010, 1, 1), Id = 1, Score = "A" };
 
             var payload = Json.Serialize(instance, JsonSerializerCase.CamelCase, true);
 
@@ -97,7 +97,7 @@
             var dnsLookup = await Network.GetDnsHostEntryAsync(domainName);
             var ptrRecord = await Network.GetDnsPointerEntryAsync(publicIP);
             var mxRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.MX);
-            var txtRecords =await  Network.QueryDnsAsync("unosquare.com", DnsRecordType.TXT);
+            var txtRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.TXT);
             var ntpTime = await Network.GetNetworkTimeUtcAsync(ntpServer);
 
             $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
@@ -170,10 +170,10 @@
 
             // The simplest way of writing a line of text:
             Terminal.WriteLine($"Hello, today is {DateTime.Today}");
-            
+
             // Now, add some color:
             Terminal.WriteLine($"Hello, today is {DateTime.Today}", ConsoleColor.Green);
-            
+
             if (Terminal.ReadKey("Press a key to test menu options. (X) will exit.").Key == ConsoleKey.X) return;
             Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
 

@@ -1,12 +1,12 @@
-﻿namespace Swan.Test.DependencyContainerTest
-{
-    using DependencyInjection;
-    using Mocks;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using NUnit.Framework;
+using Swan.DependencyInjection;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Swan.Test.DependencyContainerTest
+{
     [TestFixture]
     public class AutoRegister
     {
@@ -167,7 +167,7 @@
         {
             var container = new DependencyContainer();
 
-            Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Fish)}));
+            Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Fish) }));
         }
 
         [Test]
@@ -176,7 +176,7 @@
             var container = new DependencyContainer();
 
             Assert.IsNotNull(
-                container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Fish)}).AsMultiInstance());
+                container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Fish) }).AsMultiInstance());
         }
 
         [Test]
@@ -184,7 +184,7 @@
         {
             var container = new DependencyContainer();
 
-            Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Fish)}).AsSingleton());
+            Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Fish) }).AsSingleton());
         }
 
         [Test]
@@ -203,7 +203,7 @@
             Assert.Throws<ArgumentException>(() =>
             {
                 var container = new DependencyContainer();
-                container.RegisterMultiple<IAnimal>(new[] {typeof(TheOnlyCar), typeof(Fish)});
+                container.RegisterMultiple<IAnimal>(new[] { typeof(TheOnlyCar), typeof(Fish) });
             });
         }
 
@@ -213,7 +213,7 @@
             Assert.Throws<ArgumentException>(() =>
             {
                 var container = new DependencyContainer();
-                container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Monkey)});
+                container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Monkey) });
             });
         }
     }
@@ -229,7 +229,7 @@
 
             Assert.AreEqual(expected, container.TryResolve(resolveType, out _));
         }
-        
+
         [TestCase(typeof(Shark), "", true)]
         [TestCase(typeof(Shark), "Mario", false)]
         [TestCase(typeof(IAnimal), "", false)]
@@ -240,7 +240,7 @@
 
             Assert.AreEqual(expected, container.TryResolve(resolveType, name, out _));
         }
-        
+
         [TestCase(typeof(Shark), true)]
         [TestCase(typeof(IAnimal), false)]
         public void WithObject_ResolveType(Type resolveType, bool expected)
@@ -265,7 +265,7 @@
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, out _));
         }
-        
+
         [TestCase(typeof(Shark), true)]
         [TestCase(typeof(IAnimal), false)]
         public void WithObjectAndResolveOptions_ResolveType(Type resolveType, bool expected)
@@ -470,7 +470,7 @@
                 container.Register<IAnimal, Human>(instance).WithWeakReference();
             }
 
-            var containerInstance = (Human) container.Resolve<IAnimal>();
+            var containerInstance = (Human)container.Resolve<IAnimal>();
             Assert.IsTrue(containerInstance.IsDisposed);
         }
 
@@ -492,7 +492,7 @@
                 container.Register<IAnimal>(instance).WithStrongReference();
             }
 
-            var containerInstance = (Human) container.Resolve<IAnimal>();
+            var containerInstance = (Human)container.Resolve<IAnimal>();
             Assert.IsTrue(containerInstance.IsDisposed);
         }
 
@@ -570,7 +570,7 @@
             {
                 var container = new DependencyContainer();
 
-                container.Register((Func<DependencyContainer, Dictionary<string, object>, IAnimal>) null);
+                container.Register((Func<DependencyContainer, Dictionary<string, object>, IAnimal>)null);
             });
         }
 
@@ -655,7 +655,7 @@
 
             Assert.AreEqual(typeof(StringEnumerable), container.Resolve<IEnumerable<string>>().GetType());
         }
-        
+
         [Test]
         public void WithoutRegister_FailResolveContainer()
         {

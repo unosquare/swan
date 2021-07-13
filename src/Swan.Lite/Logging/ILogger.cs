@@ -1,7 +1,7 @@
-﻿namespace Swan.Logging
-{
-    using System;
+﻿using System;
 
+namespace Swan.Logging
+{
     /// <summary>
     /// Interface for a logger implementation.
     /// </summary>
@@ -14,7 +14,7 @@
         /// The log level.
         /// </value>
         LogLevel LogLevel { get; }
-        
+
         /// <summary>
         /// Logs the specified log event.
         /// </summary>

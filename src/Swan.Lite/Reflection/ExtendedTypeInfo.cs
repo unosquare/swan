@@ -17,8 +17,8 @@ namespace Swan.Reflection
     {
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(ToString);
-        
-        private static readonly Type[] NumericTypes = 
+
+        private static readonly Type[] NumericTypes =
         {
             typeof(byte),
             typeof(sbyte),
@@ -203,7 +203,7 @@ namespace Swan.Reflection
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
 
-                if ((bool) (TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
+                if ((bool)(TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
                 {
                     result = parseArguments[^1];
                     return true;
@@ -231,7 +231,7 @@ namespace Swan.Reflection
 
             return _toStringArgumentLength != 1
                 ? instance.ToString()
-                : ToStringMethodInfo.Invoke(instance, new object[] {CultureInfo.InvariantCulture}) as string ?? string.Empty;
+                : ToStringMethodInfo.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty;
         }
 
         #endregion
@@ -254,7 +254,7 @@ namespace Swan.Reflection
         {
             // placeholder
         }
-        
+
         /// <summary>
         /// Converts this instance to its string representation,
         /// trying to use the CultureInfo.InvariantCulture

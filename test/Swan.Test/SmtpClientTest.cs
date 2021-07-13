@@ -1,16 +1,16 @@
-﻿namespace Swan.Test.SmtpTests
-{
-    using Formatters;
-    using Mocks;
-    using Swan.Net.Smtp;
-    using NUnit.Framework;
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using Swan.Formatters;
+using Swan.Net.Smtp;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Test.SmtpTests
+{
     public class SmtpClientTest
     {
         public const string SenderEmail = "test@test.com";
@@ -101,7 +101,7 @@
 
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
-            
+
             Assert.AreEqual(SenderEmail, smtpMock.Envelope.MailFrom.Address);
             Assert.AreEqual(RecipientEmail, smtpMock.Envelope.RcptTo.First().Address);
         }

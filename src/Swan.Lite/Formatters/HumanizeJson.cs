@@ -25,13 +25,11 @@ namespace Swan.Formatters
         private void ParseObject()
         {
             if (_obj == null)
-            {
                 return;
-            }
 
             switch (_obj)
             {
-                case Dictionary<string, object> dictionary:
+                case Dictionary<string, object?> dictionary:
                     AppendDictionary(dictionary);
                     break;
                 case List<object> list:
@@ -43,22 +41,22 @@ namespace Swan.Formatters
             }
         }
 
-        private void AppendDictionary(Dictionary<string, object> objects)
+        private void AppendDictionary(Dictionary<string, object?> objects)
         {
-            foreach (var kvp in objects)
+            foreach ((var key, object? value) in objects)
             {
-                if (kvp.Value == null) continue;
+                if (value == null) continue;
 
                 var writeOutput = false;
 
-                switch (kvp.Value)
+                switch (value)
                 {
                     case Dictionary<string, object> valueDictionary:
                         if (valueDictionary.Count > 0)
                         {
                             writeOutput = true;
                             _builder
-                                .Append($"{_indentStr}{kvp.Key,-16}: object")
+                                .Append($"{_indentStr}{key,-16}: object")
                                 .AppendLine();
                         }
 
@@ -68,19 +66,19 @@ namespace Swan.Formatters
                         {
                             writeOutput = true;
                             _builder
-                                .Append($"{_indentStr}{kvp.Key,-16}: array[{valueList.Count}]")
+                                .Append($"{_indentStr}{key,-16}: array[{valueList.Count}]")
                                 .AppendLine();
                         }
 
                         break;
                     default:
                         writeOutput = true;
-                        _builder.Append($"{_indentStr}{kvp.Key,-16}: ");
+                        _builder.Append($"{_indentStr}{key,-16}: ");
                         break;
                 }
 
                 if (writeOutput)
-                    _builder.AppendLine(new HumanizeJson(kvp.Value, _indent + 1).GetResult());
+                    _builder.AppendLine(new HumanizeJson(value, _indent + 1).GetResult());
             }
         }
 
@@ -139,9 +137,7 @@ namespace Swan.Formatters
             var stringLines = stringValue.ToLines().Select(l => l.Trim());
 
             foreach (var line in stringLines)
-            {
                 _builder.AppendLine($"{_indentStr}{line}");
-            }
         }
     }
 }

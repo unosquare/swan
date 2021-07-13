@@ -1,11 +1,11 @@
-﻿namespace Swan.Test.ObjectComparerTests
-{
-    using Validators;
-    using Mocks;
-    using NUnit.Framework;
-    using System;
-    using System.Linq;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using Swan.Validators;
+using System;
+using System.Linq;
 
+namespace Swan.Test.ObjectComparerTests
+{
     [TestFixture]
     public class ObjectValidatorInstance
     {
@@ -48,7 +48,7 @@
         public void IsValidObject_ReturnsTrue()
         {
             var obj = new ObjectValidator();
-            Assert.IsTrue(obj.IsValid(new RangeMock {Age = 3, Kilograms = 1}));
+            Assert.IsTrue(obj.IsValid(new RangeMock { Age = 3, Kilograms = 1 }));
         }
     }
 
@@ -65,7 +65,7 @@
 
     [TestFixture]
     public class NotNullAttribute
-    {        
+    {
         [Test]
         public void NullProperty_ReturnsErrors()
         {

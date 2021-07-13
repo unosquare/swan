@@ -1,10 +1,10 @@
-﻿namespace Swan.Threading
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Swan.Threading
 {
-    using System;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
-    
     /// <summary>
     /// Represents logic providing several delay mechanisms.
     /// </summary>
@@ -126,7 +126,7 @@
             _delayEvent ??= WaitEventFactory.Create(isCompleted: true, useSlim: true);
 
             _delayEvent.Begin();
-            ThreadPool.QueueUserWorkItem(s =>
+            ThreadPool.QueueUserWorkItem(_ =>
             {
                 DelaySleep();
                 _delayEvent.Complete();
@@ -134,7 +134,7 @@
 
             _delayEvent.Wait();
         }
-      
+
         #endregion
     }
 }

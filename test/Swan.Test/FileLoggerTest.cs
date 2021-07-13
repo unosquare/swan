@@ -1,10 +1,10 @@
-﻿namespace Swan.Test
-{
-    using Logging;
-    using NUnit.Framework;
-    using System.Threading.Tasks;
-    using System.IO;
+﻿using NUnit.Framework;
+using Swan.Logging;
+using System.IO;
+using System.Threading.Tasks;
 
+namespace Swan.Test
+{
     [TestFixture]
     public class FileLoggerTest
     {
@@ -16,7 +16,7 @@
             "Test".Info();
             await Task.Delay(1);
             Logger.UnregisterLogger(instance);
-            
+
             Assert.IsTrue(File.Exists(instance.FilePath));
         }
 

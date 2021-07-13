@@ -1,12 +1,12 @@
-﻿namespace Swan.Test.ExtensionsByteArraysTest
-{
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Mocks;
+﻿using NUnit.Framework;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
+namespace Swan.Test.ExtensionsByteArraysTest
+{
     public abstract class ExtensionsByteArraysTest : TestFixtureBase
     {
         protected const int Value = 123456789;
@@ -85,7 +85,7 @@
         [Test]
         public void WithValidBytes_ReturnsSplitedString()
         {
-            var expected = new List<byte[]> {new byte[] {91, 7}};
+            var expected = new List<byte[]> { new byte[] { 91, 7 } };
             var sequence = BitConverter.GetBytes(456);
 
             Assert.AreEqual(expected, Bytes.Split(2, sequence), "Get Split value");
@@ -94,7 +94,7 @@
         [Test]
         public void WithSequenceEqualsBytes_ReturnsSplitedString()
         {
-            var expected = new List<byte[]> {new byte[] {21, 205, 91, 7}};
+            var expected = new List<byte[]> { new byte[] { 21, 205, 91, 7 } };
             var sequence = BitConverter.GetBytes(123456789);
 
             Assert.AreEqual(expected, Bytes.Split(0, sequence), "Get Split value");
@@ -175,7 +175,7 @@
         [Test]
         public void WithValidBytes_ReturnsTrimValue()
         {
-            Assert.AreEqual(new byte[] {21, 205, 91, 7}, Bytes.Trim(205), "Get Trim value");
+            Assert.AreEqual(new byte[] { 21, 205, 91, 7 }, Bytes.Trim(205), "Get Trim value");
         }
     }
 
@@ -185,7 +185,7 @@
         [Test]
         public void WithValidBytes_ReturnsTrimStartValue()
         {
-            Assert.AreEqual(new byte[] {205, 91, 7}, Bytes.TrimStart(21), "Get TrimStart value");
+            Assert.AreEqual(new byte[] { 205, 91, 7 }, Bytes.TrimStart(21), "Get TrimStart value");
         }
 
         [Test]
@@ -202,7 +202,7 @@
         [Test]
         public void WithValidBytes_ReturnsTrimEndValue()
         {
-            Assert.AreEqual(new byte[] {21, 205, 91}, Bytes.TrimEnd(7), "Get TrimEnd value");
+            Assert.AreEqual(new byte[] { 21, 205, 91 }, Bytes.TrimEnd(7), "Get TrimEnd value");
         }
 
         [Test]
@@ -285,20 +285,16 @@
         [Test]
         public void WithValidBytes_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                stream.Append(Bytes);
-                Assert.AreEqual(Bytes.Length, stream.Length, "Get Append value");
-            }
+            using var stream = new MemoryStream(10);
+            stream.Append(Bytes);
+            Assert.AreEqual(Bytes.Length, stream.Length, "Get Append value");
         }
 
         [Test]
         public void WithNullBuffer_ThrowsArgumentNullException()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
 
         [Test]
@@ -313,30 +309,24 @@
         {
             IEnumerable<byte> enumerableByte = BitConverter.GetBytes(Value);
 
-            using (var stream = new MemoryStream(10))
-            {
-                stream.Append(enumerableByte);
+            using var stream = new MemoryStream(10);
+            stream.Append(enumerableByte);
 
-                Assert.AreEqual(4, stream.Length, "Get Append value");
-            }
+            Assert.AreEqual(4, stream.Length, "Get Append value");
         }
 
         [Test]
         public void WithNullIEnumerable_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
 
         [Test]
         public void WithValidIEnumerableArray_AppendBytes()
         {
-            using (var stream = new MemoryStream(10))
-            {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
-            }
+            using var stream = new MemoryStream(10);
+            Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
         }
     }
 
@@ -369,7 +359,7 @@
             var buffer = File.ReadAllBytes(sampleFile);
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
 
-            var bufferAsync = await currentAssembly.ReadBytesAsync((int) currentAssembly.Length);
+            var bufferAsync = await currentAssembly.ReadBytesAsync((int)currentAssembly.Length);
 
             Assert.AreEqual(buffer, bufferAsync);
         }

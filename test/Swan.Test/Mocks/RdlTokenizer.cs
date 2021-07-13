@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.Mocks
-{
-    using System.Linq;
-    using Parsers;
+﻿using Swan.Parsers;
+using System.Linq;
 
+namespace Swan.Test.Mocks
+{
     public class RdlTokenizer : Tokenizer
     {
         private const char OpenExpressionChar = '=';

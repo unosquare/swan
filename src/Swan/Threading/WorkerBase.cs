@@ -1,11 +1,11 @@
-﻿namespace Swan.Threading
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Swan.Threading
+{
     /// <summary>
     /// Provides base infrastructure for Timer and Thread workers.
     /// </summary>

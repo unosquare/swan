@@ -1,7 +1,7 @@
-﻿namespace Swan.Test.Mocks
-{
-    using Validators;
+﻿using Swan.Validators;
 
+namespace Swan.Test.Mocks
+{
     public class SimpleValidationMock
     {
         public string Name { get; set; }
@@ -25,7 +25,7 @@
 
     public class InvalidRangeMock
     {
-        [Range(1,10)]
+        [Range(1, 10)]
         public string Invalid { get; set; }
     }
 

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Swan.Threading;
+using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
-using Swan.Threading;
 
 namespace Swan
 {
@@ -181,7 +181,7 @@ namespace Swan
             timeout ??= TimeSpan.Zero;
             var startTime = DateTime.UtcNow;
 
-            while (OutputQueue.Count > 0)
+            while (!OutputQueue.IsEmpty)
             {
                 // Manually trigger a timer cycle to run immediately
                 DequeueOutputTimer.Change(0, OutputFlushInterval);
@@ -274,7 +274,7 @@ namespace Swan
 
             InputDone.Wait();
 
-            if (OutputQueue.Count <= 0)
+            if (OutputQueue.IsEmpty)
             {
                 OutputDone.Set();
                 return;
@@ -282,7 +282,7 @@ namespace Swan
 
             OutputDone.Reset();
 
-            while (OutputQueue.Count > 0)
+            while (!OutputQueue.IsEmpty)
             {
                 if (!OutputQueue.TryDequeue(out var context)) continue;
 

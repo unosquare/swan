@@ -1,11 +1,11 @@
-﻿namespace Swan.Net.Dns
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
+namespace Swan.Net.Dns
+{
     /// <summary>
     /// DnsClient public methods.
     /// </summary>
@@ -58,7 +58,7 @@
 
             return ptr == null
                 ? throw new DnsQueryException(response, "No matching records")
-                : ((DnsPointerResourceRecord) ptr).PointerDomainName.ToString();
+                : ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
         public Task<DnsClientResponse> Resolve(string domain, DnsRecordType type) =>

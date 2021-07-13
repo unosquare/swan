@@ -1,14 +1,14 @@
-﻿namespace Swan.Test.CsvWriterTest
-{
-    using Formatters;
-    using Mocks;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
+﻿using NUnit.Framework;
+using Swan.Formatters;
+using Swan.Test.Mocks;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
+namespace Swan.Test.CsvWriterTest
+{
     public abstract class CsvWriterTest : TestFixtureBase
     {
         protected const int TotalRows = 100;
@@ -293,7 +293,7 @@
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream) {SeparatorCharacter = '#'};
+            using var writer = new CsvWriter(stream) { SeparatorCharacter = '#' };
 
             writer.WriteHeadings(objHeaders);
 
