@@ -247,7 +247,6 @@ dotnet_naming_rule.public_members_must_be_capitalized.severity = suggestion
 dotnet_style_null_propagation=true:error
 
 dotnet_diagnostic.IDE0051.severity = error
-dotnet_diagnostic.IDE0055.severity = error
 dotnet_diagnostic.CA1819.severity=suggestion
 dotnet_diagnostic.CA1836.severity=error
 
