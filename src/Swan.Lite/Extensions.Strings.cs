@@ -34,8 +34,8 @@ namespace Swan
             return x[0] + " " + x.Substring(1, x.Length - 1);
         });
 
-        private static readonly Lazy<string[]> InvalidFilenameChars =
-            new(() => Path.GetInvalidFileNameChars().Select(c => c.ToStringInvariant()).ToArray());
+        private static readonly Lazy<char[]> InvalidFilenameChars =
+            new(() => Path.GetInvalidFileNameChars().ToArray());
 
         #endregion
 
@@ -51,14 +51,15 @@ namespace Swan
             if (@this == null)
                 return string.Empty;
 
+            if (@this is string stringValue)
+                return stringValue;
+
             var itemType = @this.GetType();
 
-            if (itemType == typeof(string))
-                return @this as string ?? string.Empty;
+            if (Definitions.BasicTypesInfo.Value.TryGetValue(itemType, out var info))
+                return info.ToStringInvariant(@this);
 
-            return Definitions.BasicTypesInfo.Value.ContainsKey(itemType)
-                ? Definitions.BasicTypesInfo.Value[itemType].ToStringInvariant(@this)
-                : @this.ToString();
+            return @this.ToString() ?? string.Empty;
         }
 
         /// <summary>
@@ -288,8 +289,31 @@ namespace Swan
             value == null
                 ? throw new ArgumentNullException(nameof(value))
                 : InvalidFilenameChars.Value
-                    .Aggregate(value, (current, c) => current.Replace(c, string.Empty))
+                    .Aggregate(value, (current, c) => current.RemoveChar(c))
                     .Slice(0, 220);
+
+        /// <summary>
+        /// Removes all instances of the given character from a string.
+        /// </summary>
+        /// <param name="value">The string to be searched.</param>
+        /// <param name="find">The character to be removed.</param>
+        /// <returns>The newly-formed string without the given char.</returns>
+        public static string RemoveChar(this string? value, char find)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            var builder = new StringBuilder(value.Length);
+            foreach (var c in value)
+            {
+                if (c == find)
+                    continue;
+
+                builder.Append(c);
+            }
+
+            return builder.ToString();
+        }
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -378,7 +402,7 @@ namespace Swan
         /// <param name="chars">The chars.</param>
         /// <returns>The string with the characters replaced.</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
-            chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue));
+            chars.Aggregate(value, (current, c) => current.Replace(new string(c, 1), replaceValue, StringComparison.Ordinal));
 
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something

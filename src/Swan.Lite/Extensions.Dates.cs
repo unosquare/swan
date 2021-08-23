@@ -195,16 +195,16 @@ namespace Swan
             if (string.IsNullOrWhiteSpace(parts) || parts == "*")
                 return null;
 
-            if (parts.Contains(","))
+            if (parts.Contains(",", StringComparison.Ordinal))
             {
                 return parts.Split(',').Select(int.Parse).Contains(value);
             }
 
             var stop = DateRanges[type];
 
-            if (parts.Contains("/"))
+            if (parts.Contains("/", StringComparison.Ordinal))
             {
-                var multiple = int.Parse(parts.Split('/').Last());
+                var multiple = int.Parse(parts.Split('/').Last(), CultureInfo.InvariantCulture);
                 var start = type is "dayOfMonth" or "month" ? 1 : 0;
 
                 for (var i = start; i <= stop; i += multiple)
@@ -213,11 +213,11 @@ namespace Swan
                 return false;
             }
 
-            if (parts.Contains("-"))
+            if (parts.Contains("-", StringComparison.Ordinal))
             {
                 var range = parts.Split('-');
-                var start = int.Parse(range.First());
-                stop = Math.Max(stop, int.Parse(range.Last()));
+                var start = int.Parse(range.First(), CultureInfo.InvariantCulture);
+                stop = Math.Max(stop, int.Parse(range.Last(), CultureInfo.InvariantCulture));
 
                 if ((type is "dayOfMonth" or "month") && start == 0)
                     start = 1;
@@ -228,7 +228,7 @@ namespace Swan
                 return false;
             }
 
-            return int.Parse(parts) == value;
+            return int.Parse(parts, CultureInfo.InvariantCulture) == value;
         }
     }
 }

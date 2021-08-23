@@ -264,18 +264,18 @@ namespace Swan.Formatters
 
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
-                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                                     || textValue.IndexOf(EscapeCharacter) >= 0
-                                     || textValue.IndexOf('\r') >= 0
-                                     || textValue.IndexOf('\n') >= 0;
+                    needsEnclosing = textValue.Contains(SeparatorCharacter, StringComparison.Ordinal)
+                                     || textValue.Contains(EscapeCharacter, StringComparison.Ordinal)
+                                     || textValue.Contains('\r', StringComparison.Ordinal)
+                                     || textValue.Contains('\n', StringComparison.Ordinal);
 
                     // Escape the escape characters by repeating them twice for every instance
                     textValue = textValue.Replace($"{EscapeCharacter}",
-                        $"{EscapeCharacter}{EscapeCharacter}");
+                        $"{EscapeCharacter}{EscapeCharacter}", StringComparison.Ordinal);
 
                     // Enclose the text value if we need to
                     if (needsEnclosing)
-                        textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
+                        textValue = $"{EscapeCharacter}{textValue}{EscapeCharacter}";
 
                     // Get the bytes to write to the stream and write them
                     output = _encoding.GetBytes(textValue);

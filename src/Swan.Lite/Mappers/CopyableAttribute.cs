@@ -7,7 +7,7 @@ namespace Swan.Mappers
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
-    public class CopyableAttribute : Attribute
+    public sealed class CopyableAttribute : Attribute
     {
     }
 }

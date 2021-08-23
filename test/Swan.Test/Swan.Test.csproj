@@ -6,7 +6,7 @@
         <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
         <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>Unosquare.Swan.Test</AssemblyName>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 

@@ -13,7 +13,8 @@ namespace Swan
         /// The static, singleton instance reference.
         /// </summary>
         protected static readonly Lazy<T> LazyInstance = new(
-            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T,
+            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T
+                ?? throw new MissingMethodException(typeof(T).Name, ".ctor"),
             isThreadSafe: true);
 
         private bool _isDisposing; // To detect redundant calls

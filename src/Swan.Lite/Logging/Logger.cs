@@ -653,11 +653,10 @@ namespace Swan.Logging
 
             foreach (var logger in Loggers)
             {
-                Task.Run(() =>
-                {
-                    if (logger.LogLevel <= logLevel)
-                        logger.Log(eventArgs);
-                });
+                if (logLevel < logger.LogLevel)
+                    continue;
+
+                _ = Task.Run(() => logger.Log(eventArgs));
             }
         }
     }

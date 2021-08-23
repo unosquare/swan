@@ -108,10 +108,10 @@ namespace Swan.Threading
                     if (IsDisposed || _event == null)
                         return false;
 
-                    if (_event?.SafeWaitHandle?.IsClosed ?? true)
+                    if (_event.SafeWaitHandle?.IsClosed ?? true)
                         return false;
 
-                    return !(_event?.SafeWaitHandle?.IsInvalid ?? true);
+                    return !(_event.SafeWaitHandle?.IsInvalid ?? true);
                 }
             }
 

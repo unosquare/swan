@@ -139,7 +139,7 @@ namespace Swan.Net
         public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken cancellationToken = default)
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync("https://api.ipify.org", cancellationToken).ConfigureAwait(false);
+            var response = await client.GetAsync(new Uri("https://api.ipify.org"), cancellationToken).ConfigureAwait(false);
             return IPAddress.Parse(await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false));
         }
 
@@ -186,7 +186,7 @@ namespace Swan.Net
             if (fqdn == null)
                 throw new ArgumentNullException(nameof(fqdn));
 
-            if (fqdn.IndexOf(".", StringComparison.Ordinal) == -1)
+            if (!fqdn.Contains(".", StringComparison.Ordinal))
             {
                 fqdn += "." + IPGlobalProperties.GetIPGlobalProperties().DomainName;
             }
@@ -272,18 +272,26 @@ namespace Swan.Net
 
             // The UDP port number assigned to NTP is 123
             var endPoint = new IPEndPoint(ntpServerAddress, port);
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+            try
+            {
+                using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
 #if !NET461
-            await socket.ConnectAsync(endPoint).ConfigureAwait(false);
+                await socket.ConnectAsync(endPoint).ConfigureAwait(false);
 #else
-            socket.Connect(endPoint);
+                socket.Connect(endPoint);
 #endif
 
-            socket.ReceiveTimeout = 3000; // Stops code hang if NTP is blocked
-            socket.Send(ntpData);
-            socket.Receive(ntpData);
-            socket.Dispose();
+                socket.ReceiveTimeout = 3000; // Stops code hang if NTP is blocked
+                socket.Send(ntpData);
+                socket.Receive(ntpData);
+                socket.Dispose();
+            }
+            catch
+            {
+                return new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            }
 
             // Offset to get to the "Transmit Timestamp" field (time at which the reply 
             // departed the server for the client, in 64-bit timestamp format."

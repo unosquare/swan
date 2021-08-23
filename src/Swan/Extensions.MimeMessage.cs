@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 
@@ -23,7 +24,10 @@ namespace Swan
                 throw new ArgumentNullException(nameof(@this));
 
             var result = new MemoryStream();
-            var mailWriter = MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result });
+            var mailWriter = MimeMessageConstants.MailWriterConstructor.GetParameters().Length == 1
+                ? MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result })
+                : MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result, true });
+
             MimeMessageConstants.SendMethod.Invoke(
                 @this,
                 PrivateInstanceFlags,
@@ -48,7 +52,7 @@ namespace Swan
 #pragma warning disable DE0005 // API is deprecated
             public static readonly Type MailWriter = typeof(SmtpClient).Assembly.GetType("System.Net.Mail.MailWriter");
 #pragma warning restore DE0005 // API is deprecated
-            public static readonly ConstructorInfo MailWriterConstructor = MailWriter.GetConstructor(PrivateInstanceFlags, null, new[] { typeof(Stream) }, null);
+            public static readonly ConstructorInfo MailWriterConstructor = MailWriter.GetConstructors(PrivateInstanceFlags).First();
             public static readonly MethodInfo CloseMethod = MailWriter.GetMethod("Close", PrivateInstanceFlags);
             public static readonly MethodInfo SendMethod = typeof(MailMessage).GetMethod("Send", PrivateInstanceFlags);
             public static readonly bool IsRunningInDotNetFourPointFive = SendMethod.GetParameters().Length == 3;

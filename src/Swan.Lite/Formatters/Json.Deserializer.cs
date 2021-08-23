@@ -166,10 +166,10 @@ namespace Swan.Formatters
             private static string Unescape(string str)
             {
                 // check if we need to unescape at all
-                if (str.IndexOf(StringEscapeChar) < 0)
+                if (!str.Contains(StringEscapeChar, StringComparison.Ordinal))
                     return str;
 
-                var builder = new StringBuilder(str.Length);
+                var builder = new StringBuilder(str.Length * 2);
                 for (var i = 0; i < str.Length; i++)
                 {
                     if (str[i] != StringEscapeChar)

@@ -112,7 +112,7 @@ namespace Swan
         /// <summary>
         /// Gets the entry assembly version.
         /// </summary>
-        public static Version EntryAssemblyVersion => EntryAssemblyName.Version;
+        public static Version EntryAssemblyVersion => EntryAssemblyName.Version ?? new();
 
         /// <summary>
         /// Gets the full path to the folder containing the assembly that started the application.
@@ -124,9 +124,9 @@ namespace Swan
         {
             get
             {
-                var uri = new UriBuilder(EntryAssembly.CodeBase);
+                var uri = new UriBuilder(EntryAssembly.Location);
                 var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
+                return Path.GetDirectoryName(path) ?? string.Empty;
             }
         }
 

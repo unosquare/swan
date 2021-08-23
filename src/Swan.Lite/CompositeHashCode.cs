@@ -90,7 +90,7 @@ namespace Swan
         {
             unchecked
             {
-                return fields.Where(f => !(f is null))
+                return fields.Where(f => f is not null)
                     .Aggregate(InitialSeed, (current, field) => (Multiplier * current) + field.GetHashCode());
             }
         }

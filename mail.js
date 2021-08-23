@@ -23,4 +23,4 @@ server.on('error', err => {
     console.log('Error %s', err.message);
 });
 server.listen(1030);
-console.log('We can now sent emails to port 1030!');
+console.log('We can now send emails through port 1030!');

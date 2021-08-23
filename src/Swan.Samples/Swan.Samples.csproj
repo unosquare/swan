@@ -8,7 +8,7 @@
         <AssemblyName>Swan.Samples</AssemblyName>
         <OutputType>Exe</OutputType>
         <PackageId>Unosquare.Swan.Samples</PackageId>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 

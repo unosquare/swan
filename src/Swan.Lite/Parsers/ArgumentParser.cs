@@ -232,7 +232,7 @@ namespace Swan.Parsers
                 // TODO: If Enum list values
                 var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName)
+                var comma = shortName.Length == 0 || longName.Length == 0
                     ? string.Empty
                     : ", ";
                 var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";

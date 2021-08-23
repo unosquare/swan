@@ -9,19 +9,28 @@ namespace Swan.Net.Dns
     [Serializable]
     public class DnsQueryException : Exception
     {
+        internal DnsQueryException()
+            : base()
+        {
+            // placeholder
+        }
+
         internal DnsQueryException(string message)
             : base(message)
         {
+            // placeholder
         }
 
         internal DnsQueryException(string message, Exception e)
             : base(message, e)
         {
+            // placeholder
         }
 
         internal DnsQueryException(DnsClient.IDnsResponse response)
             : this(response, Format(response))
         {
+            // placeholder
         }
 
         internal DnsQueryException(DnsClient.IDnsResponse response, string message)

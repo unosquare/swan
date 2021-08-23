@@ -245,13 +245,20 @@ namespace Swan.Formatters
                 var writeCount = 0;
                 foreach (var key in items.Keys)
                 {
+                    var keyName = key is not null
+                        ? key.ToString()
+                        : string.Empty;
+
+                    if (key == null || string.IsNullOrWhiteSpace(keyName))
+                        continue;
+
                     // Serialize and append the key (first char indented)
                     Append(StringQuotedChar, depth + 1);
-                    Escape(key.ToString(), _builder);
+                    Escape(keyName, _builder);
                     _builder
                         .Append(StringQuotedChar)
                         .Append(ValueSeparatorChar)
-                        .Append(" ");
+                        .Append(' ');
 
                     // Serialize and append the value
                     var serializedValue = Serialize(items[key], depth + 1, _options, _excludedNames);

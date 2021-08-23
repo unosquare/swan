@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -126,8 +127,8 @@ namespace Swan.Formatters
 
         private void AppendString(string stringValue)
         {
-            if (stringValue.Length + _indentStr.Length <= 96 && stringValue.IndexOf('\r') < 0 &&
-                stringValue.IndexOf('\n') < 0)
+            if (stringValue.Length + _indentStr.Length <= 96 && !stringValue.Contains('\r', StringComparison.Ordinal) &&
+                !stringValue.Contains('\n', StringComparison.Ordinal))
             {
                 _builder.Append($"{stringValue}");
                 return;

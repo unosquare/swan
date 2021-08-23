@@ -187,7 +187,8 @@ namespace Swan.Net.Smtp
                 state.Recipients.Add(recipient.Address);
             }
 
-            state.DataBuffer.AddRange(message.ToMimeMessage().ToArray());
+            using var mimeBuffer = message.ToMimeMessage();
+            state.DataBuffer.AddRange(mimeBuffer.ToArray());
 
             return SendMailAsync(state, sessionId, callback, cancellationToken);
         }

@@ -8,7 +8,7 @@ namespace Swan
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
-    public class StructEndiannessAttribute : Attribute
+    public sealed class StructEndiannessAttribute : Attribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructEndiannessAttribute"/> class.

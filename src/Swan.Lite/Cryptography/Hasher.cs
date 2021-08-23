@@ -6,27 +6,21 @@ using System.Text;
 namespace Swan.Cryptography
 {
     /// <summary>
-    /// Use this class to compute a hash in MD4, SHA1, SHA256 or SHA512.
+    /// Use this class to compute a hash in MD5, SHA1, SHA256 or SHA512.
     /// </summary>
     public static class Hasher
     {
-        private static readonly Lazy<MD5> Md5Hasher = new(MD5.Create, true);
-        private static readonly Lazy<SHA1> SHA1Hasher = new(SHA1.Create, true);
-        private static readonly Lazy<SHA256> SHA256Hasher = new(SHA256.Create, true);
-        private static readonly Lazy<SHA512> SHA512Hasher = new(SHA512.Create, true);
-
         /// <summary>
         /// Computes the MD5 hash of the given stream.
         /// Do not use for large streams as this reads ALL bytes at once.
         /// </summary>
         /// <param name="this">The stream.</param>
-        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>
         /// The computed hash code.
         /// </returns>
         /// <exception cref="ArgumentNullException">stream.</exception>
         [Obsolete("Use a better hasher.")]
-        public static byte[] ComputeMD5(Stream @this, bool createHasher = false)
+        public static byte[] ComputeMD5(this Stream @this)
         {
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
@@ -52,7 +46,7 @@ namespace Swan.Cryptography
             }
             while (readAheadBytesRead != 0);
 
-            return md5.Hash;
+            return md5.Hash ?? Array.Empty<byte>();
         }
 
         /// <summary>
@@ -72,8 +66,17 @@ namespace Swan.Cryptography
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code.</returns>
         [Obsolete("Use a better hasher.")]
-        public static byte[] ComputeMD5(byte[] data, bool createHasher = false) =>
-            (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
+        public static byte[] ComputeMD5(byte[] data, bool createHasher = false)
+        {
+            if (createHasher)
+            {
+                using var hasher = MD5.Create();
+                hasher.ComputeHash(data);
+            }
+
+            return MD5.HashData(data);
+        }
+
 
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
@@ -88,7 +91,14 @@ namespace Swan.Cryptography
         public static byte[] ComputeSha1(string @this, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(@this);
-            return (createHasher ? SHA1.Create() : SHA1Hasher.Value).ComputeHash(inputBytes);
+
+            if (createHasher)
+            {
+                using var hasher = SHA1.Create();
+                return hasher.ComputeHash(inputBytes);
+            }
+
+            return SHA1.HashData(inputBytes);
         }
 
         /// <summary>
@@ -103,7 +113,13 @@ namespace Swan.Cryptography
         public static byte[] ComputeSha256(string value, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(value);
-            return (createHasher ? SHA256.Create() : SHA256Hasher.Value).ComputeHash(inputBytes);
+            if (createHasher)
+            {
+                using var hasher = SHA256.Create();
+                return hasher.ComputeHash(inputBytes);
+            }
+
+            return SHA256.HashData(inputBytes);
         }
 
         /// <summary>
@@ -118,7 +134,14 @@ namespace Swan.Cryptography
         public static byte[] ComputeSha512(string value, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(value);
-            return (createHasher ? SHA512.Create() : SHA512Hasher.Value).ComputeHash(inputBytes);
+
+            if (createHasher)
+            {
+                using var hasher = SHA512.Create();
+                return hasher.ComputeHash(inputBytes);
+            }
+
+            return SHA512.HashData(inputBytes);
         }
     }
 }

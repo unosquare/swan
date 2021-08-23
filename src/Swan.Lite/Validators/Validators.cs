@@ -12,12 +12,12 @@ namespace Swan.Validators
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAttribute" /> class.
         /// </summary>
-        /// <param name="regex">A regex string.</param>
+        /// <param name="expression">A regex string.</param>
         /// <param name="errorMessage">The error message.</param>
         /// <exception cref="ArgumentNullException">Expression.</exception>
-        public MatchAttribute(string regex, string? errorMessage = null)
+        public MatchAttribute(string expression, string? errorMessage = null)
         {
-            Expression = regex ?? throw new ArgumentNullException(nameof(regex));
+            Expression = expression ?? throw new ArgumentNullException(nameof(expression));
             ErrorMessage = errorMessage ?? "String does not match the specified regular expression";
         }
 
@@ -36,7 +36,7 @@ namespace Swan.Validators
                 return false;
 
             return value is string
-                ? Regex.IsMatch(value.ToString(), Expression)
+                ? Regex.IsMatch(value.ToString() ?? string.Empty, Expression)
                 : throw new ArgumentException("Property is not a string");
         }
     }
@@ -45,7 +45,7 @@ namespace Swan.Validators
     /// Email validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class EmailAttribute : MatchAttribute
+    public sealed class EmailAttribute : MatchAttribute
     {
         private const string EmailRegExp =
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
@@ -65,7 +65,7 @@ namespace Swan.Validators
     /// A not null validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class NotNullAttribute : Attribute, IValidator
+    public sealed class NotNullAttribute : Attribute, IValidator
     {
         /// <inheritdoc/>
         public string ErrorMessage => "Value is null";
@@ -78,36 +78,36 @@ namespace Swan.Validators
     /// A range constraint validator.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class RangeAttribute : Attribute, IValidator
+    public sealed class RangeAttribute : Attribute, IValidator
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
         /// Constructor that takes integer minimum and maximum values.
         /// </summary>
-        /// <param name="min">The minimum value.</param>
-        /// <param name="max">The maximum value.</param>
-        public RangeAttribute(int min, int max)
+        /// <param name="minimum">The minimum value.</param>
+        /// <param name="maximum">The maximum value.</param>
+        public RangeAttribute(int minimum, int maximum)
         {
-            if (min >= max)
+            if (minimum >= maximum)
                 throw new InvalidOperationException("Maximum value must be greater than minimum");
 
-            Maximum = max;
-            Minimum = min;
+            Maximum = maximum;
+            Minimum = minimum;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
         /// Constructor that takes double minimum and maximum values.
         /// </summary>
-        /// <param name="min">The minimum value.</param>
-        /// <param name="max">The maximum value.</param>
-        public RangeAttribute(double min, double max)
+        /// <param name="minimum">The minimum value.</param>
+        /// <param name="maximum">The maximum value.</param>
+        public RangeAttribute(double minimum, double maximum)
         {
-            if (min >= max)
+            if (minimum >= maximum)
                 throw new InvalidOperationException("Maximum value must be greater than minimum");
 
-            Maximum = max;
-            Minimum = min;
+            Maximum = maximum;
+            Minimum = minimum;
         }
 
         /// <inheritdoc/>

@@ -428,17 +428,17 @@ namespace Swan
 
             try
             {
-                var buff = new byte[bufferLength];
+                Memory<byte> buff = new byte[bufferLength];
                 while (length > 0)
                 {
                     if (length < bufferLength)
                         bufferLength = (int)length;
 
-                    var read = await stream.ReadAsync(buff, 0, bufferLength, cancellationToken).ConfigureAwait(false);
+                    var read = await stream.ReadAsync(buff, cancellationToken).ConfigureAwait(false);
                     if (read == 0)
                         break;
 
-                    dest.Write(buff, 0, read);
+                    await dest.WriteAsync(buff.Slice(0, bufferLength), cancellationToken);
                     length -= read;
                 }
             }
