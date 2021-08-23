@@ -24,7 +24,7 @@ namespace Swan.Parsers
 
             public object? GetOptionsObject(T instance)
             {
-                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>(true).ToArray();
+                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>(true).Select(c => c.Property).ToArray();
 
                 if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
                     return instance;
@@ -49,6 +49,7 @@ namespace Swan.Parsers
                 }
 
                 _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(selectedVerb.PropertyType, true)
+                    .Select(c => c.Property)
                     .ToArray();
 
                 return verbProperty?.GetValue(instance);

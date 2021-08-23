@@ -35,7 +35,7 @@ namespace Swan
                 var properties = t.GetProperties(BindingFlags.Instance | BindingFlags.Public);
                 var result = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.InvariantCultureIgnoreCase);
                 foreach (var propertyInfo in properties)
-                    result[propertyInfo.Name] = new PropertyInfoProxy(t, propertyInfo);
+                    result[propertyInfo.Name] = new PropertyProxy(t, propertyInfo);
 
                 ProxyCache[t] = result;
                 return result;

@@ -160,7 +160,7 @@ namespace Swan.Validators
                 {
                     var val = (IValidator)attribute;
 
-                    if (val.IsValid(prop.Key.GetValue(obj, null))) continue;
+                    if (val.IsValid(prop.Key.Property.GetValue(obj, null))) continue;
 
                     action?.Invoke(val.ErrorMessage, prop.Key.Name);
                     if (returnOnError) return false;

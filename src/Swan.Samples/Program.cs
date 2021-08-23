@@ -1,4 +1,5 @@
 ﻿using Swan.DependencyInjection;
+using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Logging;
 using Swan.Net;
@@ -211,7 +212,7 @@ namespace Swan.Samples
                 var sourceObject = loadedRecords[generatedRecords.Count / 2];
                 var targetObject = new SampleCopyTarget();
                 var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
-                $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
+                $"{nameof(SwanExtensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
                     .Info(nameof(TestCsvFormatters));
             });
         }

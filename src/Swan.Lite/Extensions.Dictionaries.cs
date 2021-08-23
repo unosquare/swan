@@ -6,7 +6,7 @@ namespace Swan
     /// <summary>
     /// Extension methods.
     /// </summary>
-    public static partial class Extensions
+    public static partial class SwanExtensions
     {
         /// <summary>
         /// Gets the value if exists or default.

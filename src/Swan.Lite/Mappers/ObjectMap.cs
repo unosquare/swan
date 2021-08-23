@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,7 +15,7 @@ namespace Swan.Mappers
     /// <seealso cref="IObjectMap" />
     public class ObjectMap<TSource, TDestination> : IObjectMap
     {
-        internal ObjectMap(IEnumerable<PropertyInfo> intersect)
+        internal ObjectMap(IEnumerable<IPropertyProxy> intersect)
         {
             SourceType = typeof(TSource);
             DestinationType = typeof(TDestination);

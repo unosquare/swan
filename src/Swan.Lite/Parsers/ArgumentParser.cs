@@ -212,7 +212,7 @@ namespace Swan.Parsers
 
             PropertyTypeCache.DefaultCache.Value
                 .RetrieveAllProperties<T>(true)
-                .Select(x => AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x))
+                .Select(x => AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x.Property))
                 .Where(x => x != null)
                 .ToList()
                 .ForEach(x => Terminal.WriteLine(x.ToString(), ConsoleColor.Cyan));

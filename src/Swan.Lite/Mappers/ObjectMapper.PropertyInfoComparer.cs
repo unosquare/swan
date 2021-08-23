@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using Swan.Reflection;
+using System.Collections.Generic;
 
 namespace Swan.Mappers
 {
@@ -12,12 +12,12 @@ namespace Swan.Mappers
     /// </summary>
     public partial class ObjectMapper
     {
-        internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
+        internal class PropertyInfoComparer : IEqualityComparer<IPropertyProxy>
         {
-            public bool Equals(PropertyInfo? x, PropertyInfo? y)
+            public bool Equals(IPropertyProxy? x, IPropertyProxy? y)
                 => x != null && y != null && x.Name == y.Name && x.PropertyType == y.PropertyType;
 
-            public int GetHashCode(PropertyInfo obj)
+            public int GetHashCode(IPropertyProxy obj)
                 => obj.Name.GetHashCode(System.StringComparison.InvariantCulture) +
                    obj.PropertyType.Name.GetHashCode(System.StringComparison.InvariantCulture);
         }

@@ -122,7 +122,7 @@ namespace Swan
                 throw new ArgumentNullException(nameof(targetType));
 
             var fields = new List<MemberInfo>(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType))
-                .Union(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType));
+                .Union(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Select(c => c.Property));
 
             foreach (var targetMember in fields)
             {

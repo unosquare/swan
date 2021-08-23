@@ -392,7 +392,7 @@ namespace Swan.Formatters
                     // Parse and assign the basic type value to the property if exists
                     properties
                         .FirstOrDefault(p => p.Name == propertyName)?
-                        .TrySetBasicType(values[i], result);
+                        .Property.TrySetBasicType(values[i], result);
                 }
             }
         }

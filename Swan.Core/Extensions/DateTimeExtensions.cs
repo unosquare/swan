@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Swan.Core;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Swan
+namespace Swan.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="DateTime"/>.
     /// </summary>
-    public static class DateExtensions
+    public static class DateTimeExtensions
     {
         private static readonly Dictionary<string, int> DateRanges = new()
         {

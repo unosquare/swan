@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace Swan.Formatters
@@ -448,11 +447,10 @@ namespace Swan.Formatters
                         ? stringKey
                         : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
 
-        private IEnumerable<PropertyInfo> GetFilteredTypeProperties(Type type)
-            => TypeCache.Retrieve(type, t =>
-                    t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(p => p.CanRead))
-                .Where(p => !IgnorePropertyNames.Contains(p.Name));
+        private IEnumerable<IPropertyProxy> GetFilteredTypeProperties(Type type)
+            => TypeCache
+                .RetrieveAllProperties(type, false)
+                .Where(p => p.CanRead && !IgnorePropertyNames.Contains(p.Name));
 
         #endregion
 

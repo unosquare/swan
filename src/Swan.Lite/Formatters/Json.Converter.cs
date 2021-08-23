@@ -297,7 +297,7 @@ namespace Swan.Formatters
 
                 foreach (var property in properties)
                 {
-                    var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property);
+                    var sourcePropertyValue = GetSourcePropertyValue(sourceProperties, property.Property);
                     if (sourcePropertyValue == null) continue;
 
                     try

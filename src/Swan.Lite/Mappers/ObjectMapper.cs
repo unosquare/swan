@@ -267,7 +267,7 @@ namespace Swan.Mappers
                 .When(() => requiredProperties != null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
                 .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
-                .Sum(x => TrySetValue(x.Key, x.Value, target) ? 1 : 0);
+                .Sum(x => TrySetValue(x.Key.Property, x.Value, target) ? 1 : 0);
         }
 
         private static bool TrySetValue(PropertyInfo propertyInfo, Tuple<Type, object> property, object target)

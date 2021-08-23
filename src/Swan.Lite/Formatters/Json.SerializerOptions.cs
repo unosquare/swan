@@ -129,7 +129,7 @@ namespace Swan.Formatters
                 return current;
 
             var fields =
-                new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead));
+                new List<MemberInfo>(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Where(p => p.CanRead).Select(c => c.Property));
 
             // If the target is a struct (value type) navigate the fields.
             if (targetType.IsValueType)

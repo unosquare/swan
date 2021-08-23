@@ -131,10 +131,10 @@ namespace Swan.Reflection
         /// <param name="type">The type of the object.</param>
         /// <param name="inherit"><c>true</c> to inspect the ancestors of element; otherwise, <c>false</c>.</param>
         /// <returns>A dictionary of the properties and their attributes stored for the specified type.</returns>
-        public Dictionary<PropertyInfo, IEnumerable<object>> Retrieve<T>(Type type, bool inherit = false)
+        public Dictionary<IPropertyProxy, IEnumerable<object>> Retrieve<T>(Type type, bool inherit = false)
             where T : Attribute =>
             PropertyTypeCache.RetrieveAllProperties(type, true)
-                .ToDictionary(x => x, x => Retrieve<T>(x, inherit));
+                .ToDictionary(x => x, x => Retrieve<T>(x.Property, inherit));
 
         /// <summary>
         /// Gets all properties and their attributes of a given type.
@@ -145,7 +145,7 @@ namespace Swan.Reflection
         /// <returns>
         /// A dictionary of the properties and their attributes stored for the specified type.
         /// </returns>
-        public Dictionary<PropertyInfo, IEnumerable<object>> RetrieveFromType<T, TAttribute>(bool inherit = false)
+        public Dictionary<IPropertyProxy, IEnumerable<object>> RetrieveFromType<T, TAttribute>(bool inherit = false)
             => RetrieveFromType<T>(typeof(TAttribute), inherit);
 
         /// <summary>
@@ -157,13 +157,13 @@ namespace Swan.Reflection
         /// <returns>
         /// A dictionary of the properties and their attributes stored for the specified type.
         /// </returns>
-        public Dictionary<PropertyInfo, IEnumerable<object>> RetrieveFromType<T>(Type attributeType, bool inherit = false)
+        public Dictionary<IPropertyProxy, IEnumerable<object>> RetrieveFromType<T>(Type attributeType, bool inherit = false)
         {
             if (attributeType == null)
                 throw new ArgumentNullException(nameof(attributeType));
 
             return PropertyTypeCache.RetrieveAllProperties<T>(true)
-                .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
+                .ToDictionary(x => x, x => Retrieve(x.Property, attributeType, inherit));
         }
 
         private static T ConvertToAttribute<T>(IEnumerable<object>? attr)

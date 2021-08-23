@@ -12,7 +12,7 @@ namespace Swan
     /// <summary>
     /// Extension methods.
     /// </summary>
-    public static partial class Extensions
+    public static partial class SwanExtensions
     {
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -215,7 +215,7 @@ namespace Swan
                 .Select(x => new
                 {
                     x.Name,
-                    HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x) != null,
+                    HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x.Property) != null,
                 })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);
