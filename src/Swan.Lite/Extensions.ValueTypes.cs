@@ -21,7 +21,8 @@ namespace Swan
         public static T Clamp<T>(this T @this, T min, T max)
             where T : struct, IComparable
         {
-            if (@this.CompareTo(min) < 0) return min;
+            if (@this.CompareTo(min) < 0)
+                return min;
 
             return @this.CompareTo(max) > 0 ? max : @this;
         }

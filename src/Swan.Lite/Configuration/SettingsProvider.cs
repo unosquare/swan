@@ -1,4 +1,4 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
 using System;
 using System.IO;
 
@@ -85,13 +85,13 @@ namespace Swan.Configuration
             }
 
             lock (_syncRoot)
-                _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                _global = File.ReadAllText(ConfigurationFilePath).JsonDeserialize();
         }
 
         /// <summary>
         /// Persists the global settings.
         /// </summary>
-        public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global, true));
+        public void PersistGlobalSettings() => File.WriteAllText(ConfigurationFilePath, Global.JsonSerialize(true));
 
         /// <summary>
         /// Resets the global settings.

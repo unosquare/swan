@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Swan.Samples
@@ -66,7 +67,7 @@ namespace Swan.Samples
             var instance = new SampleCopyTarget
             { AlternateId = 10, CreationDate = new DateTime(2010, 1, 1), Id = 1, Score = "A" };
 
-            var payload = Json.Serialize(instance, JsonSerializerCase.CamelCase, true);
+            var payload = instance.JsonSerialize();
 
             payload.Info(typeof(Program));
 
@@ -76,7 +77,7 @@ namespace Swan.Samples
 
             var jsonText =
                 "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
-            var jsonObject = Json.Deserialize(jsonText);
+            var jsonObject = JsonSerializer.Deserialize<object>(jsonText);
             jsonObject.Dump(typeof(Program));
 
             jsonText =

@@ -15,19 +15,19 @@ namespace Swan.Test.JsonTests
         [Test]
         public void CheckJsonFormat_ValidatesIfObjectsAreEqual()
         {
-            Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
+            Assert.AreEqual(BasicStr, BasicJson.GetDefault().JsonSerialize(false));
         }
 
         [Test]
         public void CheckJsonFormat_ValidatesIfObjectsAreNotEqual()
         {
-            Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().ToJson());
+            Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().JsonSerialize());
         }
 
         [Test]
         public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
         {
-            Assert.AreEqual(string.Empty, NullObj.ToJson());
+            Assert.AreEqual(string.Empty, NullObj.JsonSerialize());
         }
     }
 
@@ -37,7 +37,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithStringArray_ReturnsArraySerialized()
         {
-            Assert.AreEqual(BasicAStr, DefaultStringList.ToJson());
+            Assert.AreEqual(BasicAStr, DefaultStringList.JsonSerialize());
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithNumericArray_ReturnsArraySerialized()
         {
-            Assert.AreEqual(NumericAStr, NumericArray.ToJson());
+            Assert.AreEqual(NumericAStr, NumericArray.JsonSerialize());
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Swan.Test.JsonTests
             {
                 BasicJson.GetDefault(),
                 BasicJson.GetDefault(),
-            }).ToJson();
+            }).JsonSerialize();
 
             Assert.IsNotNull(data);
             Assert.AreEqual($"[{BasicStr},{BasicStr}]", data);
@@ -79,13 +79,13 @@ namespace Swan.Test.JsonTests
         [Test]
         public void AdvObject_ReturnsAdvObjectSerialized()
         {
-            Assert.AreEqual(AdvStr, AdvObj.ToJson());
+            Assert.AreEqual(AdvStr, AdvObj.JsonSerialize());
         }
 
         [Test]
         public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
         {
-            Assert.AreEqual(AdvAStr, AdvAObj.ToJson());
+            Assert.AreEqual(AdvAStr, AdvAObj.JsonSerialize());
         }
 
         [TestCase("1", 1)]
@@ -97,14 +97,14 @@ namespace Swan.Test.JsonTests
         [TestCase("null", default)]
         public void WithPrimitive_ReturnsStringValue(string expected, object actual)
         {
-            Assert.AreEqual(expected, actual.ToJson());
+            Assert.AreEqual(expected, actual.JsonSerialize());
         }
 
         [Test]
         public void WithDateTest_ReturnsDateTestSerialized()
         {
             var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
-            var data = obj.ToJson();
+            var data = obj.JsonSerialize();
 
             Assert.IsNotNull(data);
             Assert.AreEqual(
@@ -129,25 +129,25 @@ namespace Swan.Test.JsonTests
         {
             var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
 
-            Assert.AreEqual(ArrayStruct, result.ToJson());
+            Assert.AreEqual(ArrayStruct, result.JsonSerialize());
         }
 
         [Test]
         public void WithEmptyClass_ReturnsEmptyClassSerialized()
         {
-            Assert.AreEqual("{ }", (new EmptyJson()).ToJson());
+            Assert.AreEqual("{ }", (new EmptyJson()).JsonSerialize());
         }
 
         [Test]
         public void WithStructure_ReturnsStructureSerialized()
         {
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"DefaultStruct\"}", DefaultStruct.ToJson());
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"DefaultStruct\"}", DefaultStruct.JsonSerialize());
         }
 
         [Test]
         public void WithObjEnumString_ReturnsObjectSerialized()
         {
-            Assert.AreEqual("{\"Id\": 0,\"MyEnum\": 3}", (new ObjectEnum()).ToJson());
+            Assert.AreEqual("{\"Id\": 0,\"MyEnum\": 3}", (new ObjectEnum()).JsonSerialize());
         }
     }
 
@@ -180,7 +180,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithEmptyString_ReturnsEmptyString()
         {
-            var dataSerialized = string.Empty.ToJson();
+            var dataSerialized = string.Empty.JsonSerialize();
 
             Assert.AreEqual("\"\"", dataSerialized);
         }
@@ -188,7 +188,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithType_ReturnsString()
         {
-            var dataSerialized = typeof(string).ToJson();
+            var dataSerialized = typeof(string).JsonSerialize();
 
             Assert.AreEqual("\"System.String\"", dataSerialized);
         }
@@ -198,7 +198,7 @@ namespace Swan.Test.JsonTests
         {
             var emptyEnumerable = Enumerable.Empty<int>();
 
-            var dataSerialized = emptyEnumerable.ToJson();
+            var dataSerialized = emptyEnumerable.JsonSerialize();
 
             Assert.AreEqual("[ ]", dataSerialized);
         }
@@ -235,7 +235,7 @@ namespace Swan.Test.JsonTests
                     {"A", new[] {new string[] { }, DefaultStringList.ToArray() }},
                 };
 
-            var dataSerialized = wordDictionary.ToJson();
+            var dataSerialized = wordDictionary.JsonSerialize();
 
             Assert.AreEqual("{\"A\": [[ ],[\"A\",\"B\",\"C\"]]}", dataSerialized);
         }
@@ -264,7 +264,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithJsonProperty_ReturnsObjectSerializedExcludingProps()
         {
-            var dataSerialized = (new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" }).ToJson();
+            var dataSerialized = (new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" }).JsonSerialize();
 
             Assert.AreEqual(
                 "{\"data\": \"Data\"}",
