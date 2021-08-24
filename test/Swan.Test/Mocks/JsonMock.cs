@@ -1,6 +1,6 @@
-﻿using Swan.Formatters;
-using Swan.Mappers;
+﻿using Swan.Mappers;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Swan.Test.Mocks
 {
@@ -93,19 +93,21 @@ namespace Swan.Test.Mocks
 
     public class JsonPropertySample
     {
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        [JsonProperty("ignoredData", true)]
+        [JsonPropertyName("ignoredData")]
+        [JsonIgnore]
         public string IgnoredData { get; set; }
     }
 
     public class InnerJsonPropertySample
     {
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        [JsonProperty("ignoredData", true)]
+        [JsonPropertyName("ignoredData")]
+        [JsonIgnore]
         public string IgnoredData { get; set; }
 
         public JsonPropertySample Inner { get; set; }
@@ -113,22 +115,23 @@ namespace Swan.Test.Mocks
 
     public class JsonIngoreNestedPropertySample
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public int Data { get; set; }
     }
 
     public class JsonIngorePropertySample
     {
-        [JsonProperty("id", true)]
+        [JsonPropertyName("id")]
+        [JsonIgnore]
         public string Id { get; set; }
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("inner")]
+        [JsonPropertyName("inner")]
         public JsonIngoreNestedPropertySample Inner { get; set; }
     }
 

@@ -298,7 +298,7 @@ namespace Swan.Formatters
 
         /// <summary>
         /// Writes a row of CSV text. It handles the special cases where the object is
-        /// a dynamic object or and array. It also handles non-collection objects fine.
+        /// a dynamic ExpandoObject or IEnumerable(s). It also handles non-collection objects fine.
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
@@ -313,10 +313,19 @@ namespace Swan.Formatters
             {
                 switch (item)
                 {
+                    case IDictionary<string, object> typedItem:
+                        {
+                            var keys = typedItem.Keys.Where(c => !string.IsNullOrWhiteSpace(c) && !IgnorePropertyNames.Contains(c));
+                            var values = typedItem.Where(kvp => keys.Contains(kvp.Key)).Select(c => $"{c.Value}");
+                            WriteLine(values);
+                            return;
+                        }
                     case IDictionary typedItem:
-                        WriteLine(GetFilteredDictionary(typedItem));
-                        return;
-                    case ICollection typedItem:
+                        {
+                            WriteLine(GetFilteredDictionary(typedItem));
+                            return;
+                        }
+                    case IEnumerable typedItem:
                         WriteLine(typedItem.Cast<object>());
                         return;
                     default:

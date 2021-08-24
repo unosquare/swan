@@ -1,5 +1,4 @@
-﻿using Swan.Formatters;
-using Swan.Mappers;
+﻿using Swan.Mappers;
 using Swan.Reflection;
 using System;
 using System.Collections;
@@ -266,14 +265,5 @@ namespace Swan
                     break;
             }
         }
-
-        internal static string GetNameWithCase(this string name, JsonSerializerCase jsonSerializerCase) =>
-            jsonSerializerCase switch
-            {
-                JsonSerializerCase.PascalCase => char.ToUpperInvariant(name[0]) + name.Substring(1),
-                JsonSerializerCase.CamelCase => char.ToLowerInvariant(name[0]) + name.Substring(1),
-                JsonSerializerCase.None => name,
-                _ => throw new ArgumentOutOfRangeException(nameof(jsonSerializerCase), jsonSerializerCase, null)
-            };
     }
 }

@@ -1,8 +1,8 @@
-﻿using Swan.Formatters;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Swan
@@ -36,6 +36,12 @@ namespace Swan
 
         private static readonly Lazy<char[]> InvalidFilenameChars =
             new(() => Path.GetInvalidFileNameChars().ToArray());
+
+        private static readonly JsonSerializerOptions JsonStringifyOptions = new(JsonSerializerDefaults.General)
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+        };
 
         #endregion
 
@@ -82,26 +88,18 @@ namespace Swan
         /// A string that represents the current object.
         /// </returns>
         /// <exception cref="ArgumentNullException">input.</exception>
-        public static string RemoveControlChars(this string value, params char[]? excludeChars)
+        public static string RemoveControlChars(this string value, params char[] excludeChars)
         {
+            if (excludeChars.Length <= 0)
+                return value;
+
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
-
-            excludeChars ??= Array.Empty<char>();
 
             return new string(value
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
                 .ToArray());
         }
-
-        /// <summary>
-        /// Outputs JSON string representing this object.
-        /// </summary>
-        /// <param name="this">The object.</param>
-        /// <param name="format">if set to <c>true</c> format the output.</param>
-        /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string ToJson(this object? @this, bool format = true) =>
-            @this == null ? string.Empty : Json.Serialize(@this, format);
 
         /// <summary>
         /// Returns text representing the properties of the specified object in a human-readable format.
@@ -117,10 +115,8 @@ namespace Swan
 
             try
             {
-                var jsonText = Json.Serialize(@this, false, "$type");
-                var jsonData = Json.Deserialize(jsonText);
-
-                return new HumanizeJson(jsonData, 0).GetResult();
+                var jsonData = JsonSerializer.Serialize(@this, @this.GetType(), JsonStringifyOptions);
+                return jsonData;
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch

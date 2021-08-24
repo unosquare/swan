@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Swan
+namespace Swan.Extensions
 {
     /// <summary>
     /// Extension methods.
     /// </summary>
-    public static partial class SwanExtensions
+    public static class DictionaryExtensions
     {
         /// <summary>
         /// Gets the value if exists or default.
@@ -25,7 +25,7 @@ namespace Swan
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));
 
-            return dict.ContainsKey(key) ? dict[key] : defaultValue;
+            return dict.TryGetValue(key, out var value) ? value : defaultValue;
         }
 
         /// <summary>

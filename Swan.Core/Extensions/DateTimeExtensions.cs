@@ -1,4 +1,4 @@
-﻿using Swan.Core;
+﻿using Swan.Types;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
