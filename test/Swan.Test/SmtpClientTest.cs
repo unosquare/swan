@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Formatters;
+using Swan.Extensions;
 using Swan.Net.Smtp;
 using Swan.Test.Mocks;
 using System;
@@ -76,7 +76,7 @@ namespace Swan.Test.SmtpTests
             await Task.Delay(100);
             Assert.IsTrue(File.Exists(filename));
 
-            var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
+            var smtpMock = File.ReadAllText(filename).JsonDeserialize<SmtpMock>();
             Assert.IsNotNull(smtpMock);
 
             Assert.AreEqual(SenderEmail, smtpMock.Envelope.MailFrom.Address);
@@ -99,7 +99,7 @@ namespace Swan.Test.SmtpTests
             await Task.Delay(100);
             Assert.IsTrue(File.Exists(filename));
 
-            var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
+            var smtpMock = File.ReadAllText(filename).JsonDeserialize<SmtpMock>();
             Assert.IsNotNull(smtpMock);
 
             Assert.AreEqual(SenderEmail, smtpMock.Envelope.MailFrom.Address);

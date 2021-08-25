@@ -1,9 +1,10 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Swan.Net.Dns
 {
@@ -106,42 +107,49 @@ namespace Swan.Net.Dns
 
             public IList<IDnsResourceRecord> AdditionalRecords { get; }
 
+            [JsonIgnore]
             public int Id
             {
                 get => _header.Id;
                 set => _header.Id = value;
             }
 
+            [JsonIgnore]
             public bool IsRecursionAvailable
             {
                 get => _header.RecursionAvailable;
                 set => _header.RecursionAvailable = value;
             }
 
+            [JsonIgnore]
             public bool IsAuthorativeServer
             {
                 get => _header.AuthorativeServer;
                 set => _header.AuthorativeServer = value;
             }
 
+            [JsonIgnore]
             public bool IsTruncated
             {
                 get => _header.Truncated;
                 set => _header.Truncated = value;
             }
 
+            [JsonIgnore]
             public DnsOperationCode OperationCode
             {
                 get => _header.OperationCode;
                 set => _header.OperationCode = value;
             }
 
+            [JsonIgnore]
             public DnsResponseCode ResponseCode
             {
                 get => _header.ResponseCode;
                 set => _header.ResponseCode = value;
             }
 
+            [JsonIgnore]
             public int Size
                 => _header.Size +
                    Questions.Sum(q => q.Size) +
@@ -178,7 +186,7 @@ namespace Swan.Net.Dns
             public byte[] ToArray()
             {
                 UpdateHeader();
-                var result = new MemoryStream(Size);
+                using var result = new MemoryStream(Size);
 
                 result
                     .Append(_header.ToArray())
@@ -193,14 +201,7 @@ namespace Swan.Net.Dns
             public override string ToString()
             {
                 UpdateHeader();
-
-                return Json.SerializeOnly(
-                    this,
-                    true,
-                    nameof(Questions),
-                    nameof(AnswerRecords),
-                    nameof(AuthorityRecords),
-                    nameof(AdditionalRecords));
+                return this.JsonSerialize(true);
             }
 
             private void UpdateHeader()

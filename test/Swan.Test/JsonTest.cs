@@ -19,7 +19,7 @@ namespace Swan.Test.JsonTests
         protected static string BasicStr => "{" + BasicJson.GetControlValue() + "}";
 
         protected string AdvStr =>
-            "{\"InnerChild\": " + BasicStr + "," + BasicJson.GetControlValue() + "}";
+            "{\"InnerChild\":" + BasicStr + "," + BasicJson.GetControlValue() + "}";
 
         protected string BasicAStr => "[\"A\",\"B\",\"C\"]";
 
@@ -39,8 +39,8 @@ namespace Swan.Test.JsonTests
             Properties = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() },
         };
 
-        protected string BasicAObjStr => "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
+        protected string BasicAObjStr => "{\"Id\":1,\"Properties\":[\"One\",\"Two\",\"Babu\"]}";
 
-        protected string AdvAStr => "{\"Id\": 1,\"Properties\": [" + BasicStr + "," + BasicStr + "]}";
+        protected string AdvAStr => "{\"Id\":1,\"Properties\":[" + BasicStr + "," + BasicStr + "]}";
     }
 }

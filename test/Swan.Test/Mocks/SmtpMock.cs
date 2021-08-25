@@ -1,53 +1,53 @@
-﻿using Swan.Formatters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Swan.Test.Mocks
 {
     public class SmtpMock
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
-        [JsonProperty("secure")]
+        [JsonPropertyName("secure")]
         public bool Secure { get; set; }
-        [JsonProperty("localAddress")]
+        [JsonPropertyName("localAddress")]
         public string LocalAddress { get; set; }
-        [JsonProperty("localPort")]
+        [JsonPropertyName("localPort")]
         public int LocalPort { get; set; }
-        [JsonProperty("remoteAddress")]
+        [JsonPropertyName("remoteAddress")]
         public string RemoteAddress { get; set; }
-        [JsonProperty("remotePort")]
+        [JsonPropertyName("remotePort")]
         public int RemotePort { get; set; }
-        [JsonProperty("clientHostname")]
+        [JsonPropertyName("clientHostname")]
         public string ClientHostname { get; set; }
-        [JsonProperty("openingCommand")]
+        [JsonPropertyName("openingCommand")]
         public string OpeningCommand { get; set; }
-        [JsonProperty("hostNameAppearsAs")]
+        [JsonPropertyName("hostNameAppearsAs")]
         public string HostNameAppearsAs { get; set; }
-        [JsonProperty("transmissionType")]
+        [JsonPropertyName("transmissionType")]
         public string TransmissionType { get; set; }
-        [JsonProperty("tlsOptions")]
+        [JsonPropertyName("tlsOptions")]
         public bool TlsOptions { get; set; }
-        [JsonProperty("transaction")]
+        [JsonPropertyName("transaction")]
         public int Transaction { get; set; }
-        [JsonProperty("user")]
+        [JsonPropertyName("user")]
         public int User { get; set; }
-        [JsonProperty("envelope")]
+        [JsonPropertyName("envelope")]
         public Envelope Envelope { get; set; }
     }
 
     public class GenericMail
     {
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; }
-        [JsonProperty("args")]
+        [JsonPropertyName("args")]
         public bool Args { get; set; }
     }
 
     public class Envelope
     {
-        [JsonProperty("mailFrom")]
+        [JsonPropertyName("mailFrom")]
         public GenericMail MailFrom { get; set; }
-        [JsonProperty("rcptTo")]
+        [JsonPropertyName("rcptTo")]
         public List<GenericMail> RcptTo { get; set; }
     }
 }

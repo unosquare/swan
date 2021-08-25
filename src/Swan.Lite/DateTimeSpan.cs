@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Types
+namespace Swan
 {
     /// <summary>
     /// Represents a struct of DateTimeSpan to compare dates and get in 

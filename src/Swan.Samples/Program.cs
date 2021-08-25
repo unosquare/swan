@@ -71,7 +71,7 @@ namespace Swan.Samples
 
             payload.Info(typeof(Program));
 
-            var recover = Json.Deserialize<SampleCopyTarget>(payload, JsonSerializerCase.CamelCase);
+            var recover = payload.JsonDeserialize<SampleCopyTarget>();
 
             recover.Dump(typeof(Program));
 
@@ -82,7 +82,7 @@ namespace Swan.Samples
 
             jsonText =
                 "{\"SimpleProperty\": \r\n     \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [  \r\n \r\n  ], \"EmptyObject\": { } \r\n, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
-            jsonObject = Json.Deserialize(jsonText);
+            jsonObject = jsonText.JsonDeserialize();
             jsonObject.Dump(typeof(Program));
 
             "test".Dump(typeof(Program));

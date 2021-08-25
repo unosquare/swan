@@ -1,4 +1,4 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Swan.Net.Dns
@@ -158,7 +159,7 @@ namespace Swan.Net.Dns
             {
                 UpdateHeader();
 
-                return Json.Serialize(this, true);
+                return this.JsonSerialize(true);
             }
 
             private void UpdateHeader()
@@ -385,6 +386,7 @@ namespace Swan.Net.Dns
                 set => RCode = (byte)value;
             }
 
+            [JsonIgnore]
             public int Size => SIZE;
 
             // Query/Response Flag
@@ -463,7 +465,7 @@ namespace Swan.Net.Dns
             public byte[] ToArray() => this.ToBytes();
 
             public override string ToString()
-                => Json.SerializeExcluding(this, true, nameof(Size));
+                => this.JsonSerialize(true);
         }
 
         public class DnsDomain : IComparable<DnsDomain>
@@ -637,16 +639,21 @@ namespace Swan.Net.Dns
 
             public DnsRecordClass Class => _klass;
 
+            [JsonIgnore]
             public int Size => Name.Size + Tail.SIZE;
 
-            public byte[] ToArray() =>
-                new MemoryStream(Size)
+            public byte[] ToArray()
+            {
+                using var stream = new MemoryStream(Size);
+                return stream
                     .Append(Name.ToArray())
                     .Append(new Tail { Type = Type, Class = Class }.ToBytes())
                     .ToArray();
+            }
+
 
             public override string ToString()
-                => Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
+                => this.JsonSerialize(true);
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 2)]

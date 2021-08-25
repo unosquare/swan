@@ -1,26 +1,35 @@
 ﻿using Swan.Types;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Swan.Extensions
 {
+    /// <summary>
+    /// Provides extension methods for JSON serialization and deserialization.
+    /// </summary>
     public static class JsonExtensions
     {
+        private static readonly Type DefaultDeserializationType = typeof(Dictionary<string, object>);
+
         private static readonly JsonSerializerOptions ToJsonIndentedOptions = new(JsonSerializerDefaults.General)
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNamingPolicy = null, // Pascal case
             WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.Preserve
+            ReferenceHandler = null,
+            IgnoreReadOnlyFields = false,
+            IgnoreReadOnlyProperties = false,
         };
 
         private static readonly JsonSerializerOptions ToJsonFlatOptions = new(JsonSerializerDefaults.General)
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.Preserve
+            PropertyNamingPolicy = null, // Pascal case
+            WriteIndented = false,
+            ReferenceHandler = null,
+            IgnoreReadOnlyFields = false,
+            IgnoreReadOnlyProperties = false,
         };
 
         /// <summary>
@@ -29,7 +38,7 @@ namespace Swan.Extensions
         /// <param name="this">The object.</param>
         /// <param name="indent">if set to <c>true</c> format the output.</param>
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string JsonSerialize(this object? @this, bool indent = false) =>
+        public static string JsonSerialize(this object? @this, bool indent = default) =>
             @this == null ? string.Empty : JsonSerializer.Serialize(@this, @this.GetType(), indent ? ToJsonIndentedOptions : ToJsonFlatOptions);
 
         /// <summary>
@@ -45,10 +54,10 @@ namespace Swan.Extensions
         /// Deserializes a JSON string into a dynamic object.
         /// </summary>
         /// <param name="this">The string to parse. Has to be a valid JSON document.</param>
-        /// <param name="options">Option JSON document options.</param>
+        /// <param name="options">Optional JSON document options.</param>
         /// <param name="valueParser">Optional JSON element value parser.</param>
-        /// <returns></returns>
-        public static dynamic? JsonDeserialize(this string @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
+        /// <returns>The deserialized dynamic object.</returns>
+        public static dynamic? JsonDynamicDeserialize(this string @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
         {
             if (string.IsNullOrWhiteSpace(@this))
                 return null;
@@ -57,7 +66,14 @@ namespace Swan.Extensions
             return new JsonDynamicObject(jsonDocument.RootElement, valueParser);
         }
 
-        public static async Task<dynamic?> JsonDeserializeAsync(this Stream @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
+        /// <summary>
+        /// Deserializes a JSON stream of UTF8 bytes into a dynamic object.
+        /// </summary>
+        /// <param name="this">The stream of bytes in UTF8.</param>
+        /// <param name="options">Optional JSON document options.</param>
+        /// <param name="valueParser">Optional JSON element value parser.</param>
+        /// <returns>The deserialized dynamic object.</returns>
+        public static async Task<dynamic?> JsonDynamicDeserializeAsync(this Stream @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
         {
             if (@this is null)
                 return null;
@@ -69,24 +85,68 @@ namespace Swan.Extensions
             return new JsonDynamicObject(jsonDocument.RootElement, valueParser);
         }
 
-        public static object? JsonDeserialize(this string @this, Type type, JsonSerializerOptions? options = null)
-        {
-            return JsonSerializer.Deserialize(@this, type, options);
-        }
+        /// <summary>
+        /// Deserializes a JSON string into an object of the given type.
+        /// </summary>
+        /// <param name="this">The string containing the JSON.</param>
+        /// <param name="type">The type to deserialize into. If no type is given, it outputs a string dictionary of strings.</param>
+        /// <param name="options">The optional serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static object? JsonDeserialize(this string @this, Type? type, JsonSerializerOptions? options = default) =>
+            JsonSerializer.Deserialize(@this, type ?? DefaultDeserializationType, options);
 
-        public static async Task<object?> JsonDeserializeAsync(this Stream @this, Type type, JsonSerializerOptions? options = null)
+        /// <summary>
+        /// Deserializes a JSON stream of UTF8 bytes into a dynamic object.
+        /// </summary>
+        /// <param name="this">The stream of bytes in UTF8.</param>
+        /// <param name="type">The type to deserialize into. If no type is given, it outputs a string dictionary of objects.</param>
+        /// <param name="options">Optional JSON serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static async Task<object?> JsonDeserializeAsync(this Stream @this, Type? type, JsonSerializerOptions? options = null)
         {
             return await JsonSerializer
-                .DeserializeAsync(@this, type, options)
+                .DeserializeAsync(@this, type ?? DefaultDeserializationType, options)
                 .ConfigureAwait(false);
         }
 
-        public static T? JsonDeserialize<T>(this string @this, JsonSerializerOptions? options = null)
+        /// <summary>
+        /// Deserializes a JSON string into an object dictionary.
+        /// </summary>
+        /// <param name="this">The string containing the JSON.</param>
+        /// <param name="options">The optional serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static IDictionary<string, object>? JsonDeserialize(this string @this, JsonSerializerOptions? options = default) =>
+            JsonSerializer.Deserialize(@this, DefaultDeserializationType, options) as IDictionary<string, object>;
+
+        /// <summary>
+        /// Deserializes a JSON stream of UTF8 bytes into an object dictionary.
+        /// </summary>
+        /// <param name="this">The stream of bytes in UTF8.</param>
+        /// <param name="options">Optional JSON serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static async Task<IDictionary<string, object>?> JsonDeserializeAsync(this Stream @this, JsonSerializerOptions? options = null)
         {
-            return JsonSerializer.Deserialize<T>(@this, options);
+            return (await JsonSerializer
+                .DeserializeAsync(@this, DefaultDeserializationType, options)
+                .ConfigureAwait(false)) as IDictionary<string, object>;
         }
 
-        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, Type type, JsonSerializerOptions? options = null)
+        /// <summary>
+        /// Deserializes a JSON string into an object of the given type.
+        /// </summary>
+        /// <param name="this">The string containing the JSON.</param>
+        /// <param name="options">The optional serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static T? JsonDeserialize<T>(this string @this, JsonSerializerOptions? options = default) =>
+            JsonSerializer.Deserialize<T>(@this, options);
+
+        /// <summary>
+        /// Deserializes a JSON stream of UTF8 bytes into a dynamic object.
+        /// </summary>
+        /// <param name="this">The stream of bytes in UTF8.</param>
+        /// <param name="options">Optional JSON serializer options.</param>
+        /// <returns>The deserialized object.</returns>
+        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, JsonSerializerOptions? options = null)
         {
             return await JsonSerializer
                 .DeserializeAsync<T>(@this, options)

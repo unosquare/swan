@@ -1,4 +1,4 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -32,7 +32,7 @@ namespace Swan.Net
         /// <returns>
         /// A task with a result of the requested type.
         /// </returns>
-        public static async Task<T> Post<T>(
+        public static async Task<T?> Post<T>(
             Uri requestUri,
             object? payload,
             string? authorization = null,
@@ -41,7 +41,7 @@ namespace Swan.Net
             var jsonString = await PostString(requestUri, payload, authorization, cancellationToken)
                 .ConfigureAwait(false);
 
-            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
+            return jsonString.JsonDeserialize<T>();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Swan.Net
 
             return string.IsNullOrWhiteSpace(jsonString)
                 ? default
-                : Json.Deserialize(jsonString) as IDictionary<string, object>;
+                : jsonString.JsonDeserialize(type: default) as IDictionary<string, object>;
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Swan.Net
         /// <returns>
         /// A task with a result of the requested type.
         /// </returns>
-        public static async Task<T> Put<T>(
+        public static async Task<T?> Put<T>(
             Uri requestUri,
             object? payload,
             string? authorization = null,
@@ -107,7 +107,7 @@ namespace Swan.Net
             var jsonString = await PutString(requestUri, payload, authorization, ct)
                 .ConfigureAwait(false);
 
-            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
+            return jsonString.JsonDeserialize<T>();
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Swan.Net
         /// <returns>
         /// A task with a result of the requested type.
         /// </returns>
-        public static async Task<T> Get<T>(
+        public static async Task<T?> Get<T>(
             Uri requestUri,
             string? authorization = null,
             CancellationToken ct = default)
@@ -209,7 +209,7 @@ namespace Swan.Net
             var jsonString = await GetString(requestUri, authorization, ct)
                 .ConfigureAwait(false);
 
-            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
+            return jsonString.JsonDeserialize<T>();
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Swan.Net
         /// <returns>
         /// A task with a result of the requested type.
         /// </returns>
-        public static async Task<T> Get<T>(
+        public static async Task<T?> Get<T>(
             Uri requestUri,
             IDictionary<string, IEnumerable<string>>? headers,
             string? authorization = null,
@@ -233,7 +233,7 @@ namespace Swan.Net
             var jsonString = await GetString(requestUri, headers, authorization, ct)
                 .ConfigureAwait(false);
 
-            return !string.IsNullOrEmpty(jsonString) ? Json.Deserialize<T>(jsonString) : default;
+            return jsonString.JsonDeserialize<T>();
         }
 
         /// <summary>
@@ -292,7 +292,7 @@ namespace Swan.Net
 
             var jsonPayload = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
 
-            return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
+            return jsonPayload.JsonDeserialize();
         }
 
         /// <summary>
@@ -426,7 +426,7 @@ namespace Swan.Net
 
             if (payload != null && requestMessage.Method != HttpMethod.Get)
             {
-                requestMessage.Content = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+                requestMessage.Content = new StringContent(payload.JsonSerialize(), Encoding.UTF8, JsonMimeType);
             }
 
             return await HttpClient.SendAsync(requestMessage, ct)

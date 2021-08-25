@@ -1,9 +1,10 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
 
 namespace Swan.Net.Dns
 {
@@ -31,17 +32,16 @@ namespace Swan.Net.Dns
 
             public int DataLength => _record.DataLength;
 
+            [JsonIgnore]
             public byte[] Data => _record.Data;
 
+            [JsonIgnore]
             public int Size => _record.Size;
-
-            protected virtual string[] IncludedProperties
-                => new[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
 
             public byte[] ToArray() => _record.ToArray();
 
             public override string ToString()
-                => Json.SerializeOnly(this, true, IncludedProperties);
+                => this.JsonSerialize(true);
         }
 
         public class DnsResourceRecord : IDnsResourceRecord
@@ -70,8 +70,10 @@ namespace Swan.Net.Dns
 
             public int DataLength => Data.Length;
 
+            [JsonIgnore]
             public byte[] Data { get; }
 
+            [JsonIgnore]
             public int Size => Name.Size + Tail.SIZE + Data.Length;
 
             public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
@@ -89,8 +91,10 @@ namespace Swan.Net.Dns
                 return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
             }
 
-            public byte[] ToArray() =>
-                new MemoryStream(Size)
+            public byte[] ToArray()
+            {
+                using var stream = new MemoryStream(Size);
+                return stream
                     .Append(Name.ToArray())
                     .Append(new Tail()
                     {
@@ -101,18 +105,10 @@ namespace Swan.Net.Dns
                     }.ToBytes())
                     .Append(Data)
                     .ToArray();
-
-            public override string ToString()
-            {
-                return Json.SerializeOnly(
-                    this,
-                    true,
-                    nameof(Name),
-                    nameof(Type),
-                    nameof(Class),
-                    nameof(TimeToLive),
-                    nameof(DataLength));
             }
+
+            public override string ToString() =>
+                this.JsonSerialize(true);
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 2)]
@@ -160,15 +156,6 @@ namespace Swan.Net.Dns
             }
 
             public DnsDomain PointerDomainName { get; }
-
-            protected override string[] IncludedProperties
-            {
-                get
-                {
-                    var temp = new List<string>(base.IncludedProperties) { nameof(PointerDomainName) };
-                    return temp.ToArray();
-                }
-            }
         }
 
         public class DnsIPAddressResourceRecord : DnsResourceRecordBase
@@ -180,9 +167,6 @@ namespace Swan.Net.Dns
             }
 
             public IPAddress IPAddress { get; }
-
-            protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) { nameof(IPAddress) }.ToArray();
         }
 
         public class DnsNameServerResourceRecord : DnsResourceRecordBase
@@ -194,9 +178,6 @@ namespace Swan.Net.Dns
             }
 
             public DnsDomain NSDomainName { get; }
-
-            protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) { nameof(NSDomainName) }.ToArray();
         }
 
         public class DnsCanonicalNameResourceRecord : DnsResourceRecordBase
@@ -208,9 +189,6 @@ namespace Swan.Net.Dns
             }
 
             public DnsDomain CanonicalDomainName { get; }
-
-            protected override string[] IncludedProperties
-                => new List<string>(base.IncludedProperties) { nameof(CanonicalDomainName) }.ToArray();
         }
 
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
@@ -240,12 +218,6 @@ namespace Swan.Net.Dns
             public int Preference { get; }
 
             public DnsDomain ExchangeDomainName { get; }
-
-            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
-            {
-                nameof(Preference),
-                nameof(ExchangeDomainName),
-            }.ToArray();
         }
 
         public class DnsStartOfAuthorityResourceRecord : DnsResourceRecordBase
@@ -293,20 +265,17 @@ namespace Swan.Net.Dns
 
             public long SerialNumber { get; }
 
+            [JsonIgnore]
             public TimeSpan RefreshInterval { get; }
 
+            [JsonIgnore]
             public TimeSpan RetryInterval { get; }
 
+            [JsonIgnore]
             public TimeSpan ExpireInterval { get; }
 
+            [JsonIgnore]
             public TimeSpan MinimumTimeToLive { get; }
-
-            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
-            {
-                nameof(MasterDomainName),
-                nameof(ResponsibleDomainName),
-                nameof(SerialNumber),
-            }.ToArray();
 
             private static IDnsResourceRecord Create(
                 DnsDomain domain,
@@ -319,7 +288,7 @@ namespace Swan.Net.Dns
                 TimeSpan minTtl,
                 TimeSpan ttl)
             {
-                var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
+                using var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
                 var tail = new Options
                 {
                     SerialNumber = serial,

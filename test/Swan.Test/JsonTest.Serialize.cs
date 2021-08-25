@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Swan.Core.Extensions;
 using Swan.Extensions;
 using Swan.Test.Mocks;
 using System;
@@ -46,7 +45,7 @@ namespace Swan.Test.JsonTests
             var instance = BasicJson.GetDefault();
             var reference = new List<WeakReference> { new(instance) };
 
-            var data = Json.Serialize(instance, false, null, false, null, null, reference, JsonSerializerCase.None);
+            var data = instance.JsonSerialize();
 
             Assert.IsTrue(data.StartsWith("{ \"$circref\":"));
         }
@@ -60,7 +59,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithBasicObjectWithArray_ReturnsObjectWithArraySerialized()
         {
-            Assert.AreEqual(BasicAObjStr, Json.Serialize(BasicAObj));
+            Assert.AreEqual(BasicAObjStr, BasicAObj.JsonSerialize());
         }
 
         [Test]
@@ -93,8 +92,8 @@ namespace Swan.Test.JsonTests
         [TestCase("\"string\"", "string")]
         [TestCase("true", true)]
         [TestCase("false", false)]
-        [TestCase("null", null)]
-        [TestCase("null", default)]
+        [TestCase("", null)]
+        [TestCase("", default)]
         public void WithPrimitive_ReturnsStringValue(string expected, object actual)
         {
             Assert.AreEqual(expected, actual.JsonSerialize());
@@ -164,33 +163,29 @@ namespace Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt),
             };
 
-            var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
+            var dataSerialized =  BasicJson.GetDefault().JsonSerialize();
 
             Assert.AreEqual(
-                "{\"StringData\": \"string,\\r\\ndata\\\\\",\"IntData\": 1,\"NegativeInt\": -1}",
+                BasicJson.GetControlValue(),
                 dataSerialized);
         }
 
         [Test]
         public void WithString_ReturnsString()
         {
-            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", Json.SerializeOnly("\b\t\f\0", true, null));
+            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", "\b\t\f\0".JsonSerialize());
         }
 
         [Test]
         public void WithEmptyString_ReturnsEmptyString()
         {
-            var dataSerialized = string.Empty.JsonSerialize();
-
-            Assert.AreEqual("\"\"", dataSerialized);
+            Assert.AreEqual("\"\"", string.Empty.JsonSerialize());
         }
 
         [Test]
         public void WithType_ReturnsString()
         {
-            var dataSerialized = typeof(string).JsonSerialize();
-
-            Assert.AreEqual("\"System.String\"", dataSerialized);
+            Assert.AreEqual("\"System.String\"", typeof(string).JsonSerialize());
         }
 
         [Test]
@@ -206,7 +201,7 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithEmptyDictionary_ReturnsEmptyObjectLiteral()
         {
-            var dataSerialized = Json.SerializeOnly(new Dictionary<string, string>(), true, null);
+            var dataSerialized = new Dictionary<string, string>().JsonSerialize();
 
             Assert.AreEqual("{ }", dataSerialized);
         }
@@ -220,7 +215,7 @@ namespace Swan.Test.JsonTests
                 {"B", DefaultDictionary },
             };
 
-            var dataSerialized = Json.SerializeOnly(persons, false, null);
+            var dataSerialized = persons.JsonSerialize();
 
             Assert.AreEqual("{\"A\": { },\"B\": {\"1\": \"A\",\"2\": \"B\",\"3\": \"C\",\"4\": \"D\",\"5\": \"E\"}}",
                 dataSerialized);
@@ -254,7 +249,7 @@ namespace Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt),
             };
 
-            var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), false, excludeNames);
+            var dataSerialized = BasicJson.GetDefault().JsonSerialize();
 
             Assert.AreEqual(
                 "{\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null}",
@@ -274,12 +269,12 @@ namespace Swan.Test.JsonTests
         [Test]
         public void WithInnerJsonProperty_ReturnsObjectSerializedExcludingProps()
         {
-            var dataSerialized = Json.Serialize(new InnerJsonPropertySample()
+            var dataSerialized = (new InnerJsonPropertySample()
             {
                 Data = "Data",
                 IgnoredData = "Ignored",
                 Inner = new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" },
-            });
+            }).JsonSerialize();
 
             Assert.AreEqual(
                 "{\"data\": \"Data\",\"Inner\": {\"data\": \"Data\"}}",
@@ -300,7 +295,7 @@ namespace Swan.Test.JsonTests
                 },
             };
 
-            var dataSerialized = Json.Serialize(data);
+            var dataSerialized = data.JsonSerialize();
 
             Assert.AreEqual(
                 "{\"name\": \"Yeyo\",\"inner\": {\"id\": \"AESD\",\"data\": 44}}",
@@ -321,7 +316,7 @@ namespace Swan.Test.JsonTests
                 },
             };
 
-            var dataSerialized = Json.SerializeExcluding(data, false, nameof(JsonIngoreNestedPropertySample.Data));
+            var dataSerialized = data.JsonSerialize();
 
             Assert.AreEqual(
                 "{\"name\": \"Yeyo\",\"inner\": {\"id\": \"AESD\"}}",

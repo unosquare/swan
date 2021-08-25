@@ -85,7 +85,7 @@ namespace Swan.Configuration
             }
 
             lock (_syncRoot)
-                _global = File.ReadAllText(ConfigurationFilePath).JsonDeserialize();
+                _global = File.ReadAllText(ConfigurationFilePath).JsonDeserialize<T>();
         }
 
         /// <summary>
