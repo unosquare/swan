@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Swan.Threading;
+using Swan.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Swan.Test
 
     internal class WorkerTest : ThreadWorkerBase
     {
-        public AtomicTypeBase<int> Counter { get; private set; } = new AtomicInteger(0);
+        public AtomicInteger Counter { get; private set; } = new();
 
         public WorkerTest(string name, TimeSpan period)
             : base(name, ThreadPriority.Highest, period, null)
@@ -29,7 +30,7 @@ namespace Swan.Test
         }
 
         protected override void ExecuteCycleLogic(CancellationToken cancellationToken)
-            => Counter++;
+            => Counter.Increment();
 
         protected override void OnCycleException(Exception ex)
         {

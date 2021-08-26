@@ -95,7 +95,7 @@ namespace Swan.Logging
 
                 _doneEvent.Wait();
                 _doneEvent.Reset();
-                WriteLogEntries(true).Await();
+                WriteLogEntries(true).ConfigureAwait(false).GetAwaiter().GetResult();
                 _doneEvent.Dispose();
             }
 

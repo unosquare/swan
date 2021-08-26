@@ -21,7 +21,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Swan.Artifacts\Swan.Artifacts.csproj" />
         <ProjectReference Include="..\Swan.Lite\Swan.Lite.csproj" />
+        <ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />
     </ItemGroup>
 
 </Project>

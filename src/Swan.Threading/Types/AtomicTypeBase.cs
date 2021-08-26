@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Swan.Threading
+namespace Swan.Types
 {
     /// <summary>
     /// Provides a generic implementation of an Atomic (interlocked) type
@@ -43,6 +43,12 @@ namespace Swan.Threading
         }
 
         /// <summary>
+        /// Implicit conversion operator.
+        /// </summary>
+        /// <param name="atomic">The atomic object containing the value.</param>
+        public static implicit operator T(AtomicTypeBase<T> atomic) => atomic?.Value ?? default;
+
+        /// <summary>
         /// Implements the operator ==.
         /// </summary>
         /// <param name="a">a.</param>
@@ -50,7 +56,9 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(AtomicTypeBase<T> a, T b) => a?.Equals(b) == true;
+        public static bool operator ==(AtomicTypeBase<T>? a, T b) => a is null
+            ? b.Equals(default)
+            : b.Equals(a.Value);
 
         /// <summary>
         /// Implements the operator !=.
@@ -60,7 +68,9 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(AtomicTypeBase<T> a, T b) => a?.Equals(b) == false;
+        public static bool operator !=(AtomicTypeBase<T>? a, T b) => a is null
+            ? !b.Equals(default)
+            : !b.Equals(a.Value);
 
         /// <summary>
         /// Implements the operator &gt;.
@@ -70,7 +80,9 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator >(AtomicTypeBase<T> a, T b) => a.CompareTo(b) > 0;
+        public static bool operator >(AtomicTypeBase<T>? a, T b) => a is null
+            ? default(T).CompareTo(b) > 0
+            : a.CompareTo(b) > 0;
 
         /// <summary>
         /// Implements the operator &lt;.
@@ -80,7 +92,9 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator <(AtomicTypeBase<T> a, T b) => a.CompareTo(b) < 0;
+        public static bool operator <(AtomicTypeBase<T>? a, T b) => a is null
+            ? default(T).CompareTo(b) < 0
+            : a.CompareTo(b) < 0;
 
         /// <summary>
         /// Implements the operator &gt;=.
@@ -90,7 +104,9 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator >=(AtomicTypeBase<T> a, T b) => a.CompareTo(b) >= 0;
+        public static bool operator >=(AtomicTypeBase<T>? a, T b) => a is null
+            ? default(T).CompareTo(b) >= 0
+            : a.CompareTo(b) >= 0;
 
         /// <summary>
         /// Implements the operator &lt;=.
@@ -100,61 +116,21 @@ namespace Swan.Threading
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator <=(AtomicTypeBase<T> a, T b) => a.CompareTo(b) <= 0;
+        public static bool operator <=(AtomicTypeBase<T>? a, T b) => a is null
+            ? default(T).CompareTo(b) <= 0
+            : a.CompareTo(b) <= 0;
 
         /// <summary>
-        /// Implements the operator ++.
+        /// Increments the value by one.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static AtomicTypeBase<T> operator ++(AtomicTypeBase<T> instance)
-        {
-            Interlocked.Increment(ref instance._backingValue);
-            return instance;
-        }
+        /// <returns>The new value incremented by one.</returns>
+        public virtual T Increment() => FromLong(Interlocked.Increment(ref _backingValue));
 
         /// <summary>
-        /// Implements the operator --.
+        /// Decrements the value by one.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static AtomicTypeBase<T> operator --(AtomicTypeBase<T> instance)
-        {
-            Interlocked.Decrement(ref instance._backingValue);
-            return instance;
-        }
-
-        /// <summary>
-        /// Implements the operator -&lt;.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="operand">The operand.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static AtomicTypeBase<T> operator +(AtomicTypeBase<T> instance, long operand)
-        {
-            instance.BackingValue = instance.BackingValue + operand;
-            return instance;
-        }
-
-        /// <summary>
-        /// Implements the operator -.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="operand">The operand.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static AtomicTypeBase<T> operator -(AtomicTypeBase<T> instance, long operand)
-        {
-            instance.BackingValue = instance.BackingValue - operand;
-            return instance;
-        }
+        /// <returns>The new value decremented by one.</returns>
+        public virtual T Decrement() => FromLong(Interlocked.Decrement(ref _backingValue));
 
         /// <summary>
         /// Compares the value to the other instance.
@@ -162,19 +138,15 @@ namespace Swan.Threading
         /// <param name="other">The other instance.</param>
         /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
         /// <exception cref="ArgumentException">When types are incompatible.</exception>
-        public int CompareTo(object other)
+        public int CompareTo(object? other)
         {
-            switch (other)
+            return other switch
             {
-                case null:
-                    return 1;
-                case AtomicTypeBase<T> atomic:
-                    return BackingValue.CompareTo(atomic.BackingValue);
-                case T variable:
-                    return Value.CompareTo(variable);
-            }
-
-            throw new ArgumentException("Incompatible comparison types");
+                null => 1,
+                AtomicTypeBase<T> atomic => BackingValue.CompareTo(atomic.BackingValue),
+                T variable => Value.CompareTo(variable),
+                _ => throw new ArgumentException("Incompatible comparison types"),
+            };
         }
 
         /// <summary>
@@ -189,26 +161,23 @@ namespace Swan.Threading
         /// </summary>
         /// <param name="other">The other instance.</param>
         /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
-        public int CompareTo(AtomicTypeBase<T> other) => BackingValue.CompareTo(other?.BackingValue ?? default);
+        public int CompareTo(AtomicTypeBase<T>? other) => BackingValue.CompareTo(other?.BackingValue ?? default);
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="other">The <see cref="object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
         ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Equals(object other)
+        public override bool Equals(object? obj)
         {
-            switch (other)
+            return obj switch
             {
-                case AtomicTypeBase<T> atomic:
-                    return Equals(atomic);
-                case T variable:
-                    return Equals(variable);
-            }
-
-            return false;
+                AtomicTypeBase<T> atomic => Equals(atomic),
+                T variable => Equals(variable),
+                _ => false,
+            };
         }
 
         /// <summary>
@@ -220,11 +189,17 @@ namespace Swan.Threading
         public override int GetHashCode() => BackingValue.GetHashCode();
 
         /// <inheritdoc />
-        public bool Equals(AtomicTypeBase<T> other) =>
+        public bool Equals(AtomicTypeBase<T>? other) =>
             BackingValue == (other?.BackingValue ?? default);
 
         /// <inheritdoc />
         public bool Equals(T other) => Equals(Value, other);
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{Value}";
+        }
 
         /// <summary>
         /// Converts from a long value to the target type.

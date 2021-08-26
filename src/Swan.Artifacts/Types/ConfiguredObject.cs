@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Configuration
+namespace Swan.Types
 {
     /// <summary>
     /// Base class for objects whose configuration may be locked,

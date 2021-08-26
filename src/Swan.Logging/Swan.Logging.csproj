@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>Swan.Artifacts</AssemblyName>
+    <AssemblyName>Swan.Logging</AssemblyName>
+    <RootNamespace>Swan</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -15,7 +16,6 @@
     <Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>Swan</RootNamespace>
     <Version>5.0.1</Version>
     <Authors>Unosquare</Authors>
     <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Swan.Core\Swan.Core.csproj" />
-    <ProjectReference Include="..\Swan.Lite\Swan.Lite.csproj" />
   </ItemGroup>
 
 </Project>

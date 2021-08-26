@@ -11,7 +11,7 @@ namespace Swan
     /// </summary>
     public static class SwanRuntime
     {
-        private static readonly Lazy<Assembly> EntryAssemblyLazy = new(Assembly.GetEntryAssembly);
+        private static readonly Lazy<Assembly> EntryAssemblyLazy = new(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 
         private static readonly Lazy<string> CompanyNameLazy = new(() =>
         {
@@ -91,7 +91,7 @@ namespace Swan
         /// <value>
         ///   <c>true</c> if this instance is using MONO runtime; otherwise, <c>false</c>.
         /// </value>
-        public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
+        public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") is not null;
 
         /// <summary>
         /// Gets the assembly that started the application.

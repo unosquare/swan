@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Types;
+using System;
 using System.Threading;
 
 namespace Swan.Threading

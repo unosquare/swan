@@ -61,10 +61,8 @@ namespace Swan.Types
                 JsonValueKind.Undefined => null,
                 JsonValueKind.Number => ParseNumber(jsonEl),
                 JsonValueKind.String => ParseString(jsonEl),
-                JsonValueKind.Object => new JsonDynamicObject(jsonEl, ValueParser),
-                JsonValueKind.Array => jsonEl.EnumerateArray()
-                    .Select(o => new JsonDynamicObject(o, ValueParser))
-                    .ToArray(),
+                JsonValueKind.Object => ParseObject(jsonEl),
+                JsonValueKind.Array => ParseArray(jsonEl),
                 _ => null,
             };
         }
@@ -106,5 +104,13 @@ namespace Swan.Types
                 ? decimalValue
                 : element.GetDouble();
         }
+
+        private JsonDynamicObject ParseObject(JsonElement element) =>
+            new(element, ValueParser);
+
+        private JsonDynamicObject[] ParseArray(JsonElement element) =>
+            element.EnumerateArray()
+                .Select(o => new JsonDynamicObject(o, ValueParser))
+                .ToArray();
     }
 }

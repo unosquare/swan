@@ -4,6 +4,7 @@ using Swan.Formatters;
 using Swan.Logging;
 using Swan.Net;
 using Swan.Net.Dns;
+using Swan.Types;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +21,16 @@ namespace Swan.Samples
         /// </summary>
         public static async Task Main()
         {
+            bool boolValue = true;
+            var atomic = new AtomicBoolean(false);
+            boolValue = atomic;
+
+            var simpleInt = 0;
+            var atomic2 = new AtomicInteger(-1024);
+            simpleInt = atomic2;
+            var isZero = atomic2 >= simpleInt;
+            atomic2.Increment();
+
             Logger.RegisterLogger<FileLogger>();
 
             TestJson();
@@ -29,9 +40,9 @@ namespace Swan.Samples
             {
                 await TestNetworkUtilities();
             }
-            catch (System.Net.Http.HttpRequestException x)
+            catch (System.Net.Http.HttpRequestException ex)
             {
-                Terminal.WriteLine($"Error testing network {x}", ConsoleColor.Red, TerminalWriters.StandardError);
+                Terminal.WriteLine($"Error testing network {ex}", ConsoleColor.Red, TerminalWriters.StandardError);
             }
             TestContainerAndMessageHub();
             TestExceptionLogging();

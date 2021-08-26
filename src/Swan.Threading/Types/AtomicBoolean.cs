@@ -1,4 +1,4 @@
-﻿namespace Swan.Threading
+﻿namespace Swan.Types
 {
     /// <summary>
     /// Fast, atomic boolean combining interlocked to write value and volatile to read values.

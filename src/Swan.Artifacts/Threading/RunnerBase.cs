@@ -1,5 +1,5 @@
-﻿using Swan.Configuration;
-using Swan.Logging;
+﻿using Swan.Logging;
+using Swan.Types;
 using System;
 using System.Collections.Generic;
 using System.Threading;
