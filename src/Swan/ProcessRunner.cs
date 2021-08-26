@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Utilities;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -104,7 +105,7 @@ namespace Swan
             string filename,
             string arguments = "",
             CancellationToken cancellationToken = default) =>
-            GetProcessResultAsync(filename, arguments, null, Definitions.CurrentAnsiEncoding, cancellationToken);
+            GetProcessResultAsync(filename, arguments, null, SwanRuntime.CurrentAnsiEncoding, cancellationToken);
 
         /// <summary>
         /// Executes a process asynchronously and returns the text of the standard output and standard error streams
@@ -153,7 +154,7 @@ namespace Swan
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            encoding ??= Definitions.CurrentAnsiEncoding;
+            encoding ??= SwanRuntime.CurrentAnsiEncoding;
 
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
@@ -344,7 +345,7 @@ namespace Swan
                 null,
                 onOutputData,
                 onErrorData,
-                Definitions.CurrentAnsiEncoding,
+                SwanRuntime.CurrentAnsiEncoding,
                 syncEvents,
                 cancellationToken);
 

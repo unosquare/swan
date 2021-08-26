@@ -1,4 +1,5 @@
-﻿using Swan.Mappers;
+﻿using Swan.Extensions;
+using Swan.Mappers;
 using Swan.Reflection;
 using System;
 using System.Collections;
@@ -207,14 +208,13 @@ namespace Swan
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            var collection = PropertyTypeCache.DefaultCache.Value
-                .RetrieveAllProperties(@this.GetType(), true);
+            var collection = @this.GetType().TypeInfo().Properties.Values.ToArray();
 
             var properties = collection
                 .Select(x => new
                 {
                     x.Name,
-                    HasAttribute = AttributeCache.DefaultCache.Value.RetrieveOne<CopyableAttribute>(x.Property) != null,
+                    HasAttribute = x.HasAttribute<CopyableAttribute>(),
                 })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name);

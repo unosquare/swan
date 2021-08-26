@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Swan.Core\Swan.Core.csproj" />
+    <ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,8 @@ namespace Swan.Extensions
     /// </summary>
     public static class DictionaryExtensions
     {
+
+        /*
         /// <summary>
         /// Gets the value if exists or default.
         /// </summary>
@@ -27,6 +29,7 @@ namespace Swan.Extensions
 
             return dict.TryGetValue(key, out var value) ? value : defaultValue;
         }
+        */
 
         /// <summary>
         /// Adds a key/value pair to the Dictionary if the key does not already exist.
@@ -79,7 +82,7 @@ namespace Swan.Extensions
 
             foreach (var kvp in dict)
             {
-                itemAction(kvp.Key, kvp.Value);
+                itemAction?.Invoke(kvp.Key, kvp.Value);
             }
         }
     }

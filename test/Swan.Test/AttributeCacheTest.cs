@@ -8,79 +8,60 @@ using System.Reflection;
 
 namespace Swan.Test
 {
-    public abstract class AttributeCacheTest
-    {
-        protected static readonly PropertyTypeCache TypeCache = new();
-        protected static readonly AttributeCache AttributeCache = new(TypeCache);
-    }
-
     [TestFixture]
-    public class ConstrainedRetrieve : AttributeCacheTest
+    public class ConstrainedRetrieve
     {
-        [Test]
-        public void NullMemberInfo_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                AttributeCache.Retrieve<MatchAttribute>(null));
-        }
-
         [Test]
         public void ValidMember_ReturnsProperties()
         {
-            var member = typeof(RegexMock).GetProperty(nameof(RegexMock.Salute));
-            var attributes = AttributeCache.Retrieve<MatchAttribute>(member);
+            var member = typeof(RegexMock).TypeInfo().Properties[nameof(RegexMock.Salute)];
+            var attributes = member.Attribute<MatchAttribute>();
 
-            Assert.That(attributes.Count(), Is.EqualTo(1));
+            Assert.NotNull(attributes);
         }
 
         [Test]
         public void PropertyWithNoMatchingAttributes_ReturnsZeroProperties()
         {
-            var member = typeof(NotNullMock).GetProperty(nameof(NotNullMock.Number));
-            var attributes = AttributeCache.Retrieve<MatchAttribute>(member);
+            var member = typeof(NotNullMock).TypeInfo().Properties[nameof(NotNullMock.Number)];
+            var attributes = member.Attribute<MatchAttribute>();
 
-            Assert.That(attributes.Count(), Is.EqualTo(0));
+            Assert.IsNull(attributes);
         }
 
         [Test]
         public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                AttributeCache.RetrieveFromType<NotNullMock>(null));
+                typeof(NotNullMock).TypeInfo().Attribute(null));
         }
 
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = AttributeCache.RetrieveFromType<NotNullMock, IValidator>();
+            var props = typeof(NotNullMock).TypeInfo().Properties.Values
+                .Where(p => p.Attributes.Any(a => a is IValidator));
 
             Assert.That(props.Count, Is.EqualTo(1));
         }
     }
 
     [TestFixture]
-    public class Retrieve : AttributeCacheTest
+    public class Retrieve
     {
-        [Test]
-        public void NullMemberInfo_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                AttributeCache.Retrieve(null, typeof(IValidator)));
-        }
-
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            var member = typeof(RegexMock).GetProperty(nameof(RegexMock.Salute));
+            var member = typeof(RegexMock).TypeInfo().Properties[nameof(RegexMock.Salute)];
             Assert.Throws<ArgumentNullException>(() =>
-                AttributeCache.Retrieve(member, null));
+                member.Attribute(null));
         }
 
         [Test]
         public void ValidParams_ReturnsAttributes()
         {
-            var member = typeof(RegexMock).GetProperty(nameof(RegexMock.Salute));
-            var attributes = AttributeCache.Retrieve(member, typeof(IValidator));
+            var member = typeof(RegexMock).TypeInfo().Properties[nameof(RegexMock.Salute)];
+            var attributes = member.Attributes.Where(c => c is IValidator);
 
             Assert.That(attributes.Count(), Is.EqualTo(1));
         }
@@ -88,23 +69,16 @@ namespace Swan.Test
         [Test]
         public void PropertyWithNoMatchingAttributes_ReturnsZeroProperties()
         {
-            var member = typeof(NotNullMock).GetProperty(nameof(NotNullMock.Number));
-            var attributes = AttributeCache.Retrieve(member, typeof(IReflect));
+            var member = typeof(NotNullMock).TypeInfo().Properties[nameof(NotNullMock.Number)];
+            var attributes = member.Attribute(typeof(IReflect));
 
-            Assert.That(attributes.Count(), Is.EqualTo(0));
-        }
-
-        [Test]
-        public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                AttributeCache.Retrieve<NotNullAttribute>(null));
+            Assert.IsNull(attributes);
         }
 
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = AttributeCache.Retrieve<NotNullAttribute>(typeof(NotNullMock));
+            var props = typeof(NotNullMock).TypeInfo().Properties.Values.Where(c => c.HasAttribute<NotNullAttribute>());
 
             Assert.That(props.Count, Is.EqualTo(1));
         }

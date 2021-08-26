@@ -1,7 +1,6 @@
 ﻿using Swan.Reflection;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Swan.Parsers
 {
@@ -14,27 +13,26 @@ namespace Swan.Parsers
         {
             private readonly string _selectedVerb;
 
-            private PropertyInfo[]? _properties;
+            private IPropertyProxy[]? _properties;
 
             public TypeResolver(string selectedVerb) => _selectedVerb = selectedVerb;
 
             public bool HasVerb { get; private set; }
 
-            public PropertyInfo[]? Properties => _properties?.Any() == true ? _properties : null;
+            public IPropertyProxy[]? Properties => _properties?.Any() == true ? _properties : null;
 
             public object? GetOptionsObject(T instance)
             {
-                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<T>(true).Select(c => c.Property).ToArray();
+                _properties = typeof(T).TypeInfo().Properties.Values.ToArray();
 
-                if (!_properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
+                if (!_properties.Any(x => x.HasAttribute<VerbOptionAttribute>()))
                     return instance;
 
                 HasVerb = true;
 
                 var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
                     ? null
-                    : _properties.FirstOrDefault(x =>
-                        AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x).Name == _selectedVerb);
+                    : _properties.FirstOrDefault(x => x.Attribute<VerbOptionAttribute>()?.Name == _selectedVerb);
 
                 if (selectedVerb == null) return null;
 
@@ -48,9 +46,7 @@ namespace Swan.Parsers
                     verbProperty?.SetValue(instance, propertyInstance);
                 }
 
-                _properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(selectedVerb.PropertyType, true)
-                    .Select(c => c.Property)
-                    .ToArray();
+                _properties = selectedVerb.PropertyType.TypeInfo().Properties.Values.ToArray();
 
                 return verbProperty?.GetValue(instance);
             }

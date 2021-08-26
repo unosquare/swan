@@ -1,4 +1,5 @@
-﻿using Swan.Reflection;
+﻿using Swan.Extensions;
+using Swan.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -181,8 +182,8 @@ namespace Swan.Mappers
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
                 throw new InvalidOperationException("You can't create an existing map");
 
-            var sourceType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TSource>(true);
-            var destinationType = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties<TDestination>(true);
+            var sourceType = typeof(TSource).TypeInfo().Properties.Values.ToArray();
+            var destinationType = typeof(TDestination).TypeInfo().Properties.Values.ToArray();
 
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
@@ -256,8 +257,7 @@ namespace Swan.Mappers
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Select(p => p.ToLowerInvariant());
 
-            var properties = PropertyTypeCache.DefaultCache.Value
-                .RetrieveFilteredProperties(target.GetType(), true, x => x.CanWrite);
+            var properties = target.GetType().TypeInfo().Properties.Values.Where(c => c.CanWrite);
 
             return properties
                 .Select(x => x.Name)
@@ -358,9 +358,7 @@ namespace Swan.Mappers
         private static Dictionary<string, Tuple<Type, object>> GetSourceMap(object source)
         {
             // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = PropertyTypeCache.DefaultCache.Value
-                .RetrieveFilteredProperties(source.GetType(), true, x => x.CanRead)
-                .ToArray();
+            var sourceProperties = source.GetType().TypeInfo().Properties.Values.Where(c => c.CanRead);
 
             return sourceProperties
                 .Select(x => x.Name)

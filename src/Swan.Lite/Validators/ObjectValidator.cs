@@ -152,17 +152,20 @@ namespace Swan.Validators
                 }
             }
 
-            var properties = AttributeCache.DefaultCache.Value.RetrieveFromType<T, IValidator>();
+            var properties = typeof(T).TypeInfo().Properties.Values;
 
             foreach (var prop in properties)
             {
-                foreach (var attribute in prop.Value)
+                
+                foreach (var attribute in prop.Attributes)
                 {
-                    var val = (IValidator)attribute;
+                    if (attribute is not IValidator val)
+                        continue;
 
-                    if (val.IsValid(prop.Key.Property.GetValue(obj, null))) continue;
+                    if (val.IsValid(prop.GetValue(obj)))
+                        continue;
 
-                    action?.Invoke(val.ErrorMessage, prop.Key.Name);
+                    action?.Invoke(val.ErrorMessage, prop.Name);
                     if (returnOnError) return false;
                 }
             }

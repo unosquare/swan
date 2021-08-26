@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,7 @@ namespace Swan
 
         private static readonly JsonSerializerOptions JsonStringifyOptions = new(JsonSerializerDefaults.General)
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNamingPolicy = null,
             WriteIndented = true,
         };
 
@@ -62,8 +63,8 @@ namespace Swan
 
             var itemType = @this.GetType();
 
-            if (Definitions.BasicTypesInfo.Value.TryGetValue(itemType, out var info))
-                return info.ToStringInvariant(@this);
+            if (itemType.IsBasicType())
+                return itemType.TypeInfo().ToStringInvariant(@this);
 
             return @this.ToString() ?? string.Empty;
         }

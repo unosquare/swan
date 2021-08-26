@@ -210,9 +210,8 @@ namespace Swan.Parsers
             Terminal.WriteLine("No verb was specified", ConsoleColor.Red);
             Terminal.WriteLine("Valid verbs:", ConsoleColor.Cyan);
 
-            PropertyTypeCache.DefaultCache.Value
-                .RetrieveAllProperties<T>(true)
-                .Select(x => AttributeCache.DefaultCache.Value.RetrieveOne<VerbOptionAttribute>(x.Property))
+            typeof(T).TypeInfo().Properties.Values
+                .Select(x => x.Attribute<VerbOptionAttribute>())
                 .Where(x => x != null)
                 .ToList()
                 .ForEach(x => Terminal.WriteLine(x.ToString(), ConsoleColor.Cyan));

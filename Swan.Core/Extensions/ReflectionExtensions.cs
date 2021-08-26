@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Swan
+namespace Swan.Extensions
 {
     /// <summary>
     /// Provides various extension methods for Reflection and Types.
@@ -167,8 +168,8 @@ namespace Swan
                 throw new ArgumentNullException(nameof(type));
 
             result = null;
-
-            return Definitions.BasicTypesInfo.Value.ContainsKey(type) && Definitions.BasicTypesInfo.Value[type].TryParse(value, out result);
+            
+            return type.IsBasicType() && type.TypeInfo().TryParse(value, out result);
         }
 
         /// <summary>

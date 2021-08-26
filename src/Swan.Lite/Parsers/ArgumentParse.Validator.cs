@@ -1,8 +1,8 @@
-﻿using Swan.Reflection;
+﻿using Swan.Extensions;
+using Swan.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Swan.Parsers
 {
@@ -18,13 +18,13 @@ namespace Swan.Parsers
             private const char OptionSwitchChar = '-';
             private readonly object _instance;
             private readonly IEnumerable<string> _args;
-            private readonly List<PropertyInfo> _updatedList = new();
+            private readonly List<IPropertyProxy> _updatedList = new();
             private readonly ArgumentParserSettings _settings;
 
-            private readonly PropertyInfo[] _properties;
+            private readonly IPropertyProxy[] _properties;
 
             public Validator(
-                PropertyInfo[] properties,
+                IPropertyProxy[] properties,
                 IEnumerable<string> args,
                 object instance,
                 ArgumentParserSettings settings,
@@ -46,15 +46,16 @@ namespace Swan.Parsers
 
             public bool IsValid() => (_settings.IgnoreUnknownArguments || !UnknownList.Any()) && !RequiredList.Any();
 
-            public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions()
-                => _properties.Select(p => AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p))
+            public IEnumerable<ArgumentOptionAttribute> GetPropertiesOptions() =>
+                _properties
+                    .Select(p =>p.Attribute<ArgumentOptionAttribute>())
                     .Where(x => x != null);
 
             private void GetRequiredList()
             {
                 foreach (var targetProperty in _properties)
                 {
-                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+                    var optionAttr = targetProperty.Attribute<ArgumentOptionAttribute>();
 
                     if (optionAttr == null || optionAttr.Required == false)
                         continue;
@@ -70,7 +71,7 @@ namespace Swan.Parsers
             {
                 foreach (var targetProperty in _properties.Except(_updatedList))
                 {
-                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
+                    var optionAttr = targetProperty.Attribute<ArgumentOptionAttribute>();
 
                     var defaultValue = optionAttr?.DefaultValue;
 
@@ -86,9 +87,8 @@ namespace Swan.Parsers
             {
                 foreach (var targetProperty in _properties.Except(_updatedList))
                 {
-                    var optionAttr = AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
-
-                    if (!optionAttr.IsDefault)
+                    var optionAttr = targetProperty.Attribute<ArgumentOptionAttribute>();
+                    if (optionAttr is null || !optionAttr.IsDefault)
                         continue;
 
                     var defaultArgValue = _args.FirstOrDefault();
@@ -149,7 +149,7 @@ namespace Swan.Parsers
             }
 
             private bool SetPropertyValue(
-                PropertyInfo targetProperty,
+                IPropertyProxy targetProperty,
                 string propertyValueString,
                 object result,
                 ArgumentOptionAttribute? optionAttr = null)
@@ -157,8 +157,8 @@ namespace Swan.Parsers
                 if (!targetProperty.PropertyType.IsEnum)
                 {
                     return targetProperty.PropertyType.IsArray
-                        ? targetProperty.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
-                        : targetProperty.TrySetBasicType(propertyValueString, result);
+                        ? targetProperty.Property.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
+                        : targetProperty.Property.TrySetBasicType(propertyValueString, result);
                 }
 
                 var parsedValue = Enum.Parse(
@@ -171,10 +171,10 @@ namespace Swan.Parsers
                 return true;
             }
 
-            private PropertyInfo TryGetProperty(string propertyName)
-                => _properties.FirstOrDefault(p =>
-                    string.Equals(AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p)?.LongName, propertyName, _settings.NameComparer) ||
-                    string.Equals(AttributeCache.DefaultCache.Value.RetrieveOne<ArgumentOptionAttribute>(p)?.ShortName, propertyName, _settings.NameComparer));
+            private IPropertyProxy? TryGetProperty(string propertyName) =>
+                _properties.FirstOrDefault(p =>
+                    string.Equals(p.Attribute<ArgumentOptionAttribute>()?.LongName, propertyName, _settings.NameComparer) ||
+                    string.Equals(p.Attribute<ArgumentOptionAttribute>()?.ShortName, propertyName, _settings.NameComparer));
         }
     }
 }

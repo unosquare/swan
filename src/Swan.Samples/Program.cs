@@ -5,6 +5,7 @@ using Swan.Logging;
 using Swan.Net;
 using Swan.Net.Dns;
 using Swan.Types;
+using Swan.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;

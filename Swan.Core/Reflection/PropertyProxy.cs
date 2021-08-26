@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Swan.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -11,8 +13,9 @@ namespace Swan.Reflection
     /// <seealso cref="IPropertyProxy" />
     internal sealed class PropertyProxy : IPropertyProxy
     {
-        private readonly Func<object, object> Getter;
-        private readonly Action<object, object> Setter;
+        private readonly Func<object, object?>? Getter;
+        private readonly Action<object, object?>? Setter;
+        private readonly Lazy<object[]> AttributesLazy;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyProxy"/> class.
@@ -27,10 +30,14 @@ namespace Swan.Reflection
             Setter = CreateLambdaSetter(declaringType, propertyInfo);
             HasPublicGetter = propertyInfo.GetGetMethod()?.IsPublic ?? false;
             HasPublicSetter = propertyInfo.GetSetMethod()?.IsPublic ?? false;
+            AttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
         }
 
         /// <inheritdoc />
         public PropertyInfo Property { get; }
+
+        /// <inheritdoc />
+        public IReadOnlyCollection<object> Attributes => AttributesLazy.Value;
 
         /// <inheritdoc />
         public Type EnclosingType { get; }
@@ -58,14 +65,14 @@ namespace Swan.Reflection
         public bool HasPublicSetter { get; }
 
         /// <inheritdoc />
-        public object GetValue(object instance) => instance is null
+        public object? GetValue(object instance) => instance is null
             ? throw new ArgumentNullException(nameof(instance))
             : Getter is null
             ? throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no getter for property '{Name}'")
             : Getter.Invoke(instance);
 
         /// <inheritdoc />
-        public void SetValue(object instance, object value)
+        public void SetValue(object instance, object? value)
         {
             if (instance is null)
                 throw new ArgumentNullException(nameof(instance));
@@ -76,7 +83,7 @@ namespace Swan.Reflection
             Setter.Invoke(instance, value);
         }
 
-        private static Func<object, object> CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
+        private static Func<object, object?>? CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanRead)
                 return null;
@@ -89,7 +96,7 @@ namespace Swan.Reflection
             return dynamicGetter;
         }
 
-        private static Action<object, object> CreateLambdaSetter(Type instanceType, PropertyInfo propertyInfo)
+        private static Action<object, object?>? CreateLambdaSetter(Type instanceType, PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanWrite)
                 return null;
@@ -102,13 +109,13 @@ namespace Swan.Reflection
             var propertyValue = Expression.Convert(valueParameter, propertyInfo.PropertyType);
 
             var body = Expression.Assign(property, propertyValue);
-            var dynamicSetter = Expression.Lambda<Action<object, object>>(body, instanceParameter, valueParameter).Compile();
+            var dynamicSetter = Expression.Lambda<Action<object, object?>>(body, instanceParameter, valueParameter).Compile();
 
             return dynamicSetter;
         }
 
         /// <inheritdoc />
-        public bool TryGetValue(object instance, out object value)
+        public bool TryGetValue(object instance, out object? value)
         {
             value = PropertyType.GetDefault();
             try
@@ -126,12 +133,12 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TrySetValue(object instance, object value)
+        public bool TrySetValue(object instance, object? value)
         {
             if (!Property.CanWrite)
                 return false;
 
-            var sourceType = value.GetType();
+            var sourceType = value is null ? PropertyType : value.GetType();
             var sourceValue = value ?? sourceType.GetDefault();
 
             try

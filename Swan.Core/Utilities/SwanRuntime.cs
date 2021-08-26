@@ -1,10 +1,11 @@
-﻿using Swan.Logging;
-using System;
+﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 
-namespace Swan
+namespace Swan.Utilities
 {
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
@@ -36,9 +37,24 @@ namespace Swan
 
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 
+        private static readonly Lazy<Encoding> CurrentAnsiEncodingLazy = new(Encoding.GetEncoding(default(int)));
+
+        private static readonly Lazy<Encoding> Windows1252EncodingLazy = new(
+            Encoding.GetEncodings().FirstOrDefault(c => c.CodePage == 1252)?.GetEncoding() ?? Encoding.GetEncoding(default(int)));
+
         private static readonly object SyncLock = new();
 
         #region Properties
+
+        /// <summary>
+        /// Gets the current ANSI encoding
+        /// </summary>
+        public static Encoding CurrentAnsiEncoding => CurrentAnsiEncodingLazy.Value;
+
+        /// <summary>
+        /// Gets the Windows 1253 Encoding (if available). Otherwise returns the default ANSI encoding.
+        /// </summary>
+        public static Encoding Windows1252Encoding => Windows1252EncodingLazy.Value;
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
@@ -65,8 +81,6 @@ namespace Swan
                         {
                             // If exception occurred, there is no such mutex.
                             using var appMutex = new Mutex(true, ApplicationMutexName);
-                            $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(
-                                typeof(SwanRuntime));
 
                             // Only one instance.
                             return true;

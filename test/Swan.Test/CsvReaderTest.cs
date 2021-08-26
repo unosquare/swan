@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Swan.Formatters;
 using Swan.Test.Mocks;
+using Swan.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -153,7 +154,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             var tempFile = Path.GetTempFileName();
 
-            var reader = new CsvReader(tempFile, Definitions.Windows1252Encoding);
+            var reader = new CsvReader(tempFile, SwanRuntime.Windows1252Encoding);
             Assert.Throws<EndOfStreamException>(() => reader.ReadLine());
         }
     }

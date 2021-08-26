@@ -23,7 +23,7 @@ namespace Swan.Test
             void SumTask()
             {
                 for (var x = 0; x < 3000; x++)
-                    atomic++;
+                    atomic.Increment();
             }
 
             Task.WaitAll(
@@ -45,7 +45,7 @@ namespace Swan.Test
             void SumTask()
             {
                 for (var x = 0; x < 300; x++)
-                    atomic++;
+                    atomic.Increment();
             }
 
             Task.WaitAll(
@@ -83,7 +83,7 @@ namespace Swan.Test
             void SumTask()
             {
                 for (var x = 0; x < 300; x++)
-                    atomic++;
+                    atomic.Increment();
             }
 
             Task.WaitAll(
@@ -121,7 +121,7 @@ namespace Swan.Test
             void ToggleValueTask()
             {
                 for (var x = 0; x < 10; x++)
-                    atomic++;
+                    atomic.Increment();
             }
 
             Task.WaitAll(

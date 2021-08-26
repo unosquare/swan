@@ -1,4 +1,6 @@
-﻿using Swan.Reflection;
+﻿using Swan.Extensions;
+using Swan.Reflection;
+using Swan.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,8 +69,6 @@ namespace Swan.Formatters
     /// </example>
     public class CsvReader : IDisposable
     {
-        private static readonly PropertyTypeCache TypeCache = new();
-
         private readonly object _syncLock = new();
 
         private ulong _count;
@@ -118,7 +118,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="stream">The stream.</param>
         public CsvReader(Stream stream)
-            : this(stream, false, Definitions.Windows1252Encoding)
+            : this(stream, false, SwanRuntime.Windows1252Encoding)
         {
         }
 
@@ -129,7 +129,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvReader(string filename)
-            : this(File.OpenRead(filename), false, Definitions.Windows1252Encoding)
+            : this(File.OpenRead(filename), false, SwanRuntime.Windows1252Encoding)
         {
             // placeholder
         }
@@ -371,8 +371,8 @@ namespace Swan.Formatters
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = TypeCache
-                    .RetrieveFilteredProperties(typeof(T), true, x => x.CanWrite && Definitions.BasicTypesInfo.Value.ContainsKey(x.PropertyType));
+                var properties = typeof(T).TypeInfo().Properties.Values
+                    .Where(c => c.CanWrite && c.PropertyType.IsBasicType());
 
                 // Assign property values for each heading
                 for (var i = 0; i < _headings.Length; i++)

@@ -71,7 +71,7 @@ namespace Swan
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var properties = PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).ToArray();
+            var properties = targetType.TypeInfo().Properties.Values;
 
             foreach (var propertyTarget in properties)
             {
@@ -121,8 +121,9 @@ namespace Swan
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var fields = new List<MemberInfo>(FieldTypeCache.DefaultCache.Value.RetrieveAllFields(targetType))
-                .Union(PropertyTypeCache.DefaultCache.Value.RetrieveAllProperties(targetType).Select(c => c.Property));
+            var fields = new List<MemberInfo>(
+                targetType.TypeInfo().Fields).Union(
+                targetType.TypeInfo().Properties.Values.Select(c => c.Property));
 
             foreach (var targetMember in fields)
             {

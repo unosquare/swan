@@ -1,4 +1,5 @@
 ﻿using Swan.Reflection;
+using Swan.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,8 +48,6 @@ namespace Swan.Formatters
     /// </example>
     public class CsvWriter : IDisposable
     {
-        private static readonly PropertyTypeCache TypeCache = new();
-
         private readonly object _syncLock = new();
         private readonly Stream _outputStream;
         private readonly Encoding _encoding;
@@ -90,7 +89,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         public CsvWriter(Stream outputStream)
-            : this(outputStream, false, Definitions.Windows1252Encoding)
+            : this(outputStream, false, SwanRuntime.Windows1252Encoding)
         {
             // placeholder
         }
@@ -102,7 +101,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvWriter(string filename)
-            : this(File.OpenWrite(filename), false, Definitions.Windows1252Encoding)
+            : this(File.OpenWrite(filename), false, SwanRuntime.Windows1252Encoding)
         {
             // placeholder
         }
@@ -457,9 +456,7 @@ namespace Swan.Formatters
                         : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
 
         private IEnumerable<IPropertyProxy> GetFilteredTypeProperties(Type type)
-            => TypeCache
-                .RetrieveAllProperties(type, false)
-                .Where(p => p.CanRead && !IgnorePropertyNames.Contains(p.Name));
+            => type.TypeInfo().Properties.Values.Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.Name));
 
         #endregion
 

@@ -1,5 +1,4 @@
-﻿using Swan.Logging;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +32,7 @@ namespace Swan.Threading
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             _interval = ValidateInterval(interval);
 
-            Task.Run(ActionLoop);
+            _ = Task.Run(ActionLoop, CancellationToken.None);
         }
 
         /// <summary>
@@ -91,9 +90,9 @@ namespace Swan.Threading
                 {
                     break;
                 }
-                catch (Exception ex)
+                catch
                 {
-                    ex.Log(nameof(PeriodicTask));
+                    throw;
                 }
             }
         }

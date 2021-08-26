@@ -1,4 +1,5 @@
 ﻿using Swan.Validators;
+using System;
 
 namespace Swan.Test.Mocks
 {
@@ -33,6 +34,11 @@ namespace Swan.Test.Mocks
     {
         [Match(@"hi|hello")]
         public string Salute { get; set; }
+
+        internal static object TypeInfo()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class InvalidRegexMock

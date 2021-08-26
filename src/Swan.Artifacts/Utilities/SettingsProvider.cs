@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Swan.Configuration
+namespace Swan.Utilities
 {
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file.

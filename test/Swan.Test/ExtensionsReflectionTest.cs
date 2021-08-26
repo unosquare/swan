@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Swan.Test.Mocks;
+using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

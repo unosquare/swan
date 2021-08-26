@@ -1,56 +1,13 @@
 ﻿using Swan.Reflection;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace Swan
 {
-    /// <summary>
-    /// Provides various extension methods for value types and structs.
-    /// </summary>
-    public static class ValueTypeExtensions
+    public static class StructExtensions
     {
-        /// <summary>
-        /// Clamps the specified value between the minimum and the maximum.
-        /// </summary>
-        /// <typeparam name="T">The type of value to clamp.</typeparam>
-        /// <param name="this">The value.</param>
-        /// <param name="min">The minimum.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static T Clamp<T>(this T @this, T min, T max)
-            where T : struct, IComparable
-        {
-            if (@this.CompareTo(min) < 0)
-                return min;
-
-            return @this.CompareTo(max) > 0 ? max : @this;
-        }
-
-        /// <summary>
-        /// Clamps the specified value between the minimum and the maximum.
-        /// </summary>
-        /// <param name="this">The value.</param>
-        /// <param name="min">The minimum.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public static int Clamp(this int @this, int min, int max)
-            => @this < min ? min : (@this > max ? max : @this);
-
-        /// <summary>
-        /// Determines whether the specified value is between a minimum and a maximum value.
-        /// </summary>
-        /// <typeparam name="T">The type of value to check.</typeparam>
-        /// <param name="this">The value.</param>
-        /// <param name="min">The minimum.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified minimum is between; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsBetween<T>(this T @this, T min, T max)
-            where T : struct, IComparable =>
-            @this.CompareTo(min) >= 0 && @this.CompareTo(max) <= 0;
-
         /// <summary>
         /// Converts an array of bytes into the given struct type.
         /// </summary>
@@ -137,7 +94,7 @@ namespace Swan
             var fields = typeof(T).GetTypeInfo()
                 .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
-            var endian = AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute, T>();
+            var endian = typeof(T).TypeInfo().Attribute<StructEndiannessAttribute>();
 
             foreach (var field in fields)
             {
@@ -147,7 +104,8 @@ namespace Swan
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
                 var length = Marshal.SizeOf(field.FieldType);
 
-                endian ??= AttributeCache.DefaultCache.Value.RetrieveOne<StructEndiannessAttribute>(field);
+                endian ??= field.GetCustomAttributes(true)
+                    .FirstOrDefault(c => c.GetType() == typeof(StructEndiannessAttribute)) as StructEndiannessAttribute;
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))
