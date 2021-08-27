@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 
 namespace Swan
 {
@@ -13,7 +14,7 @@ namespace Swan
         /// The static, singleton instance reference.
         /// </summary>
         protected static readonly Lazy<T> LazyInstance = new(
-            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T
+            valueFactory: () => TypeManager.CreateInstance<T>()
                 ?? throw new MissingMethodException(typeof(T).Name, ".ctor"),
             isThreadSafe: true);
 

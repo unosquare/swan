@@ -1,5 +1,5 @@
 ﻿using Swan.Extensions;
-using System;
+using Swan.Reflection;
 using System.IO;
 
 namespace Swan.Utilities
@@ -99,7 +99,7 @@ namespace Swan.Utilities
         public void ResetGlobalSettings()
         {
             lock (_syncRoot)
-                _global = Activator.CreateInstance<T>();
+                _global = TypeManager.CreateInstance<T>();
 
             PersistGlobalSettings();
         }

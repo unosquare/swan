@@ -38,22 +38,6 @@ namespace Swan.Extensions
         #region Type Extensions
 
         /// <summary>
-        /// The closest programmatic equivalent of default(T).
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        /// Default value of this type.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">type.</exception>
-        public static object? GetDefault(this Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return type.IsValueType ? Activator.CreateInstance(type) : default;
-        }
-
-        /// <summary>
         /// Determines whether this type is compatible with ICollection.
         /// </summary>
         /// <param name="sourceType">The type.</param>

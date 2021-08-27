@@ -94,7 +94,7 @@ namespace Swan
             var fields = typeof(T).GetTypeInfo()
                 .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
-            var endian = typeof(T).TypeInfo().Attribute<StructEndiannessAttribute>();
+            var endian = typeof(T).Attribute<StructEndiannessAttribute>();
 
             foreach (var field in fields)
             {

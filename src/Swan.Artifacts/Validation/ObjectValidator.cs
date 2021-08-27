@@ -152,7 +152,7 @@ namespace Swan.Validation
                 }
             }
 
-            var properties = typeof(T).TypeInfo().Properties.Values;
+            var properties = typeof(T).Properties();
 
             foreach (var prop in properties)
             {

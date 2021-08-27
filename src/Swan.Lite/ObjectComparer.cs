@@ -37,7 +37,7 @@ namespace Swan
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            if (Definitions.BasicTypesInfo.Value.ContainsKey(targetType))
+            if (targetType.TypeInfo().IsBasicType)
                 return Equals(left, right);
 
             return targetType.IsValueType || targetType.IsArray
@@ -71,7 +71,7 @@ namespace Swan
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var properties = targetType.TypeInfo().Properties.Values;
+            var properties = targetType.Properties();
 
             foreach (var propertyTarget in properties)
             {
@@ -123,7 +123,7 @@ namespace Swan
 
             var fields = new List<MemberInfo>(
                 targetType.TypeInfo().Fields).Union(
-                targetType.TypeInfo().Properties.Values.Select(c => c.Property));
+                targetType.Properties().Select(c => c.Property));
 
             foreach (var targetMember in fields)
             {

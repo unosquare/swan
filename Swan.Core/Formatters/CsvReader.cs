@@ -371,7 +371,7 @@ namespace Swan.Formatters
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = typeof(T).TypeInfo().Properties.Values
+                var properties = typeof(T).Properties()
                     .Where(c => c.CanWrite && c.IsBasicType);
 
                 // Assign property values for each heading
@@ -414,7 +414,7 @@ namespace Swan.Formatters
             if (map == null)
                 throw new ArgumentNullException(nameof(map));
 
-            var result = Activator.CreateInstance<T>();
+            var result = TypeManager.CreateInstance<T>();
             ReadObject(map, ref result);
             return result;
         }

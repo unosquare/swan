@@ -1,4 +1,4 @@
-﻿using Swan.Types;
+﻿using Swan.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,21 +89,26 @@ namespace Swan.Extensions
         /// Deserializes a JSON string into an object of the given type.
         /// </summary>
         /// <param name="this">The string containing the JSON.</param>
-        /// <param name="type">The type to deserialize into. If no type is given, it outputs a string dictionary of strings.</param>
+        /// <param name="type">The type to deserialize into.</param>
         /// <param name="options">The optional serializer options.</param>
         /// <returns>The deserialized object.</returns>
-        public static object? JsonDeserialize(this string @this, Type? type, JsonSerializerOptions? options = default) =>
-            JsonSerializer.Deserialize(@this, type ?? DefaultDeserializationType, options);
+        public static object? JsonDeserialize(this string @this, Type type, JsonSerializerOptions? options = default) =>
+            type == null || !type.TypeInfo().CanCreateInstance
+                ? throw new ArgumentException("The provided type must not be null and needs a parameterless constructor.", nameof(type))
+                : JsonSerializer.Deserialize(@this, type ?? DefaultDeserializationType, options);
 
         /// <summary>
         /// Deserializes a JSON stream of UTF8 bytes into a dynamic object.
         /// </summary>
         /// <param name="this">The stream of bytes in UTF8.</param>
-        /// <param name="type">The type to deserialize into. If no type is given, it outputs a string dictionary of objects.</param>
+        /// <param name="type">The type to deserialize into.</param>
         /// <param name="options">Optional JSON serializer options.</param>
         /// <returns>The deserialized object.</returns>
-        public static async Task<object?> JsonDeserializeAsync(this Stream @this, Type? type, JsonSerializerOptions? options = null)
+        public static async Task<object?> JsonDeserializeAsync(this Stream @this, Type type, JsonSerializerOptions? options = null)
         {
+            if (type == null || !type.TypeInfo().CanCreateInstance)
+                throw new ArgumentException("The provided type must not be null and needs a parameterless constructor.", nameof(type));
+
             return await JsonSerializer
                 .DeserializeAsync(@this, type ?? DefaultDeserializationType, options)
                 .ConfigureAwait(false);

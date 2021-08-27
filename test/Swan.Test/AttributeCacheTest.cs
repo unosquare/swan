@@ -33,13 +33,13 @@ namespace Swan.Test
         public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                typeof(NotNullMock).TypeInfo().Attribute(null));
+                typeof(NotNullMock).Attribute(null));
         }
 
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = typeof(NotNullMock).TypeInfo().Properties.Values
+            var props = typeof(NotNullMock).Properties()
                 .Where(p => p.Attributes.Any(a => a is IValidator));
 
             Assert.That(props.Count, Is.EqualTo(1));
@@ -78,7 +78,7 @@ namespace Swan.Test
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = typeof(NotNullMock).TypeInfo().Properties.Values.Where(c => c.HasAttribute<NotNullAttribute>());
+            var props = typeof(NotNullMock).Properties().Where(c => c.HasAttribute<NotNullAttribute>());
 
             Assert.That(props.Count, Is.EqualTo(1));
         }

@@ -1,70 +1,32 @@
-﻿using Swan.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Swan.Reflection
 {
     /// <summary>
-    /// Provides extended information about a type.
-    /// 
-    /// This class is mainly used to define sets of types within the Definition class
-    /// and it is not meant for other than querying the BasicTypesInfo dictionary.
+    /// Provides extended information about a type such as property proxies,
+    /// fields, attributes and methods.
     /// </summary>
-    public class ExtendedTypeInfo
+    public sealed class ExtendedTypeInfo
     {
-        private const string TryParseMethodName = nameof(byte.TryParse);
-        private const string ToStringMethodName = nameof(ToString);
+        private const BindingFlags PublicAndPrivate = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         private static readonly object SyncLock = new();
-        private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> ProxyCache =
-            new(32);
-
-        private static readonly Type[] NumericTypes =
-        {
-            typeof(byte),
-            typeof(sbyte),
-            typeof(decimal),
-            typeof(double),
-            typeof(float),
-            typeof(int),
-            typeof(uint),
-            typeof(long),
-            typeof(ulong),
-            typeof(short),
-            typeof(ushort),
-        };
-
-        private static readonly Type[] BasicTypes =
-        {
-                typeof(int),
-                typeof(bool),
-                typeof(string),
-                typeof(DateTime),
-                typeof(double),
-                typeof(decimal),
-                typeof(Guid),
-                typeof(long),
-                typeof(TimeSpan),
-                typeof(uint),
-                typeof(float),
-                typeof(byte),
-                typeof(short),
-                typeof(sbyte),
-                typeof(ushort),
-                typeof(ulong),
-                typeof(char),
-        };
-
-        private readonly ParameterInfo[]? _tryParseParameters;
-        private readonly int _toStringArgumentLength;
+        private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> ProxyCache = new(32);
 
         private readonly Lazy<object[]> DirectAttributesLazy;
         private readonly Lazy<object[]> AllAttributesLazy;
         private readonly Lazy<object[]> InheritedAttributesLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
+        private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
+        private readonly Lazy<ToStringMethodInfo> ToStringMethodLazy;
+        private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
+        private readonly Lazy<object?> DefaultLazy;
+        private readonly Lazy<Func<object>> CreateInstanceLazy;
 
         #region Constructors
 
@@ -81,42 +43,31 @@ namespace Swan.Reflection
             IsNullableValueType = nullableType != null;
             IsValueType = t.IsValueType;
             UnderlyingType = nullableType ?? Type;
-            IsNumeric = NumericTypes.Contains(UnderlyingType);
-            IsBasicType = BasicTypes.Contains(UnderlyingType);
+            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType);
+            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType);
 
             DirectAttributesLazy = new(() => Type.GetCustomAttributes(false), true);
             AllAttributesLazy = new(() => t.GetCustomAttributes(true), true);
             InheritedAttributesLazy = new(() => AllAttributes.Where(c => !DirectAttributes.Contains(DirectAttributes)).ToArray(), true);
-            FieldsLazy = new(() => t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic), true);
+            FieldsLazy = new(() => t.GetFields(PublicAndPrivate), true);
 
-            // Extract the TryParse method info
-            try
-            {
-                TryParseMethodInfo =
-                    UnderlyingType.GetMethod(TryParseMethodName,
-                        new[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() }) ??
-                    UnderlyingType.GetMethod(TryParseMethodName,
-                        new[] { typeof(string), UnderlyingType.MakeByRefType() });
+            TryParseMethodLazy = new(() => new TryParseMethodInfo(this), true);
+            ToStringMethodLazy = new(() => new ToStringMethodInfo(this), true);
+            DefaultConstructorLazy = new(() => !IsValueType
+                ? Type.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
+                : null, true);
 
-                _tryParseParameters = TryParseMethodInfo?.GetParameters() ?? Array.Empty<ParameterInfo>();
-            }
-            catch
-            {
-                // ignored
-            }
+            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(Type) : null, true);
+            CreateInstanceLazy = new(() => {
+                if (IsValueType)
+                    return new(() => Default);
 
-            // Extract the ToString method Info
-            try
-            {
-                ToStringMethodInfo = UnderlyingType.GetMethod(ToStringMethodName, new[] { typeof(IFormatProvider) }) ??
-                                     UnderlyingType.GetMethod(ToStringMethodName, Array.Empty<Type>());
+                var constructor = DefaultConstructorLazy.Value;
+                return constructor is not null
+                    ? (Func<object>)Expression.Lambda(Expression.New(constructor)).Compile()
+                    : () => throw new MissingMethodException($"Type '{Type.Name}' does not have a parameterless constructor.");
 
-                _toStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;
-            }
-            catch
-            {
-                // ignored
-            }
+            }, true);
         }
 
         #endregion
@@ -148,12 +99,26 @@ namespace Swan.Reflection
             }
         }
 
+        /// <summary>
+        /// Provides a collection of all instances of attributes applied directly on this type
+        /// and without inherited attributes.
+        /// </summary>
         public IReadOnlyCollection<object> DirectAttributes => DirectAttributesLazy.Value;
 
+        /// <summary>
+        /// Provides a collection of all instances of attributes applied on parent types of this type
+        /// and without directly applied attributes.
+        /// </summary>
         public IReadOnlyCollection<object> InheritedAttributes => InheritedAttributesLazy.Value;
 
+        /// <summary>
+        /// Provides a collection of all instances of attributes applied on this type and its parent types.
+        /// </summary>
         public IReadOnlyCollection<object> AllAttributes => AllAttributesLazy.Value;
 
+        /// <summary>
+        /// Provides a collection of all instance fields (public and non public) for this type.
+        /// </summary>
         public IReadOnlyCollection<FieldInfo> Fields => FieldsLazy.Value;
 
         /// <summary>
@@ -204,22 +169,10 @@ namespace Swan.Reflection
         public Type UnderlyingType { get; }
 
         /// <summary>
-        /// Gets the try parse method information. If the type does not contain
-        /// a suitable TryParse static method, it will return null.
+        /// Gets the default value for this type.
+        /// Reference types return null while value types return their default equivalent.
         /// </summary>
-        /// <value>
-        /// The try parse method information.
-        /// </value>
-        public MethodInfo? TryParseMethodInfo { get; }
-
-        /// <summary>
-        /// Gets the ToString method info
-        /// It will prefer the overload containing the IFormatProvider argument.
-        /// </summary>
-        /// <value>
-        /// To string method information.
-        /// </value>
-        public MethodInfo? ToStringMethodInfo { get; }
+        public object? Default => DefaultLazy.Value;
 
         /// <summary>
         /// Gets a value indicating whether the type contains a suitable TryParse method.
@@ -229,45 +182,33 @@ namespace Swan.Reflection
         /// </value>
         public bool CanParseNatively => TryParseMethodInfo != null;
 
+        /// <summary>
+        /// Determines if a parameterless constructor can be called on this type.
+        /// This always returns true on value types.
+        /// </summary>
+        public bool CanCreateInstance => IsValueType || DefaultConstructorLazy.Value is not null;
+
+        /// <summary>
+        /// Gets the try parse method information. If the type does not contain
+        /// a suitable TryParse static method, it will return null.
+        /// </summary>
+        /// <value>
+        /// The try parse method information.
+        /// </value>
+        private MethodInfo? TryParseMethodInfo => TryParseMethodLazy.Value.Method;
+
+        /// <summary>
+        /// Gets the ToString method info
+        /// It will prefer the overload containing the IFormatProvider argument.
+        /// </summary>
+        /// <value>
+        /// To string method information.
+        /// </value>
+        private MethodInfo? ToStringMethodInfo => ToStringMethodLazy.Value.Method;
+
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Searches for the first attribute of the given type.
-        /// </summary>
-        /// <typeparam name="T">The attribute type to search for.</typeparam>
-        /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-        public T? Attribute<T>()
-            where T : Attribute =>
-            AllAttributes.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
-
-        /// <summary>
-        /// Searches for the first attribute of the given type.
-        /// </summary>
-        /// <param name="attributeType">The attribute type to search for.</param>
-        /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-        public object? Attribute(Type attributeType) =>
-            attributeType is null
-            ? throw new ArgumentNullException(nameof(attributeType))
-            : AllAttributes.FirstOrDefault(c => c.GetType().IsAssignableTo(attributeType));
-
-        /// <summary>
-        /// Gets a value indicating whether an attribute of the given type has been applied.
-        /// </summary>
-        /// <typeparam name="T">The type of the attribute to search for.</typeparam>
-        /// <returns>True if the attribute is found. False otherwise.</returns>
-        public bool HasAttribute<T>()
-            where T : Attribute =>
-            Attribute<T>() is not null;
-
-        /// <summary>
-        /// Gets a value indicating whether an attribute of the given type has been applied.
-        /// </summary>
-        /// <param name="attributeType">The type of the attribute to search for.</param>
-        /// <returns>True if the attribute is found. False otherwise.</returns>
-        public bool HasAttribute(Type attributeType) =>
-            Attribute(attributeType) is not null;
 
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
@@ -297,9 +238,9 @@ namespace Swan.Reflection
                 // Build the arguments of the TryParse method
                 var dynamicArguments = new List<object?> { s };
 
-                for (var pi = 1; pi < _tryParseParameters.Length - 1; pi++)
+                for (var pi = 1; pi < TryParseMethodLazy.Value.Parameters.Count - 1; pi++)
                 {
-                    var argInfo = _tryParseParameters[pi];
+                    var argInfo = TryParseMethodLazy.Value.Parameters[pi];
                     if (argInfo.ParameterType == typeof(IFormatProvider))
                         dynamicArguments.Add(CultureInfo.InvariantCulture);
                     else if (argInfo.ParameterType == typeof(NumberStyles))
@@ -311,7 +252,7 @@ namespace Swan.Reflection
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
 
-                if ((bool)(TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
+                if ((bool)(TryParseMethodInfo?.Invoke(null, parseArguments) ?? false))
                 {
                     result = parseArguments[^1];
                     return true;
@@ -337,39 +278,19 @@ namespace Swan.Reflection
             if (instance == null)
                 return string.Empty;
 
-            return ToStringMethodInfo is not null && _toStringArgumentLength != 1
+            return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count != 1
                 ? instance.ToString() ?? string.Empty
-                : ToStringMethodInfo.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty;
+                : ToStringMethodInfo?.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty;
         }
+
+        /// <summary>
+        /// Calls the parameterless constructor on this type returning an isntance.
+        /// For value types it returns the default value.
+        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// </summary>
+        /// <returns>A new instance of this type or the default value for value types.</returns>
+        public object CreateInstance() => CreateInstanceLazy.Value.Invoke();
 
         #endregion
-    }
-
-    /// <summary>
-    /// Provides extended information about a type.
-    /// 
-    /// This class is mainly used to define sets of types within the Constants class
-    /// and it is not meant for other than querying the BasicTypesInfo dictionary.
-    /// </summary>
-    /// <typeparam name="T">The type of extended type information.</typeparam>
-    public class ExtendedTypeInfo<T> : ExtendedTypeInfo
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExtendedTypeInfo{T}"/> class.
-        /// </summary>
-        public ExtendedTypeInfo()
-            : base(typeof(T))
-        {
-            // placeholder
-        }
-
-        /// <summary>
-        /// Converts this instance to its string representation,
-        /// trying to use the CultureInfo.InvariantCulture
-        /// IFormat provider if the overload is available.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object.</returns>
-        public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

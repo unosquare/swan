@@ -1,10 +1,10 @@
-﻿using Swan.Extensions;
-using Swan.Mappers;
+﻿using Swan.Mappers;
 using Swan.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Swan
@@ -58,7 +58,7 @@ namespace Swan
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var target = Activator.CreateInstance<T>();
+            var target = TypeManager.CreateInstance<T>();
             ObjectMapper.Copy(source, target, GetCopyableProperties(target), ignoreProperties);
 
             return target;
@@ -80,7 +80,7 @@ namespace Swan
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var target = Activator.CreateInstance<T>();
+            var target = TypeManager.CreateInstance<T>();
             ObjectMapper.Copy(source, target, propertiesToCopy);
 
             return target;
@@ -119,7 +119,7 @@ namespace Swan
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var target = Activator.CreateInstance<T>();
+            var target = TypeManager.CreateInstance<T>();
             source.CopyKeyValuePairTo(target, ignoreKeys);
             return target;
         }
@@ -208,7 +208,7 @@ namespace Swan
             if (@this == null)
                 throw new ArgumentNullException(nameof(@this));
 
-            var collection = @this.GetType().TypeInfo().Properties.Values.ToArray();
+            var collection = @this.GetType().Properties();
 
             var properties = collection
                 .Select(x => new
@@ -244,8 +244,12 @@ namespace Swan
                         target = Array.CreateInstance(elementType, sourceObjectList.Count);
                     break;
                 default:
-                    var constructors = ConstructorTypeCache.DefaultCache.Value
-                        .RetrieveAllConstructors(targetType, includeNonPublic);
+                    var flags = BindingFlags.Instance | BindingFlags.Public;
+                    if (includeNonPublic)
+                        flags |= BindingFlags.NonPublic;
+
+                    var constructors = targetType.GetConstructors(flags)
+                        .Select(c => Tuple.Create(c, c.GetParameters()));
 
                     // Try to check if empty constructor is available
                     if (constructors.Any(x => x.Item2.Length == 0))

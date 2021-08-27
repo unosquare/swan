@@ -1,5 +1,4 @@
 ﻿using Swan.Reflection;
-using System;
 using System.Linq;
 
 namespace Swan.Parsers
@@ -23,7 +22,7 @@ namespace Swan.Parsers
 
             public object? GetOptionsObject(T instance)
             {
-                _properties = typeof(T).TypeInfo().Properties.Values.ToArray();
+                _properties = typeof(T).Properties().ToArray();
 
                 if (!_properties.Any(x => x.HasAttribute<VerbOptionAttribute>()))
                     return instance;
@@ -42,11 +41,11 @@ namespace Swan.Parsers
 
                 if (verbProperty?.GetValue(instance) == null)
                 {
-                    var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
+                    var propertyInstance = TypeManager.CreateInstance(selectedVerb.PropertyType);
                     verbProperty?.SetValue(instance, propertyInstance);
                 }
 
-                _properties = selectedVerb.PropertyType.TypeInfo().Properties.Values.ToArray();
+                _properties = selectedVerb.PropertyType.Properties().ToArray();
 
                 return verbProperty?.GetValue(instance);
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -43,7 +44,7 @@ namespace Swan.Logging
                 if (loggerInstance != null)
                     throw new InvalidOperationException("There is already a logger with that class registered.");
 
-                Loggers.Add(Activator.CreateInstance<T>());
+                Loggers.Add(TypeManager.CreateInstance<T>());
             }
         }
 

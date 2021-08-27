@@ -456,7 +456,7 @@ namespace Swan.Formatters
                         : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
 
         private IEnumerable<IPropertyProxy> GetFilteredTypeProperties(Type type)
-            => type.TypeInfo().Properties.Values.Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.Name));
+            => type.Properties().Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.Name));
 
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Swan.Reflection;
 using System;
 
 namespace Swan.Test
@@ -22,7 +23,7 @@ namespace Swan.Test
         [TestCase(typeof(NullReferenceException))]
         public void IsCriticalExceptionTrue(Type type)
         {
-            var ex = Activator.CreateInstance(type) as Exception;
+            var ex = TypeManager.CreateInstance(type) as Exception;
             Assert.That(ex.IsCriticalException);
         }
 
@@ -32,7 +33,7 @@ namespace Swan.Test
         [TestCase(typeof(AccessViolationException))]
         public void IsFatalTrue(Type type)
         {
-            var ex = Activator.CreateInstance(type) as Exception;
+            var ex = TypeManager.CreateInstance(type) as Exception;
             Assert.That(ex.IsCriticalException);
         }
 
@@ -44,7 +45,7 @@ namespace Swan.Test
         [TestCase(typeof(NullReferenceException))]
         public void InCriticalInner(Type type)
         {
-            var innerEx = Activator.CreateInstance(type) as Exception;
+            var innerEx = TypeManager.CreateInstance(type) as Exception;
             var ex = new Exception(string.Empty, innerEx);
             Assert.That(ex.IsCriticalException);
 
@@ -58,7 +59,7 @@ namespace Swan.Test
         [TestCase(typeof(AccessViolationException))]
         public void InFatalInner(Type type)
         {
-            var innerEx = Activator.CreateInstance(type) as Exception;
+            var innerEx = TypeManager.CreateInstance(type) as Exception;
             var ex = new Exception(string.Empty, innerEx);
             Assert.That(ex.IsCriticalException);
 

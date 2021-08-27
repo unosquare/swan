@@ -182,14 +182,14 @@ namespace Swan.Mappers
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
                 throw new InvalidOperationException("You can't create an existing map");
 
-            var sourceType = typeof(TSource).TypeInfo().Properties.Values.ToArray();
-            var destinationType = typeof(TDestination).TypeInfo().Properties.Values.ToArray();
+            var sourceType = typeof(TSource).Properties();
+            var destinationType = typeof(TDestination).Properties();
 
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
             if (!intersect.Any())
                 throw new InvalidOperationException("Types doesn't match");
-
+            
             var map = new ObjectMap<TSource, TDestination>(intersect);
 
             _maps.Add(map);
@@ -213,7 +213,7 @@ namespace Swan.Mappers
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var destination = Activator.CreateInstance<TDestination>();
+            var destination = TypeManager.CreateInstance<TDestination>();
             var map = _maps
                 .FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
 
@@ -257,7 +257,7 @@ namespace Swan.Mappers
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Select(p => p.ToLowerInvariant());
 
-            var properties = target.GetType().TypeInfo().Properties.Values.Where(c => c.CanWrite);
+            var properties = target.GetType().Properties().Where(c => c.CanWrite);
 
             return properties
                 .Select(x => x.Name)
@@ -358,7 +358,7 @@ namespace Swan.Mappers
         private static Dictionary<string, Tuple<Type, object>> GetSourceMap(object source)
         {
             // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = source.GetType().TypeInfo().Properties.Values.Where(c => c.CanRead);
+            var sourceProperties = source.GetType().Properties().Where(c => c.CanRead);
 
             return sourceProperties
                 .Select(x => x.Name)

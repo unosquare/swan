@@ -156,7 +156,7 @@ namespace Swan.Parsers
         /// </exception>
         public bool ParseArguments<T>(IEnumerable<string> args, out T instance)
         {
-            instance = Activator.CreateInstance<T>();
+            instance = TypeManager.CreateInstance<T>();
             return ParseArguments(args, instance);
         }
 
@@ -210,7 +210,7 @@ namespace Swan.Parsers
             Terminal.WriteLine("No verb was specified", ConsoleColor.Red);
             Terminal.WriteLine("Valid verbs:", ConsoleColor.Cyan);
 
-            typeof(T).TypeInfo().Properties.Values
+            typeof(T).Properties()
                 .Select(x => x.Attribute<VerbOptionAttribute>())
                 .Where(x => x != null)
                 .ToList()

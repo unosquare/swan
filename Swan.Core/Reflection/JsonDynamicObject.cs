@@ -3,12 +3,12 @@ using System.Dynamic;
 using System.Linq;
 using System.Text.Json;
 
-namespace Swan.Types
+namespace Swan.Reflection
 {
     /// <summary>
     /// A dynamic object 
     /// </summary>
-    public class JsonDynamicObject : DynamicObject
+    internal class JsonDynamicObject : DynamicObject
     {
         private readonly Func<JsonElement, object?> ValueParser;
 

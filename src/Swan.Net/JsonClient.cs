@@ -65,7 +65,7 @@ namespace Swan.Net
 
             return string.IsNullOrWhiteSpace(jsonString)
                 ? default
-                : jsonString.JsonDeserialize(type: default) as IDictionary<string, object>;
+                : jsonString.JsonDeserialize();
         }
 
         /// <summary>
