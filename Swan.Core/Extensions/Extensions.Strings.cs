@@ -61,12 +61,9 @@ namespace Swan
             if (@this is string stringValue)
                 return stringValue;
 
-            var itemType = @this.GetType();
-
-            if (itemType.TypeInfo().IsBasicType)
-                return itemType.TypeInfo().ToStringInvariant(@this);
-
-            return @this.ToString() ?? string.Empty;
+            return @this.GetType()
+                .TypeInfo()
+                .ToStringInvariant(@this);
         }
 
         /// <summary>
@@ -98,7 +95,7 @@ namespace Swan
                 throw new ArgumentNullException(nameof(value));
 
             return new string(value
-                .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
+                .Where(c => !char.IsControl(c) || excludeChars.Contains(c))
                 .ToArray());
         }
 
@@ -142,7 +139,6 @@ namespace Swan
                 return string.Empty;
 
             var end = endIndex.Clamp(startIndex, @this.Length - 1);
-
             return startIndex >= end ? string.Empty : @this.Substring(startIndex, (end - startIndex) + 1);
         }
 
