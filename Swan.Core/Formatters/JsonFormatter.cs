@@ -5,12 +5,12 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Swan.Extensions
+namespace Swan.Formatters
 {
     /// <summary>
     /// Provides extension methods for JSON serialization and deserialization.
     /// </summary>
-    public static class JsonExtensions
+    public static class JsonFormatter
     {
         private static readonly Type DefaultDeserializationType = typeof(Dictionary<string, object>);
 

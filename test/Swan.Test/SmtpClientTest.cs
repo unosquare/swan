@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Extensions;
+using Swan.Formatters;
 using Swan.Net.Smtp;
 using Swan.Test.Mocks;
 using System;
