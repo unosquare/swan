@@ -169,7 +169,7 @@ namespace Swan.Extensions
 
             result = null;
             
-            return type.IsBasicType() && type.TypeInfo().TryParse(value, out result);
+            return type.TypeInfo().CanParseNatively && type.TypeInfo().TryParse(value, out result);
         }
 
         /// <summary>

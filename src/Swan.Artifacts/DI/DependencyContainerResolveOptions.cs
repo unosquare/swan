@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Swan.DependencyInjection
+namespace Swan.DI
 {
     /// <summary>
     /// Resolution settings.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.DependencyInjection
+namespace Swan.DI
 {
     /// <summary>
     /// Generic Constraint Registration Exception.

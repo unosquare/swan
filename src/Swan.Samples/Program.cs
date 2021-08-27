@@ -1,4 +1,4 @@
-﻿using Swan.DependencyInjection;
+﻿using Swan.DI;
 using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Logging;

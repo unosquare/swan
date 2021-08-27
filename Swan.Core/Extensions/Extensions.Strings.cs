@@ -63,7 +63,7 @@ namespace Swan
 
             var itemType = @this.GetType();
 
-            if (itemType.IsBasicType())
+            if (itemType.TypeInfo().IsBasicType)
                 return itemType.TypeInfo().ToStringInvariant(@this);
 
             return @this.ToString() ?? string.Empty;

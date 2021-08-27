@@ -7,9 +7,6 @@ namespace Swan.Reflection
     {
         private static readonly ConcurrentDictionary<Type, ExtendedTypeInfo> TypeCache = new();
 
-        public static bool IsBasicType(this Type t) =>
-            t is not null ? t.TypeInfo().IsBasicType : throw new ArgumentNullException(nameof(t));
-
         public static ExtendedTypeInfo TypeInfo(this Type t)
         {
             if (t is null)

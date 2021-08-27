@@ -1,4 +1,4 @@
-﻿using Swan.Validators;
+﻿using Swan.Validation;
 using System;
 
 namespace Swan.Test.Mocks

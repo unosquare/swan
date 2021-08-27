@@ -372,7 +372,7 @@ namespace Swan.Formatters
 
                 // Extract properties from cache
                 var properties = typeof(T).TypeInfo().Properties.Values
-                    .Where(c => c.CanWrite && c.PropertyType.IsBasicType());
+                    .Where(c => c.CanWrite && c.IsBasicType);
 
                 // Assign property values for each heading
                 for (var i = 0; i < _headings.Length; i++)

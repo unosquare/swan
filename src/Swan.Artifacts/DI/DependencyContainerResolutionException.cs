@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.DependencyInjection
+namespace Swan.DI
 {
     /// <summary>
     /// An exception for dependency resolutions.

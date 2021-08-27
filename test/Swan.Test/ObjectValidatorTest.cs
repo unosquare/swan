@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Swan.Test.Mocks;
-using Swan.Validators;
+using Swan.Validation;
 using System;
 using System.Linq;
 

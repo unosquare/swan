@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Swan.Reflection;
 using Swan.Test.Mocks;
-using Swan.Validators;
+using Swan.Validation;
 using System;
 using System.Linq;
 using System.Reflection;

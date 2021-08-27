@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Swan.Validators
+namespace Swan.Validation
 {
     /// <summary>
     /// Regex validator.

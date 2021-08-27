@@ -11,8 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Swan.Artifacts\Swan.Artifacts.csproj" />
         <ProjectReference Include="..\..\src\Swan.Net\Swan.Net.csproj" />
-        <ProjectReference Include="..\..\src\Swan\Swan.csproj" />
     </ItemGroup>
 
     <ItemGroup>

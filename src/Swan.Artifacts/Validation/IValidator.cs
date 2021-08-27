@@ -1,4 +1,4 @@
-﻿namespace Swan.Validators
+﻿namespace Swan.Validation
 {
     /// <summary>
     /// A simple Validator interface.

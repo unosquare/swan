@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Swan.DependencyInjection
+namespace Swan.DI
 {
     /// <summary>
     /// Represents a Concurrent Dictionary for TypeRegistration.

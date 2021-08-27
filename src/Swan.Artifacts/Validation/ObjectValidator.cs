@@ -3,7 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Swan.Validators
+namespace Swan.Validation
 {
     /// <summary>
     /// Represents an object validator. 
