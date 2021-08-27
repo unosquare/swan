@@ -1,4 +1,4 @@
-﻿namespace Swan
+﻿namespace Swan.Types
 {
     /// <summary>
     /// Represents the text of the standard output and standard error

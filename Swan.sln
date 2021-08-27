@@ -35,9 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Core", "Swan.Core\Swan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Artifacts", "src\Swan.Artifacts\Swan.Artifacts.csproj", "{969671A9-0522-4471-A649-C989FA9911AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swan.Threading", "src\Swan.Threading\Swan.Threading.csproj", "{C51BE971-06BA-4B42-88C2-D74701FD1171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Threading", "src\Swan.Threading\Swan.Threading.csproj", "{C51BE971-06BA-4B42-88C2-D74701FD1171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swan.Logging", "src\Swan.Logging\Swan.Logging.csproj", "{3552BE82-2D92-4150-A865-518112DE5BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Logging", "src\Swan.Logging\Swan.Logging.csproj", "{3552BE82-2D92-4150-A865-518112DE5BCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swan.Net", "src\Swan.Net\Swan.Net.csproj", "{30025269-DE05-4C77-9394-4F84A4EC6252}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30025269-DE05-4C77-9394-4F84A4EC6252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30025269-DE05-4C77-9394-4F84A4EC6252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30025269-DE05-4C77-9394-4F84A4EC6252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30025269-DE05-4C77-9394-4F84A4EC6252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{969671A9-0522-4471-A649-C989FA9911AD} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{C51BE971-06BA-4B42-88C2-D74701FD1171} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{3552BE82-2D92-4150-A865-518112DE5BCE} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
+		{30025269-DE05-4C77-9394-4F84A4EC6252} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5977823D-9DDF-4C6D-AA39-87491F030AC1}

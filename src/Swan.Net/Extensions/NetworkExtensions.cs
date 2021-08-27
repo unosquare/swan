@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Swan
+namespace Swan.Net.Extensions
 {
     /// <summary>
     /// Provides various extension methods for networking-related tasks.

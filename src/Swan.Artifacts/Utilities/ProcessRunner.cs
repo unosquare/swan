@@ -1,4 +1,4 @@
-﻿using Swan.Utilities;
+﻿using Swan.Types;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -7,22 +7,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Swan
+namespace Swan.Utilities
 {
+    /// <summary>
+    /// Defines a delegate to handle binary data reception from the standard 
+    /// output or standard error streams from a process.
+    /// </summary>
+    /// <param name="processData">The process data.</param>
+    /// <param name="process">The process.</param>
+    public delegate void ProcessDataReceivedCallback(byte[] processData, Process process);
+
     /// <summary>
     /// Provides methods to help create external processes, and efficiently capture the
     /// standard error and standard output streams.
     /// </summary>
     public static class ProcessRunner
     {
-        /// <summary>
-        /// Defines a delegate to handle binary data reception from the standard 
-        /// output or standard error streams from a process.
-        /// </summary>
-        /// <param name="processData">The process data.</param>
-        /// <param name="process">The process.</param>
-        public delegate void ProcessDataReceivedCallback(byte[] processData, Process process);
-
         /// <summary>
         /// Runs the process asynchronously and if the exit code is 0,
         /// returns all of the standard output text. If the exit code is something other than 0

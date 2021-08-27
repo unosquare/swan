@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Cryptography;
+using Swan.Utilities;
 using System;
 using System.IO;
 

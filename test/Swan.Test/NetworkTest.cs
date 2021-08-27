@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Swan.Net;
 using Swan.Net.Dns;
+using Swan.Net.Extensions;
 using System;
 using System.Linq;
 using System.Net;

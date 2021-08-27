@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 
-namespace Swan
+namespace Swan.Net.Extensions
 {
     /// <summary>
     /// Extension methods.

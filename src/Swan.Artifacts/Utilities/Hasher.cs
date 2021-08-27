@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Swan.Cryptography
+namespace Swan.Utilities
 {
     /// <summary>
     /// Use this class to compute a hash in MD5, SHA1, SHA256 or SHA512.

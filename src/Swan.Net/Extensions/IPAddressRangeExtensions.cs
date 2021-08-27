@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.CompilerServices;
 
-namespace Swan.Net
+namespace Swan.Net.Extensions
 {
     /// <summary>
     /// Provides extension methods for instances and collections of <see cref="IPAddressRange"/>.
