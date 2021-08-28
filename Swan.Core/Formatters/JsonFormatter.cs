@@ -95,7 +95,7 @@ namespace Swan.Formatters
         public static object? JsonDeserialize(this string @this, Type type, JsonSerializerOptions? options = default) =>
             type == null || !type.TypeInfo().CanCreateInstance
                 ? throw new ArgumentException("The provided type must not be null and needs a parameterless constructor.", nameof(type))
-                : JsonSerializer.Deserialize(@this, type ?? DefaultDeserializationType, options);
+                : JsonSerializer.Deserialize(@this, type, options);
 
         /// <summary>
         /// Deserializes a JSON stream of UTF8 bytes into a dynamic object.
@@ -110,7 +110,7 @@ namespace Swan.Formatters
                 throw new ArgumentException("The provided type must not be null and needs a parameterless constructor.", nameof(type));
 
             return await JsonSerializer
-                .DeserializeAsync(@this, type ?? DefaultDeserializationType, options)
+                .DeserializeAsync(@this, type, options)
                 .ConfigureAwait(false);
         }
 

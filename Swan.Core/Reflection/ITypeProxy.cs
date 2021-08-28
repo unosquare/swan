@@ -12,7 +12,7 @@ namespace Swan.Reflection
         /// <summary>
         /// Provides the type this proxy represents.
         /// </summary>
-        Type BackingType { get; }
+        Type ProxiedType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is a nullable value type.
@@ -103,6 +103,11 @@ namespace Swan.Reflection
         /// Provides a collection of all instance fields (public and non public) for this type.
         /// </summary>
         IReadOnlyList<FieldInfo> Fields { get; }
+
+        /// <summary>
+        /// Provides a collection of all instances of attributes applied on this type and its parent types.
+        /// </summary>
+        IReadOnlyList<object> TypeAttributes { get; }
 
         /// <summary>
         /// Calls the parameterless constructor on this type returning an isntance.

@@ -1,46 +1,202 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Swan.Reflection
 {
     /// <summary>
-    /// Provides extended information about a type such as property proxies,
-    /// fields, attributes and methods.
+    /// Provides a base class for efficiently exposing details about a given type.
     /// </summary>
-    public sealed class TypeProxy : TypeProxyBase
+    internal sealed class TypeProxy : ITypeProxy
     {
-        private readonly Lazy<object[]> DirectAttributesLazy;
-        private readonly Lazy<object[]> AllAttributesLazy;
-        private readonly Lazy<object[]> InheritedAttributesLazy;
+        /// <summary>
+        /// Binding flags to retrieve instanc, public and non-public members.
+        /// </summary>
+        private const BindingFlags PublicAndPrivate = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        private static readonly object SyncLock = new();
+        private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> PropertyCache = new(32);
+
+        private readonly Lazy<object[]> TypeAttributesLazy;
+        private readonly Lazy<FieldInfo[]> FieldsLazy;
+        private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
+        private readonly Lazy<ToStringMethodInfo> ToStringMethodLazy;
+        private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
+        private readonly Lazy<object?> DefaultLazy;
+        private readonly Lazy<Func<object>> CreateInstanceLazy;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeProxy"/> class.
+        /// Creates a new instance of the <see cref="TypeProxy"/> class.
         /// </summary>
-        /// <param name="backingType">The t.</param>
+        /// <param name="backingType">The type to create a proxy from.</param>
         public TypeProxy(Type backingType)
-            : base(backingType)
         {
-            DirectAttributesLazy = new(() => backingType.GetCustomAttributes(false), true);
-            AllAttributesLazy = new(() => backingType.GetCustomAttributes(true), true);
-            InheritedAttributesLazy = new(() => AllAttributes.Where(c => !DirectAttributes.Contains(DirectAttributes)).ToArray(), true);
+            ProxiedType = backingType ?? throw new ArgumentNullException(nameof(backingType));
+
+            var nullableType = Nullable.GetUnderlyingType(backingType);
+
+            IsNullableValueType = nullableType != null;
+            IsValueType = backingType.IsValueType;
+            UnderlyingType = nullableType ?? ProxiedType;
+            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType);
+            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType);
+
+            FieldsLazy = new(() => backingType.GetFields(PublicAndPrivate), true);
+            TypeAttributesLazy = new(() => backingType.GetCustomAttributes(true), true);
+            TryParseMethodLazy = new(() => new TryParseMethodInfo(this), true);
+            ToStringMethodLazy = new(() => new ToStringMethodInfo(this), true);
+            DefaultConstructorLazy = new(() => !IsValueType
+                ? backingType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
+                : null, true);
+
+            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(backingType) : null, true);
+            CreateInstanceLazy = new(() =>
+            {
+                if (IsValueType)
+                    return new(() => DefaultValue);
+
+                var constructor = DefaultConstructorLazy.Value;
+                return constructor is not null
+                    ? (Func<object>)Expression.Lambda(Expression.New(constructor)).Compile()
+                    : () => throw new MissingMethodException($"Type '{ProxiedType.Name}' does not have a parameterless constructor.");
+
+            }, true);
         }
 
-        /// <summary>
-        /// Provides a collection of all instances of attributes applied directly on this type
-        /// and without inherited attributes.
-        /// </summary>
-        public IReadOnlyList<object> DirectAttributes => DirectAttributesLazy.Value;
+        /// <inheritdoc />
+        public Type ProxiedType { get; }
 
-        /// <summary>
-        /// Provides a collection of all instances of attributes applied on parent types of this type
-        /// and without directly applied attributes.
-        /// </summary>
-        public IReadOnlyList<object> InheritedAttributes => InheritedAttributesLazy.Value;
+        /// <inheritdoc />
+        public bool IsNullableValueType { get; }
 
-        /// <summary>
-        /// Provides a collection of all instances of attributes applied on this type and its parent types.
-        /// </summary>
-        public IReadOnlyList<object> AllAttributes => AllAttributesLazy.Value;
+        /// <inheritdoc />
+        public bool IsNumeric { get; }
+
+        /// <inheritdoc />
+        public bool IsValueType { get; }
+
+        /// <inheritdoc />
+        public bool IsAbstract => ProxiedType.IsAbstract;
+
+        /// <inheritdoc />
+        public bool IsInterface => ProxiedType.IsInterface;
+
+        /// <inheritdoc />
+        public bool IsEnum => ProxiedType.IsEnum;
+
+        /// <inheritdoc />
+        public bool IsArray => ProxiedType.IsArray;
+
+        /// <inheritdoc />
+        public bool IsBasicType { get; }
+
+        /// <inheritdoc />
+        public Type UnderlyingType { get; }
+
+        /// <inheritdoc />
+        public object? DefaultValue => DefaultLazy.Value;
+
+        /// <inheritdoc />
+        public bool CanParseNatively => TryParseMethodInfo != null;
+
+        /// <inheritdoc />
+        public bool CanCreateInstance => IsValueType || (!IsAbstract && !IsInterface && DefaultConstructorLazy.Value is not null);
+
+        /// <inheritdoc />
+        public IReadOnlyDictionary<string, IPropertyProxy> Properties
+        {
+            get
+            {
+                lock (SyncLock)
+                {
+                    if (PropertyCache.TryGetValue(ProxiedType, out var proxies))
+                        return proxies;
+
+                    var properties = ProxiedType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                    proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.InvariantCulture);
+                    foreach (var propertyInfo in properties)
+                        proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
+
+                    PropertyCache.TryAdd(ProxiedType, proxies);
+                    return proxies;
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public IReadOnlyList<FieldInfo> Fields => FieldsLazy.Value;
+
+        /// <inheritdoc />
+        public IReadOnlyList<object> TypeAttributes => TypeAttributesLazy.Value;
+
+        private MethodInfo? TryParseMethodInfo => TryParseMethodLazy.Value.Method;
+
+        private MethodInfo? ToStringMethodInfo => ToStringMethodLazy.Value.Method;
+
+        /// <inheritdoc />
+        public object CreateInstance() => CreateInstanceLazy.Value.Invoke();
+
+        /// <inheritdoc />
+        public string ToStringInvariant(object? instance)
+        {
+            if (instance == null)
+                return string.Empty;
+
+            return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count != 1
+                ? instance.ToString() ?? string.Empty
+                : ToStringMethodInfo?.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty;
+        }
+
+        /// <inheritdoc />
+        public bool TryParse(string s, out object? result)
+        {
+            result = DefaultValue;
+
+            try
+            {
+                if (ProxiedType == typeof(string))
+                {
+                    result = Convert.ChangeType(s, ProxiedType, CultureInfo.InvariantCulture);
+                    return true;
+                }
+
+                if ((IsNullableValueType && string.IsNullOrEmpty(s)) || !CanParseNatively)
+                {
+                    return true;
+                }
+
+                // Build the arguments of the TryParse method
+                var dynamicArguments = new List<object?> { s };
+
+                for (var pi = 1; pi < TryParseMethodLazy.Value.Parameters.Count - 1; pi++)
+                {
+                    var argInfo = TryParseMethodLazy.Value.Parameters[pi];
+                    if (argInfo.ParameterType == typeof(IFormatProvider))
+                        dynamicArguments.Add(CultureInfo.InvariantCulture);
+                    else if (argInfo.ParameterType == typeof(NumberStyles))
+                        dynamicArguments.Add(NumberStyles.Any);
+                    else
+                        dynamicArguments.Add(null);
+                }
+
+                dynamicArguments.Add(null);
+                var parseArguments = dynamicArguments.ToArray();
+
+                if ((bool)(TryParseMethodInfo?.Invoke(null, parseArguments) ?? false))
+                {
+                    result = parseArguments[^1];
+                    return true;
+                }
+            }
+            catch
+            {
+                // Ignore
+            }
+
+            return false;
+        }
     }
 }

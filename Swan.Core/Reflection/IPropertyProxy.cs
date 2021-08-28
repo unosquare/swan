@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Swan.Reflection
@@ -21,7 +20,7 @@ namespace Swan.Reflection
         PropertyInfo PropertyInfo { get; }
 
         /// <summary>
-        /// Gets the property type. Same as <see cref="ITypeProxy.BackingType"/>.
+        /// Gets the property type. Same as <see cref="ITypeProxy.ProxiedType"/>.
         /// </summary>
         Type PropertyType { get; }
 
@@ -84,36 +83,5 @@ namespace Swan.Reflection
         /// <param name="value">The value to pass into the property.</param>
         /// <returns>Returns true if the operation was successful. False otherwise.</returns>
         bool TrySetValue(object instance, object? value);
-
-        /// <summary>
-        /// Searches for the first attribute of the given type.
-        /// </summary>
-        /// <typeparam name="T">The attribute type to search for.</typeparam>
-        /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-        T? Attribute<T>() where T : Attribute => PropertyAttributes.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
-
-        /// <summary>
-        /// Searches for the first attribute of the given type.
-        /// </summary>
-        /// <param name="attributeType">The attribute type to search for.</param>
-        /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-        object? Attribute(Type attributeType) =>
-            attributeType is null
-                ? throw new ArgumentNullException(nameof(attributeType))
-                : PropertyAttributes.FirstOrDefault(c => c.GetType().IsAssignableTo(attributeType));
-
-        /// <summary>
-        /// Gets a value indicating whether an attribute of the given type has been applied.
-        /// </summary>
-        /// <typeparam name="T">The type of the attribute to search for.</typeparam>
-        /// <returns>True if the attribute is found. False otherwise.</returns>
-        bool HasAttribute<T>() where T : Attribute => Attribute<T>() is not null;
-
-        /// <summary>
-        /// Gets a value indicating whether an attribute of the given type has been applied.
-        /// </summary>
-        /// <param name="attributeType">The type of the attribute to search for.</param>
-        /// <returns>True if the attribute is found. False otherwise.</returns>
-        bool HasAttribute(Type attributeType) => Attribute(attributeType) is not null;
     }
 }

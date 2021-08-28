@@ -9,7 +9,7 @@ namespace Swan.Reflection
     /// </summary>
     public static partial class TypeManager
     {
-        private static readonly ConcurrentDictionary<Type, TypeProxy> TypeCache = new();
+        private static readonly ConcurrentDictionary<Type, ITypeProxy> TypeCache = new();
 
         /// <summary>
         /// Provides a callection of primitive, numeric types.
@@ -60,7 +60,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="t">The type to provide extended info for.</param>
         /// <returns>Returns an <see cref="TypeProxy"/> for the given type.</returns>
-        public static TypeProxy TypeInfo(this Type t)
+        public static ITypeProxy TypeInfo(this Type t)
         {
             if (t is null)
                 throw new ArgumentNullException(nameof(t));

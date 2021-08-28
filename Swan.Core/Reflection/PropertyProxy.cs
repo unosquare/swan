@@ -12,7 +12,7 @@ namespace Swan.Reflection
     /// <seealso cref="IPropertyProxy" />
     internal sealed class PropertyProxy : IPropertyProxy
     {
-        private readonly TypeProxy TypeProxy;
+        private readonly ITypeProxy TypeProxy;
         private readonly Func<object, object?>? Getter;
         private readonly Action<object, object?>? Setter;
         private readonly Lazy<object[]> PropertyAttributesLazy;
@@ -59,7 +59,7 @@ namespace Swan.Reflection
         public bool HasPublicSetter { get; }
 
         /// <inheritdoc />
-        public Type BackingType => TypeProxy.BackingType;
+        public Type ProxiedType => TypeProxy.ProxiedType;
 
         /// <inheritdoc />
         public bool IsNullableValueType => TypeProxy.IsNullableValueType;
@@ -105,6 +105,9 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public IReadOnlyList<object> PropertyAttributes => PropertyAttributesLazy.Value;
+
+        /// <inheritdoc />
+        public IReadOnlyList<object> TypeAttributes => TypeProxy.TypeAttributes;
 
         /// <inheritdoc />
         public object? GetValue(object instance) => instance is null

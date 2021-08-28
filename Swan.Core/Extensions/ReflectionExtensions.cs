@@ -152,8 +152,9 @@ namespace Swan.Extensions
                 throw new ArgumentNullException(nameof(type));
 
             result = null;
-            
-            return type.TypeInfo().CanParseNatively && type.TypeInfo().TryParse(value, out result);
+
+            var proxy = type.TypeInfo();
+            return proxy.CanParseNatively && proxy.TryParse(value, out result);
         }
 
         /// <summary>
