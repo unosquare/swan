@@ -220,7 +220,7 @@ namespace Swan.Reflection
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
         public bool TryParse(string s, out object? result)
         {
-            result = Type.GetDefault();
+            result = Default;
 
             try
             {
