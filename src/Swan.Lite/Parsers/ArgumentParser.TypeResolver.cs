@@ -37,7 +37,7 @@ namespace Swan.Parsers
 
                 var type = instance.GetType();
 
-                var verbProperty = type.GetProperty(selectedVerb.Name);
+                var verbProperty = type.GetProperty(selectedVerb.PropertyName);
 
                 if (verbProperty?.GetValue(instance) == null)
                 {

@@ -213,15 +213,15 @@ namespace Swan
             var properties = collection
                 .Select(x => new
                 {
-                    x.Name,
+                    x.PropertyName,
                     HasAttribute = x.HasAttribute<CopyableAttribute>(),
                 })
                 .Where(x => x.HasAttribute)
-                .Select(x => x.Name);
+                .Select(x => x.PropertyName);
 
             return properties.Any()
                 ? properties
-                : collection.Select(x => x.Name);
+                : collection.Select(x => x.PropertyName);
         }
 
         internal static void CreateTarget(

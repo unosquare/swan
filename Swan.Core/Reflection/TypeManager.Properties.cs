@@ -13,7 +13,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="t">The type to retrieve property proxies from.</param>
         /// <returns>The property proxies for the given type.</returns>
-        public static IReadOnlyCollection<IPropertyProxy> Properties(this Type t) => t is not null
+        public static IReadOnlyList<IPropertyProxy> Properties(this Type t) => t is not null
                 ? t.TypeInfo().Properties.Values.ToArray()
                 : throw new ArgumentNullException(nameof(t));
 
@@ -23,7 +23,7 @@ namespace Swan.Reflection
         /// <typeparam name="T">The instance type.</typeparam>
         /// <param name="obj">The instance.</param>
         /// <returns>A dictionary with property names as keys and <see cref="IPropertyProxy"/> objects as values.</returns>
-        public static IReadOnlyCollection<IPropertyProxy> Properties<T>(this T obj) =>
+        public static IReadOnlyList<IPropertyProxy> Properties<T>(this T obj) =>
             (obj?.GetType() ?? typeof(T)).Properties();
 
         /// <summary>

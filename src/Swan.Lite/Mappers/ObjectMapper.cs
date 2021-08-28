@@ -260,14 +260,14 @@ namespace Swan.Mappers
             var properties = target.GetType().Properties().Where(c => c.CanWrite);
 
             return properties
-                .Select(x => x.Name)
+                .Select(x => x.PropertyName)
                 .Distinct()
-                .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.Name == x))
+                .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.PropertyName == x))
                 .Where(x => sourceProperties.Keys.Contains(x.Key))
                 .When(() => requiredProperties != null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
                 .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
-                .Sum(x => TrySetValue(x.Key.Property, x.Value, target) ? 1 : 0);
+                .Sum(x => TrySetValue(x.Key.PropertyInfo, x.Value, target) ? 1 : 0);
         }
 
         private static bool TrySetValue(PropertyInfo propertyInfo, Tuple<Type, object> property, object target)
@@ -361,12 +361,12 @@ namespace Swan.Mappers
             var sourceProperties = source.GetType().Properties().Where(c => c.CanRead);
 
             return sourceProperties
-                .Select(x => x.Name)
+                .Select(x => x.PropertyName)
                 .Distinct()
                 .ToDictionary(
                     x => x.ToLowerInvariant(),
-                    x => Tuple.Create(sourceProperties.First(y => y.Name == x).PropertyType,
-                        sourceProperties.First(y => y.Name == x).GetValue(source)));
+                    x => Tuple.Create(sourceProperties.First(y => y.PropertyName == x).PropertyType,
+                        sourceProperties.First(y => y.PropertyName == x).GetValue(source)));
         }
     }
 }

@@ -12,9 +12,10 @@ namespace Swan.Reflection
     /// <seealso cref="IPropertyProxy" />
     internal sealed class PropertyProxy : IPropertyProxy
     {
+        private readonly TypeProxy TypeProxy;
         private readonly Func<object, object?>? Getter;
         private readonly Action<object, object?>? Setter;
-        private readonly Lazy<object[]> AttributesLazy;
+        private readonly Lazy<object[]> PropertyAttributesLazy;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyProxy"/> class.
@@ -23,51 +24,93 @@ namespace Swan.Reflection
         /// <param name="propertyInfo">The property information.</param>
         public PropertyProxy(Type declaringType, PropertyInfo propertyInfo)
         {
-            Property = propertyInfo;
+            TypeProxy = propertyInfo.PropertyType.TypeInfo();
+            PropertyInfo = propertyInfo;
             EnclosingType = declaringType;
             Getter = CreateLambdaGetter(declaringType, propertyInfo);
             Setter = CreateLambdaSetter(declaringType, propertyInfo);
             HasPublicGetter = propertyInfo.GetGetMethod()?.IsPublic ?? false;
             HasPublicSetter = propertyInfo.GetSetMethod()?.IsPublic ?? false;
-            AttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
+            PropertyAttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
         }
 
         /// <inheritdoc />
-        public PropertyInfo Property { get; }
+        public Type PropertyType => PropertyInfo.PropertyType;
 
         /// <inheritdoc />
-        public IReadOnlyCollection<object> Attributes => AttributesLazy.Value;
+        public PropertyInfo PropertyInfo { get; }
 
         /// <inheritdoc />
         public Type EnclosingType { get; }
 
         /// <inheritdoc />
-        public string Name => Property.Name;
+        public string PropertyName => PropertyInfo.Name;
 
         /// <inheritdoc />
-        public Type PropertyType => Property.PropertyType;
+        public bool CanRead => PropertyInfo.CanRead;
 
         /// <inheritdoc />
-        public bool CanRead => Property.CanRead;
+        public bool CanWrite => PropertyInfo.CanWrite;
 
         /// <inheritdoc />
-        public bool CanWrite => Property.CanWrite;
-
-        /// <summary>
-        /// Gets whether the property getter is declared as public.
-        /// </summary>
         public bool HasPublicGetter { get; }
 
-        /// <summary>
-        /// Gets whether the property setter is declared as public.
-        /// </summary>
+        /// <inheritdoc />
         public bool HasPublicSetter { get; }
+
+        /// <inheritdoc />
+        public Type BackingType => TypeProxy.BackingType;
+
+        /// <inheritdoc />
+        public bool IsNullableValueType => TypeProxy.IsNullableValueType;
+
+        /// <inheritdoc />
+        public bool IsNumeric => TypeProxy.IsNumeric;
+
+        /// <inheritdoc />
+        public bool IsValueType => TypeProxy.IsValueType;
+
+        /// <inheritdoc />
+        public bool IsAbstract => TypeProxy.IsAbstract;
+
+        /// <inheritdoc />
+        public bool IsInterface => TypeProxy.IsInterface;
+
+        /// <inheritdoc />
+        public bool IsEnum => TypeProxy.IsEnum;
+
+        /// <inheritdoc />
+        public bool IsArray => TypeProxy.IsArray;
+
+        /// <inheritdoc />
+        public bool IsBasicType => TypeProxy.IsBasicType;
+
+        /// <inheritdoc />
+        public Type UnderlyingType => TypeProxy.UnderlyingType;
+
+        /// <inheritdoc />
+        public object? DefaultValue => TypeProxy.DefaultValue;
+
+        /// <inheritdoc />
+        public bool CanParseNatively => TypeProxy.CanParseNatively;
+
+        /// <inheritdoc />
+        public bool CanCreateInstance => throw new NotImplementedException();
+
+        /// <inheritdoc />
+        public IReadOnlyDictionary<string, IPropertyProxy> Properties => throw new NotImplementedException();
+
+        /// <inheritdoc />
+        public IReadOnlyList<FieldInfo> Fields => throw new NotImplementedException();
+
+        /// <inheritdoc />
+        public IReadOnlyList<object> PropertyAttributes => PropertyAttributesLazy.Value;
 
         /// <inheritdoc />
         public object? GetValue(object instance) => instance is null
             ? throw new ArgumentNullException(nameof(instance))
             : Getter is null
-            ? throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no getter for property '{Name}'")
+            ? throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no getter for property '{PropertyName}'")
             : Getter.Invoke(instance);
 
         /// <inheritdoc />
@@ -77,10 +120,61 @@ namespace Swan.Reflection
                 throw new ArgumentNullException(nameof(instance));
 
             if (Setter is null)
-                throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no setter for property '{Name}'");
+                throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no setter for property '{PropertyName}'");
 
             Setter.Invoke(instance, value);
         }
+
+        /// <inheritdoc />
+        public bool TryGetValue(object instance, out object? value)
+        {
+            
+            value = PropertyType.GetDefault();
+            try
+            {
+                if (!CanRead)
+                    return false;
+
+                value = GetValue(instance);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc />
+        public bool TrySetValue(object instance, object? value)
+        {
+            if (!PropertyInfo.CanWrite)
+                return false;
+
+            var sourceType = value is null ? PropertyType : value.GetType();
+            var sourceValue = value ?? sourceType.GetDefault();
+
+            try
+            {
+                if (!PropertyType.IsAssignableFrom(sourceType))
+                    sourceValue = Convert.ChangeType(sourceValue, PropertyType, CultureInfo.InvariantCulture);
+
+                SetValue(instance, sourceValue);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc />
+        public object CreateInstance() => TypeProxy.CreateInstance();
+
+        /// <inheritdoc />
+        public string ToStringInvariant(object? instance) => TypeProxy.ToStringInvariant(instance);
+
+        /// <inheritdoc />
+        public bool TryParse(string s, out object? result) => TypeProxy.TryParse(s, out result);
 
         private static Func<object, object?>? CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
         {
@@ -111,47 +205,6 @@ namespace Swan.Reflection
             var dynamicSetter = Expression.Lambda<Action<object, object?>>(body, instanceParameter, valueParameter).Compile();
 
             return dynamicSetter;
-        }
-
-        /// <inheritdoc />
-        public bool TryGetValue(object instance, out object? value)
-        {
-            value = PropertyType.GetDefault();
-            try
-            {
-                if (!CanRead)
-                    return false;
-
-                value = GetValue(instance);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <inheritdoc />
-        public bool TrySetValue(object instance, object? value)
-        {
-            if (!Property.CanWrite)
-                return false;
-
-            var sourceType = value is null ? PropertyType : value.GetType();
-            var sourceValue = value ?? sourceType.GetDefault();
-
-            try
-            {
-                if (!PropertyType.IsAssignableFrom(sourceType))
-                    sourceValue = Convert.ChangeType(sourceValue, PropertyType, CultureInfo.InvariantCulture);
-
-                SetValue(instance, sourceValue);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

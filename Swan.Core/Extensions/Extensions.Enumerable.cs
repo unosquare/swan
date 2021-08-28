@@ -9,6 +9,20 @@ namespace Swan
     public static class EnumerableExtensions
     {
         /// <summary>
+        /// This method produces a union of two IEnumerables
+        /// validation when some of them is null.
+        /// </summary>
+        /// <typeparam name="T">T</typeparam>
+        /// <param name="this">The this.</param>
+        /// <param name="second">The second.</param>
+        /// <returns> The Union </returns>
+        public static IEnumerable<T>? UnionNull<T>(this IEnumerable<T>? @this, IEnumerable<T>? second)
+        {
+            if (@this == null) return second;
+            return second == null ? @this : @this.Union(second);
+        }
+
+        /// <summary>
         /// This method returns the <see cref="Enumerable.Union{TSource}">Union</see>
         /// of all non-null parameters.
         /// </summary>

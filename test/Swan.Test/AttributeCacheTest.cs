@@ -40,7 +40,7 @@ namespace Swan.Test
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
             var props = typeof(NotNullMock).Properties()
-                .Where(p => p.Attributes.Any(a => a is IValidator));
+                .Where(p => p.PropertyAttributes.Any(a => a is IValidator));
 
             Assert.That(props.Count, Is.EqualTo(1));
         }
@@ -61,7 +61,7 @@ namespace Swan.Test
         public void ValidParams_ReturnsAttributes()
         {
             var member = typeof(RegexMock).TypeInfo().Properties[nameof(RegexMock.Salute)];
-            var attributes = member.Attributes.Where(c => c is IValidator);
+            var attributes = member.PropertyAttributes.Where(c => c is IValidator);
 
             Assert.That(attributes.Count(), Is.EqualTo(1));
         }

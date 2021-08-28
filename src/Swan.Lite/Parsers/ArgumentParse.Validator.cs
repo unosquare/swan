@@ -154,11 +154,11 @@ namespace Swan.Parsers
                 object result,
                 ArgumentOptionAttribute? optionAttr = null)
             {
-                if (!targetProperty.PropertyType.IsEnum)
+                if (!targetProperty.IsEnum)
                 {
-                    return targetProperty.PropertyType.IsArray
-                        ? targetProperty.Property.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
-                        : targetProperty.Property.TrySetBasicType(propertyValueString, result);
+                    return targetProperty.IsArray
+                        ? targetProperty.PropertyInfo.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
+                        : targetProperty.PropertyInfo.TrySetBasicType(propertyValueString, result);
                 }
 
                 var parsedValue = Enum.Parse(

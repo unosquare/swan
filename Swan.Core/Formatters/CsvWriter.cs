@@ -328,7 +328,7 @@ namespace Swan.Formatters
                         WriteLine(typedItem.Cast<object>());
                         return;
                     default:
-                        WriteLine(GetFilteredTypeProperties(item.GetType()).Select(x => item.ReadProperty(x.Name)));
+                        WriteLine(GetFilteredTypeProperties(item.GetType()).Select(x => item.ReadProperty(x.PropertyName)));
                         break;
                 }
             }
@@ -378,7 +378,7 @@ namespace Swan.Formatters
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            var properties = GetFilteredTypeProperties(type).Select(p => p.Name.Humanize()).Cast<object>();
+            var properties = GetFilteredTypeProperties(type).Select(p => p.PropertyName.Humanize()).Cast<object>();
             WriteLine(properties);
         }
 
@@ -456,7 +456,7 @@ namespace Swan.Formatters
                         : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
 
         private IEnumerable<IPropertyProxy> GetFilteredTypeProperties(Type type)
-            => type.Properties().Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.Name));
+            => type.Properties().Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.PropertyName));
 
         #endregion
 

@@ -8,27 +8,27 @@ namespace Swan.Reflection
     /// <summary>
     /// Represents a generic interface to store getters and setters for high speed access to properties.
     /// </summary>
-    public interface IPropertyProxy
+    public interface IPropertyProxy : ITypeProxy
     {
         /// <summary>
         /// Gets the name of the property.
         /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Gets the type of the property.
-        /// </summary>
-        Type PropertyType { get; }
+        string PropertyName { get; }
 
         /// <summary>
         /// Gets the associated reflection property info.
         /// </summary>
-        PropertyInfo Property { get; }
+        PropertyInfo PropertyInfo { get; }
+
+        /// <summary>
+        /// Gets the property type. Same as <see cref="ITypeProxy.BackingType"/>.
+        /// </summary>
+        Type PropertyType { get; }
 
         /// <summary>
         /// Gets all the custom attributes applied to this property declaration.
         /// </summary>
-        IReadOnlyCollection<object> Attributes { get; }
+        IReadOnlyList<object> PropertyAttributes { get; }
 
         /// <summary>
         /// Gets whether the property getter is declared as public.
@@ -54,35 +54,6 @@ namespace Swan.Reflection
         /// Gets a value indicating whether this property can be written to.
         /// </summary>
         public bool CanWrite { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the type or underlying type is numeric.
-        /// </summary>
-        /// <value>
-        ///  <c>true</c> if this instance is numeric; otherwise, <c>false</c>.
-        /// </value>
-        bool IsNumeric => PropertyType.TypeInfo().IsNumeric;
-
-        /// <summary>
-        /// Gets a value indicating whether the type is basic.
-        /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
-        /// including their nullable versions.
-        /// </summary>
-        bool IsBasicType => PropertyType.TypeInfo().IsBasicType;
-
-        /// <summary>
-        /// Gets a value indicating whether the type is a nullable value type.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is nullable value type; otherwise, <c>false</c>.
-        /// </value>
-        bool IsNullableValueType => PropertyType.TypeInfo().IsNullableValueType;
-
-        /// <summary>
-        /// Gets a value indicating whether the type is value type.
-        /// Nullable value types have this property set to False.
-        /// </summary>
-        bool IsValueType => PropertyType.TypeInfo().IsValueType;
 
         /// <summary>
         /// Gets the property value via a stored delegate.
@@ -119,7 +90,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <typeparam name="T">The attribute type to search for.</typeparam>
         /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-        T? Attribute<T>() where T : Attribute => Attributes.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
+        T? Attribute<T>() where T : Attribute => PropertyAttributes.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
 
         /// <summary>
         /// Searches for the first attribute of the given type.
@@ -129,7 +100,7 @@ namespace Swan.Reflection
         object? Attribute(Type attributeType) =>
             attributeType is null
                 ? throw new ArgumentNullException(nameof(attributeType))
-                : Attributes.FirstOrDefault(c => c.GetType().IsAssignableTo(attributeType));
+                : PropertyAttributes.FirstOrDefault(c => c.GetType().IsAssignableTo(attributeType));
 
         /// <summary>
         /// Gets a value indicating whether an attribute of the given type has been applied.

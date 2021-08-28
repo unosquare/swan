@@ -6,7 +6,7 @@ namespace Swan.Reflection
 {
     internal abstract class CommonMethodInfo
     {
-        protected CommonMethodInfo(ExtendedTypeInfo typeInfo, string methodName)
+        protected CommonMethodInfo(ITypeProxy typeInfo, string methodName)
         {
             MethodName = methodName;
             Method = null;
@@ -32,6 +32,6 @@ namespace Swan.Reflection
 
         public IReadOnlyList<ParameterInfo> Parameters { get; }
 
-        protected abstract MethodInfo? RetriveMethodInfo(ExtendedTypeInfo typeInfo, string methodName);
+        protected abstract MethodInfo? RetriveMethodInfo(ITypeProxy typeInfo, string methodName);
     }
 }

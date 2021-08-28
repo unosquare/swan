@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace Swan.Reflection
 {
     /// <summary>
-    /// Provides access to a cached repository of <see cref="ExtendedTypeInfo"/>.
+    /// Provides efficient access to a cached repository of <see cref="TypeProxy"/>.
     /// </summary>
     public static partial class TypeManager
     {
-        private static readonly ConcurrentDictionary<Type, ExtendedTypeInfo> TypeCache = new();
+        private static readonly ConcurrentDictionary<Type, TypeProxy> TypeCache = new();
 
         /// <summary>
         /// Provides a callection of primitive, numeric types.
         /// </summary>
-        public static IReadOnlyCollection<Type> NumericTypes { get; } = new[]
+        public static IReadOnlyList<Type> NumericTypes { get; } = new[]
         {
             typeof(byte),
             typeof(sbyte),
@@ -33,7 +33,7 @@ namespace Swan.Reflection
         /// Provides a collection of basic value types including numeric types,
         /// string, guid, timespan, and datetime.
         /// </summary>
-        public static IReadOnlyCollection<Type> BasicValueTypes { get; } = new[]
+        public static IReadOnlyList<Type> BasicValueTypes { get; } = new[]
         {
                 typeof(int),
                 typeof(bool),
@@ -59,8 +59,8 @@ namespace Swan.Reflection
         /// easy and efficient access to common reflection scenarios.
         /// </summary>
         /// <param name="t">The type to provide extended info for.</param>
-        /// <returns>Returns an <see cref="ExtendedTypeInfo"/> for the given type.</returns>
-        public static ExtendedTypeInfo TypeInfo(this Type t)
+        /// <returns>Returns an <see cref="TypeProxy"/> for the given type.</returns>
+        public static TypeProxy TypeInfo(this Type t)
         {
             if (t is null)
                 throw new ArgumentNullException(nameof(t));
@@ -68,7 +68,7 @@ namespace Swan.Reflection
             if (TypeCache.TryGetValue(t, out var typeInfo))
                 return typeInfo;
 
-            typeInfo = new ExtendedTypeInfo(t);
+            typeInfo = new TypeProxy(t);
             TypeCache.TryAdd(t, typeInfo);
 
             return typeInfo;
@@ -83,7 +83,7 @@ namespace Swan.Reflection
         /// </returns>
         /// <exception cref="ArgumentNullException">type.</exception>
         public static object? GetDefault(this Type type) => type is not null
-            ? type.TypeInfo().Default
+            ? type.TypeInfo().DefaultValue
             : throw new ArgumentNullException(nameof(type));
 
         /// <summary>
@@ -105,6 +105,5 @@ namespace Swan.Reflection
         /// <typeparam name="T">The type to create an instance of.</typeparam>
         /// <returns>A new instance of this type or the default value for value types.</returns>
         public static T CreateInstance<T>() => (T)typeof(T).CreateInstance();
-
     }
 }

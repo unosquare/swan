@@ -75,17 +75,17 @@ namespace Swan
 
             foreach (var propertyTarget in properties)
             {
-                if (propertyTarget.PropertyType.IsArray)
+                if (propertyTarget.IsArray)
                 {
-                    var leftObj = left.ReadProperty(propertyTarget.Name) as IEnumerable;
-                    var rightObj = right.ReadProperty(propertyTarget.Name) as IEnumerable;
+                    var leftObj = left.ReadProperty(propertyTarget.PropertyName) as IEnumerable;
+                    var rightObj = right.ReadProperty(propertyTarget.PropertyName) as IEnumerable;
 
                     if (!AreEnumerationsEquals(leftObj, rightObj))
                         return false;
                 }
                 else
                 {
-                    if (!Equals(left.ReadProperty(propertyTarget.Name), right.ReadProperty(propertyTarget.Name)))
+                    if (!Equals(left.ReadProperty(propertyTarget.PropertyName), right.ReadProperty(propertyTarget.PropertyName)))
                         return false;
                 }
             }
@@ -123,7 +123,7 @@ namespace Swan
 
             var fields = new List<MemberInfo>(
                 targetType.TypeInfo().Fields).Union(
-                targetType.Properties().Select(c => c.Property));
+                targetType.Properties().Select(c => c.PropertyInfo));
 
             foreach (var targetMember in fields)
             {

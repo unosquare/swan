@@ -15,10 +15,10 @@ namespace Swan.Mappers
         internal class PropertyInfoComparer : IEqualityComparer<IPropertyProxy>
         {
             public bool Equals(IPropertyProxy? x, IPropertyProxy? y)
-                => x != null && y != null && x.Name == y.Name && x.PropertyType == y.PropertyType;
+                => x != null && y != null && x.PropertyName == y.PropertyName && x.PropertyType == y.PropertyType;
 
             public int GetHashCode(IPropertyProxy obj)
-                => obj.Name.GetHashCode(System.StringComparison.InvariantCulture) +
+                => obj.PropertyName.GetHashCode(System.StringComparison.InvariantCulture) +
                    obj.PropertyType.Name.GetHashCode(System.StringComparison.InvariantCulture);
         }
     }

@@ -157,7 +157,7 @@ namespace Swan.Validation
             foreach (var prop in properties)
             {
                 
-                foreach (var attribute in prop.Attributes)
+                foreach (var attribute in prop.PropertyAttributes)
                 {
                     if (attribute is not IValidator val)
                         continue;
@@ -165,7 +165,7 @@ namespace Swan.Validation
                     if (val.IsValid(prop.GetValue(obj)))
                         continue;
 
-                    action?.Invoke(val.ErrorMessage, prop.Name);
+                    action?.Invoke(val.ErrorMessage, prop.PropertyName);
                     if (returnOnError) return false;
                 }
             }
