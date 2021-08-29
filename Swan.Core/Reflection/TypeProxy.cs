@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -27,32 +28,37 @@ namespace Swan.Reflection
         private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
         private readonly Lazy<object?> DefaultLazy;
         private readonly Lazy<Func<object>> CreateInstanceLazy;
+        private readonly Lazy<ITypeProxy?> ElementTypeLazy;
+        private readonly Lazy<Type[]> InterfacesLazy;
+        private readonly Lazy<bool> IsEnumerableLazy;
+        private readonly Lazy<bool> IsListLazy;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TypeProxy"/> class.
         /// </summary>
-        /// <param name="backingType">The type to create a proxy from.</param>
-        public TypeProxy(Type backingType)
+        /// <param name="proxiedType">The type to create a proxy from.</param>
+        public TypeProxy(Type proxiedType)
         {
-            ProxiedType = backingType ?? throw new ArgumentNullException(nameof(backingType));
+            if (proxiedType.IsGenericType && !proxiedType.IsConstructedGenericType)
+                throw new ArgumentException($"Generic type definitions cannot be proxied.");
 
-            var nullableType = Nullable.GetUnderlyingType(backingType);
+            ProxiedType = proxiedType ?? throw new ArgumentNullException(nameof(proxiedType));
 
+            var nullableType = Nullable.GetUnderlyingType(proxiedType);
             IsNullableValueType = nullableType != null;
-            IsValueType = backingType.IsValueType;
             UnderlyingType = nullableType ?? ProxiedType;
             IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType);
             IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType);
 
-            FieldsLazy = new(() => backingType.GetFields(PublicAndPrivate), true);
-            TypeAttributesLazy = new(() => backingType.GetCustomAttributes(true), true);
+            FieldsLazy = new(() => proxiedType.GetFields(PublicAndPrivate), true);
+            TypeAttributesLazy = new(() => proxiedType.GetCustomAttributes(true), true);
             TryParseMethodLazy = new(() => new TryParseMethodInfo(this), true);
             ToStringMethodLazy = new(() => new ToStringMethodInfo(this), true);
             DefaultConstructorLazy = new(() => !IsValueType
-                ? backingType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
+                ? proxiedType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
                 : null, true);
 
-            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(backingType) : null, true);
+            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(proxiedType) : null, true);
             CreateInstanceLazy = new(() =>
             {
                 if (IsValueType)
@@ -63,6 +69,28 @@ namespace Swan.Reflection
                     ? (Func<object>)Expression.Lambda(Expression.New(constructor)).Compile()
                     : () => throw new MissingMethodException($"Type '{ProxiedType.Name}' does not have a parameterless constructor.");
 
+            }, true);
+            InterfacesLazy = new(() => ProxiedType.GetInterfaces(), true);
+            IsEnumerableLazy = new(() => IsArray || Interfaces.Any(c => c == typeof(IEnumerable)), true);
+            IsListLazy = new(() => Interfaces.Any(c => c == typeof(IList)), true);
+
+            ElementTypeLazy = new(() => {
+                // Type is Array
+                // short-circuit if you expect lots of arrays 
+                if (IsArray)
+                    return (ProxiedType.GetElementType() ?? typeof(object)).TypeInfo();
+
+                if (IsEnumerable)
+                {
+                    var genericInterface = Interfaces
+                        .FirstOrDefault(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+
+                    return genericInterface is not null
+                        ? (genericInterface.GenericTypeArguments.FirstOrDefault() ?? typeof(object)).TypeInfo()
+                        : typeof(object).TypeInfo();
+                }
+
+                return null;
             }, true);
         }
 
@@ -76,7 +104,10 @@ namespace Swan.Reflection
         public bool IsNumeric { get; }
 
         /// <inheritdoc />
-        public bool IsValueType { get; }
+        public bool IsConstructedGenericType => ProxiedType.IsConstructedGenericType;
+
+        /// <inheritdoc />
+        public bool IsValueType => ProxiedType.IsValueType;
 
         /// <inheritdoc />
         public bool IsAbstract => ProxiedType.IsAbstract;
@@ -100,10 +131,22 @@ namespace Swan.Reflection
         public object? DefaultValue => DefaultLazy.Value;
 
         /// <inheritdoc />
-        public bool CanParseNatively => TryParseMethodInfo != null;
+        public bool CanParseNatively => ProxiedType == typeof(string) || TryParseMethodInfo != null;
 
         /// <inheritdoc />
         public bool CanCreateInstance => IsValueType || (!IsAbstract && !IsInterface && DefaultConstructorLazy.Value is not null);
+
+        /// <inheritdoc />
+        public bool IsEnumerable => IsEnumerableLazy.Value;
+
+        /// <inheritdoc />
+        public bool IsList => IsListLazy.Value;
+
+        /// <inheritdoc />
+        public ITypeProxy? ElementType => ElementTypeLazy.Value;
+
+        /// <inheritdoc />
+        public IReadOnlyList<Type> Interfaces => InterfacesLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyDictionary<string, IPropertyProxy> Properties

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -57,6 +58,28 @@ namespace Swan.Reflection
         bool IsArray { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this type was built from a generic one.
+        /// </summary>
+        bool IsConstructedGenericType { get; }
+
+        /// <summary>
+        /// For arrays and generic enumerables returns the element type.
+        /// For non generic enumerables just returns the proxy for the object type.
+        /// Returns null otherwise.
+        /// </summary>
+        ITypeProxy? ElementType { get; }
+
+        /// <summary>
+        /// Returns true for types that implement <see cref="IEnumerable"/>
+        /// </summary>
+        bool IsEnumerable { get; }
+
+        /// <summary>
+        /// Returns true for types that implement <see cref="IList"/>
+        /// </summary>
+        bool IsList { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the type is basic.
         /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
         /// including their nullable versions.
@@ -92,6 +115,11 @@ namespace Swan.Reflection
         /// This always returns true on value types.
         /// </summary>
         bool CanCreateInstance { get; }
+
+        /// <summary>
+        /// Retrieves a list of interfaces this type implements.
+        /// </summary>
+        IReadOnlyList<Type> Interfaces { get; }
 
         /// <summary>
         /// Gets the property proxies associated with this type.

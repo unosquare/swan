@@ -95,19 +95,34 @@ namespace Swan.Reflection
         public bool CanParseNatively => TypeProxy.CanParseNatively;
 
         /// <inheritdoc />
-        public bool CanCreateInstance => throw new NotImplementedException();
+        public bool CanCreateInstance => TypeProxy.CanCreateInstance;
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<string, IPropertyProxy> Properties => throw new NotImplementedException();
+        public IReadOnlyDictionary<string, IPropertyProxy> Properties => TypeProxy.Properties;
 
         /// <inheritdoc />
-        public IReadOnlyList<FieldInfo> Fields => throw new NotImplementedException();
+        public IReadOnlyList<FieldInfo> Fields => TypeProxy.Fields;
 
         /// <inheritdoc />
         public IReadOnlyList<object> PropertyAttributes => PropertyAttributesLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<object> TypeAttributes => TypeProxy.TypeAttributes;
+
+        /// <inheritdoc />
+        public bool IsConstructedGenericType => TypeProxy.IsConstructedGenericType;
+
+        /// <inheritdoc />
+        public ITypeProxy? ElementType => TypeProxy.ElementType;
+
+        /// <inheritdoc />
+        public bool IsEnumerable => TypeProxy.IsEnumerable;
+
+        /// <inheritdoc />
+        public bool IsList => TypeProxy.IsList;
+
+        /// <inheritdoc />
+        public IReadOnlyList<Type> Interfaces => throw new NotImplementedException();
 
         /// <inheritdoc />
         public object? GetValue(object instance) => instance is null
@@ -154,7 +169,7 @@ namespace Swan.Reflection
                 return false;
 
             var sourceType = value is null ? PropertyType : value.GetType();
-            var sourceValue = value ?? sourceType.GetDefault();
+            var sourceValue = value ?? DefaultValue;
 
             try
             {

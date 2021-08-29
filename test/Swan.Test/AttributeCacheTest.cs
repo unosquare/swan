@@ -30,19 +30,18 @@ namespace Swan.Test
         }
 
         [Test]
-        public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
+        public void RetrievePropertiesWithNullType_ReturnsNull()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                typeof(NotNullMock).Attribute(null));
+            Assert.IsNull(typeof(NotNullMock).Attribute(null));
         }
 
         [Test]
         public void RetrievePropertiesWithValidType_ReturnsProperties()
         {
-            var props = typeof(NotNullMock).Properties()
-                .Where(p => p.PropertyAttributes.Any(a => a is IValidator));
+            var prop = typeof(NotNullMock).Properties()
+                .FirstOrDefault(p => p.Attribute(typeof(IValidator)) != null);
 
-            Assert.That(props.Count, Is.EqualTo(1));
+            Assert.IsNotNull(prop);
         }
     }
 
