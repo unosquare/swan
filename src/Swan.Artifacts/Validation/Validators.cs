@@ -127,6 +127,6 @@ namespace Swan.Validation
         public bool IsValid<T>(T value)
             => value is IComparable comparable
             ? comparable.CompareTo(Minimum) >= 0 && comparable.CompareTo(Maximum) <= 0
-            : throw new ArgumentException(nameof(value));
+            : throw new ArgumentException($"Type {typeof(T)} does not implenet {nameof(IComparable)}.", nameof(value));
     }
 }

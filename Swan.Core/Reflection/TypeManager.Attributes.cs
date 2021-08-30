@@ -8,7 +8,10 @@ namespace Swan.Reflection
     {
         internal static IEnumerable<object> FilterAttributes(this IEnumerable<object> attributes, Type filterType)
         {
-            if (attributes is null || !attributes.Any() || filterType is null)
+            if (filterType is null)
+                throw new ArgumentNullException(nameof(filterType));
+
+            if (attributes is null || !attributes.Any())
                 return Array.Empty<object>();
 
             return attributes.Where(c => c != null && c.GetType().IsAssignableTo(filterType));
