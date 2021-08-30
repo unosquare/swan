@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Swan.Mapping;
 using Swan.Net;
 using Swan.Test.Mocks;
 using System;

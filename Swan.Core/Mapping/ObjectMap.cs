@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
     /// <summary>
     /// Represents an object map.
@@ -13,22 +13,40 @@ namespace Swan.Mappers
     /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TTarget">The type of the destination.</typeparam>
     /// <seealso cref="IObjectMap" />
-    public class ObjectMap<TSource, TTarget> : IObjectMap
+    public sealed class ObjectMap<TSource, TTarget> : IObjectMap
     {
-        internal ObjectMap(IEnumerable<IPropertyProxy> intersect)
+        internal ObjectMap()
         {
             SourceType = typeof(TSource).TypeInfo();
             TargetType = typeof(TTarget).TypeInfo();
 
-            foreach (var property in intersect)
+            foreach (var targetProperty in TargetType.Properties())
             {
-                Paths[TargetType.Properties[property.PropertyName]] =
-                    new[] { SourceType.Properties[property.PropertyName] }; 
+                if (!targetProperty.CanWrite)
+                    continue;
+
+                if (!SourceType.Properties.TryGetValue(targetProperty.PropertyName, out var sourceProperty))
+                    continue;
+
+                if (!sourceProperty.CanRead)
+                    continue;
+
+                Paths[targetProperty] = new[] { sourceProperty };
             }
         }
 
+        /// <inheritdoc/>
+        public MapPathSet Paths { get; } = new();
+
+        /// <inheritdoc/>
+        public ITypeProxy SourceType { get; }
+
+        /// <inheritdoc/>
+        public ITypeProxy TargetType { get; }
+
         /// <summary>
-        /// Maps the property.
+        /// Adds or replaces a path to this map specifying, first the target and then the source
+        /// which can be multi-level.
         /// </summary>
         /// <typeparam name="TTargetMember">The type of the destination property.</typeparam>
         /// <typeparam name="TSourceMember">The type of the source property.</typeparam>
@@ -38,7 +56,7 @@ namespace Swan.Mappers
         /// An object map representation of type of the destination property 
         /// and type of the source property.
         /// </returns>
-        public ObjectMap<TSource, TTarget> MapProperty
+        public ObjectMap<TSource, TTarget> SetPath
             <TTargetMember, TSourceMember>(
                 Expression<Func<TTarget, TTargetMember>> targetProperty,
                 Expression<Func<TSource, TSourceMember>> sourceProperty)
@@ -51,7 +69,7 @@ namespace Swan.Mappers
             if (propertyDestinationInfo == null)
                 throw new ArgumentException("Invalid destination expression", nameof(targetProperty));
 
-            var sourceMembers = GetSourceMembers(sourceProperty);
+            var sourceMembers = CreateSourcePath(sourceProperty);
 
             if (!sourceMembers.Any())
                 throw new ArgumentException("Invalid source expression", nameof(sourceProperty));
@@ -64,7 +82,7 @@ namespace Swan.Mappers
         }
 
         /// <summary>
-        /// Removes the map property.
+        /// Removes the target property from the map.
         /// </summary>
         /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
         /// <param name="destinationProperty">The destination property.</param>
@@ -73,7 +91,7 @@ namespace Swan.Mappers
         /// and type of the source property. 
         /// </returns>
         /// <exception cref="System.Exception">Invalid destination expression.</exception>
-        public ObjectMap<TSource, TTarget> RemoveMapProperty<TDestinationProperty>(
+        public ObjectMap<TSource, TTarget> RemovePath<TDestinationProperty>(
             Expression<Func<TTarget, TDestinationProperty>> destinationProperty)
         {
             if (destinationProperty == null)
@@ -90,30 +108,20 @@ namespace Swan.Mappers
             return this;
         }
 
-        /// <inheritdoc/>
-        public MapPathLookup Paths { get; } = new();
-
-        /// <inheritdoc/>
-        public ITypeProxy SourceType { get; }
-
-        /// <inheritdoc/>
-        public ITypeProxy TargetType { get; }
-
-        private static List<IPropertyProxy> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
+        private static List<IPropertyProxy> CreateSourcePath<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
             if (sourceProperty == null)
                 throw new ArgumentNullException(nameof(sourceProperty));
 
-            var sourceMembers = new List<IPropertyProxy>();
+            var sourceMembers = new List<IPropertyProxy>(16);
             var initialExpression = sourceProperty.Body as MemberExpression;
 
             while (true)
             {
                 var propertySourceInfo = initialExpression?.Member as PropertyInfo;
-
                 if (propertySourceInfo == null) break;
                 sourceMembers.Add(propertySourceInfo.ToPropertyProxy());
-                initialExpression = initialExpression.Expression as MemberExpression;
+                initialExpression = initialExpression?.Expression as MemberExpression;
             }
 
             return sourceMembers;

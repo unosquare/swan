@@ -1,11 +1,10 @@
-﻿using Swan.Reflection;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Swan.Extensions
+namespace Swan.Reflection
 {
     /// <summary>
     /// Provides various extension methods for Reflection and Types.

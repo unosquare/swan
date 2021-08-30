@@ -2,17 +2,17 @@
 using System;
 using System.Collections.Generic;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
     /// <summary>
     /// A dictionary containing a case-insensitive lookup of <see cref="MapPath"/> elements.
     /// </summary>
-    public sealed class MapPathLookup : Dictionary<string, MapPath>
+    public sealed class MapPathSet : Dictionary<string, MapPath>
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="MapPathLookup"/> class.
+        /// Creates a new instance of the <see cref="MapPathSet"/> class.
         /// </summary>
-        internal MapPathLookup()
+        internal MapPathSet()
             : base(128, StringComparer.InvariantCultureIgnoreCase)
         {
             // placeholder
@@ -27,15 +27,14 @@ namespace Swan.Mappers
         {
             get
             {
-                TryGetValue(targetProperty, out var value);
-                if (value is null)
+                if (!TryGetValue(targetProperty, out var value) || value is null)
                     throw new KeyNotFoundException($"Target property {targetProperty} was not found.");
 
                 return value.SourcePath;
             }
             set
             {
-                if (targetProperty is null || value is null || value.Count <= 0)
+                if (targetProperty is null || value is null)
                 {
                     throw new ArgumentException(
                         $"The {nameof(MapPath)} cannot be set as it requires both, target and source.", nameof(value));

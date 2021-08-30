@@ -209,7 +209,8 @@ namespace Swan.Utilities
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename));
 
-            var pathWithFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+            var pathWithFilename = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 filename);
 
             return Path.GetFullPath(pathWithFilename);

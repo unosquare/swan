@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan
+namespace Swan.Collections
 {
     /// <summary>
     /// This class contains extension methods for types implementing IEnumerable&lt;TSource&gt;

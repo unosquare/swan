@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Swan.Mapping;
+using System.Collections.Generic;
 
 namespace Swan.Net.Smtp
 {

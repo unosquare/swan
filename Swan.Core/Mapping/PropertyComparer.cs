@@ -1,9 +1,9 @@
 ﻿using Swan.Reflection;
 using System.Collections.Generic;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
-    internal class PropertyProxyComparer : IEqualityComparer<IPropertyProxy>
+    internal class PropertyComparer : IEqualityComparer<IPropertyProxy>
     {
         public bool Equals(IPropertyProxy? x, IPropertyProxy? y) => x is not null && y is not null &&
             x.PropertyName == y.PropertyName &&

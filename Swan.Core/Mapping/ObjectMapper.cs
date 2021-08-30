@@ -1,4 +1,4 @@
-﻿using Swan.Extensions;
+﻿using Swan.Collections;
 using Swan.Reflection;
 using System;
 using System.Collections;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
@@ -83,7 +83,7 @@ namespace Swan.Mappers
     {
         private static readonly Lazy<ObjectMapper> LazyInstance = new(() => new ObjectMapper());
 
-        private readonly List<IObjectMap> _maps = new();
+        private readonly List<IObjectMap> _maps = new(256);
 
         /// <summary>
         /// Gets the default instance of the object mapper.
@@ -140,7 +140,7 @@ namespace Swan.Mappers
         /// target.
         /// </exception>
         public static int Copy(
-            IDictionary<string, object>? source,
+            IDictionary<string, object?> source,
             object? target,
             IEnumerable<string>? propertiesToCopy = null,
             params string[] ignoreProperties)
@@ -179,15 +179,9 @@ namespace Swan.Mappers
             if (_maps.Any(x => x.SourceType.ProxiedType == typeof(TSource) && x.TargetType.ProxiedType == typeof(TTarget)))
                 throw new InvalidOperationException("You can't create an existing map");
 
-            var sourceType = typeof(TSource).Properties();
-            var targetType = typeof(TTarget).Properties();
-
-            var intersect = sourceType.Intersect(targetType, new PropertyProxyComparer()).ToArray();
-
-            if (!intersect.Any())
-                throw new InvalidOperationException("Types don't have any mathing properties.");
-            
-            var map = new ObjectMap<TSource, TTarget>(intersect);
+            var map = new ObjectMap<TSource, TTarget>();
+            if (!map.Paths.Any())
+                throw new InvalidOperationException("Types don't have any matching properties.");
 
             _maps.Add(map);
 
@@ -241,7 +235,7 @@ namespace Swan.Mappers
 
         private static int CopyInternal(
             object target,
-            Dictionary<string, Tuple<Type, object>> sourceProperties,
+            Dictionary<string, Tuple<Type, object?>> sourceProperties,
             IEnumerable<string>? propertiesToCopy,
             IEnumerable<string>? ignoreProperties)
         {
@@ -260,37 +254,37 @@ namespace Swan.Mappers
                 .Select(x => x.PropertyName)
                 .Distinct()
                 .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.PropertyName == x))
-                .Where(x => sourceProperties.Keys.Contains(x.Key))
+                .Where(x => sourceProperties.ContainsKey(x.Key))
                 .When(() => requiredProperties != null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
                 .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
                 .Sum(x => TrySetValue(x.Key.PropertyInfo, x.Value, target) ? 1 : 0);
         }
 
-        private static bool TrySetValue(PropertyInfo propertyInfo, Tuple<Type, object> property, object target)
+        private static bool TrySetValue(PropertyInfo targetProperty, Tuple<Type, object?> sourceProperty, object targetInstance)
         {
             try
             {
-                var (type, value) = property;
+                var (type, value) = sourceProperty;
 
                 if (type.IsEnum)
                 {
-                    propertyInfo.SetValue(target,
-                        Enum.ToObject(propertyInfo.PropertyType, value));
+                    targetProperty.SetValue(targetInstance,
+                        Enum.ToObject(targetProperty.PropertyType, value));
 
                     return true;
                 }
 
-                if (type.IsValueType || propertyInfo.PropertyType != type)
-                    return propertyInfo.TrySetBasicType(value, target);
+                if (type.IsValueType || targetProperty.PropertyType != type)
+                    return targetProperty.TrySetBasicType(value, targetInstance);
 
-                if (propertyInfo.PropertyType.IsArray)
+                if (targetProperty.PropertyType.IsArray)
                 {
-                    propertyInfo.TrySetArray(value as IEnumerable<object>, target);
+                    targetProperty.TrySetArray(value as IEnumerable<object>, targetInstance);
                     return true;
                 }
 
-                propertyInfo.SetValue(target, GetValue(value, propertyInfo.PropertyType));
+                targetProperty.SetValue(targetInstance, GetValue(value, targetProperty.PropertyType));
 
                 return true;
             }
@@ -352,7 +346,7 @@ namespace Swan.Mappers
             return target;
         }
 
-        private static Dictionary<string, Tuple<Type, object>> GetSourceMap(object source)
+        private static Dictionary<string, Tuple<Type, object?>> GetSourceMap(object source)
         {
             // select distinct properties because they can be duplicated by inheritance
             var sourceProperties = source.GetType().Properties().Where(c => c.CanRead);

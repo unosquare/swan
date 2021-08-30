@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Mappers;
+using Swan.Mapping;
 using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
@@ -73,7 +73,7 @@ namespace Swan.Test.ObjectMapperTests
         public void PropertiesAreEquals_ReturnsTrue()
         {
             var mapper = new ObjectMapper();
-            mapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s.Role.Name);
+            mapper.CreateMap<User, UserDto>().SetPath(t => t.Role, s => s.Role.Name);
 
             var destination = mapper.Map<UserDto>(SourceUser);
 
@@ -87,14 +87,14 @@ namespace Swan.Test.ObjectMapperTests
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
             Assert.Throws<ArgumentException>(() =>
-                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
+                new ObjectMapper().CreateMap<User, UserDto>().SetPath(t => t, s => s.Role.Name));
         }
 
         [Test]
         public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
         {
             Assert.Throws<ArgumentException>(() =>
-                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s));
+                new ObjectMapper().CreateMap<User, UserDto>().SetPath(t => t.Role, s => s));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Swan.Test.ObjectMapperTests
         public void RemoveProperty_ReturnsTrue()
         {
             var mapper = new ObjectMapper();
-            mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Email);
+            mapper.CreateMap<User, UserDto>().RemovePath(t => t.Email);
 
             var destination = mapper.Map<UserDto>(SourceUser);
 
@@ -125,14 +125,14 @@ namespace Swan.Test.ObjectMapperTests
         public void RemoveInvalidProperty_ThrowsException()
         {
             Assert.Throws<ArgumentException>(() =>
-                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(t => t));
+                new ObjectMapper().CreateMap<User, UserDto>().RemovePath(t => t));
         }
 
         [Test]
         public void PropertyDestinationInfoNull_ReturnsException()
         {
             Assert.Throws<ArgumentException>(() =>
-                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
+                new ObjectMapper().CreateMap<User, UserDto>().RemovePath(x => x.Name == null));
         }
     }
 

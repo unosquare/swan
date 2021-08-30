@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
     /// <summary>
     /// Represents a map to go from a single or multi-level property into a target property.

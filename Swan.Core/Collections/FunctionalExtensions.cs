@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan
+namespace Swan.Collections
 {
     /// <summary>
     /// Functional programming extension methods.
@@ -156,8 +156,8 @@ namespace Swan
         /// or
         /// value.
         /// </exception>
-        public static List<T> AddRangeWhen<T>(
-            this List<T> list,
+        public static IList<T> AddRangeWhen<T>(
+            this IList<T> list,
             Func<bool> condition,
             Func<IEnumerable<T>> value)
         {
@@ -171,7 +171,10 @@ namespace Swan
                 throw new ArgumentNullException(nameof(value));
 
             if (condition())
-                list.AddRange(value());
+            {
+                foreach (var item in value())
+                    list.Add(item);
+            }
 
             return list;
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Swan.Extensions
+namespace Swan.Collections
 {
     /// <summary>
     /// Extension methods.

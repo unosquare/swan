@@ -1,6 +1,6 @@
 ﻿using Swan.Reflection;
 
-namespace Swan.Mappers
+namespace Swan.Mapping
 {
     /// <summary>
     /// Interface object map.
@@ -10,7 +10,7 @@ namespace Swan.Mappers
         /// <summary>
         /// Gets or sets the map.
         /// </summary>
-        MapPathLookup Paths { get; }
+        MapPathSet Paths { get; }
 
         /// <summary>
         /// Gets or sets the type of the source.
