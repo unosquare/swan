@@ -86,12 +86,9 @@ namespace Swan.Mappers
         private readonly List<IObjectMap> _maps = new();
 
         /// <summary>
-        /// Gets the current.
+        /// Gets the default instance of the object mapper.
         /// </summary>
-        /// <value>
-        /// The current.
-        /// </value>
-        public static ObjectMapper Current => LazyInstance.Value;
+        public static ObjectMapper Default => LazyInstance.Value;
 
         /// <summary>
         /// Copies the specified source.
@@ -167,7 +164,7 @@ namespace Swan.Mappers
         /// Creates the map.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDestination">The type of the destination.</typeparam>
+        /// <typeparam name="TTarget">The type of the destination.</typeparam>
         /// <returns>
         /// An object map representation of type of the destination property 
         /// and type of the source property.
@@ -177,20 +174,20 @@ namespace Swan.Mappers
         /// or
         /// Types doesn't match.
         /// </exception>
-        public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
+        public ObjectMap<TSource, TTarget> CreateMap<TSource, TTarget>()
         {
-            if (_maps.Any(x => x.SourceInfo.ProxiedType == typeof(TSource) && x.TargetInfo.ProxiedType == typeof(TDestination)))
+            if (_maps.Any(x => x.SourceType.ProxiedType == typeof(TSource) && x.TargetType.ProxiedType == typeof(TTarget)))
                 throw new InvalidOperationException("You can't create an existing map");
 
             var sourceType = typeof(TSource).Properties();
-            var destinationType = typeof(TDestination).Properties();
+            var targetType = typeof(TTarget).Properties();
 
-            var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
+            var intersect = sourceType.Intersect(targetType, new PropertyProxyComparer()).ToArray();
 
             if (!intersect.Any())
-                throw new InvalidOperationException("Types doesn't match");
+                throw new InvalidOperationException("Types don't have any mathing properties.");
             
-            var map = new ObjectMap<TSource, TDestination>(intersect);
+            var map = new ObjectMap<TSource, TTarget>(intersect);
 
             _maps.Add(map);
 
@@ -200,7 +197,7 @@ namespace Swan.Mappers
         /// <summary>
         /// Maps the specified source.
         /// </summary>
-        /// <typeparam name="TDestination">The type of the destination.</typeparam>
+        /// <typeparam name="TTarget">The type of the destination.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="autoResolve">if set to <c>true</c> [automatic resolve].</param>
         /// <returns>
@@ -208,23 +205,23 @@ namespace Swan.Mappers
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
         /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}.</exception>
-        public TDestination Map<TDestination>(object source, bool autoResolve = true)
+        public TTarget Map<TTarget>(object source, bool autoResolve = true)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var destination = TypeManager.CreateInstance<TDestination>();
+            var destination = TypeManager.CreateInstance<TTarget>();
             var map = _maps
-                .FirstOrDefault(x => x.SourceInfo.ProxiedType == source.GetType() && x.TargetInfo.ProxiedType == typeof(TDestination));
+                .FirstOrDefault(x => x.SourceType.ProxiedType == source.GetType() && x.TargetType.ProxiedType == typeof(TTarget));
 
             if (map != null)
             {
-                foreach (var property in map.Map)
+                foreach (var property in map.Paths)
                 {
-                    var finalSource = property.Value.Aggregate(source,
+                    var finalSource = property.Value.SourcePath.Aggregate(source,
                         (current, sourceProperty) => sourceProperty.GetValue(current));
 
-                    property.Key.SetValue(destination, finalSource);
+                    property.Value.TargetMember.SetValue(destination, finalSource);
                 }
             }
             else
@@ -232,7 +229,7 @@ namespace Swan.Mappers
                 if (!autoResolve)
                 {
                     throw new InvalidOperationException(
-                        $"You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}");
+                        $"You can't map from type {source.GetType().Name} to {typeof(TTarget).Name}");
                 }
 
                 // Missing mapping, try to use default behavior

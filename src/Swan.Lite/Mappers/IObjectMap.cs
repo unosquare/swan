@@ -1,5 +1,4 @@
 ﻿using Swan.Reflection;
-using System.Collections.Generic;
 
 namespace Swan.Mappers
 {
@@ -11,16 +10,16 @@ namespace Swan.Mappers
         /// <summary>
         /// Gets or sets the map.
         /// </summary>
-        Dictionary<IPropertyProxy, List<IPropertyProxy>> Map { get; }
+        MapPathLookup Paths { get; }
 
         /// <summary>
         /// Gets or sets the type of the source.
         /// </summary>
-        ITypeProxy SourceInfo { get; }
+        ITypeProxy SourceType { get; }
 
         /// <summary>
         /// Gets or sets the type of the destination.
         /// </summary>
-        ITypeProxy TargetInfo { get; }
+        ITypeProxy TargetType { get; }
     }
 }
