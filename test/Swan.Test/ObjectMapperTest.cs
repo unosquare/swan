@@ -16,7 +16,7 @@ namespace Swan.Test.ObjectMapperTests
             StartDate = new DateTime(2000, 2, 5),
         };
 
-        protected Dictionary<string, object> SourceDict => new()
+        protected Dictionary<string, object?> SourceDict => new()
         {
             { "Name", "Armando" },
             { "Email", "armando.cifuentes@unosquare.com" },
@@ -191,8 +191,8 @@ namespace Swan.Test.ObjectMapperTests
 
             ObjectMapper.Copy(SourceDict, target, propertiesToCopy, ignoreProperties);
 
-            Assert.AreEqual(SourceDict["Name"].ToString(), target.Name);
-            Assert.AreEqual(SourceDict["Email"].ToString(), target.Email);
+            Assert.AreEqual(SourceDict["Name"]?.ToString(), target.Name);
+            Assert.AreEqual(SourceDict["Email"]?.ToString(), target.Email);
         }
     }
 }

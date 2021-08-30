@@ -215,7 +215,7 @@ namespace Swan.Mapping
                     var finalSource = property.Value.SourcePath.Aggregate(source,
                         (current, sourceProperty) => sourceProperty.GetValue(current));
 
-                    property.Value.TargetMember.SetValue(destination, finalSource);
+                    property.Value.TargetMember.TrySetValue(destination, finalSource);
                 }
             }
             else
