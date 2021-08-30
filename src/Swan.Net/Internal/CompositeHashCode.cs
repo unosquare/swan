@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan
+namespace Swan.Net.Internal
 {
     /// <summary>
     /// <para>Provides a way for types that override <see cref="object.GetHashCode"/>
@@ -68,7 +68,7 @@ namespace Swan
     ///     }
     /// }</code>
     /// </example>
-    public static class CompositeHashCode
+    internal static class CompositeHashCode
     {
         #region Private constants
 
@@ -84,13 +84,13 @@ namespace Swan
         /// fields and/oror properties as part of an object's state. See the
         /// <see cref="CompositeHashCode">example</see>.
         /// </summary>
-        /// <param name="fields">The values of the fields and/or properties.</param>
+        /// <param name="memberValues">The values of the fields and/or properties.</param>
         /// <returns>The computed has code.</returns>
-        public static int Using(params object?[] fields)
+        public static int Using(params object?[] memberValues)
         {
             unchecked
             {
-                return fields.Where(f => f is not null)
+                return memberValues.Where(f => f is not null)
                     .Aggregate(InitialSeed, (current, field) => (Multiplier * current) + field.GetHashCode());
             }
         }
