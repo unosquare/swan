@@ -20,15 +20,15 @@ namespace Swan.Reflection
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyProxy"/> class.
         /// </summary>
-        /// <param name="declaringType">Type of the declaring.</param>
+        /// <param name="reflectedType">Type of the declaring.</param>
         /// <param name="propertyInfo">The property information.</param>
-        public PropertyProxy(Type declaringType, PropertyInfo propertyInfo)
+        public PropertyProxy(Type reflectedType, PropertyInfo propertyInfo)
         {
             TypeProxy = propertyInfo.PropertyType.TypeInfo();
             PropertyInfo = propertyInfo;
-            EnclosingType = declaringType;
-            Getter = CreateLambdaGetter(declaringType, propertyInfo);
-            Setter = CreateLambdaSetter(declaringType, propertyInfo);
+            EnclosingType = reflectedType;
+            Getter = CreateLambdaGetter(reflectedType, propertyInfo);
+            Setter = CreateLambdaSetter(reflectedType, propertyInfo);
             HasPublicGetter = propertyInfo.GetGetMethod()?.IsPublic ?? false;
             HasPublicSetter = propertyInfo.GetSetMethod()?.IsPublic ?? false;
             PropertyAttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
@@ -122,7 +122,7 @@ namespace Swan.Reflection
         public bool IsList => TypeProxy.IsList;
 
         /// <inheritdoc />
-        public IReadOnlyList<Type> Interfaces => throw new NotImplementedException();
+        public IReadOnlyList<Type> Interfaces => TypeProxy.Interfaces;
 
         /// <inheritdoc />
         public object? GetValue(object instance) => instance is null
@@ -193,6 +193,12 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public bool TryParse(string s, out object? result) => TypeProxy.TryParse(s, out result);
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"Property: {EnclosingType}.{PropertyName} ({PropertyType.Name})";
+        }
 
         private static Func<object, object?>? CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
         {

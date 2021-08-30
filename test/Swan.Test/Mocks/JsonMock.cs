@@ -1,5 +1,6 @@
 ﻿using Swan.Mappers;
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Swan.Test.Mocks
@@ -7,6 +8,67 @@ namespace Swan.Test.Mocks
     public class ErrorJson
     {
         public string Message { get; set; }
+    }
+
+    public class SamplePerson
+    {
+        private string m_Specialty = "Content of private field.";
+
+        public Guid Id { get; set; }
+
+        public string? Name { get; set; }
+
+        public int Age { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+
+        public string? GreetingField;
+
+        public int? CarModelYear { get; set; }
+
+        public SamplePerson? RelatedPerson { get; set; }
+
+        public string Specialty => m_Specialty;
+
+        public List<int> Primes { get; set; } = new List<int>() { 2, 3, 5, 7, 11 };
+    }
+
+    public class SampleFamily
+    {
+        public Dictionary<string, SamplePerson> Members { get; set; } = new Dictionary<string, SamplePerson>();
+
+        public static SampleFamily Create(bool createCycle)
+        {
+            var result = new SampleFamily();
+            result.Members.Add("Dad", new()
+            {
+                Age = 32,
+                CarModelYear = 2009,
+                DateOfBirth = new(2009, 09, 05),
+                GreetingField = "Hello, I'm the dad",
+                Id = Guid.NewGuid(),
+                Name = "Unosquare"
+            });
+
+            result.Members.Add("Mom", new()
+            {
+                Age = 18,
+                CarModelYear = 2014,
+                DateOfBirth = new(2014, 09, 05),
+                GreetingField = "Hello, I'm the mom",
+                Id = Guid.NewGuid(),
+                Name = "Labs"
+            });
+
+            if (createCycle)
+            {
+                result.Members["Dad"].RelatedPerson = result.Members["Mom"];
+                result.Members["Mom"].RelatedPerson = result.Members["Dad"];
+            }
+                
+
+            return result;
+        }
     }
 
     public class BasicJsonWithoutCtor

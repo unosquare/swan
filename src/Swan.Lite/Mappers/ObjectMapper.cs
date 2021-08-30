@@ -179,7 +179,7 @@ namespace Swan.Mappers
         /// </exception>
         public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
-            if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
+            if (_maps.Any(x => x.SourceInfo.ProxiedType == typeof(TSource) && x.TargetInfo.ProxiedType == typeof(TDestination)))
                 throw new InvalidOperationException("You can't create an existing map");
 
             var sourceType = typeof(TSource).Properties();
@@ -215,7 +215,7 @@ namespace Swan.Mappers
 
             var destination = TypeManager.CreateInstance<TDestination>();
             var map = _maps
-                .FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
+                .FirstOrDefault(x => x.SourceInfo.ProxiedType == source.GetType() && x.TargetInfo.ProxiedType == typeof(TDestination));
 
             if (map != null)
             {

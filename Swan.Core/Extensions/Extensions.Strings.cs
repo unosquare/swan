@@ -1,9 +1,9 @@
-﻿using Swan.Reflection;
+﻿using Swan.Formatters;
+using Swan.Reflection;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Swan
@@ -37,12 +37,6 @@ namespace Swan
 
         private static readonly Lazy<char[]> InvalidFilenameChars =
             new(() => Path.GetInvalidFileNameChars().ToArray());
-
-        private static readonly JsonSerializerOptions JsonStringifyOptions = new(JsonSerializerDefaults.General)
-        {
-            PropertyNamingPolicy = null,
-            WriteIndented = true,
-        };
 
         #endregion
 
@@ -86,10 +80,10 @@ namespace Swan
         /// A string that represents the current object.
         /// </returns>
         /// <exception cref="ArgumentNullException">input.</exception>
-        public static string RemoveControlChars(this string value, params char[] excludeChars)
+        public static string RemoveControlChars(this string value, params char[]? excludeChars)
         {
-            if (excludeChars.Length <= 0)
-                return value;
+            if (excludeChars is null)
+                excludeChars = Array.Empty<char>();
 
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -97,31 +91,6 @@ namespace Swan
             return new string(value
                 .Where(c => !char.IsControl(c) || excludeChars.Contains(c))
                 .ToArray());
-        }
-
-        /// <summary>
-        /// Returns text representing the properties of the specified object in a human-readable format.
-        /// While this method is fairly expensive computationally speaking, it provides an easy way to
-        /// examine objects.
-        /// </summary>
-        /// <param name="this">The object.</param>
-        /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Stringify(this object? @this)
-        {
-            if (@this == null)
-                return "(null)";
-
-            try
-            {
-                var jsonData = JsonSerializer.Serialize(@this, @this.GetType(), JsonStringifyOptions);
-                return jsonData;
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                return @this.ToStringInvariant();
-            }
         }
 
         /// <summary>
@@ -355,18 +324,22 @@ namespace Swan
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>
-        /// <param name="omission">The omission.</param>
+        /// <param name="omissionIndicator">The a string showing that the string has been truncated, such as an ellipsis.</param>
         /// <returns>
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
         /// </returns>
-        public static string? Truncate(this string? value, int maximumLength, string? omission)
+        public static string? Truncate(this string? value, int maximumLength, string? omissionIndicator)
         {
             if (value == null)
                 return null;
 
+            var ellipsis = omissionIndicator ?? string.Empty;
+            if (maximumLength < ellipsis.Length + 1)
+                throw new ArgumentOutOfRangeException(nameof(maximumLength));
+
             return value.Length > maximumLength
-                ? value[..maximumLength] + (omission ?? string.Empty)
+                ? $"{value.Substring(0, maximumLength - ellipsis.Length)}{ellipsis}"
                 : value;
         }
 

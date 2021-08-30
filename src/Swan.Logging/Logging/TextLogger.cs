@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Formatters;
+using System;
 
 namespace Swan.Logging
 {

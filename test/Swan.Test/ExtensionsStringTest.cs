@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Swan.Formatters;
 using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
@@ -42,17 +43,21 @@ namespace Swan.Test.ExtensionsStringTest
         [TestCase("(null)", null)]
         public void WithValidParam_ReturnsStringifiedObject(string expected, object input)
         {
-            Assert.AreEqual(expected, input.Stringify(), $"Testing with {input}");
+            Assert.IsTrue(input.Stringify().EndsWith(expected), $"Testing with {input}");
         }
 
         [Test]
         public void WithJsonAsParam_ReturnsStringifiedJson()
         {
+            var family = SampleFamily.Create(true);
+            var familyString = family.Stringify();
+
+            var s = "hello world".Stringify();
+
             var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
-            Assert.GreaterOrEqual(8, objectInfoLines.Length);
-            Assert.AreEqual("$type           : Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
-            Assert.AreEqual("    string,", objectInfoLines[2]);
+            Assert.GreaterOrEqual(7, objectInfoLines.Length);
+            Assert.AreEqual("  DecimalData     : 10.33", objectInfoLines[4]);
         }
 
         [Test]
@@ -61,7 +66,7 @@ namespace Swan.Test.ExtensionsStringTest
             var emptyJson = new EmptyJson();
             var objectInfoLines = emptyJson.Stringify().ToLines();
 
-            Assert.AreEqual("$type           : Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
+            Assert.IsTrue(objectInfoLines[0]?.Length > 0);
         }
 
         [Test]
@@ -90,9 +95,9 @@ namespace Swan.Test.ExtensionsStringTest
 
             var objectInfoLines = wordDictionary.Stringify().ToLines();
 
-            Assert.AreEqual("Horde Capitals  : array[2]", objectInfoLines[0]);
-            Assert.AreEqual("        [0]: A", objectInfoLines[2]);
-            Assert.AreEqual("        [1]: B", objectInfoLines[3]);
+            Assert.AreEqual("  Horde Capitals  : ", objectInfoLines[1]);
+            Assert.AreEqual("    [1]: ", objectInfoLines[6]);
+            Assert.AreEqual("      [0]: A", objectInfoLines[7]);
         }
 
         [Test]
@@ -107,9 +112,9 @@ namespace Swan.Test.ExtensionsStringTest
 
             var objectInfoLines = persons.Stringify().ToLines();
 
-            Assert.AreEqual("Tyrande         : object", objectInfoLines[0]);
-            Assert.AreEqual("Jaina           : object", objectInfoLines[6]);
-            Assert.AreEqual("Liadrin         : object", objectInfoLines[12]);
+            Assert.IsTrue(objectInfoLines[1].StartsWith("  Tyrande         : "));
+            Assert.IsTrue(objectInfoLines[7].StartsWith("  Jaina           : "));
+            Assert.IsTrue(objectInfoLines[13].StartsWith("  Liadrin         : "));
         }
     }
 
@@ -144,7 +149,8 @@ namespace Swan.Test.ExtensionsStringTest
             string input,
             char[] excludeChars)
         {
-            Assert.AreEqual(expected, input.RemoveControlChars(excludeChars), $"Testing with {input}");
+            var output = input.RemoveControlChars(excludeChars);
+            Assert.AreEqual(expected, output, $"Testing with {input}");
         }
 
         [Test]

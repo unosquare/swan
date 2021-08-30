@@ -74,7 +74,8 @@ namespace Swan.Reflection
             IsEnumerableLazy = new(() => IsArray || Interfaces.Any(c => c == typeof(IEnumerable)), true);
             IsListLazy = new(() => Interfaces.Any(c => c == typeof(IList)), true);
 
-            ElementTypeLazy = new(() => {
+            ElementTypeLazy = new(() =>
+            {
                 // Type is Array
                 // short-circuit if you expect lots of arrays 
                 if (IsArray)
@@ -188,9 +189,9 @@ namespace Swan.Reflection
             if (instance == null)
                 return string.Empty;
 
-            return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count != 1
-                ? instance.ToString() ?? string.Empty
-                : ToStringMethodInfo?.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty;
+            return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count == 1
+                ? ToStringMethodInfo.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty
+                : instance.ToString() ?? string.Empty;
         }
 
         /// <inheritdoc />
@@ -240,6 +241,12 @@ namespace Swan.Reflection
             }
 
             return false;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"Type Proxy: {ProxiedType.Name}";
         }
     }
 }

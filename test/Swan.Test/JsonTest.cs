@@ -4,7 +4,7 @@ namespace Swan.Test.JsonTests
 {
     public abstract class JsonTest : TestFixtureBase
     {
-        protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
+        protected const string ArrayStruct = "[{\"Value\":1,\"Name\":\"A\"},{\"Value\":2,\"Name\":\"B\"}]";
 
         protected static readonly AdvJson AdvObj = new()
         {

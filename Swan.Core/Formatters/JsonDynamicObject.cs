@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text.Json;
 
-namespace Swan.Reflection
+namespace Swan.Formatters
 {
     /// <summary>
     /// A dynamic object 
@@ -11,6 +12,7 @@ namespace Swan.Reflection
     internal class JsonDynamicObject : DynamicObject
     {
         private readonly Func<JsonElement, object?> ValueParser;
+        private readonly JsonElement Element;
 
         /// <summary>
         /// Creates a new instance of <see cref="JsonDynamicObject"/>.
@@ -24,9 +26,21 @@ namespace Swan.Reflection
         }
 
         /// <summary>
-        /// Gets the backing json element.
+        /// Materializes a JsonElement by traversing all of its nodes.
         /// </summary>
-        public JsonElement Element { get; }
+        /// <returns>A dynamic object with materialized values.</returns>
+        public object? Materialize() =>
+            Materialize(Element, ValueParser);
+
+        /// <inheritdoc />
+        public override IEnumerable<string> GetDynamicMemberNames()
+        {
+            if (Element.ValueKind != JsonValueKind.Object)
+                throw new InvalidOperationException($"Element does not represent an object because its value kind is {Element.ValueKind}");
+
+            foreach (var kvp in Element.EnumerateObject())
+                yield return kvp.Name;
+        }
 
         /// <inheritdoc />
         public override bool TryGetMember(GetMemberBinder binder, out object? result)
@@ -112,5 +126,27 @@ namespace Swan.Reflection
             element.EnumerateArray()
                 .Select(o => new JsonDynamicObject(o, ValueParser))
                 .ToArray();
+
+        private static object? Materialize(JsonElement element, Func<JsonElement, object?> valueParser)
+        {
+            if (element.ValueKind == JsonValueKind.Object)
+            {
+                var result = new ExpandoObject();
+                foreach (var kvp in element.EnumerateObject())
+                    result.TryAdd(kvp.Name, Materialize(kvp.Value, valueParser));
+
+                return result;
+            }
+            else if (element.ValueKind == JsonValueKind.Array)
+            {
+                var result = new List<object?>();
+                foreach (var arrayElement in element.EnumerateArray())
+                    result.Add(Materialize(arrayElement, valueParser));
+
+                return result.ToArray();
+            }
+
+            return valueParser.Invoke(element);
+        }
     }
 }

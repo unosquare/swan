@@ -17,21 +17,21 @@ namespace Swan.Mappers
     {
         internal ObjectMap(IEnumerable<IPropertyProxy> intersect)
         {
-            SourceType = typeof(TSource);
-            DestinationType = typeof(TDestination);
+            SourceInfo = typeof(TSource).TypeInfo();
+            TargetInfo = typeof(TDestination).TypeInfo();
             Map = intersect.ToDictionary(
-                property => DestinationType.GetProperty(property.PropertyName),
-                property => new List<PropertyInfo> { SourceType.GetProperty(property.PropertyName) });
+                property => TargetInfo.Properties[property.PropertyName],
+                property => new List<IPropertyProxy> { SourceInfo.Properties[property.PropertyName] });
         }
 
         /// <inheritdoc/>
-        public Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
+        public Dictionary<IPropertyProxy, List<IPropertyProxy>> Map { get; }
 
         /// <inheritdoc/>
-        public Type SourceType { get; }
+        public ITypeProxy SourceInfo { get; }
 
         /// <inheritdoc/>
-        public Type DestinationType { get; }
+        public ITypeProxy TargetInfo { get; }
 
         /// <summary>
         /// Maps the property.
@@ -64,7 +64,7 @@ namespace Swan.Mappers
 
             // reverse order
             sourceMembers.Reverse();
-            Map[propertyDestinationInfo] = sourceMembers;
+            Map[propertyDestinationInfo.ToPropertyProxy()] = sourceMembers;
 
             return this;
         }
@@ -90,20 +90,19 @@ namespace Swan.Mappers
             if (propertyDestinationInfo == null)
                 throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
 
-            if (Map.ContainsKey(propertyDestinationInfo))
-            {
-                Map.Remove(propertyDestinationInfo);
-            }
+            var property = propertyDestinationInfo.ToPropertyProxy();
+            if (Map.ContainsKey(property))
+                Map.Remove(property);
 
             return this;
         }
 
-        private static List<PropertyInfo> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
+        private static List<IPropertyProxy> GetSourceMembers<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
             if (sourceProperty == null)
                 throw new ArgumentNullException(nameof(sourceProperty));
 
-            var sourceMembers = new List<PropertyInfo>();
+            var sourceMembers = new List<IPropertyProxy>();
             var initialExpression = sourceProperty.Body as MemberExpression;
 
             while (true)
@@ -111,7 +110,7 @@ namespace Swan.Mappers
                 var propertySourceInfo = initialExpression?.Member as PropertyInfo;
 
                 if (propertySourceInfo == null) break;
-                sourceMembers.Add(propertySourceInfo);
+                sourceMembers.Add(propertySourceInfo.ToPropertyProxy());
                 initialExpression = initialExpression.Expression as MemberExpression;
             }
 
