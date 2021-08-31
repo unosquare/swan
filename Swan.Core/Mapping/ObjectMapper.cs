@@ -179,7 +179,7 @@ namespace Swan.Mapping
             if (_maps.Any(x => x.TargetType.ProxiedType == typeof(TTarget)))
                 throw new InvalidOperationException("You can't create an existing map");
 
-            var map = new ObjectMap<TSource, TTarget>(typeof(TSource).TypeInfo());
+            var map = new ObjectMap<TSource, TTarget>();
             if (!map.Any())
                 throw new InvalidOperationException("Types don't have any matching properties.");
 
