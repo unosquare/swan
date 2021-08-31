@@ -25,21 +25,28 @@ namespace Swan.Mapping
 
         /// <inheritdoc />
         public ITypeProxy TargetType { get; }
-    }
 
-    /// <summary>
-    /// Provides a basic implementation of a <see cref="IObjectMap"/>
-    /// It's basically a dictionary of target properties to value providers.
-    /// </summary>
-    public class ObjectMap<TTarget> : ObjectMap
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="ObjectMap{TTarget}"/> class.
-        /// </summary>
-        public ObjectMap()
-            : base(typeof(TTarget).TypeInfo())
+        /// <inheritdoc />
+        public virtual object Apply(object source) =>
+            Apply(source, TargetType.CreateInstance());
+
+        /// <inheritdoc />
+        public virtual object Apply(object source, object target)
         {
-            // placeholder
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (target.GetType().TypeInfo() != TargetType)
+                throw new ArgumentException($"Parameter {nameof(target)} must be of type '{TargetType.ProxiedType}'");
+
+            foreach (var path in this)
+            {
+                var targetProperty = path.Key;
+                var targetValue = path.Value.Invoke(source);
+                targetProperty.TrySetValue(target, targetValue);
+            }
+
+            return target;
         }
     }
 }

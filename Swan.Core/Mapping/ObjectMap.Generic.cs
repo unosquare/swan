@@ -6,18 +6,37 @@ using System.Reflection;
 namespace Swan.Mapping
 {
     /// <summary>
+    /// Provides a basic implementation of a <see cref="IObjectMap"/>
+    /// It's basically a dictionary of target properties to value providers.
+    /// </summary>
+    public class ObjectMap<TTarget> : ObjectMap
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="ObjectMap{TTarget}"/> class.
+        /// </summary>
+        public ObjectMap()
+            : base(typeof(TTarget).TypeInfo())
+        {
+            // placeholder
+        }
+
+        /// <inheritdoc />
+        public new TTarget Apply(object source) =>
+            (TTarget)base.Apply(source, TargetType.CreateInstance());
+    }
+
+    /// <summary>
     /// Represents strongly-typed version of an object map.
     /// </summary>
     /// <typeparam name="TTarget">The type of the destination.</typeparam>
     /// <typeparam name="TSource">The type of the destination.</typeparam>
     /// <seealso cref="IObjectMap" />
-    public sealed class ObjectMap<TSource, TTarget> : ObjectMap
+    public sealed class ObjectMap<TSource, TTarget> : ObjectMap<TTarget>
     {
         /// <summary>
         /// Creates a default mapping between the ource and target types.
         /// </summary>
         public ObjectMap()
-            : base(typeof(TTarget).TypeInfo())
         {
             foreach (var targetProperty in TargetType.Properties())
             {
@@ -40,6 +59,10 @@ namespace Swan.Mapping
         /// Gets the source type.
         /// </summary>
         public ITypeProxy SourceType { get; } = typeof(TSource).TypeInfo();
+
+        /// <inheritdoc />
+        public TTarget Apply(TSource source, TTarget target) =>
+            (TTarget)base.Apply(source, target);
 
         /// <summary>
         /// Adds or replaces a path to populate a target via a source delegate.
