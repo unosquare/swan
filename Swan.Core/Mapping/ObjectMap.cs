@@ -1,7 +1,5 @@
 ﻿using Swan.Reflection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -10,39 +8,37 @@ namespace Swan.Mapping
     /// <summary>
     /// Represents an object map.
     /// </summary>
-    /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TTarget">The type of the destination.</typeparam>
+    /// <typeparam name="TSource">The type of the destination.</typeparam>
     /// <seealso cref="IObjectMap" />
-    public sealed class ObjectMap<TSource, TTarget> : IObjectMap
+    public sealed class ObjectMap<TSource, TTarget> : ObjectMapBase
     {
-        internal ObjectMap()
+        /// <summary>
+        /// Creates a default mapping between the <see cref="TTarget"/> and the provided source type.
+        /// </summary>
+        /// <param name="sourceType">The source type.</param>
+        public ObjectMap(ITypeProxy sourceType)
+            : base(typeof(TTarget).TypeInfo())
         {
-            SourceType = typeof(TSource).TypeInfo();
-            TargetType = typeof(TTarget).TypeInfo();
+            if (sourceType is null)
+                throw new ArgumentNullException(nameof(sourceType));
 
             foreach (var targetProperty in TargetType.Properties())
             {
                 if (!targetProperty.CanWrite)
                     continue;
 
-                if (!SourceType.Properties.TryGetValue(targetProperty.PropertyName, out var sourceProperty))
+                if (!sourceType.Properties.TryGetValue(targetProperty.PropertyName, out var sourceProperty))
                     continue;
 
                 if (!sourceProperty.CanRead)
                     continue;
 
-                Paths[targetProperty] = new[] { sourceProperty };
+                this[targetProperty] = (source) => sourceProperty.TryGetValue(source, out var value)
+                    ? value
+                    : targetProperty.DefaultValue;
             }
         }
-
-        /// <inheritdoc/>
-        public MapPathSet Paths { get; } = new();
-
-        /// <inheritdoc/>
-        public ITypeProxy SourceType { get; }
-
-        /// <inheritdoc/>
-        public ITypeProxy TargetType { get; }
 
         /// <summary>
         /// Adds or replaces a path to this map specifying, first the target and then the source
@@ -50,33 +46,28 @@ namespace Swan.Mapping
         /// </summary>
         /// <typeparam name="TTargetMember">The type of the destination property.</typeparam>
         /// <typeparam name="TSourceMember">The type of the source property.</typeparam>
-        /// <param name="targetProperty">The destination property.</param>
+        /// <param name="targetPropertyExpression">The destination property.</param>
         /// <param name="sourceProperty">The source property.</param>
         /// <returns>
         /// An object map representation of type of the destination property 
         /// and type of the source property.
         /// </returns>
-        public ObjectMap<TSource, TTarget> SetPath
-            <TTargetMember, TSourceMember>(
-                Expression<Func<TTarget, TTargetMember>> targetProperty,
-                Expression<Func<TSource, TSourceMember>> sourceProperty)
+        public ObjectMap<TSource, TTarget> SetPath<TTargetMember>(
+                Expression<Func<TTarget, TTargetMember>> targetPropertyExpression,
+                Func<TSource, object?> valueProvider)
         {
-            if (targetProperty == null)
-                throw new ArgumentNullException(nameof(targetProperty));
+            if (targetPropertyExpression is null)
+                throw new ArgumentNullException(nameof(targetPropertyExpression));
 
-            var propertyDestinationInfo = (targetProperty.Body as MemberExpression)?.Member as PropertyInfo;
+            if (valueProvider is null)
+                throw new ArgumentNullException(nameof(valueProvider));
 
-            if (propertyDestinationInfo == null)
-                throw new ArgumentException("Invalid destination expression", nameof(targetProperty));
+            var targetProperty = (targetPropertyExpression.Body as MemberExpression)?.Member as PropertyInfo;
 
-            var sourceMembers = CreateSourcePath(sourceProperty);
+            if (targetProperty is null)
+                throw new ArgumentException("Invalid destination expression", nameof(targetPropertyExpression));
 
-            if (!sourceMembers.Any())
-                throw new ArgumentException("Invalid source expression", nameof(sourceProperty));
-
-            // reverse order
-            sourceMembers.Reverse();
-            Paths[propertyDestinationInfo.ToPropertyProxy()] = sourceMembers;
+            this[targetProperty.ToPropertyProxy()] = (s) => valueProvider.Invoke((TSource)s);
 
             return this;
         }
@@ -84,47 +75,28 @@ namespace Swan.Mapping
         /// <summary>
         /// Removes the target property from the map.
         /// </summary>
-        /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
-        /// <param name="destinationProperty">The destination property.</param>
+        /// <typeparam name="TTargetProperty">The type of the destination property.</typeparam>
+        /// <param name="targetPropertyExpression">The destination property.</param>
         /// <returns>
         /// An object map representation of type of the destination property 
         /// and type of the source property. 
         /// </returns>
         /// <exception cref="System.Exception">Invalid destination expression.</exception>
-        public ObjectMap<TSource, TTarget> RemovePath<TDestinationProperty>(
-            Expression<Func<TTarget, TDestinationProperty>> destinationProperty)
+        public ObjectMap<TSource, TTarget> RemovePath<TTargetProperty>(
+            Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
         {
-            if (destinationProperty == null)
-                throw new ArgumentNullException(nameof(destinationProperty));
+            if (targetPropertyExpression == null)
+                throw new ArgumentNullException(nameof(targetPropertyExpression));
 
-            var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
+            var targetPropertyInfo = (targetPropertyExpression.Body as MemberExpression)?.Member as PropertyInfo;
 
-            if (propertyDestinationInfo == null)
-                throw new ArgumentException("Invalid destination expression", nameof(destinationProperty));
+            if (targetPropertyInfo == null)
+                throw new ArgumentException("Invalid destination expression", nameof(targetPropertyExpression));
 
-            var property = propertyDestinationInfo.ToPropertyProxy();
-            Paths.Remove(property);
+            var targetProperty = targetPropertyInfo.ToPropertyProxy();
+            Remove(targetProperty);
 
             return this;
-        }
-
-        private static List<IPropertyProxy> CreateSourcePath<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourceProperty)
-        {
-            if (sourceProperty == null)
-                throw new ArgumentNullException(nameof(sourceProperty));
-
-            var sourceMembers = new List<IPropertyProxy>(16);
-            var initialExpression = sourceProperty.Body as MemberExpression;
-
-            while (true)
-            {
-                var propertySourceInfo = initialExpression?.Member as PropertyInfo;
-                if (propertySourceInfo == null) break;
-                sourceMembers.Add(propertySourceInfo.ToPropertyProxy());
-                initialExpression = initialExpression?.Expression as MemberExpression;
-            }
-
-            return sourceMembers;
         }
     }
 }

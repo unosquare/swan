@@ -176,11 +176,11 @@ namespace Swan.Mapping
         /// </exception>
         public ObjectMap<TSource, TTarget> CreateMap<TSource, TTarget>()
         {
-            if (_maps.Any(x => x.SourceType.ProxiedType == typeof(TSource) && x.TargetType.ProxiedType == typeof(TTarget)))
+            if (_maps.Any(x => x.TargetType.ProxiedType == typeof(TTarget)))
                 throw new InvalidOperationException("You can't create an existing map");
 
-            var map = new ObjectMap<TSource, TTarget>();
-            if (!map.Paths.Any())
+            var map = new ObjectMap<TSource, TTarget>(typeof(TSource).TypeInfo());
+            if (!map.Any())
                 throw new InvalidOperationException("Types don't have any matching properties.");
 
             _maps.Add(map);
@@ -201,21 +201,19 @@ namespace Swan.Mapping
         /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}.</exception>
         public TTarget Map<TTarget>(object source, bool autoResolve = true)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            var destination = TypeManager.CreateInstance<TTarget>();
-            var map = _maps
-                .FirstOrDefault(x => x.SourceType.ProxiedType == source.GetType() && x.TargetType.ProxiedType == typeof(TTarget));
+            var map = _maps.FirstOrDefault(x => x.TargetType.ProxiedType == typeof(TTarget));
+            var target = TypeManager.CreateInstance<TTarget>();
 
             if (map != null)
             {
-                foreach (var property in map.Paths)
+                foreach (var path in map)
                 {
-                    var finalSource = property.Value.SourcePath.Aggregate(source,
-                        (current, sourceProperty) => sourceProperty.GetValue(current));
-
-                    property.Value.TargetMember.TrySetValue(destination, finalSource);
+                    var targetProperty = path.Key;
+                    var targetValue = path.Value.Invoke(source);
+                    targetProperty.TrySetValue(target, targetValue);
                 }
             }
             else
@@ -227,10 +225,10 @@ namespace Swan.Mapping
                 }
 
                 // Missing mapping, try to use default behavior
-                Copy(source, destination!);
+                Copy(source, target!);
             }
 
-            return destination;
+            return target;
         }
 
         private static int CopyInternal(
