@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Swan.Formatters;
+using Swan.Platform;
 using Swan.Test.Mocks;
-using Swan.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;

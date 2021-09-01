@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Swan.Platform;
 using System;
 
 namespace Swan.Test.TerminalTests
@@ -27,7 +28,7 @@ namespace Swan.Test.TerminalTests
 
             var writers = Terminal.AvailableWriters;
 
-            Assert.AreNotEqual(writers, TerminalWriters.None, "Check for at least one available writer");
+            Assert.AreNotEqual(writers, TerminalWriterFlags.None, "Check for at least one available writer");
         }
     }
 

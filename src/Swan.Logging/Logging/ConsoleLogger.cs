@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swan.Platform;
+using System;
 
 namespace Swan.Logging
 {
@@ -128,8 +129,8 @@ namespace Swan.Logging
         {
             // Select the writer based on the message type
             var writer = logEvent.MessageType == LogLevel.Error
-                    ? TerminalWriters.StandardError
-                    : TerminalWriters.StandardOutput;
+                    ? TerminalWriterFlags.StandardError
+                    : TerminalWriterFlags.StandardOutput;
 
             var (outputMessage, color) = GetOutputAndColor(logEvent);
 

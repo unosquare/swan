@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace Swan.Utilities
+namespace Swan.Platform
 {
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.

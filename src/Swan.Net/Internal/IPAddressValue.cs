@@ -91,7 +91,7 @@ namespace Swan.Net.Internal
         {
             var maxPrefixLength = _isV4 ? 32 : 128;
             if (prefixLength > maxPrefixLength)
-                throw SelfCheck.Failure($"Invalid prefix length {prefixLength} in {nameof(IsStartOfSubnet)}");
+                throw new ArgumentException($"Invalid prefix length {prefixLength} in {nameof(IsStartOfSubnet)}", nameof(prefixLength));
 
             if (_isV4)
                 prefixLength += 96;
@@ -106,7 +106,7 @@ namespace Swan.Net.Internal
         {
             var maxPrefixLength = _isV4 ? 32 : 128;
             if (prefixLength > maxPrefixLength)
-                throw SelfCheck.Failure($"Invalid prefix length {prefixLength} in {nameof(GetEndOfSubnet)}");
+                throw new ArgumentException($"Invalid prefix length {prefixLength} in {nameof(GetEndOfSubnet)}", nameof(prefixLength));
 
             if (_isV4)
                 prefixLength += 96;

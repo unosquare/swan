@@ -70,7 +70,7 @@ namespace Swan.Threading
         public static IWaitEvent CreateSlim(bool isCompleted) => new WaitEventSlim(isCompleted);
 
         /// <summary>
-        /// Creates a Wait Event backed by a ManualResetEventSlim.
+        /// Creates a Wait Event backed by a ManualResetEvent in either standard or slim variations.
         /// </summary>
         /// <param name="isCompleted">if initially set to completed. Generally true.</param>
         /// <param name="useSlim">if set to <c>true</c> creates a slim version of the wait event.</param>

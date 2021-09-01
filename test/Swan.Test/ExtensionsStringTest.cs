@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Test.Mocks;
 using System;

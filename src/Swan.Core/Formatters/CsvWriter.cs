@@ -1,5 +1,6 @@
-﻿using Swan.Reflection;
-using Swan.Utilities;
+﻿using Swan.Extensions;
+using Swan.Platform;
+using Swan.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;

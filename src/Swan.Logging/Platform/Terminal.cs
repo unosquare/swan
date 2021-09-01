@@ -1,11 +1,11 @@
-﻿using Swan.Threading;
-using Swan.Utilities;
+﻿using Swan.Extensions;
+using Swan.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
 
-namespace Swan
+namespace Swan.Platform
 {
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user. 
@@ -149,10 +149,10 @@ namespace Swan
         /// <value>
         /// The available writers.
         /// </value>
-        public static TerminalWriters AvailableWriters =>
+        public static TerminalWriterFlags AvailableWriters =>
             IsConsolePresent
-                ? TerminalWriters.StandardError | TerminalWriters.StandardOutput
-                : TerminalWriters.None;
+                ? TerminalWriterFlags.StandardError | TerminalWriterFlags.StandardOutput
+                : TerminalWriterFlags.None;
 
         /// <summary>
         /// Gets or sets the output encoding for the current console.
@@ -248,13 +248,13 @@ namespace Swan
             {
                 var availableWriters = AvailableWriters;
 
-                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
+                if (availableWriters == TerminalWriterFlags.None || context.OutputWriters == TerminalWriterFlags.None)
                 {
                     OutputDone.Set();
                     return;
                 }
 
-                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
+                if ((context.OutputWriters & availableWriters) == TerminalWriterFlags.None)
                     return;
 
                 OutputDone.Reset();
@@ -267,7 +267,7 @@ namespace Swan
         /// </summary>
         private static void DequeueOutputCycle()
         {
-            if (AvailableWriters == TerminalWriters.None)
+            if (AvailableWriters == TerminalWriterFlags.None)
             {
                 OutputDone.Set();
                 return;
@@ -293,13 +293,13 @@ namespace Swan
                 Console.ForegroundColor = context.OutputColor;
 
                 // Output to the standard output
-                if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
+                if (context.OutputWriters.HasFlag(TerminalWriterFlags.StandardOutput))
                 {
                     Console.Out.Write(context.OutputText);
                 }
 
                 // output to the standard error
-                if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
+                if (context.OutputWriters.HasFlag(TerminalWriterFlags.StandardError))
                 {
                     Console.Error.Write(context.OutputText);
                 }
@@ -325,14 +325,14 @@ namespace Swan
             {
                 OriginalColor = Settings.DefaultColor;
                 OutputWriters = IsConsolePresent
-                    ? TerminalWriters.StandardOutput
-                    : TerminalWriters.None;
+                    ? TerminalWriterFlags.StandardOutput
+                    : TerminalWriterFlags.None;
             }
 
             public ConsoleColor OriginalColor { get; }
             public ConsoleColor OutputColor { get; init; }
             public char[] OutputText { get; init; }
-            public TerminalWriters OutputWriters { get; init; }
+            public TerminalWriterFlags OutputWriters { get; init; }
         }
 
         #endregion

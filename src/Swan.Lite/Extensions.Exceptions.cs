@@ -46,7 +46,7 @@ namespace Swan
         public static InternalErrorException RethrowPreservingStackTrace(this Exception @this)
         {
             ExceptionDispatchInfo.Capture(@this).Throw();
-            return SelfCheck.Failure("Reached unreachable code.");
+            return new InternalErrorException("Reached unreachable code.");
         }
 
         private static bool IsCriticalExceptionCore(this Exception @this)

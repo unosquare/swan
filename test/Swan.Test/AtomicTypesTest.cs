@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Types;
+using Swan.Threading;
 using System;
 using System.Threading.Tasks;
 

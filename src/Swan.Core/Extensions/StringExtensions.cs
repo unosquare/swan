@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Swan
+namespace Swan.Extensions
 {
     /// <summary>
     /// String related extension methods.

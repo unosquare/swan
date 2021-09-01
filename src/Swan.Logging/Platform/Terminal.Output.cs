@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Platform
 {
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
@@ -16,7 +16,7 @@ namespace Swan
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(char charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(char charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
         {
             lock (SyncLock)
             {
@@ -45,7 +45,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void Write(string? text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void Write(string? text, ConsoleColor? color = null, TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
         {
             if (text == null) return;
 
@@ -67,7 +67,7 @@ namespace Swan
         /// Writes a New Line Sequence to the standard output.
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void WriteLine(TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
             => Write(Environment.NewLine, Settings.DefaultColor, writerFlags);
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
             => Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Swan
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void OverwriteLine(string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        public static void OverwriteLine(string text, ConsoleColor? color = null, TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
         {
             Write($"\r{text ?? string.Empty}", color, writerFlags);
             Flush();

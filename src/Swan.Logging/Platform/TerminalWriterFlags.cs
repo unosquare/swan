@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Platform
 {
     /// <summary>
     /// Defines a set of bitwise standard terminal writers.
     /// </summary>
     [Flags]
-    public enum TerminalWriters
+    public enum TerminalWriterFlags
     {
         /// <summary>
         /// Prevents output

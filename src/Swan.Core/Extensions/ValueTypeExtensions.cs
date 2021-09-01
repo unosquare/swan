@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Extensions
 {
     /// <summary>
     /// Provides various extension methods for value types and structs.

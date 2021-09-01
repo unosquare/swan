@@ -5,9 +5,9 @@ using Swan.Logging;
 using Swan.Mapping;
 using Swan.Net;
 using Swan.Net.Dns;
+using Swan.Platform;
 using Swan.Reflection;
-using Swan.Types;
-using Swan.Utilities;
+using Swan.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +36,7 @@ namespace Swan.Samples
             var isZero = atomic2 >= simpleInt;
             atomic2.Increment();
 
-            Logger.RegisterLogger<FileLogger>();
+            LoggerExtensions.RegisterLogger<FileLogger>();
 
             TestJson();
             TestApplicationInfo();
@@ -47,7 +47,7 @@ namespace Swan.Samples
             }
             catch (System.Net.Http.HttpRequestException ex)
             {
-                Terminal.WriteLine($"Error testing network {ex}", ConsoleColor.Red, TerminalWriters.StandardError);
+                Terminal.WriteLine($"Error testing network {ex}", ConsoleColor.Red, TerminalWriterFlags.StandardError);
             }
             TestContainerAndMessageHub();
             TestExceptionLogging();

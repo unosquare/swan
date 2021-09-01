@@ -1,5 +1,5 @@
-﻿using Swan.Threading;
-using Swan.Utilities;
+﻿using Swan.Platform;
+using Swan.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.IO;

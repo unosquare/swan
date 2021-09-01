@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.Utilities;
+using Swan.Platform;
 using System;
 
 namespace Swan.Test

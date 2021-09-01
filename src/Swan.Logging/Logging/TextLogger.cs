@@ -1,4 +1,6 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
+using Swan.Formatters;
+using Swan.Platform;
 using System;
 
 namespace Swan.Logging

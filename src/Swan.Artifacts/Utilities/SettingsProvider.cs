@@ -1,4 +1,5 @@
 ﻿using Swan.Formatters;
+using Swan.Platform;
 using Swan.Reflection;
 using System.IO;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Swan.Types
+namespace Swan.Threading
 {
     /// <summary>
     /// Defines an atomic generic Enum.

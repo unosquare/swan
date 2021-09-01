@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.Types
+namespace Swan.Threading
 {
     /// <summary>
     /// Defines an atomic DateTime.

@@ -12,10 +12,10 @@ namespace Swan.Test
         public async Task WithDefaultValues_FileExist()
         {
             var instance = new FileLogger();
-            Logger.RegisterLogger(instance);
+            LoggerExtensions.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
-            Logger.UnregisterLogger(instance);
+            LoggerExtensions.UnregisterLogger(instance);
 
             Assert.IsTrue(File.Exists(instance.FilePath));
         }
@@ -24,10 +24,10 @@ namespace Swan.Test
         public async Task WithDefaultValues_FileIsNotEmpty()
         {
             var instance = new FileLogger();
-            Logger.RegisterLogger(instance);
+            LoggerExtensions.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
-            Logger.UnregisterLogger(instance);
+            LoggerExtensions.UnregisterLogger(instance);
 
             var logContent = File.ReadAllText(instance.FilePath);
             Assert.IsNotEmpty(logContent);

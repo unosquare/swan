@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Swan
+namespace Swan.Platform
 {
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
@@ -254,7 +254,14 @@ namespace Swan
 
         #endregion
 
-        private static string GetNowFormatted() =>
-            $" {(string.IsNullOrWhiteSpace(TextLogger.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(TextLogger.LoggingTimeFormat) + " ")}";
+        private static string GetNowFormatted()
+        {
+            var nowText = !string.IsNullOrWhiteSpace(TextLogger.LoggingTimeFormat)
+                ? DateTime.Now.ToString(TextLogger.LoggingTimeFormat, CultureInfo.InvariantCulture)
+                : string.Empty;
+
+            return $" {nowText} ";
+        }
+            
     }
 }

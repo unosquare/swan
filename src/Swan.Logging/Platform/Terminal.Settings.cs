@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan
+namespace Swan.Platform
 {
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user

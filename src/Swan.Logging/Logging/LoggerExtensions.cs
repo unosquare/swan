@@ -1,4 +1,6 @@
-﻿using Swan.Formatters;
+﻿using Swan.Extensions;
+using Swan.Formatters;
+using Swan.Platform;
 using Swan.Reflection;
 using System;
 using System.Collections.Generic;
@@ -12,14 +14,14 @@ namespace Swan.Logging
     /// Entry-point for logging. Use this static class to register/unregister
     /// loggers instances. By default, the <c>ConsoleLogger</c> is registered.
     /// </summary>
-    public static class Logger
+    public static class LoggerExtensions
     {
         private static readonly object SyncLock = new();
         private static readonly List<ILogger> Loggers = new();
 
         private static ulong _loggingSequence;
 
-        static Logger()
+        static LoggerExtensions()
         {
             if (Terminal.IsConsolePresent)
                 Loggers.Add(ConsoleLogger.Instance);
