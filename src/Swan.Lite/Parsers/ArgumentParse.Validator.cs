@@ -56,7 +56,7 @@ namespace Swan.Parsers
                 {
                     var optionAttr = targetProperty.Attribute<ArgumentOptionAttribute>();
 
-                    if (optionAttr == null || optionAttr.Required == false)
+                    if (optionAttr == null || optionAttr.IsRequired == false)
                         continue;
 
                     if (targetProperty.GetValue(_instance) == null)

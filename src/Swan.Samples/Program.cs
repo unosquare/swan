@@ -1,10 +1,11 @@
-﻿using Swan.DI;
+﻿using Swan.DependencyInjection;
 using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Logging;
 using Swan.Mapping;
 using Swan.Net;
 using Swan.Net.Dns;
+using Swan.Reflection;
 using Swan.Types;
 using Swan.Utilities;
 using System;
@@ -23,6 +24,8 @@ namespace Swan.Samples
         /// </summary>
         public static async Task Main()
         {
+            var newList = typeof(List<int>).TypeInfo().CreateInstance();
+
             bool boolValue = true;
             var atomic = new AtomicBoolean(false);
             boolValue = atomic;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Swan.DI
+namespace Swan.DependencyInjection
 {
     /// <summary>
     /// Represents an abstract class for Object Factory.

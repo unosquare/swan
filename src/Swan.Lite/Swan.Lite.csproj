@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Swan.Core\Swan.Core.csproj" />
+      <ProjectReference Include="..\Swan.Core\Swan.Core.csproj" />
       <ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
     </ItemGroup>
 </Project>

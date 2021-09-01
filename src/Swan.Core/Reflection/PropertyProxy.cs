@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CA1031 // Do not catch general exception types
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq.Expressions;
@@ -146,7 +147,7 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public bool TryGetValue(object instance, out object? value)
         {
-            
+
             value = PropertyType.GetDefault();
             try
             {
@@ -232,3 +233,4 @@ namespace Swan.Reflection
         }
     }
 }
+#pragma warning restore CA1031 // Do not catch general exception types

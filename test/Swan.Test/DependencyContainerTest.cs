@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Swan.DI;
+using Swan.DependencyInjection;
 using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;

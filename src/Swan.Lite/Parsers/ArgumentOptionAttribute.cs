@@ -64,7 +64,7 @@ namespace Swan.Parsers
         /// When applying attribute to <see cref="System.Collections.Generic.IEnumerable{T}"/> target properties,
         /// it allows you to split an argument and consume its content as a sequence.
         /// </summary>
-        public char Separator { get; set; } = '\0';
+        public char Separator { get; set; }
 
         /// <summary>
         /// Gets or sets mapped property default value.
@@ -80,7 +80,7 @@ namespace Swan.Parsers
         /// <value>
         ///   <c>true</c> if required; otherwise, <c>false</c>.
         /// </value>
-        public bool Required { get; set; }
+        public bool IsRequired { get; set; }
 
         /// <summary>
         /// Gets or sets a short description of this command line option. Usually a sentence summary.

@@ -24,7 +24,7 @@ namespace Swan.Parsers
         /// <value>
         ///   <c>true</c> if [case sensitive]; otherwise, <c>false</c>.
         /// </value>
-        public bool CaseSensitive { get; set; } = false;
+        public bool CaseSensitive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether perform case sensitive comparisons of <i>values</i>.
@@ -48,6 +48,6 @@ namespace Swan.Parsers
         /// </remarks>
         public bool IgnoreUnknownArguments { get; set; } = true;
 
-        internal StringComparison NameComparer => CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+        internal StringComparison NameComparer => CaseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
     }
 }

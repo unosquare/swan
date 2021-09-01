@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Swan.DI
+namespace Swan.DependencyInjection
 {
     /// <summary>
     /// The concrete implementation of a simple IoC container

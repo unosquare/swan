@@ -1,11 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Swan.Reflection
 {
     public static partial class TypeManager
     {
+        /// <summary>
+        /// Convers a PropertyInfo object to an IPropertyProxy.
+        /// </summary>
+        /// <param name="propertyInfo">The source property info.</param>
+        /// <returns>A corresponding property proxy.</returns>
+        public static IPropertyProxy ToPropertyProxy(this PropertyInfo propertyInfo)
+        {
+            if (propertyInfo is null)
+                throw new ArgumentNullException(nameof(propertyInfo));
+
+            if (propertyInfo.ReflectedType is null)
+                throw new ArgumentException($"Unable to obtain enclosing type for property '{propertyInfo.Name}'.", nameof(propertyInfo));
+
+            return propertyInfo.ReflectedType.Property(propertyInfo.Name)
+                ?? throw new KeyNotFoundException($"Could not find property '{propertyInfo.Name}' for type '{propertyInfo.ReflectedType.Name}'");
+        }
 
         /// <summary>
         /// Gets the property proxies associated with a given type.

@@ -122,8 +122,8 @@ namespace Swan
                 throw new ArgumentNullException(nameof(targetType));
 
             var fields = new List<MemberInfo>(
-                targetType.TypeInfo().Fields).Union(
-                targetType.Properties().Select(c => c.PropertyInfo));
+                targetType.TypeInfo().Fields.Where(c => c.IsPublic)).Union(
+                targetType.Properties().Where(c => c.HasPublicGetter).Select(c => c.PropertyInfo));
 
             foreach (var targetMember in fields)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Swan.DI
+namespace Swan.DependencyInjection
 {
     /// <summary>
     /// Registration options for "fluent" API.

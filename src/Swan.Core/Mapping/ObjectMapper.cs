@@ -2,6 +2,7 @@
 using Swan.Reflection;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -79,11 +80,11 @@ namespace Swan.Mapping
     /// }
     /// </code>
     /// </example>
-    public partial class ObjectMapper
+    public class ObjectMapper
     {
         private static readonly Lazy<ObjectMapper> LazyInstance = new(() => new ObjectMapper());
 
-        private readonly List<IObjectMap> _maps = new(256);
+        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<Type, IObjectMap>> TargetMaps = new();
 
         /// <summary>
         /// Gets the default instance of the object mapper.
@@ -160,30 +161,98 @@ namespace Swan.Mapping
                 ignoreProperties);
         }
 
+
+        public bool HasMap(Type sourceType, Type targetType) =>
+            !TargetMaps.TryGetValue(targetType, out var sourceMaps)
+            ? false
+            : sourceMaps.ContainsKey(sourceType);
+
+        public bool TryGetMap(Type sourceType, Type targetType, out IObjectMap map)
+        {
+            if (!TargetMaps.TryGetValue(targetType, out var sourceMaps))
+            {
+                sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+                TargetMaps.TryAdd(targetType, sourceMaps);
+            }
+
+            return sourceMaps.TryGetValue(sourceType, out map);
+        }
+
+        private bool TryGetMap<TSource, TTarget>(out IObjectMap<TSource, TTarget> map)
+        {
+            if (TryGetMap(typeof(TSource), typeof(TTarget), out var existingMap) &&
+                existingMap is IObjectMap<TSource, TTarget> typedMap)
+            {
+                map = typedMap;
+                return true;
+            }
+
+            map = default;
+            return false;
+        }
+
+        private bool TrySetMap<TSource, TTarget>(IObjectMap map)
+        {
+            if (map is null)
+                throw new ArgumentNullException(nameof(map));
+
+            if (!TargetMaps.TryGetValue(typeof(TTarget), out var sourceMaps))
+            {
+                sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+                TargetMaps.TryAdd(typeof(TTarget), sourceMaps);
+            }
+
+            if (!sourceMaps.ContainsKey(typeof(TSource)))
+            {
+                sourceMaps[typeof(TSource)] = map;
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
-        /// Creates the map.
+        /// Creates a default map between the source and target types
+        /// and adds it to this object mapper.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TTarget">The type of the destination.</typeparam>
-        /// <returns>
-        /// An object map representation of type of the destination property 
-        /// and type of the source property.
-        /// </returns>
-        /// <exception cref="InvalidOperationException">
-        /// You can't create an existing map
-        /// or
-        /// Types doesn't match.
-        /// </exception>
-        public ObjectMap<TSource, TTarget> CreateMap<TSource, TTarget>()
+        /// <typeparam name="TTarget">The type of the target</typeparam>
+        /// <returns>A newly-created default map between the 2 objects.</returns>
+        public IObjectMap<TSource, TTarget> AddMap<TSource, TTarget>()
         {
-            if (_maps.Any(x => x.TargetType.ProxiedType == typeof(TTarget)))
-                throw new InvalidOperationException("You can't create an existing map");
+            if (TryGetMap<TSource, TTarget>(out _))
+                throw new InvalidOperationException(
+                    $"This mapper already defines a map between target '{typeof(TTarget)}' and source '{typeof(TSource)}'");
 
-            var map = new ObjectMap<TSource, TTarget>();
+            if (!TargetMaps.TryGetValue(typeof(TTarget), out var sourceMaps))
+            {
+                sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+                TargetMaps.TryAdd(typeof(TTarget), sourceMaps);
+            }
+
+            var map = new ObjectMap<TSource, TTarget>(this);
             if (!map.Any())
                 throw new InvalidOperationException("Types don't have any matching properties.");
 
-            _maps.Add(map);
+            TrySetMap<TSource, TTarget>(map);
+
+            return map;
+        }
+
+        /// <summary>
+        /// Retreives an existing map between target and source types.
+        /// If the map already exists, it returns it from this mapper's internal storage.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <typeparam name="TTarget">The type of the target</typeparam>
+        /// <returns>A map between the 2 objects.</returns>
+        public IObjectMap<TSource, TTarget> GetOrAddMap<TSource, TTarget>()
+        {
+            if (TryGetMap<TSource, TTarget>(out var map))
+                return map;
+
+            map = new ObjectMap<TSource, TTarget>(this);
+            TrySetMap<TSource, TTarget>(map);
 
             return map;
         }
@@ -199,22 +268,21 @@ namespace Swan.Mapping
         /// </returns>
         /// <exception cref="ArgumentNullException">source.</exception>
         /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}.</exception>
-        public TTarget Map<TTarget>(object source, bool autoResolve = true)
+        public TTarget Apply<TTarget>(object source, bool autoResolve = true)
+            where TTarget : class, new()
         {
             if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            var map = _maps.FirstOrDefault(x => x.TargetType.ProxiedType == typeof(TTarget));
-            var target = TypeManager.CreateInstance<TTarget>();
+            var sourceType = source.GetType();
+            var targetType = typeof(TTarget);
 
-            if (map != null)
+            var target = new TTarget();
+
+            if (TryGetMap(sourceType, targetType, out var map))
             {
-                foreach (var path in map)
-                {
-                    var targetProperty = path.Key;
-                    var targetValue = path.Value.Invoke(source);
-                    targetProperty.TrySetValue(target, targetValue);
-                }
+                map.Apply(source, target);
+                return target;
             }
             else
             {
@@ -225,7 +293,7 @@ namespace Swan.Mapping
                 }
 
                 // Missing mapping, try to use default behavior
-                Copy(source, target!);
+                Copy(source, target);
             }
 
             return target;
@@ -317,7 +385,7 @@ namespace Swan.Mapping
 
                     if (addMethod == null) return target;
 
-                    var isItemValueType = targetList.GetType().GetElementType().IsValueType;
+                    var isItemValueType = targetList.GetType().TypeInfo().ElementType.IsValueType;
 
                     foreach (var item in sourceList)
                     {

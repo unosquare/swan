@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Swan.Reflection
 {
@@ -11,49 +9,6 @@ namespace Swan.Reflection
     public static partial class TypeManager
     {
         private static readonly ConcurrentDictionary<Type, ITypeProxy> TypeCache = new();
-
-        /// <summary>
-        /// Provides a callection of primitive, numeric types.
-        /// </summary>
-        public static IReadOnlyList<Type> NumericTypes { get; } = new[]
-        {
-            typeof(byte),
-            typeof(sbyte),
-            typeof(decimal),
-            typeof(double),
-            typeof(float),
-            typeof(int),
-            typeof(uint),
-            typeof(long),
-            typeof(ulong),
-            typeof(short),
-            typeof(ushort),
-        };
-
-        /// <summary>
-        /// Provides a collection of basic value types including numeric types,
-        /// string, guid, timespan, and datetime.
-        /// </summary>
-        public static IReadOnlyList<Type> BasicValueTypes { get; } = new[]
-        {
-                typeof(int),
-                typeof(bool),
-                typeof(string),
-                typeof(DateTime),
-                typeof(double),
-                typeof(decimal),
-                typeof(Guid),
-                typeof(long),
-                typeof(TimeSpan),
-                typeof(uint),
-                typeof(float),
-                typeof(byte),
-                typeof(short),
-                typeof(sbyte),
-                typeof(ushort),
-                typeof(ulong),
-                typeof(char),
-        };
 
         /// <summary>
         /// Provides cached and extended type information for
@@ -106,22 +61,5 @@ namespace Swan.Reflection
         /// <typeparam name="T">The type to create an instance of.</typeparam>
         /// <returns>A new instance of this type or the default value for value types.</returns>
         public static T CreateInstance<T>() => (T)typeof(T).CreateInstance();
-
-        /// <summary>
-        /// Convers a PropertyInfo object to an IPropertyProxy.
-        /// </summary>
-        /// <param name="propertyInfo">The source property info.</param>
-        /// <returns>A corresponding property proxy.</returns>
-        public static IPropertyProxy ToPropertyProxy(this PropertyInfo propertyInfo)
-        {
-            if (propertyInfo is null)
-                throw new ArgumentNullException(nameof(propertyInfo));
-
-            if (propertyInfo.ReflectedType is null)
-                throw new ArgumentException($"Unable to obtain enclosing type for property '{propertyInfo.Name}'.", nameof(propertyInfo));
-
-            return propertyInfo.ReflectedType.Property(propertyInfo.Name)
-                ?? throw new KeyNotFoundException($"Could not find property '{propertyInfo.Name}' for type '{propertyInfo.ReflectedType.Name}'");
-        }
     }
 }

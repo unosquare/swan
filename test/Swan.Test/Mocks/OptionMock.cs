@@ -12,7 +12,7 @@ namespace Swan.Test.Mocks
         [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set background color.")]
         public ConsoleColor BgColor { get; set; }
 
-        [ArgumentOption('n', IsDefault = true, Required = true, HelpText = "Set user name.")]
+        [ArgumentOption('n', IsDefault = true, IsRequired = true, HelpText = "Set user name.")]
         public string Username { get; set; }
 
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Specify additional options.")]
@@ -21,13 +21,13 @@ namespace Swan.Test.Mocks
 
     public class OptionIntRequiredMock
     {
-        [ArgumentOption('n', Required = true, HelpText = "Set int.")]
+        [ArgumentOption('n', IsRequired = true, HelpText = "Set int.")]
         public int? IntValue { get; set; }
     }
 
     public class OptionObjectCollectionMock
     {
-        [ArgumentOption('o', "options", Required = true, Separator = ',', HelpText = "Specify additional options.")]
+        [ArgumentOption('o', "options", IsRequired = true, Separator = ',', HelpText = "Specify additional options.")]
         public List<int> Options { get; set; }
     }
 

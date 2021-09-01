@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Swan.DI
+namespace Swan.DependencyInjection
 {
     /// <summary>
     /// Weak Reference Exception.
