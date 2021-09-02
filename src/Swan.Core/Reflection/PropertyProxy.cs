@@ -117,6 +117,12 @@ namespace Swan.Reflection
         public bool IsConstructedGenericType => TypeProxy.IsConstructedGenericType;
 
         /// <inheritdoc />
+        public ITypeProxy? GenericDictionaryType => TypeProxy.GenericDictionaryType;
+
+        /// <inheritdoc />
+        public ITypeProxy? GenericCollectionType => TypeProxy.GenericCollectionType;
+
+        /// <inheritdoc />
         public bool HasElementType => TypeProxy.HasElementType;
 
         /// <inheritdoc />

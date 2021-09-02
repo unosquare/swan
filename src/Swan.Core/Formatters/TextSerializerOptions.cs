@@ -1,58 +1,71 @@
-﻿using System.Text;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
     public class TextSerializerOptions
     {
         public static readonly TextSerializerOptions JsonPrettyPrint = new();
         public static readonly TextSerializerOptions JsonCompact = new() { WriteIndented = false };
+        public static readonly TextSerializerOptions JsonCompactCamel = new() { WriteIndented = false, UseCamelCase = true };
 
+        /// <summary>
+        /// Gets a value indicating whether the serializer
+        /// outputs whitespace and standard indentation.
+        /// </summary>
         public bool WriteIndented { get; init; } = true;
 
-        public string NullLiteral { get; init; } = "null";
-
-        public string TrueLiteral { get; init; } = "true";
-
-        public string FalseLiteral { get; init; } = "false";
-
+        /// <summary>
+        /// Gets the number of spaces per indentation.
+        /// </summary>
         public byte IndentSpaces { get; init; } = 4;
 
-        public string OpenObjectSequence { get; init; } = "{";
+        /// <summary>
+        /// For object serialization, changes property names
+        /// starting with uppercase characters into lowercase
+        /// characters.
+        /// </summary>
+        public bool UseCamelCase { get; init; }
 
-        public string CloseObjectSequence { get; init; } = "}";
+        public int MaxStackDepth { get; init; } = 1;
 
-        public string OpenArraySequence { get; init; } = "[";
+        public bool IgnoreCircularReferences { get; init; } = true;
 
-        public string CloseArraySequence { get; init; } = "]";
+        public bool OutputTypeMetadata { get; init; }
+
+        public bool OutputCollectionCounts { get; init; }
+
+        public bool OutputCollectionIndices { get; init; }
+
+        /// <summary>
+        /// The literal value to output when 
+        /// </summary>
+        public string NullLiteral { get; init; } = "null";
+
+        /// <summary>
+        /// The literal string to output when a true boolean
+        /// value is encountered.
+        /// </summary>
+        public string TrueLiteral { get; init; } = "true";
+
+        /// <summary>
+        /// The literal string to output when a false boolean
+        /// value is encountered.
+        /// </summary>
+        public string FalseLiteral { get; init; } = "false";
+
+        public string ObjectOpener { get; init; } = "{";
+
+        public string ObjectCloser { get; init; } = "}";
+
+        public string ArrayOpener { get; init; } = "[";
+
+        public string ArrayCloser { get; init; } = "]";
 
         public string ItemSeparator { get; init; } = ",";
 
-        public string PropertySeparator { get; init; } = ":";
-
-        internal void OpenObject(StringBuilder builder)
-        {
-            builder.Append(OpenObjectSequence);
-
-            if (WriteIndented)
-                builder.AppendLine();
-        }
-
-        internal void CloseObject(StringBuilder builder, int stackDepth)
-        {
-            var indentDepth = stackDepth > 0 ? stackDepth - 1 : 0;
-
-            if (WriteIndented)
-                builder.AppendLine().Append(IndentString(indentDepth));
-
-            builder.Append(CloseObjectSequence);
-        }
-
-        internal string PropertySeparation =>
-            WriteIndented ? $"{PropertySeparator} " : PropertySeparator;
-
-        internal string IndentString(int stackDepth) => WriteIndented
-            ? new(' ', stackDepth * IndentSpaces)
-            : string.Empty;
+        /// <summary>
+        /// The string that goes between keys and values in
+        /// object properties and dictionaries.
+        /// </summary>
+        public string KeyValueSeparator { get; init; } = ":";
     }
 
 }

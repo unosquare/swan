@@ -63,6 +63,18 @@ namespace Swan.Reflection
         bool IsConstructedGenericType { get; }
 
         /// <summary>
+        /// Searches this type's interfaces for a constructed, generic <see cref="IDictionary{TKey, TValue}"/>
+        /// implementation and provides the constructed type proxy.
+        /// </summary>
+        ITypeProxy? GenericDictionaryType { get; }
+
+        /// <summary>
+        /// Searches this type's interfaces for a constructed, generic <see cref="ICollection{T}"/>
+        /// implementation and provides the constructed type proxy.
+        /// </summary>
+        ITypeProxy? GenericCollectionType { get; }
+
+        /// <summary>
         /// Gets a list of generic type arguments. Might be empty if not available.
         /// </summary>
         IReadOnlyList<ITypeProxy> GenericTypeArguments { get; }

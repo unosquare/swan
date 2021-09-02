@@ -1,8 +1,6 @@
 ﻿using Swan.Reflection;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -17,52 +15,126 @@ namespace Swan.Formatters
         private readonly ITypeProxy Proxy;
         private readonly object Instance;
         private readonly int StackDepth;
+        private readonly int IndentDepth;
         private readonly TextSerializerOptions Options;
 
-        private TextSerializer(ITypeProxy proxy, int stackDepth, object? instance, TextSerializerOptions options)
+        private TextSerializer(ITypeProxy proxy, object? instance, TextSerializerOptions options, int stackDepth, int indentDepth)
         {
             Proxy = proxy;
             StackDepth = stackDepth;
+            IndentDepth = indentDepth;
             Instance = instance;
             Options = options;
         }
 
         public static string Serialize(object? instance, TextSerializerOptions? options = null)
         {
-            return Serialize(instance, 0, options);
+            return Serialize(instance, options, 0, 1);
         }
 
-        private static string Serialize(object? instance, int stackDepth, TextSerializerOptions? options)
+        private static string Serialize(object? instance, TextSerializerOptions? options, int stackDepth, int indentDepth)
         {
             options ??= TextSerializerOptions.JsonPrettyPrint;
 
             if (instance is null) return options.NullLiteral;
-            var serializer = new TextSerializer(instance.GetType().TypeInfo(), stackDepth, instance, options);
+            var serializer = new TextSerializer(
+                instance.GetType().TypeInfo(), instance, options, stackDepth, indentDepth);
+
             return serializer.WriteObject();
         }
 
-        private bool CanWriteAsDictionary(out ITypeProxy? keyType, out ITypeProxy? valueType, out ITypeProxy? constructedType)
+        private bool TryWriteAsDictionary(StringBuilder builder)
         {
-            keyType = null;
-            valueType = null;
-            constructedType = null;
-
-            var genericDictionary = Proxy.Interfaces
-                .FirstOrDefault(c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(IDictionary<,>));
-
-            if (genericDictionary is null || genericDictionary.GenericTypeArguments.Length < 2)
+            var dictionaryType = Proxy.GenericDictionaryType;
+            if (dictionaryType is null || !dictionaryType.GenericTypeArguments[0].IsBasicType)
                 return false;
 
-            var preKeyType = genericDictionary.GenericTypeArguments[0].TypeInfo();
-            if (!preKeyType.IsBasicType)
+            // obtain keys and values
+            var keys = dictionaryType.Properties[nameof(IDictionary.Keys)].GetValue(Instance) as IEnumerable;
+            var values = dictionaryType.Properties[nameof(IDictionary.Values)].GetValue(Instance) as IEnumerable;
+
+            // check that keys and values are in fact available.
+            if (keys is null || values is null)
                 return false;
 
-            keyType = preKeyType;
-            valueType = genericDictionary.GenericTypeArguments[1].TypeInfo();
+            var valuesEnumerator = values.GetEnumerator();
+            var keyType = dictionaryType.GenericTypeArguments[0];
 
-            constructedType = typeof(IDictionary<,>).MakeGenericType(keyType.ProxiedType, valueType.ProxiedType).TypeInfo();
+            var isFirst = true;
+            BeginObject(builder);
+            foreach (var key in keys)
+            {
+                valuesEnumerator.MoveNext();
+                var value = valuesEnumerator.Current;
 
+                if (!isFirst)
+                {
+                    builder.Append(Options.ItemSeparator);
+                    if (Options.WriteIndented)
+                        builder.AppendLine();
+                }
+
+                builder
+                    .Append($"{IndentString(IndentDepth)}{QuotedJsonString(keyType.ToStringInvariant(key))}")
+                    .Append(KeyValueSeparation)
+                    .Append($"{Serialize(value, Options, StackDepth + 1, IndentDepth + 1)}");
+
+                isFirst = false;
+            }
+
+            EndObject(builder, IndentDepth);
             return true;
+        }
+
+        private bool TryWriteAsArray(StringBuilder builder)
+        {
+            if (Instance is not IEnumerable collection)
+                return false;
+
+            var isFirst = true;
+            builder.Append(Options.ArrayOpener);
+            foreach (var item in collection)
+            {
+                if (!isFirst)
+                {
+                    builder.Append(Options.ItemSeparator);
+                    if (Options.WriteIndented)
+                        builder.Append(' ');
+                }
+
+                builder.Append(Serialize(item, Options, StackDepth + 1, IndentDepth));
+                isFirst = false;
+            }
+
+            builder.Append(Options.ArrayCloser);
+            return true;
+        }
+
+        private void WriteAsObject(StringBuilder builder)
+        {
+            var isFirst = true;
+            BeginObject(builder);
+            foreach (var property in Proxy.Properties.Values)
+            {
+                if (!property.CanRead)
+                    continue;
+
+                if (!isFirst)
+                {
+                    builder.Append(Options.ItemSeparator);
+                    if (Options.WriteIndented)
+                        builder.AppendLine();
+                }
+
+                if (property.TryGetValue(Instance, out var value))
+                    builder.Append($"{IndentString(IndentDepth)}{QuotedJsonString(property.PropertyName)}")
+                        .Append(KeyValueSeparation)
+                        .Append(Serialize(value, Options, StackDepth + 1, IndentDepth + 1));
+
+                isFirst = false;
+            }
+
+            EndObject(builder, IndentDepth);
         }
 
         private string WriteObject()
@@ -95,95 +167,54 @@ namespace Swan.Formatters
                     JsonValueKind.Undefined => Options.NullLiteral,
                     JsonValueKind.Number => element.ToString() ?? "0",
                     JsonValueKind.String => QuotedJsonString(element.GetString()),
+                    JsonValueKind.Array => Serialize(
+                        new JsonDynamicObject(element).Materialize(), Options, StackDepth + 1, IndentDepth),
+                    JsonValueKind.Object => Serialize(
+                        new JsonDynamicObject(element).Materialize(), Options, StackDepth + 1, IndentDepth),
                     _ => element.ToString() ?? Options.NullLiteral,
                 };
             }
 
             var builder = new StringBuilder();
 
-            if (CanWriteAsDictionary(out var keyType, out _, out var dictionaryType))
-            {
-                var keys = dictionaryType!.Properties[nameof(IDictionary.Keys)].GetValue(Instance) as IEnumerable;
-                var values = dictionaryType.Properties[nameof(IDictionary.Values)].GetValue(Instance) as IEnumerable;
-                var valuesEnumerator = values!.GetEnumerator();
-
-                var isFirst = true;
-                Options.OpenObject(builder);
-                foreach (var key in keys!)
-                {
-                    valuesEnumerator.MoveNext();
-                    var value = valuesEnumerator.Current;
-
-                    if (!isFirst)
-                    {
-                        builder.Append(Options.ItemSeparator);
-                        if (Options.WriteIndented)
-                            builder.AppendLine();
-                    }
-
-                    builder
-                        .Append($"{Options.IndentString(StackDepth)}{QuotedJsonString(keyType!.ToStringInvariant(key))}")
-                        .Append(Options.PropertySeparation)
-                        .Append($"{Serialize(value, StackDepth + 1, Options)}");
-
-                    isFirst = false;
-                }
-
-                Options.CloseObject(builder, StackDepth);
-
+            if (TryWriteAsDictionary(builder))
                 return builder.ToString();
-            }
 
-            if (Instance is IEnumerable collection)
-            {
-                var isFirst = true;
-
-                builder.Append(Options.OpenArraySequence);
-                foreach (var item in collection)
-                {
-                    if (!isFirst)
-                    {
-                        builder.Append(Options.ItemSeparator);
-                        if (Options.WriteIndented)
-                            builder.Append(' ');
-                    }
-
-                    builder.Append(Serialize(item, StackDepth + 1, Options));
-                    isFirst = false;
-                }
-
-                builder.Append(Options.CloseArraySequence);
+            if (TryWriteAsArray(builder))
                 return builder.ToString();
-            }
 
-            {
-                var isFirst = true;
-                Options.OpenObject(builder);
-                foreach (var property in Proxy.Properties.Values)
-                {
-                    if (!property.CanRead)
-                        continue;
-
-                    if (!isFirst)
-                    {
-                        builder.Append(Options.ItemSeparator);
-                        if (Options.WriteIndented)
-                            builder.AppendLine();
-                    }
-
-                    if (property.TryGetValue(Instance, out var value))
-                        builder.Append($"{Options.IndentString(StackDepth)}{QuotedJsonString(property.PropertyName)}")
-                            .Append(Options.PropertySeparation)
-                            .Append(Serialize(value, StackDepth + 1, Options));
-
-                    isFirst = false;
-                }
-
-                Options.CloseObject(builder, StackDepth);
-            }
-
+            WriteAsObject(builder);
             return builder.ToString();
         }
+
+
+        private void BeginObject(StringBuilder builder)
+        {
+            builder.Append(Options.ObjectOpener);
+
+            if (Options.WriteIndented)
+                builder.AppendLine();
+        }
+
+        private void EndObject(StringBuilder builder, int indentDepth)
+        {
+            indentDepth = indentDepth > 0
+                ? indentDepth - 1
+                : 0;
+
+            if (Options.WriteIndented)
+                builder.AppendLine().Append(IndentString(indentDepth));
+
+            builder.Append(Options.ObjectCloser);
+        }
+
+        private string KeyValueSeparation => Options.WriteIndented
+            ? $"{Options.KeyValueSeparator} "
+            : Options.KeyValueSeparator;
+
+        private string IndentString(int indentDepth) => Options.WriteIndented
+            ? new(' ', indentDepth * Options.IndentSpaces)
+            : string.Empty;
 
         private static string QuotedJsonString(ReadOnlySpan<char> str)
         {

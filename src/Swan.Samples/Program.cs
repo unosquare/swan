@@ -68,6 +68,7 @@ namespace Swan.Samples
             dynamic expando = new ExpandoObject();
             expando.Property1 = "one property";
             expando.Property2 = new[] { 6, 7, 8, 9, 10 };
+            expando.Property3 = new List<MockInfo> { new MockInfo(), new MockInfo() };
 
             var mock = new MockInfo();
             var sdict = new SubDict
@@ -79,25 +80,28 @@ namespace Swan.Samples
                 {
                     ["x"] = "Y"
                 },
-                ["dynamic"] = expando
+                ["dynamicObj"] = expando
             };
 
             var outText0 = TextSerializer.Serialize(sdict);
 
-            var outDict = JsonSerializer.Deserialize(outText0, typeof(SubDict));
+            var outDict = JsonSerializer.Deserialize<SubDict>(outText0);
 
             var outText = TextSerializer.Serialize(d);
             var outText2 = TextSerializer.Serialize(mock);
 
             var objDict = new Dictionary<object, object?>()
             {
+                ["jsonstuff"] = outDict,
                 [TimeSpan.FromMilliseconds(334344)] = sdict,
                 [mock] = sdict,
-                ["jsonstuff"] = null,
                 ["object"] = new MockInfo { Name = "OTHER" }
             };
 
             var objDictJson = TextSerializer.Serialize(objDict, TextSerializerOptions.JsonPrettyPrint);
+
+            var optionsJson = TextSerializer.Serialize(TextSerializerOptions.JsonCompactCamel);
+            var options = JsonSerializer.Deserialize<TextSerializerOptions>(optionsJson);
         }
 
         /// <summary>

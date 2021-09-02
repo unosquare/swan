@@ -34,6 +34,8 @@ namespace Swan.Reflection
         private readonly Lazy<Type[]> InterfacesLazy;
         private readonly Lazy<bool> IsEnumerableLazy;
         private readonly Lazy<bool> IsListLazy;
+        private readonly Lazy<ITypeProxy?> GenericDictionaryTypeLazy;
+        private readonly Lazy<ITypeProxy?> GenericCollectionTypeLazy;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TypeProxy"/> class.
@@ -89,6 +91,38 @@ namespace Swan.Reflection
             {
                 return ProxiedType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
             }, true);
+
+            GenericCollectionTypeLazy = new(() =>
+            {
+                var genericInterface = Interfaces.FirstOrDefault(
+                    c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(ICollection<>));
+
+                if (genericInterface is null || genericInterface.GenericTypeArguments.Length < 1)
+                    return null;
+
+                var elementType = genericInterface.GenericTypeArguments[0];
+
+                return typeof(ICollection<>)
+                    .MakeGenericType(elementType)
+                    .TypeInfo();
+            }, true);
+
+            GenericDictionaryTypeLazy = new(() =>
+            {
+                var genericInterface = Interfaces.FirstOrDefault(
+                    c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+
+                if (genericInterface is null || genericInterface.GenericTypeArguments.Length < 2)
+                    return null;
+
+                var keyType = genericInterface.GenericTypeArguments[0];
+                var valueType = genericInterface.GenericTypeArguments[1];
+
+                return typeof(IDictionary<,>)
+                    .MakeGenericType(keyType, valueType)
+                    .TypeInfo();
+
+            }, true);
         }
 
         /// <inheritdoc />
@@ -142,6 +176,12 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public IReadOnlyList<ITypeProxy> GenericTypeArguments => GenericTypeArgumentsLazy.Value;
 
+        /// <inheritdoc />
+        public ITypeProxy? GenericDictionaryType => GenericDictionaryTypeLazy.Value;
+
+        /// <inheritdoc />
+        public ITypeProxy? GenericCollectionType => GenericCollectionTypeLazy.Value;
+
         public bool HasElementType => ProxiedType.HasElementType;
 
         /// <inheritdoc />
@@ -164,14 +204,11 @@ namespace Swan.Reflection
                     proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.InvariantCulture);
                     foreach (var propertyInfo in properties)
                     {
-                        try
-                        {
-                            proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
-                        }
-                        catch
-                        {
-                            // ignore
-                        }
+                        // skip indexers
+                        if (propertyInfo.GetIndexParameters().Length > 0)
+                            continue;
+
+                        proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
                     }
 
 
