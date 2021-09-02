@@ -99,6 +99,9 @@ namespace Swan.Reflection
         public bool CanCreateInstance => TypeProxy.CanCreateInstance;
 
         /// <inheritdoc />
+        public IReadOnlyList<ITypeProxy> GenericTypeArguments => TypeProxy.GenericTypeArguments;
+
+        /// <inheritdoc />
         public IReadOnlyDictionary<string, IPropertyProxy> Properties => TypeProxy.Properties;
 
         /// <inheritdoc />
@@ -112,6 +115,9 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public bool IsConstructedGenericType => TypeProxy.IsConstructedGenericType;
+
+        /// <inheritdoc />
+        public bool HasElementType => TypeProxy.HasElementType;
 
         /// <inheritdoc />
         public ITypeProxy? ElementType => TypeProxy.ElementType;

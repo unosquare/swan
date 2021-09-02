@@ -63,11 +63,21 @@ namespace Swan.Reflection
         bool IsConstructedGenericType { get; }
 
         /// <summary>
+        /// Gets a list of generic type arguments. Might be empty if not available.
+        /// </summary>
+        IReadOnlyList<ITypeProxy> GenericTypeArguments { get; }
+
+        /// <summary>
         /// For arrays and generic enumerables returns the element type.
         /// For non generic enumerables just returns the proxy for the object type.
         /// Returns null otherwise.
         /// </summary>
         ITypeProxy? ElementType { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the element type proerty is available.
+        /// </summary>
+        bool HasElementType { get; }
 
         /// <summary>
         /// Returns true for types that implement <see cref="IEnumerable"/>

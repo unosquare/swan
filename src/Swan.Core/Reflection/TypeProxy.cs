@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Swan.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace Swan.Reflection
 {
@@ -22,6 +25,7 @@ namespace Swan.Reflection
         private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> PropertyCache = new(32);
 
         private readonly Lazy<object[]> TypeAttributesLazy;
+        private readonly Lazy<ITypeProxy[]> GenericTypeArgumentsLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
         private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
         private readonly Lazy<ToStringMethodInfo> ToStringMethodLazy;
@@ -76,22 +80,16 @@ namespace Swan.Reflection
 
             ElementTypeLazy = new(() =>
             {
-                // Type is Array
-                // short-circuit if you expect lots of arrays 
-                if (IsArray)
-                    return (ProxiedType.GetElementType() ?? typeof(object)).TypeInfo();
+                return IsArray
+                    ? (ProxiedType.GetElementType() ?? typeof(object)).TypeInfo()
+                    : ProxiedType.HasElementType
+                    ? ProxiedType.GetElementType()?.TypeInfo()
+                    : null;
+            }, true);
 
-                if (IsEnumerable)
-                {
-                    var genericInterface = Interfaces
-                        .FirstOrDefault(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-
-                    return genericInterface is not null
-                        ? (genericInterface.GenericTypeArguments.FirstOrDefault() ?? typeof(object)).TypeInfo()
-                        : typeof(object).TypeInfo();
-                }
-
-                return null;
+            GenericTypeArgumentsLazy = new(() =>
+            {
+                return ProxiedType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
             }, true);
         }
 
@@ -144,6 +142,11 @@ namespace Swan.Reflection
         public bool IsList => IsListLazy.Value;
 
         /// <inheritdoc />
+        public IReadOnlyList<ITypeProxy> GenericTypeArguments => GenericTypeArgumentsLazy.Value;
+
+        public bool HasElementType => ProxiedType.HasElementType;
+
+        /// <inheritdoc />
         public ITypeProxy? ElementType => ElementTypeLazy.Value;
 
         /// <inheritdoc />
@@ -162,7 +165,17 @@ namespace Swan.Reflection
                     var properties = ProxiedType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                     proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.InvariantCulture);
                     foreach (var propertyInfo in properties)
-                        proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
+                    {
+                        try
+                        {
+                            proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
+                        }
+                        catch
+                        {
+                            // ignore
+                        }
+                    }
+
 
                     PropertyCache.TryAdd(ProxiedType, proxies);
                     return proxies;
@@ -186,7 +199,7 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public string ToStringInvariant(object? instance)
         {
-            if (instance == null)
+            if (instance is null)
                 return string.Empty;
 
             return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count == 1
@@ -248,5 +261,215 @@ namespace Swan.Reflection
         {
             return $"Type Proxy: {ProxiedType.Name}";
         }
+    }
+
+    public class SerializerOptions
+    {
+        public bool WriteIndented { get; set; } = true;
+
+        public string NullLiteral { get; set; } = "null";
+
+        public string TrueLiteral { get; set; } = "true";
+
+        public string FalseLiteral { get; set; } = "false";
+
+        public byte IndentSpaces { get; set; } = 4;
+
+        public string OpenObjectSequence { get; set; } = "{";
+
+        public string CloseObjectSequence { get; set; } = "}";
+
+        public string ItemSeparator { get; set; } = ",";
+
+        public string PropertySeparator { get; set; } = ":";
+
+        internal void OpenObject(StringBuilder builder, int stackDepth)
+        {
+            if (!WriteIndented)
+                builder.Append(' ');
+            else
+                builder.AppendLine().Append(IndentString(stackDepth));
+
+            builder.Append(OpenObjectSequence);
+
+            if (WriteIndented)
+                builder.AppendLine();
+        }
+
+        internal void CloseObject(StringBuilder builder, int stackDepth)
+        {
+            if (!WriteIndented)
+                builder.Append(' ');
+            else
+                builder.AppendLine().Append(IndentString(stackDepth));
+
+            builder.Append(CloseObjectSequence);
+        }
+
+        internal string PropertySeparation =>
+            WriteIndented ? $"{PropertySeparator} " : PropertySeparator;
+
+        internal string IndentString(int stackDepth) => WriteIndented
+            ? new(' ', stackDepth * IndentSpaces)
+            : string.Empty;
+    }
+
+    public class ProxySerializer
+    {
+        private readonly ITypeProxy Proxy;
+        private readonly object? Instance;
+        private readonly int StackDepth;
+        private readonly SerializerOptions Options;
+
+        private ProxySerializer(ITypeProxy proxy, int stackDepth, object? instance, SerializerOptions options)
+        {
+            Proxy = proxy;
+            StackDepth = stackDepth;
+            Instance = instance;
+            Options = options;
+        }
+
+        public static string Serialize(object? instance)
+        {
+            return Serialize(instance, 0, null);
+        }
+
+        private static string Serialize(object? instance, int stackDepth, SerializerOptions? options)
+        {
+            options ??= new();
+
+            if (instance is null) return options.NullLiteral;
+            var serializer = new ProxySerializer(instance.GetType().TypeInfo(), stackDepth, instance, options);
+            return serializer.ToJson();
+        }
+
+        private string ToJson()
+        {
+            if (Instance is null)
+                return Options.NullLiteral;
+
+            if (Instance is JsonElement element)
+            {
+                return element.ValueKind switch
+                {
+                    JsonValueKind.Null => Options.NullLiteral,
+                    JsonValueKind.False => Options.FalseLiteral,
+                    JsonValueKind.True => Options.TrueLiteral,
+                    JsonValueKind.Undefined => Options.NullLiteral,
+                    JsonValueKind.Number => element.ToString() ?? "0",
+                    JsonValueKind.String => QuotedJsonString(element.GetString()),
+                    _ => element.ToString() ?? Options.NullLiteral,
+                };
+            }
+
+            if (Instance is Type typeValue)
+                return QuotedJsonString($"{typeValue}");
+
+            if (Instance is bool boolValue)
+                return boolValue ? "true" : "false";
+
+            if (Instance is string stringValue)
+                return QuotedJsonString(stringValue);
+
+            if (Proxy.IsNumeric)
+                return Proxy.ToStringInvariant(Instance);
+
+            if (Proxy.IsBasicType)
+                return QuotedJsonString(Proxy.ToStringInvariant(Instance));
+
+            var builder = new StringBuilder();
+
+            if (Instance is IDictionary dictionary)
+            {
+                var genericDictionary = Proxy.Interfaces
+                    .FirstOrDefault(c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+
+                if (genericDictionary is not null && genericDictionary.GenericTypeArguments.Length >= 2)
+                {
+                    var keyType = genericDictionary.GenericTypeArguments[0].TypeInfo();
+                    var valueType = genericDictionary.GenericTypeArguments[1].TypeInfo();
+
+                    if (keyType.IsBasicType)
+                    {
+                        var isFirst = true;
+                        Options.OpenObject(builder, StackDepth);
+                        foreach (var key in dictionary.Keys)
+                        {
+                            if (!isFirst)
+                            {
+                                builder.Append(Options.ItemSeparator);
+                                if (Options.WriteIndented)
+                                    builder.AppendLine();
+                            }
+
+                            builder
+                                .Append($"{Options.IndentString(StackDepth + 1)}{QuotedJsonString(keyType.ToStringInvariant(key))}")
+                                .Append(Options.PropertySeparation)
+                                .Append($"{Serialize(dictionary[key], StackDepth + 1, Options)}");
+
+                            isFirst = false;
+                        }
+
+                        Options.CloseObject(builder, StackDepth);
+
+                        return builder.ToString();
+                    }
+                }
+            }
+
+            if (Instance is IEnumerable collection)
+            {
+                builder.Append('[');
+                foreach (var item in collection)
+                    builder.Append(Serialize(item, StackDepth + 1, Options)).Append(',');
+
+                RemoveLastComma(builder);
+                builder.Append(']');
+                return builder.ToString();
+            }
+
+            {
+                var isFirst = true;
+                Options.OpenObject(builder, StackDepth);
+                foreach (var property in Proxy.Properties.Values)
+                {
+                    if (!property.CanRead)
+                        continue;
+
+                    if (!isFirst)
+                    {
+                        builder.Append(Options.ItemSeparator);
+                        if (Options.WriteIndented)
+                            builder.AppendLine();
+                    }
+
+                    if (property.TryGetValue(Instance, out var value))
+                        builder.Append($"{Options.IndentString(StackDepth + 1)}{QuotedJsonString(property.PropertyName)}")
+                            .Append(Options.PropertySeparation)
+                            .Append(Serialize(value, StackDepth + 1, Options));
+
+                    isFirst = false;
+                }
+
+                Options.CloseObject(builder, StackDepth);
+            }
+
+            return builder.ToString();
+        }
+
+        private static string QuotedJsonString(ReadOnlySpan<char> str)
+        {
+            return $"\"{JsonEncode(str)}\"";
+        }
+
+        private static void RemoveLastComma(StringBuilder builder)
+        {
+            if (builder[^1] == ',')
+                builder.Remove(builder.Length - 1, 1);
+        }
+
+        private static string JsonEncode(ReadOnlySpan<char> value) =>
+            Encoding.UTF8.GetString(JsonEncodedText.Encode(value).EncodedUtf8Bytes);
+
     }
 }

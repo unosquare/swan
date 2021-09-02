@@ -9,7 +9,9 @@ using Swan.Platform;
 using Swan.Reflection;
 using Swan.Threading;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -17,12 +19,28 @@ using System.Threading.Tasks;
 
 namespace Swan.Samples
 {
+    class SubDict : Dictionary<string, object>
+    {
+
+    }
+
+    class MockInfo
+    {
+        public string Name { get; set; } = "Frrrrr";
+
+        public int Value { get; set; } = 2332455;
+
+        public TimeSpan Ts { get; set; }
+
+        public DateTime Dt { get; set; }
+
+        public Guid Guid { get; set; }
+    }
+
     public static partial class Program
     {
-        /// <summary>
-        /// Entry point of the Program.
-        /// </summary>
-        public static async Task Main()
+
+        private static void Sketchpad()
         {
             var newList = typeof(List<int>).TypeInfo().CreateInstance();
 
@@ -35,6 +53,59 @@ namespace Swan.Samples
             simpleInt = atomic2;
             var isZero = atomic2 >= simpleInt;
             atomic2.Increment();
+
+            var d = new Dictionary<int, string>
+            {
+                [1] = "Hello",
+                [2] = "World"
+            };
+
+            if (d is IDictionary dictionary)
+            {
+
+            }
+
+            dynamic expando = new ExpandoObject();
+            expando.Property1 = "one property";
+            expando.Property2 = new[] { 6, 7, 8, 9, 10 };
+
+            var mock = new MockInfo();
+            var sdict = new SubDict
+            {
+                ["Hello"] = 43,
+                ["World"] = "Some text here",
+                ["array"] = new[] { 6, 7, 8, 9, 10 },
+                ["object"] = new Dictionary<string, string>
+                {
+                    ["x"] = "Y"
+                },
+                ["dynamic"] = expando
+            };
+
+            var outText0 = ProxySerializer.Serialize(sdict);
+
+            var outDict = System.Text.Json.JsonSerializer.Deserialize(outText0, typeof(SubDict));
+
+            var outText = ProxySerializer.Serialize(d);
+            var outText2 = ProxySerializer.Serialize(mock);
+
+            var objDict = new Dictionary<object, object?>()
+            {
+                [TimeSpan.FromMilliseconds(334344)] = sdict,
+                [mock] = sdict,
+                ["object"] = new MockInfo { Name = "OTHER" }
+            };
+
+            var objDictJson = ProxySerializer.Serialize(objDict);
+        }
+
+        /// <summary>
+        /// Entry point of the Program.
+        /// </summary>
+        public static async Task Main()
+        {
+
+            Sketchpad();
 
             LoggerExtensions.RegisterLogger<FileLogger>();
 
