@@ -82,21 +82,22 @@ namespace Swan.Samples
                 ["dynamic"] = expando
             };
 
-            var outText0 = ProxySerializer.Serialize(sdict);
+            var outText0 = TextSerializer.Serialize(sdict);
 
-            var outDict = System.Text.Json.JsonSerializer.Deserialize(outText0, typeof(SubDict));
+            var outDict = JsonSerializer.Deserialize(outText0, typeof(SubDict));
 
-            var outText = ProxySerializer.Serialize(d);
-            var outText2 = ProxySerializer.Serialize(mock);
+            var outText = TextSerializer.Serialize(d);
+            var outText2 = TextSerializer.Serialize(mock);
 
             var objDict = new Dictionary<object, object?>()
             {
                 [TimeSpan.FromMilliseconds(334344)] = sdict,
                 [mock] = sdict,
+                ["jsonstuff"] = null,
                 ["object"] = new MockInfo { Name = "OTHER" }
             };
 
-            var objDictJson = ProxySerializer.Serialize(objDict);
+            var objDictJson = TextSerializer.Serialize(objDict, TextSerializerOptions.JsonPrettyPrint);
         }
 
         /// <summary>
