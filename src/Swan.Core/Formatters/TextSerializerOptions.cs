@@ -30,9 +30,15 @@
 
         public bool OutputTypeMetadata { get; init; }
 
-        public bool OutputCollectionCounts { get; init; }
+        public bool OutputArrayCounts { get; init; }
 
-        public bool OutputCollectionIndices { get; init; }
+        public bool OutputArrayIndices { get; init; }
+
+        /// <summary>
+        /// Gets the literal value that is used to enclose
+        /// string sequences.
+        /// </summary>
+        public string StringQuotation { get; init; } = "\"";
 
         /// <summary>
         /// The literal value to output when 
@@ -59,6 +65,10 @@
 
         public string ArrayCloser { get; init; } = "]";
 
+        /// <summary>
+        /// For nested output, the literal that separates array items
+        /// and proerty key-value pairs.
+        /// </summary>
         public string ItemSeparator { get; init; } = ",";
 
         /// <summary>

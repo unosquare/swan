@@ -9,7 +9,6 @@ using Swan.Platform;
 using Swan.Reflection;
 using Swan.Threading;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
@@ -42,7 +41,17 @@ namespace Swan.Samples
 
         private static void Sketchpad()
         {
-            var newList = typeof(List<int>).TypeInfo().CreateInstance();
+            dynamic listOne = typeof(List<object>).TypeInfo().CreateInstance();
+            dynamic listTwo = typeof(List<object>).TypeInfo().CreateInstance();
+            listOne.Add(1);
+            listOne.Add(2);
+            listOne.Add(3);
+            listOne.Add(4);
+            listOne.Add(5);
+
+            listOne.Add(listTwo);
+
+            var newListJson = TextSerializer.Serialize(listOne);
 
             bool boolValue = true;
             var atomic = new AtomicBoolean(false);
@@ -56,19 +65,26 @@ namespace Swan.Samples
 
             var d = new Dictionary<int, string>
             {
-                [1] = "Hello",
+                [1] = "Hello\t\r\n\0\t\r\n",
                 [2] = "World"
             };
 
-            if (d is IDictionary dictionary)
-            {
+            var arrayOfArrays = new double[2][];
+            arrayOfArrays[0] = new[] { 1d, 2d, 3d, 4d };
+            arrayOfArrays[1] = new[] { 5d, 6d, 7d, 8d };
 
-            }
+            var twoDimensionalArray = new double[2, 2];
+            twoDimensionalArray[0, 0] = 1d;
+            twoDimensionalArray[0, 1] = 2d;
+            twoDimensionalArray[1, 0] = 3d;
+            twoDimensionalArray[1, 1] = 4d;
 
             dynamic expando = new ExpandoObject();
             expando.Property1 = "one property";
             expando.Property2 = new[] { 6, 7, 8, 9, 10 };
             expando.Property3 = new List<MockInfo> { new MockInfo(), new MockInfo() };
+            expando.Property4 = arrayOfArrays;
+            expando.Property5 = twoDimensionalArray;
 
             var mock = new MockInfo();
             var sdict = new SubDict
