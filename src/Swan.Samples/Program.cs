@@ -6,7 +6,6 @@ using Swan.Mapping;
 using Swan.Net;
 using Swan.Net.Dns;
 using Swan.Platform;
-using Swan.Reflection;
 using Swan.Threading;
 using System;
 using System.Collections.Generic;
@@ -41,18 +40,26 @@ namespace Swan.Samples
 
         private static void Sketchpad()
         {
-            dynamic listOne = typeof(List<object>).TypeInfo().CreateInstance();
-            dynamic listTwo = typeof(List<object>).TypeInfo().CreateInstance();
-            listOne.Add(1);
-            listOne.Add(2);
-            listOne.Add(3);
-            listOne.Add(4);
-            listOne.Add(5);
+            dynamic objectOne = new ExpandoObject();
+            dynamic objectTwo = new ExpandoObject();
 
-            listOne.Add(listTwo);
+            objectOne.Name = "Parent Object";
+            objectOne.Age = 38;
+            objectOne.Child = objectTwo;
+            objectOne.IntArray = new[] { 1, 2, 3, 4, 5 };
 
-            var newListJson = TextSerializer.Serialize(listOne);
+            objectTwo.Name = "Child Object";
+            objectTwo.Age = 2;
+            objectTwo.Parent = objectOne;
+            objectTwo.Mock = new MockInfo();
 
+            dynamic container = new ExpandoObject();
+            container.One = objectOne;
+            container.Two = objectTwo;
+
+            var circularJson = TextSerializer.Serialize(container, TextSerializerOptions.HumanReadable);
+
+            // return;
             bool boolValue = true;
             var atomic = new AtomicBoolean(false);
             boolValue = atomic;
