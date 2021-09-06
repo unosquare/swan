@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -40,6 +41,23 @@ namespace Swan.Samples
 
         private static void Sketchpad()
         {
+            var x = new ExpandoObject();
+            (x as IDictionary<string, object?>).Add("Hello World", 2);
+
+            var mockContents = $"\r\n,,,\r\nName, Value, TS, Date, Id\r\nHello, 54556, 00:30:15, {Guid.NewGuid()}";
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(mockContents));
+            using var reader = new CsvDictionaryReader(stream, Encoding.UTF8)
+                .Skip(2)
+                .ReadHeadings()
+                .AddMapping("TS", "timespan")
+                .RemoveMapping("Value")
+                .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
+
+            while (!reader.EndOfStream)
+            {
+                var entry = reader.ReadObject();
+            }
+
             dynamic objectOne = new ExpandoObject();
             dynamic objectTwo = new ExpandoObject();
 

@@ -119,6 +119,7 @@ namespace Swan.Formatters
         public CsvReader(Stream stream)
             : this(stream, false, SwanRuntime.Windows1252Encoding)
         {
+            // placeholder
         }
 
         /// <summary>
@@ -152,9 +153,6 @@ namespace Swan.Formatters
         /// <summary>
         /// Gets number of lines that have been read, including the headings.
         /// </summary>
-        /// <value>
-        /// The count.
-        /// </value>
         public ulong Count
         {
             get

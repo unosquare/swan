@@ -82,7 +82,7 @@ namespace Swan.Formatters
             return true;
         }
 
-        private static ReadOnlySpan<char> WriteAsString(TextSerializerOptions options, ReadOnlySpan<char> value, bool isKeyName)
+        private static ReadOnlySpan<char> WriteAsString(TextSerializerOptions options, in ReadOnlySpan<char> value, bool isKeyName)
         {
             var stringValue = isKeyName
                 ? FormatKeyName(value, options)
@@ -255,7 +255,7 @@ namespace Swan.Formatters
             ? new(' ', indentDepth * options.IndentSpaces)
             : string.Empty;
 
-        private static ReadOnlySpan<char> FormatKeyName(ReadOnlySpan<char> name, TextSerializerOptions options)
+        private static ReadOnlySpan<char> FormatKeyName(in ReadOnlySpan<char> name, TextSerializerOptions options)
         {
             if (name.IsEmpty)
                 return name;
@@ -265,7 +265,7 @@ namespace Swan.Formatters
                 : name;
         }
 
-        private static void BeginObject(TextSerializerOptions options, ReadOnlySpan<char> typeName, StringBuilder builder)
+        private static void BeginObject(TextSerializerOptions options, in ReadOnlySpan<char> typeName, StringBuilder builder)
         {
             builder.Append(options.ObjectOpener);
 
