@@ -114,6 +114,24 @@ namespace Swan.Reflection
 
         #endregion
 
+        public static bool TryChangeType(object? value, Type conversionType, out object? result)
+        {
+            if (conversionType is null)
+                throw new ArgumentNullException(nameof(conversionType));
+
+            var type = conversionType.TypeInfo();
+
+            if (value is null)
+            {
+                result = type.DefaultValue;
+                return true;
+            }
+
+            result = null;
+            var proxy = conversionType.TypeInfo();
+            return proxy.CanParseNatively && proxy.TryParse(value, out result);
+        }
+
         /// <summary>
         /// Tries to parse using the basic types.
         /// </summary>
