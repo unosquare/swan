@@ -3,8 +3,10 @@ using Swan.Formatters;
 using Swan.Platform;
 using Swan.Test.Mocks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Swan.Test.CsvReaderTest
@@ -33,7 +35,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithValidStreamAndValidEncoding_ReturnsReader()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream, true, Encoding.ASCII);
+            var reader = new CsvReader(stream, Encoding.ASCII);
 
             Assert.IsNotNull(reader);
         }
@@ -43,17 +45,16 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var csvReader = new CsvReader(null, true, Encoding.ASCII);
+                var csvReader = new CsvReader(default(MemoryStream), Encoding.ASCII);
             });
         }
 
         [Test]
         public void WithNullEncoding_ThrowsNullReferenceException()
         {
-            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var csvReader = new CsvReader(stream, true, null);
+                var csvReader = new CsvReader(default(MemoryStream));
             });
         }
     }
@@ -67,7 +68,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             var reader = new CsvReader(stream, Encoding.ASCII);
-            reader.SkipRecord();
+            reader.Skip();
             Assert.AreNotEqual(stream.Position, position);
         }
 
@@ -78,9 +79,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             var data = "Orgrimmar,m";
 
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(data));
-            var reader = new CsvReader(stream, Encoding.ASCII) { EscapeCharacter = 'm' };
+            var reader = new CsvReader(stream, Encoding.ASCII, escapeChar: 'm');
 
-            reader.SkipRecord();
+            reader.Skip();
 
             Assert.AreNotEqual(stream.Position, position);
         }
@@ -91,7 +92,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             var tempFile = Path.GetTempFileName();
 
             var reader = new CsvReader(tempFile);
-            Assert.Throws<EndOfStreamException>(() => reader.SkipRecord());
+            Assert.Throws<EndOfStreamException>(() => reader.Skip());
         }
     }
 
@@ -101,9 +102,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithValidStream_ReturnsAnArray()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            var headings = reader.ReadHeadings();
-            Assert.IsNotNull(headings);
+            var reader = new CsvDictionaryReader(stream);
+            var headings = reader.ReadHeadings().Current.ToArray();
+            Assert.IsNotEmpty(headings);
             Assert.AreEqual(Headers, headings);
         }
 
@@ -111,7 +112,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithReadHeadingsAlreadyCalled_ThrowsInvalidOperationException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
+            using var reader = new CsvDictionaryReader(stream);
             reader.ReadHeadings();
 
             Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
@@ -121,8 +122,8 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithReadHeadingsAsSecondOperation_ThrowsInvalidOperationException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            reader.ReadLine();
+            using var reader = new CsvDictionaryReader(stream);
+            _ = reader.ReadHeadings();
 
             Assert.Throws<InvalidOperationException>(() => reader.ReadHeadings());
         }
@@ -135,7 +136,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             var reader = new CsvReader(stream);
-            var line = reader.ReadLine();
+            var line = reader.Read();
 
             Assert.IsNotEmpty(line);
         }
@@ -146,7 +147,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             var tempFile = Path.GetTempFileName();
 
             var reader = new CsvReader(tempFile);
-            Assert.Throws<EndOfStreamException>(() => reader.ReadLine());
+            Assert.Throws<EndOfStreamException>(() => reader.Read());
         }
 
         [Test]
@@ -155,7 +156,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             var tempFile = Path.GetTempFileName();
 
             var reader = new CsvReader(tempFile, SwanRuntime.Windows1252Encoding);
-            Assert.Throws<EndOfStreamException>(() => reader.ReadLine());
+            Assert.Throws<EndOfStreamException>(() => reader.Read());
         }
     }
 
@@ -165,9 +166,8 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithValidStream_ReturnsADictionary()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            reader.ReadHeadings();
-            var readObj = reader.ReadObject();
+            using var reader = new CsvDictionaryReader(stream);
+            var readObj = reader.ReadObject() as IDictionary;
 
             Assert.IsNotNull(readObj);
         }
@@ -176,7 +176,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithoutReadHeadingsCall_ThrowsInvalidOperationException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
+            using var reader = new CsvDictionaryReader(stream);
 
             Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
         }
@@ -185,48 +185,46 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithNullAsParam_ThrowsArgumentNullException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            reader.ReadHeadings();
-
-            Assert.Throws<ArgumentNullException>(() => reader.ReadObject(null));
+            using var reader = new CsvDictionaryReader(stream);
+            Assert.Throws<ArgumentNullException>(() => reader.ReadInto(null));
         }
 
         [Test]
         public void WithSampleDto_ThrowsArgumentNullException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
+            var reader = new CsvObjectReader<UserDto>(stream);
 
-            Assert.Throws<ArgumentNullException>(() => reader.ReadObject<UserDto>());
+            Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
         }
 
         [Test]
         public void WithNullDictionaryAsRef_ThrowsArgumentNullException()
         {
-            Dictionary<string, string> refDictionary = null;
+            Dictionary<string, string?> refDictionary = new();
 
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            reader.ReadHeadings();
+            using var reader = new CsvDictionaryReader(stream);
+            reader.AddMappings(Map);
 
-            Assert.Throws<ArgumentNullException>(() => reader.ReadObject(Map, ref refDictionary));
+            Assert.Throws<ArgumentNullException>(() => reader.ReadInto(refDictionary));
         }
 
         [Test]
         public void WithInvalidTempFile_ThrowsEndOfStreamException()
         {
             var tempFile = Path.GetTempFileName();
-            var reader = new CsvReader(tempFile);
+            var reader = new CsvObjectReader<UserDto>(tempFile);
 
-            Assert.Throws<EndOfStreamException>(() => reader.ReadObject<UserDto>(Map));
+            Assert.Throws<EndOfStreamException>(() => reader.ReadObject());
         }
 
         [Test]
         public void WithNoReadHeadingsCall_ThrowsInvalidOperationException()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
-            Assert.Throws<InvalidOperationException>(() => reader.ReadObject<UserDto>(Map));
+            var reader = new CsvObjectReader<UserDto>(stream);
+            Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
         }
     }
 
@@ -236,7 +234,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithValidStream_ReturnsNumberOfLines()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
+            var reader = new CsvDictionaryReader(stream);
 
             reader.ReadHeadings();
 
@@ -249,9 +247,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_GetsAndSetsSeparatorEscapeCharacter()
         {
-            var reader = new CsvReader(new MemoryStream()) { EscapeCharacter = '?' };
+            var reader = new CsvReader(new MemoryStream(), escapeChar: '?');
 
-            Assert.AreEqual('?', reader.EscapeCharacter);
+            Assert.AreEqual('?', reader.EscapeChar);
         }
     }
 
@@ -260,9 +258,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithValidStream_GetsAndSetsSeparatorCharacter()
         {
-            var reader = new CsvReader(new MemoryStream()) { SeparatorCharacter = '+' };
+            using var reader = new CsvReader(new MemoryStream(), separatorChar: '+');
 
-            Assert.AreEqual('+', reader.SeparatorCharacter);
+            Assert.AreEqual('+', reader.SeparatorChar);
         }
     }
 
@@ -272,7 +270,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WithDisposeAlreadyCalled_SetsHasDisposeToTrue()
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-            var reader = new CsvReader(stream);
+            var reader = new CsvDictionaryReader(stream);
             reader.ReadHeadings();
 
             var readObj = reader.ReadObject();

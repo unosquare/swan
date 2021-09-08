@@ -48,7 +48,6 @@ namespace Swan.Samples
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes(mockContents));
             using var reader = new CsvDictionaryReader(stream, Encoding.UTF8)
                 .Skip(2)
-                .ReadHeadings()
                 .AddMapping("TS", "timespan")
                 .RemoveMapping("Value")
                 .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
@@ -335,7 +334,7 @@ namespace Swan.Samples
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
                     .Info(nameof(TestCsvFormatters));
 
-                var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(test01FilePath);
+                var loadedRecords = Csv.Load<SampleCsvRecord>(test01FilePath);
                 $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
                     nameof(TestCsvFormatters));
 

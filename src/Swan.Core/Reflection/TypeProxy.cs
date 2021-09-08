@@ -66,7 +66,7 @@ namespace Swan.Reflection
             CreateInstanceLazy = new(() =>
             {
                 if (IsValueType)
-                    return new(() => DefaultValue);
+                    return new(() => DefaultValue!);
 
                 var constructor = DefaultConstructorLazy.Value;
                 return constructor is not null

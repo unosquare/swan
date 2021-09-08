@@ -1,528 +1,383 @@
-﻿using Swan.Platform;
-using Swan.Reflection;
+﻿#pragma warning disable CA1031 // Do not catch general exception types
+using Swan.Platform;
+using Swan.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Swan.Formatters
 {
     /// <summary>
-    /// Represents a reader designed for CSV text.
-    /// It is capable of deserializing objects from individual lines of CSV text,
-    /// transforming CSV lines of text into objects,
-    /// or simply reading the lines of CSV as an array of strings.
+    /// Represents a text reader, typically a comma-separated set of values
+    /// that can be configured to read an parse tabular data with flexible
+    /// encoding, field separators and escape characters.
     /// </summary>
-    /// <seealso cref="System.IDisposable" /> 
-    /// <example>
-    /// The following example describes how to load a list of objects from a CSV file.
-    /// <code>
-    /// using Swan.Formatters;
-    ///  
-    /// class Example
-    /// {
-    ///     class Person
-    ///     {
-    ///         public string Name { get; set; }
-    ///         public int Age { get; set; }
-    ///     }
-    ///     
-    ///     static void Main()
-    ///     {
-    ///         // load records from a CSV file
-    ///        var loadedRecords = 
-    ///        CsvReader.LoadRecords&lt;Person&gt;("C:\\Users\\user\\Documents\\file.csv");
-    ///         
-    ///         // loadedRecords = 
-    ///         //  [
-    ///         //      { Age = 20, Name = "George" }
-    ///         //      { Age = 18, Name = "Juan" }
-    ///         //  ]
-    ///     }
-    /// }
-    /// </code>
-    /// The following code explains how to read a CSV formatted string.
-    /// <code>
-    /// using Swan.Formatters;
-    /// using System.Text;
-    /// using Swan.Formatters;
-    ///  
-    /// class Example
-    /// {
-    ///     static void Main()
-    ///     {
-    ///         // data to be read
-    ///         var data = @"Company,OpenPositions,MainTechnology,Revenue
-    ///         Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",500
-    ///         Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",600";
-    ///         
-    ///         using(var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
-    ///         {
-    ///             // create a CSV reader
-    ///             var reader = new CsvReader(stream, false, Encoding.UTF8);
-    ///         }
-    ///     }
-    /// }
-    /// </code>
-    /// </example>
     public class CsvReader : IDisposable
     {
-        private readonly object _syncLock = new();
-
-        private ulong _count;
-        private char _escapeCharacter = '"';
-        private char _separatorCharacter = ',';
-
-        private bool _hasDisposed; // To detect redundant calls
-        private string[]? _headings;
-        private Dictionary<string, string>? _defaultMap;
-        private StreamReader? _reader;
-
-        #region Constructors
+        /// <summary>
+        /// Provides a the default separator character.
+        /// </summary>
+        public const char DefaultSeparatorChar = ',';
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader" /> class.
+        /// Provides the default escape character.
         /// </summary>
-        /// <param name="inputStream">The stream.</param>
-        /// <param name="leaveOpen">if set to <c>true</c> leaves the input stream open.</param>
-        /// <param name="textEncoding">The text encoding.</param>
-        public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)
+        public const char DefaultEscapeChar = '"';
+
+        private const int BufferSize = 1024;
+
+        private readonly AtomicBoolean _IsDisposed = new();
+        private readonly AtomicInteger _Count = new();
+        private readonly StreamReader Reader;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CsvReader"/> class.
+        /// </summary>
+        /// <param name="stream">The stream to read.</param>
+        /// <param name="encoding">The character encoding to use.</param>
+        /// <param name="separatorChar">The field separator character.</param>
+        /// <param name="escapeChar">The escape character.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the System.IO.StreamReader object is disposed; otherwise, false.</param>
+        public CsvReader(Stream stream,
+            Encoding? encoding = default,
+            char separatorChar = DefaultSeparatorChar,
+            char escapeChar = DefaultEscapeChar,
+            bool leaveOpen = default)
         {
-            if (inputStream == null)
-                throw new ArgumentNullException(nameof(inputStream));
-
-            if (textEncoding == null)
-                throw new ArgumentNullException(nameof(textEncoding));
-
-            _reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
+            var streamEncoding = encoding ?? SwanRuntime.Windows1252Encoding;
+            var detectBom = streamEncoding.GetPreamble().Length > 0;
+            Reader = new StreamReader(stream, streamEncoding, detectBom, BufferSize, leaveOpen);
+            SeparatorChar = separatorChar;
+            EscapeChar = escapeChar;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It will automatically close the stream upon disposing.
+        /// Creates a new instance of the <see cref="CsvReader"/> class.
         /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="textEncoding">The text encoding.</param>
-        public CsvReader(Stream stream, Encoding textEncoding)
-            : this(stream, false, textEncoding)
+        /// <param name="path">The file to read from.</param>
+        /// <param name="encoding">The character encoding to use.</param>
+        /// <param name="separatorChar">The field separator character.</param>
+        /// <param name="escapeChar">The escape character.</param>
+        public CsvReader(string path,
+            Encoding? encoding = default,
+            char separatorChar = DefaultSeparatorChar,
+            char escapeChar = DefaultEscapeChar)
+            : this(File.OpenRead(path), encoding, separatorChar, escapeChar, false)
         {
             // placeholder
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It automatically closes the stream when disposing this reader
-        /// and uses the Windows 1253 encoding.
+        /// Gets the dafault encoding used by the <see cref="CsvReader"/>
+        /// whenever an encoding is not specified.
         /// </summary>
-        /// <param name="stream">The stream.</param>
-        public CsvReader(Stream stream)
-            : this(stream, false, SwanRuntime.Windows1252Encoding)
+        public static Encoding DefaultEncoding { get; } = SwanRuntime.Windows1252Encoding;
+
+        /// <summary>
+        /// Gets the escape character.
+        /// </summary>
+        public char EscapeChar { get; }
+
+        /// <summary>
+        /// Gets the separator character.
+        /// </summary>
+        public char SeparatorChar { get; }
+
+        /// <summary>
+        /// Gets a value that indicates whether the current stream position is at the end
+        /// of the stream.
+        /// </summary>
+        public bool EndOfStream => Reader.EndOfStream;
+
+        /// <summary>
+        /// Gets the encoding of the underlying <see cref="StreamReader"/>.
+        /// </summary>
+        public Encoding Encoding => Reader.CurrentEncoding;
+
+        /// <summary>
+        /// The number of records that have been read so far, including
+        /// headers and empty ones, but excluding calls to the <see cref="SkipAsync"/>
+        /// mathod.
+        /// </summary>
+        public int Count => _Count.Value;
+
+        /// <summary>
+        /// Gets the current record consisting of literals parsed from the internal stream reader
+        /// as populated by the last successful read operation. This property may return null when
+        /// no read operation has been successfully completed.
+        /// </summary>
+        public IReadOnlyList<string>? Current
         {
-            // placeholder
+            get;
+            private set;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It uses the Windows 1252 Encoding by default and it automatically closes the file
-        /// when this reader is disposed of.
+        /// Gets a value indicating whether the <see cref="Dispose()"/> method has been called.
         /// </summary>
-        /// <param name="filename">The filename.</param>
-        public CsvReader(string filename)
-            : this(File.OpenRead(filename), false, SwanRuntime.Windows1252Encoding)
+        public bool IsDisposed
         {
-            // placeholder
+            get => _IsDisposed.Value;
+            private set => _IsDisposed.Value = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It automatically closes the file when disposing this reader.
+        /// Parses a set of literals from the current positions of the underlying
+        /// stream just as <see cref="ReadAsync"/> but does not increment the <see cref="Count"/>
+        /// and does not set <see cref="Current"/> property.
         /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <param name="encoding">The encoding.</param>
-        public CsvReader(string filename, Encoding encoding)
-            : this(File.OpenRead(filename), false, encoding)
+        /// <param name="skipCount">The number of records to skip.</param>
+        /// <returns>An awaitable task.</returns>
+        public virtual async Task SkipAsync(int skipCount = 1)
         {
-            // placeholder
+            if (skipCount < 1)
+                throw new ArgumentOutOfRangeException(nameof(skipCount));
+
+            for (var i = 0; i < skipCount; i++)
+                await ReadRecordAsync(true, false);
         }
 
-        #endregion
-
-        #region Properties
+        /// <summary>
+        /// Parses a set of literals from the current positions of the underlying
+        /// stream just as <see cref="ReadAsync"/> but does not increment the <see cref="Count"/>
+        /// and does not set <see cref="Current"/> property.
+        /// </summary>
+        /// <param name="skipCount">The number of records to skip.</param>
+        public virtual void Skip(int skipCount = 1) =>
+            SkipAsync(skipCount).ConfigureAwait(false).GetAwaiter().GetResult();
 
         /// <summary>
-        /// Gets number of lines that have been read, including the headings.
+        /// Reads a set of literals parsed from the internal stream reader,
+        /// sets the <see cref="Current"/> property to the result and increments
+        /// the <see cref="Count"/> by one.
         /// </summary>
-        public ulong Count
+        /// <param name="trimValues">Determines if values should be trimmed.</param>
+        /// <returns>A set of values representing the parsed record.</returns>
+        public virtual async Task<IReadOnlyList<string>> ReadAsync(bool trimValues = true)
         {
-            get
+            await ReadRecordAsync(false, trimValues);
+            return Current!;
+        }
+
+        /// <summary>
+        /// Reads a set of literals parsed from the internal stream reader,
+        /// sets the <see cref="Current"/> property to the result and increments
+        /// the <see cref="Count"/> by one.
+        /// </summary>
+        /// <param name="trimValues">Determines if values should be trimmed.</param>
+        /// <returns>A set of values representing the parsed record.</returns>
+        public virtual IReadOnlyList<string> Read(bool trimValues = true) =>
+            ReadAsync(trimValues).ConfigureAwait(false).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// Reads a set of literals parsed from the internal stream reader,
+        /// sets the <see cref="Current"/> property to the result and increments
+        /// the <see cref="Count"/> by one.
+        /// </summary>
+        /// <returns>Returns true if the operation was successful; otherwise returns false.</returns>
+        public virtual async Task<bool> TryReadAsync(bool trimValues = true)
+        {
+            if (IsDisposed || EndOfStream)
+                return false;
+
+            try
             {
-                lock (_syncLock)
-                {
-                    return _count;
-                }
+                await ReadAsync(trimValues).ConfigureAwait(false);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
         /// <summary>
-        /// Gets or sets the escape character.
-        /// By default it is the double quote '"'.
+        /// Reads a set of literals parsed from the internal stream reader,
+        /// sets the <see cref="Current"/> property to the result and increments
+        /// the <see cref="Count"/> by one.
         /// </summary>
-        /// <value>
-        /// The escape character.
-        /// </value>
-        public char EscapeCharacter
+        /// <param name="trimValues">Determines if values should be trimmed.</param>
+        /// <returns>True if the read was successful. False otherwise.</returns>
+        public virtual bool TryRead(bool trimValues = true)
         {
-            get => _escapeCharacter;
-            set
+            if (IsDisposed || EndOfStream)
+                return false;
+
+            try
             {
-                lock (_syncLock)
-                {
-                    _escapeCharacter = value;
-                }
+                Read(trimValues);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
         /// <summary>
-        /// Gets or sets the separator character.
-        /// By default it is the comma character ','.
+        /// Gets the string value of a given field index in the <see cref="Current"/> record.
         /// </summary>
-        /// <value>
-        /// The separator character.
-        /// </value>
-        public char SeparatorCharacter
+        /// <param name="index">The field index in the current</param>
+        /// <param name="value"></param>
+        /// <returns>True if the value was read successfully.</returns>
+        public virtual bool TryGetValue(int index, out string value)
         {
-            get => _separatorCharacter;
-            set
-            {
-                lock (_syncLock)
-                {
-                    _separatorCharacter = value;
-                }
-            }
+            value = string.Empty;
+            if (Current is null || index >= Current.Count || index < 0)
+                return false;
+
+            value = Current[index];
+            return true;
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the stream reader is at the end of the stream
-        /// In other words, if no more data can be read, this will be set to true.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [end of stream]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EndOfStream
+        /// <inheritdoc />
+        public void Dispose()
         {
-            get
-            {
-                lock (_syncLock)
-                {
-                    return _reader?.EndOfStream ?? true;
-                }
-            }
+            Dispose(alsoManaged: true);
+            GC.SuppressFinalize(this);
         }
 
-        #endregion
-
-        #region Generic, Main ReadLine method
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{GetType()}: {Count} records read.";
 
         /// <summary>
-        /// Reads a line of CSV text into an array of strings.
+        /// Parses a set of literals from the underlying stream, and when the skip parameter is set to false,
+        /// increments the <see cref="Count"/> property by one and sets the <see cref="Current"/> property
+        /// when the operation succeeds.
         /// </summary>
-        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        public string[] ReadLine()
+        /// <param name="isSkipping">True if the <see cref="Count"/> and <see cref="Current"/> properties will not be set.</param>
+        /// <param name="trimValues">Determines if values should be trimmed.</param>
+        /// <returns>An awaitable task.</returns>
+        protected async ValueTask ReadRecordAsync(bool isSkipping, bool trimValues)
         {
+            if (IsDisposed)
+                throw new ObjectDisposedException(nameof(CsvReader));
+
             if (EndOfStream)
-                throw new EndOfStreamException("Cannot read past the end of the stream");
+                throw new EndOfStreamException("Unable to read past the end of the stream.");
 
-            lock (_syncLock)
-            {
-                var values = ParseRecord(_reader!, _escapeCharacter, _separatorCharacter);
-                _count++;
-                return values;
-            }
+            var readTask = ReadRecordAsync(Reader, trimValues, EscapeChar, SeparatorChar);
+
+            var result = readTask.IsCompletedSuccessfully
+                ? readTask.Result
+                : await readTask.ConfigureAwait(false);
+
+            if (isSkipping)
+                return;
+
+            Current = result;
+            _Count.Increment();
         }
 
-        #endregion
-
-        #region Read Methods
-
         /// <summary>
-        /// Skips a line of CSV text.
-        /// This operation does not increment the Count property and it is useful when you need to read the headings
-        /// skipping over a few lines as Reading headings is only supported
-        /// as the first read operation (i.e. while count is still 0).
+        /// Disposes this instance optionally disposing
+        /// of managed objects.
         /// </summary>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        public void SkipRecord()
+        /// <param name="alsoManaged">If managed objects should also be disposed of.</param>
+        protected virtual void Dispose(bool alsoManaged)
         {
-            if (EndOfStream)
-                throw new EndOfStreamException("Cannot read past the end of the stream");
+            if (IsDisposed)
+                return;
 
-            lock (_syncLock)
-            {
-                ParseRecord(_reader!, _escapeCharacter, _separatorCharacter);
-            }
+            IsDisposed = true;
+
+            if (alsoManaged)
+                Reader.Dispose();
         }
-
-        /// <summary>
-        /// Reads a line of CSV text and stores the values read as a representation of the column names
-        /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
-        /// </summary>
-        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
-        /// <exception cref="System.InvalidOperationException">
-        /// Reading headings is only supported as the first read operation.
-        /// or
-        /// ReadHeadings.
-        /// </exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        public string[] ReadHeadings()
-        {
-            lock (_syncLock)
-            {
-                if (_headings != null)
-                    throw new InvalidOperationException($"The {nameof(ReadHeadings)} method had already been called.");
-
-                if (_count != 0)
-                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
-
-                _headings = ReadLine();
-                _defaultMap = _headings.ToDictionary(x => x, x => x);
-
-                return _headings.ToArray();
-            }
-        }
-
-        /// <summary>
-        /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings.
-        /// </summary>
-        /// <param name="map">The mappings between CSV headings (keys) and object properties (values).</param>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs.</returns>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        /// <exception cref="System.ArgumentNullException">map.</exception>
-        public IDictionary<string, object> ReadObject(IDictionary<string, string> map)
-        {
-            lock (_syncLock)
-            {
-                if (_headings == null)
-                    throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
-
-                if (map == null)
-                    throw new ArgumentNullException(nameof(map));
-
-                var result = new Dictionary<string, object>();
-                var values = ReadLine();
-
-                for (var i = 0; i < _headings.Length; i++)
-                {
-                    if (i > values.Length - 1)
-                        break;
-
-                    result[_headings[i]] = values[i];
-                }
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// Reads a line of CSV text, converting it into a dynamic object
-        /// The property names correspond to the names of the CSV headings.
-        /// </summary>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs.</returns>
-        public IDictionary<string, object> ReadObject() => ReadObject(_defaultMap);
-
-        /// <summary>
-        /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
-        /// where the keys are the names of the headings and the values are the names of the instance properties
-        /// in the given Type. The result object must be already instantiated.
-        /// </summary>
-        /// <typeparam name="T">The type of object to map.</typeparam>
-        /// <param name="map">The map.</param>
-        /// <param name="result">The result.</param>
-        /// <exception cref="System.ArgumentNullException">map
-        /// or
-        /// result.</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        public void ReadObject<T>(IDictionary<string, string> map, ref T result)
-        {
-            lock (_syncLock)
-            {
-                // Check arguments
-                {
-                    if (map == null)
-                        throw new ArgumentNullException(nameof(map));
-
-                    if (_reader.EndOfStream)
-                        throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                    if (_headings == null)
-                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
-
-                    if (Equals(result, default(T)))
-                        throw new ArgumentNullException(nameof(result));
-                }
-
-                // Read line and extract values
-                var values = ReadLine();
-
-                // Extract properties from cache
-                var properties = typeof(T).Properties()
-                    .Where(c => c.CanWrite && c.IsBasicType);
-
-                // Assign property values for each heading
-                for (var i = 0; i < _headings.Length; i++)
-                {
-                    // break if no more headings are matched
-                    if (i > values.Length - 1)
-                        break;
-
-                    // skip if no heading is available or the heading is empty
-                    if (map.ContainsKey(_headings[i]) == false &&
-                        string.IsNullOrWhiteSpace(map[_headings[i]]) == false)
-                        continue;
-
-                    // Prepare the target property
-                    var propertyName = map[_headings[i]];
-
-                    // Parse and assign the basic type value to the property if exists
-                    properties
-                        .FirstOrDefault(p => p.PropertyName == propertyName)?
-                        .PropertyInfo.TrySetBasicType(values[i], result);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
-        /// where the keys are the names of the headings and the values are the names of the instance properties
-        /// in the given Type.
-        /// </summary>
-        /// <typeparam name="T">The type of object to map.</typeparam>
-        /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
-        /// <returns>The conversion of specific type of object.</returns>
-        /// <exception cref="System.ArgumentNullException">map.</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeadings.</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream.</exception>
-        public T ReadObject<T>(IDictionary<string, string> map)
-            where T : new()
-        {
-            if (map == null)
-                throw new ArgumentNullException(nameof(map));
-
-            var result = TypeManager.CreateInstance<T>();
-            ReadObject(map, ref result);
-            return result;
-        }
-
-        /// <summary>
-        /// Reads a line of CSV text converting it into an object of the given type, and assuming
-        /// the property names of the target type match the heading names of the file.
-        /// </summary>
-        /// <typeparam name="T">The type of object.</typeparam>
-        /// <returns>The conversion of specific type of object.</returns>
-        public T ReadObject<T>()
-            where T : new() =>
-            ReadObject<T>(_defaultMap);
-
-        #endregion
-
-        #region Support Methods
 
         /// <summary>
         /// Parses a line of standard CSV text into an array of strings.
         /// Note that quoted values might have new line sequences in them. Field values will contain such sequences.
         /// </summary>
         /// <param name="reader">The reader.</param>
-        /// <param name="escapeCharacter">The escape character.</param>
-        /// <param name="separatorCharacter">The separator character.</param>
+        /// <param name="trimValues">Determines if values should be trimmed.</param>
+        /// <param name="escapeChar">The escape character.</param>
+        /// <param name="separatorChar">The separator character.</param>
         /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
-        private static string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
+        private static async ValueTask<IReadOnlyList<string>> ReadRecordAsync(StreamReader reader, bool trimValues, char escapeChar, char separatorChar)
         {
-            var values = new List<string>();
-            var currentValue = new StringBuilder(1024);
+            var values = new List<string>(64);
+            var currentValue = new StringBuilder(256);
             var currentState = ReadState.WaitingForNewField;
-            string line;
+            string? line;
 
-            while ((line = reader.ReadLine()) != null)
+            while ((line = await reader.ReadLineAsync()) is not null)
             {
                 for (var charIndex = 0; charIndex < line.Length; charIndex++)
                 {
                     // Get the current and next character
                     var currentChar = line[charIndex];
-                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : default(char?);
+                    var nextChar = charIndex < line.Length - 1
+                        ? line[charIndex + 1]
+                        : default(char?);
 
                     // Perform logic based on state and decide on next state
                     switch (currentState)
                     {
                         case ReadState.WaitingForNewField:
+                            currentValue.Clear();
+
+                            if (currentChar == escapeChar)
                             {
+                                currentState = ReadState.PushingQuoted;
+                                continue;
+                            }
+
+                            if (currentChar == separatorChar)
+                            {
+                                values.Add(trimValues ? currentValue.ToString().Trim() : currentValue.ToString());
+                                currentState = ReadState.WaitingForNewField;
+                                continue;
+                            }
+
+                            currentValue.Append(currentChar);
+                            currentState = ReadState.PushingNormal;
+                            continue;
+
+                        case ReadState.PushingNormal:
+                            // Handle field content delimiter separator char
+                            if (currentChar == separatorChar)
+                            {
+                                currentState = ReadState.WaitingForNewField;
+                                values.Add(trimValues ? currentValue.ToString().Trim() : currentValue.ToString());
                                 currentValue.Clear();
+                                continue;
+                            }
 
-                                if (currentChar == escapeCharacter)
-                                {
-                                    currentState = ReadState.PushingQuoted;
-                                    continue;
-                                }
-
-                                if (currentChar == separatorCharacter)
-                                {
-                                    values.Add(currentValue.ToString());
-                                    currentState = ReadState.WaitingForNewField;
-                                    continue;
-                                }
-
+                            // Handle double quote escaping
+                            if (currentChar == escapeChar && nextChar.HasValue && nextChar == escapeChar)
+                            {
+                                // advance 1 character now. The loop will advance one more.
                                 currentValue.Append(currentChar);
+                                charIndex++;
+                                continue;
+                            }
+
+                            currentValue.Append(currentChar);
+                            break;
+
+                        case ReadState.PushingQuoted:
+                            // Handle field content delimiter by ending double quotes
+                            if (currentChar == escapeChar && (nextChar.HasValue == false || nextChar != escapeChar))
+                            {
                                 currentState = ReadState.PushingNormal;
                                 continue;
                             }
 
-                        case ReadState.PushingNormal:
+                            // Handle double quote escaping
+                            if (currentChar == escapeChar && nextChar.HasValue && nextChar == escapeChar)
                             {
-                                // Handle field content delimiter by comma
-                                if (currentChar == separatorCharacter)
-                                {
-                                    currentState = ReadState.WaitingForNewField;
-                                    values.Add(currentValue.ToString());
-                                    currentValue.Clear();
-                                    continue;
-                                }
-
-                                // Handle double quote escaping
-                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar == escapeCharacter)
-                                {
-                                    // advance 1 character now. The loop will advance one more.
-                                    currentValue.Append(currentChar);
-                                    charIndex++;
-                                    continue;
-                                }
-
+                                // advance 1 character now. The loop will advance one more.
                                 currentValue.Append(currentChar);
-                                break;
+                                charIndex++;
+                                continue;
                             }
 
-                        case ReadState.PushingQuoted:
-                            {
-                                // Handle field content delimiter by ending double quotes
-                                if (currentChar == escapeCharacter && (nextChar.HasValue == false || nextChar != escapeCharacter))
-                                {
-                                    currentState = ReadState.PushingNormal;
-                                    continue;
-                                }
-
-                                // Handle double quote escaping
-                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar == escapeCharacter)
-                                {
-                                    // advance 1 character now. The loop will advance one more.
-                                    currentValue.Append(currentChar);
-                                    charIndex++;
-                                    continue;
-                                }
-
-                                currentValue.Append(currentChar);
-                                break;
-                            }
+                            currentValue.Append(currentChar);
+                            break;
                     }
                 }
 
@@ -537,7 +392,7 @@ namespace Swan.Formatters
                 else
                 {
                     // push anything that has not been pushed (flush) into a last value
-                    values.Add(currentValue.ToString());
+                    values.Add(trimValues ? currentValue.ToString().Trim() : currentValue.ToString());
                     currentValue.Clear();
 
                     // stop reading more lines we have reached the end of the CSV record
@@ -546,87 +401,12 @@ namespace Swan.Formatters
             }
 
             // If we ended up pushing quoted and no closing quotes we might
-            // have additional text in yt 
+            // have additional text in it
             if (currentValue.Length > 0)
-            {
-                values.Add(currentValue.ToString());
-            }
+                values.Add(trimValues ? currentValue.ToString().Trim() : currentValue.ToString());
 
-            return values.ToArray();
+            return values;
         }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Loads the records from the stream
-        /// This method uses Windows 1252 encoding.
-        /// </summary>
-        /// <typeparam name="T">The type of IList items to load.</typeparam>
-        /// <param name="stream">The stream.</param>
-        /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
-        public static IList<T> LoadRecords<T>(Stream stream)
-            where T : new()
-        {
-            var result = new List<T>();
-
-            using var reader = new CsvReader(stream);
-            reader.ReadHeadings();
-            while (!reader.EndOfStream)
-            {
-                result.Add(reader.ReadObject<T>());
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Loads the records from the give file path.
-        /// This method uses Windows 1252 encoding.
-        /// </summary>
-        /// <typeparam name="T">The type of IList items to load.</typeparam>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>A generic collection of objects that can be individually accessed by index.</returns>
-        public static IList<T> LoadRecords<T>(string filePath)
-            where T : new() =>
-            LoadRecords<T>(File.OpenRead(filePath));
-
-        #endregion
-
-        #region IDisposable Support
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_hasDisposed) return;
-
-            if (disposing)
-            {
-                try
-                {
-                    _reader?.Dispose();
-                }
-                finally
-                {
-                    _reader = null;
-                }
-            }
-
-            _hasDisposed = true;
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
 
         /// <summary>
         /// Defines the 3 different read states
@@ -640,3 +420,4 @@ namespace Swan.Formatters
         }
     }
 }
+#pragma warning restore CA1031 // Do not catch general exception types
