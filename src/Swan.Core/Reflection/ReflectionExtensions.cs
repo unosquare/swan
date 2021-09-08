@@ -1,6 +1,4 @@
-﻿using Swan.Extensions;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,48 +10,6 @@ namespace Swan.Reflection
     /// </summary>
     public static class ReflectionExtensions
     {
-        /// <summary>
-        /// Gets all types within an assembly in a safe manner.
-        /// </summary>
-        /// <param name="assembly">The assembly.</param>
-        /// <returns>
-        /// Array of Type objects representing the types specified by an assembly.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">assembly.</exception>
-        public static IEnumerable<Type> GetAllTypes(this Assembly assembly)
-        {
-            if (assembly == null)
-                throw new ArgumentNullException(nameof(assembly));
-
-            try
-            {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                return e.Types.Where(t => t != null);
-            }
-        }
-
-        #region Type Extensions
-
-        /// <summary>
-        /// Determines whether this type is compatible with ICollection.
-        /// </summary>
-        /// <param name="sourceType">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified source type is collection; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">sourceType.</exception>
-        public static bool IsCollection(this Type sourceType)
-        {
-            if (sourceType == null)
-                throw new ArgumentNullException(nameof(sourceType));
-
-            return sourceType != typeof(string) &&
-                   typeof(IEnumerable).IsAssignableFrom(sourceType);
-        }
-
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types.
         /// </summary>
@@ -69,7 +25,7 @@ namespace Swan.Reflection
         /// The exception that is thrown when binding to a member results in more than one member matching the 
         /// binding criteria. This class cannot be inherited.
         /// </exception>
-        public static MethodInfo GetMethod(
+        public static MethodInfo? GetMethod(
             this Type type,
             BindingFlags bindingFlags,
             string methodName,
@@ -102,113 +58,6 @@ namespace Swan.Reflection
         }
 
         /// <summary>
-        /// Determines whether [is i enumerable request].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is i enumerable request] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">type.</exception>
-        public static bool IsIEnumerable(this Type type)
-            => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-
-        #endregion
-
-        public static bool TryChangeType(object? value, Type conversionType, out object? result)
-        {
-            if (conversionType is null)
-                throw new ArgumentNullException(nameof(conversionType));
-
-            var type = conversionType.TypeInfo();
-
-            if (value is null)
-            {
-                result = type.DefaultValue;
-                return true;
-            }
-
-            result = null;
-            var proxy = conversionType.TypeInfo();
-            return proxy.CanParseNatively && proxy.TryParse(value, out result);
-        }
-
-        /// <summary>
-        /// Tries to parse using the basic types.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, object value, out object? result)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            if (type != typeof(bool))
-                return TryParseBasicType(type, value.ToStringInvariant(), out result);
-
-            result = value.ToBoolean();
-            return true;
-        }
-
-        /// <summary>
-        /// Tries to parse using the basic types.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">type</exception>
-        public static bool TryParseBasicType(this Type type, string value, out object? result)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            result = null;
-
-            var proxy = type.TypeInfo();
-            return proxy.CanParseNatively && proxy.TryParse(value, out result);
-        }
-
-        /// <summary>
-        /// Tries the type of the set basic value to a property.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="target">The object.</param>
-        /// <returns>
-        ///   <c>true</c> if parsing was successful; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">propertyInfo.</exception>
-        public static bool TrySetBasicType(this PropertyInfo propertyInfo, object value, object target)
-        {
-            if (propertyInfo == null)
-                throw new ArgumentNullException(nameof(propertyInfo));
-
-            try
-            {
-                if (propertyInfo.PropertyType.TryParseBasicType(value, out var propertyValue))
-                {
-                    propertyInfo.SetValue(target, propertyValue);
-                    return true;
-                }
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                // swallow
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Tries the type of the set to an array a basic type.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -221,11 +70,13 @@ namespace Swan.Reflection
         /// <exception cref="ArgumentNullException">type</exception>
         public static bool TrySetArrayBasicType(this Type type, object? value, Array? target, int index)
         {
-            if (type == null)
+            if (type is null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (target == null)
+            if (target is null)
                 return false;
+
+            var typeInfo = type.TypeInfo();
 
             try
             {
@@ -235,7 +86,7 @@ namespace Swan.Reflection
                     return true;
                 }
 
-                if (type.TryParseBasicType(value, out var propertyValue))
+                if (TypeManager.TryChangeType(value, typeInfo, out var propertyValue))
                 {
                     target.SetValue(propertyValue, index);
                     return true;
@@ -292,46 +143,5 @@ namespace Swan.Reflection
 
             return true;
         }
-
-        /// <summary>
-        /// Convert a string to a boolean.
-        /// </summary>
-        /// <param name="str">The string.</param>
-        /// <returns>
-        ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
-        /// </returns>
-        public static bool ToBoolean(this string str)
-        {
-            try
-            {
-                return Convert.ToBoolean(str, System.Globalization.CultureInfo.InvariantCulture);
-            }
-            catch (FormatException)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return Convert.ToBoolean(Convert.ToInt32(str, System.Globalization.CultureInfo.InvariantCulture));
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                // ignored
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Convert a object to a boolean.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        ///   <c>true</c> if the string represents a valid truly value, otherwise <c>false</c>.
-        /// </returns>
-        public static bool ToBoolean(this object value) => value.ToStringInvariant().ToBoolean();
     }
 }

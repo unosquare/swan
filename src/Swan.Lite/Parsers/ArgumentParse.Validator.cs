@@ -1,5 +1,4 @@
 ﻿using Swan.Reflection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -153,21 +152,9 @@ namespace Swan.Parsers
                 object result,
                 ArgumentOptionAttribute? optionAttr = null)
             {
-                if (!targetProperty.IsEnum)
-                {
-                    return targetProperty.IsArray
-                        ? targetProperty.PropertyInfo.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
-                        : targetProperty.PropertyInfo.TrySetBasicType(propertyValueString, result);
-                }
-
-                var parsedValue = Enum.Parse(
-                    targetProperty.PropertyType,
-                    propertyValueString,
-                    _settings.CaseInsensitiveEnumValues);
-
-                targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
-
-                return true;
+                return targetProperty.IsArray
+                    ? targetProperty.PropertyInfo.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
+                    : targetProperty.TrySetValue(result, propertyValueString);
             }
 
             private IPropertyProxy? TryGetProperty(string propertyName) =>

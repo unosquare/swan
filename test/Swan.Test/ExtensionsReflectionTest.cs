@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
+using Swan.Reflection;
 using Swan.Test.Mocks;
-using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Swan.Reflection;
 
 namespace Swan.Test.ExtensionsReflectionTest
 {
@@ -33,13 +32,13 @@ namespace Swan.Test.ExtensionsReflectionTest
         [TestCase(false, typeof(int))]
         public void WithType_ReturnsABool(bool expected, Type input)
         {
-            Assert.AreEqual(expected, input.IsCollection(), $"Get IsCollection value of {input}");
+            Assert.AreEqual(expected, input.TypeInfo().IsList, $"Get IsCollection value of {input}");
         }
 
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullType.IsCollection());
+            Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsList);
         }
     }
 
@@ -72,10 +71,11 @@ namespace Swan.Test.ExtensionsReflectionTest
     public class IsIEnumerable : TestFixtureBase
     {
         [TestCase(true, typeof(IEnumerable<Fish>))]
-        [TestCase(false, typeof(string))]
+        [TestCase(true, typeof(string))]
+        [TestCase(false, typeof(int))]
         public void WithType_ReturnsABool(bool expected, Type input)
         {
-            Assert.AreEqual(expected, input.IsIEnumerable(), $"Get IsIEnumerable value of {input}");
+            Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsIEnumerable value of {input}");
         }
     }
 

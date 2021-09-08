@@ -178,7 +178,10 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             using var reader = new CsvDictionaryReader(stream);
 
-            Assert.Throws<InvalidOperationException>(() => reader.ReadObject());
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                reader.SetHeadings("").SetHeadings().ReadObject();
+            });
         }
 
         [Test]
@@ -201,13 +204,11 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WithNullDictionaryAsRef_ThrowsArgumentNullException()
         {
-            Dictionary<string, string?> refDictionary = new();
-
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             using var reader = new CsvDictionaryReader(stream);
             reader.AddMappings(Map);
 
-            Assert.Throws<ArgumentNullException>(() => reader.ReadInto(refDictionary));
+            Assert.Throws<ArgumentNullException>(() => reader.ReadInto(null));
         }
 
         [Test]

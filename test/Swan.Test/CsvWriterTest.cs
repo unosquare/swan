@@ -85,7 +85,7 @@ namespace Swan.Test.CsvWriterTest
                 writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
             }
 
-            var valuesInFile = Csv.Load<object>(tempFile);
+            var valuesInFile = Csv.Load(tempFile);
             Assert.AreEqual(1, valuesInFile.Count, "Same length");
         }
 

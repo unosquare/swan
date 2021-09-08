@@ -12,7 +12,7 @@ namespace Swan.Reflection
         }
 
         protected override MethodInfo? RetriveMethodInfo(ITypeProxy typeInfo, string methodName) =>
-            typeInfo.UnderlyingType.GetMethod(methodName, new[] { typeof(IFormatProvider) }) ??
-            typeInfo.UnderlyingType.GetMethod(methodName, Array.Empty<Type>());
+            typeInfo.ProxiedType.GetMethod(methodName, new[] { typeof(IFormatProvider) }) ??
+            typeInfo.ProxiedType.GetMethod(methodName, Array.Empty<Type>());
     }
 }

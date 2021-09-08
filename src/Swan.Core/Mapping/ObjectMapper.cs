@@ -1,4 +1,5 @@
-﻿using Swan.Collections;
+﻿#pragma warning disable CA1031 // Do not catch general exception types
+using Swan.Collections;
 using Swan.Reflection;
 using System;
 using System.Collections;
@@ -333,30 +334,18 @@ namespace Swan.Mapping
             {
                 var (type, value) = sourceProperty;
 
-                if (type.IsEnum)
-                {
-                    targetProperty.SetValue(targetInstance,
-                        Enum.ToObject(targetProperty.PropertyType, value));
-
-                    return true;
-                }
-
-                if (type.IsValueType || targetProperty.PropertyType != type)
-                    return targetProperty.TrySetBasicType(value, targetInstance);
-
                 if (targetProperty.PropertyType.IsArray)
                 {
                     targetProperty.TrySetArray(value as IEnumerable<object>, targetInstance);
                     return true;
                 }
 
-                targetProperty.SetValue(targetInstance, GetValue(value, targetProperty.PropertyType));
+                if (targetProperty.ToPropertyProxy().TrySetValue(targetInstance, value))
+                    return true;
 
-                return true;
             }
-#pragma warning disable CA1031 // Do not catch general exception types
+
             catch
-#pragma warning restore CA1031 // Do not catch general exception types
             {
                 // swallow
             }
@@ -395,9 +384,7 @@ namespace Swan.Mapping
                                 ? item
                                 : item.CopyPropertiesToNew<object>());
                         }
-#pragma warning disable CA1031 // Do not catch general exception types
                         catch
-#pragma warning restore CA1031 // Do not catch general exception types
                         {
                             // ignored
                         }
@@ -427,3 +414,4 @@ namespace Swan.Mapping
         }
     }
 }
+#pragma warning restore CA1031 // Do not catch general exception types

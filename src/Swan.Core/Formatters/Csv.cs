@@ -49,5 +49,38 @@ namespace Swan.Formatters
             return Load<TRecord>(stream, encoding);
         }
 
+        /// <summary>
+        /// Reads all the records from the stream as a list of expando objects.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="encoding">The optional econding.</param>
+        /// <returns>A list of objects parsed from the underlying stream.</returns>
+        public static IList<dynamic> Load(Stream stream, Encoding? encoding = default)
+        {
+            if (stream is null)
+                throw new ArgumentNullException(nameof(stream));
+
+            using var reader = new CsvDynamicReader(stream, encoding);
+            var result = new List<dynamic>(1024);
+            while (!reader.EndOfStream)
+            {
+                result.Add(reader.ReadObject());
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Reads all the records from the stream as a list of objects using matching headings
+        /// to property names.
+        /// </summary>
+        /// <param name="filePath">The path to the file to read from.</param>
+        /// <param name="encoding">The optional econding.</param>
+        /// <returns>A list of objects parsed from the underlying stream.</returns>
+        public static IList<dynamic> Load(string filePath, Encoding? encoding = default)
+        {
+            using var stream = File.OpenRead(filePath);
+            return Load(stream, encoding);
+        }
     }
 }

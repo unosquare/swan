@@ -48,12 +48,12 @@ namespace Swan.Reflection
         bool IsInterface { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the type is an enumeration.
+        /// Gets a value indicating whether the type is a non-nullable enumeration.
         /// </summary>
         bool IsEnum { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this type is 
+        /// Gets a value indicating whether this type is an array.
         /// </summary>
         bool IsArray { get; }
 
@@ -110,13 +110,11 @@ namespace Swan.Reflection
 
         /// <summary>
         /// When dealing with nullable value types, this property will
-        /// return the underlying value type of the nullable,
-        /// Otherwise it will return the same type as the Type property.
+        /// return the underlying value type of the nullable; when dealing with
+        /// enums, it will return the enumeration's underlying type;
+        /// Otherwise it will return the same type as the <see cref="ProxiedType"/> property.
         /// </summary>
-        /// <value>
-        /// The type of the underlying.
-        /// </value>
-        Type UnderlyingType { get; }
+        ITypeProxy UnderlyingType { get; }
 
         /// <summary>
         /// Gets the default value for this type.

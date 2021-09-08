@@ -47,12 +47,22 @@ namespace Swan.Reflection
                 throw new ArgumentException($"Generic type definitions cannot be proxied.");
 
             ProxiedType = proxiedType ?? throw new ArgumentNullException(nameof(proxiedType));
+            IsValueType = proxiedType.IsValueType;
 
-            var nullableType = Nullable.GetUnderlyingType(proxiedType);
-            IsNullableValueType = nullableType != null;
-            UnderlyingType = nullableType ?? ProxiedType;
-            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType);
-            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType);
+            if (Nullable.GetUnderlyingType(proxiedType) is Type nullableType)
+            {
+                IsValueType = false;
+                IsNullableValueType = true;
+                UnderlyingType = nullableType.TypeInfo();
+            }
+            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is Type enumType)
+            {
+                UnderlyingType = enumType.TypeInfo();
+            }
+
+            UnderlyingType ??= this;
+            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType.ProxiedType);
+            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType.ProxiedType);
 
             FieldsLazy = new(() => proxiedType.GetFields(PublicAndPrivate), true);
             TypeAttributesLazy = new(() => proxiedType.GetCustomAttributes(true), true);
@@ -138,7 +148,7 @@ namespace Swan.Reflection
         public bool IsConstructedGenericType => ProxiedType.IsConstructedGenericType;
 
         /// <inheritdoc />
-        public bool IsValueType => ProxiedType.IsValueType;
+        public bool IsValueType { get; }
 
         /// <inheritdoc />
         public bool IsAbstract => ProxiedType.IsAbstract;
@@ -156,7 +166,7 @@ namespace Swan.Reflection
         public bool IsBasicType { get; }
 
         /// <inheritdoc />
-        public Type UnderlyingType { get; }
+        public ITypeProxy UnderlyingType { get; }
 
         /// <inheritdoc />
         public object? DefaultValue => DefaultLazy.Value;
@@ -247,21 +257,24 @@ namespace Swan.Reflection
         {
             result = DefaultValue;
 
+            if (TryParseMethodInfo is null)
+                return false;
+
+            if (ProxiedType == typeof(string))
+            {
+                result = s;
+                return true;
+            }
+
+            if ((IsNullableValueType && string.IsNullOrWhiteSpace(s)))
+            {
+                return true;
+            }
+
             try
             {
-                if (ProxiedType == typeof(string))
-                {
-                    result = Convert.ChangeType(s, ProxiedType, CultureInfo.InvariantCulture);
-                    return true;
-                }
-
-                if ((IsNullableValueType && string.IsNullOrEmpty(s)) || !CanParseNatively)
-                {
-                    return true;
-                }
-
                 // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object?> { s };
+                var dynamicArguments = new List<object?>(8) { s };
 
                 for (var pi = 1; pi < TryParseMethodLazy.Value.Parameters.Count - 1; pi++)
                 {
@@ -277,7 +290,7 @@ namespace Swan.Reflection
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
 
-                if ((bool)(TryParseMethodInfo?.Invoke(null, parseArguments) ?? false))
+                if ((bool)(TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
                 {
                     result = parseArguments[^1];
                     return true;

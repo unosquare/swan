@@ -6,6 +6,7 @@ using Swan.Mapping;
 using Swan.Net;
 using Swan.Net.Dns;
 using Swan.Platform;
+using Swan.Reflection;
 using Swan.Threading;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,48 @@ namespace Swan.Samples
         public Guid Guid { get; set; }
     }
 
+    public enum FirstEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public enum SecondEnum
+    {
+        Eleven,
+        Twelve,
+        Thirteen
+    }
+
     public static partial class Program
     {
 
         private static void Sketchpad()
         {
+            var source = new int?();
+            var e1 = FirstEnum.Two;
+            var e2 = SecondEnum.Eleven;
+            if (TypeManager.TryChangeType(source, typeof(double?), out var value))
+            {
+
+            }
+
+            if (TypeManager.TryChangeType(e1, typeof(SecondEnum?), out var v2))
+            {
+
+            }
+
+            if (TypeManager.TryChangeType("2", typeof(FirstEnum?), out var v1))
+            {
+
+            }
+
+            if (TypeManager.TryChangeType("three", typeof(FirstEnum?), out var v3))
+            {
+
+            }
+
             var x = new ExpandoObject();
             (x as IDictionary<string, object?>).Add("Hello World", 2);
 

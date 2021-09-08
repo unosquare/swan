@@ -180,7 +180,7 @@ namespace Swan.DependencyInjection
             }
 
             // Check if type is an automatic lazy factory request or an IEnumerable<ResolveType>
-            if (IsAutomaticLazyFactoryRequest(checkType) || registration.Type.IsIEnumerable())
+            if (IsAutomaticLazyFactoryRequest(checkType) || registration.Type.TypeInfo().IsEnumerable)
                 return true;
 
             // Attempt unregistered construction if possible and requested

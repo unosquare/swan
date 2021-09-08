@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CA1031 // Do not catch general exception types
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -87,7 +86,7 @@ namespace Swan.Reflection
         public bool IsBasicType => TypeProxy.IsBasicType;
 
         /// <inheritdoc />
-        public Type UnderlyingType => TypeProxy.UnderlyingType;
+        public ITypeProxy UnderlyingType => TypeProxy.UnderlyingType;
 
         /// <inheritdoc />
         public object? DefaultValue => TypeProxy.DefaultValue;
@@ -181,21 +180,20 @@ namespace Swan.Reflection
             if (!PropertyInfo.CanWrite)
                 return false;
 
-            var sourceType = value is null ? PropertyType : value.GetType();
-            var sourceValue = value ?? DefaultValue;
-
             try
             {
-                if (!PropertyType.IsAssignableFrom(sourceType))
-                    sourceValue = Convert.ChangeType(sourceValue, PropertyType, CultureInfo.InvariantCulture);
-
-                SetValue(instance, sourceValue);
-                return true;
+                if (TypeManager.TryChangeType(value, ProxiedType, out var sourceValue))
+                {
+                    SetValue(instance, sourceValue);
+                    return true;
+                }
             }
             catch
             {
-                return false;
+                // ignore
             }
+
+            return false;
         }
 
         /// <inheritdoc />
