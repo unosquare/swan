@@ -2,7 +2,6 @@
 using Swan.Collections;
 using Swan.Reflection;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -351,52 +350,6 @@ namespace Swan.Mapping
             }
 
             return false;
-        }
-
-        private static object? GetValue(object? source, Type targetType)
-        {
-            if (source == null)
-                return null;
-
-            object? target = null;
-
-            source.CreateTarget(targetType, false, ref target);
-
-            switch (source)
-            {
-                case string:
-                    target = source;
-                    break;
-                case IList sourceList when target is IList targetList:
-                    var addMethod = targetType.GetMethods()
-                        .FirstOrDefault(
-                            m => m.Name == nameof(sourceList.Add) && m.IsPublic && m.GetParameters().Length == 1);
-
-                    if (addMethod == null) return target;
-
-                    var isItemValueType = targetList.GetType().TypeInfo().ElementType.IsValueType;
-
-                    foreach (var item in sourceList)
-                    {
-                        try
-                        {
-                            targetList.Add(isItemValueType
-                                ? item
-                                : item.CopyPropertiesToNew<object>());
-                        }
-                        catch
-                        {
-                            // ignored
-                        }
-                    }
-
-                    break;
-                default:
-                    source.CopyPropertiesTo(target!);
-                    break;
-            }
-
-            return target;
         }
 
         private static Dictionary<string, Tuple<Type, object?>> GetSourceMap(object source)

@@ -1,9 +1,7 @@
 ﻿using Swan.Reflection;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Swan.Mapping
 {
@@ -148,52 +146,6 @@ namespace Swan.Mapping
             return properties.Any()
                 ? properties
                 : collection.Select(x => x.PropertyName);
-        }
-
-        internal static void CreateTarget(
-            this object source,
-            Type targetType,
-            bool includeNonPublic,
-            ref object? target)
-        {
-            switch (source)
-            {
-                // do nothing. Simply skip creation
-                case string:
-                    break;
-
-                // When using arrays, there is no default constructor, attempt to build a compatible array
-                case IList sourceObjectList when targetType.IsArray:
-                    var elementType = targetType.GetElementType();
-
-                    if (elementType != null)
-                        target = Array.CreateInstance(elementType, sourceObjectList.Count);
-                    break;
-                default:
-                    var flags = BindingFlags.Instance | BindingFlags.Public;
-                    if (includeNonPublic)
-                        flags |= BindingFlags.NonPublic;
-
-                    var constructors = targetType.GetConstructors(flags)
-                        .Select(c => Tuple.Create(c, c.GetParameters()));
-
-                    // Try to check if empty constructor is available
-                    if (constructors.Any(x => x.Item2.Length == 0))
-                    {
-                        target = Activator.CreateInstance(targetType, includeNonPublic);
-                    }
-                    else
-                    {
-                        var firstCtor = constructors
-                            .OrderBy(x => x.Item2.Length)
-                            .FirstOrDefault();
-
-                        target = Activator.CreateInstance(targetType,
-                            firstCtor?.Item2.Select(arg => arg.GetType().GetDefault()).ToArray());
-                    }
-
-                    break;
-            }
         }
     }
 }

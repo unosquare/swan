@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
@@ -89,6 +90,41 @@ namespace Swan.Reflection
         /// <typeparam name="T">The type to create an instance of.</typeparam>
         /// <returns>A new instance of this type or the default value for value types.</returns>
         public static T CreateInstance<T>() => (T)typeof(T).CreateInstance();
+
+        /// <summary>
+        /// Creates an instance of a <see cref="Array"/> from the given
+        /// element type and count.
+        /// </summary>
+        /// <param name="elementType">The type of array elements.</param>
+        /// <param name="elementCount">The array length.</param>
+        /// <returns></returns>
+        public static Array CreateArray(Type elementType, int elementCount)
+        {
+            return Array.CreateInstance(elementType, elementCount);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="List{T}"/> from type arguments.
+        /// </summary>
+        /// <param name="elementType">The generic type argument.</param>
+        /// <returns>An instance of a <see cref="List{T}"/></returns>
+        public static IEnumerable CreateGenericList(Type elementType)
+        {
+            var resultType = typeof(List<>).MakeGenericType(elementType);
+            return (resultType.TypeInfo().CreateInstance() as IEnumerable)!;
+        }
+
+        /// <summary>
+        /// Creates an <see cref="Dictionary{TKey, TValue}"/> from type arguments.
+        /// </summary>
+        /// <param name="keyType">The type for keys.</param>
+        /// <param name="valueType">The type for values.</param>
+        /// <returns>An instance of a <see cref="Dictionary{TKey, TValue}"/></returns>
+        public static IEnumerable CreateGenericDictionary(Type keyType, Type valueType)
+        {
+            var resultType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
+            return (resultType.TypeInfo().CreateInstance() as IEnumerable)!;
+        }
 
         /// <summary>
         /// Tries to convert a type of the source value to a type of the target value.

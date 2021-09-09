@@ -55,9 +55,9 @@ namespace Swan.Reflection
                 IsNullableValueType = true;
                 UnderlyingType = nullableType.TypeInfo();
             }
-            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is Type enumType)
+            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is Type enumBaseType)
             {
-                UnderlyingType = enumType.TypeInfo();
+                UnderlyingType = enumBaseType.TypeInfo();
             }
 
             UnderlyingType ??= this;
