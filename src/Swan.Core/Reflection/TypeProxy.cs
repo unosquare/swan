@@ -218,6 +218,10 @@ namespace Swan.Reflection
                         if (propertyInfo.GetIndexParameters().Length > 0)
                             continue;
 
+                        // skip properties from base classes, as this class might have decalred a new property
+                        if (proxies.ContainsKey(propertyInfo.Name) && ProxiedType != propertyInfo.DeclaringType)
+                            continue;
+
                         proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
                     }
 
