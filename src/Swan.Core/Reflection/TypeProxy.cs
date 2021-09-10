@@ -90,11 +90,7 @@ namespace Swan.Reflection
 
             ElementTypeLazy = new(() =>
             {
-                return IsArray
-                    ? (ProxiedType.GetElementType() ?? typeof(object)).TypeInfo()
-                    : ProxiedType.HasElementType
-                    ? ProxiedType.GetElementType()?.TypeInfo()
-                    : null;
+                return ProxiedType.GetElementType()?.TypeInfo();
             }, true);
 
             GenericTypeArgumentsLazy = new(() =>
@@ -191,8 +187,6 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public ITypeProxy? GenericCollectionType => GenericCollectionTypeLazy.Value;
-
-        public bool HasElementType => ProxiedType.HasElementType;
 
         /// <inheritdoc />
         public ITypeProxy? ElementType => ElementTypeLazy.Value;

@@ -131,7 +131,6 @@ namespace Swan.Reflection
             var targetArray = Array.CreateInstance(elementType, value.Count());
 
             var i = 0;
-
             foreach (var sourceElement in value)
             {
                 var result = elementType.TrySetArrayBasicType(sourceElement, targetArray, i++);

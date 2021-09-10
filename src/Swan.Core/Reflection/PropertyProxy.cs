@@ -122,9 +122,6 @@ namespace Swan.Reflection
         public ITypeProxy? GenericCollectionType => TypeProxy.GenericCollectionType;
 
         /// <inheritdoc />
-        public bool HasElementType => TypeProxy.HasElementType;
-
-        /// <inheritdoc />
         public ITypeProxy? ElementType => TypeProxy.ElementType;
 
         /// <inheritdoc />

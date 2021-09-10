@@ -87,11 +87,6 @@ namespace Swan.Reflection
         ITypeProxy? ElementType { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the element type proerty is available.
-        /// </summary>
-        bool HasElementType { get; }
-
-        /// <summary>
         /// Returns true for types that implement <see cref="IEnumerable"/>
         /// </summary>
         bool IsEnumerable { get; }
