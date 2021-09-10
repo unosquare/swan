@@ -242,13 +242,13 @@ namespace Swan.Reflection
                 if (sourceItemType is null || targetItemType is null)
                     return false;
 
-                var targetItems = new List<object>(256);
+                var targetItems = new List<object?>(256);
                 foreach (var sourceItem in (sourceValue as IEnumerable)!)
                 {
                     if (!TryChangeType(sourceItem, targetItemType, out var targetItem))
                         return false;
 
-                    targetItems.Add(targetItemType);
+                    targetItems.Add(targetItem);
                 }
 
                 // Copy to a new array
@@ -266,8 +266,10 @@ namespace Swan.Reflection
                 if (targetType.CanCreateInstance && targetType.GenericCollectionType is not null)
                 {
                     var targetCollection = targetType.CreateInstance();
-                    targetType.
+                    var addMethod = targetType.ProxiedType.GetMethod("Add").CreateDelegate(typeof(Action<object?>), targetValue);
+                    targetType
                     ICollection<string>
+                        IList<string>
                 }
             }
 
@@ -294,17 +296,20 @@ namespace Swan.Reflection
         public static bool TryChangeType<T>(object? sourceValue, out T? targetValue)
         {
             var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
-            targetValue = (T)target;
+            targetValue = target is null ? default : (T)target;
             return result;
         }
 
         private static ITypeProxy? GetItemType(ITypeProxy enumerableType)
         {
+            if (!enumerableType.IsEnumerable)
+                return null;
+
             return enumerableType.IsArray
                 ? enumerableType.ElementType
                 : enumerableType.GenericCollectionType is not null
                 ? enumerableType.GenericTypeArguments[0]
-                : null;
+                : typeof(object).TypeInfo();
         }
     }
 }
