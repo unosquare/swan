@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -53,9 +52,11 @@ namespace Swan.Reflection
         bool IsEnum { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this type is an array.
+        /// Gets a value indicating whether the type is basic.
+        /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
+        /// including their nullable versions.
         /// </summary>
-        bool IsArray { get; }
+        bool IsBasicType { get; }
 
         /// <summary>
         /// Gets a value indicating whether this type was built from a generic one.
@@ -63,45 +64,9 @@ namespace Swan.Reflection
         bool IsConstructedGenericType { get; }
 
         /// <summary>
-        /// Searches this type's interfaces for a constructed, generic <see cref="IDictionary{TKey, TValue}"/>
-        /// implementation and provides the constructed type proxy.
-        /// </summary>
-        ITypeProxy? GenericDictionaryType { get; }
-
-        /// <summary>
-        /// Searches this type's interfaces for a constructed, generic <see cref="ICollection{T}"/>
-        /// implementation and provides the constructed type proxy.
-        /// </summary>
-        ITypeProxy? GenericCollectionType { get; }
-
-        /// <summary>
         /// Gets a list of generic type arguments. Might be empty if not available.
         /// </summary>
         IReadOnlyList<ITypeProxy> GenericTypeArguments { get; }
-
-        /// <summary>
-        /// For arrays and generic enumerables returns the element type.
-        /// For non generic enumerables just returns the proxy for the object type.
-        /// Returns null otherwise.
-        /// </summary>
-        ITypeProxy? ElementType { get; }
-
-        /// <summary>
-        /// Returns true for types that implement <see cref="IEnumerable"/>
-        /// </summary>
-        bool IsEnumerable { get; }
-
-        /// <summary>
-        /// Returns true for types that implement <see cref="IList"/>
-        /// </summary>
-        bool IsList { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the type is basic.
-        /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
-        /// including their nullable versions.
-        /// </summary>
-        bool IsBasicType { get; }
 
         /// <summary>
         /// When dealing with nullable value types, this property will

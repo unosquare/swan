@@ -261,7 +261,7 @@ namespace Swan.Reflection
                     targetValue = targetArray;
                     return true;
                 }
-                
+                /*
                 // copy to a new collection
                 if (targetType.CanCreateInstance && targetType.GenericCollectionType is not null)
                 {
@@ -271,6 +271,7 @@ namespace Swan.Reflection
                     ICollection<string>
                         IList<string>
                 }
+                */
             }
 
             return false;
