@@ -37,6 +37,11 @@ namespace Swan.Reflection
         }
 
         /// <summary>
+        /// Gets the type proxy for <see cref="object"/>.
+        /// </summary>
+        public static ITypeProxy ObjectTypeInfo { get; } = typeof(object).TypeInfo();
+
+        /// <summary>
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
@@ -133,7 +138,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, out object? targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, out dynamic? targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
@@ -166,7 +171,7 @@ namespace Swan.Reflection
             if (targetType.ProxiedType == sourceType.ProxiedType ||
                 targetType.ProxiedType.IsAssignableFrom(sourceType.ProxiedType))
             {
-                targetValue = sourceValue;
+                targetValue = Convert.ChangeType(sourceValue, targetType.ProxiedType, CultureInfo.InvariantCulture);
                 return true;
             }
 
@@ -284,7 +289,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, Type targetType, out object? targetValue) =>
+        public static bool TryChangeType(object? sourceValue, Type targetType, out dynamic? targetValue) =>
             TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
 
         /// <summary>
@@ -310,7 +315,7 @@ namespace Swan.Reflection
                 ? enumerableType.ElementType
                 : enumerableType.GenericCollectionType is not null
                 ? enumerableType.GenericTypeArguments[0]
-                : typeof(object).TypeInfo();
+                : TypeManager.ObjectTypeInfo;
         }
     }
 }
