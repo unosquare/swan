@@ -30,12 +30,9 @@ namespace Swan.Reflection
         private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
         private readonly Lazy<object?> DefaultLazy;
         private readonly Lazy<Func<object>> CreateInstanceLazy;
-        private readonly Lazy<ITypeProxy?> ElementTypeLazy;
         private readonly Lazy<Type[]> InterfacesLazy;
         private readonly Lazy<bool> IsEnumerableLazy;
-        private readonly Lazy<bool> IsListLazy;
-        private readonly Lazy<ITypeProxy?> GenericDictionaryTypeLazy;
-        private readonly Lazy<ITypeProxy?> GenericCollectionTypeLazy;
+        private readonly Lazy<CollectionTypeProxy?> CollectionLazy;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TypeProxy"/> class.
@@ -85,50 +82,13 @@ namespace Swan.Reflection
 
             }, true);
             InterfacesLazy = new(() => ProxiedType.GetInterfaces(), true);
-            IsEnumerableLazy = new(() => IsArray || Interfaces.Any(c => c == typeof(IEnumerable)), true);
-            IsListLazy = new(() => Interfaces.Any(c => c == typeof(IList)), true);
-
-            ElementTypeLazy = new(() =>
-            {
-                return ProxiedType.GetElementType()?.TypeInfo();
-            }, true);
-
+            IsEnumerableLazy = new(() => Interfaces.Any(c => c == typeof(IEnumerable)), true);
             GenericTypeArgumentsLazy = new(() =>
             {
                 return ProxiedType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
             }, true);
 
-            GenericCollectionTypeLazy = new(() =>
-            {
-                var genericInterface = Interfaces.FirstOrDefault(
-                    c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(ICollection<>));
-
-                if (genericInterface is null || genericInterface.GenericTypeArguments.Length < 1)
-                    return null;
-
-                var elementType = genericInterface.GenericTypeArguments[0];
-
-                return typeof(ICollection<>)
-                    .MakeGenericType(elementType)
-                    .TypeInfo();
-            }, true);
-
-            GenericDictionaryTypeLazy = new(() =>
-            {
-                var genericInterface = Interfaces.FirstOrDefault(
-                    c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(IDictionary<,>));
-
-                if (genericInterface is null || genericInterface.GenericTypeArguments.Length < 2)
-                    return null;
-
-                var keyType = genericInterface.GenericTypeArguments[0];
-                var valueType = genericInterface.GenericTypeArguments[1];
-
-                return typeof(IDictionary<,>)
-                    .MakeGenericType(keyType, valueType)
-                    .TypeInfo();
-
-            }, true);
+            CollectionLazy = new(() => IsEnumerable ? CollectionTypeProxy.Create(this) : default, true);
         }
 
         /// <inheritdoc />
@@ -156,10 +116,10 @@ namespace Swan.Reflection
         public bool IsEnum => ProxiedType.IsEnum;
 
         /// <inheritdoc />
-        public bool IsArray => ProxiedType.IsArray;
+        public bool IsBasicType { get; }
 
         /// <inheritdoc />
-        public bool IsBasicType { get; }
+        public CollectionTypeProxy? Collection => CollectionLazy.Value;
 
         /// <inheritdoc />
         public ITypeProxy UnderlyingType { get; }
@@ -177,19 +137,7 @@ namespace Swan.Reflection
         public bool IsEnumerable => IsEnumerableLazy.Value;
 
         /// <inheritdoc />
-        public bool IsList => IsListLazy.Value;
-
-        /// <inheritdoc />
         public IReadOnlyList<ITypeProxy> GenericTypeArguments => GenericTypeArgumentsLazy.Value;
-
-        /// <inheritdoc />
-        public ITypeProxy? GenericDictionaryType => GenericDictionaryTypeLazy.Value;
-
-        /// <inheritdoc />
-        public ITypeProxy? GenericCollectionType => GenericCollectionTypeLazy.Value;
-
-        /// <inheritdoc />
-        public ITypeProxy? ElementType => ElementTypeLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<Type> Interfaces => InterfacesLazy.Value;

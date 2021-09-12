@@ -32,13 +32,13 @@ namespace Swan.Test.ExtensionsReflectionTest
         [TestCase(false, typeof(int))]
         public void WithType_ReturnsABool(bool expected, Type input)
         {
-            Assert.AreEqual(expected, input.TypeInfo().IsList, $"Get IsCollection value of {input}");
+            Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsCollection value of {input}");
         }
 
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsList);
+            Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsEnumerable);
         }
     }
 

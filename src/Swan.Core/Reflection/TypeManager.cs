@@ -37,11 +37,6 @@ namespace Swan.Reflection
         }
 
         /// <summary>
-        /// Gets the type proxy for <see cref="object"/>.
-        /// </summary>
-        public static ITypeProxy ObjectTypeInfo { get; } = typeof(object).TypeInfo();
-
-        /// <summary>
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
@@ -241,6 +236,7 @@ namespace Swan.Reflection
             // Case 5: We might be dealing with enumerables
             if (targetType.IsEnumerable && sourceType.IsEnumerable)
             {
+                /*
                 var sourceItemType = GetItemType(sourceType);
                 var targetItemType = GetItemType(targetType);
 
@@ -257,7 +253,7 @@ namespace Swan.Reflection
                 }
 
                 // Copy to a new array
-                if (targetType.IsArray)
+                if (targetType.ProxiedType.IsArray)
                 {
                     var targetArray = CreateArray(targetItemType.ProxiedType, targetItems.Count);
                     for (var i = 0; i < targetItems.Count; i++)
@@ -266,6 +262,7 @@ namespace Swan.Reflection
                     targetValue = targetArray;
                     return true;
                 }
+                */
                 /*
                 // copy to a new collection
                 if (targetType.CanCreateInstance && targetType.GenericCollectionType is not null)
@@ -304,18 +301,6 @@ namespace Swan.Reflection
             var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
             targetValue = target is null ? default : (T)target;
             return result;
-        }
-
-        private static ITypeProxy? GetItemType(ITypeProxy enumerableType)
-        {
-            if (!enumerableType.IsEnumerable)
-                return null;
-
-            return enumerableType.IsArray
-                ? enumerableType.ElementType
-                : enumerableType.GenericCollectionType is not null
-                ? enumerableType.GenericTypeArguments[0]
-                : TypeManager.ObjectTypeInfo;
         }
     }
 }

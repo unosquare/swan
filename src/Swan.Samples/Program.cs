@@ -9,12 +9,10 @@ using Swan.Platform;
 using Swan.Reflection;
 using Swan.Threading;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -56,33 +54,36 @@ namespace Swan.Samples
     public static partial class Program
     {
 
-        private static Action<object, object?> CreateAddMethod(Type collectionType)
-        {
-            var type = collectionType.TypeInfo();
-            if (!type.IsEnumerable || type.GenericCollectionType is null)
-                throw new NotSupportedException("Cannot obtain generic collection definition");
-
-            var elementType = type.GenericTypeArguments[0];
-            var addMethodInfo = type.GenericCollectionType.ProxiedType.GetMethod(nameof(IList.Add), new[] { elementType.ProxiedType });
-            if (addMethodInfo is null)
-                throw new NotSupportedException($"Cannot obtain generic {nameof(IList.Add)} method from {collectionType}");
-
-
-            var instanceParameter = Expression.Parameter(typeof(object), "instance");
-            var valueParameter = Expression.Parameter(typeof(object), "value");
-            var typedInstance = Expression.Convert(instanceParameter, type.GenericCollectionType.ProxiedType);
-            var typedValue = Expression.Convert(valueParameter, elementType.ProxiedType);
-
-            var addMethod = Expression.Call(typedInstance, addMethodInfo, typedValue);
-            return Expression.Lambda<Action<object, object?>>(addMethod, instanceParameter, valueParameter).Compile();
-        }
-
         private static void Sketchpad()
         {
-            var magicList = new List<int>();
-            var addMethod = CreateAddMethod(magicList.GetType());
-            addMethod.Invoke(magicList, 1);
-            typeof(List<int>)
+            var ti = typeof(int).TypeInfo();
+
+            var myList = new List<int>();
+            if (CollectionProxy.TryCreate(myList, out var proxy))
+            {
+                var p = proxy.Add("1");
+                p = proxy.Add(2);
+                p = proxy.Add(34599.44d);
+
+                var strings = new string[6];
+                proxy.CopyTo(strings, 0);
+
+                proxy.Remove("2");
+                proxy.RemoveAt(0);
+                _ = proxy.SyncRoot;
+                _ = proxy.IsSynchronized;
+                _ = proxy.IsFixedSize;
+                _ = proxy.IsSynchronized;
+
+                proxy.Insert(0, "3");
+                // proxy.Add(1, 2);
+
+                var it = proxy["1"];
+                proxy.Clear();
+            }
+
+            
+
             var source = new int?();
             var e1 = FirstEnum.Two;
             var e2 = SecondEnum.Eleven;

@@ -3,15 +3,16 @@
     public enum CollectionKind
     {
         None,
-        Array,
-        Enumerable,
-        GenericEnumerable,
-        Collection,
-        GenericCollection,
-        List,
-        GenericList,
-        Dictionary,
+        ReadOnlyDictionary,
         GenericDictionary,
-        ReadOnlyDictionary
+        Dictionary,
+        ReadOnlyList,
+        GenericList,
+        List,
+        ReadOnlyCollection,
+        GenericCollection,
+        Collection,
+        GenericEnumerable,
+        Enumerable,
     }
 }

@@ -121,33 +121,19 @@ namespace Swan.Formatters
 
         private static bool TryWriteAsDictionary(StringBuilder builder, ITypeProxy proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
-            var dictionaryType = proxy.GenericDictionaryType;
-            if (dictionaryType is null || !dictionaryType.GenericTypeArguments[0].IsBasicType)
+            if (!CollectionProxy.TryCreate(instance, out var dictionary))
                 return false;
 
-            // obtain keys and values
-            var keys = dictionaryType.Properties[nameof(IDictionary.Keys)].GetValue(instance) as IEnumerable;
-            var values = dictionaryType.Properties[nameof(IDictionary.Values)].GetValue(instance) as IEnumerable;
-
-            // check that keys and values are in fact available.
-            if (keys is null || values is null)
-                return false;
-
-            var valuesEnumerator = values.GetEnumerator();
-            var keyType = dictionaryType.GenericTypeArguments[0];
             var isFirst = true;
             stackTable.AddReference(instance);
 
             BeginObject(options, $"({proxy.ProxiedType})", builder);
-            foreach (var key in keys)
+            foreach (dynamic kvp in dictionary!)
             {
-                valuesEnumerator.MoveNext();
-                var value = valuesEnumerator.Current;
-
-                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(value))
+                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Key))
                     continue;
 
-                if (options.IgnoreRepeatedReferences && stackTable.HasReference(value))
+                if (options.IgnoreRepeatedReferences && stackTable.HasReference(kvp.Value))
                     continue;
 
                 if (!isFirst)
@@ -159,13 +145,13 @@ namespace Swan.Formatters
 
                 builder
                     .Append(IndentString(options, indentDepth))
-                    .Append(WriteAsString(options, keyType.ToStringInvariant(key), true))
+                    .Append(WriteAsString(options, dictionary.Info.KeysType.ToStringInvariant(kvp.Key), true))
                     .Append(options.KeyValueSeparator);
 
                 if (options.WriteIndented)
                     builder.Append(' ');
 
-                builder.Append(Serialize(value, options, stackTable, stackDepth + 1, indentDepth + 1));
+                builder.Append(Serialize(kvp.Value, options, stackTable, stackDepth + 1, indentDepth + 1));
 
                 isFirst = false;
             }

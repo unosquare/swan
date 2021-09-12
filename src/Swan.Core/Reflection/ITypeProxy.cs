@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -52,6 +53,11 @@ namespace Swan.Reflection
         bool IsEnum { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this type implements <see cref="IEnumerable"/>.
+        /// </summary>
+        bool IsEnumerable { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the type is basic.
         /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
         /// including their nullable versions.
@@ -95,6 +101,12 @@ namespace Swan.Reflection
         /// This always returns true on value types.
         /// </summary>
         bool CanCreateInstance { get; }
+
+        /// <summary>
+        /// Provides collection metadata if available that enables
+        /// a uniform API to manipulate collection objects.
+        /// </summary>
+        CollectionTypeProxy? Collection { get; }
 
         /// <summary>
         /// Retrieves a list of interfaces this type implements.

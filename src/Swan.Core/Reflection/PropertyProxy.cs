@@ -80,9 +80,6 @@ namespace Swan.Reflection
         public bool IsEnum => TypeProxy.IsEnum;
 
         /// <inheritdoc />
-        public bool IsArray => TypeProxy.IsArray;
-
-        /// <inheritdoc />
         public bool IsBasicType => TypeProxy.IsBasicType;
 
         /// <inheritdoc />
@@ -116,19 +113,10 @@ namespace Swan.Reflection
         public bool IsConstructedGenericType => TypeProxy.IsConstructedGenericType;
 
         /// <inheritdoc />
-        public ITypeProxy? GenericDictionaryType => TypeProxy.GenericDictionaryType;
-
-        /// <inheritdoc />
-        public ITypeProxy? GenericCollectionType => TypeProxy.GenericCollectionType;
-
-        /// <inheritdoc />
-        public ITypeProxy? ElementType => TypeProxy.ElementType;
-
-        /// <inheritdoc />
         public bool IsEnumerable => TypeProxy.IsEnumerable;
 
         /// <inheritdoc />
-        public bool IsList => TypeProxy.IsList;
+        public CollectionTypeProxy? Collection => TypeProxy.Collection;
 
         /// <inheritdoc />
         public IReadOnlyList<Type> Interfaces => TypeProxy.Interfaces;
