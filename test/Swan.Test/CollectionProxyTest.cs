@@ -30,13 +30,13 @@ namespace Swan.Test
 
         public static IEnumerable ReadOnlyList => new ArraySegment<int>(BaseCollection.Values.ToArray());
 
-        public static IEnumerable GenericList => BaseCollection.Keys.Select(c => c).ToList();
+        public static IEnumerable GenericList => BaseCollection.Values.Select(c => c).ToList();
 
-        public static IEnumerable List => new ArrayList(BaseCollection.Keys.ToArray());
+        public static IEnumerable List => new ArrayList(BaseCollection.Values.ToArray());
 
-        public static IEnumerable ReadOnlyCollection => new ReadOnlyCollection<string>(BaseCollection.Keys.ToList());
+        public static IEnumerable ReadOnlyCollection => new ReadOnlyCollection<int>(BaseCollection.Values.ToList());
 
-        public static IEnumerable GenericCollection => new HashSet<string>(BaseCollection.Keys.ToArray());
+        public static IEnumerable GenericCollection => new HashSet<int>(BaseCollection.Values.ToArray());
 
         public static IEnumerable Collection
         {
@@ -58,7 +58,7 @@ namespace Swan.Test
 
         private class SimpleEnumerable : IEnumerable
         {
-            public IEnumerator GetEnumerator() => BaseCollection.Keys.GetEnumerator();
+            public IEnumerator GetEnumerator() => BaseCollection.Values.GetEnumerator();
         }
     }
 
@@ -253,12 +253,46 @@ namespace Swan.Test
 
                 if (expected)
                 {
-                    Assert.Throws<Exception>(() => proxy.Clear());
+                    Assert.Catch(() => proxy.Clear());
                     continue;
                 }
 
                 proxy.Clear();
                 Assert.IsTrue(proxy.Count == 0);
+            }
+        }
+
+        [Test]
+        public void IndexerWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, bool>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = true,
+                [CollectionSamples.GenericDictionary] = false,
+                [CollectionSamples.Dictionary] = false,
+                [CollectionSamples.ReadOnlyList] = true,
+                [CollectionSamples.GenericList] = false,
+                [CollectionSamples.List] = false,
+                [CollectionSamples.ReadOnlyCollection] = true,
+                [CollectionSamples.GenericCollection] = false,
+                [CollectionSamples.Collection] = true,
+                [CollectionSamples.GenericEnumerable] = true,
+                [CollectionSamples.Enumerable] = true,
+                [CollectionSamples.Array] = true,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                if (!CollectionProxy.TryCreate(collection, out var proxy))
+                    throw new InvalidOperationException("Cannot create collection proxy");
+
+                Assert.IsTrue(proxy[7] is int or char);
+
+                if (!proxy.Info.IsDictionary)
+                    Assert.IsTrue(proxy["7"] is int or char);
             }
         }
     }

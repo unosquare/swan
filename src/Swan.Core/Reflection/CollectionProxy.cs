@@ -206,18 +206,18 @@ namespace Swan.Reflection
 
                 if (Info.IsDictionary)
                 {
-                    var currentIndex = 0;
+                    var currentIndex = -1;
                     foreach (var value in Target.Values)
                     {
+                        currentIndex++;
+
                         if (currentIndex == index)
                             return value;
-
-                        currentIndex++;
                     }
                 }
                 else
                 {
-                    var currentIndex = 0;
+                    var currentIndex = -1;
                     var enumerator = GetEnumerator();
                     while (enumerator.MoveNext())
                     {
