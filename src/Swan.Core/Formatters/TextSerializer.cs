@@ -64,7 +64,7 @@ namespace Swan.Formatters
 
         private static bool WillIncrementStack(object? value)
         {
-            if (value is null || value is Type || value is string)
+            if (value is null or Type or string)
                 return false;
 
             var proxy = value.GetType().TypeInfo();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Swan.Reflection
@@ -67,7 +68,7 @@ namespace Swan.Reflection
         /// <param name="instance">The target instance to read the property from.</param>
         /// <param name="value">The output value. Will be set to the default value of the property type if unsuccessful.</param>
         /// <returns>True if the operation succeeds. False otherwise.</returns>
-        bool TryGetValue(object instance, out object? value);
+        bool TryGetValue(object instance, [MaybeNullWhen(false)] out object? value);
 
         /// <summary>
         /// Sets the property value via a stored delegate.

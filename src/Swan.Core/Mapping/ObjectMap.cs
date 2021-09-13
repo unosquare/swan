@@ -29,7 +29,7 @@ namespace Swan.Mapping
                 if (!targetProperty.CanWrite)
                     continue;
 
-                if (!SourceType.Properties.TryGetValue(targetProperty.PropertyName, out var sourceProperty))
+                if (!SourceType.TryFindProperty(targetProperty.PropertyName, out var sourceProperty))
                     continue;
 
                 if (!sourceProperty.CanRead)

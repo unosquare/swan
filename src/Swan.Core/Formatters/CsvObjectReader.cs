@@ -114,7 +114,7 @@ namespace Swan.Formatters
 
             RequireHeadings();
 
-            if (!Headings!.ContainsKey(heading))
+            if (!Headings.ContainsKey(heading))
                 throw new ArgumentException($"Heading name '{heading}' does not exist.");
 
             if (targetPropertyExpression is null)
@@ -123,7 +123,7 @@ namespace Swan.Formatters
             if ((targetPropertyExpression.Body as MemberExpression)?.Member is not PropertyInfo targetPropertyInfo)
                 throw new ArgumentException("Invalid target expression", nameof(targetPropertyExpression));
 
-            if (!Proxy.Properties.TryGetValue(targetPropertyInfo.Name, out var targetProperty))
+            if (!Proxy.TryFindProperty(targetPropertyInfo.Name, out var targetProperty))
                 throw new ArgumentException(
                     $"Property '{Proxy.ProxiedType.Name}.{targetPropertyInfo.Name}' was not found.",
                     nameof(targetPropertyExpression));
@@ -154,9 +154,9 @@ namespace Swan.Formatters
         /// <inheritdoc />
         protected override void OnHeadingsRead()
         {
-            foreach (var heading in Headings!.Keys)
+            foreach (var heading in Headings.Keys)
             {
-                if (!Proxy.Properties.TryGetValue(heading, out var property))
+                if (!Proxy.TryFindProperty(heading, out var property))
                     continue;
 
                 if (!property.CanWrite)

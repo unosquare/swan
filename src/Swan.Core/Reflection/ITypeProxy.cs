@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Swan.Reflection
 {
     /// <summary>
-    /// PRovides extended type information.
+    /// Provides extended type information.
     /// </summary>
     public interface ITypeProxy
     {
@@ -97,7 +98,7 @@ namespace Swan.Reflection
         public bool CanParseNatively { get; }
 
         /// <summary>
-        /// Determines if a parameterless constructor can be called on this type.
+        /// Determines if a parameter-less constructor can be called on this type.
         /// This always returns true on value types.
         /// </summary>
         bool CanCreateInstance { get; }
@@ -106,7 +107,7 @@ namespace Swan.Reflection
         /// Provides collection metadata if available that enables
         /// a uniform API to manipulate collection objects.
         /// </summary>
-        CollectionTypeProxy? Collection { get; }
+        CollectionInfo? Collection { get; }
 
         /// <summary>
         /// Retrieves a list of interfaces this type implements.
@@ -130,9 +131,9 @@ namespace Swan.Reflection
         IReadOnlyList<object> TypeAttributes { get; }
 
         /// <summary>
-        /// Calls the parameterless constructor on this type returning an isntance.
+        /// Calls the parameter-less constructor on this type returning an instance.
         /// For value types it returns the default value.
-        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// If no parameter-less constructor is available a <see cref="MissingMethodException"/> is thrown.
         /// </summary>
         /// <returns>A new instance of this type or the default value for value types.</returns>
         object CreateInstance();
@@ -154,6 +155,15 @@ namespace Swan.Reflection
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
-        bool TryParse(string s, out object? result);
+        bool TryParse(string s, [MaybeNullWhen(false)] out object? result);
+
+        /// <summary>
+        /// Tries to find a property by its name, first by exact match, then by various
+        /// other methods in a best-effort fashion.
+        /// </summary>
+        /// <param name="name">The property name to match.</param>
+        /// <param name="value">The property proxy that was found.</param>
+        /// <returns>True if successful. False otherwise.</returns>
+        bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value);
     }
 }

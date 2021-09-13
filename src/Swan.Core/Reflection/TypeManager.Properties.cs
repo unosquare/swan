@@ -8,7 +8,7 @@ namespace Swan.Reflection
     public static partial class TypeManager
     {
         /// <summary>
-        /// Convers a PropertyInfo object to an IPropertyProxy.
+        /// Converts a PropertyInfo object to an IPropertyProxy.
         /// </summary>
         /// <param name="propertyInfo">The source property info.</param>
         /// <returns>A corresponding property proxy.</returns>
@@ -57,7 +57,7 @@ namespace Swan.Reflection
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentNullException(nameof(propertyName));
 
-            return t.Properties.TryGetValue(propertyName, out var property)
+            return t.TryFindProperty(propertyName, out var property)
                 ? property
                 : null;
         }
@@ -90,9 +90,9 @@ namespace Swan.Reflection
                 throw new ArgumentNullException(nameof(obj));
 
             var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName)); ;
+                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName));
 
-            return proxy.TryGetValue(obj, out var value) && value is not null
+            return proxy.TryGetValue(obj, out var value)
                 ? value
                 : default;
         }
@@ -111,7 +111,7 @@ namespace Swan.Reflection
                 throw new ArgumentNullException(nameof(obj));
 
             var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName)); ;
+                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName));
 
             return proxy.TrySetValue(obj, value);
         }

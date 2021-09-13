@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Swan.Reflection
 {
     public sealed class CollectionProxy : IList, IDictionary
     {
-        private CollectionProxy(CollectionTypeProxy info, dynamic target)
+        private CollectionProxy(CollectionInfo info, dynamic target)
         {
             Info = info;
             Target = target;
@@ -23,14 +24,14 @@ namespace Swan.Reflection
         /// Gets the collection metadata supporting
         /// the operations of this wrapper.
         /// </summary>
-        public CollectionTypeProxy Info { get; }
+        public CollectionInfo Info { get; }
 
         /// <summary>
         /// Gets the underlying collection object this wrapper operates on.
         /// </summary>
         public dynamic Target { get; }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IList" />
         public bool IsFixedSize
         {
             get
@@ -38,34 +39,25 @@ namespace Swan.Reflection
                 if (Info.OwnerProxy.ProxiedType.IsArray)
                     return true;
 
-                if (Kind == CollectionKind.Dictionary || Kind == CollectionKind.List)
-                    return Target.IsFixedSize;
+                if (Kind is CollectionKind.Collection or CollectionKind.Enumerable or CollectionKind.GenericEnumerable)
+                    return true;
 
-                return Kind switch
-                {
-                    CollectionKind.Collection => true,
-                    CollectionKind.Enumerable => true,
-                    CollectionKind.GenericEnumerable => true,
-                    CollectionKind.ReadOnlyCollection => true,
-                    CollectionKind.ReadOnlyDictionary => true,
-                    CollectionKind.ReadOnlyList => true,
-                    _ => false
-                };
+                if (Info.OwnerProxy.TryFindProperty(nameof(IsFixedSize), out var property))
+                    return property.TryGetValue(Target, out object value) && value is true;
+
+                return IsReadOnly;
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IList" />
         public bool IsReadOnly
         {
             get
             {
-                return Kind switch
-                {
-                    CollectionKind.ReadOnlyCollection => true,
-                    CollectionKind.ReadOnlyDictionary => true,
-                    CollectionKind.ReadOnlyList => true,
-                    _ => false
-                };
+                if (Info.OwnerProxy.TryFindProperty(nameof(IsReadOnly), out var property))
+                    return property.TryGetValue(Target, out object value) && value is true;
+
+                return false;
             }
         }
 
@@ -74,26 +66,46 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Kind == CollectionKind.Enumerable ||
-                    Kind == CollectionKind.GenericEnumerable)
-                {
-                    var enumerator = GetEnumerator();
-                    var result = 0;
-                    while (enumerator.MoveNext())
-                        result++;
+                if (Info.OwnerProxy.TryFindProperty(nameof(Count), out var property))
+                    if (property.TryGetValue(Target, out object value))
+                        if (value is int propertyValue)
+                            return propertyValue;
 
-                    return result;
-                }
+                var enumerator = GetEnumerator();
+                var result = 0;
+                while (enumerator.MoveNext())
+                    result++;
 
-                return Target.Count;
+                return result;
             }
         }
 
         /// <inheritdoc />
-        public bool IsSynchronized => Target is ICollection collection ? collection.IsSynchronized : false;
+        public bool IsSynchronized
+        {
+            get
+            {
+                if (Info.OwnerProxy.TryFindProperty(nameof(IsSynchronized), out var property))
+                    if (property.TryGetValue(Target, out object value))
+                        if (value is bool propertyValue)
+                            return propertyValue;
+
+                return false;
+            }
+        }
 
         /// <inheritdoc />
-        public object SyncRoot => Target is ICollection collection ? collection.SyncRoot : Target;
+        public object SyncRoot
+        {
+            get
+            {
+                if (Info.OwnerProxy.TryFindProperty(nameof(SyncRoot), out var property))
+                    if (property.TryGetValue(Target, out object value))
+                        return value!;
+
+                return Target;
+            }
+        }
 
         /// <inheritdoc />
         public ICollection Keys
@@ -189,7 +201,7 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Kind == CollectionKind.List || Kind == CollectionKind.GenericList || Kind == CollectionKind.ReadOnlyList)
+                if (Kind is CollectionKind.List or CollectionKind.GenericList)
                     return Target[index];
 
                 if (Info.IsDictionary)
@@ -222,7 +234,7 @@ namespace Swan.Reflection
                 if (IsReadOnly)
                     throw new InvalidOperationException("Collection is read-only.");
 
-                if (Kind == CollectionKind.List || Kind == CollectionKind.GenericList)
+                if (Kind is CollectionKind.List or CollectionKind.GenericList)
                 {
                     if (!TypeManager.TryChangeType(value, Info.ValuesType, out var item))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -240,10 +252,10 @@ namespace Swan.Reflection
         /// <param name="target">The target to create the collection proxy for.</param>
         /// <param name="proxy">The resulting proxy.</param>
         /// <returns>True of the operation succeeds. False otherwise.</returns>
-        public static bool TryCreate(object target, out CollectionProxy? proxy)
+        public static bool TryCreate(object? target, [MaybeNullWhen(false)] out CollectionProxy proxy)
         {
             proxy = default;
-            if (target is null || target is not IEnumerable)
+            if (target is null or not IEnumerable)
                 return false;
 
             var typeProxy = target.GetType().TypeInfo().Collection;
@@ -274,7 +286,7 @@ namespace Swan.Reflection
             if (Info.IsDictionary || IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
 
-            if (Kind == CollectionKind.GenericCollection || Kind == CollectionKind.List || Kind == CollectionKind.GenericList)
+            if (Kind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
                 {
@@ -309,11 +321,7 @@ namespace Swan.Reflection
             if (IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Unable to clear collection of kind {Kind} because it is read-only or fixed size.");
 
-            if (Kind == CollectionKind.GenericCollection ||
-                Kind == CollectionKind.List ||
-                Kind == CollectionKind.GenericList ||
-                Kind == CollectionKind.Dictionary ||
-                Kind == CollectionKind.GenericDictionary)
+            if (Kind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList or CollectionKind.Dictionary or CollectionKind.GenericDictionary)
             {
                 Target.Clear();
                 return;
@@ -329,7 +337,7 @@ namespace Swan.Reflection
             {
                 return Target.Contains(value as dynamic);
             }
-            else if (Kind == CollectionKind.GenericDictionary || Kind == CollectionKind.ReadOnlyDictionary)
+            else if (Kind is CollectionKind.GenericDictionary)
             {
                 if (!TypeManager.TryChangeType(value, Info.KeysType, out var item))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -400,7 +408,7 @@ namespace Swan.Reflection
             if (Info.IsDictionary || IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Insert)} operation.");
 
-            if (Kind == CollectionKind.List || Kind == CollectionKind.GenericList)
+            if (Kind is CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
                     Target.Insert(index, item);
@@ -426,7 +434,7 @@ namespace Swan.Reflection
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
                 return;
             }
-            else if (Kind == CollectionKind.List || Kind == CollectionKind.GenericList)
+            else if (Kind is CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
                     Target.Remove(item);
@@ -460,7 +468,7 @@ namespace Swan.Reflection
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be greater than 0 and less than the count.");
             }
 
-            if (Kind == CollectionKind.List || Kind == CollectionKind.GenericList)
+            if (Kind is CollectionKind.List or CollectionKind.GenericList)
             {
                 Target.RemoveAt(index);
                 return;

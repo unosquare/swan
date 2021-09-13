@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CA1031 // Do not catch general exception types
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -116,7 +117,7 @@ namespace Swan.Reflection
         public bool IsEnumerable => TypeProxy.IsEnumerable;
 
         /// <inheritdoc />
-        public CollectionTypeProxy? Collection => TypeProxy.Collection;
+        public CollectionInfo? Collection => TypeProxy.Collection;
 
         /// <inheritdoc />
         public IReadOnlyList<Type> Interfaces => TypeProxy.Interfaces;
@@ -141,7 +142,7 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryGetValue(object instance, out object? value)
+        public bool TryGetValue(object instance, [MaybeNullWhen(false)] out object? value)
         {
 
             value = PropertyType.GetDefault();
@@ -188,13 +189,15 @@ namespace Swan.Reflection
         public string ToStringInvariant(object? instance) => TypeProxy.ToStringInvariant(instance);
 
         /// <inheritdoc />
-        public bool TryParse(string s, out object? result) => TypeProxy.TryParse(s, out result);
+        public bool TryParse(string s, [MaybeNullWhen(false)] out object result) => TypeProxy.TryParse(s, out result);
 
         /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"Property: {EnclosingType}.{PropertyName} ({PropertyType.Name})";
-        }
+        public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value) =>
+            TypeProxy.TryFindProperty(name, out value);
+
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"Property: {EnclosingType}.{PropertyName} ({PropertyType.Name})";
 
         private static Func<object, object?>? CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
         {

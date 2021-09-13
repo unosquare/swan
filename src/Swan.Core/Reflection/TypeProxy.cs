@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,13 +16,12 @@ namespace Swan.Reflection
     internal sealed class TypeProxy : ITypeProxy
     {
         /// <summary>
-        /// Binding flags to retrieve instanc, public and non-public members.
+        /// Binding flags to retrieve instance, public and non-public members.
         /// </summary>
         private const BindingFlags PublicAndPrivate = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-        private static readonly object SyncLock = new();
-        private static readonly Dictionary<Type, Dictionary<string, IPropertyProxy>> PropertyCache = new(32);
-
+        private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertiesLazy;
+        private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertyThesaurusLazy;
         private readonly Lazy<object[]> TypeAttributesLazy;
         private readonly Lazy<ITypeProxy[]> GenericTypeArgumentsLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
@@ -32,7 +32,7 @@ namespace Swan.Reflection
         private readonly Lazy<Func<object>> CreateInstanceLazy;
         private readonly Lazy<Type[]> InterfacesLazy;
         private readonly Lazy<bool> IsEnumerableLazy;
-        private readonly Lazy<CollectionTypeProxy?> CollectionLazy;
+        private readonly Lazy<CollectionInfo?> CollectionLazy;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TypeProxy"/> class.
@@ -46,13 +46,13 @@ namespace Swan.Reflection
             ProxiedType = proxiedType ?? throw new ArgumentNullException(nameof(proxiedType));
             IsValueType = proxiedType.IsValueType;
 
-            if (Nullable.GetUnderlyingType(proxiedType) is Type nullableType)
+            if (Nullable.GetUnderlyingType(proxiedType) is { } nullableType)
             {
                 IsValueType = false;
                 IsNullableValueType = true;
                 UnderlyingType = nullableType.TypeInfo();
             }
-            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is Type enumBaseType)
+            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is { } enumBaseType)
             {
                 UnderlyingType = enumBaseType.TypeInfo();
             }
@@ -88,7 +88,47 @@ namespace Swan.Reflection
                 return ProxiedType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
             }, true);
 
-            CollectionLazy = new(() => IsEnumerable ? CollectionTypeProxy.Create(this) : default, true);
+            CollectionLazy = new(() => IsEnumerable ? CollectionInfo.Create(this) : default, true);
+
+            PropertiesLazy = new(() =>
+            {
+                var properties = ProxiedType.GetProperties(PublicAndPrivate);
+                var proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.Ordinal);
+
+                foreach (var propertyInfo in properties)
+                {
+                    // skip indexers
+                    if (propertyInfo.GetIndexParameters().Length > 0)
+                        continue;
+
+                    // skip properties from base classes, as this class might have declared a new property
+                    if (proxies.ContainsKey(propertyInfo.Name) && ProxiedType != propertyInfo.DeclaringType)
+                        continue;
+
+                    proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
+                }
+
+                return proxies;
+            }, true);
+
+            PropertyThesaurusLazy = new(() =>
+            {
+                var thesaurus = new Dictionary<string, IPropertyProxy>(Properties.Count, StringComparer.Ordinal);
+                foreach (var property in Properties.Values)
+                {
+                    thesaurus[property.PropertyName] = property;
+                    thesaurus[property.PropertyName.ToUpperInvariant()] = property;
+
+                    if (!property.PropertyName.Contains('.', StringComparison.Ordinal))
+                        continue;
+
+                    var parts = property.PropertyName.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    thesaurus[parts[^1]] = property;
+                    thesaurus[parts[^1].ToUpperInvariant()] = property;
+                }
+
+                return thesaurus;
+            }, true);
         }
 
         /// <inheritdoc />
@@ -119,7 +159,7 @@ namespace Swan.Reflection
         public bool IsBasicType { get; }
 
         /// <inheritdoc />
-        public CollectionTypeProxy? Collection => CollectionLazy.Value;
+        public CollectionInfo? Collection => CollectionLazy.Value;
 
         /// <inheritdoc />
         public ITypeProxy UnderlyingType { get; }
@@ -143,36 +183,7 @@ namespace Swan.Reflection
         public IReadOnlyList<Type> Interfaces => InterfacesLazy.Value;
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<string, IPropertyProxy> Properties
-        {
-            get
-            {
-                lock (SyncLock)
-                {
-                    if (PropertyCache.TryGetValue(ProxiedType, out var proxies))
-                        return proxies;
-
-                    var properties = ProxiedType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.InvariantCulture);
-                    foreach (var propertyInfo in properties)
-                    {
-                        // skip indexers
-                        if (propertyInfo.GetIndexParameters().Length > 0)
-                            continue;
-
-                        // skip properties from base classes, as this class might have decalred a new property
-                        if (proxies.ContainsKey(propertyInfo.Name) && ProxiedType != propertyInfo.DeclaringType)
-                            continue;
-
-                        proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
-                    }
-
-
-                    PropertyCache.TryAdd(ProxiedType, proxies);
-                    return proxies;
-                }
-            }
-        }
+        public IReadOnlyDictionary<string, IPropertyProxy> Properties => PropertiesLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<FieldInfo> Fields => FieldsLazy.Value;
@@ -199,7 +210,7 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryParse(string s, out object? result)
+        public bool TryParse(string s, [MaybeNullWhen(false)] out object? result)
         {
             result = DefaultValue;
 
@@ -248,6 +259,18 @@ namespace Swan.Reflection
             }
 
             return false;
+        }
+
+        /// <inheritdoc />
+        public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value)
+        {
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
+
+            if (Properties.TryGetValue(name, out value))
+                return true;
+
+            return PropertyThesaurusLazy.Value.TryGetValue(name.ToUpperInvariant(), out value);
         }
 
         /// <inheritdoc />

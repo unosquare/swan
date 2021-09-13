@@ -102,7 +102,7 @@ namespace Swan.Formatters
 
             RequireHeadings();
 
-            if (!Headings!.ContainsKey(heading))
+            if (!Headings.ContainsKey(heading))
                 throw new ArgumentException($"Heading name '{heading}' does not exist.");
 
             valueProvider ??= (s) => s;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -72,9 +73,9 @@ namespace Swan.Reflection
             : throw new ArgumentNullException(nameof(type));
 
         /// <summary>
-        /// Calls the parameterless constructor on this type returning an isntance.
+        /// Calls the parameter-less constructor on this type returning an instance.
         /// For value types it returns the default value.
-        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// If no parameter-less constructor is available a <see cref="MissingMethodException"/> is thrown.
         /// </summary>
         /// <param name="type">The type to create an instance of.</param>
         /// <returns>A new instance of this type or the default value for value types.</returns>
@@ -83,9 +84,9 @@ namespace Swan.Reflection
             : throw new ArgumentNullException(nameof(type));
 
         /// <summary>
-        /// Calls the parameterless constructor on this type returning an isntance.
+        /// Calls the parameter-less constructor on this type returning an instance.
         /// For value types it returns the default value.
-        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// If no parameter-less constructor is available a <see cref="MissingMethodException"/> is thrown.
         /// </summary>
         /// <typeparam name="T">The type to create an instance of.</typeparam>
         /// <returns>A new instance of this type or the default value for value types.</returns>
@@ -133,7 +134,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, out dynamic? targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, [MaybeNullWhen(false)] out dynamic targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
@@ -286,7 +287,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, Type targetType, out dynamic? targetValue) =>
+        public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out dynamic targetValue) =>
             TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
 
         /// <summary>
@@ -296,7 +297,7 @@ namespace Swan.Reflection
         /// <param name="sourceValue">The value to be converted.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType<T>(object? sourceValue, out T? targetValue)
+        public static bool TryChangeType<T>(object? sourceValue, [MaybeNullWhen(false)] out T targetValue)
         {
             var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
             targetValue = target is null ? default : (T)target;
