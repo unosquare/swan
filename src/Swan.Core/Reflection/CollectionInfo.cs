@@ -8,130 +8,117 @@ namespace Swan.Reflection
 {
     /// <summary>
     /// Provides type metadata on a collection type
-    /// by taking the most capable collection interface available on the <see cref="TypeProxy"/>
+    /// by taking the most capable collection interface available on the <see cref="TypeInfo"/>
     /// </summary>
-    public sealed class CollectionInfo
+    internal sealed class CollectionInfo : ICollectionInfo
     {
-        private static readonly ITypeProxy DefaultKeysType = typeof(int).TypeInfo();
-        private static readonly ITypeProxy ObjectTypeInfo = typeof(object).TypeInfo();
+        private static readonly ITypeInfo DefaultKeysType = typeof(int).TypeInfo();
+        private static readonly ITypeInfo ObjectTypeInfo = typeof(object).TypeInfo();
 
-        private CollectionInfo(ITypeProxy typeProxy)
+        public CollectionInfo(ITypeInfo typeProxy)
         {
-            OwnerProxy = typeProxy;
-        }
+            Owner = typeProxy;
 
-        /// <summary>
-        /// Gets the type proxy that generated and owns this collection type proxy.
-        /// </summary>
-        public ITypeProxy OwnerProxy { get; }
-
-        /// <summary>
-        /// Gets the underlying collection kind.
-        /// </summary>
-        public CollectionKind CollectionKind { get; private set; }
-
-        /// <summary>
-        /// Gets the underlying constructed interface type
-        /// that this collection implements.
-        /// </summary>
-        public ITypeProxy CollectionType { get; private set; }
-
-        /// <summary>
-        /// Gets the type proxy for keys in dictionaries.
-        /// For non-dictionaries, returns the proxy for <see cref="int"/>.
-        /// </summary>
-        public ITypeProxy KeysType { get; private set; }
-
-        /// <summary>
-        /// Gets the type proxy for values in the collection.
-        /// For dictionaries it gets the value type in the key-value pairs.
-        /// For other collection types, it returns the item type.
-        /// </summary>
-        public ITypeProxy ValuesType { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating that the collection type is a dictionary.
-        /// This specifies that the <see cref="KeysType"/> might not be <see cref="int"/>.
-        /// </summary>
-        public bool IsDictionary { get; private set; }
-
-        internal static CollectionInfo? Create(ITypeProxy typeProxy)
-        {
-            var result = new CollectionInfo(typeProxy);
-
-            if (typeProxy.ProxiedType.IsArray)
+            if (typeProxy.NativeType.IsArray)
             {
-                result.CollectionType = typeProxy;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = typeProxy.ProxiedType.GetElementType()?.TypeInfo() ?? ObjectTypeInfo;
-                result.CollectionKind = CollectionKind.List;
+                CollectionType = typeProxy;
+                KeysType = DefaultKeysType;
+                ValuesType = typeProxy.NativeType.GetElementType()?.TypeInfo() ?? ObjectTypeInfo;
+                CollectionKind = CollectionKind.List;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IDictionary<,>), nameof(IDictionary), 2, out var collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = collectionType.GenericTypeArguments[0];
-                result.ValuesType = collectionType.GenericTypeArguments[1];
-                result.CollectionKind = CollectionKind.GenericDictionary;
-                result.IsDictionary = true;
+                CollectionType = collectionType;
+                KeysType = collectionType.GenericTypeArguments[0];
+                ValuesType = collectionType.GenericTypeArguments[1];
+                CollectionKind = CollectionKind.GenericDictionary;
+                IsDictionary = true;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IDictionary), nameof(IDictionary), 0, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = ObjectTypeInfo;
-                result.ValuesType = ObjectTypeInfo;
-                result.CollectionKind = CollectionKind.Dictionary;
-                result.IsDictionary = true;
+                CollectionType = collectionType;
+                KeysType = ObjectTypeInfo;
+                ValuesType = ObjectTypeInfo;
+                CollectionKind = CollectionKind.Dictionary;
+                IsDictionary = true;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IList<>), nameof(IList), 1, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = collectionType.GenericTypeArguments[0];
-                result.CollectionKind = CollectionKind.GenericList;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = collectionType.GenericTypeArguments[0];
+                CollectionKind = CollectionKind.GenericList;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IList), nameof(IList), 0, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = ObjectTypeInfo;
-                result.CollectionKind = CollectionKind.List;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = ObjectTypeInfo;
+                CollectionKind = CollectionKind.List;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(ICollection<>), nameof(ICollection), 1, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = collectionType.GenericTypeArguments[0];
-                result.CollectionKind = CollectionKind.GenericCollection;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = collectionType.GenericTypeArguments[0];
+                CollectionKind = CollectionKind.GenericCollection;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(ICollection), nameof(ICollection), 0, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = ObjectTypeInfo;
-                result.CollectionKind = CollectionKind.Collection;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = ObjectTypeInfo;
+                CollectionKind = CollectionKind.Collection;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IEnumerable<>), nameof(IEnumerable), 1, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = collectionType.GenericTypeArguments[0];
-                result.CollectionKind = CollectionKind.GenericEnumerable;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = collectionType.GenericTypeArguments[0];
+                CollectionKind = CollectionKind.GenericEnumerable;
+                return;
             }
             else if (TryGetImplementation(typeProxy, typeof(IEnumerable), nameof(IEnumerable), 0, out collectionType))
             {
-                result.CollectionType = collectionType;
-                result.KeysType = DefaultKeysType;
-                result.ValuesType = ObjectTypeInfo;
-                result.CollectionKind = CollectionKind.Enumerable;
+                CollectionType = collectionType;
+                KeysType = DefaultKeysType;
+                ValuesType = ObjectTypeInfo;
+                CollectionKind = CollectionKind.Enumerable;
+                return;
             }
 
-            if (result.CollectionKind == CollectionKind.None)
-                return null;
-
-            return result;
+            CollectionType = typeProxy;
+            KeysType = DefaultKeysType;
+            ValuesType = ObjectTypeInfo;
+            CollectionKind = CollectionKind.None;
         }
 
-        private static bool TryGetImplementation(ITypeProxy typeProxy, Type interfaceType, string nameMatch, int genericsCount, [MaybeNullWhen(false)] out ITypeProxy implementation)
+        /// <inheritdoc />
+        public ITypeInfo Owner { get; }
+
+        /// <inheritdoc />
+        public CollectionKind CollectionKind { get; private set; }
+
+        /// <inheritdoc />
+        public ITypeInfo CollectionType { get; private set; }
+
+        /// <inheritdoc />
+        public ITypeInfo KeysType { get; private set; }
+
+        /// <inheritdoc />
+        public ITypeInfo ValuesType { get; private set; }
+
+        /// <inheritdoc />
+        public bool IsDictionary { get; private set; }
+
+        private static bool TryGetImplementation(ITypeInfo typeProxy, Type interfaceType, string nameMatch, int genericsCount, [MaybeNullWhen(false)] out ITypeInfo implementation)
         {
             implementation = genericsCount <= 0
                 ? typeProxy.Interfaces.FirstOrDefault(c => c == interfaceType)?.TypeInfo()

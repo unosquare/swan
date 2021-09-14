@@ -9,12 +9,12 @@ namespace Swan.Reflection
     /// <summary>
     /// Provides extended type information.
     /// </summary>
-    public interface ITypeProxy
+    public interface ITypeInfo
     {
         /// <summary>
-        /// Provides the type this proxy represents.
+        /// Provides the unique type that owns this type proxy.
         /// </summary>
-        Type ProxiedType { get; }
+        Type NativeType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is a nullable value type.
@@ -73,15 +73,15 @@ namespace Swan.Reflection
         /// <summary>
         /// Gets a list of generic type arguments. Might be empty if not available.
         /// </summary>
-        IReadOnlyList<ITypeProxy> GenericTypeArguments { get; }
+        IReadOnlyList<ITypeInfo> GenericTypeArguments { get; }
 
         /// <summary>
         /// When dealing with nullable value types, this property will
         /// return the underlying value type of the nullable; when dealing with
         /// enums, it will return the enumeration's underlying type;
-        /// Otherwise it will return the same type as the <see cref="ProxiedType"/> property.
+        /// Otherwise it will return the same type as the <see cref="NativeType"/> property.
         /// </summary>
-        ITypeProxy UnderlyingType { get; }
+        ITypeInfo UnderlyingType { get; }
 
         /// <summary>
         /// Gets the default value for this type.
@@ -107,7 +107,7 @@ namespace Swan.Reflection
         /// Provides collection metadata if available that enables
         /// a uniform API to manipulate collection objects.
         /// </summary>
-        CollectionInfo? Collection { get; }
+        ICollectionInfo? Collection { get; }
 
         /// <summary>
         /// Retrieves a list of interfaces this type implements.
@@ -165,5 +165,33 @@ namespace Swan.Reflection
         /// <param name="value">The property proxy that was found.</param>
         /// <returns>True if successful. False otherwise.</returns>
         bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value);
+
+        /// <summary>
+        /// Tries to find a property by name and tries to read its value.
+        /// </summary>
+        /// <param name="instance">The object instance</param>
+        /// <param name="propertyName">The property name to search for.</param>
+        /// <param name="value">The output value.</param>
+        /// <returns>True when the operation succeeds; false otherwise.</returns>
+        bool TryReadProperty(object instance, string propertyName, [MaybeNullWhen(false)] out object? value);
+
+        /// <summary>
+        /// Tries to find a property by name and tries to read its value and applying a conversion
+        /// to the target type.
+        /// </summary>
+        /// <param name="instance">The object instance</param>
+        /// <param name="propertyName">The property name to search for.</param>
+        /// <param name="value">The output value.</param>
+        /// <returns>True when the operation succeeds; false otherwise.</returns>
+        bool TryReadProperty<T>(object instance, string propertyName, [MaybeNullWhen(false)] out T? value);
+
+        /// <summary>
+        /// Tries to find a property by name and tries to write its value performing conversion if necessary.
+        /// </summary>
+        /// <param name="instance">The object instance</param>
+        /// <param name="propertyName">The property name to search for.</param>
+        /// <param name="value">The value to write.</param>
+        /// <returns>True when the operation succeeds; false otherwise.</returns>
+        bool TryWriteProperty(object instance, string propertyName, object? value);
     }
 }

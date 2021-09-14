@@ -339,7 +339,7 @@ namespace Swan.Mapping
                     return true;
                 }
 
-                if (targetProperty.ToPropertyProxy().TrySetValue(targetInstance, value))
+                if (targetProperty.ToPropertyProxy().TryWrite(targetInstance, value))
                     return true;
 
             }
@@ -362,8 +362,8 @@ namespace Swan.Mapping
                 .Distinct()
                 .ToDictionary(
                     x => x.ToLowerInvariant(),
-                    x => Tuple.Create(sourceProperties.First(y => y.PropertyName == x).PropertyType,
-                        sourceProperties.First(y => y.PropertyName == x).GetValue(source)));
+                    x => Tuple.Create(sourceProperties.First(y => y.PropertyName == x).PropertyType.NativeType,
+                        sourceProperties.First(y => y.PropertyName == x).Read(source)));
         }
     }
 }

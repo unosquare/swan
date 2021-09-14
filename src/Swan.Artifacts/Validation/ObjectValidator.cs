@@ -162,7 +162,7 @@ namespace Swan.Validation
                     if (attribute is not IValidator val)
                         continue;
 
-                    if (val.IsValid(prop.GetValue(obj)))
+                    if (val.IsValid(prop.Read(obj)))
                         continue;
 
                     action?.Invoke(val.ErrorMessage, prop.PropertyName);

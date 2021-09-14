@@ -10,20 +10,20 @@ using System.Reflection;
 namespace Swan.Reflection
 {
     /// <summary>
-    /// Provides efficient access to a cached repository of <see cref="TypeProxy"/>
+    /// Provides efficient access to a cached repository of <see cref="Reflection.TypeInfo"/>
     /// and various type utilities.
     /// </summary>
     public static partial class TypeManager
     {
-        private static readonly ConcurrentDictionary<Type, ITypeProxy> TypeCache = new();
+        private static readonly ConcurrentDictionary<Type, ITypeInfo> TypeCache = new();
 
         /// <summary>
         /// Provides cached and extended type information for
         /// easy and efficient access to common reflection scenarios.
         /// </summary>
         /// <param name="t">The type to provide extended info for.</param>
-        /// <returns>Returns an <see cref="TypeProxy"/> for the given type.</returns>
-        public static ITypeProxy TypeInfo(this Type t)
+        /// <returns>Returns an <see cref="Reflection.TypeInfo"/> for the given type.</returns>
+        public static ITypeInfo TypeInfo(this Type t)
         {
             if (t is null)
                 throw new ArgumentNullException(nameof(t));
@@ -31,7 +31,7 @@ namespace Swan.Reflection
             if (TypeCache.TryGetValue(t, out var typeInfo))
                 return typeInfo;
 
-            typeInfo = new TypeProxy(t);
+            typeInfo = new TypeInfo(t);
             TypeCache.TryAdd(t, typeInfo);
 
             return typeInfo;
@@ -128,13 +128,64 @@ namespace Swan.Reflection
         }
 
         /// <summary>
+        /// Determines if the types are compatible fro assignment.
+        /// </summary>
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this ITypeInfo target, ITypeInfo source)
+        {
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.NativeType.IsAssignableFrom(source.NativeType);
+        }
+
+        /// <summary>
+        /// Determines if the types are compatible fro assignment.
+        /// </summary>
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this IPropertyProxy target, IPropertyProxy source)
+        {
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.PropertyType.IsAssignableFrom(source.PropertyType);
+        }
+
+        /// <summary>
+        /// Determines if the types are compatible fro assignment.
+        /// </summary>
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this IPropertyProxy target, Type source)
+        {
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.PropertyType.NativeType.IsAssignableFrom(source);
+        }
+
+        /// <summary>
         /// Tries to convert a type of the source value to a type of the target value.
         /// </summary>
         /// <param name="sourceValue">The value to be converted.</param>
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, [MaybeNullWhen(false)] out dynamic targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, [MaybeNullWhen(false)] out dynamic? targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
@@ -146,6 +197,15 @@ namespace Swan.Reflection
             if (sourceValue is null || sourceValue == targetType.DefaultValue)
                 return true;
 
+            // Normalize source removing nullable semantics
+            var sourceType = sourceValue.GetType().TypeInfo();
+            if (sourceType.IsNullableValueType)
+            {
+                sourceType = sourceType.UnderlyingType;
+                sourceValue = Convert.ChangeType(
+                    sourceValue, sourceType.NativeType, CultureInfo.InvariantCulture);
+            }
+
             // Normalize target removing nullable semantics
             if (targetType.IsNullableValueType)
             {
@@ -153,26 +213,15 @@ namespace Swan.Reflection
                 targetValue = targetType.DefaultValue;
             }
 
-            // Normalize source removing nullable semantics
-            var sourceType = sourceValue.GetType().TypeInfo();
-            if (sourceType.IsNullableValueType)
-            {
-                sourceType = sourceType.UnderlyingType;
-                sourceValue = Convert.ChangeType(sourceValue,
-                    sourceType.UnderlyingType.ProxiedType,
-                    CultureInfo.InvariantCulture);
-            }
-
             // Case 0: Direct assignment if types are the same or compatible.
-            if (targetType.ProxiedType == sourceType.ProxiedType ||
-                targetType.ProxiedType.IsAssignableFrom(sourceType.ProxiedType))
+            if (targetType.NativeType.IsAssignableFrom(sourceType.NativeType))
             {
-                targetValue = Convert.ChangeType(sourceValue, targetType.ProxiedType, CultureInfo.InvariantCulture);
+                targetValue = sourceValue;
                 return true;
             }
 
             // Case 1: Target type is a string and conversion is performed invariant of culture.
-            if (targetType.ProxiedType == typeof(string))
+            if (targetType.NativeType == typeof(string))
             {
                 targetValue = sourceType.ToStringInvariant(sourceValue);
                 return true;
@@ -185,7 +234,7 @@ namespace Swan.Reflection
                 if (sourceType.IsEnum)
                 {
                     sourceType = sourceType.UnderlyingType;
-                    sourceValue = Convert.ChangeType(sourceValue, sourceType.ProxiedType, CultureInfo.InvariantCulture);
+                    sourceValue = Convert.ChangeType(sourceValue, sourceType.NativeType, CultureInfo.InvariantCulture);
                 }
 
                 // Parse the source value converted to a string
@@ -193,7 +242,7 @@ namespace Swan.Reflection
                     ? stringValue
                     : sourceType.ToStringInvariant(sourceValue);
 
-                if (Enum.TryParse(targetType.ProxiedType, sourceEnumString, true, out var enumValue))
+                if (Enum.TryParse(targetType.NativeType, sourceEnumString, true, out var enumValue))
                 {
                     targetValue = enumValue;
                     return true;
@@ -221,22 +270,24 @@ namespace Swan.Reflection
                     if (!sourceType.IsValueType)
                     {
                         var sourceString = sourceType.ToStringInvariant(sourceValue);
-                        targetValue = Convert.ChangeType(sourceString, targetType.ProxiedType, CultureInfo.InvariantCulture);
+                        targetValue = Convert.ChangeType(sourceString, targetType.NativeType, CultureInfo.InvariantCulture);
                         return true;
                     }
 
-                    targetValue = Convert.ChangeType(sourceValue, targetType.ProxiedType, CultureInfo.InvariantCulture);
+                    targetValue = Convert.ChangeType(sourceValue, targetType.NativeType, CultureInfo.InvariantCulture);
                     return true;
                 }
                 catch
                 {
-                    // placeholder
+                    return false;
                 }
             }
 
             // Case 5: We might be dealing with enumerables
             if (targetType.IsEnumerable && sourceType.IsEnumerable)
             {
+                //TODO: implement changing collection types.
+                throw new NotImplementedException();
                 /*
                 var sourceItemType = GetItemType(sourceType);
                 var targetItemType = GetItemType(targetType);
@@ -300,7 +351,7 @@ namespace Swan.Reflection
         public static bool TryChangeType<T>(object? sourceValue, [MaybeNullWhen(false)] out T targetValue)
         {
             var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
-            targetValue = target is null ? default : (T)target;
+            targetValue = target is T typedTarget ? typedTarget : default;
             return result;
         }
     }

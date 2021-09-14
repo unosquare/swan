@@ -75,7 +75,7 @@ namespace Swan
 
             foreach (var propertyTarget in properties)
             {
-                if (propertyTarget.ProxiedType.IsArray)
+                if (propertyTarget.ParentType.NativeType.IsArray)
                 {
                     var leftObj = left.ReadProperty(propertyTarget.PropertyName) as IEnumerable;
                     var rightObj = right.ReadProperty(propertyTarget.PropertyName) as IEnumerable;

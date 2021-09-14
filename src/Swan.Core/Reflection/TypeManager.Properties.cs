@@ -38,7 +38,7 @@ namespace Swan.Reflection
         /// </summary>
         /// <param name="t">The type to retrieve property proxies from.</param>
         /// <returns>The property proxies for the given type.</returns>
-        public static IReadOnlyList<IPropertyProxy> Properties(this ITypeProxy t) => t is not null
+        public static IReadOnlyList<IPropertyProxy> Properties(this ITypeInfo t) => t is not null
                 ? t.Properties.Values.ToArray()
                 : throw new ArgumentNullException(nameof(t));
 
@@ -49,7 +49,7 @@ namespace Swan.Reflection
         /// <param name="t">The associated type.</param>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>The associated <see cref="IPropertyProxy"/> if found; otherwise returns null.</returns>
-        public static IPropertyProxy? Property(this ITypeProxy t, string propertyName)
+        public static IPropertyProxy? Property(this ITypeInfo t, string propertyName)
         {
             if (t == null)
                 throw new ArgumentNullException(nameof(t));
@@ -75,7 +75,7 @@ namespace Swan.Reflection
                 : throw new ArgumentNullException(nameof(t));
 
         /// <summary>
-        /// Reads the property value.
+        /// Reads the property value using a <see cref="IPropertyProxy"/>.
         /// </summary>
         /// <typeparam name="T">The type to get property proxies from.</typeparam>
         /// <param name="obj">The instance.</param>
@@ -84,21 +84,21 @@ namespace Swan.Reflection
         /// The value obtained from the associated <see cref="IPropertyProxy" />
         /// </returns>
         /// <exception cref="ArgumentNullException">obj.</exception>
-        public static object? ReadProperty<T>(this T obj, string propertyName)
+        public static dynamic? ReadProperty<T>(this T obj, string propertyName)
         {
-            if (obj == null)
+            if (obj is null)
                 throw new ArgumentNullException(nameof(obj));
 
             var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName));
+                ?? throw new ArgumentException($"Could not find a property with the name '{propertyName}'.", nameof(propertyName));
 
-            return proxy.TryGetValue(obj, out var value)
+            return proxy.TryRead(obj, out var value)
                 ? value
                 : default;
         }
 
         /// <summary>
-        /// Writes the property value using the property proxy.
+        /// Writes the property value using a <see cref="IPropertyProxy"/>.
         /// </summary>
         /// <typeparam name="T">The type to get property proxies from.</typeparam>
         /// <param name="obj">The instance.</param>
@@ -107,13 +107,13 @@ namespace Swan.Reflection
         /// <returns>True if the property write operation was successful.</returns>
         public static bool WriteProperty<T>(this T obj, string propertyName, object? value)
         {
-            if (obj == null)
+            if (obj is null)
                 throw new ArgumentNullException(nameof(obj));
 
             var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException("Could not find a property with the given name.", nameof(propertyName));
+                ?? throw new ArgumentException($"Could not find a property with name '{propertyName}'.", nameof(propertyName));
 
-            return proxy.TrySetValue(obj, value);
+            return proxy.TryWrite(obj, value);
         }
     }
 }

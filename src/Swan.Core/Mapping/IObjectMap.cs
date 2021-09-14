@@ -23,12 +23,12 @@ namespace Swan.Mapping
         /// <summary>
         /// Gets the type of the target.
         /// </summary>
-        ITypeProxy TargetType { get; }
+        ITypeInfo TargetType { get; }
 
         /// <summary>
         /// Gets the type of the source.
         /// </summary>
-        ITypeProxy SourceType { get; }
+        ITypeInfo SourceType { get; }
 
         /// <summary>
         /// Creates an instance of the target type and evaluates the <see cref="SourceValueProvider"/>

@@ -290,9 +290,14 @@ namespace Swan.Test
                     throw new InvalidOperationException("Cannot create collection proxy");
 
                 Assert.IsTrue(proxy[7] is int or char);
-
-                if (!proxy.Info.IsDictionary)
+                
+                if (proxy.IsDictionary is false)
                     Assert.IsTrue(proxy["7"] is int or char);
+
+                if (proxy.IsReadOnly is false)
+                {
+                    // if (proxy.)
+                }
             }
         }
     }

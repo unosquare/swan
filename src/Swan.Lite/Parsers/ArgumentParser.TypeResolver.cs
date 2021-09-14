@@ -41,7 +41,7 @@ namespace Swan.Parsers
 
                 if (verbProperty?.GetValue(instance) == null)
                 {
-                    var propertyInstance = TypeManager.CreateInstance(selectedVerb.PropertyType);
+                    var propertyInstance = selectedVerb.PropertyType.CreateInstance();
                     verbProperty?.SetValue(instance, propertyInstance);
                 }
 

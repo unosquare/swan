@@ -10,7 +10,7 @@ namespace Swan.Reflection
         private readonly Lazy<MethodInfo?> MethodLazy;
         private readonly Lazy<IReadOnlyList<ParameterInfo>> ParametersLazy;
 
-        protected CommonMethodInfo(ITypeProxy typeInfo, string methodName)
+        protected CommonMethodInfo(ITypeInfo typeInfo, string methodName)
         {
             MethodName = methodName;
             MethodLazy = new(() =>
@@ -48,7 +48,7 @@ namespace Swan.Reflection
 
         public IReadOnlyList<ParameterInfo> Parameters => ParametersLazy.Value;
 
-        protected abstract MethodInfo? RetriveMethodInfo(ITypeProxy typeInfo, string methodName);
+        protected abstract MethodInfo? RetriveMethodInfo(ITypeInfo typeInfo, string methodName);
     }
 }
 #pragma warning restore CA1031 // Do not catch general exception types

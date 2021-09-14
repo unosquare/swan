@@ -13,7 +13,7 @@ namespace Swan.Reflection
     /// <summary>
     /// Provides a base class for efficiently exposing details about a given type.
     /// </summary>
-    internal sealed class TypeProxy : ITypeProxy
+    internal sealed class TypeInfo : ITypeInfo
     {
         /// <summary>
         /// Binding flags to retrieve instance, public and non-public members.
@@ -23,7 +23,7 @@ namespace Swan.Reflection
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertiesLazy;
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertyThesaurusLazy;
         private readonly Lazy<object[]> TypeAttributesLazy;
-        private readonly Lazy<ITypeProxy[]> GenericTypeArgumentsLazy;
+        private readonly Lazy<ITypeInfo[]> GenericTypeArgumentsLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
         private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
         private readonly Lazy<ToStringMethodInfo> ToStringMethodLazy;
@@ -32,44 +32,44 @@ namespace Swan.Reflection
         private readonly Lazy<Func<object>> CreateInstanceLazy;
         private readonly Lazy<Type[]> InterfacesLazy;
         private readonly Lazy<bool> IsEnumerableLazy;
-        private readonly Lazy<CollectionInfo?> CollectionLazy;
+        private readonly Lazy<ICollectionInfo?> CollectionLazy;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TypeProxy"/> class.
+        /// Creates a new instance of the <see cref="TypeInfo"/> class.
         /// </summary>
-        /// <param name="proxiedType">The type to create a proxy from.</param>
-        public TypeProxy(Type proxiedType)
+        /// <param name="nativeType">The type to create a proxy from.</param>
+        public TypeInfo(Type nativeType)
         {
-            if (proxiedType.IsGenericType && !proxiedType.IsConstructedGenericType)
+            if (nativeType.IsGenericType && !nativeType.IsConstructedGenericType)
                 throw new ArgumentException($"Generic type definitions cannot be proxied.");
 
-            ProxiedType = proxiedType ?? throw new ArgumentNullException(nameof(proxiedType));
-            IsValueType = proxiedType.IsValueType;
+            NativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
+            IsValueType = nativeType.IsValueType;
 
-            if (Nullable.GetUnderlyingType(proxiedType) is { } nullableType)
+            if (Nullable.GetUnderlyingType(nativeType) is { } nullableType)
             {
                 IsValueType = false;
                 IsNullableValueType = true;
                 UnderlyingType = nullableType.TypeInfo();
             }
-            else if (IsEnum && Enum.GetUnderlyingType(proxiedType) is { } enumBaseType)
+            else if (IsEnum && Enum.GetUnderlyingType(nativeType) is { } enumBaseType)
             {
                 UnderlyingType = enumBaseType.TypeInfo();
             }
 
             UnderlyingType ??= this;
-            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType.ProxiedType);
-            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType.ProxiedType);
+            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType.NativeType);
+            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType.NativeType);
 
-            FieldsLazy = new(() => proxiedType.GetFields(PublicAndPrivate), true);
-            TypeAttributesLazy = new(() => proxiedType.GetCustomAttributes(true), true);
+            FieldsLazy = new(() => nativeType.GetFields(PublicAndPrivate), true);
+            TypeAttributesLazy = new(() => nativeType.GetCustomAttributes(true), true);
             TryParseMethodLazy = new(() => new TryParseMethodInfo(this), true);
             ToStringMethodLazy = new(() => new ToStringMethodInfo(this), true);
             DefaultConstructorLazy = new(() => !IsValueType
-                ? proxiedType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
+                ? nativeType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
                 : null, true);
 
-            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(proxiedType) : null, true);
+            DefaultLazy = new(() => IsValueType ? Activator.CreateInstance(nativeType) : null, true);
             CreateInstanceLazy = new(() =>
             {
                 if (IsValueType)
@@ -78,21 +78,30 @@ namespace Swan.Reflection
                 var constructor = DefaultConstructorLazy.Value;
                 return constructor is not null
                     ? (Func<object>)Expression.Lambda(Expression.New(constructor)).Compile()
-                    : () => throw new MissingMethodException($"Type '{ProxiedType.Name}' does not have a parameterless constructor.");
+                    : () => throw new MissingMethodException($"Type '{NativeType.Name}' does not have a parameterless constructor.");
 
             }, true);
-            InterfacesLazy = new(() => ProxiedType.GetInterfaces(), true);
+            InterfacesLazy = new(() => NativeType.GetInterfaces(), true);
             IsEnumerableLazy = new(() => Interfaces.Any(c => c == typeof(IEnumerable)), true);
             GenericTypeArgumentsLazy = new(() =>
             {
-                return ProxiedType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
+                return NativeType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
             }, true);
 
-            CollectionLazy = new(() => IsEnumerable ? CollectionInfo.Create(this) : default, true);
+            CollectionLazy = new(() =>
+            {
+                if (!IsEnumerable)
+                    return default;
+
+                var collectionInfo = new CollectionInfo(this);
+                return collectionInfo.CollectionKind is not CollectionKind.None
+                    ? collectionInfo
+                    : default;
+            }, true);
 
             PropertiesLazy = new(() =>
             {
-                var properties = ProxiedType.GetProperties(PublicAndPrivate);
+                var properties = NativeType.GetProperties(PublicAndPrivate);
                 var proxies = new Dictionary<string, IPropertyProxy>(properties.Length, StringComparer.Ordinal);
 
                 foreach (var propertyInfo in properties)
@@ -102,10 +111,10 @@ namespace Swan.Reflection
                         continue;
 
                     // skip properties from base classes, as this class might have declared a new property
-                    if (proxies.ContainsKey(propertyInfo.Name) && ProxiedType != propertyInfo.DeclaringType)
+                    if (proxies.ContainsKey(propertyInfo.Name) && NativeType != propertyInfo.DeclaringType)
                         continue;
 
-                    proxies[propertyInfo.Name] = new PropertyProxy(ProxiedType, propertyInfo);
+                    proxies[propertyInfo.Name] = new PropertyProxy(this, propertyInfo);
                 }
 
                 return proxies;
@@ -132,7 +141,7 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public Type ProxiedType { get; }
+        public Type NativeType { get; }
 
         /// <inheritdoc />
         public bool IsNullableValueType { get; }
@@ -141,34 +150,34 @@ namespace Swan.Reflection
         public bool IsNumeric { get; }
 
         /// <inheritdoc />
-        public bool IsConstructedGenericType => ProxiedType.IsConstructedGenericType;
+        public bool IsConstructedGenericType => NativeType.IsConstructedGenericType;
 
         /// <inheritdoc />
         public bool IsValueType { get; }
 
         /// <inheritdoc />
-        public bool IsAbstract => ProxiedType.IsAbstract;
+        public bool IsAbstract => NativeType.IsAbstract;
 
         /// <inheritdoc />
-        public bool IsInterface => ProxiedType.IsInterface;
+        public bool IsInterface => NativeType.IsInterface;
 
         /// <inheritdoc />
-        public bool IsEnum => ProxiedType.IsEnum;
+        public bool IsEnum => NativeType.IsEnum;
 
         /// <inheritdoc />
         public bool IsBasicType { get; }
 
         /// <inheritdoc />
-        public CollectionInfo? Collection => CollectionLazy.Value;
+        public ICollectionInfo? Collection => CollectionLazy.Value;
 
         /// <inheritdoc />
-        public ITypeProxy UnderlyingType { get; }
+        public ITypeInfo UnderlyingType { get; }
 
         /// <inheritdoc />
         public object? DefaultValue => DefaultLazy.Value;
 
         /// <inheritdoc />
-        public bool CanParseNatively => ProxiedType == typeof(string) || TryParseMethodInfo != null;
+        public bool CanParseNatively => NativeType == typeof(string) || TryParseMethodInfo != null;
 
         /// <inheritdoc />
         public bool CanCreateInstance => IsValueType || (!IsAbstract && !IsInterface && DefaultConstructorLazy.Value is not null);
@@ -177,7 +186,7 @@ namespace Swan.Reflection
         public bool IsEnumerable => IsEnumerableLazy.Value;
 
         /// <inheritdoc />
-        public IReadOnlyList<ITypeProxy> GenericTypeArguments => GenericTypeArgumentsLazy.Value;
+        public IReadOnlyList<ITypeInfo> GenericTypeArguments => GenericTypeArgumentsLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<Type> Interfaces => InterfacesLazy.Value;
@@ -217,7 +226,7 @@ namespace Swan.Reflection
             if (TryParseMethodInfo is null)
                 return false;
 
-            if (ProxiedType == typeof(string))
+            if (NativeType == typeof(string))
             {
                 result = s;
                 return true;
@@ -274,9 +283,69 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
+        public bool TryReadProperty(object instance, string propertyName, [MaybeNullWhen(false)] out object? value)
+        {
+            value = default;
+            if (instance is null)
+                throw new ArgumentNullException(nameof(instance));
+
+            if (TryFindProperty(propertyName, out var property) is false)
+                return false;
+
+            if (property.TryRead(instance, out value) is false)
+                return false;
+
+            return true;
+        }
+
+        /// <inheritdoc />
+        public bool TryReadProperty<T>(object instance, string propertyName, [MaybeNullWhen(false)] out T? value)
+        {
+            value = default;
+
+            if (TryReadProperty(instance, propertyName, out var propertyValue) is false)
+                return false;
+
+            if (propertyValue is null)
+                return true;
+
+            if (propertyValue is T originalValue)
+            {
+                value = originalValue;
+                return true;
+            }    
+
+            if (TypeManager.TryChangeType(propertyValue, typeof(T), out object? objectValue) is false)
+                return false;
+
+            if (objectValue is T convertedValue)
+            {
+                value = convertedValue;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc />
+        public bool TryWriteProperty(object instance, string propertyName, object? value)
+        {
+            if (instance is null)
+                throw new ArgumentNullException(nameof(instance));
+
+            if (TryFindProperty(propertyName, out var property) is false)
+                return false;
+
+            if (property.TryWrite(instance, value) is false)
+                return false;
+
+            return true;
+        }
+
+        /// <inheritdoc />
         public override string ToString()
         {
-            return $"Type Proxy: {ProxiedType.Name}";
+            return $"Type Proxy: {NativeType.Name}";
         }
     }
 }

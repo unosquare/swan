@@ -59,7 +59,7 @@ namespace Swan.Mapping
                     $"Target property '{targetProxy.PropertyName}' is read only.",
                     nameof(targetPropertyExpression));
 
-            if (!targetProxy.ProxiedType.IsAssignableFrom(typeof(TSourceMember)))
+            if (!targetProxy.IsAssignableFrom(typeof(TSourceMember)))
                 throw new ArgumentException(
                     $"Target property '{targetProxy.PropertyName}' cannot be assigned a value of type {typeof(TTargetMember)}.",
                     nameof(valueProvider));

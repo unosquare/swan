@@ -12,25 +12,29 @@ namespace Swan.Reflection
     /// as the collection's native implementation due to some prcessing and
     /// dynamic binding that this proxy requires o function properly.
     /// </summary>
-    public sealed class CollectionProxy : IList, IDictionary
+    public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
     {
-        private CollectionProxy(CollectionInfo info, dynamic target)
+        /// <summary>
+        /// Gets the collection metadata supporting
+        /// the operations of this wrapper.
+        /// </summary>
+        private readonly ICollectionInfo Info;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CollectionProxy"/> class.
+        /// </summary>
+        /// <param name="info">The backing collection info.</param>
+        /// <param name="target">The object that this collection proxy wraps.</param>
+        private CollectionProxy(ICollectionInfo info, dynamic target)
         {
             Info = info;
             Target = target;
-            Kind = Info.CollectionKind;
         }
 
         /// <summary>
         /// Gets the collection kind for this collection proxy.
         /// </summary>
         public CollectionKind Kind { get; }
-
-        /// <summary>
-        /// Gets the collection metadata supporting
-        /// the operations of this wrapper.
-        /// </summary>
-        public CollectionInfo Info { get; }
 
         /// <summary>
         /// Gets the underlying collection object this wrapper operates on.
@@ -42,14 +46,14 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Info.OwnerProxy.ProxiedType.IsArray)
+                if (Owner.NativeType.IsArray)
                     return true;
 
                 if (Kind is CollectionKind.Collection or CollectionKind.Enumerable or CollectionKind.GenericEnumerable)
                     return true;
 
-                if (Info.OwnerProxy.TryFindProperty(nameof(IsFixedSize), out var property))
-                    return property.TryGetValue(Target, out object value) && value is true;
+                if (Owner.TryReadProperty(Target, nameof(IsFixedSize), out bool value))
+                    return value;
 
                 return IsReadOnly;
             }
@@ -60,8 +64,8 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Info.OwnerProxy.TryFindProperty(nameof(IsReadOnly), out var property))
-                    return property.TryGetValue(Target, out object value) && value is true;
+                if (Owner.TryReadProperty(Target, nameof(IsReadOnly), out bool value))
+                    return value;
 
                 return false;
             }
@@ -72,10 +76,8 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Info.OwnerProxy.TryFindProperty(nameof(Count), out var property))
-                    if (property.TryGetValue(Target, out object value))
-                        if (value is int propertyValue)
-                            return propertyValue;
+                if (Owner.TryReadProperty(Target, nameof(Count), out int value))
+                    return value;
 
                 var enumerator = GetEnumerator();
                 var result = 0;
@@ -91,10 +93,8 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Info.OwnerProxy.TryFindProperty(nameof(IsSynchronized), out var property))
-                    if (property.TryGetValue(Target, out object value))
-                        if (value is bool propertyValue)
-                            return propertyValue;
+                if (Owner.TryReadProperty(Target, nameof(IsSynchronized), out bool value))
+                    return value;
 
                 return false;
             }
@@ -105,9 +105,8 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Info.OwnerProxy.TryFindProperty(nameof(SyncRoot), out var property))
-                    if (property.TryGetValue(Target, out object value))
-                        return value!;
+                if (Owner.TryReadProperty(Target, nameof(SyncRoot), out object value))
+                    return value;
 
                 return Target;
             }
@@ -122,7 +121,7 @@ namespace Swan.Reflection
                     return dictionary.Keys;
 
 
-                if (Info.IsDictionary)
+                if (IsDictionary)
                 {
                     var result = new List<dynamic>(256);
                     foreach (var key in Target.Keys)
@@ -144,7 +143,7 @@ namespace Swan.Reflection
                     return dictionary.Values;
 
                 var result = new List<dynamic>(256);
-                if (Info.IsDictionary)
+                if (IsDictionary)
                 {
                     foreach (var value in Target.Values)
                         result.Add(value);
@@ -163,11 +162,29 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
+        public ITypeInfo Owner => Info.Owner;
+
+        /// <inheritdoc />
+        public CollectionKind CollectionKind => Info.CollectionKind;
+
+        /// <inheritdoc />
+        public ITypeInfo CollectionType => Info.CollectionType;
+
+        /// <inheritdoc />
+        public ITypeInfo KeysType => Info.KeysType;
+
+        /// <inheritdoc />
+        public ITypeInfo ValuesType => Info.ValuesType;
+
+        /// <inheritdoc />
+        public bool IsDictionary => Info.IsDictionary;
+
+        /// <inheritdoc />
         public object? this[object key]
         {
             get
             {
-                if (!TypeManager.TryChangeType(key, Info.KeysType, out var keyItem))
+                if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
 
                 if (Kind == CollectionKind.Dictionary)
@@ -183,10 +200,10 @@ namespace Swan.Reflection
 
                 if (Kind == CollectionKind.Dictionary)
                 {
-                    if (!TypeManager.TryChangeType(key, Info.KeysType, out var keyItem))
+                    if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
 
-                    if (!TypeManager.TryChangeType(value, Info.ValuesType, out var valueItem))
+                    if (!TypeManager.TryChangeType(value, ValuesType, out var valueItem))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                     Target[keyItem] = valueItem;
@@ -210,7 +227,7 @@ namespace Swan.Reflection
                 if (Kind is CollectionKind.List or CollectionKind.GenericList)
                     return Target[index];
 
-                if (Info.IsDictionary)
+                if (IsDictionary)
                 {
                     var currentIndex = -1;
                     foreach (var value in Target.Values)
@@ -242,7 +259,7 @@ namespace Swan.Reflection
 
                 if (Kind is CollectionKind.List or CollectionKind.GenericList)
                 {
-                    if (!TypeManager.TryChangeType(value, Info.ValuesType, out var item))
+                    if (!TypeManager.TryChangeType(value, ValuesType, out var item))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                     Target[index] = item;
@@ -289,19 +306,19 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public int Add(object? value)
         {
-            if (Info.IsDictionary || IsFixedSize || IsReadOnly)
+            if (IsDictionary || IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
 
             if (Kind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList)
             {
-                if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
+                if (TypeManager.TryChangeType(value, ValuesType, out var item))
                 {
                     Target.Add(item);
                     return Count - 1;
                 }
                 else
                 {
-                    throw new ArgumentException($"Unable to convert value into type {Info.ValuesType.ProxiedType}", nameof(value));
+                    throw new ArgumentException($"Unable to convert value into type {ValuesType.NativeType}", nameof(value));
                 }
             }
 
@@ -311,11 +328,11 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public void Add(object key, object? value)
         {
-            if (!Info.IsDictionary || IsFixedSize || IsReadOnly)
+            if (!IsDictionary || IsFixedSize || IsReadOnly)
                 throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
 
-            if (TypeManager.TryChangeType(value, Info.ValuesType, out var itemValue) &&
-                TypeManager.TryChangeType(key, Info.KeysType, out var itemKey))
+            if (TypeManager.TryChangeType(value, ValuesType, out var itemValue) &&
+                TypeManager.TryChangeType(key, KeysType, out var itemKey))
                 Target.Add(itemKey, itemValue);
             else
                 throw new ArgumentException($"Unable to convert key and/or value to a suitable type.", nameof(value));
@@ -345,7 +362,7 @@ namespace Swan.Reflection
             }
             else if (Kind is CollectionKind.GenericDictionary)
             {
-                if (!TypeManager.TryChangeType(value, Info.KeysType, out var item))
+                if (!TypeManager.TryChangeType(value, KeysType, out var item))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                 return Target.ContainsKey(item);
@@ -368,7 +385,7 @@ namespace Swan.Reflection
             if (Kind == CollectionKind.Dictionary)
                 return Contains(value);
 
-            if (!TypeManager.TryChangeType(value, Info.KeysType, out var item))
+            if (!TypeManager.TryChangeType(value, KeysType, out var item))
                 throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
             return item >= 0 && item < Count;
@@ -379,9 +396,9 @@ namespace Swan.Reflection
         {
             var index = -1;
 
-            if (Info.IsDictionary)
+            if (IsDictionary)
             {
-                if (!TypeManager.TryChangeType(value, Info.KeysType, out var item))
+                if (!TypeManager.TryChangeType(value, KeysType, out var item))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                 foreach (var key in Target.Keys)
@@ -393,7 +410,7 @@ namespace Swan.Reflection
             }
             else
             {
-                if (!TypeManager.TryChangeType(value, Info.ValuesType, out var item))
+                if (!TypeManager.TryChangeType(value, ValuesType, out var item))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                 var enumerator = GetEnumerator();
@@ -411,12 +428,12 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public void Insert(int index, object? value)
         {
-            if (Info.IsDictionary || IsFixedSize || IsReadOnly)
+            if (IsDictionary || IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Insert)} operation.");
 
             if (Kind is CollectionKind.List or CollectionKind.GenericList)
             {
-                if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
+                if (TypeManager.TryChangeType(value, ValuesType, out var item))
                     Target.Insert(index, item);
                 else
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -432,9 +449,9 @@ namespace Swan.Reflection
             if (IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Remove)} operation.");
 
-            if (Info.IsDictionary)
+            if (IsDictionary)
             {
-                if (TypeManager.TryChangeType(value, Info.KeysType, out var item))
+                if (TypeManager.TryChangeType(value, KeysType, out var item))
                     Target.Remove(item);
                 else
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -442,7 +459,7 @@ namespace Swan.Reflection
             }
             else if (Kind is CollectionKind.List or CollectionKind.GenericList)
             {
-                if (TypeManager.TryChangeType(value, Info.ValuesType, out var item))
+                if (TypeManager.TryChangeType(value, ValuesType, out var item))
                     Target.Remove(item);
                 else
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -458,7 +475,7 @@ namespace Swan.Reflection
             if (IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(RemoveAt)} operation.");
 
-            if (Info.IsDictionary)
+            if (IsDictionary)
             {
                 var keyIndex = -1;
                 foreach (var key in Keys)
@@ -499,7 +516,7 @@ namespace Swan.Reflection
 
             var arrayIndex = index;
 
-            if (Info.IsDictionary)
+            if (IsDictionary)
             {
                 foreach (var value in Target.Values)
                 {

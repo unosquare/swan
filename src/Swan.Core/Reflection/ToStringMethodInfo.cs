@@ -5,14 +5,14 @@ namespace Swan.Reflection
 {
     internal sealed class ToStringMethodInfo : CommonMethodInfo
     {
-        public ToStringMethodInfo(ITypeProxy typeInfo)
+        public ToStringMethodInfo(ITypeInfo typeInfo)
             : base(typeInfo, nameof(byte.TryParse))
         {
             // placeholder
         }
 
-        protected override MethodInfo? RetriveMethodInfo(ITypeProxy typeInfo, string methodName) =>
-            typeInfo.ProxiedType.GetMethod(methodName, new[] { typeof(IFormatProvider) }) ??
-            typeInfo.ProxiedType.GetMethod(methodName, Array.Empty<Type>());
+        protected override MethodInfo? RetriveMethodInfo(ITypeInfo typeInfo, string methodName) =>
+            typeInfo.NativeType.GetMethod(methodName, new[] { typeof(IFormatProvider) }) ??
+            typeInfo.NativeType.GetMethod(methodName, Array.Empty<Type>());
     }
 }

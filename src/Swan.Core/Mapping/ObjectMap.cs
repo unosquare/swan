@@ -18,7 +18,7 @@ namespace Swan.Mapping
         /// <param name="context">The parent object mapper containing all other maps.</param>
         /// <param name="sourceType">The source type for this object map.</param>
         /// <param name="targetType">The target type for this object map.</param>
-        public ObjectMap(ObjectMapper context, ITypeProxy sourceType, ITypeProxy targetType)
+        public ObjectMap(ObjectMapper context, ITypeInfo sourceType, ITypeInfo targetType)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
             TargetType = targetType ?? throw new ArgumentNullException(nameof(targetType));
@@ -35,10 +35,10 @@ namespace Swan.Mapping
                 if (!sourceProperty.CanRead)
                     continue;
 
-                if (!targetProperty.ProxiedType.IsAssignableFrom(sourceProperty.ProxiedType))
+                if (!targetProperty.IsAssignableFrom(sourceProperty))
                     continue;
 
-                this[targetProperty] = (source) => sourceProperty.TryGetValue(source, out var value)
+                this[targetProperty] = (source) => sourceProperty.TryRead(source, out var value)
                     ? value
                     : targetProperty.DefaultValue;
             }
@@ -47,10 +47,10 @@ namespace Swan.Mapping
         protected ObjectMapper Context { get; }
 
         /// <inheritdoc />
-        public ITypeProxy TargetType { get; }
+        public ITypeInfo TargetType { get; }
 
         /// <inheritdoc />
-        public ITypeProxy SourceType { get; }
+        public ITypeInfo SourceType { get; }
 
         /// <inheritdoc />
         public virtual object Apply(object source) =>
@@ -62,14 +62,14 @@ namespace Swan.Mapping
             if (target is null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (target.GetType() != TargetType.ProxiedType)
-                throw new ArgumentException($"Parameter {nameof(target)} must be of type '{TargetType.ProxiedType}'");
+            if (target.GetType() != TargetType.NativeType)
+                throw new ArgumentException($"Parameter {nameof(target)} must be of type '{TargetType.NativeType}'");
 
             foreach (var path in this)
             {
                 var targetProperty = path.Key;
                 var sourceValue = path.Value.Invoke(source);
-                targetProperty.TrySetValue(target, sourceValue);
+                targetProperty.TryWrite(target, sourceValue);
             }
 
             return target;

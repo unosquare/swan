@@ -13,36 +13,41 @@ namespace Swan.Reflection
     /// <seealso cref="IPropertyProxy" />
     internal sealed class PropertyProxy : IPropertyProxy
     {
-        private readonly ITypeProxy TypeProxy;
         private readonly Func<object, object?>? Getter;
         private readonly Action<object, object?>? Setter;
         private readonly Lazy<object[]> PropertyAttributesLazy;
+        private readonly Lazy<ITypeInfo> PropertyTypeLazy;
+        private readonly Lazy<bool> HasPublicGetterLazy;
+        private readonly Lazy<bool> HasPublicSetterLazy;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyProxy"/> class.
         /// </summary>
-        /// <param name="reflectedType">Type of the declaring.</param>
+        /// <param name="owner">Type of the declaring.</param>
         /// <param name="propertyInfo">The property information.</param>
-        public PropertyProxy(Type reflectedType, PropertyInfo propertyInfo)
+        public PropertyProxy(ITypeInfo owner, PropertyInfo propertyInfo)
         {
-            TypeProxy = propertyInfo.PropertyType.TypeInfo();
+            ParentType = owner;
             PropertyInfo = propertyInfo;
-            EnclosingType = reflectedType;
-            Getter = CreateLambdaGetter(reflectedType, propertyInfo);
-            Setter = CreateLambdaSetter(reflectedType, propertyInfo);
-            HasPublicGetter = propertyInfo.GetGetMethod()?.IsPublic ?? false;
-            HasPublicSetter = propertyInfo.GetSetMethod()?.IsPublic ?? false;
+            Getter = CreateLambdaGetter(owner, propertyInfo);
+            Setter = CreateLambdaSetter(owner, propertyInfo);
+            HasPublicGetterLazy = new(() => propertyInfo.GetGetMethod()?.IsPublic ?? false, true);
+            HasPublicSetterLazy = new(() => propertyInfo.GetSetMethod()?.IsPublic ?? false, true);
             PropertyAttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
+            PropertyTypeLazy = new(() => propertyInfo.PropertyType.TypeInfo(), true);
         }
 
         /// <inheritdoc />
-        public Type PropertyType => PropertyInfo.PropertyType;
+        public ITypeInfo ParentType { get; }
+
+        /// <inheritdoc />
+        public ITypeInfo PropertyType => PropertyTypeLazy.Value;
 
         /// <inheritdoc />
         public PropertyInfo PropertyInfo { get; }
 
         /// <inheritdoc />
-        public Type EnclosingType { get; }
+        public object? DefaultValue => PropertyType.DefaultValue;
 
         /// <inheritdoc />
         public string PropertyName => PropertyInfo.Name;
@@ -54,83 +59,23 @@ namespace Swan.Reflection
         public bool CanWrite => PropertyInfo.CanWrite;
 
         /// <inheritdoc />
-        public bool HasPublicGetter { get; }
+        public bool HasPublicGetter => HasPublicGetterLazy.Value;
 
         /// <inheritdoc />
-        public bool HasPublicSetter { get; }
-
-        /// <inheritdoc />
-        public Type ProxiedType => TypeProxy.ProxiedType;
-
-        /// <inheritdoc />
-        public bool IsNullableValueType => TypeProxy.IsNullableValueType;
-
-        /// <inheritdoc />
-        public bool IsNumeric => TypeProxy.IsNumeric;
-
-        /// <inheritdoc />
-        public bool IsValueType => TypeProxy.IsValueType;
-
-        /// <inheritdoc />
-        public bool IsAbstract => TypeProxy.IsAbstract;
-
-        /// <inheritdoc />
-        public bool IsInterface => TypeProxy.IsInterface;
-
-        /// <inheritdoc />
-        public bool IsEnum => TypeProxy.IsEnum;
-
-        /// <inheritdoc />
-        public bool IsBasicType => TypeProxy.IsBasicType;
-
-        /// <inheritdoc />
-        public ITypeProxy UnderlyingType => TypeProxy.UnderlyingType;
-
-        /// <inheritdoc />
-        public object? DefaultValue => TypeProxy.DefaultValue;
-
-        /// <inheritdoc />
-        public bool CanParseNatively => TypeProxy.CanParseNatively;
-
-        /// <inheritdoc />
-        public bool CanCreateInstance => TypeProxy.CanCreateInstance;
-
-        /// <inheritdoc />
-        public IReadOnlyList<ITypeProxy> GenericTypeArguments => TypeProxy.GenericTypeArguments;
-
-        /// <inheritdoc />
-        public IReadOnlyDictionary<string, IPropertyProxy> Properties => TypeProxy.Properties;
-
-        /// <inheritdoc />
-        public IReadOnlyList<FieldInfo> Fields => TypeProxy.Fields;
+        public bool HasPublicSetter => HasPublicSetterLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<object> PropertyAttributes => PropertyAttributesLazy.Value;
 
         /// <inheritdoc />
-        public IReadOnlyList<object> TypeAttributes => TypeProxy.TypeAttributes;
-
-        /// <inheritdoc />
-        public bool IsConstructedGenericType => TypeProxy.IsConstructedGenericType;
-
-        /// <inheritdoc />
-        public bool IsEnumerable => TypeProxy.IsEnumerable;
-
-        /// <inheritdoc />
-        public CollectionInfo? Collection => TypeProxy.Collection;
-
-        /// <inheritdoc />
-        public IReadOnlyList<Type> Interfaces => TypeProxy.Interfaces;
-
-        /// <inheritdoc />
-        public object? GetValue(object instance) => instance is null
+        public object? Read(object instance) => instance is null
             ? throw new ArgumentNullException(nameof(instance))
             : Getter is null
             ? throw new MissingMethodException($"Object of type '{instance.GetType().Name}' has no getter for property '{PropertyName}'")
             : Getter.Invoke(instance);
 
         /// <inheritdoc />
-        public void SetValue(object instance, object? value)
+        public void Write(object instance, object? value)
         {
             if (instance is null)
                 throw new ArgumentNullException(nameof(instance));
@@ -142,16 +87,16 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryGetValue(object instance, [MaybeNullWhen(false)] out object? value)
+        public bool TryRead(object instance, [MaybeNullWhen(false)] out object? value)
         {
 
-            value = PropertyType.GetDefault();
+            value = DefaultValue;
             try
             {
                 if (!CanRead)
                     return false;
 
-                value = GetValue(instance);
+                value = Read(instance);
                 return true;
             }
             catch
@@ -161,16 +106,16 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TrySetValue(object instance, object? value)
+        public bool TryWrite(object instance, object? value)
         {
             if (!PropertyInfo.CanWrite)
                 return false;
 
             try
             {
-                if (TypeManager.TryChangeType(value, ProxiedType, out var sourceValue))
+                if (TypeManager.TryChangeType(value, PropertyType, out var sourceValue))
                 {
-                    SetValue(instance, sourceValue);
+                    Write(instance, sourceValue);
                     return true;
                 }
             }
@@ -183,36 +128,23 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public object CreateInstance() => TypeProxy.CreateInstance();
-
-        /// <inheritdoc />
-        public string ToStringInvariant(object? instance) => TypeProxy.ToStringInvariant(instance);
-
-        /// <inheritdoc />
-        public bool TryParse(string s, [MaybeNullWhen(false)] out object result) => TypeProxy.TryParse(s, out result);
-
-        /// <inheritdoc />
-        public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value) =>
-            TypeProxy.TryFindProperty(name, out value);
-
-        /// <inheritdoc />
         public override string ToString() =>
-            $"Property: {EnclosingType}.{PropertyName} ({PropertyType.Name})";
+            $"Property: {ParentType.NativeType.Name}.{PropertyName} ({PropertyType.NativeType.Name})";
 
-        private static Func<object, object?>? CreateLambdaGetter(Type instanceType, PropertyInfo propertyInfo)
+        private static Func<object, object?>? CreateLambdaGetter(ITypeInfo instanceType, PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanRead)
                 return null;
 
             var instanceParameter = Expression.Parameter(typeof(object), "instance");
-            var typedInstance = Expression.Convert(instanceParameter, instanceType);
+            var typedInstance = Expression.Convert(instanceParameter, instanceType.NativeType);
             var property = Expression.Property(typedInstance, propertyInfo);
             var convert = Expression.Convert(property, typeof(object));
             var dynamicGetter = (Func<object, object>)Expression.Lambda(convert, instanceParameter).Compile();
             return dynamicGetter;
         }
 
-        private static Action<object, object?>? CreateLambdaSetter(Type instanceType, PropertyInfo propertyInfo)
+        private static Action<object, object?>? CreateLambdaSetter(ITypeInfo instanceType, PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanWrite)
                 return null;
@@ -220,7 +152,7 @@ namespace Swan.Reflection
             var instanceParameter = Expression.Parameter(typeof(object), "instance");
             var valueParameter = Expression.Parameter(typeof(object), "value");
 
-            var typedInstance = Expression.Convert(instanceParameter, instanceType);
+            var typedInstance = Expression.Convert(instanceParameter, instanceType.NativeType);
             var property = Expression.Property(typedInstance, propertyInfo);
             var propertyValue = Expression.Convert(valueParameter, propertyInfo.PropertyType);
 

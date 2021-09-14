@@ -119,7 +119,7 @@ namespace Swan.Formatters
                  _ => element.ToString() ?? options.NullLiteral,
              };
 
-        private static bool TryWriteAsDictionary(StringBuilder builder, ITypeProxy proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static bool TryWriteAsDictionary(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
             if (!CollectionProxy.TryCreate(instance, out var dictionary))
                 return false;
@@ -127,7 +127,7 @@ namespace Swan.Formatters
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.ProxiedType})", builder);
+            BeginObject(options, $"({proxy.NativeType})", builder);
             foreach (dynamic kvp in dictionary!)
             {
                 if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Key))
@@ -145,7 +145,7 @@ namespace Swan.Formatters
 
                 builder
                     .Append(IndentString(options, indentDepth))
-                    .Append(WriteAsString(options, dictionary.Info.KeysType.ToStringInvariant(kvp.Key), true))
+                    .Append(WriteAsString(options, dictionary.KeysType.ToStringInvariant(kvp.Key), true))
                     .Append(options.KeyValueSeparator);
 
                 if (options.WriteIndented)
@@ -193,18 +193,18 @@ namespace Swan.Formatters
             return true;
         }
 
-        private static string WriteAsObject(StringBuilder builder, ITypeProxy proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static string WriteAsObject(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.ProxiedType})", builder);
+            BeginObject(options, $"({proxy.NativeType})", builder);
             foreach (var property in proxy.Properties.Values)
             {
                 if (!property.CanRead)
                     continue;
 
-                if (!property.TryGetValue(instance, out var value))
+                if (!property.TryRead(instance, out var value))
                     continue;
 
                 if (stackDepth >= options.MaxStackDepth && WillIncrementStack(value))
