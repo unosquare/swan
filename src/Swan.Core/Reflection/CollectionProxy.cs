@@ -6,6 +6,12 @@ using System.Linq;
 
 namespace Swan.Reflection
 {
+    /// <summary>
+    /// Provides a unified API for most commonly available collection types.
+    /// Please not that the implementation of these methods is not as performant
+    /// as the collection's native implementation due to some prcessing and
+    /// dynamic binding that this proxy requires o function properly.
+    /// </summary>
     public sealed class CollectionProxy : IList, IDictionary
     {
         private CollectionProxy(CollectionInfo info, dynamic target)
@@ -227,7 +233,7 @@ namespace Swan.Reflection
                     }
                 }
 
-                throw new IndexOutOfRangeException($"Collection does not contain index {index}.");
+                throw new ArgumentOutOfRangeException(nameof(index), $"Collection does not contain index {index}.");
             }
             set
             {
