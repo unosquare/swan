@@ -86,7 +86,7 @@ namespace Swan.Test
                 if (!CollectionProxy.TryCreate(collection, out var proxy))
                     throw new InvalidOperationException("Cannot create collection proxy");
 
-                Assert.AreEqual(kind, proxy.Kind);
+                Assert.AreEqual(kind, proxy.CollectionKind);
             }
         }
 

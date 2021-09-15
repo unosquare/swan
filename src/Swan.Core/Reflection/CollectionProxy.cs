@@ -32,11 +32,6 @@ namespace Swan.Reflection
         }
 
         /// <summary>
-        /// Gets the collection kind for this collection proxy.
-        /// </summary>
-        public CollectionKind Kind { get; }
-
-        /// <summary>
         /// Gets the underlying collection object this wrapper operates on.
         /// </summary>
         public dynamic Target { get; }
@@ -49,7 +44,7 @@ namespace Swan.Reflection
                 if (Owner.NativeType.IsArray)
                     return true;
 
-                if (Kind is CollectionKind.Collection or CollectionKind.Enumerable or CollectionKind.GenericEnumerable)
+                if (CollectionKind is CollectionKind.Collection or CollectionKind.Enumerable or CollectionKind.GenericEnumerable)
                     return true;
 
                 if (Owner.TryReadProperty(Target, nameof(IsFixedSize), out bool value))
@@ -187,7 +182,7 @@ namespace Swan.Reflection
                 if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
 
-                if (Kind == CollectionKind.Dictionary)
+                if (CollectionKind is CollectionKind.Dictionary)
                     return Target[keyItem];
 
                 return this[keyItem];
@@ -198,7 +193,7 @@ namespace Swan.Reflection
                 if (IsReadOnly)
                     throw new InvalidOperationException("Unable to write to read-only collection.");
 
-                if (Kind == CollectionKind.Dictionary)
+                if (CollectionKind is CollectionKind.Dictionary)
                 {
                     if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
@@ -215,7 +210,7 @@ namespace Swan.Reflection
                     return;
                 }
 
-                throw new ArgumentException($"Key is of an invalid type for this collection kind '{Kind}'.", nameof(key));
+                throw new ArgumentException($"Key is of an invalid type for this collection kind '{CollectionKind}'.", nameof(key));
             }
         }
 
@@ -224,7 +219,7 @@ namespace Swan.Reflection
         {
             get
             {
-                if (Kind is CollectionKind.List or CollectionKind.GenericList)
+                if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
                     return Target[index];
 
                 if (IsDictionary)
@@ -257,7 +252,7 @@ namespace Swan.Reflection
                 if (IsReadOnly)
                     throw new InvalidOperationException("Collection is read-only.");
 
-                if (Kind is CollectionKind.List or CollectionKind.GenericList)
+                if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
                 {
                     if (!TypeManager.TryChangeType(value, ValuesType, out var item))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -278,7 +273,7 @@ namespace Swan.Reflection
         public static bool TryCreate(object? target, [MaybeNullWhen(false)] out CollectionProxy proxy)
         {
             proxy = default;
-            if (target is null or not IEnumerable)
+            if (target is not IEnumerable)
                 return false;
 
             var typeProxy = target.GetType().TypeInfo().Collection;
@@ -300,16 +295,16 @@ namespace Swan.Reflection
             if (Target is IDictionary dictionary)
                 return dictionary.GetEnumerator();
 
-            throw new NotSupportedException($"Callection of kind {Kind} does not support dictionary enumerators.");
+            throw new NotSupportedException($"Callection of kind {CollectionKind} does not support dictionary enumerators.");
         }
 
         /// <inheritdoc />
         public int Add(object? value)
         {
             if (IsDictionary || IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
+                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
-            if (Kind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList)
+            if (CollectionKind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, ValuesType, out var item))
                 {
@@ -322,14 +317,14 @@ namespace Swan.Reflection
                 }
             }
 
-            throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
+            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
         }
 
         /// <inheritdoc />
         public void Add(object key, object? value)
         {
             if (!IsDictionary || IsFixedSize || IsReadOnly)
-                throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Add)} operation.");
+                throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
             if (TypeManager.TryChangeType(value, ValuesType, out var itemValue) &&
                 TypeManager.TryChangeType(key, KeysType, out var itemKey))
@@ -342,25 +337,26 @@ namespace Swan.Reflection
         public void Clear()
         {
             if (IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Unable to clear collection of kind {Kind} because it is read-only or fixed size.");
+                throw new InvalidOperationException($"Unable to clear collection of kind {CollectionKind} because it is read-only or fixed size.");
 
-            if (Kind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList or CollectionKind.Dictionary or CollectionKind.GenericDictionary)
+            if (CollectionKind is CollectionKind.GenericCollection or CollectionKind.List or
+                CollectionKind.GenericList or CollectionKind.Dictionary or CollectionKind.GenericDictionary)
             {
                 Target.Clear();
                 return;
             }
 
-            throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Clear)} operation.");
+            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Clear)} operation.");
         }
 
         /// <inheritdoc />
         public bool Contains(object? value)
         {
-            if (Kind == CollectionKind.Dictionary)
+            if (CollectionKind is CollectionKind.Dictionary)
             {
                 return Target.Contains(value as dynamic);
             }
-            else if (Kind is CollectionKind.GenericDictionary)
+            else if (CollectionKind is CollectionKind.GenericDictionary)
             {
                 if (!TypeManager.TryChangeType(value, KeysType, out var item))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
@@ -382,7 +378,7 @@ namespace Swan.Reflection
         /// <returns></returns>
         public bool ContainsKey(object? value)
         {
-            if (Kind == CollectionKind.Dictionary)
+            if (CollectionKind is CollectionKind.Dictionary)
                 return Contains(value);
 
             if (!TypeManager.TryChangeType(value, KeysType, out var item))
@@ -429,9 +425,9 @@ namespace Swan.Reflection
         public void Insert(int index, object? value)
         {
             if (IsDictionary || IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Insert)} operation.");
+                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
 
-            if (Kind is CollectionKind.List or CollectionKind.GenericList)
+            if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, ValuesType, out var item))
                     Target.Insert(index, item);
@@ -440,14 +436,14 @@ namespace Swan.Reflection
                 return;
             }
 
-            throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Insert)} operation.");
+            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
         }
 
         /// <inheritdoc />
         public void Remove(object? value)
         {
             if (IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(Remove)} operation.");
+                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
 
             if (IsDictionary)
             {
@@ -457,7 +453,7 @@ namespace Swan.Reflection
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
                 return;
             }
-            else if (Kind is CollectionKind.List or CollectionKind.GenericList)
+            else if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
             {
                 if (TypeManager.TryChangeType(value, ValuesType, out var item))
                     Target.Remove(item);
@@ -466,14 +462,14 @@ namespace Swan.Reflection
                 return;
             }
 
-            throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(Remove)} operation.");
+            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
         }
 
         /// <inheritdoc />
         public void RemoveAt(int index)
         {
             if (IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {Kind} does not support the {nameof(RemoveAt)} operation.");
+                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(RemoveAt)} operation.");
 
             if (IsDictionary)
             {
@@ -491,13 +487,13 @@ namespace Swan.Reflection
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be greater than 0 and less than the count.");
             }
 
-            if (Kind is CollectionKind.List or CollectionKind.GenericList)
+            if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
             {
                 Target.RemoveAt(index);
                 return;
             }
 
-            throw new NotSupportedException($"Collection of kind {Kind} does not support the {nameof(RemoveAt)} operation.");
+            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(RemoveAt)} operation.");
         }
 
         /// <inheritdoc />
