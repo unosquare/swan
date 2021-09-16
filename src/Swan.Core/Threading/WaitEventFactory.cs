@@ -37,7 +37,7 @@ namespace Swan.Threading
     ///         // send second signal
     ///         waitEvent.Complete();
     ///             
-    ///         Terminal.Readline();
+    ///         Terminal.ReadLine();
     ///     }
     ///         
     ///     public static void DoWork(int taskNumber)
