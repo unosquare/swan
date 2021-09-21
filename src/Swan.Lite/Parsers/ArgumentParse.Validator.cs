@@ -152,7 +152,7 @@ namespace Swan.Parsers
                 object result,
                 ArgumentOptionAttribute? optionAttr = null)
             {
-                return targetProperty.PropertyType.NativeType.IsArray
+                return targetProperty.PropertyType.IsArray
                     ? targetProperty.PropertyInfo.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
                     : targetProperty.TryWrite(result, propertyValueString);
             }

@@ -11,7 +11,7 @@ namespace Swan.Reflection
             // placeholder
         }
 
-        protected override MethodInfo? RetriveMethodInfo(ITypeInfo typeInfo, string methodName) =>
+        protected override MethodInfo? RetrieveMethodInfo(ITypeInfo typeInfo, string methodName) =>
             typeInfo.NativeType.GetMethod(methodName, new[] { typeof(IFormatProvider) }) ??
             typeInfo.NativeType.GetMethod(methodName, Array.Empty<Type>());
     }

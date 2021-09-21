@@ -63,12 +63,11 @@ namespace Swan.Mapping
                 throw new ArgumentNullException(nameof(target));
 
             if (target.GetType() != TargetType.NativeType)
-                throw new ArgumentException($"Parameter {nameof(target)} must be of type '{TargetType.NativeType}'");
+                throw new ArgumentException($"Parameter {nameof(target)} must be of type '{TargetType.FullName}'");
 
-            foreach (var path in this)
+            foreach (var (targetProperty, valueProvider) in this)
             {
-                var targetProperty = path.Key;
-                var sourceValue = path.Value.Invoke(source);
+                var sourceValue = valueProvider.Invoke(source);
                 targetProperty.TryWrite(target, sourceValue);
             }
 

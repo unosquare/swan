@@ -17,11 +17,11 @@ namespace Swan.Reflection
 
         public CollectionInfo(ITypeInfo typeProxy)
         {
-            Owner = typeProxy;
+            SourceType = typeProxy;
 
-            if (typeProxy.NativeType.IsArray)
+            if (typeProxy.IsArray)
             {
-                CollectionType = typeProxy;
+                CollectionType = typeof(IList).TypeInfo();
                 KeysType = DefaultKeysType;
                 ValuesType = typeProxy.NativeType.GetElementType()?.TypeInfo() ?? ObjectTypeInfo;
                 CollectionKind = CollectionKind.List;
@@ -101,22 +101,25 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public ITypeInfo Owner { get; }
+        public ITypeInfo SourceType { get; }
 
         /// <inheritdoc />
-        public CollectionKind CollectionKind { get; private set; }
+        public CollectionKind CollectionKind { get; }
 
         /// <inheritdoc />
-        public ITypeInfo CollectionType { get; private set; }
+        public ITypeInfo CollectionType { get; }
 
         /// <inheritdoc />
-        public ITypeInfo KeysType { get; private set; }
+        public ITypeInfo KeysType { get; }
 
         /// <inheritdoc />
-        public ITypeInfo ValuesType { get; private set; }
+        public ITypeInfo ValuesType { get; }
 
         /// <inheritdoc />
-        public bool IsDictionary { get; private set; }
+        public bool IsDictionary { get; }
+
+        /// <inheritdoc />
+        public bool IsArray => SourceType.IsArray;
 
         private static bool TryGetImplementation(ITypeInfo typeProxy, Type interfaceType, string nameMatch, int genericsCount, [MaybeNullWhen(false)] out ITypeInfo implementation)
         {

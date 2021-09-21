@@ -1,4 +1,5 @@
-﻿using Swan.Reflection;
+﻿using Swan.Collections;
+using Swan.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -127,7 +128,7 @@ namespace Swan.Formatters
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.NativeType})", builder);
+            BeginObject(options, $"({proxy.FullName})", builder);
             foreach (dynamic kvp in dictionary!)
             {
                 if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Key))
@@ -198,7 +199,7 @@ namespace Swan.Formatters
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.NativeType})", builder);
+            BeginObject(options, $"({proxy.FullName})", builder);
             foreach (var property in proxy.Properties.Values)
             {
                 if (!property.CanRead)

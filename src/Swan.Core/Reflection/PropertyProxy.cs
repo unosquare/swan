@@ -23,14 +23,14 @@ namespace Swan.Reflection
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyProxy"/> class.
         /// </summary>
-        /// <param name="owner">Type of the declaring.</param>
+        /// <param name="parentType">The type that owns this property proxy.</param>
         /// <param name="propertyInfo">The property information.</param>
-        public PropertyProxy(ITypeInfo owner, PropertyInfo propertyInfo)
+        public PropertyProxy(ITypeInfo parentType, PropertyInfo propertyInfo)
         {
-            ParentType = owner;
+            ParentType = parentType;
             PropertyInfo = propertyInfo;
-            Getter = CreateLambdaGetter(owner, propertyInfo);
-            Setter = CreateLambdaSetter(owner, propertyInfo);
+            Getter = CreateLambdaGetter(parentType, propertyInfo);
+            Setter = CreateLambdaSetter(parentType, propertyInfo);
             HasPublicGetterLazy = new(() => propertyInfo.GetGetMethod()?.IsPublic ?? false, true);
             HasPublicSetterLazy = new(() => propertyInfo.GetSetMethod()?.IsPublic ?? false, true);
             PropertyAttributesLazy = new(() => propertyInfo.GetCustomAttributes(true), true);
@@ -129,7 +129,7 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public override string ToString() =>
-            $"Property: {ParentType.NativeType.Name}.{PropertyName} ({PropertyType.NativeType.Name})";
+            $"Property: {ParentType.ShortName}.{PropertyName} ({PropertyType.ShortName})";
 
         private static Func<object, object?>? CreateLambdaGetter(ITypeInfo instanceType, PropertyInfo propertyInfo)
         {

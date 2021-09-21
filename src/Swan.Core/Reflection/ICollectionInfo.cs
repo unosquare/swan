@@ -9,7 +9,7 @@
         /// <summary>
         /// Gets the type proxy that generated and owns this collection type proxy.
         /// </summary>
-        ITypeInfo Owner { get; }
+        ITypeInfo SourceType { get; }
 
         /// <summary>
         /// Gets the underlying collection kind.
@@ -40,5 +40,10 @@
         /// This specifies that the <see cref="KeysType"/> might not be <see cref="int"/>.
         /// </summary>
         bool IsDictionary { get; }
+
+        /// <summary>
+        /// Gets a value indicating that the collection type is an array.
+        /// </summary>
+        bool IsArray { get; }
     }
 }

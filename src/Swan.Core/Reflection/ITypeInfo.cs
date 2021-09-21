@@ -17,6 +17,17 @@ namespace Swan.Reflection
         Type NativeType { get; }
 
         /// <summary>
+        /// Provides the type name without the full namespace.
+        /// </summary>
+        string ShortName { get; }
+
+        /// <summary>
+        /// Equivalent to calling the ToString method on the type which
+        /// produces the type name with the full namespace.
+        /// </summary>
+        string FullName { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the type is a nullable value type.
         /// </summary>
         /// <value>
@@ -31,6 +42,14 @@ namespace Swan.Reflection
         ///  <c>true</c> if this instance is numeric; otherwise, <c>false</c>.
         /// </value>
         bool IsNumeric { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the type is an array.
+        /// </summary>
+        /// <value>
+        ///  <c>true</c> if this instance is an array; otherwise, <c>false</c>.
+        /// </value>
+        bool IsArray { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is value type.

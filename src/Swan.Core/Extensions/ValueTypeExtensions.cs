@@ -29,10 +29,16 @@ namespace Swan.Extensions
             if (max is not T maxValue)
                 maxValue = (T)Convert.ChangeType(max, typeof(T), CultureInfo.InvariantCulture);
 
+            if (minValue.CompareTo(maxValue) > 0)
+                throw new ArgumentOutOfRangeException(nameof(min), minValue,
+                    "Minimum value has to be less than or equal to maximum value.");
+
             if (@this.CompareTo(minValue) < 0)
                 return minValue;
 
-            return @this.CompareTo(maxValue) > 0 ? maxValue : @this;
+            return @this.CompareTo(maxValue) > 0
+                ? maxValue
+                : @this;
         }
 
         /// <summary>
@@ -58,6 +64,10 @@ namespace Swan.Extensions
             if (max is not T maxValue)
                 maxValue = (T)Convert.ChangeType(max, typeof(T), CultureInfo.InvariantCulture);
 
+            if (minValue.CompareTo(maxValue) > 0)
+                throw new ArgumentOutOfRangeException(nameof(min), minValue,
+                    "Minimum value has to be less than or equal to maximum value.");
+
             return @this.CompareTo(minValue) >= 0 && @this.CompareTo(maxValue) <= 0;
         }
 
@@ -69,7 +79,7 @@ namespace Swan.Extensions
         /// <param name="this">The value being tested.</param>
         /// <param name="limit">The limit value.</param>
         /// <returns>A value not less than the provided limit.</returns>
-        public static T LimitMin<T, TLimit>(this T @this, TLimit limit)
+        public static T ClampMin<T, TLimit>(this T @this, TLimit limit)
             where T : struct, IComparable, IConvertible
             where TLimit : struct, IConvertible
         {
@@ -87,7 +97,7 @@ namespace Swan.Extensions
         /// <param name="this">The value being tested.</param>
         /// <param name="limit">The limit value.</param>
         /// <returns>A value not greater than the provided limit.</returns>
-        public static T LimitMax<T, TLimit>(this T @this, TLimit limit)
+        public static T ClampMax<T, TLimit>(this T @this, TLimit limit)
             where T : struct, IComparable, IConvertible
             where TLimit : struct, IConvertible
         {

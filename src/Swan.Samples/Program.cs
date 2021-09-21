@@ -1,4 +1,5 @@
-﻿using Swan.DependencyInjection;
+﻿using Swan.Collections;
+using Swan.DependencyInjection;
 using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Logging;

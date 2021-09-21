@@ -18,12 +18,15 @@ namespace Swan.Collections
         /// <exception cref="ArgumentNullException">dict.</exception>
         public static void ForEach<TKey, TValue>(this IDictionary<TKey, TValue> dict, Action<TKey, TValue> itemAction)
         {
-            if (dict == null)
+            if (dict is null)
                 throw new ArgumentNullException(nameof(dict));
 
-            foreach (var kvp in dict)
+            if (itemAction is null)
+                throw new ArgumentNullException(nameof(itemAction));
+
+            foreach ((TKey key, TValue value) in dict)
             {
-                itemAction?.Invoke(kvp.Key, kvp.Value);
+                itemAction?.Invoke(key, value);
             }
         }
     }

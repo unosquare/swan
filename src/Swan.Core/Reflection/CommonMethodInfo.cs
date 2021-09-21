@@ -17,7 +17,7 @@ namespace Swan.Reflection
             {
                 try
                 {
-                    return RetriveMethodInfo(typeInfo, methodName);
+                    return RetrieveMethodInfo(typeInfo, methodName);
                 }
                 catch
                 {
@@ -48,7 +48,7 @@ namespace Swan.Reflection
 
         public IReadOnlyList<ParameterInfo> Parameters => ParametersLazy.Value;
 
-        protected abstract MethodInfo? RetriveMethodInfo(ITypeInfo typeInfo, string methodName);
+        protected abstract MethodInfo? RetrieveMethodInfo(ITypeInfo typeInfo, string methodName);
     }
 }
 #pragma warning restore CA1031 // Do not catch general exception types

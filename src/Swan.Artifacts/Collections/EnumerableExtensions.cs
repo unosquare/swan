@@ -9,7 +9,7 @@ namespace Swan.Collections
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// This method produces a union of two IEnumerables
+        /// This method produces a union of two enumerables
         /// validation when some of them is null.
         /// </summary>
         /// <typeparam name="T">T</typeparam>

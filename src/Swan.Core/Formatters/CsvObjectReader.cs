@@ -61,7 +61,7 @@ namespace Swan.Formatters
         public virtual T ReadObject(bool trimValues = true)
         {
             if (!Proxy.CanCreateInstance)
-                throw new InvalidOperationException($"The type {Proxy.NativeType.Name} does not have a default constructor.");
+                throw new InvalidOperationException($"The type {Proxy.FullName} does not have a default constructor.");
 
             if (Proxy.CreateInstance() is not T target)
                 throw new InvalidCastException($"Unable to create a compatible instance of {typeof(T)}");
@@ -125,12 +125,12 @@ namespace Swan.Formatters
 
             if (!Proxy.TryFindProperty(targetPropertyInfo.Name, out var targetProperty))
                 throw new ArgumentException(
-                    $"Property '{Proxy.NativeType.Name}.{targetPropertyInfo.Name}' was not found.",
+                    $"Property '{Proxy.FullName}.{targetPropertyInfo.Name}' was not found.",
                     nameof(targetPropertyExpression));
 
             if (!targetProperty.CanWrite)
                 throw new ArgumentException(
-                    $"Property '{Proxy.NativeType.Name}.{targetPropertyInfo.Name}' cannot be written to.",
+                    $"Property '{Proxy.FullName}.{targetPropertyInfo.Name}' cannot be written to.",
                     nameof(targetPropertyExpression));
 
             AddMapping(heading, targetProperty, valueProvider is null ? (s) => s : (s) => valueProvider(s));

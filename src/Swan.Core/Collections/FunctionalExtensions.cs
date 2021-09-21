@@ -31,13 +31,13 @@ namespace Swan.Collections
             Func<bool> condition,
             Func<IQueryable<T>, IQueryable<T>> fn)
         {
-            if (list == null)
+            if (list is null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (condition == null)
+            if (condition is null)
                 throw new ArgumentNullException(nameof(condition));
 
-            if (fn == null)
+            if (fn is null)
                 throw new ArgumentNullException(nameof(fn));
 
             return condition() ? fn(list) : list;
@@ -65,13 +65,13 @@ namespace Swan.Collections
             Func<bool> condition,
             Func<IEnumerable<T>, IEnumerable<T>> fn)
         {
-            if (list == null)
+            if (list is null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (condition == null)
+            if (condition is null)
                 throw new ArgumentNullException(nameof(condition));
 
-            if (fn == null)
+            if (fn is null)
                 throw new ArgumentNullException(nameof(fn));
 
             return condition() ? fn(list) : list;
@@ -99,13 +99,13 @@ namespace Swan.Collections
             Func<bool> condition,
             Func<T> value)
         {
-            if (list == null)
+            if (list is null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (condition == null)
+            if (condition is null)
                 throw new ArgumentNullException(nameof(condition));
 
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(nameof(value));
 
             if (condition())
@@ -161,20 +161,20 @@ namespace Swan.Collections
             Func<bool> condition,
             Func<IEnumerable<T>> value)
         {
-            if (list == null)
+            if (list is null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (condition == null)
+            if (condition is null)
                 throw new ArgumentNullException(nameof(condition));
 
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(nameof(value));
 
-            if (condition())
-            {
-                foreach (var item in value())
-                    list.Add(item);
-            }
+            if (!condition())
+                return list;
+
+            foreach (var item in value())
+                list.Add(item);
 
             return list;
         }

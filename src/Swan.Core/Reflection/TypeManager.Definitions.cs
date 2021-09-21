@@ -6,7 +6,7 @@ namespace Swan.Reflection
     public static partial class TypeManager
     {
         /// <summary>
-        /// Provides a callection of primitive, numeric types.
+        /// Provides a collection of primitive, numeric types.
         /// </summary>
         public static IReadOnlyList<Type> NumericTypes { get; } = new[]
         {

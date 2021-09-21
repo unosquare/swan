@@ -78,7 +78,7 @@ namespace Swan.Reflection
                 var constructor = DefaultConstructorLazy.Value;
                 return constructor is not null
                     ? (Func<object>)Expression.Lambda(Expression.New(constructor)).Compile()
-                    : () => throw new MissingMethodException($"Type '{NativeType.Name}' does not have a parameterless constructor.");
+                    : () => throw new MissingMethodException($"Type '{FullName}' does not have a parameter-less constructor.");
 
             }, true);
             InterfacesLazy = new(() => NativeType.GetInterfaces(), true);
@@ -144,6 +144,12 @@ namespace Swan.Reflection
         public Type NativeType { get; }
 
         /// <inheritdoc />
+        public string ShortName => NativeType.Name;
+
+        /// <inheritdoc />
+        public string FullName => NativeType.ToString();
+
+        /// <inheritdoc />
         public bool IsNullableValueType { get; }
 
         /// <inheritdoc />
@@ -184,6 +190,9 @@ namespace Swan.Reflection
 
         /// <inheritdoc />
         public bool IsEnumerable => IsEnumerableLazy.Value;
+
+        /// <inheritdoc />
+        public bool IsArray => NativeType.IsArray;
 
         /// <inheritdoc />
         public IReadOnlyList<ITypeInfo> GenericTypeArguments => GenericTypeArgumentsLazy.Value;

@@ -53,7 +53,7 @@ namespace Swan.Formatters
         /// Reads all the records from the stream as a list of expando objects.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
-        /// <param name="encoding">The optional econding.</param>
+        /// <param name="encoding">The optional encoding.</param>
         /// <returns>A list of objects parsed from the underlying stream.</returns>
         public static IList<dynamic> Load(Stream stream, Encoding? encoding = default)
         {
@@ -75,7 +75,7 @@ namespace Swan.Formatters
         /// to property names.
         /// </summary>
         /// <param name="filePath">The path to the file to read from.</param>
-        /// <param name="encoding">The optional econding.</param>
+        /// <param name="encoding">The optional encoding.</param>
         /// <returns>A list of objects parsed from the underlying stream.</returns>
         public static IList<dynamic> Load(string filePath, Encoding? encoding = default)
         {

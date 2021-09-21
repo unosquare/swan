@@ -240,7 +240,7 @@ namespace Swan.Mapping
         }
 
         /// <summary>
-        /// Retreives an existing map between target and source types.
+        /// Retrieves an existing map between target and source types.
         /// If the map already exists, it returns it from this mapper's internal storage.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
