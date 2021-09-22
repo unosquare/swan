@@ -110,15 +110,7 @@ namespace Swan.Collections
                 if (Collection is IDictionary dictionary)
                     return dictionary.Keys;
 
-
-                if (!IsDictionary)
-                    return Enumerable.Range(0, Count).ToArray();
-
-                var result = new List<dynamic>(256);
-                foreach (var key in Collection.Keys)
-                    result.Add(key);
-
-                return result;
+                return Enumerable.Range(0, Count).ToArray();
             }
         }
 
@@ -131,17 +123,9 @@ namespace Swan.Collections
                     return dictionary.Values;
 
                 var result = new List<dynamic?>(256);
-                if (IsDictionary)
-                {
-                    foreach (var value in Collection.Values)
-                        result.Add(value);
-                }
-                else
-                {
-                    var enumerator = GetEnumerator();
-                    while (enumerator.MoveNext())
-                        result.Add(enumerator.Current);
-                }
+                var enumerator = GetEnumerator();
+                while (enumerator.MoveNext())
+                    result.Add(enumerator.Current);
 
                 return result;
             }
@@ -293,7 +277,7 @@ namespace Swan.Collections
             if (Collection is IDictionary dictionary)
                 return dictionary.GetEnumerator();
 
-            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support dictionary enumerators.");
+            return new ListDictionaryEnumerator(this);
         }
 
         /// <inheritdoc />
@@ -361,7 +345,12 @@ namespace Swan.Collections
             Collection.Clear();
         }
 
-        /// <inheritdoc cref="IList" />
+        /// <summary>
+        /// Determines whether an element is in the collection.
+        /// For dictionaries, the search occurs in the keys.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if the value is found. False otherwise.</returns>
         public bool Contains(object? value)
         {
             switch (CollectionKind)
@@ -386,10 +375,10 @@ namespace Swan.Collections
         /// within a valid range.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>True if the key is found. False otherwise.</returns>
         public bool ContainsKey(object? value)
         {
-            if (CollectionKind is CollectionKind.Dictionary)
+            if (IsDictionary)
                 return Contains(value);
 
             if (!TypeManager.TryChangeType(value, KeysType, out var item))
@@ -398,17 +387,29 @@ namespace Swan.Collections
             return item >= 0 && item < Count;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Determines whether the collection contains a specific value.
+        /// </summary>
+        /// <param name="value">The value to search for.</param>
+        /// <returns>True if the value is found. False otherwise.</returns>
+        public bool ContainsValue(object? value) => IndexOf(value) >= 0;
+
+        /// <summary>
+        /// The zero-based index of the first occurrence of value in the entire collection, if found; otherwise, -1.
+        /// For dictionaries, the lookup occurs in the values.
+        /// </summary>
+        /// <param name="value">The value to look for.</param>
+        /// <returns>the zero-based index if found, otherwise false.</returns>
         public int IndexOf(object? value)
         {
             var index = -1;
 
             if (IsDictionary)
             {
-                if (!TypeManager.TryChangeType(value, KeysType, out var item))
-                    throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+                if (!TypeManager.TryChangeType(value, ValuesType, out var item))
+                    item = value;
 
-                foreach (dynamic? key in Collection.Keys)
+                foreach (dynamic? key in Collection.Values)
                 {
                     index++;
                     if (object.Equals(key, item))
@@ -418,12 +419,11 @@ namespace Swan.Collections
             else
             {
                 if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                    throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+                    item = value;
 
                 var enumerator = GetEnumerator();
                 while (enumerator.MoveNext())
                 {
-
                     index++;
                     if (object.Equals(enumerator.Current as dynamic, item))
                         return index;
@@ -451,7 +451,11 @@ namespace Swan.Collections
             Collection.Insert(index, item);
         }
 
-        /// <inheritdoc cref="IList" />
+        /// <summary>
+        /// Removes the element with the specified value from the collection.
+        /// For dictionaries, removes the element with the specified key.
+        /// </summary>
+        /// <param name="value">The value or key to look for.</param>
         public void Remove(object? value)
         {
             if (IsFixedSize || IsReadOnly)
@@ -486,6 +490,9 @@ namespace Swan.Collections
 
             if (IsDictionary)
             {
+                if (index >= Keys.Count)
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be greater than 0 and less than the count.");
+
                 var keyIndex = -1;
                 foreach (var key in Keys)
                 {
@@ -494,10 +501,10 @@ namespace Swan.Collections
                         continue;
 
                     Collection.Remove(key as dynamic);
-                    return;
+                    break;
                 }
 
-                throw new ArgumentOutOfRangeException(nameof(index), "Index must be greater than 0 and less than the count.");
+                return;
             }
 
             if (CollectionKind is CollectionKind.GenericCollection)
@@ -653,5 +660,56 @@ namespace Swan.Collections
         /// <typeparam name="T">The target element type.</typeparam>
         /// <returns>A list of values.</returns>
         public List<T> ToList<T>() => new(ToArray<T>());
+
+        /// <summary>
+        /// Iterates through the collection as a set of <see cref="DictionaryEntry"/> items.
+        /// </summary>
+        /// <param name="entryAction">The action to execute on each key-value pair.</param>
+        public void ForEach(Action<DictionaryEntry>? entryAction)
+        {
+            if (entryAction is null)
+                return;
+
+            var dictionary = this as IDictionary;
+            foreach (DictionaryEntry kvp in dictionary)
+                entryAction?.Invoke(kvp);
+        }
+
+        private class ListDictionaryEnumerator : IDictionaryEnumerator
+        {
+            private int _currentIndex = -1;
+
+            public ListDictionaryEnumerator(CollectionProxy proxy)
+            {
+                Proxy = proxy;
+            }
+
+            public DictionaryEntry Entry => _currentIndex >= 0 ? new(Key, Value) : default;
+
+            public object Key => _currentIndex;
+
+            public object? Value => _currentIndex >= 0 ? Proxy[_currentIndex] : default;
+
+            public object Current => _currentIndex >= 0 ? Entry : default;
+
+            private CollectionProxy Proxy { get; }
+
+            public bool MoveNext()
+            {
+                var elementCount = Proxy.Count;
+                _currentIndex++;
+                if (_currentIndex < elementCount)
+                    return true;
+
+                _currentIndex = elementCount - 1;
+                return false;
+
+            }
+
+            public void Reset()
+            {
+                _currentIndex = -1;
+            }
+        }
     }
 }

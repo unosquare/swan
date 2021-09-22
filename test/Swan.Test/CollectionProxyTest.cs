@@ -480,13 +480,14 @@ namespace Swan.Test
                 if (expected == 0)
                 {
                     Assert.Catch(() => proxy.Add("hello"));
+                    Assert.Catch(() => proxy.AddRange(new[] { 2, 3, 4, 5 }));
                     continue;
                 }
 
                 if (expected == 1)
                 {
                     proxy.Add("9");
-
+                    proxy.AddRange(new[] { 2, 3, 4, 5 });
                     var lastItem = proxy.Last();
                     Assert.IsTrue(lastItem is int or string);
                 }
@@ -527,9 +528,16 @@ namespace Swan.Test
 
                 var proxy = collection.AsCollectionProxy();
 
+                if (proxy.CollectionKind is CollectionKind.GenericDictionary)
+                {
+                    Assert.IsTrue(proxy.IndexOf("1") >= 0);
+                    Assert.IsTrue(proxy.IndexOf("nonexistent") == -1);
+                    continue;
+                }
+
                 if (proxy.IsDictionary)
                 {
-                    Assert.IsTrue(proxy.IndexOf("item 2") >= 0);
+                    Assert.IsTrue(proxy.IndexOf(1) >= 0);
                     Assert.IsTrue(proxy.IndexOf("nonexistent") == -1);
                     continue;
                 }
@@ -575,12 +583,209 @@ namespace Swan.Test
 
                 if (proxy.IsFixedSize || proxy.IsReadOnly)
                 {
-                    // Assert.Catch(() => proxy.RemoveAt(proxy.Count - 1));
+                    Assert.Catch(() => proxy.RemoveAt(proxy.Count - 1));
                     continue;
                 }
 
                 proxy.RemoveAt(proxy.Count - 1);
                 Assert.IsFalse(object.Equals(originalItem, proxy.LastOrDefault()));
+            }
+        }
+
+        [Test]
+        public void RemoveWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, int>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = 0,
+                [CollectionSamples.GenericDictionary] = 2,
+                [CollectionSamples.Dictionary] = 2,
+                [CollectionSamples.ReadOnlyList] = 0,
+                [CollectionSamples.GenericList] = 1,
+                [CollectionSamples.List] = 1,
+                [CollectionSamples.ReadOnlyCollection] = 0,
+                [CollectionSamples.GenericCollection] = 1,
+                [CollectionSamples.Collection] = 0,
+                [CollectionSamples.GenericEnumerable] = 0,
+                [CollectionSamples.Enumerable] = 0,
+                [CollectionSamples.Array] = 0,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                var proxy = collection.AsCollectionProxy();
+                var originalCount = proxy.Count;
+
+                if (proxy.IsFixedSize || proxy.IsReadOnly)
+                {
+                    Assert.Catch(() => proxy.Remove("item 1"));
+                    continue;
+                }
+
+                if (proxy.IsDictionary)
+                {
+                    Assert.IsTrue(proxy.ContainsKey("item 6"));
+                    proxy.Remove("item 6");
+                    Assert.IsFalse(proxy.ContainsKey("item 6"));
+                    continue;
+                }
+
+                Assert.IsTrue(proxy.ContainsValue(6));
+                proxy.Remove(6);
+                Assert.IsFalse(proxy.ContainsValue(6));
+            }
+        }
+
+        [Test]
+        public void InsertWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, int>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = 0,
+                [CollectionSamples.GenericDictionary] = 2,
+                [CollectionSamples.Dictionary] = 2,
+                [CollectionSamples.ReadOnlyList] = 0,
+                [CollectionSamples.GenericList] = 1,
+                [CollectionSamples.List] = 1,
+                [CollectionSamples.ReadOnlyCollection] = 0,
+                [CollectionSamples.GenericCollection] = 1,
+                [CollectionSamples.Collection] = 0,
+                [CollectionSamples.GenericEnumerable] = 0,
+                [CollectionSamples.Enumerable] = 0,
+                [CollectionSamples.Array] = 0,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                var proxy = collection.AsCollectionProxy();
+
+                if (proxy.IsFixedSize || proxy.IsReadOnly || proxy.IsDictionary || (
+                    proxy.CollectionKind is not (CollectionKind.List or CollectionKind.GenericList)))
+                {
+                    Assert.Catch(() => proxy.Insert(0, 99));
+                    continue;
+                }
+
+                var originalItem = proxy.FirstOrDefault();
+                proxy.Insert(0, 99);
+                Assert.IsFalse(object.Equals(originalItem, proxy.FirstOrDefault()));
+            }
+        }
+
+        [Test]
+        public void KeysWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, int>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = 0,
+                [CollectionSamples.GenericDictionary] = 2,
+                [CollectionSamples.Dictionary] = 2,
+                [CollectionSamples.ReadOnlyList] = 0,
+                [CollectionSamples.GenericList] = 1,
+                [CollectionSamples.List] = 1,
+                [CollectionSamples.ReadOnlyCollection] = 0,
+                [CollectionSamples.GenericCollection] = 1,
+                [CollectionSamples.Collection] = 0,
+                [CollectionSamples.GenericEnumerable] = 0,
+                [CollectionSamples.Enumerable] = 0,
+                [CollectionSamples.Array] = 0,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                var proxy = collection.AsCollectionProxy();
+
+                if (proxy.IsDictionary)
+                {
+                    foreach (var key in proxy.Keys)
+                        Assert.IsTrue(key is string);
+
+                    continue;
+                }
+
+                foreach (var key in proxy.Keys)
+                    Assert.IsTrue(key is int);
+            }
+        }
+
+        [Test]
+        public void ContainsKeyWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, int>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = 0,
+                [CollectionSamples.GenericDictionary] = 2,
+                [CollectionSamples.Dictionary] = 2,
+                [CollectionSamples.ReadOnlyList] = 0,
+                [CollectionSamples.GenericList] = 1,
+                [CollectionSamples.List] = 1,
+                [CollectionSamples.ReadOnlyCollection] = 0,
+                [CollectionSamples.GenericCollection] = 1,
+                [CollectionSamples.Collection] = 0,
+                [CollectionSamples.GenericEnumerable] = 0,
+                [CollectionSamples.Enumerable] = 0,
+                [CollectionSamples.Array] = 0,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                var proxy = collection.AsCollectionProxy();
+
+                if (proxy.IsDictionary)
+                {
+                    Assert.IsTrue(proxy.ContainsKey("item 2"));
+                    Assert.IsFalse(proxy.ContainsKey(1));
+                    continue;
+                }
+
+                Assert.IsTrue(proxy.ContainsKey(proxy.Count - 1));
+                Assert.IsFalse(proxy.ContainsKey("-1"));
+            }
+        }
+
+        [Test]
+        public void EnumeratorsWorksAsExpected()
+        {
+            var testCases = new Dictionary<IEnumerable, int>()
+            {
+                [CollectionSamples.ReadOnlyDictionary] = 0,
+                [CollectionSamples.GenericDictionary] = 2,
+                [CollectionSamples.Dictionary] = 2,
+                [CollectionSamples.ReadOnlyList] = 0,
+                [CollectionSamples.GenericList] = 1,
+                [CollectionSamples.List] = 1,
+                [CollectionSamples.ReadOnlyCollection] = 0,
+                [CollectionSamples.GenericCollection] = 1,
+                [CollectionSamples.Collection] = 0,
+                [CollectionSamples.GenericEnumerable] = 0,
+                [CollectionSamples.Enumerable] = 0,
+                [CollectionSamples.Array] = 0,
+            };
+
+            var index = -1;
+            foreach ((IEnumerable collection, var expected) in testCases)
+            {
+                index++;
+
+                var proxy = collection.AsCollectionProxy();
+
+                proxy.ForEach((kvp) =>
+                {
+                    Assert.IsTrue(kvp.Key is string or int);
+                    Assert.IsTrue(kvp.Value is int or char);
+                });
             }
         }
     }
