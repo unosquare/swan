@@ -127,9 +127,9 @@ namespace Swan.Samples
                 .RemoveMapping("Value")
                 .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
 
-            while (!reader.EndOfStream)
+            foreach (var entry in reader)
             {
-                var entry = reader.ReadObject();
+                var currentEntry = entry;
             }
 
             dynamic objectOne = new ExpandoObject();

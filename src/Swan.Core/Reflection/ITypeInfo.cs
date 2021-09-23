@@ -192,7 +192,7 @@ namespace Swan.Reflection
         /// <param name="propertyName">The property name to search for.</param>
         /// <param name="value">The output value.</param>
         /// <returns>True when the operation succeeds; false otherwise.</returns>
-        bool TryReadProperty(object instance, string propertyName, [MaybeNullWhen(false)] out object? value);
+        bool TryReadProperty(object instance, string propertyName, out object? value);
 
         /// <summary>
         /// Tries to find a property by name and tries to read its value and applying a conversion
@@ -202,7 +202,7 @@ namespace Swan.Reflection
         /// <param name="propertyName">The property name to search for.</param>
         /// <param name="value">The output value.</param>
         /// <returns>True when the operation succeeds; false otherwise.</returns>
-        bool TryReadProperty<T>(object instance, string propertyName, [MaybeNullWhen(false)] out T? value);
+        bool TryReadProperty<T>(object instance, string propertyName, out T? value);
 
         /// <summary>
         /// Tries to find a property by name and tries to write its value performing conversion if necessary.

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace Swan.Formatters
 {
@@ -11,9 +9,9 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into a <see cref="Dictionary{TKey, TValue}"/>
     /// </summary>
-    public class CsvDictionaryReader : CsvRecordReader<CsvDictionaryReader>, ICsvEnumerable<Dictionary<string, string?>>
+    public class CsvDictionaryReader : CsvRecordReader<CsvDictionaryReader, Dictionary<string, string?>>
     {
-        private readonly Dictionary<string, CsvMapping<CsvDictionaryReader, IDictionary<string, string?>>> TargetMap = new(64);
+        private readonly Dictionary<string, CsvMapping<CsvDictionaryReader, IDictionary<string, string?>>> _targetMap = new(64);
 
         /// <summary>
         /// Creates a new instance of the <see cref="CsvDictionaryReader"/> class.
@@ -22,86 +20,33 @@ namespace Swan.Formatters
         /// <param name="encoding">The character encoding to use.</param>
         /// <param name="separatorChar">The field separator character.</param>
         /// <param name="escapeChar">The escape character.</param>
-        /// <param name="leaveOpen">true to leave the stream open after the System.IO.StreamReader object is disposed; otherwise, false.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the stream reader object is disposed; otherwise, false.</param>
+        /// <param name="trimsValues">True to trim field values as they are read and parsed.</param>
+        /// <param name="trimsHeadings">True to trim heading values as they are read and parsed.</param>
         public CsvDictionaryReader(Stream stream,
             Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar,
-            bool leaveOpen = default)
-            : base(stream, encoding, separatorChar, escapeChar, leaveOpen)
+            char separatorChar = Csv.DefaultSeparatorChar,
+            char escapeChar = Csv.DefaultEscapeChar,
+            bool leaveOpen = default,
+            bool trimsValues = true,
+            bool trimsHeadings = true)
+            : base(stream, encoding, separatorChar, escapeChar, leaveOpen, trimsValues, trimsHeadings)
         {
             // placeholder
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="CsvRecordReader{T}"/> class.
-        /// </summary>
-        /// <param name="path">The file to read from.</param>
-        /// <param name="encoding">The character encoding to use.</param>
-        /// <param name="separatorChar">The field separator character.</param>
-        /// <param name="escapeChar">The escape character.</param>
-        public CsvDictionaryReader(string path,
-            Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar)
-            : base(File.OpenRead(path), encoding, separatorChar, escapeChar, false)
-        {
-            // placeholder
-        }
-
-        Dictionary<string, string?> ICsvEnumerable<Dictionary<string, string?>>.Current
+        /// <inheritdoc />
+        public override Dictionary<string, string?> Current
         {
             get
             {
-                if (!Headings.Any())
-                {
-                    SetHeadings(Current!.ToArray());
-                    TryRead();
-                }
-
-                var target = new Dictionary<string, string?>(TargetMap.Count);
-                foreach (var mapping in TargetMap.Values)
+                RequireHeadings(true);
+                var target = new Dictionary<string, string?>(_targetMap.Count);
+                foreach (var mapping in _targetMap.Values)
                     mapping.Apply.Invoke(mapping, target);
 
                 return target;
             }
-        }
-
-        /// <summary>
-        /// Reads and parses the values from the underlying stream and maps those
-        /// values, writing them to a new instance of the target.
-        /// </summary>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        /// <returns>A new instance of the target type with values loaded from the stream.</returns>
-        public virtual IDictionary<string, string?> ReadObject(bool trimValues = true)
-        {
-            var result = new Dictionary<string, string?>(TargetMap.Count);
-            return ReadInto(result, trimValues);
-        }
-
-        /// <summary>
-        /// Reads and parses the values from the underlying stream and maps those
-        /// values, writing the corresponding target members.
-        /// </summary>
-        /// <param name="target">The target instance to read values into.</param>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        /// <returns>The target instance with values loaded from the stream.</returns>
-        public virtual IDictionary<string, string?> ReadInto(IDictionary<string, string?> target, bool trimValues = true)
-        {
-            if (target is null)
-                throw new ArgumentNullException(nameof(target));
-
-            RequireHeadings();
-
-            if (TargetMap is null || TargetMap.Count == 0)
-                throw new InvalidOperationException("No schema mappings are available.");
-
-            _ = Read(trimValues);
-
-            foreach (var mapping in TargetMap.Values)
-                mapping.Apply.Invoke(mapping, target);
-
-            return target;
         }
 
         /// <summary>
@@ -120,14 +65,12 @@ namespace Swan.Formatters
             if (targetName is null)
                 throw new ArgumentNullException(nameof(targetName));
 
-            RequireHeadings();
-
             if (!Headings.ContainsKey(heading))
                 throw new ArgumentException($"Heading name '{heading}' does not exist.");
 
             valueProvider ??= (s) => s;
 
-            TargetMap[heading] = new(this, heading, targetName, (mapping, target) =>
+            _targetMap[heading] = new(this, heading, targetName, (mapping, target) =>
             {
                 target[mapping.TargetName] = mapping.Reader.TryGetValue(mapping.Heading, out var value)
                     ? valueProvider(value)
@@ -138,7 +81,7 @@ namespace Swan.Formatters
         }
 
         /// <summary>
-        /// Adds a set of mappings between source headings and tarhget keys.
+        /// Adds a set of mappings between source headings and target keys.
         /// </summary>
         /// <param name="map">The dictionary containing source headings and source dictionary keys.</param>
         /// <returns>This instance, in order to enable fluent API.</returns>
@@ -160,28 +103,18 @@ namespace Swan.Formatters
         /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDictionaryReader RemoveMapping(string heading)
         {
-            RequireHeadings();
+            RequireHeadings(false);
 
-            TargetMap.Remove(heading);
+            _targetMap.Remove(heading);
             return this;
         }
 
         /// <inheritdoc />
-        protected override void OnHeadingsRead()
+        protected override void OnHeadingsRead(IReadOnlyList<string> headings)
         {
-            foreach (var heading in Headings!)
-                AddMapping(heading.Key, heading.Key);
+            foreach (var heading in headings)
+                AddMapping(heading, heading);
         }
-
-        /// <inheritdoc />
-        public new IEnumerator<Dictionary<string, string?>> GetEnumerator() =>
-            new CsvEnumerator<CsvDictionaryReader, Dictionary<string, string?>>(this);
-
-        /// <inheritdoc />
-        public new IAsyncEnumerator<Dictionary<string, string?>> GetAsyncEnumerator(
-            CancellationToken cancellationToken = default) =>
-            new CsvEnumerator<CsvDictionaryReader, Dictionary<string, string?>>(this);
-
     }
 
 }

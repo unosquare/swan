@@ -11,8 +11,8 @@ namespace Swan.Formatters
     /// </summary>
     internal class JsonDynamicObject : DynamicObject
     {
-        private readonly Func<JsonElement, object?> ValueParser;
-        private readonly JsonElement Element;
+        private readonly Func<JsonElement, object?> _valueParser;
+        private readonly JsonElement _element;
 
         /// <summary>
         /// Creates a new instance of <see cref="JsonDynamicObject"/>.
@@ -21,8 +21,8 @@ namespace Swan.Formatters
         /// <param name="valueParser">A custom value parser that converts JSON data types into CLR types.</param>
         public JsonDynamicObject(JsonElement element, Func<JsonElement, object?>? valueParser = default)
         {
-            Element = element;
-            ValueParser = valueParser ?? ParseJsonElement;
+            _element = element;
+            _valueParser = valueParser ?? ParseJsonElement;
         }
 
         /// <summary>
@@ -30,15 +30,15 @@ namespace Swan.Formatters
         /// </summary>
         /// <returns>A dynamic object with materialized values.</returns>
         public object? Materialize() =>
-            Materialize(Element, ValueParser);
+            Materialize(_element, _valueParser);
 
         /// <inheritdoc />
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            if (Element.ValueKind != JsonValueKind.Object)
-                throw new InvalidOperationException($"Element does not represent an object because its value kind is {Element.ValueKind}");
+            if (_element.ValueKind != JsonValueKind.Object)
+                throw new InvalidOperationException($"Element does not represent an object because its value kind is {_element.ValueKind}");
 
-            foreach (var kvp in Element.EnumerateObject())
+            foreach (var kvp in _element.EnumerateObject())
                 yield return kvp.Name;
         }
 
@@ -50,12 +50,12 @@ namespace Swan.Formatters
             if (binder == null)
                 throw new ArgumentNullException(nameof(binder));
 
-            if (!Element.TryGetProperty(binder.Name, out var jsonEl))
+            if (!_element.TryGetProperty(binder.Name, out var jsonEl))
                 return false;
 
             try
             {
-                result = ValueParser(jsonEl);
+                result = _valueParser(jsonEl);
             }
             catch
             {
@@ -120,11 +120,11 @@ namespace Swan.Formatters
         }
 
         private JsonDynamicObject ParseObject(JsonElement element) =>
-            new(element, ValueParser);
+            new(element, _valueParser);
 
         private JsonDynamicObject[] ParseArray(JsonElement element) =>
             element.EnumerateArray()
-                .Select(o => new JsonDynamicObject(o, ValueParser))
+                .Select(o => new JsonDynamicObject(o, _valueParser))
                 .ToArray();
 
         private static object? Materialize(JsonElement element, Func<JsonElement, object?> valueParser)

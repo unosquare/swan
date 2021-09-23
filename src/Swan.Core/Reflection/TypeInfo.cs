@@ -122,18 +122,20 @@ namespace Swan.Reflection
 
             PropertyThesaurusLazy = new(() =>
             {
-                var thesaurus = new Dictionary<string, IPropertyProxy>(Properties.Count, StringComparer.Ordinal);
+                var thesaurus = new Dictionary<string, IPropertyProxy>(Properties.Count * 4, StringComparer.Ordinal);
                 foreach (var property in Properties.Values)
                 {
+                    var propertyName = property.PropertyName;
                     thesaurus[property.PropertyName] = property;
-                    thesaurus[property.PropertyName.ToUpperInvariant()] = property;
+                    thesaurus.TryAdd(propertyName.ToUpperInvariant(), property);
 
-                    if (!property.PropertyName.Contains('.', StringComparison.Ordinal))
+                    if (!propertyName.Contains('.', StringComparison.Ordinal))
                         continue;
 
                     var parts = property.PropertyName.Split('.', StringSplitOptions.RemoveEmptyEntries);
-                    thesaurus[parts[^1]] = property;
-                    thesaurus[parts[^1].ToUpperInvariant()] = property;
+                    propertyName = $".{parts[^1]}";
+                    thesaurus.TryAdd(propertyName, property);
+                    thesaurus.TryAdd(propertyName.ToUpperInvariant(), property);
                 }
 
                 return thesaurus;
@@ -285,10 +287,12 @@ namespace Swan.Reflection
             if (name is null)
                 throw new ArgumentNullException(nameof(name));
 
-            if (Properties.TryGetValue(name, out value))
-                return true;
+            var thesaurus = PropertyThesaurusLazy.Value;
 
-            return PropertyThesaurusLazy.Value.TryGetValue(name.ToUpperInvariant(), out value);
+            return thesaurus.TryGetValue(name, out value) ||
+                   thesaurus.TryGetValue(name.ToUpperInvariant(), out value) ||
+                   thesaurus.TryGetValue($".{name}", out value) ||
+                   thesaurus.TryGetValue($".{name.ToUpperInvariant()}", out value);
         }
 
         /// <inheritdoc />
@@ -298,42 +302,37 @@ namespace Swan.Reflection
             if (instance is null)
                 throw new ArgumentNullException(nameof(instance));
 
-            if (TryFindProperty(propertyName, out var property) is false)
+            if (!TryFindProperty(propertyName, out var property))
                 return false;
 
-            if (property.TryRead(instance, out value) is false)
-                return false;
-
-            return true;
+            return property.TryRead(instance, out value) is not false;
         }
 
         /// <inheritdoc />
-        public bool TryReadProperty<T>(object instance, string propertyName, [MaybeNullWhen(false)] out T? value)
+        public bool TryReadProperty<T>(object instance, string propertyName, out T? value)
         {
             value = default;
 
-            if (TryReadProperty(instance, propertyName, out var propertyValue) is false)
+            if (!TryReadProperty(instance, propertyName, out var propertyValue))
                 return false;
 
-            if (propertyValue is null)
-                return true;
-
-            if (propertyValue is T originalValue)
+            switch (propertyValue)
             {
-                value = originalValue;
-                return true;
-            }    
-
-            if (TypeManager.TryChangeType(propertyValue, typeof(T), out object? objectValue) is false)
-                return false;
-
-            if (objectValue is T convertedValue)
-            {
-                value = convertedValue;
-                return true;
+                case null:
+                    return true;
+                case T originalValue:
+                    value = originalValue;
+                    return true;
             }
 
-            return false;
+            if (!TypeManager.TryChangeType(propertyValue, typeof(T), out object? objectValue))
+                return false;
+
+            if (objectValue is not T convertedValue)
+                return false;
+
+            value = convertedValue;
+            return true;
         }
 
         /// <inheritdoc />

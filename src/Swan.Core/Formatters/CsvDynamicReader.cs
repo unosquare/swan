@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace Swan.Formatters
 {
@@ -12,9 +10,9 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into dynamic objects backed by <see cref="ExpandoObject"/>.
     /// </summary>
-    public class CsvDynamicReader : CsvRecordReader<CsvDynamicReader>, ICsvEnumerable<ExpandoObject>
+    public class CsvDynamicReader : CsvRecordReader<CsvDynamicReader, dynamic>
     {
-        private readonly Dictionary<string, CsvMapping<CsvDynamicReader, ExpandoObject>> TargetMap = new(64);
+        private readonly Dictionary<string, CsvMapping<CsvDynamicReader, ExpandoObject>> _targetMap = new(64);
 
         /// <summary>
         /// Creates a new instance of the <see cref="CsvDynamicReader"/> class.
@@ -24,85 +22,32 @@ namespace Swan.Formatters
         /// <param name="separatorChar">The field separator character.</param>
         /// <param name="escapeChar">The escape character.</param>
         /// <param name="leaveOpen">true to leave the stream open after the System.IO.StreamReader object is disposed; otherwise, false.</param>
+        /// <param name="trimsValues">True to trim field values as they are read and parsed.</param>
+        /// <param name="trimsHeadings">True to trim heading values as they are read and parsed.</param>
         public CsvDynamicReader(Stream stream,
             Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar,
-            bool leaveOpen = default)
-            : base(stream, encoding, separatorChar, escapeChar, leaveOpen)
+            char separatorChar = Csv.DefaultSeparatorChar,
+            char escapeChar = Csv.DefaultEscapeChar,
+            bool leaveOpen = default,
+            bool trimsValues = true,
+            bool trimsHeadings = true)
+            : base(stream, encoding, separatorChar, escapeChar, leaveOpen, trimsValues, trimsHeadings)
         {
             // placeholder
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="CsvRecordReader{T}"/> class.
-        /// </summary>
-        /// <param name="path">The file to read from.</param>
-        /// <param name="encoding">The character encoding to use.</param>
-        /// <param name="separatorChar">The field separator character.</param>
-        /// <param name="escapeChar">The escape character.</param>
-        public CsvDynamicReader(string path,
-            Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar)
-            : base(File.OpenRead(path), encoding, separatorChar, escapeChar, false)
-        {
-            // placeholder
-        }
-
-        ExpandoObject ICsvEnumerable<ExpandoObject>.Current
+        /// <inheritdoc />
+        public override dynamic Current
         {
             get
             {
-                if (!Headings.Any())
-                {
-                    SetHeadings(Current!.ToArray());
-                    TryRead();
-                }
-
+                RequireHeadings(true);
                 var target = new ExpandoObject();
-                foreach (var mapping in TargetMap.Values)
+                foreach (var mapping in _targetMap.Values)
                     mapping.Apply.Invoke(mapping, target);
 
                 return target;
             }
-        }
-
-        /// <summary>
-        /// Reads and parses the values from the underlying stream and maps those
-        /// values, writing them to a new instance of the target.
-        /// </summary>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        /// <returns>A new instance of the target type with values loaded from the stream.</returns>
-        public virtual dynamic ReadObject(bool trimValues = true)
-        {
-            var result = new ExpandoObject();
-            return ReadInto(result, trimValues);
-        }
-
-        /// <summary>
-        /// Reads and parses the values from the underlying stream and maps those
-        /// values, writing the corresponding target members.
-        /// </summary>
-        /// <param name="target">The target instance to read values into.</param>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        /// <returns>The target instance with values loaded from the stream.</returns>
-        public virtual dynamic ReadInto(ExpandoObject target, bool trimValues = true)
-        {
-            if (target is null)
-                throw new ArgumentNullException(nameof(target));
-
-            RequireHeadings();
-
-            if (TargetMap is null || TargetMap.Count == 0)
-                throw new InvalidOperationException("No schema mappings are available.");
-
-            _ = Read(trimValues);
-
-            foreach (var mapping in TargetMap.Values)
-                mapping.Apply.Invoke(mapping, target);
-
-            return target;
         }
 
         /// <summary>
@@ -121,14 +66,12 @@ namespace Swan.Formatters
             if (targetName is null)
                 throw new ArgumentNullException(nameof(targetName));
 
-            RequireHeadings();
-
             if (!Headings.ContainsKey(heading))
                 throw new ArgumentException($"Heading name '{heading}' does not exist.");
 
             valueProvider ??= (s) => s;
 
-            TargetMap[heading] = new(this, heading, targetName, (mapping, target) =>
+            _targetMap[heading] = new(this, heading, targetName, (mapping, target) =>
             {
                 if (target is not IDictionary<string, object?> expando)
                     return;
@@ -164,26 +107,16 @@ namespace Swan.Formatters
         /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDynamicReader RemoveMapping(string heading)
         {
-            RequireHeadings();
-
-            TargetMap.Remove(heading);
+            RequireHeadings(false);
+            _targetMap.Remove(heading);
             return this;
         }
 
         /// <inheritdoc />
-        public new IEnumerator<ExpandoObject> GetEnumerator() =>
-            new CsvEnumerator<CsvDynamicReader, ExpandoObject>(this);
-
-        /// <inheritdoc />
-        public new IAsyncEnumerator<ExpandoObject> GetAsyncEnumerator(
-            CancellationToken cancellationToken = default) =>
-            new CsvEnumerator<CsvDynamicReader, ExpandoObject>(this);
-
-        /// <inheritdoc />
-        protected override void OnHeadingsRead()
+        protected override void OnHeadingsRead(IReadOnlyList<string> headings)
         {
-            foreach (var heading in Headings!)
-                AddMapping(heading.Key, heading.Key);
+            foreach (var heading in headings)
+                AddMapping(heading, heading);
         }
     }
 }

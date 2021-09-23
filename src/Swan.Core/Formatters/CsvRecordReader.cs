@@ -7,54 +7,55 @@ using System.Text;
 namespace Swan.Formatters
 {
     /// <summary>
-    /// PRovides a base class for reading schema aware <see cref="CsvReader"/> streams
+    /// Provides a base class for reading schema aware <see cref="CsvReader"/> streams
     /// where headings are used to map and transform specific target members.
     /// </summary>
-    public abstract class CsvRecordReader<TReader> : CsvReader
-        where TReader : CsvReader
+    public abstract class CsvRecordReader<TReader, TLine> : CsvReaderBase<TLine>
+        where TReader : CsvReaderBase<TLine>
     {
-        private readonly Dictionary<string, int> _Headings = new(64);
+        private readonly Dictionary<string, int> _headings = new(64);
 
         /// <summary>
-        /// Creates a new instance of the <see cref="CsvRecordReader{T}"/> class.
+        /// Creates a new instance of the <see cref="CsvRecordReader{TReader,TLine}"/> class.
         /// </summary>
         /// <param name="stream">The stream to read.</param>
         /// <param name="encoding">The character encoding to use.</param>
         /// <param name="separatorChar">The field separator character.</param>
         /// <param name="escapeChar">The escape character.</param>
         /// <param name="leaveOpen">true to leave the stream open after the System.IO.StreamReader object is disposed; otherwise, false.</param>
+        /// <param name="trimsValues">True to trim field values as they are read and parsed.</param>
+        /// <param name="trimsHeadings">True to trim heading values as they are read and parsed.</param>
         protected CsvRecordReader(Stream stream,
-            Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar,
-            bool leaveOpen = default)
-            : base(stream, encoding, separatorChar, escapeChar, leaveOpen)
+            Encoding? encoding,
+            char separatorChar,
+            char escapeChar,
+            bool leaveOpen,
+            bool trimsValues,
+            bool trimsHeadings)
+            : base(stream, encoding, separatorChar, escapeChar, leaveOpen, trimsValues)
         {
-            // placeholder
+            TrimsHeadings = trimsHeadings;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="CsvRecordReader{T}"/> class.
+        /// Gets a value indicating whether heading names are trimmed as they
+        /// are read and parsed from the underlying stream.
         /// </summary>
-        /// <param name="path">The file to read from.</param>
-        /// <param name="encoding">The character encoding to use.</param>
-        /// <param name="separatorChar">The field separator character.</param>
-        /// <param name="escapeChar">The escape character.</param>
-        protected CsvRecordReader(string path,
-            Encoding? encoding = default,
-            char separatorChar = DefaultSeparatorChar,
-            char escapeChar = DefaultEscapeChar)
-            : base(File.OpenRead(path), encoding, separatorChar, escapeChar, false)
-        {
-            // placeholder
-        }
+        public bool TrimsHeadings { get; }
 
         /// <summary>
-        /// Gets a dictionary of hadings and their corresponding indices. This property
-        /// is valid only after successfully calling the <see cref="ReadHeadings"/>
+        /// Gets a dictionary of headings and their corresponding indices.
+        /// If not headings have been read, the 
         /// method.
         /// </summary>
-        public IReadOnlyDictionary<string, int> Headings => _Headings;
+        public IReadOnlyDictionary<string, int> Headings
+        {
+            get
+            {
+                RequireHeadings(false);
+                return _headings;
+            }
+        }
 
         /// <summary>
         /// Gets the index of the given heading name.
@@ -63,8 +64,6 @@ namespace Swan.Formatters
         /// <returns>Returns a valid field index or -1 for invalid or not found.</returns>
         public virtual int IndexOf(string heading)
         {
-            RequireHeadings();
-
             if (!Headings.TryGetValue(heading, out var index))
                 return -1;
 
@@ -81,51 +80,33 @@ namespace Swan.Formatters
             TryGetValue(IndexOf(heading), out value);
 
         /// <summary>
-        /// Reads from the underlying stream ingests the parsed set of literals as headings
-        /// or column names to be used as a map to read the file.
-        /// </summary>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
-        public TReader ReadHeadings(bool trimValues = true)
-        {
-            if (Headings.Any())
-                throw new InvalidOperationException($"The {nameof(Headings)} have already been set.");
-
-            if (Count != 0)
-                throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
-
-            var values = base.Read(trimValues);
-            return SetHeadings(values.ToArray());
-        }
-
-        /// <summary>
         /// When the underlying stream has no headings, call this method for the
         /// current reader to become schema-aware.
         /// </summary>
-        /// <param name="headings">The heading names.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
-        public TReader SetHeadings(params string[] headings)
+        /// <param name="names">The heading names.</param>
+        /// <returns>This instance so that a fluent API is available.</returns>
+        public TReader SetHeadings(params string[] names)
         {
-            if (Headings.Any())
+            if (_headings.Any())
                 throw new InvalidOperationException($"The {nameof(Headings)} have already been set.");
 
-            if (headings is null || headings.Length <= 0)
-                throw new ArgumentException($"Headings must contain at least one element.", nameof(headings));
+            if (names is null || names.Length <= 0)
+                throw new ArgumentException("Headings must contain at least one element.", nameof(names));
 
-            for (var i = 0; i < headings.Length; i++)
-                _Headings[headings[i]] = i;
+            for (var i = 0; i < names.Length; i++)
+                _headings[names[i]] = i;
 
-            OnHeadingsRead();
+            OnHeadingsRead(names);
             return (this as TReader)!;
         }
 
         /// <summary>
         /// Parses a set of literals from the current positions of the underlying
-        /// stream just as <see cref="CsvReader.ReadAsync"/> but does not increment the <see cref="CsvReader.Count"/>
-        /// and does not set <see cref="CsvReader.Current"/> property.
+        /// stream just as MoveNext but does not increment the Count.
+        /// and does not set Values property.
         /// </summary>
         /// <param name="skipCount">The number of records to skip.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance so that a fluent API is available.</returns>
         public new TReader Skip(int skipCount = 1)
         {
             base.Skip(skipCount);
@@ -133,25 +114,32 @@ namespace Swan.Formatters
         }
 
         /// <summary>
-        /// This method gets called after the user calls the <see cref="ReadHeadings"/> method
+        /// This method gets called after the the <see cref="RequireHeadings"/> method is called
         /// and it may be used to build an initial map of properties for a structured reader.
         /// </summary>
-        protected virtual void OnHeadingsRead()
-        {
-            // placeholder
-        }
+        /// <param name="headings">Provides the headings that were read from the stream.</param>
+        protected abstract void OnHeadingsRead(IReadOnlyList<string> headings);
 
         /// <summary>
-        /// If no headings have been set, this method automatically calls the <see cref="ReadHeadings(bool)"/>
-        /// method to make those headings available. The method throws if proper conditions are not met.
+        /// If no headings have been set, this method automatically reads them.
+        /// The method throws if proper conditions are not met.
         /// </summary>
-        /// <param name="trimValues">Optionally trim the values (recommended).</param>
-        protected void RequireHeadings(bool trimValues = true)
+        /// <param name="moveNext">If after reading the headings the pointer to the current record should be advanced.</param>
+        protected void RequireHeadings(bool moveNext)
         {
-            if (Headings.Any())
+            if (_headings.Any())
                 return;
 
-            ReadHeadings(trimValues);
+            if (Values is null)
+            {
+                if (!MoveNext(TrimsHeadings) || Values is null || Values.Count <= 0)
+                    throw new InvalidOperationException("Unable to read headings from the underlying stream.");
+            }
+
+            SetHeadings(Values.ToArray());
+
+            if (moveNext)
+                MoveNext();
         }
     }
 
