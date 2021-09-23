@@ -84,7 +84,7 @@ namespace Swan.Test
 
             foreach ((CollectionKind kind, var collection) in testCases)
             {
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 Assert.AreEqual(kind, proxy.CollectionKind);
             }
         }
@@ -121,7 +121,7 @@ namespace Swan.Test
             var index = 0;
             foreach ((IEnumerable collection, var expected) in testCases)
             {
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var result = proxy.IsReadOnly;
                 Assert.AreEqual(result, expected);
                 index++;
@@ -150,7 +150,7 @@ namespace Swan.Test
             var index = 0;
             foreach ((IEnumerable collection, var expected) in testCases)
             {
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var result = proxy.IsFixedSize;
                 Assert.AreEqual(result, expected);
                 index++;
@@ -179,7 +179,7 @@ namespace Swan.Test
             var index = 0;
             foreach ((IEnumerable collection, var expected) in testCases)
             {
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var result = proxy.Count;
                 Assert.IsTrue(result > 0);
                 index++;
@@ -208,7 +208,7 @@ namespace Swan.Test
             var index = 0;
             foreach ((IEnumerable collection, var expected) in testCases)
             {
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var result = proxy.IsSynchronized;
                 Assert.AreEqual(result, expected);
                 index++;
@@ -239,7 +239,8 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
+
                 if (expected)
                 {
                     Assert.Catch(() => proxy.Clear());
@@ -275,11 +276,42 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 Assert.IsTrue(proxy[7] is int or char);
+
+                if (!proxy.IsReadOnly)
+                {
+                    if (proxy.IsDictionary)
+                    {
+                        proxy["item 1"] = 32;
+                        Assert.IsTrue(Equals(proxy["item 1"], 32));
+                    }
+                    else
+                    {
+                        if (proxy.IsArray)
+                        {
+                            proxy["1"] = "A";
+                            proxy[2] = "B";
+                            Assert.IsTrue(Equals(proxy[1], 'A'));
+                            Assert.IsTrue(Equals(proxy[2], 'B'));
+                        }
+                        else if (proxy.CollectionKind is CollectionKind.List or CollectionKind.GenericList)
+                        {
+                            proxy["1"] = "32";
+                            Assert.IsTrue(Equals(proxy[1], 32) || Equals(proxy[1], "32"));
+                        }
+                        else
+                        {
+                            Assert.Catch(() => proxy["1"] = "32");
+                        }
+                    }
+                }
+
 
                 if (proxy.IsDictionary is false)
                     Assert.IsTrue(proxy["7"] is int or char);
+                else
+                    Assert.IsTrue(proxy["item 1"] is int);
 
                 if (proxy.IsReadOnly is false)
                 {
@@ -312,7 +344,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 Assert.IsTrue(proxy.CollectionType.NativeType == expected);
             }
         }
@@ -341,7 +373,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 if (collection is Hashtable ht)
                     Assert.IsTrue(proxy.First() is int);
                 else
@@ -373,7 +405,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 if (collection is Hashtable ht)
                     Assert.IsTrue(proxy.Last() is int);
                 else
@@ -405,7 +437,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var target = new object[proxy.Count];
                 proxy.CopyTo(target, 0);
 
@@ -439,9 +471,11 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var list = proxy.ToList<string>();
+                var arr = proxy.ToArray<int>();
                 Assert.IsTrue(list.Count == proxy.Count);
+                Assert.IsTrue(arr.Length == proxy.Count);
                 foreach (var item in list)
                     Assert.IsTrue(item is string);
 
@@ -476,7 +510,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 if (expected == 0)
                 {
                     Assert.Catch(() => proxy.Add("hello"));
@@ -486,6 +520,7 @@ namespace Swan.Test
 
                 if (expected == 1)
                 {
+                    Assert.Catch(() => proxy.Add("item 8", 30));
                     proxy.Add("9");
                     proxy.AddRange(new[] { 2, 3, 4, 5 });
                     var lastItem = proxy.Last();
@@ -526,7 +561,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
 
                 if (proxy.CollectionKind is CollectionKind.GenericDictionary)
                 {
@@ -578,7 +613,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var originalItem = proxy.LastOrDefault();
 
                 if (proxy.IsFixedSize || proxy.IsReadOnly)
@@ -589,6 +624,10 @@ namespace Swan.Test
 
                 proxy.RemoveAt(proxy.Count - 1);
                 Assert.IsFalse(object.Equals(originalItem, proxy.LastOrDefault()));
+                Assert.IsTrue(Equals(Array.Empty<int>().AsProxy().LastOrDefault(), 0));
+                Assert.IsTrue(Equals(Array.Empty<string>().AsProxy().FirstOrDefault(), null));
+
+                Assert.Catch(() => proxy.RemoveAt(394995));
             }
         }
 
@@ -616,8 +655,11 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
                 var originalCount = proxy.Count;
+
+                if (!proxy.IsDictionary && proxy.ValuesType.NativeType != typeof(object))
+                    Assert.Catch(() => proxy.Remove("XXXXX"));
 
                 if (proxy.IsFixedSize || proxy.IsReadOnly)
                 {
@@ -663,7 +705,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
 
                 if (proxy.IsFixedSize || proxy.IsReadOnly || proxy.IsDictionary || (
                     proxy.CollectionKind is not (CollectionKind.List or CollectionKind.GenericList)))
@@ -702,7 +744,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
 
                 if (proxy.IsDictionary)
                 {
@@ -741,17 +783,19 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
 
                 if (proxy.IsDictionary)
                 {
                     Assert.IsTrue(proxy.ContainsKey("item 2"));
                     Assert.IsFalse(proxy.ContainsKey(1));
+
                     continue;
                 }
 
                 Assert.IsTrue(proxy.ContainsKey(proxy.Count - 1));
                 Assert.IsFalse(proxy.ContainsKey("-1"));
+                Assert.IsFalse(proxy.ContainsKey("xYx"));
             }
         }
 
@@ -779,7 +823,7 @@ namespace Swan.Test
             {
                 index++;
 
-                var proxy = collection.AsCollectionProxy();
+                var proxy = collection.AsProxy();
 
                 proxy.ForEach((kvp) =>
                 {

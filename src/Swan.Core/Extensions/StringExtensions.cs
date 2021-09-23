@@ -49,15 +49,12 @@ namespace Swan.Extensions
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant(this object? @this)
         {
-            if (@this == null)
-                return string.Empty;
-
-            if (@this is string stringValue)
-                return stringValue;
-
-            return @this.GetType()
-                .TypeInfo()
-                .ToStringInvariant(@this);
+            return @this switch
+            {
+                null => string.Empty,
+                string stringValue => stringValue,
+                _ => @this.GetType().TypeInfo().ToStringInvariant(@this)
+            };
         }
 
         /// <summary>

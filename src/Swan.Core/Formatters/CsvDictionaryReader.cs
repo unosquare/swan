@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Swan.Formatters
 {
@@ -9,7 +11,7 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into a <see cref="Dictionary{TKey, TValue}"/>
     /// </summary>
-    public class CsvDictionaryReader : CsvRecordReader<CsvDictionaryReader>
+    public class CsvDictionaryReader : CsvRecordReader<CsvDictionaryReader>, ICsvEnumerable<Dictionary<string, string?>>
     {
         private readonly Dictionary<string, CsvMapping<CsvDictionaryReader, IDictionary<string, string?>>> TargetMap = new(64);
 
@@ -47,20 +49,38 @@ namespace Swan.Formatters
             // placeholder
         }
 
+        Dictionary<string, string?> ICsvEnumerable<Dictionary<string, string?>>.Current
+        {
+            get
+            {
+                if (!Headings.Any())
+                {
+                    SetHeadings(Current!.ToArray());
+                    TryRead();
+                }
+
+                var target = new Dictionary<string, string?>(TargetMap.Count);
+                foreach (var mapping in TargetMap.Values)
+                    mapping.Apply.Invoke(mapping, target);
+
+                return target;
+            }
+        }
+
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing them to a new instance of the target.
         /// </summary>
         /// <param name="trimValues">Determines if values should be trimmed.</param>
         /// <returns>A new instance of the target type with values loaded from the stream.</returns>
         public virtual IDictionary<string, string?> ReadObject(bool trimValues = true)
         {
-            var result = new Dictionary<string, string?>(TargetMap?.Count ?? 0);
+            var result = new Dictionary<string, string?>(TargetMap.Count);
             return ReadInto(result, trimValues);
         }
 
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing the corresponding target members.
         /// </summary>
         /// <param name="target">The target instance to read values into.</param>
@@ -91,7 +111,7 @@ namespace Swan.Formatters
         /// <param name="heading">The name of the heading for the field value.</param>
         /// <param name="targetName">The name of the key to write the value to.</param>
         /// <param name="valueProvider">The transform function taking in a string and producing another one.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDictionaryReader AddMapping(string heading, string targetName, Func<string, string>? valueProvider = default)
         {
             if (heading is null)
@@ -121,7 +141,7 @@ namespace Swan.Formatters
         /// Adds a set of mappings between source headings and tarhget keys.
         /// </summary>
         /// <param name="map">The dictionary containing source headings and source dictionary keys.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDictionaryReader AddMappings(IDictionary<string, string> map)
         {
             if (map is null)
@@ -137,7 +157,7 @@ namespace Swan.Formatters
         /// Removes a source heading from the field mappings.
         /// </summary>
         /// <param name="heading">The heading to be removed from the mapping.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDictionaryReader RemoveMapping(string heading)
         {
             RequireHeadings();
@@ -152,6 +172,16 @@ namespace Swan.Formatters
             foreach (var heading in Headings!)
                 AddMapping(heading.Key, heading.Key);
         }
+
+        /// <inheritdoc />
+        public new IEnumerator<Dictionary<string, string?>> GetEnumerator() =>
+            new CsvEnumerator<CsvDictionaryReader, Dictionary<string, string?>>(this);
+
+        /// <inheritdoc />
+        public new IAsyncEnumerator<Dictionary<string, string?>> GetAsyncEnumerator(
+            CancellationToken cancellationToken = default) =>
+            new CsvEnumerator<CsvDictionaryReader, Dictionary<string, string?>>(this);
+
     }
 
 }

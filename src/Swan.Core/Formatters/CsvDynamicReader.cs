@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Swan.Formatters
 {
@@ -10,7 +12,7 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into dynamic objects backed by <see cref="ExpandoObject"/>.
     /// </summary>
-    public class CsvDynamicReader : CsvRecordReader<CsvDynamicReader>
+    public class CsvDynamicReader : CsvRecordReader<CsvDynamicReader>, ICsvEnumerable<ExpandoObject>
     {
         private readonly Dictionary<string, CsvMapping<CsvDynamicReader, ExpandoObject>> TargetMap = new(64);
 
@@ -48,8 +50,26 @@ namespace Swan.Formatters
             // placeholder
         }
 
+        ExpandoObject ICsvEnumerable<ExpandoObject>.Current
+        {
+            get
+            {
+                if (!Headings.Any())
+                {
+                    SetHeadings(Current!.ToArray());
+                    TryRead();
+                }
+
+                var target = new ExpandoObject();
+                foreach (var mapping in TargetMap.Values)
+                    mapping.Apply.Invoke(mapping, target);
+
+                return target;
+            }
+        }
+
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing them to a new instance of the target.
         /// </summary>
         /// <param name="trimValues">Determines if values should be trimmed.</param>
@@ -61,7 +81,7 @@ namespace Swan.Formatters
         }
 
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing the corresponding target members.
         /// </summary>
         /// <param name="target">The target instance to read values into.</param>
@@ -92,7 +112,7 @@ namespace Swan.Formatters
         /// <param name="heading">The name of the heading for the field value.</param>
         /// <param name="targetName">The name of the key to write the value to.</param>
         /// <param name="valueProvider">The transform function taking in a string and producing another one.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDynamicReader AddMapping(string heading, string targetName, Func<string, object?>? valueProvider = default)
         {
             if (heading is null)
@@ -122,10 +142,10 @@ namespace Swan.Formatters
         }
 
         /// <summary>
-        /// Adds a set of mappings between source headings and tarhget keys.
+        /// Adds a set of mappings between source headings and target keys.
         /// </summary>
         /// <param name="map">The dictionary containing source headings and source dictionary keys.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDynamicReader AddMappings(IDictionary<string, string> map)
         {
             if (map is null)
@@ -141,7 +161,7 @@ namespace Swan.Formatters
         /// Removes a source heading from the field mappings.
         /// </summary>
         /// <param name="heading">The heading to be removed from the mapping.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDynamicReader RemoveMapping(string heading)
         {
             RequireHeadings();
@@ -149,6 +169,15 @@ namespace Swan.Formatters
             TargetMap.Remove(heading);
             return this;
         }
+
+        /// <inheritdoc />
+        public new IEnumerator<ExpandoObject> GetEnumerator() =>
+            new CsvEnumerator<CsvDynamicReader, ExpandoObject>(this);
+
+        /// <inheritdoc />
+        public new IAsyncEnumerator<ExpandoObject> GetAsyncEnumerator(
+            CancellationToken cancellationToken = default) =>
+            new CsvEnumerator<CsvDynamicReader, ExpandoObject>(this);
 
         /// <inheritdoc />
         protected override void OnHeadingsRead()

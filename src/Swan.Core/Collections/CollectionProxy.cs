@@ -29,7 +29,7 @@ namespace Swan.Collections
         }
 
         /// <summary>
-        /// Gets the underlying collection object this wrapper operates on.
+        /// Gets the underlying collection object this proxy operates on.
         /// </summary>
         public dynamic Collection { get; }
 
@@ -160,7 +160,7 @@ namespace Swan.Collections
                 if (!TypeManager.TryChangeType(key, KeysType, out dynamic? keyItem))
                     throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
 
-                return CollectionKind is CollectionKind.Dictionary
+                return IsDictionary
                     ? Collection[keyItem]
                     : this[(int)keyItem!];
             }
@@ -169,7 +169,7 @@ namespace Swan.Collections
                 if (IsReadOnly)
                     throw new InvalidOperationException("Unable to write to read-only collection.");
 
-                if (CollectionKind is CollectionKind.Dictionary)
+                if (IsDictionary)
                 {
                     if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
@@ -180,9 +180,10 @@ namespace Swan.Collections
                     Collection[keyItem] = valueItem;
                     return;
                 }
-                else if (key is int index)
+
+                if (TypeManager.TryChangeType(key, KeysType, out var index))
                 {
-                    this[index] = value;
+                    this[(int)index!] = value;
                     return;
                 }
 
@@ -234,6 +235,7 @@ namespace Swan.Collections
                         throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
 
                     Collection[index] = item;
+                    return;
                 }
 
                 throw new NotSupportedException("Collection does not support setting a value via indexer.");
@@ -258,6 +260,12 @@ namespace Swan.Collections
 
             if (target is null or not IEnumerable)
                 return false;
+
+            if (target is CollectionProxy outputProxy)
+            {
+                proxy = outputProxy;
+                return true;
+            }
 
             var typeProxy = target.GetType().TypeInfo().Collection;
             if (typeProxy is null)
@@ -293,10 +301,8 @@ namespace Swan.Collections
                     Collection.Add(item);
                     return Count - 1;
                 }
-                else
-                {
-                    throw new ArgumentException($"Unable to convert value into type {ValuesType.ShortName}", nameof(value));
-                }
+
+                throw new ArgumentException($"Unable to convert value into type {ValuesType.ShortName}", nameof(value));
             }
 
             throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
@@ -359,10 +365,8 @@ namespace Swan.Collections
                     return Collection.Contains(value as dynamic);
                 case CollectionKind.GenericDictionary:
                     {
-                        if (!TypeManager.TryChangeType(value, KeysType, out var item))
-                            throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
-
-                        return Collection.ContainsKey(item);
+                        return TypeManager.TryChangeType(value, KeysType, out var item) &&
+                               (bool)Collection.ContainsKey(item);
                     }
                 default:
                     return IndexOf(value) >= 0;
@@ -381,10 +385,10 @@ namespace Swan.Collections
             if (IsDictionary)
                 return Contains(value);
 
-            if (!TypeManager.TryChangeType(value, KeysType, out var item))
-                throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+            if (!TypeManager.TryChangeType(value, KeysType, out var index))
+                return false;
 
-            return item >= 0 && item < Count;
+            return index >= 0 && index < Count;
         }
 
         /// <summary>
@@ -609,7 +613,7 @@ namespace Swan.Collections
         /// <returns>An array of values.</returns>
         public Array ToArray()
         {
-            var result = TypeManager.CreateArray(ValuesType, Count);
+            var result = Array.CreateInstance(ValuesType.NativeType, Count);
 
             var index = -1;
             foreach (var value in Values)
@@ -673,6 +677,61 @@ namespace Swan.Collections
             var dictionary = this as IDictionary;
             foreach (DictionaryEntry kvp in dictionary)
                 entryAction?.Invoke(kvp);
+        }
+
+        /// <summary>
+        /// Tries to copy keys and values from one collection type to another.
+        /// </summary>
+        /// <param name="target">The target collection proxy.</param>
+        /// <returns>True if the operation succeeds. False otherwise.</returns>
+        public bool TryCopyTo(CollectionProxy target)
+        {
+            if (target is null)
+                return false;
+
+            if (target.IsReadOnly)
+                return false;
+
+            if (target.IsDictionary)
+            {
+                var success = true;
+                ForEach(kvp =>
+                {
+                    if (!TypeManager.TryChangeType(kvp.Key, target.KeysType, out var key) ||
+                        !TypeManager.TryChangeType(kvp.Value, target.ValuesType, out var value))
+                    {
+                        success = false;
+                        return;
+                    }
+
+                    target.Add(key, value);
+                });
+
+                return success;
+            }
+
+            if (target.IsFixedSize)
+            {
+                for (var i = 0; i < target.Count; i++)
+                {
+                    if (!TypeManager.TryChangeType(this[i], target.ValuesType, out var item))
+                        return false;
+
+                    target[i] = item;
+                }
+
+                return true;
+            }
+
+            for (var i = 0; i < Count; i++)
+            {
+                if (!TypeManager.TryChangeType(this[i], target.ValuesType, out var item))
+                    return false;
+
+                target.Add(item);
+            }
+
+            return true;
         }
 
         private class ListDictionaryEnumerator : IDictionaryEnumerator

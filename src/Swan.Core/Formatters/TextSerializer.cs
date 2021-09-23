@@ -265,7 +265,7 @@ namespace Swan.Formatters
 
         private static void EndObject(TextSerializerOptions options, StringBuilder builder, int indentDepth)
         {
-            if (options.ObjectCloser is null || options.ObjectCloser.Length <= 0)
+            if (options?.ObjectCloser is null || options.ObjectCloser.Length <= 0)
                 return;
 
             indentDepth = indentDepth > 0

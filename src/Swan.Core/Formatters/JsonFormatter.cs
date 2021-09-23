@@ -15,7 +15,7 @@ namespace Swan.Formatters
             PropertyNamingPolicy = null, // Pascal case
             PropertyNameCaseInsensitive = true,
             WriteIndented = false,
-            ReferenceHandler = null, // TODO: In .net 6.0 chenge this to IgnoreCycles
+            ReferenceHandler = null, // TODO: In .net 6.0 change this to IgnoreCycles
             IgnoreReadOnlyFields = false,
             IgnoreReadOnlyProperties = false,
             IncludeFields = true

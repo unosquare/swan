@@ -168,7 +168,6 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             using var reader = new CsvDictionaryReader(stream);
             var readObj = reader.ReadObject() as IDictionary;
-
             Assert.IsNotNull(readObj);
         }
 

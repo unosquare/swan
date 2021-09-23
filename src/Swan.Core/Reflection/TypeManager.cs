@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Swan.Collections;
+using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -154,6 +156,13 @@ namespace Swan.Reflection
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
 
+            // Case Object: boxing conversion; the easiest since source value is already boxed.
+            if (targetType.NativeType == typeof(object))
+            {
+                targetValue = sourceValue;
+                return true;
+            }
+
             // start with the default value of the target type
             // and if the input value is null simply return the default
             // value of the target type.
@@ -247,49 +256,21 @@ namespace Swan.Reflection
                 }
             }
 
-            // Case 5: We might be dealing with enumerables
+            // Case 5: We might be dealing with IEnumerable types
             if (targetType.IsEnumerable && sourceType.IsEnumerable)
             {
-                //TODO: implement changing collection types.
-                throw new NotImplementedException();
-                /*
-                var sourceItemType = GetItemType(sourceType);
-                var targetItemType = GetItemType(targetType);
-
-                if (sourceItemType is null || targetItemType is null)
+                if (!CollectionProxy.TryCreate(sourceValue, out var sourceCollection))
                     return false;
 
-                var targetItems = new List<object?>(256);
-                foreach (var sourceItem in (sourceValue as IEnumerable)!)
-                {
-                    if (!TryChangeType(sourceItem, targetItemType, out var targetItem))
-                        return false;
-
-                    targetItems.Add(targetItem);
-                }
-
-                // Copy to a new array
                 if (targetType.IsArray)
-                {
-                    var targetArray = CreateArray(targetItemType.ProxiedType, targetItems.Count);
-                    for (var i = 0; i < targetItems.Count; i++)
-                        targetArray.SetValue(targetItems[i], i);
+                    targetValue = CreateArray(targetType.NativeType.GetElementType()!, sourceCollection.Count);
+                else if (targetType.CanCreateInstance)
+                    targetValue = targetType.CreateInstance();
+                else
+                    return false;
 
-                    targetValue = targetArray;
-                    return true;
-                }
-                */
-                /*
-                // copy to a new collection
-                if (targetType.CanCreateInstance && targetType.GenericCollectionType is not null)
-                {
-                    var targetCollection = targetType.CreateInstance();
-                    var addMethod = targetType.ProxiedType.GetMethod("Add").CreateDelegate(typeof(Action<object?>), targetValue);
-                    targetType
-                    ICollection<string>
-                        IList<string>
-                }
-                */
+                return CollectionProxy.TryCreate(targetValue as IEnumerable, out var targetCollection) &&
+                       sourceCollection.TryCopyTo(targetCollection);
             }
 
             return false;
@@ -304,19 +285,5 @@ namespace Swan.Reflection
         /// <returns>Returns true inf the conversion succeeds.</returns>
         public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out dynamic targetValue) =>
             TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
-
-        /// <summary>
-        /// Tries to convert a type of the source value to a type of the target value.
-        /// </summary>
-        /// <typeparam name="T">The target type to turn the source value into.</typeparam>
-        /// <param name="sourceValue">The value to be converted.</param>
-        /// <param name="targetValue">The resulting value.</param>
-        /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType<T>(object? sourceValue, [MaybeNullWhen(false)] out T targetValue)
-        {
-            var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
-            targetValue = target is T typedTarget ? typedTarget : default;
-            return result;
-        }
     }
 }

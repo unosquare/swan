@@ -2,9 +2,11 @@
 using Swan.Platform;
 using Swan.Threading;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Swan.Formatters
@@ -14,7 +16,7 @@ namespace Swan.Formatters
     /// that can be configured to read an parse tabular data with flexible
     /// encoding, field separators and escape characters.
     /// </summary>
-    public class CsvReader : IDisposable
+    public class CsvReader : ICsvEnumerable<IReadOnlyList<string?>>
     {
         /// <summary>
         /// Provides a the default separator character.
@@ -48,7 +50,7 @@ namespace Swan.Formatters
         {
             var streamEncoding = encoding ?? SwanRuntime.Windows1252Encoding;
             var detectBom = streamEncoding.GetPreamble().Length > 0;
-            Reader = new StreamReader(stream, streamEncoding, detectBom, BufferSize, leaveOpen);
+            Reader = new(stream, streamEncoding, detectBom, BufferSize, leaveOpen);
             SeparatorChar = separatorChar;
             EscapeChar = escapeChar;
         }
@@ -99,7 +101,7 @@ namespace Swan.Formatters
         /// <summary>
         /// The number of records that have been read so far, including
         /// headers and empty ones, but excluding calls to the <see cref="SkipAsync"/>
-        /// mathod.
+        /// method.
         /// </summary>
         public int Count => _Count.Value;
 
@@ -242,6 +244,19 @@ namespace Swan.Formatters
         /// <inheritdoc />
         public override string ToString() =>
             $"{GetType()}: {Count} records read.";
+
+        /// <inheritdoc />
+        public virtual IEnumerator<IReadOnlyList<string?>> GetEnumerator() =>
+            new CsvEnumerator<CsvReader, IReadOnlyList<string?>>(this);
+
+        /// <inheritdoc />
+        public virtual IAsyncEnumerator<IReadOnlyList<string?>> GetAsyncEnumerator(
+            CancellationToken cancellationToken = default) =>
+            new CsvEnumerator<CsvReader, IReadOnlyList<string?>>(this);
+
+        /// <inheritdoc />
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
 
         /// <summary>
         /// Parses a set of literals from the underlying stream, and when the skip parameter is set to false,

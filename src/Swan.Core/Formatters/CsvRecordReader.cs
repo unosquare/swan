@@ -10,8 +10,8 @@ namespace Swan.Formatters
     /// PRovides a base class for reading schema aware <see cref="CsvReader"/> streams
     /// where headings are used to map and transform specific target members.
     /// </summary>
-    public abstract class CsvRecordReader<T> : CsvReader
-        where T : CsvReader
+    public abstract class CsvRecordReader<TReader> : CsvReader
+        where TReader : CsvReader
     {
         private readonly Dictionary<string, int> _Headings = new(64);
 
@@ -86,7 +86,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="trimValues">Determines if values should be trimmed.</param>
         /// <returns>This instance for fluent API enablement.</returns>
-        public T ReadHeadings(bool trimValues = true)
+        public TReader ReadHeadings(bool trimValues = true)
         {
             if (Headings.Any())
                 throw new InvalidOperationException($"The {nameof(Headings)} have already been set.");
@@ -104,7 +104,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="headings">The heading names.</param>
         /// <returns>This instance for fluent API enablement.</returns>
-        public T SetHeadings(params string[] headings)
+        public TReader SetHeadings(params string[] headings)
         {
             if (Headings.Any())
                 throw new InvalidOperationException($"The {nameof(Headings)} have already been set.");
@@ -116,7 +116,7 @@ namespace Swan.Formatters
                 _Headings[headings[i]] = i;
 
             OnHeadingsRead();
-            return (this as T)!;
+            return (this as TReader)!;
         }
 
         /// <summary>
@@ -126,10 +126,10 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="skipCount">The number of records to skip.</param>
         /// <returns>This instance for fluent API enablement.</returns>
-        public new T Skip(int skipCount = 1)
+        public new TReader Skip(int skipCount = 1)
         {
             base.Skip(skipCount);
-            return (this as T)!;
+            return (this as TReader)!;
         }
 
         /// <summary>

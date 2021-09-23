@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 namespace Swan.Formatters
 {
@@ -12,10 +14,10 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into the specified target type.
     /// </summary>
-    public class CsvObjectReader<T> : CsvRecordReader<CsvObjectReader<T>>
+    public class CsvObjectReader<T> : CsvRecordReader<CsvObjectReader<T>>, ICsvEnumerable<T>
         where T : class
     {
-        private readonly ITypeInfo Proxy = typeof(T).TypeInfo();
+        private readonly ITypeInfo TypeInfo = typeof(T).TypeInfo();
         private readonly Dictionary<string, CsvMapping<CsvObjectReader<T>, T>> TargetMap = new(64);
 
         /// <summary>
@@ -52,25 +54,43 @@ namespace Swan.Formatters
             // placeholder
         }
 
+        T? ICsvEnumerable<T>.Current
+        {
+            get
+            {
+                if (!Headings.Any())
+                {
+                    SetHeadings(Current!.ToArray());
+                    TryRead();
+                }
+
+                var target = typeof(T).TypeInfo().CreateInstance() as T;
+                foreach (var mapping in TargetMap.Values)
+                    mapping.Apply.Invoke(mapping, target!);
+
+                return target;
+            }
+        }
+
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing them to a new instance of the target.
         /// </summary>
         /// <param name="trimValues">Determines if values should be trimmed.</param>
         /// <returns>A new instance of the target type with values loaded from the stream.</returns>
         public virtual T ReadObject(bool trimValues = true)
         {
-            if (!Proxy.CanCreateInstance)
-                throw new InvalidOperationException($"The type {Proxy.FullName} does not have a default constructor.");
+            if (!TypeInfo.CanCreateInstance)
+                throw new InvalidOperationException($"The type {TypeInfo.FullName} does not have a default constructor.");
 
-            if (Proxy.CreateInstance() is not T target)
+            if (TypeInfo.CreateInstance() is not T target)
                 throw new InvalidCastException($"Unable to create a compatible instance of {typeof(T)}");
 
             return ReadInto(target, trimValues);
         }
 
         /// <summary>
-        /// Reads and parses the values from the underlyings stream and maps those
+        /// Reads and parses the values from the underlying stream and maps those
         /// values, writing the corresponding target members.
         /// </summary>
         /// <param name="target">The target instance to read values into.</param>
@@ -104,7 +124,7 @@ namespace Swan.Formatters
         /// <param name="heading">The name of the heading to map from.</param>
         /// <param name="targetPropertyExpression">The expression containing the target property name.</param>
         /// <param name="valueProvider">The optional value provider method to transform the source string value into the appropriate target type.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvObjectReader<T> AddMapping<TTargetMember>(string heading,
             Expression<Func<T, TTargetMember>> targetPropertyExpression,
             Func<string, TTargetMember>? valueProvider = default)
@@ -123,14 +143,14 @@ namespace Swan.Formatters
             if ((targetPropertyExpression.Body as MemberExpression)?.Member is not PropertyInfo targetPropertyInfo)
                 throw new ArgumentException("Invalid target expression", nameof(targetPropertyExpression));
 
-            if (!Proxy.TryFindProperty(targetPropertyInfo.Name, out var targetProperty))
+            if (!TypeInfo.TryFindProperty(targetPropertyInfo.Name, out var targetProperty))
                 throw new ArgumentException(
-                    $"Property '{Proxy.FullName}.{targetPropertyInfo.Name}' was not found.",
+                    $"Property '{TypeInfo.FullName}.{targetPropertyInfo.Name}' was not found.",
                     nameof(targetPropertyExpression));
 
             if (!targetProperty.CanWrite)
                 throw new ArgumentException(
-                    $"Property '{Proxy.FullName}.{targetPropertyInfo.Name}' cannot be written to.",
+                    $"Property '{TypeInfo.FullName}.{targetPropertyInfo.Name}' cannot be written to.",
                     nameof(targetPropertyExpression));
 
             AddMapping(heading, targetProperty, valueProvider is null ? (s) => s : (s) => valueProvider(s));
@@ -142,7 +162,7 @@ namespace Swan.Formatters
         /// Removes a source heading from the field mappings.
         /// </summary>
         /// <param name="heading">The heading to be removed from the mapping.</param>
-        /// <returns>This instance for fluent API enablement.</returns>
+        /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvObjectReader<T> RemoveMapping(string heading)
         {
             RequireHeadings();
@@ -152,11 +172,20 @@ namespace Swan.Formatters
         }
 
         /// <inheritdoc />
+        public new IEnumerator<T> GetEnumerator() =>
+            new CsvEnumerator<CsvObjectReader<T>, T>(this);
+
+        /// <inheritdoc />
+        public new IAsyncEnumerator<T> GetAsyncEnumerator(
+            CancellationToken cancellationToken = default) =>
+            new CsvEnumerator<CsvObjectReader<T>, T>(this);
+
+        /// <inheritdoc />
         protected override void OnHeadingsRead()
         {
             foreach (var heading in Headings.Keys)
             {
-                if (!Proxy.TryFindProperty(heading, out var property))
+                if (!TypeInfo.TryFindProperty(heading, out var property))
                     continue;
 
                 if (!property.CanWrite)
@@ -176,7 +205,7 @@ namespace Swan.Formatters
                 if (!property.CanWrite)
                     return;
 
-                property.TryWrite(target!, valueProvider(value));
+                property.TryWrite(target, valueProvider(value));
             });
         }
     }

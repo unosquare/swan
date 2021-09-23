@@ -57,6 +57,14 @@ namespace Swan.Samples
 
         private static void Sketchpad()
         {
+            var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
+            var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));
+            using var csvReader = new CsvObjectReader<MockInfo>(csvStream, Encoding.UTF8);
+            foreach (var dict in csvReader)
+            {
+                var hello = dict.Name;
+            }
+
             var ti = typeof(int).TypeInfo();
 
             var myList = new List<int>();
