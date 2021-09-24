@@ -17,9 +17,9 @@ namespace Swan.Formatters
     public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
     {
         private const int BufferSize = 4096;
-        private readonly AtomicBoolean _IsDisposed = new();
-        private readonly AtomicInteger _Count = new();
-        private readonly StreamReader Reader;
+        private readonly AtomicBoolean _isDisposed = new();
+        private readonly AtomicInteger _count = new();
+        private readonly StreamReader _reader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="CsvReaderBase{TLine}"/> class.
@@ -39,7 +39,7 @@ namespace Swan.Formatters
         {
             var streamEncoding = encoding ?? Csv.DefaultEncoding;
             var detectBom = streamEncoding.GetPreamble().Length > 0;
-            Reader = new(stream, streamEncoding, detectBom, BufferSize, leaveOpen);
+            _reader = new(stream, streamEncoding, detectBom, BufferSize, leaveOpen);
             SeparatorChar = separatorChar;
             EscapeChar = escapeChar;
             TrimsValues = trimsValues;
@@ -62,15 +62,15 @@ namespace Swan.Formatters
         public bool TrimsValues { get; }
 
         /// <inheritdoc />
-        public bool EndOfStream => Reader.EndOfStream;
+        public bool EndOfStream => _reader.EndOfStream;
 
         /// <summary>
         /// Gets the encoding of the underlying <see cref="StreamReader"/>.
         /// </summary>
-        public Encoding Encoding => Reader.CurrentEncoding;
+        public Encoding Encoding => _reader.CurrentEncoding;
 
         /// <inheridoc />
-        public int Count => _Count.Value;
+        public int Count => _count.Value;
 
         /// <inheridoc />
         public IReadOnlyList<string>? Values
@@ -82,8 +82,8 @@ namespace Swan.Formatters
         /// <inheridoc />
         public bool IsDisposed
         {
-            get => _IsDisposed.Value;
-            private set => _IsDisposed.Value = value;
+            get => _isDisposed.Value;
+            private set => _isDisposed.Value = value;
         }
 
         /// <inheridoc />
@@ -211,14 +211,14 @@ namespace Swan.Formatters
             if (EndOfStream)
                 throw new EndOfStreamException("Unable to read past the end of the stream.");
 
-            var result = await ReadValuesAsync(Reader, trimValues, EscapeChar, SeparatorChar)
+            var result = await ReadValuesAsync(_reader, trimValues, EscapeChar, SeparatorChar)
                 .ConfigureAwait(false);
 
             if (isSkipping)
                 return;
 
             Values = result;
-            _Count.Increment();
+            _count.Increment();
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Swan.Formatters
             IsDisposed = true;
 
             if (alsoManaged)
-                Reader.Dispose();
+                _reader.Dispose();
         }
 
         /// <summary>

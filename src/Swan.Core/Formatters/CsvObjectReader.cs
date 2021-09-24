@@ -12,7 +12,7 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into the specified target type.
     /// </summary>
-    public class CsvObjectReader<T> : CsvRecordReader<CsvObjectReader<T>, T>
+    public class CsvObjectReader<T> : CsvReader<CsvObjectReader<T>, T>
         where T : class, new()
     {
         private readonly ITypeInfo _typeInfo = typeof(T).TypeInfo();

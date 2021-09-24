@@ -10,7 +10,7 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into dynamic objects backed by <see cref="ExpandoObject"/>.
     /// </summary>
-    public class CsvDynamicReader : CsvRecordReader<CsvDynamicReader, dynamic>
+    public class CsvDynamicReader : CsvReader<CsvDynamicReader, dynamic>
     {
         private readonly Dictionary<string, CsvMapping<CsvDynamicReader, ExpandoObject>> _targetMap = new(64);
 

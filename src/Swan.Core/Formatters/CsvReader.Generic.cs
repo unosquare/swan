@@ -10,13 +10,13 @@ namespace Swan.Formatters
     /// Provides a base class for reading schema aware <see cref="CsvReader"/> streams
     /// where headings are used to map and transform specific target members.
     /// </summary>
-    public abstract class CsvRecordReader<TReader, TLine> : CsvReaderBase<TLine>
+    public abstract class CsvReader<TReader, TLine> : CsvReaderBase<TLine>
         where TReader : CsvReaderBase<TLine>
     {
         private readonly Dictionary<string, int> _headings = new(64);
 
         /// <summary>
-        /// Creates a new instance of the <see cref="CsvRecordReader{TReader,TLine}"/> class.
+        /// Creates a new instance of the <see cref="CsvReader{TReader,TLine}"/> class.
         /// </summary>
         /// <param name="stream">The stream to read.</param>
         /// <param name="encoding">The character encoding to use.</param>
@@ -25,7 +25,7 @@ namespace Swan.Formatters
         /// <param name="leaveOpen">true to leave the stream open after the System.IO.StreamReader object is disposed; otherwise, false.</param>
         /// <param name="trimsValues">True to trim field values as they are read and parsed.</param>
         /// <param name="trimsHeadings">True to trim heading values as they are read and parsed.</param>
-        protected CsvRecordReader(Stream stream,
+        protected CsvReader(Stream stream,
             Encoding? encoding,
             char separatorChar,
             char escapeChar,

@@ -12,13 +12,13 @@ namespace Swan.Formatters
     /// Represents a CSV writer that can transform objects into their corresponding CSV representation.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class CsvObjectWriter<T> : CsvWriter
+    public class CsvWriter<T> : CsvWriter
     {
         private readonly ITypeInfo _typeInfo = typeof(T).TypeInfo();
         private readonly Dictionary<string, Func<T, string>> _propertyMap;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="CsvObjectWriter{T}"/> class.
+        /// Creates a new instance of the <see cref="CsvWriter{T}"/> class.
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         /// <param name="encoding">The encoding.</param>
@@ -26,7 +26,7 @@ namespace Swan.Formatters
         /// <param name="escapeChar">The escape character.</param>
         /// <param name="newLineSequence">Specifies the new line character sequence.</param>
         /// <param name="leaveOpen">true to leave the stream open after the stream reader object is disposed; otherwise, false.</param>
-        public CsvObjectWriter(Stream outputStream,
+        public CsvWriter(Stream outputStream,
             Encoding? encoding = default,
             char separatorChar = Csv.DefaultSeparatorChar,
             char escapeChar = Csv.DefaultEscapeChar,
@@ -46,7 +46,7 @@ namespace Swan.Formatters
                         if (instance is null || !p.TryRead(instance, out var value))
                             return string.Empty;
 
-                        return p.PropertyType.ToStringInvariant(instance);
+                        return p.PropertyType.ToStringInvariant(value);
                     }));
         }
 
@@ -54,7 +54,7 @@ namespace Swan.Formatters
         /// Gets a dictionary where keys are the output headings and values are the
         /// method calls to produce the values.
         /// </summary>
-        public IReadOnlyDictionary<string, Func<T, string?>> PropertyMap => _propertyMap;
+        public IReadOnlyDictionary<string, Func<T, string>> PropertyMap => _propertyMap;
 
         /// <summary>
         /// Gets a value indicating whether headings have been written out to the output stream.
@@ -66,7 +66,7 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="headingName">The name of the heading to remove.</param>
         /// <returns>This instance, in order to enable fluent API.</returns>
-        public CsvObjectWriter<T> RemoveMapping(string headingName)
+        public CsvWriter<T> RemoveMapping(string headingName)
         {
             if (headingName is null)
                 throw new ArgumentNullException(nameof(headingName));
@@ -85,7 +85,7 @@ namespace Swan.Formatters
         /// <param name="headingName">The name of the heading to map to.</param>
         /// <param name="valueProvider">The optional value provider method to transform the source value into a string fro the given heading.</param>
         /// <returns>This instance, in order to enable fluent API.</returns>
-        public CsvObjectWriter<T> AddMapping(string headingName, Func<T, string> valueProvider)
+        public CsvWriter<T> AddMapping(string headingName, Func<T, string> valueProvider)
         {
             if (headingName is null)
                 throw new ArgumentNullException(nameof(headingName));

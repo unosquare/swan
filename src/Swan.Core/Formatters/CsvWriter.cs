@@ -78,7 +78,7 @@ namespace Swan.Formatters
                 throw new ArgumentNullException(nameof(items));
 
             var writeTask = WriteLineAsync(items);
-            
+
             if (writeTask.IsCompletedSuccessfully)
                 return;
 
@@ -140,11 +140,23 @@ namespace Swan.Formatters
         /// <inheritdoc />
         public async ValueTask DisposeAsync()
         {
-            if (_isDisposed)
-                return;
+            await DisposeAsyncCore();
+            Dispose(false);
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+            GC.SuppressFinalize(this);
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
+        }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        protected virtual async ValueTask DisposeAsyncCore()
+        {
+            if (_isDisposed) return;
             _isDisposed.Value = true;
-            await _writer.DisposeAsync();
+
+            await _writer.FlushAsync().ConfigureAwait(false);
+            await _writer.DisposeAsync().ConfigureAwait(false);
         }
 
         /// <summary>

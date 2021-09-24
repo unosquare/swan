@@ -157,7 +157,7 @@ namespace Swan.Test.CsvWriterTest
             dynObject.A = nameof(MemoryStream);
 
             using var stream = new MemoryStream();
-            using var writer = new CsvObjectWriter<dynamic>(stream);
+            using var writer = new CsvWriter<dynamic>(stream);
             writer.WriteLine(dynObject);
 
             Assert.IsNotNull(writer);
@@ -223,7 +223,7 @@ namespace Swan.Test.CsvWriterTest
             var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
 
             using var stream = new MemoryStream();
-            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream);
+            using var writer = new CsvWriter<SampleCsvRecord>(stream);
 
             writer.WriteLine(new());
 
@@ -240,7 +240,7 @@ namespace Swan.Test.CsvWriterTest
         public void WriteHeadingNull()
         {
             using var stream = new MemoryStream();
-            using var writer = new CsvObjectWriter<object>(stream);
+            using var writer = new CsvWriter<object>(stream);
 
             Assert.Throws<ArgumentNullException>(
                 () => writer.WriteLine(null));
@@ -260,7 +260,7 @@ namespace Swan.Test.CsvWriterTest
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream);
+            using var writer = new CsvWriter<SampleCsvRecord>(stream);
 
             writer.WriteLine(objHeaders);
 
@@ -287,7 +287,7 @@ namespace Swan.Test.CsvWriterTest
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream, separatorChar: '#');
+            using var writer = new CsvWriter<SampleCsvRecord>(stream, separatorChar: '#');
 
             writer.WriteLine(objHeaders);
 

@@ -9,7 +9,7 @@ namespace Swan.Formatters
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into a <see cref="Dictionary{TKey, TValue}"/>
     /// </summary>
-    public class CsvDictionaryReader : CsvRecordReader<CsvDictionaryReader, Dictionary<string, string?>>
+    public class CsvDictionaryReader : CsvReader<CsvDictionaryReader, Dictionary<string, string?>>
     {
         private readonly Dictionary<string, CsvMapping<CsvDictionaryReader, IDictionary<string, string?>>> _targetMap = new(64);
 
