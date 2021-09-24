@@ -42,7 +42,8 @@ namespace Swan.Test.CsvWriterTest
         public void WithTempFile_Valid()
         {
             var tempFile = Path.GetTempFileName();
-            var reader = new CsvWriter(tempFile);
+            using var fs = File.OpenWrite(tempFile);
+            var reader = new CsvWriter(fs);
 
             Assert.IsNotNull(reader);
         }
@@ -51,7 +52,8 @@ namespace Swan.Test.CsvWriterTest
         public void WithTempFileAndEncoding_Valid()
         {
             var tempFile = Path.GetTempFileName();
-            var reader = new CsvWriter(tempFile, Encoding.ASCII);
+            using var fs = File.OpenRead(tempFile);
+            var reader = new CsvWriter(fs, Encoding.ASCII);
 
             Assert.IsNotNull(reader);
         }
@@ -81,8 +83,8 @@ namespace Swan.Test.CsvWriterTest
             using (var stream = File.OpenWrite(tempFile))
             {
                 using var writer = new CsvWriter(stream);
-                writer.WriteHeadings(data);
-                writer.WriteObjects(new List<object> { data.Select(k => k.Key) });
+                writer.WriteLine(data.Keys.AsEnumerable());
+                writer.WriteLine(data.Values.AsEnumerable());
             }
 
             var valuesInFile = Csv.Load(tempFile);
@@ -95,7 +97,7 @@ namespace Swan.Test.CsvWriterTest
             var tempFile = Path.GetTempFileName();
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
 
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
+            Csv.Save(generatedRecords, tempFile);
 
             var valuesInFile = Csv.Load<SampleCsvRecord>(tempFile);
             Assert.AreEqual(generatedRecords.Count, valuesInFile.Count, "Same length");
@@ -108,7 +110,7 @@ namespace Swan.Test.CsvWriterTest
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
             generatedRecords.Add(null);
 
-            Assert.Throws<ArgumentNullException>(() => CsvWriter.SaveRecords(generatedRecords, new MemoryStream()));
+            Assert.Throws<ArgumentNullException>(() => Csv.Save(generatedRecords, new MemoryStream()));
         }
     }
 
@@ -120,7 +122,7 @@ namespace Swan.Test.CsvWriterTest
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             var reader = new CsvWriter(stream);
-            reader.WriteObject(DefaultDictionary);
+            reader.WriteLine(DefaultDictionary.Values);
 
             Assert.AreNotEqual(0, reader.Count);
         }
@@ -130,7 +132,7 @@ namespace Swan.Test.CsvWriterTest
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             var reader = new CsvWriter(stream);
-            reader.WriteObject(DefaultStringList.ToArray());
+            reader.WriteLine(DefaultStringList.ToArray());
 
             Assert.AreNotEqual(0, reader.Count);
         }
@@ -142,7 +144,8 @@ namespace Swan.Test.CsvWriterTest
 
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
-            writer.WriteObjects(strings);
+            foreach (var s in strings)
+                writer.WriteLine(s);
 
             Assert.AreEqual((int)writer.Count, strings.Count);
         }
@@ -154,8 +157,8 @@ namespace Swan.Test.CsvWriterTest
             dynObject.A = nameof(MemoryStream);
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
-            writer.WriteObject(dynObject);
+            using var writer = new CsvObjectWriter<dynamic>(stream);
+            writer.WriteLine(dynObject);
 
             Assert.IsNotNull(writer);
             Assert.AreEqual(1, (int)writer.Count);
@@ -171,17 +174,7 @@ namespace Swan.Test.CsvWriterTest
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
 
-            Assert.Throws<ArgumentNullException>(() => writer.WriteHeadings(NullType));
-        }
-
-        [Test]
-        public void NullDictionary_ThrowsArgumentNullException()
-        {
-            using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
-
-            Assert.Throws<ArgumentNullException>(() =>
-                    writer.WriteHeadings(null as Dictionary<string, string>));
+            Assert.Throws<ArgumentNullException>(() => writer.WriteLine(NullType as IEnumerable<string>));
         }
 
         [Test]
@@ -207,7 +200,7 @@ namespace Swan.Test.CsvWriterTest
 
             var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
 
-            writer.WriteHeadings(dictionaryHeaders);
+            writer.WriteLine(dictionaryHeaders.Keys);
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
@@ -230,9 +223,9 @@ namespace Swan.Test.CsvWriterTest
             var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
+            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream);
 
-            writer.WriteHeadings<SampleCsvRecord>();
+            writer.WriteLine(new());
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
@@ -247,10 +240,10 @@ namespace Swan.Test.CsvWriterTest
         public void WriteHeadingNull()
         {
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
+            using var writer = new CsvObjectWriter<object>(stream);
 
             Assert.Throws<ArgumentNullException>(
-                () => writer.WriteHeadings(null as object));
+                () => writer.WriteLine(null));
         }
 
         [Test]
@@ -267,9 +260,9 @@ namespace Swan.Test.CsvWriterTest
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream);
+            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream);
 
-            writer.WriteHeadings(objHeaders);
+            writer.WriteLine(objHeaders);
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
@@ -294,13 +287,13 @@ namespace Swan.Test.CsvWriterTest
             var objHeaders = new SampleCsvRecord();
 
             using var stream = new MemoryStream();
-            using var writer = new CsvWriter(stream) { SeparatorCharacter = '#' };
+            using var writer = new CsvObjectWriter<SampleCsvRecord>(stream, separatorChar: '#');
 
-            writer.WriteHeadings(objHeaders);
+            writer.WriteLine(objHeaders);
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
-            var value = sr.ReadToEnd();
+            var value = sr.ReadLine();
             var values = value.Split('#');
 
             Assert.AreEqual(stringHeadersOutput, value.Trim());

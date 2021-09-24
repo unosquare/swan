@@ -1,0 +1,169 @@
+﻿using Swan.Reflection;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Swan.Formatters
+{
+    /// <summary>
+    /// Represents a CSV writer that can transform objects into their corresponding CSV representation.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class CsvObjectWriter<T> : CsvWriter
+    {
+        private readonly ITypeInfo _typeInfo = typeof(T).TypeInfo();
+        private readonly Dictionary<string, Func<T, string>> _propertyMap;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CsvObjectWriter{T}"/> class.
+        /// </summary>
+        /// <param name="outputStream">The output stream.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="separatorChar">The field separator character.</param>
+        /// <param name="escapeChar">The escape character.</param>
+        /// <param name="newLineSequence">Specifies the new line character sequence.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the stream reader object is disposed; otherwise, false.</param>
+        public CsvObjectWriter(Stream outputStream,
+            Encoding? encoding = default,
+            char separatorChar = Csv.DefaultSeparatorChar,
+            char escapeChar = Csv.DefaultEscapeChar,
+            string? newLineSequence = default,
+            bool? leaveOpen = default)
+            : base(outputStream, encoding, separatorChar, escapeChar, newLineSequence, leaveOpen)
+        {
+            _propertyMap = _typeInfo.Properties()
+                .Where(p =>
+                    p.CanRead &&
+                    p.PropertyType.IsBasicType &&
+                    !p.PropertyName.Contains('.', StringComparison.Ordinal))
+                .ToDictionary(
+                    p => p.PropertyName,
+                    p => new Func<T, string>((instance) =>
+                    {
+                        if (instance is null || !p.TryRead(instance, out var value))
+                            return string.Empty;
+
+                        return p.PropertyType.ToStringInvariant(instance);
+                    }));
+        }
+
+        /// <summary>
+        /// Gets a dictionary where keys are the output headings and values are the
+        /// method calls to produce the values.
+        /// </summary>
+        public IReadOnlyDictionary<string, Func<T, string?>> PropertyMap => _propertyMap;
+
+        /// <summary>
+        /// Gets a value indicating whether headings have been written out to the output stream.
+        /// </summary>
+        public bool HasWrittenHeadings { get; private set; }
+
+        /// <summary>
+        /// Removes a mapping to the specified heading.
+        /// </summary>
+        /// <param name="headingName">The name of the heading to remove.</param>
+        /// <returns>This instance, in order to enable fluent API.</returns>
+        public CsvObjectWriter<T> RemoveMapping(string headingName)
+        {
+            if (headingName is null)
+                throw new ArgumentNullException(nameof(headingName));
+
+            if (HasWrittenHeadings)
+                throw new InvalidOperationException("Cannot change headings once they have been written.");
+
+            _propertyMap.Remove(headingName);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Adds or replaces a mapping between a heading and a source transform.
+        /// </summary>
+        /// <param name="headingName">The name of the heading to map to.</param>
+        /// <param name="valueProvider">The optional value provider method to transform the source value into a string fro the given heading.</param>
+        /// <returns>This instance, in order to enable fluent API.</returns>
+        public CsvObjectWriter<T> AddMapping(string headingName, Func<T, string> valueProvider)
+        {
+            if (headingName is null)
+                throw new ArgumentNullException(nameof(headingName));
+
+            if (HasWrittenHeadings)
+                throw new InvalidOperationException("Cannot change headings once they have been written.");
+
+            _propertyMap[headingName] = valueProvider;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Writes an object as a set of CSV strings.
+        /// </summary>
+        /// <param name="item">The object to write.</param>
+        /// <returns>An awaitable task.</returns>
+        public async ValueTask WriteLineAsync(T item)
+        {
+            if (item is null)
+                throw new ArgumentNullException(nameof(item));
+
+            if (!HasWrittenHeadings)
+            {
+                await WriteLineAsync(_propertyMap.Keys.AsEnumerable()).ConfigureAwait(false);
+                HasWrittenHeadings = true;
+            }
+            
+            var values = new List<string>(_propertyMap.Count);
+            values.AddRange(_propertyMap.Select(kvp => kvp.Value.Invoke(item)));
+
+            await WriteLineAsync(values);
+        }
+
+        /// <summary>
+        /// Writes an object as a set of CSV strings.
+        /// </summary>
+        /// <param name="item">The object to write.</param>
+        public void WriteLine(T item)
+        {
+            if (item is null)
+                throw new ArgumentNullException(nameof(item));
+
+            var writeTask = WriteLineAsync(item);
+            if (writeTask.IsCompletedSuccessfully)
+                return;
+
+            writeTask.AsTask().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Writes multiple objects as a set of CSV strings.
+        /// </summary>
+        /// <param name="items">The objects to write.</param>
+        /// <returns>An awaitable task.</returns>
+        public async ValueTask WriteLinesAsync(IEnumerable<T> items)
+        {
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            foreach (var item in items)
+                await WriteLineAsync(item);
+        }
+
+        /// <summary>
+        /// Writes multiple objects as a set of CSV strings.
+        /// </summary>
+        /// <param name="items">The objects to write.</param>
+        public void WriteLines(IEnumerable<T> items)
+        {
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            var writeTask = WriteLinesAsync(items);
+            if (writeTask.IsCompletedSuccessfully)
+                return;
+
+            writeTask.AsTask().GetAwaiter().GetResult();
+        }
+    }
+}

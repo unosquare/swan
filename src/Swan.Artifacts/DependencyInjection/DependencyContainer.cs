@@ -653,14 +653,16 @@ namespace Swan.DependencyInjection
             resolveOptions ??= DependencyContainerResolveOptions.Default;
 
             var properties = input.GetType()
-                .GetProperties()
+                .TypeInfo()
+                .Properties()
                 .Where(property => !property.PropertyType.IsValueType);
 
-            foreach (var property in properties.Where(property => input.ReadProperty(property.Name) == null))
+            foreach (var property in properties.Where(property => property.Read(input) is null))
             {
                 try
                 {
-                    input.WriteProperty(property.Name, RegisteredTypes.ResolveInternal(new TypeRegistration(property.PropertyType), resolveOptions));
+                    property.Write(input,
+                        RegisteredTypes.ResolveInternal(new (property.PropertyType.NativeType), resolveOptions));
                 }
                 catch (DependencyContainerResolutionException)
                 {

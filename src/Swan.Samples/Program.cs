@@ -405,7 +405,7 @@ namespace Swan.Samples
                 var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
-                var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test01FilePath);
+                var savedRecordCount = Csv.Save(generatedRecords, test01FilePath);
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
                     .Info(nameof(TestCsvFormatters));
 
@@ -413,7 +413,7 @@ namespace Swan.Samples
                 $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
                     nameof(TestCsvFormatters));
 
-                savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test02FilePath);
+                savedRecordCount = Csv.Save(generatedRecords, test02FilePath);
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}."
                     .Info(nameof(TestCsvFormatters));
 

@@ -76,7 +76,7 @@ namespace Swan.Formatters
                 if (target is not IDictionary<string, object?> expando)
                     return;
 
-                expando[mapping.TargetName] = mapping.Reader.TryGetValue(mapping.Heading, out var value)
+                expando[mapping.TargetName] = mapping.Container.TryGetValue(mapping.Heading, out var value)
                     ? valueProvider(value)
                     : default;
             });

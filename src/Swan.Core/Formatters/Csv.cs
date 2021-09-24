@@ -92,5 +92,18 @@ namespace Swan.Formatters
             using var stream = File.OpenRead(filePath);
             return Load(stream, encoding);
         }
+
+        public static long Save<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default)
+        {
+            using var writer = new CsvObjectWriter<T>(stream, encoding);
+            writer.WriteLines(items);
+            return writer.Count;
+        }
+
+        public static long Save<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default)
+        {
+            using var fileStream = File.OpenRead(filePath);
+            return Save(items, fileStream, encoding);
+        }
     }
 }

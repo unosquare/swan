@@ -73,47 +73,5 @@ namespace Swan.Reflection
             t is not null
                 ? t.TypeInfo().Property(propertyName)
                 : throw new ArgumentNullException(nameof(t));
-
-        /// <summary>
-        /// Reads the property value using a <see cref="IPropertyProxy"/>.
-        /// </summary>
-        /// <typeparam name="T">The type to get property proxies from.</typeparam>
-        /// <param name="obj">The instance.</param>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns>
-        /// The value obtained from the associated <see cref="IPropertyProxy" />
-        /// </returns>
-        /// <exception cref="ArgumentNullException">obj.</exception>
-        public static dynamic? ReadProperty<T>(this T obj, string propertyName)
-        {
-            if (obj is null)
-                throw new ArgumentNullException(nameof(obj));
-
-            var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException($"Could not find a property with the name '{propertyName}'.", nameof(propertyName));
-
-            return proxy.TryRead(obj, out var value)
-                ? value
-                : default;
-        }
-
-        /// <summary>
-        /// Writes the property value using a <see cref="IPropertyProxy"/>.
-        /// </summary>
-        /// <typeparam name="T">The type to get property proxies from.</typeparam>
-        /// <param name="obj">The instance.</param>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>True if the property write operation was successful.</returns>
-        public static bool WriteProperty<T>(this T obj, string propertyName, object? value)
-        {
-            if (obj is null)
-                throw new ArgumentNullException(nameof(obj));
-
-            var proxy = obj.GetType().Property(propertyName)
-                ?? throw new ArgumentException($"Could not find a property with name '{propertyName}'.", nameof(propertyName));
-
-            return proxy.TryWrite(obj, value);
-        }
     }
 }

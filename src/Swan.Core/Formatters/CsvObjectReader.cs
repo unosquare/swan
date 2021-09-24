@@ -112,6 +112,9 @@ namespace Swan.Formatters
         /// <inheritdoc />
         protected override void OnHeadingsRead(IReadOnlyList<string> headings)
         {
+            if (headings is null)
+                throw new ArgumentNullException(nameof(headings));
+
             foreach (var heading in headings)
             {
                 if (!_typeInfo.TryFindProperty(heading, out var property))
@@ -128,7 +131,7 @@ namespace Swan.Formatters
         {
             _targetMap[heading] = new(this, heading, property.PropertyName, (mapping, target) =>
             {
-                if (!mapping.Reader.TryGetValue(mapping.Heading, out var value))
+                if (!mapping.Container.TryGetValue(mapping.Heading, out var value))
                     return;
 
                 if (!property.CanWrite)

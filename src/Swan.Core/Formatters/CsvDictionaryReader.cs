@@ -72,7 +72,7 @@ namespace Swan.Formatters
 
             _targetMap[heading] = new(this, heading, targetName, (mapping, target) =>
             {
-                target[mapping.TargetName] = mapping.Reader.TryGetValue(mapping.Heading, out var value)
+                target[mapping.TargetName] = mapping.Container.TryGetValue(mapping.Heading, out var value)
                     ? valueProvider(value)
                     : default;
             });
