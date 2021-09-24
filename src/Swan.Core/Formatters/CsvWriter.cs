@@ -68,6 +68,16 @@ namespace Swan.Formatters
         public long Count => _count.Value;
 
         /// <summary>
+        /// Clears all buffers from the current writer and causes all data to be written to the underlying stream.
+        /// </summary>
+        public void Flush() => _writer.Flush();
+
+        /// <summary>
+        /// Clears all buffers from the current writer and causes all data to be written to the underlying stream.
+        /// </summary>
+        public Task FlushAsync() => _writer.FlushAsync();
+
+        /// <summary>
         /// Writes a CSV record with the specified values.
         /// Individual items found to be null will be written out as empty strings.
         /// </summary>

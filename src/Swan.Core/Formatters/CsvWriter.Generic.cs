@@ -11,7 +11,7 @@ namespace Swan.Formatters
     /// <summary>
     /// Represents a CSV writer that can transform objects into their corresponding CSV representation.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of item to write.</typeparam>
     public class CsvWriter<T> : CsvWriter
     {
         private readonly ITypeInfo _typeInfo = typeof(T).TypeInfo();
@@ -22,18 +22,21 @@ namespace Swan.Formatters
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         /// <param name="encoding">The encoding.</param>
+        /// <param name="writesHeadings">If the writer automatically writes the mapped headings.</param>
         /// <param name="separatorChar">The field separator character.</param>
         /// <param name="escapeChar">The escape character.</param>
         /// <param name="newLineSequence">Specifies the new line character sequence.</param>
         /// <param name="leaveOpen">true to leave the stream open after the stream reader object is disposed; otherwise, false.</param>
         public CsvWriter(Stream outputStream,
             Encoding? encoding = default,
+            bool writesHeadings = true,
             char separatorChar = Csv.DefaultSeparatorChar,
             char escapeChar = Csv.DefaultEscapeChar,
             string? newLineSequence = default,
             bool? leaveOpen = default)
             : base(outputStream, encoding, separatorChar, escapeChar, newLineSequence, leaveOpen)
         {
+            WritesHeadings = writesHeadings;
             _propertyMap = _typeInfo.Properties()
                 .Where(p =>
                     p.CanRead &&
@@ -60,6 +63,11 @@ namespace Swan.Formatters
         /// Gets a value indicating whether headings have been written out to the output stream.
         /// </summary>
         public bool HasWrittenHeadings { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the writer writes out the headings.
+        /// </summary>
+        public bool WritesHeadings { get; }
 
         /// <summary>
         /// Removes a mapping to the specified heading.
@@ -110,10 +118,12 @@ namespace Swan.Formatters
 
             if (!HasWrittenHeadings)
             {
-                await WriteLineAsync(_propertyMap.Keys.AsEnumerable()).ConfigureAwait(false);
+                if (WritesHeadings)
+                    await WriteLineAsync(_propertyMap.Keys.AsEnumerable()).ConfigureAwait(false);
+
                 HasWrittenHeadings = true;
             }
-            
+
             var values = new List<string>(_propertyMap.Count);
             values.AddRange(_propertyMap.Select(kvp => kvp.Value.Invoke(item)));
 

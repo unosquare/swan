@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Swan.Extensions;
 using Swan.Formatters;
 using Swan.Test.Mocks;
 using System;
@@ -52,7 +51,7 @@ namespace Swan.Test.CsvWriterTest
         public void WithTempFileAndEncoding_Valid()
         {
             var tempFile = Path.GetTempFileName();
-            using var fs = File.OpenRead(tempFile);
+            using var fs = File.OpenWrite(tempFile);
             var reader = new CsvWriter(fs, Encoding.ASCII);
 
             Assert.IsNotNull(reader);
@@ -161,7 +160,7 @@ namespace Swan.Test.CsvWriterTest
             writer.WriteLine(dynObject);
 
             Assert.IsNotNull(writer);
-            Assert.AreEqual(1, (int)writer.Count);
+            Assert.AreEqual(2, (int)writer.Count);
         }
     }
 
@@ -201,6 +200,7 @@ namespace Swan.Test.CsvWriterTest
             var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
 
             writer.WriteLine(dictionaryHeaders.Keys);
+            writer.Flush();
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
@@ -220,16 +220,17 @@ namespace Swan.Test.CsvWriterTest
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
+            var stringHeadersOutput = string.Join(",", stringHeaders);
 
             using var stream = new MemoryStream();
             using var writer = new CsvWriter<SampleCsvRecord>(stream);
 
             writer.WriteLine(new());
+            writer.Flush();
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
-            var value = sr.ReadToEnd();
+            var value = sr.ReadLine();
             var values = value.Split(',');
 
             Assert.AreEqual(stringHeadersOutput, value.Trim());
@@ -255,7 +256,7 @@ namespace Swan.Test.CsvWriterTest
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join(",", stringHeaders.Select(x => x.Humanize()));
+            var stringHeadersOutput = string.Join(",", stringHeaders);
 
             var objHeaders = new SampleCsvRecord();
 
@@ -263,10 +264,11 @@ namespace Swan.Test.CsvWriterTest
             using var writer = new CsvWriter<SampleCsvRecord>(stream);
 
             writer.WriteLine(objHeaders);
+            writer.Flush();
 
             stream.Position = 0;
             var sr = new StreamReader(stream);
-            var value = sr.ReadToEnd();
+            var value = sr.ReadLine();
             var values = value.Split(',');
 
             Assert.AreEqual(stringHeadersOutput, value.Trim());
@@ -282,7 +284,7 @@ namespace Swan.Test.CsvWriterTest
                 "AccessDate",
             };
 
-            var stringHeadersOutput = string.Join("#", stringHeaders.Select(x => x.Humanize()));
+            var stringHeadersOutput = string.Join("#", stringHeaders);
 
             var objHeaders = new SampleCsvRecord();
 
@@ -290,7 +292,7 @@ namespace Swan.Test.CsvWriterTest
             using var writer = new CsvWriter<SampleCsvRecord>(stream, separatorChar: '#');
 
             writer.WriteLine(objHeaders);
-
+            writer.Flush();
             stream.Position = 0;
             var sr = new StreamReader(stream);
             var value = sr.ReadLine();

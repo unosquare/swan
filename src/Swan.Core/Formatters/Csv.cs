@@ -23,6 +23,11 @@ namespace Swan.Formatters
         public const char DefaultEscapeChar = '"';
 
         /// <summary>
+        /// The MIME type according to the RFC 4180 spec.
+        /// </summary>
+        public const string MimeType = "text/csv";
+
+        /// <summary>
         /// Gets the default encoding used by CSV readers
         /// whenever an encoding is not specified.
         /// </summary>
@@ -150,30 +155,85 @@ namespace Swan.Formatters
             return Load(stream, encoding);
         }
 
-        public static long Save<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default)
+        /// <summary>
+        /// Saves multiple records to the underlying stream.
+        /// </summary>
+        /// <typeparam name="T">The type of objects to be written.</typeparam>
+        /// <param name="items">A collection of items to be written.</param>
+        /// <param name="stream">The target stream to write items into.</param>
+        /// <param name="encoding">The encoding to be used.</param>
+        /// <param name="writeHeadings">Whether headings should be written out to the file.</param>
+        /// <returns>The number of records written to the file, including headings.</returns>
+        public static long Save<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default, bool writeHeadings = true)
         {
-            using var writer = new CsvWriter<T>(stream, encoding);
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            if (stream is null)
+                throw new ArgumentNullException(nameof(stream));
+
+            using var writer = new CsvWriter<T>(stream, encoding, writeHeadings);
             writer.WriteLines(items);
+            writer.Flush();
             return writer.Count;
         }
 
-        public static async ValueTask<long> SaveAsync<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default)
+        /// <summary>
+        /// Saves multiple records to the underlying stream.
+        /// </summary>
+        /// <typeparam name="T">The type of objects to be written.</typeparam>
+        /// <param name="items">A collection of items to be written.</param>
+        /// <param name="stream">The target stream to write items into.</param>
+        /// <param name="encoding">The encoding to be used.</param>
+        /// <param name="writeHeadings">Whether headings should be written out to the file.</param>
+        /// <returns>The number of records written to the file, including headings.</returns>
+        public static async ValueTask<long> SaveAsync<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default, bool writeHeadings = true)
         {
-            await using var writer = new CsvWriter<T>(stream, encoding);
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            if (stream is null)
+                throw new ArgumentNullException(nameof(stream));
+
+            await using var writer = new CsvWriter<T>(stream, encoding, writeHeadings);
             await writer.WriteLinesAsync(items);
             return writer.Count;
         }
 
-        public static long Save<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default)
+        /// <summary>
+        /// Saves multiple records to the specified file.
+        /// </summary>
+        /// <typeparam name="T">The type of objects to be written.</typeparam>
+        /// <param name="items">A collection of items to be written.</param>
+        /// <param name="filePath">The path to the file to write to.</param>
+        /// <param name="encoding">The encoding to be used.</param>
+        /// <param name="truncate">Whether the file contents should be overwritten.</param>
+        /// <returns>The number of records written to the file, including headings.</returns>
+        public static long Save<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default, bool truncate = true)
         {
             using var fileStream = File.OpenWrite(filePath);
-            return Save(items, fileStream, encoding);
+            if (truncate)
+                fileStream.SetLength(0);
+
+            return Save(items, fileStream, encoding, fileStream.Length <= 0);
         }
 
-        public static async ValueTask<long> SaveAsync<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default)
+        /// <summary>
+        /// Saves multiple records to the specified file.
+        /// </summary>
+        /// <typeparam name="T">The type of objects to be written.</typeparam>
+        /// <param name="items">A collection of items to be written.</param>
+        /// <param name="filePath">The path to the file to write to.</param>
+        /// <param name="encoding">The encoding to be used.</param>
+        /// <param name="truncate">Whether the file contents should be overwritten.</param>
+        /// <returns>The number of records written to the file, including headings.</returns>
+        public static async ValueTask<long> SaveAsync<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default, bool truncate = true)
         {
             await using var fileStream = File.OpenWrite(filePath);
-            return await SaveAsync(items, fileStream, encoding);
+            if (truncate)
+                fileStream.SetLength(0);
+
+            return await SaveAsync(items, fileStream, encoding, fileStream.Length <= 0);
         }
     }
 }
