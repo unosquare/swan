@@ -187,7 +187,7 @@ namespace Swan.Reflection
             }
 
             // Case 0: Direct assignment if types are the same or compatible.
-            if (targetType.NativeType.IsAssignableFrom(sourceType.NativeType))
+            if (targetType.IsAssignableFrom(sourceType))
             {
                 targetValue = sourceValue;
                 return true;

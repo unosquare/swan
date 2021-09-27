@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Swan.Reflection
 {
-    internal sealed class ToStringMethodInfo : CommonMethodInfo
+    internal sealed class ToStringMethodInfo : MethodDelegateInfo
     {
         public ToStringMethodInfo(ITypeInfo typeInfo)
             : base(typeInfo, nameof(byte.TryParse))

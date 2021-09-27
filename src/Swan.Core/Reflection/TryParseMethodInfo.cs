@@ -4,8 +4,10 @@ using System.Reflection;
 
 namespace Swan.Reflection
 {
-    internal sealed class TryParseMethodInfo : CommonMethodInfo
+    internal sealed class TryParseMethodInfo : MethodDelegateInfo
     {
+        delegate bool TryParseDelegate(string input, out int value);
+
         public TryParseMethodInfo(ITypeInfo typeInfo)
             : base(typeInfo, nameof(byte.TryParse))
         {

@@ -145,6 +145,11 @@ namespace Swan.Reflection
         IReadOnlyList<FieldInfo> Fields { get; }
 
         /// <summary>
+        /// Provides a collection of all instance methods (public and non public) for this type.
+        /// </summary>
+        IReadOnlyList<MethodInfo> Methods { get; }
+
+        /// <summary>
         /// Provides a collection of all instances of attributes applied on this type and its parent types.
         /// </summary>
         IReadOnlyList<object> TypeAttributes { get; }

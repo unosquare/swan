@@ -9,8 +9,8 @@ namespace Swan.Collections
 {
     /// <summary>
     /// Provides a unified API for most commonly available collection types.
-    /// Please not that the implementation of these methods is not as performant
-    /// as the collection's native implementation due to some prcessing and
+    /// Please note that the implementation of these methods is not as fast
+    /// as the collection's native implementation due to some processing and
     /// dynamic binding that this proxy requires o function properly.
     /// </summary>
     public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
@@ -659,6 +659,29 @@ namespace Swan.Collections
         }
 
         /// <summary>
+        /// Determines if all the values (or their converted values) contained in this collection
+        /// are also contained in the other collection and that both collections match their element count.
+        /// </summary>
+        /// <param name="other">The other collection containing sequences.</param>
+        /// <returns>True if the current and other collection contain same or equivalent values.</returns>
+        public bool SequenceEquals(CollectionProxy? other)
+        {
+            if (other is null)
+                return false;
+
+            var otherValues = other.Values.AsProxy();
+            var sourceCount = 0;
+            foreach (var sourceItem in Values)
+            {
+                sourceCount++;
+                if (!other.ContainsValue(sourceItem))
+                    return false;
+            }
+
+            return otherValues.Count == sourceCount;
+        }
+
+        /// <summary>
         /// Converts the items in the <see cref="Values"/> to a typed list.
         /// </summary>
         /// <typeparam name="T">The target element type.</typeparam>
@@ -684,7 +707,7 @@ namespace Swan.Collections
         /// </summary>
         /// <param name="target">The target collection proxy.</param>
         /// <returns>True if the operation succeeds. False otherwise.</returns>
-        public bool TryCopyTo(CollectionProxy target)
+        public bool TryCopyTo(CollectionProxy? target)
         {
             if (target is null)
                 return false;
