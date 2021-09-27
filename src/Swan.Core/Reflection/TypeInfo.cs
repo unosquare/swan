@@ -15,6 +15,8 @@ namespace Swan.Reflection
     /// </summary>
     internal sealed class TypeInfo : ITypeInfo
     {
+        delegate bool TryParseDelegate(string input, out object? value);
+
         /// <summary>
         /// Binding flags to retrieve instance, public and non-public members.
         /// </summary>
@@ -25,14 +27,15 @@ namespace Swan.Reflection
         private readonly Lazy<object[]> TypeAttributesLazy;
         private readonly Lazy<ITypeInfo[]> GenericTypeArgumentsLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
-        private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
-        private readonly Lazy<ToStringMethodInfo> ToStringMethodLazy;
+        private readonly Lazy<TryParseDelegate?> TryParseMethodLazy;
+        private readonly Lazy<Func<object, string>> ToStringMethodLazy;
         private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
         private readonly Lazy<object?> DefaultLazy;
         private readonly Lazy<Func<object>> CreateInstanceLazy;
         private readonly Lazy<Type[]> InterfacesLazy;
         private readonly Lazy<bool> IsEnumerableLazy;
         private readonly Lazy<ICollectionInfo?> CollectionLazy;
+        private readonly Lazy<MethodInfo[]> MethodsLazy;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TypeInfo"/> class.
@@ -63,8 +66,34 @@ namespace Swan.Reflection
 
             FieldsLazy = new(() => nativeType.GetFields(PublicAndPrivate), true);
             TypeAttributesLazy = new(() => nativeType.GetCustomAttributes(true), true);
-            TryParseMethodLazy = new(() => new TryParseMethodInfo(this), true);
-            ToStringMethodLazy = new(() => new ToStringMethodInfo(this), true);
+            TryParseMethodLazy = new(() =>
+            {
+                var stringType = typeof(string);
+                var outputType = UnderlyingType.NativeType.MakeByRefType();
+                var formatType = typeof(IFormatProvider);
+                var numberStylesType = typeof(NumberStyles);
+
+                var typeSets = new List<Type[]>
+                {
+                    new [] { stringType, numberStylesType, formatType, outputType },
+                    new [] { stringType, formatType, outputType },
+                    new [] { stringType, outputType }
+                };
+
+                if ()
+
+            }, true);
+            ToStringMethodLazy = new(() =>
+            {
+                var parameterTypes = new[] { typeof(IFormatProvider) };
+                if (MethodDelegateInfo.TryCreate<Func<object, IFormatProvider, string>>(
+                    this, false, nameof(ToString), parameterTypes, out var delegateInfo))
+                    return (instance) =>
+                        delegateInfo.Delegate.DynamicInvoke(instance, CultureInfo.InvariantCulture) as string ??
+                                         string.Empty;
+
+                return (instance) => instance.ToString() ?? string.Empty;
+            }, true);
             DefaultConstructorLazy = new(() => !IsValueType
                 ? nativeType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
                 : null, true);
@@ -98,6 +127,8 @@ namespace Swan.Reflection
                     ? collectionInfo
                     : default;
             }, true);
+
+            MethodsLazy = new(() => nativeType.GetMethods(PublicAndPrivate), true);
 
             PropertiesLazy = new(() =>
             {
@@ -206,14 +237,15 @@ namespace Swan.Reflection
         public IReadOnlyDictionary<string, IPropertyProxy> Properties => PropertiesLazy.Value;
 
         /// <inheritdoc />
+        public IReadOnlyList<MethodInfo> Methods => MethodsLazy.Value;
+
+        /// <inheritdoc />
         public IReadOnlyList<FieldInfo> Fields => FieldsLazy.Value;
 
         /// <inheritdoc />
         public IReadOnlyList<object> TypeAttributes => TypeAttributesLazy.Value;
 
-        private MethodInfo? TryParseMethodInfo => TryParseMethodLazy.Value.Method;
-
-        private MethodInfo? ToStringMethodInfo => ToStringMethodLazy.Value.Method;
+        private MethodInfo? TryParseMethodInfo => TryParseMethodLazy.Value;
 
         /// <inheritdoc />
         public object CreateInstance() => CreateInstanceLazy.Value.Invoke();
@@ -221,12 +253,9 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public string ToStringInvariant(object? instance)
         {
-            if (instance is null)
-                return string.Empty;
-
-            return ToStringMethodInfo is not null && ToStringMethodLazy.Value.Parameters.Count == 1
-                ? ToStringMethodInfo.Invoke(instance, new object[] { CultureInfo.InvariantCulture }) as string ?? string.Empty
-                : instance.ToString() ?? string.Empty;
+            return instance is null
+                ? string.Empty
+                : ToStringMethodLazy.Value(instance);
         }
 
         /// <inheritdoc />

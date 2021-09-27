@@ -239,7 +239,7 @@ namespace Swan.Extensions
         /// <summary>
         /// Makes the file name system safe.
         /// </summary>
-        /// <param name="value">The s.</param>
+        /// <param name="value">The filename to convert.</param>
         /// <returns>
         /// A string with a safe file name.
         /// </returns>
@@ -263,13 +263,8 @@ namespace Swan.Extensions
                 throw new ArgumentNullException(nameof(value));
 
             var builder = new StringBuilder(value.Length);
-            foreach (var c in value)
-            {
-                if (c == find)
-                    continue;
-
+            foreach (var c in value.Where(c => c != find))
                 builder.Append(c);
-            }
 
             return builder.ToString();
         }
