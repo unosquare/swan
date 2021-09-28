@@ -179,7 +179,7 @@ namespace Swan.Reflection
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
-        bool TryParse(string s, [MaybeNullWhen(false)] out object? result);
+        bool TryParse(string? s, [MaybeNullWhen(false)] out object? result);
 
         /// <summary>
         /// Tries to find a property by its name, first by exact match, then by various

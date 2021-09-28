@@ -15,8 +15,6 @@ namespace Swan.Reflection
     /// </summary>
     internal sealed class TypeInfo : ITypeInfo
     {
-        delegate bool TryParseDelegate(string input, out object? value);
-
         /// <summary>
         /// Binding flags to retrieve instance, public and non-public members.
         /// </summary>
@@ -27,7 +25,7 @@ namespace Swan.Reflection
         private readonly Lazy<object[]> TypeAttributesLazy;
         private readonly Lazy<ITypeInfo[]> GenericTypeArgumentsLazy;
         private readonly Lazy<FieldInfo[]> FieldsLazy;
-        private readonly Lazy<TryParseDelegate?> TryParseMethodLazy;
+        private readonly Lazy<TryParseMethodInfo> TryParseMethodLazy;
         private readonly Lazy<Func<object, string>> ToStringMethodLazy;
         private readonly Lazy<ConstructorInfo?> DefaultConstructorLazy;
         private readonly Lazy<object?> DefaultLazy;
@@ -66,23 +64,7 @@ namespace Swan.Reflection
 
             FieldsLazy = new(() => nativeType.GetFields(PublicAndPrivate), true);
             TypeAttributesLazy = new(() => nativeType.GetCustomAttributes(true), true);
-            TryParseMethodLazy = new(() =>
-            {
-                var stringType = typeof(string);
-                var outputType = UnderlyingType.NativeType.MakeByRefType();
-                var formatType = typeof(IFormatProvider);
-                var numberStylesType = typeof(NumberStyles);
-
-                var typeSets = new List<Type[]>
-                {
-                    new [] { stringType, numberStylesType, formatType, outputType },
-                    new [] { stringType, formatType, outputType },
-                    new [] { stringType, outputType }
-                };
-
-                if ()
-
-            }, true);
+            TryParseMethodLazy = new(() => new(this), true);
             ToStringMethodLazy = new(() =>
             {
                 var parameterTypes = new[] { typeof(IFormatProvider) };
@@ -216,7 +198,7 @@ namespace Swan.Reflection
         public object? DefaultValue => DefaultLazy.Value;
 
         /// <inheritdoc />
-        public bool CanParseNatively => NativeType == typeof(string) || TryParseMethodInfo != null;
+        public bool CanParseNatively => NativeType == typeof(string) || TryParseMethodLazy.Value.IsNative;
 
         /// <inheritdoc />
         public bool CanCreateInstance => IsValueType || (!IsAbstract && !IsInterface && DefaultConstructorLazy.Value is not null);
@@ -245,8 +227,6 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public IReadOnlyList<object> TypeAttributes => TypeAttributesLazy.Value;
 
-        private MethodInfo? TryParseMethodInfo => TryParseMethodLazy.Value;
-
         /// <inheritdoc />
         public object CreateInstance() => CreateInstanceLazy.Value.Invoke();
 
@@ -259,56 +239,17 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryParse(string s, [MaybeNullWhen(false)] out object? result)
+        public bool TryParse(string? s, [MaybeNullWhen(false)] out object? result)
         {
-            result = DefaultValue;
-
-            if (TryParseMethodInfo is null)
-                return false;
-
-            if (NativeType == typeof(string))
+            if (NativeType != typeof(string))
             {
-                result = s;
-                return true;
+                return TryParseMethodLazy.Value.Invoke(s, out result);
             }
 
-            if ((IsNullableValueType && string.IsNullOrWhiteSpace(s)))
-            {
-                return true;
-            }
-
-            try
-            {
-                // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object?>(8) { s };
-
-                for (var pi = 1; pi < TryParseMethodLazy.Value.Parameters.Count - 1; pi++)
-                {
-                    var argInfo = TryParseMethodLazy.Value.Parameters[pi];
-                    if (argInfo.ParameterType == typeof(IFormatProvider))
-                        dynamicArguments.Add(CultureInfo.InvariantCulture);
-                    else if (argInfo.ParameterType == typeof(NumberStyles))
-                        dynamicArguments.Add(NumberStyles.Any);
-                    else
-                        dynamicArguments.Add(null);
-                }
-
-                dynamicArguments.Add(null);
-                var parseArguments = dynamicArguments.ToArray();
-
-                if ((bool)(TryParseMethodInfo.Invoke(null, parseArguments) ?? false))
-                {
-                    result = parseArguments[^1];
-                    return true;
-                }
-            }
-            catch
-            {
-                // Ignore
-            }
-
-            return false;
+            result = s ?? string.Empty;
+            return true;
         }
+            
 
         /// <inheritdoc />
         public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value)
