@@ -1,10 +1,10 @@
-﻿using Swan.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Mapping;
+    using System;
+    using System.Collections.Generic;
+    using System.Text.Json.Serialization;
+
     public class ErrorJson
     {
         public string Message { get; set; }

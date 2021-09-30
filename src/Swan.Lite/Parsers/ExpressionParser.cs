@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Represents a generic expression parser.
     /// </summary>

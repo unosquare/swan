@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using Swan.Logging;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Logging;
+
     [TestFixture]
     public class DebugLoggerTests
     {

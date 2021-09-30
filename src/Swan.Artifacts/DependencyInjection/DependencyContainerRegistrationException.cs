@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.DependencyInjection
+﻿namespace Swan.DependencyInjection
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Generic Constraint Registration Exception.
     /// </summary>

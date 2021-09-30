@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Threading;
-using System;
-using System.Threading;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Threading;
+    using System;
+    using System.Threading;
+
     [TestFixture]
     public class ExclusiveTimerTest
     {

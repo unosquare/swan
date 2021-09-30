@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Platform
+﻿namespace Swan.Platform
 {
+    using System;
+
     /// <summary>
     /// Defines a set of bitwise standard terminal writers.
     /// </summary>

@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Collections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Test.ExtensionsFunctionalTest
+﻿namespace Swan.Test.ExtensionsFunctionalTest
 {
+    using NUnit.Framework;
+    using Swan.Collections;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public abstract class ExtensionsFunctionalTest : TestFixtureBase
     {
         protected const string AdditionalName = "Sauron";

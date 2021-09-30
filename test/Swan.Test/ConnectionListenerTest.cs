@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class ConnectionListenerTest
     {

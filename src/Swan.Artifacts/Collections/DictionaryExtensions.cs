@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Swan.Collections
+﻿namespace Swan.Collections
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Extension methods.
     /// </summary>

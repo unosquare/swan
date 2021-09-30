@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+    using System.Runtime.Serialization;
+
     /// <summary>
     /// The exception that is thrown when a conversion from a string to a
     /// specified type fails.

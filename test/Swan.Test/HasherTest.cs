@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Utilities;
-using System;
-using System.IO;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Utilities;
+    using System;
+    using System.IO;
+
     [TestFixture]
     public class HasherTest
     {

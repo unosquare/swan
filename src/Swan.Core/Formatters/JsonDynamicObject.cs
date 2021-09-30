@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text.Json;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.Linq;
+    using System.Text.Json;
+
     /// <summary>
     /// A dynamic object 
     /// </summary>

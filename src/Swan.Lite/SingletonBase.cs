@@ -1,8 +1,8 @@
-﻿using Swan.Reflection;
-using System;
-
-namespace Swan
+﻿namespace Swan
 {
+    using Swan.Reflection;
+    using System;
+
     /// <summary>
     /// Represents a singleton pattern abstract class.
     /// </summary>

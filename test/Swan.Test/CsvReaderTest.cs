@@ -1,15 +1,15 @@
-﻿using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Platform;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Swan.Test.CsvReaderTest
+﻿namespace Swan.Test.CsvReaderTest
 {
+    using NUnit.Framework;
+    using Swan.Formatters;
+    using Swan.Platform;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     [TestFixture]
     public abstract class CsvReaderTest
     {

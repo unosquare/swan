@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     /// <summary>
     /// Provides a base class for reading schema aware <see cref="CsvReader"/> streams
     /// where headings are used to map and transform specific target members.

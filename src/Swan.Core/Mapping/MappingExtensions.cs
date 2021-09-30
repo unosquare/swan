@@ -1,10 +1,10 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class MappingExtensions
     {
         /// <summary>

@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-
-namespace Swan.Test.JsonTests
+﻿namespace Swan.Test.JsonTests
 {
+    using NUnit.Framework;
+    using Swan.Formatters;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.Json;
+
     [TestFixture]
     public class ToJson : JsonTest
     {

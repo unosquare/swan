@@ -1,11 +1,11 @@
-﻿using Swan.Reflection;
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-
-namespace Swan
+﻿namespace Swan
 {
+    using Swan.Reflection;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+
     public static class StructExtensions
     {
         /// <summary>

@@ -1,9 +1,9 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+
     /// <summary>
     /// Provides a basic implementation of a <see cref="IObjectMap"/>
     /// It's basically a dictionary of target properties to value providers.

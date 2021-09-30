@@ -1,14 +1,14 @@
-﻿using Swan.Threading;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Threading;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a base class for all CSV readers, which typically read
     /// a comma-separated set of values that can be configured to read an parse tabular data with flexible

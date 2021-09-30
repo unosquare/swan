@@ -1,13 +1,13 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a CSV writer that can transform objects into their corresponding CSV representation.
     /// </summary>

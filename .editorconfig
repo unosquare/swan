@@ -13,7 +13,7 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = false
+insert_final_newline =true
 
 #### .NET Coding Conventions ####
 
@@ -70,26 +70,26 @@ dotnet_remove_unnecessary_suppression_exclusions = none
 #### C# Coding Conventions ####
 
 # var preferences
-csharp_style_var_elsewhere = false:silent
-csharp_style_var_for_built_in_types = false:silent
-csharp_style_var_when_type_is_apparent = false:silent
+csharp_style_var_elsewhere =true:silent
+csharp_style_var_for_built_in_types =true:silent
+csharp_style_var_when_type_is_apparent =true:silent
 
 # Expression-bodied members
-csharp_style_expression_bodied_accessors = true:silent
-csharp_style_expression_bodied_constructors = false:silent
-csharp_style_expression_bodied_indexers = true:silent
-csharp_style_expression_bodied_lambdas = true:silent
-csharp_style_expression_bodied_local_functions = false:silent
-csharp_style_expression_bodied_methods = false:silent
-csharp_style_expression_bodied_operators = false:silent
-csharp_style_expression_bodied_properties = true:silent
+csharp_style_expression_bodied_accessors =true:suggestion
+csharp_style_expression_bodied_constructors =false:suggestion
+csharp_style_expression_bodied_indexers =true:suggestion
+csharp_style_expression_bodied_lambdas =true:suggestion
+csharp_style_expression_bodied_local_functions =false:suggestion
+csharp_style_expression_bodied_methods =false:suggestion
+csharp_style_expression_bodied_operators =false:suggestion
+csharp_style_expression_bodied_properties =true:suggestion
 
 # Pattern matching preferences
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
-csharp_style_prefer_pattern_matching = true:silent
-csharp_style_prefer_switch_expression =true:error
+csharp_style_prefer_pattern_matching =true:suggestion
+csharp_style_prefer_switch_expression =true:suggestion
 
 # Null-checking preferences
 csharp_style_conditional_delegate_call = true:suggestion
@@ -114,7 +114,7 @@ csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # 'using' directive preferences
-csharp_using_directive_placement =outside_namespace:error
+csharp_using_directive_placement =inside_namespace:error
 
 #### C# Formatting Rules ####
 
@@ -225,9 +225,10 @@ dotnet_diagnostic.IDE0057.severity=suggestion
 dotnet_diagnostic.IDE0063.severity=suggestion
 dotnet_diagnostic.IDE0082.severity=error
 dotnet_diagnostic.IDE0083.severity=suggestion
+dotnet_diagnostic.IDE0130.severity=suggestion
 [*.{cs,vb}]
 dotnet_diagnostic.CA2007.severity=silent
-dotnet_code_quality_unused_parameters=all:warning
+dotnet_code_quality_unused_parameters=all:suggestion
 dotnet_style_coalesce_expression=true:error
 
 # Defining the 'public_symbols' symbol group
@@ -249,6 +250,20 @@ dotnet_style_null_propagation=true:error
 dotnet_diagnostic.IDE0051.severity = error
 dotnet_diagnostic.CA1819.severity=suggestion
 dotnet_diagnostic.CA1836.severity=error
+dotnet_style_prefer_is_null_check_over_reference_equality_method=true:error
+dotnet_style_prefer_auto_properties=true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment=true:suggestion
+dotnet_style_prefer_conditional_expression_over_return=true:suggestion
+dotnet_style_predefined_type_for_locals_parameters_members=true:suggestion
+dotnet_style_qualification_for_field=false:suggestion
+dotnet_style_qualification_for_property=false:suggestion
+dotnet_style_qualification_for_method=false:suggestion
+dotnet_style_qualification_for_event=false:suggestion
+dotnet_diagnostic.CA1707.severity=suggestion
+dotnet_diagnostic.CA1708.severity=suggestion
+dotnet_diagnostic.CA1710.severity=silent
+dotnet_diagnostic.CA1711.severity=silent
+dotnet_diagnostic.CA1031.severity=suggestion
 
 [*Tests.cs]
 dotnet_diagnostic.CA1707.severity = none

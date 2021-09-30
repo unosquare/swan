@@ -1,13 +1,13 @@
-﻿using Swan.Collections;
-using Swan.Reflection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Collections;
+    using Swan.Reflection;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.Json;
+
     /// <summary>
     /// Represents a generic text serializer. 
     /// </summary>

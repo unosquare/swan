@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Reflection;
+
     /// <summary>
     /// Represents a Method Info Cache.
     /// </summary>

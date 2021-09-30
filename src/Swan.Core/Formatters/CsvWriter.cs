@@ -1,12 +1,12 @@
-﻿using Swan.Threading;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Threading;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a writer that writes sets of strings in CSV format into a stream.
     /// </summary>

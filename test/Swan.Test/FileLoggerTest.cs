@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Logging;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Logging;
+    using System.IO;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class FileLoggerTest
     {

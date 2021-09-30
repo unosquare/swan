@@ -1,8 +1,8 @@
-﻿using Swan.Platform;
-using System;
-
-namespace Swan.Logging
+﻿namespace Swan.Logging
 {
+    using Swan.Platform;
+    using System;
+
     /// <summary>
     /// Represents a Console implementation of <c>ILogger</c>.
     /// </summary>

@@ -1,13 +1,13 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using System.Text;
+
     /// <summary>
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into the specified target type.

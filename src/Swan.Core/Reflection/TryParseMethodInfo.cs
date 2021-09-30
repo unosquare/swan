@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+
     internal sealed class TryParseMethodInfo
     {
         private delegate bool TryParseDelegate(string input, out object? value);
@@ -14,20 +14,16 @@ namespace Swan.Reflection
 
         private static readonly string[] FalseStrings = { "False", "false", "FALSE", "0", "no", "NO" };
         private static readonly IFormatProvider InvariantCulture = CultureInfo.InvariantCulture;
-
         private static readonly Type StringType = typeof(string);
         private static readonly Type NumberStylesType = typeof(NumberStyles);
         private static readonly Type FormatProviderType = typeof(IFormatProvider);
 
-        private readonly ITypeInfo _parentType;
-        private readonly Type _nativeType;
+        private readonly ITypeInfo ParentType;
         private readonly TryParseDelegate MethodCall;
 
         public TryParseMethodInfo(ITypeInfo typeInfo)
         {
-            _parentType = typeInfo;
-            _nativeType = typeInfo.UnderlyingType.NativeType;
-
+            ParentType = typeInfo;
             TryParseDelegate? delegateCall = null;
 
             try
@@ -42,11 +38,10 @@ namespace Swan.Reflection
             IsNative = delegateCall is not null;
             MethodCall = delegateCall ?? new((string input, out object? result) =>
             {
-                result = _parentType.DefaultValue;
+                result = ParentType.DefaultValue;
                 try
                 {
-                    result = Convert.ChangeType(input, _nativeType, InvariantCulture);
-                    return true;
+                    return TypeManager.TryChangeType(input, ParentType.BackingType, out result);
                 }
                 catch
                 {
@@ -61,7 +56,7 @@ namespace Swan.Reflection
 
         public bool Invoke(string? input, out object? result)
         {
-            result = _parentType.DefaultValue;
+            result = ParentType.DefaultValue;
             if (input is null)
                 return false;
 
@@ -72,10 +67,13 @@ namespace Swan.Reflection
 
         private TryParseDelegate? BuildDelegate()
         {
-            if (_nativeType == typeof(double))
+            var backingType = ParentType.BackingType.NativeType;
+            var defaultValue = ParentType.DefaultValue;
+
+            if (backingType == typeof(double))
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     if (!double.TryParse(input, AnyStyle, InvariantCulture, out var parsedValue))
                         return false;
 
@@ -83,10 +81,10 @@ namespace Swan.Reflection
                     return true;
                 };
 
-            if (_nativeType == typeof(float))
+            if (backingType == typeof(float))
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     if (!float.TryParse(input, AnyStyle, InvariantCulture, out var parsedValue))
                         return false;
 
@@ -94,16 +92,26 @@ namespace Swan.Reflection
                     return true;
                 };
 
-            if (_parentType.IsNumeric)
+            if (backingType == typeof(bool))
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = !FalseStrings.Contains(input);
+                    return true;
+                };
+
+            if (ParentType.IsEnum)
+                return (string input, out object? value) => Enum.TryParse(ParentType.EnumType!.NativeType, input, true, out value);
+
+            if (ParentType.IsNumeric)
+                return (string input, out object? value) =>
+                {
+                    value = defaultValue;
                     if (!decimal.TryParse(input, AnyStyle, InvariantCulture, out var parsedValue))
                         return false;
 
                     try
                     {
-                        value = Convert.ChangeType(parsedValue, _nativeType, InvariantCulture);
+                        value = Convert.ChangeType(parsedValue, backingType, InvariantCulture);
                         return true;
                     }
                     catch
@@ -112,20 +120,13 @@ namespace Swan.Reflection
                     }
                 };
 
-            if (_nativeType == typeof(bool))
-                return (string input, out object? value) =>
-                {
-                    value = !FalseStrings.Contains(input);
-                    return true;
-                };
+            var outputType = backingType.MakeByRefType();
 
-            var outputType = _nativeType.MakeByRefType();
-
-            var method = _nativeType.GetMethod(TryParseMethodName, new[] { StringType, NumberStylesType, FormatProviderType, outputType });
+            var method = backingType.GetMethod(TryParseMethodName, new[] { StringType, NumberStylesType, FormatProviderType, outputType });
             if (method is not null)
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     var parameters = new object?[] { input, AnyStyle, InvariantCulture, null };
                     if (method.Invoke(null, parameters) is not bool result)
                         return false;
@@ -134,11 +135,11 @@ namespace Swan.Reflection
                     return result;
                 };
 
-            method = _nativeType.GetMethod(TryParseMethodName, new[] { StringType, FormatProviderType, outputType });
+            method = backingType.GetMethod(TryParseMethodName, new[] { StringType, FormatProviderType, outputType });
             if (method is not null)
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     var parameters = new object?[] { input, InvariantCulture, null };
                     if (method.Invoke(null, parameters) is not bool result)
                         return false;
@@ -147,11 +148,11 @@ namespace Swan.Reflection
                     return result;
                 };
 
-            method = _nativeType.GetMethod(TryParseMethodName, new[] { StringType, outputType });
+            method = backingType.GetMethod(TryParseMethodName, new[] { StringType, outputType });
             if (method is not null)
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     var parameters = new object?[] { input, null };
                     if (method.Invoke(null, parameters) is not bool result)
                         return false;
@@ -160,11 +161,11 @@ namespace Swan.Reflection
                     return result;
                 };
 
-            method = _nativeType.GetMethod(ParseMethodName, new[] { StringType, FormatProviderType });
+            method = backingType.GetMethod(ParseMethodName, new[] { StringType, FormatProviderType });
             if (method is not null)
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = ParentType.DefaultValue;
                     var parameters = new object?[] { input, InvariantCulture };
 
                     try
@@ -180,11 +181,11 @@ namespace Swan.Reflection
                     return false;
                 };
 
-            method = _nativeType.GetMethod(ParseMethodName, new[] { StringType });
+            method = backingType.GetMethod(ParseMethodName, new[] { StringType });
             if (method is not null)
                 return (string input, out object? value) =>
                 {
-                    value = _parentType.DefaultValue;
+                    value = defaultValue;
                     var parameters = new object?[] { input };
 
                     try

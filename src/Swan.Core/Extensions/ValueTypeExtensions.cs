@@ -1,8 +1,8 @@
-﻿using System;
-using System.Globalization;
-
-namespace Swan.Extensions
+﻿namespace Swan.Extensions
 {
+    using System;
+    using System.Globalization;
+
     /// <summary>
     /// Provides various extension methods for value types and structs.
     /// </summary>

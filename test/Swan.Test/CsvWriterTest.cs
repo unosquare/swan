@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Swan.Test.CsvWriterTest
+﻿namespace Swan.Test.CsvWriterTest
 {
+    using NUnit.Framework;
+    using Swan.Formatters;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     public abstract class CsvWriterTest : TestFixtureBase
     {
         protected const int TotalRows = 100;

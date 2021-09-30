@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+    using System;
+
     /// <summary>
     /// Represents an attribute to select which properties are copyable between objects.
     /// </summary>

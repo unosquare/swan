@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Reflection;
+
     /// <summary>
     /// Represents a generic interface to store getters and setters for high speed access to properties.
     /// </summary>

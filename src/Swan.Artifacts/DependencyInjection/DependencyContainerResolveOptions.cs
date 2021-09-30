@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Swan.DependencyInjection
+﻿namespace Swan.DependencyInjection
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Resolution settings.
     /// </summary>

@@ -1,12 +1,12 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
-namespace Swan.Collections
+﻿namespace Swan.Collections
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+
     /// <summary>
     /// Provides a unified API for most commonly available collection types.
     /// Please note that the implementation of these methods is not as fast

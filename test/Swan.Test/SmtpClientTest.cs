@@ -1,16 +1,16 @@
-﻿using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Net.Smtp;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Test.SmtpTests
+﻿namespace Swan.Test.SmtpTests
 {
+    using NUnit.Framework;
+    using Swan.Formatters;
+    using Swan.Net.Smtp;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class SmtpClientTest
     {
         public const string SenderEmail = "test@test.com";

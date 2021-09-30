@@ -1,18 +1,18 @@
-﻿using Swan.Net.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Security;
-using System.Net.Sockets;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Net.Smtp
+﻿namespace Swan.Net.Smtp
 {
+    using Swan.Net.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Net.Security;
+    using System.Net.Sockets;
+    using System.Security;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a basic SMTP client that is capable of submitting messages to an SMTP server.
     /// </summary>

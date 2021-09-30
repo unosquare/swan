@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+
     /// <summary>
     /// Defines a generic interface for synchronized locking mechanisms.
     /// </summary>

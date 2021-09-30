@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using Swan.Collections;
-using Swan.Reflection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Collections;
+    using Swan.Reflection;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+
     public static class CollectionSamples
     {
         private static readonly Dictionary<string, int> BaseCollection = new()

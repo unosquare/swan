@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using Swan.Platform;
-using System;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Platform;
+    using System;
+
     [TestFixture]
     public class CurrentAppTest
     {

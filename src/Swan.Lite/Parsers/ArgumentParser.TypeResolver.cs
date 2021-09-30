@@ -1,8 +1,8 @@
-﻿using Swan.Reflection;
-using System.Linq;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using Swan.Reflection;
+    using System.Linq;
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// </summary>

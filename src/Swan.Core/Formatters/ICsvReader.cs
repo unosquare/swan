@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides properties and methods common to all CSV readers.
     /// </summary>

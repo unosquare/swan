@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.IO;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides extension methods for JSON serialization and deserialization.
     /// </summary>

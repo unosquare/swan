@@ -1,14 +1,14 @@
-﻿#pragma warning disable CA1031 // Do not catch general exception types
-using Swan.Collections;
-using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+#pragma warning disable CA1031 // Do not catch general exception types
+    using Swan.Collections;
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
     /// to another using defined properties map or using the default behaviour

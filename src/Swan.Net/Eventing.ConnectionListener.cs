@@ -1,9 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+
     /// <summary>
     /// The event arguments for when connections are accepted.
     /// </summary>

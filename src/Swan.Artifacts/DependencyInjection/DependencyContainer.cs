@@ -1,11 +1,11 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.DependencyInjection
+﻿namespace Swan.DependencyInjection
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// The concrete implementation of a simple IoC container
     /// based largely on TinyIoC (https://github.com/grumpydev/TinyIoC).

@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using Swan.Net.Smtp;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Net.Smtp;
+
     [TestFixture]
     public class Constructor
     {

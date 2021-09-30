@@ -1,11 +1,11 @@
-﻿using Swan.Platform;
-using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using Swan.Platform;
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).

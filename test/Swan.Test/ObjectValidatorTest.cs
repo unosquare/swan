@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Test.Mocks;
-using Swan.Validation;
-using System;
-using System.Linq;
-
-namespace Swan.Test.ObjectComparerTests
+﻿namespace Swan.Test.ObjectComparerTests
 {
+    using NUnit.Framework;
+    using Swan.Test.Mocks;
+    using Swan.Validation;
+    using System;
+    using System.Linq;
+
     [TestFixture]
     public class ObjectValidatorInstance
     {

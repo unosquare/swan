@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
     public class ExpressionParserTest
     {

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Reflection;
+
     /// <summary>
     /// Provides extended type information.
     /// </summary>
@@ -33,10 +33,11 @@ namespace Swan.Reflection
         /// <value>
         /// <c>true</c> if this instance is nullable value type; otherwise, <c>false</c>.
         /// </value>
-        bool IsNullableValueType { get; }
+        bool IsNullable { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type or underlying type is numeric.
+        /// Enums are considered numeric.
         /// </summary>
         /// <value>
         ///  <c>true</c> if this instance is numeric; otherwise, <c>false</c>.
@@ -53,7 +54,7 @@ namespace Swan.Reflection
 
         /// <summary>
         /// Gets a value indicating whether the type is value type.
-        /// Nullable value types have this property set to False.
+        /// Nullable value types have this property set to false.
         /// </summary>
         bool IsValueType { get; }
 
@@ -68,7 +69,7 @@ namespace Swan.Reflection
         bool IsInterface { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the type is a non-nullable enumeration.
+        /// Gets a value indicating whether the type is an enumeration regardless of nullability.
         /// </summary>
         bool IsEnum { get; }
 
@@ -96,11 +97,17 @@ namespace Swan.Reflection
 
         /// <summary>
         /// When dealing with nullable value types, this property will
-        /// return the underlying value type of the nullable; when dealing with
-        /// enums, it will return the enumeration's underlying type;
+        /// return the underlying value type of the nullable. When dealing with enumerations, nullable or not,
+        /// it will return the numeric type backing it.
         /// Otherwise it will return the same type as the <see cref="NativeType"/> property.
         /// </summary>
-        ITypeInfo UnderlyingType { get; }
+        ITypeInfo BackingType { get; }
+
+        /// <summary>
+        /// When dealing with enums (nullable or otherwise), it will return the enumeration's type.
+        /// If not dealing with an enum type, then this property returns null.
+        /// </summary>
+        ITypeInfo? EnumType { get; }
 
         /// <summary>
         /// Gets the default value for this type.
@@ -179,7 +186,7 @@ namespace Swan.Reflection
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
-        bool TryParse(string? s, [MaybeNullWhen(false)] out object? result);
+        bool TryParse(string? s, [MaybeNullWhen(false)] out object result);
 
         /// <summary>
         /// Tries to find a property by its name, first by exact match, then by various

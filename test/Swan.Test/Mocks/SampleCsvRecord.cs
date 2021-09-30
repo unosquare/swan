@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class SampleCsvRecord
     {
         private static readonly string[] RandomWords = (

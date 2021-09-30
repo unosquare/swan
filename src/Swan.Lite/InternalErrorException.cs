@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-/*
+﻿/*
  * NOTE TO CONTRIBUTORS:
  *
  * Never use this exception directly.
@@ -10,6 +7,9 @@ using System.Runtime.Serialization;
 
 namespace Swan
 {
+    using System;
+    using System.Runtime.Serialization;
+
 #pragma warning disable CA1032 // Add standard exception constructors.
     /// <summary>
     /// <para>The exception that is thrown by methods of the <see cref="SelfCheck"/> class

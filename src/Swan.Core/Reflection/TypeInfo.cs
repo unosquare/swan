@@ -1,15 +1,14 @@
-﻿using Swan.Extensions;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// Provides a base class for efficiently exposing details about a given type.
     /// </summary>
@@ -19,6 +18,8 @@ namespace Swan.Reflection
         /// Binding flags to retrieve instance, public and non-public members.
         /// </summary>
         private const BindingFlags PublicAndPrivate = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        private static readonly Type[] ToStringMethodArgTypes = new[] { typeof(IFormatProvider) };
 
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertiesLazy;
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertyThesaurusLazy;
@@ -47,35 +48,34 @@ namespace Swan.Reflection
             NativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
             IsValueType = nativeType.IsValueType;
 
-            if (Nullable.GetUnderlyingType(nativeType) is { } nullableType)
+            if (Nullable.GetUnderlyingType(NativeType) is { } nullableBackingType)
             {
                 IsValueType = false;
-                IsNullableValueType = true;
-                UnderlyingType = nullableType.TypeInfo();
+                IsNullable = true;
+                IsEnum = nullableBackingType.IsEnum;
+                EnumType = IsEnum ? nullableBackingType.TypeInfo() : null;
+                BackingType = IsEnum
+                    ? nullableBackingType.GetEnumUnderlyingType().TypeInfo()
+                    : nullableBackingType.TypeInfo();
             }
-            else if (IsEnum && Enum.GetUnderlyingType(nativeType) is { } enumBaseType)
+            else if (NativeType.IsEnum)
             {
-                UnderlyingType = enumBaseType.TypeInfo();
+                IsValueType = true;
+                IsEnum = true;
+                EnumType = this;
+                BackingType = NativeType.GetEnumUnderlyingType().TypeInfo();
             }
 
-            UnderlyingType ??= this;
-            IsNumeric = TypeManager.NumericTypes.Contains(UnderlyingType.NativeType);
-            IsBasicType = TypeManager.BasicValueTypes.Contains(UnderlyingType.NativeType);
+            BackingType ??= this;
+            IsNumeric = TypeManager.NumericTypes.Contains(BackingType.NativeType);
+            IsBasicType = TypeManager.BasicValueTypes.Contains(BackingType.NativeType);
 
             FieldsLazy = new(() => nativeType.GetFields(PublicAndPrivate), true);
             TypeAttributesLazy = new(() => nativeType.GetCustomAttributes(true), true);
             TryParseMethodLazy = new(() => new(this), true);
-            ToStringMethodLazy = new(() =>
-            {
-                var parameterTypes = new[] { typeof(IFormatProvider) };
-                if (MethodDelegateInfo.TryCreate<Func<object, IFormatProvider, string>>(
-                    this, false, nameof(ToString), parameterTypes, out var delegateInfo))
-                    return (instance) =>
-                        delegateInfo.Delegate.DynamicInvoke(instance, CultureInfo.InvariantCulture) as string ??
-                                         string.Empty;
-
-                return (instance) => instance.ToString() ?? string.Empty;
-            }, true);
+            ToStringMethodLazy = new(() => HasToStringFormatMethod()
+                ? ((instance) => (instance as dynamic).ToString(CultureInfo.InvariantCulture))
+                : ((instance) => instance.ToString() ?? string.Empty), true);
             DefaultConstructorLazy = new(() => !IsValueType
                 ? nativeType.GetConstructor(PublicAndPrivate, null, Type.EmptyTypes, null)
                 : null, true);
@@ -84,7 +84,7 @@ namespace Swan.Reflection
             CreateInstanceLazy = new(() =>
             {
                 if (IsValueType)
-                    return new(() => DefaultValue!);
+                    return () => DefaultValue!;
 
                 var constructor = DefaultConstructorLazy.Value;
                 return constructor is not null
@@ -94,10 +94,7 @@ namespace Swan.Reflection
             }, true);
             InterfacesLazy = new(() => NativeType.GetInterfaces(), true);
             IsEnumerableLazy = new(() => Interfaces.Any(c => c == typeof(IEnumerable)), true);
-            GenericTypeArgumentsLazy = new(() =>
-            {
-                return NativeType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray();
-            }, true);
+            GenericTypeArgumentsLazy = new(() => NativeType.GenericTypeArguments.Select(c => c.TypeInfo()).ToArray(), true);
 
             CollectionLazy = new(() =>
             {
@@ -165,7 +162,7 @@ namespace Swan.Reflection
         public string FullName => NativeType.ToString();
 
         /// <inheritdoc />
-        public bool IsNullableValueType { get; }
+        public bool IsNullable { get; }
 
         /// <inheritdoc />
         public bool IsNumeric { get; }
@@ -183,7 +180,7 @@ namespace Swan.Reflection
         public bool IsInterface => NativeType.IsInterface;
 
         /// <inheritdoc />
-        public bool IsEnum => NativeType.IsEnum;
+        public bool IsEnum { get; }
 
         /// <inheritdoc />
         public bool IsBasicType { get; }
@@ -192,7 +189,10 @@ namespace Swan.Reflection
         public ICollectionInfo? Collection => CollectionLazy.Value;
 
         /// <inheritdoc />
-        public ITypeInfo UnderlyingType { get; }
+        public ITypeInfo BackingType { get; }
+
+        /// <inheritdoc />
+        public ITypeInfo? EnumType { get; }
 
         /// <inheritdoc />
         public object? DefaultValue => DefaultLazy.Value;
@@ -239,17 +239,15 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryParse(string? s, [MaybeNullWhen(false)] out object? result)
+        public bool TryParse(string? s, [MaybeNullWhen(false)] out object result)
         {
             if (NativeType != typeof(string))
-            {
                 return TryParseMethodLazy.Value.Invoke(s, out result);
-            }
 
             result = s ?? string.Empty;
             return true;
         }
-            
+
 
         /// <inheritdoc />
         public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value)
@@ -266,16 +264,13 @@ namespace Swan.Reflection
         }
 
         /// <inheritdoc />
-        public bool TryReadProperty(object instance, string propertyName, [MaybeNullWhen(false)] out object? value)
+        public bool TryReadProperty(object instance, string propertyName, out object? value)
         {
             value = default;
-            if (instance is null)
-                throw new ArgumentNullException(nameof(instance));
-
-            if (!TryFindProperty(propertyName, out var property))
-                return false;
-
-            return property.TryRead(instance, out value) is not false;
+            return instance is null
+                ? throw new ArgumentNullException(nameof(instance))
+                : TryFindProperty(propertyName, out var property) &&
+                  property.TryRead(instance, out value) is not false;
         }
 
         /// <inheritdoc />
@@ -308,22 +303,29 @@ namespace Swan.Reflection
         /// <inheritdoc />
         public bool TryWriteProperty(object instance, string propertyName, object? value)
         {
-            if (instance is null)
-                throw new ArgumentNullException(nameof(instance));
-
-            if (TryFindProperty(propertyName, out var property) is false)
-                return false;
-
-            if (property.TryWrite(instance, value) is false)
-                return false;
-
-            return true;
+            return instance is null
+                ? throw new ArgumentNullException(nameof(instance))
+                : TryFindProperty(propertyName, out var property) is not false &&
+                  property?.TryWrite(instance, value) is true;
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
             return $"Type Proxy: {NativeType.Name}";
+        }
+
+        private bool HasToStringFormatMethod()
+        {
+            try
+            {
+                var method = NativeType.GetMethod(nameof(ToString), ToStringMethodArgTypes);
+                return method is not null;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

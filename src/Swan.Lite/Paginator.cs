@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+
     /// <summary>
     /// A utility class to compute paging or batching offsets.
     /// </summary>

@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using Swan.Types;
-using System;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Types;
+    using System;
+
     public class ConfiguredObjectTest
     {
         [Test]

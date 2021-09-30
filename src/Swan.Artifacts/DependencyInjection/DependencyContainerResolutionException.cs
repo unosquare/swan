@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.DependencyInjection
+﻿namespace Swan.DependencyInjection
 {
+    using System;
+
     /// <summary>
     /// An exception for dependency resolutions.
     /// </summary>

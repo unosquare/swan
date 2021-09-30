@@ -1,9 +1,9 @@
-﻿using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+
     public abstract class TestFixtureBase
     {
         protected Dictionary<object, object>? NullDict => null;

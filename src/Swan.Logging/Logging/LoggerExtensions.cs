@@ -1,15 +1,15 @@
-﻿using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Platform;
-using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-
-namespace Swan.Logging
+﻿namespace Swan.Logging
 {
+    using Swan.Extensions;
+    using Swan.Formatters;
+    using Swan.Platform;
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Entry-point for logging. Use this static class to register/unregister
     /// loggers instances. By default, the <c>ConsoleLogger</c> is registered.

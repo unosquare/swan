@@ -1,13 +1,13 @@
-﻿using Swan.Formatters;
-using Swan.Reflection;
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace Swan.Extensions
+﻿namespace Swan.Extensions
 {
+    using Swan.Formatters;
+    using Swan.Reflection;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// String related extension methods.
     /// </summary>

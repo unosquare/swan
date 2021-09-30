@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Reflection;
-
-namespace Swan.Net.Extensions
+﻿namespace Swan.Net.Extensions
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Mail;
+    using System.Reflection;
+
     /// <summary>
     /// Extension methods.
     /// </summary>

@@ -1,8 +1,8 @@
-﻿using Swan.Mapping;
-using System.Collections.Generic;
-
-namespace Swan.Net.Smtp
+﻿namespace Swan.Net.Smtp
 {
+    using Swan.Mapping;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents the state of an SMTP session associated with a client.
     /// </summary>

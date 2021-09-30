@@ -1,10 +1,10 @@
-﻿using Swan.Collections;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using Swan.Collections;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public static partial class TypeManager
     {
         /// <summary>

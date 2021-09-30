@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Threading;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+    using System.Linq;
+    using System.Runtime.ExceptionServices;
+    using System.Threading;
+
     /// <summary>
     /// Provides extension methods for <see cref="Exception"/>.
     /// </summary>

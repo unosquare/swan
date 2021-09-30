@@ -1,9 +1,9 @@
-﻿using Swan.Parsers;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Parsers;
+    using System;
+    using System.Collections.Generic;
+
     public class OptionMock
     {
         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]

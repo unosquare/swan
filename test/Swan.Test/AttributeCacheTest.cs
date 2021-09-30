@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using Swan.Reflection;
-using Swan.Test.Mocks;
-using Swan.Validation;
-using System;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Reflection;
+    using Swan.Test.Mocks;
+    using Swan.Validation;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+
     [TestFixture]
     public class ConstrainedRetrieve
     {

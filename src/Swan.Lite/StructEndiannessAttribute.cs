@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+
     /// <summary>
     /// An attribute used to help conversion structs back and forth into arrays of bytes via
     /// extension methods included in this library ToStruct and ToBytes.

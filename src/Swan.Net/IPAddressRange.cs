@@ -1,11 +1,11 @@
-﻿using Swan.Net.Internal;
-using System;
-using System.Globalization;
-using System.Net;
-using System.Net.Sockets;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using Swan.Net.Internal;
+    using System;
+    using System.Globalization;
+    using System.Net;
+    using System.Net.Sockets;
+
     // NOTE TO CONTRIBUTORS: When adding a check on a public method parameter,
     // please do not just "throw new ArgumentException(...)".
     // Instead, look at the exception-returning private methods at the bottom of this file

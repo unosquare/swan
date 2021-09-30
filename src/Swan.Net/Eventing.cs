@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using System;
+    using System.Text;
+
     /// <summary>
     /// The event arguments for connection failure events.
     /// </summary>

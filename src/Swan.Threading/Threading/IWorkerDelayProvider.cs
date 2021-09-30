@@ -1,8 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// An interface for a worker cycle delay provider.
     /// </summary>

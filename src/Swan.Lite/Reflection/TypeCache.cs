@@ -1,10 +1,10 @@
-﻿using Swan.Collections;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using Swan.Collections;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+
     /// <summary>
     /// A thread-safe cache of members belonging to a given type.
     /// 

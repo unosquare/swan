@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+    using System.Threading;
+
     /// <summary>
     /// A threading <see cref="_backingTimer"/> implementation that executes at most one cycle at a time
     /// in a <see cref="ThreadPool"/> thread. Callback execution is NOT guaranteed to be carried out

@@ -1,12 +1,12 @@
-﻿#pragma warning disable CA1031 // Do not catch general exception types
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+#pragma warning disable CA1031 // Do not catch general exception types
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// The concrete and hidden implementation of the <see cref="IPropertyProxy"/> implementation.
     /// </summary>

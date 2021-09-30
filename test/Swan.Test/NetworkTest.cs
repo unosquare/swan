@@ -1,15 +1,15 @@
-﻿using NUnit.Framework;
-using Swan.Net;
-using Swan.Net.Dns;
-using Swan.Net.Extensions;
-using System;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-
-namespace Swan.Test.NetworkTests
+﻿namespace Swan.Test.NetworkTests
 {
+    using NUnit.Framework;
+    using Swan.Net;
+    using Swan.Net.Dns;
+    using Swan.Net.Extensions;
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Net.NetworkInformation;
+    using System.Threading.Tasks;
+
     public abstract class NetworkTest
     {
         protected const string GoogleDnsFqdn = "google-public-dns-a.google.com";

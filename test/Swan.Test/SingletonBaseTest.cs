@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using Swan.Test.Mocks;
-
-namespace Swan.Test.SingletonBaseTest
+﻿namespace Swan.Test.SingletonBaseTest
 {
+    using NUnit.Framework;
+    using Swan.Test.Mocks;
+
     [TestFixture]
     public class Dispose
     {

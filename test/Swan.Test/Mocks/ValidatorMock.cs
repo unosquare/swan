@@ -1,8 +1,8 @@
-﻿using Swan.Validation;
-using System;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Validation;
+    using System;
+
     public class SimpleValidationMock
     {
         public string Name { get; set; }

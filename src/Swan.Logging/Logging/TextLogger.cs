@@ -1,10 +1,10 @@
-﻿using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Platform;
-using System;
-
-namespace Swan.Logging
+﻿namespace Swan.Logging
 {
+    using Swan.Extensions;
+    using Swan.Formatters;
+    using Swan.Platform;
+    using System;
+
     /// <summary>
     /// Use this class for text-based logger.
     /// </summary>

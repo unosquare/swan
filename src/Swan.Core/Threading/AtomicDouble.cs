@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+
     /// <summary>
     /// Fast, atomic double combining interlocked to write value and volatile to read values.
     /// </summary>

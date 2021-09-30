@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Validation
+﻿namespace Swan.Validation
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Defines a validation result containing all validation errors and their properties.
     /// </summary>

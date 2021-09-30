@@ -1,11 +1,11 @@
-﻿using Swan.Parsers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Parsers;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     public class ExpressionParserMock : ExpressionParser
     {
         private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =

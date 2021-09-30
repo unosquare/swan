@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System.Collections;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Enumerates general collection kinds.
     /// </summary>

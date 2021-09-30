@@ -1,10 +1,10 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-
-namespace Swan.Validation
+﻿namespace Swan.Validation
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents an object validator. 
     /// </summary>

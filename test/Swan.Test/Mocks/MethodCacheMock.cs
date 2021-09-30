@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using System.Threading.Tasks;
+
     internal class MethodCacheMock
     {
         public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));

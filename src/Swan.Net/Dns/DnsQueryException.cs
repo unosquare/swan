@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Net.Dns
+﻿namespace Swan.Net.Dns
 {
+    using System;
+
     /// <summary>
     /// An exception thrown when the DNS query fails.
     /// </summary>

@@ -1,12 +1,12 @@
-﻿using Swan.Extensions;
-using Swan.Threading;
-using System;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading;
-
-namespace Swan.Platform
+﻿namespace Swan.Platform
 {
+    using Swan.Extensions;
+    using Swan.Threading;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Text;
+    using System.Threading;
+
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user. 
     /// This class is thread-safe :).

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-
-namespace Swan.Extensions
+﻿namespace Swan.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+
     /// <summary>
     /// Provides extension methods for <see cref="DateTime"/>.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using System;
+
     /// <summary>
     /// Models a verb option.
     /// </summary>

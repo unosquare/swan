@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Text;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.IO;
+    using System.Text;
+
     /// <summary>
     /// Provides a <see cref="CsvReader"/> that is schema-aware
     /// and is able to map records into dynamic objects backed by <see cref="ExpandoObject"/>.

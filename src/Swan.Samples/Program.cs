@@ -1,25 +1,25 @@
-﻿using Swan.Collections;
-using Swan.DependencyInjection;
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Logging;
-using Swan.Mapping;
-using Swan.Net;
-using Swan.Net.Dns;
-using Swan.Platform;
-using Swan.Reflection;
-using Swan.Threading;
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace Swan.Samples
+﻿namespace Swan.Samples
 {
+    using Swan.Collections;
+    using Swan.DependencyInjection;
+    using Swan.Extensions;
+    using Swan.Formatters;
+    using Swan.Logging;
+    using Swan.Mapping;
+    using Swan.Net;
+    using Swan.Net.Dns;
+    using Swan.Platform;
+    using Swan.Reflection;
+    using Swan.Threading;
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+
     class SubDict : Dictionary<string, object>
     {
 

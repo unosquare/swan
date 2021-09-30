@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using Swan.Reflection;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
-
-namespace Swan.Test.ExtensionsReflectionTest
+﻿namespace Swan.Test.ExtensionsReflectionTest
 {
+    using NUnit.Framework;
+    using Swan.Reflection;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class GetDefault : TestFixtureBase
     {

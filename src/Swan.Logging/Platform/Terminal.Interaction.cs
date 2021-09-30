@@ -1,10 +1,10 @@
-﻿using Swan.Logging;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace Swan.Platform
+﻿namespace Swan.Platform
 {
+    using Swan.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
     /// This class is thread-safe :).

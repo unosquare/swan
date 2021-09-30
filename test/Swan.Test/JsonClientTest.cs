@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using Swan.Net;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
-
-namespace Swan.Test.JsonClientTest
+﻿namespace Swan.Test.JsonClientTest
 {
+    using NUnit.Framework;
+    using Swan.Net;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security;
+    using System.Threading.Tasks;
+
     public abstract class JsonClientTest
     {
         protected const string Authorization = "Authorization";

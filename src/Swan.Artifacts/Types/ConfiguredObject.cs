@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Types
+﻿namespace Swan.Types
 {
+    using System;
+
     /// <summary>
     /// Base class for objects whose configuration may be locked,
     /// thus becoming read-only, at a certain moment in their lifetime.

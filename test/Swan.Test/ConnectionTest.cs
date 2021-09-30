@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.Net;
-using System;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Net;
+    using System;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public abstract class ConnectionTest
     {
         public const int DefaultPort = 1337;

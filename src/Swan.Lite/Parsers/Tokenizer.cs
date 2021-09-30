@@ -1,10 +1,10 @@
-﻿using Swan.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using Swan.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Represents a generic tokenizer.
     /// </summary>

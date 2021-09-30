@@ -1,15 +1,15 @@
-﻿using Swan.Collections;
-using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using Swan.Collections;
+    using System;
+    using System.Collections;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// Provides efficient access to a cached repository of <see cref="Reflection.TypeInfo"/>
     /// and various type utilities.
@@ -151,7 +151,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, [MaybeNullWhen(false)] out dynamic? targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out dynamic? targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
@@ -166,23 +166,23 @@ namespace Swan.Reflection
             // start with the default value of the target type
             // and if the input value is null simply return the default
             // value of the target type.
-            targetValue = targetType.DefaultValue;
+            targetValue = targetType.DefaultValue!;
             if (sourceValue is null || sourceValue == targetType.DefaultValue)
                 return true;
 
-            // Normalize source removing nullable semantics
+            // Normalize source removing nullable or enum semantics
             var sourceType = sourceValue.GetType().TypeInfo();
-            if (sourceType.IsNullableValueType)
+            if (sourceType.IsNullable)
             {
-                sourceType = sourceType.UnderlyingType;
+                sourceType = sourceType.BackingType;
                 sourceValue = Convert.ChangeType(
                     sourceValue, sourceType.NativeType, CultureInfo.InvariantCulture);
             }
 
             // Normalize target removing nullable semantics
-            if (targetType.IsNullableValueType)
+            if (targetType.IsNullable)
             {
-                targetType = targetType.UnderlyingType;
+                targetType = targetType.BackingType;
                 targetValue = targetType.DefaultValue;
             }
 
@@ -200,34 +200,7 @@ namespace Swan.Reflection
                 return true;
             }
 
-            // Case 2: Target type is an enum and using convert cannot produce enumeration values.
-            if (targetType.IsEnum)
-            {
-                // Convert source enum value to an integral type.
-                if (sourceType.IsEnum)
-                {
-                    sourceType = sourceType.UnderlyingType;
-                    sourceValue = Convert.ChangeType(sourceValue, sourceType.NativeType, CultureInfo.InvariantCulture);
-                }
-
-                // Parse the source value converted to a string
-                var sourceEnumString = sourceValue is string stringValue
-                    ? stringValue
-                    : sourceType.ToStringInvariant(sourceValue);
-
-                if (Enum.TryParse(targetType.NativeType, sourceEnumString, true, out var enumValue))
-                {
-                    targetValue = enumValue;
-                    return true;
-                }
-                else
-                {
-                    targetValue = targetType.DefaultValue;
-                    return false;
-                }
-            }
-
-            // Case 3: Change type works by parsing the value as a string
+            // Case 2: Change type works by parsing the value as a string
             if (targetType.CanParseNatively)
             {
                 var sourceString = sourceType.ToStringInvariant(sourceValue);
@@ -235,7 +208,7 @@ namespace Swan.Reflection
                     return true;
             }
 
-            // Case 4: Change type works directly
+            // Case 3: Change type works directly
             if (targetType.IsValueType)
             {
                 try
@@ -256,7 +229,7 @@ namespace Swan.Reflection
                 }
             }
 
-            // Case 5: We might be dealing with IEnumerable types
+            // Case 4: We might be dealing with IEnumerable types
             if (targetType.IsEnumerable && sourceType.IsEnumerable)
             {
                 if (!CollectionProxy.TryCreate(sourceValue, out var sourceCollection))
