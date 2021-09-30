@@ -151,7 +151,7 @@
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out dynamic? targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out object targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
@@ -170,8 +170,17 @@
             if (sourceValue is null || sourceValue == targetType.DefaultValue)
                 return true;
 
-            // Normalize source removing nullable or enum semantics
             var sourceType = sourceValue.GetType().TypeInfo();
+            if (targetType.IsEnum)
+            {
+                var stringValue = sourceType.IsEnum
+                    ? sourceType.BackingType.ToStringInvariant(Convert.ChangeType(sourceValue, sourceType.BackingType.NativeType, CultureInfo.InvariantCulture))
+                    : sourceType.ToStringInvariant(sourceValue);
+
+                return targetType.TryParse(stringValue, out targetValue);
+            }
+
+            // Normalize source removing nullable or enum semantics
             if (sourceType.IsNullable)
             {
                 sourceType = sourceType.BackingType;
@@ -256,7 +265,7 @@
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out dynamic targetValue) =>
+        public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out object targetValue) =>
             TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
     }
 }

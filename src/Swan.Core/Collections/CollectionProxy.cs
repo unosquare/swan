@@ -385,7 +385,8 @@
             if (IsDictionary)
                 return Contains(value);
 
-            if (!TypeManager.TryChangeType(value, KeysType, out var index))
+            if (!TypeManager.TryChangeType(value, KeysType, out var indexKey) ||
+                indexKey is not int index)
                 return false;
 
             return index >= 0 && index < Count;
