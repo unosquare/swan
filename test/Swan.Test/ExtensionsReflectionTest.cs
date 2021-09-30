@@ -5,8 +5,52 @@
     using Swan.Test.Mocks;
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Reflection;
     using System.Threading.Tasks;
+
+    public enum FirstEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public enum SecondEnum
+    {
+        Eleven,
+        Twelve,
+        Thirteen
+    }
+
+    public class ParseCompatible
+    {
+        public double Value { get; set; }
+
+        public static ParseCompatible Parse(string input, IFormatProvider format)
+        {
+            if (typeof(double).TypeInfo().TryParse(input, out var innerValue))
+                return new() { Value = (double)innerValue! };
+
+            throw new FormatException("Bad double format");
+        }
+    }
+
+    public class TryParseCompatible
+    {
+        public double Value { get; set; }
+
+        public static bool TryParse(string input, IFormatProvider format, out TryParseCompatible? value)
+        {
+            value = default;
+            if (!typeof(double).TypeInfo().TryParse(input, out var innerValue))
+                return false;
+
+            value = new() { Value = (double)innerValue };
+            return true;
+
+        }
+    }
 
     [TestFixture]
     public class GetDefault : TestFixtureBase
@@ -100,6 +144,91 @@
     }
 
     [TestFixture]
+    public class TryParse
+    {
+        [Test]
+        public void TryParseSucceeds()
+        {
+            var numericStringValue = "4.68e1";
+            bool result;
+            object v;
+
+            result = typeof(bool).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (bool)v!);
+
+            result = typeof(bool?).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (bool)v!);
+
+            result = typeof(byte).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (byte)v! == 47);
+
+            result = typeof(byte?).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (byte)v! == 47);
+
+            result = typeof(sbyte).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (sbyte)v! == 47);
+
+            result = typeof(sbyte?).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (sbyte?)v! == 47);
+
+            result = typeof(double).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (double)v! == 46.8d);
+
+            result = typeof(decimal?).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (decimal)v! == 46.8M);
+
+            result = typeof(float?).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && (float?)v! == 46.8f);
+
+            result = typeof(IPAddress).TypeInfo().TryParse("192.168.1.1", out v);
+            Assert.IsTrue(result && ((IPAddress)v!).ToString() == "192.168.1.1");
+
+            result = typeof(TryParseCompatible).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && ((TryParseCompatible)v).Value == 46.8d);
+
+            result = typeof(ParseCompatible).TypeInfo().TryParse(numericStringValue, out v);
+            Assert.IsTrue(result && ((ParseCompatible)v).Value == 46.8d);
+        }
+
+        [Test]
+        public void TryChangeTypeSucceeds()
+        {
+            object v;
+            bool result;
+
+            result = TypeManager.TryChangeType("1", typeof(SecondEnum?), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType("1", typeof(SecondEnum), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType(1, typeof(SecondEnum?), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType(1, typeof(SecondEnum), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType("twelve", typeof(SecondEnum?), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType("twelve", typeof(SecondEnum), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType((FirstEnum?)FirstEnum.Two, typeof(SecondEnum?), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType(FirstEnum.Two, typeof(SecondEnum), out v);
+            Assert.IsTrue(result && (SecondEnum)v! == SecondEnum.Twelve);
+
+            result = TypeManager.TryChangeType(3.1416M, typeof(double), out v);
+            Assert.IsTrue(result && (double)v! == 3.1416d);
+
+            result = TypeManager.TryChangeType(null, typeof(double?), out v);
+            Assert.IsTrue(result && (double?)v is null);
+        }
+    }
+
+    [TestFixture]
     public class GetMethod : TestFixtureBase
     {
         private readonly string _methodName = nameof(MethodCacheMock.GetMethodTest);
@@ -145,5 +274,7 @@
             Assert.Throws<ArgumentNullException>(() =>
                 _type.GetMethod(Flags, _methodName, _genericTypes, null));
         }
+
+        
     }
 }

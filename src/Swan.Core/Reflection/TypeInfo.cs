@@ -312,7 +312,10 @@
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"Type Proxy: {NativeType.Name}";
+            var stopIndex = NativeType.Name.IndexOf('`', StringComparison.Ordinal);
+            return stopIndex >= 0 && GenericTypeArguments.Count > 0
+                ? $"{NativeType.Name[..stopIndex]}<{string.Join(", ", GenericTypeArguments)}>"
+                : NativeType.Name;
         }
 
         private bool HasToStringFormatMethod()

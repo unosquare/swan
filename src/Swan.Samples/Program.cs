@@ -13,7 +13,6 @@
     using Swan.Threading;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Dynamic;
     using System.IO;
     using System.Linq;
@@ -58,38 +57,7 @@
 
         private static void Sketchpad()
         {
-            object v;
-            bool result;
-
-            result = TypeManager.TryChangeType("1", typeof(SecondEnum?), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType("1", typeof(SecondEnum), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType(1, typeof(SecondEnum?), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType(1, typeof(SecondEnum), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType("twelve", typeof(SecondEnum?), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType("twelve", typeof(SecondEnum), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType((FirstEnum?)FirstEnum.Two, typeof(SecondEnum?), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType(FirstEnum.Two, typeof(SecondEnum), out v);
-            Debug.Assert(result && (SecondEnum)v! == SecondEnum.Twelve);
-
-            result = TypeManager.TryChangeType(3.1416M, typeof(double), out v);
-            Debug.Assert(result && (double)v! == 3.1416d);
-
-            result = TypeManager.TryChangeType(null, typeof(double?), out v);
-            Debug.Assert(result && (double?)v is null);
+            
 
             var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
             var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));

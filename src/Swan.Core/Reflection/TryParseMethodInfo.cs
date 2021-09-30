@@ -39,15 +39,6 @@
             MethodCall = delegateCall ?? new((string input, out object? result) =>
             {
                 result = ParentType.DefaultValue;
-                try
-                {
-                    return TypeManager.TryChangeType(input, ParentType.BackingType, out result);
-                }
-                catch
-                {
-                    // ignore
-                }
-
                 return false;
             });
         }
@@ -59,6 +50,12 @@
             result = ParentType.DefaultValue;
             if (input is null)
                 return false;
+
+            if (ParentType.NativeType == typeof(string))
+            {
+                result = input;
+                return true;
+            }
 
             var normalizedInput = input.Trim();
             return !string.IsNullOrWhiteSpace(normalizedInput) &&
@@ -108,6 +105,12 @@
                     value = defaultValue;
                     if (!decimal.TryParse(input, AnyStyle, InvariantCulture, out var parsedValue))
                         return false;
+
+                    if (ParentType.IsAssignableFrom(typeof(decimal)))
+                    {
+                        value = parsedValue;
+                        return true;
+                    }
 
                     try
                     {

@@ -116,6 +116,23 @@
         /// <param name="target">The assignee type.</param>
         /// <param name="source">The assigner type.</param>
         /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this ITypeInfo target, Type source)
+        {
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.NativeType.IsAssignableFrom(source);
+        }
+
+        /// <summary>
+        /// Determines if the types are compatible fro assignment.
+        /// </summary>
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
         public static bool IsAssignableFrom(this IPropertyProxy target, IPropertyProxy source)
         {
             if (target is null)
