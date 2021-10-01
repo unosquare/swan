@@ -15,6 +15,7 @@
     /// </summary>
     public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
     {
+        private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
         private readonly object _syncRoot = new();
 
         /// <summary>
@@ -155,15 +156,11 @@
         /// <inheritdoc />
         public object? this[object key]
         {
-            get
-            {
-                if (!TypeManager.TryChangeType(key, KeysType, out dynamic? keyItem))
-                    throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
-
-                return IsDictionary
+            get => !TypeManager.TryChangeType(key, KeysType, out dynamic? keyItem)
+                    ? throw new ArgumentException(InvalidCastMessage, nameof(key))
+                    : (object?)(IsDictionary
                     ? Collection[keyItem]
-                    : this[(int)keyItem!];
-            }
+                    : this[(int)keyItem!]);
             set
             {
                 if (IsReadOnly)
@@ -171,11 +168,11 @@
 
                 if (IsDictionary)
                 {
-                    if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
-                        throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(key));
+                    if (!TypeManager.TryChangeType(key, KeysType, out dynamic keyItem))
+                        throw new ArgumentException(InvalidCastMessage, nameof(key));
 
-                    if (!TypeManager.TryChangeType(value, ValuesType, out var valueItem))
-                        throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+                    if (!TypeManager.TryChangeType(value, ValuesType, out dynamic valueItem))
+                        throw new ArgumentException(InvalidCastMessage, nameof(value));
 
                     Collection[keyItem] = valueItem;
                     return;
@@ -231,8 +228,8 @@
 
                 if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
                 {
-                    if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                        throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+                    if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
+                        throw new ArgumentException(InvalidCastMessage, nameof(value));
 
                     Collection[index] = item;
                     return;
@@ -294,18 +291,16 @@
             if (IsDictionary || IsFixedSize || IsReadOnly)
                 throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
-            if (CollectionKind is CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList)
+            switch (CollectionKind)
             {
-                if (TypeManager.TryChangeType(value, ValuesType, out var item))
-                {
+                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList when TypeManager.TryChangeType(value, ValuesType, out dynamic item):
                     Collection.Add(item);
                     return Count - 1;
-                }
-
-                throw new ArgumentException($"Unable to convert value into type {ValuesType.ShortName}", nameof(value));
+                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList:
+                    throw new ArgumentException($"Unable to convert value into type {ValuesType.ShortName}", nameof(value));
+                default:
+                    throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
             }
-
-            throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
         }
 
         /// <inheritdoc />
@@ -314,11 +309,11 @@
             if (!IsDictionary || IsFixedSize || IsReadOnly)
                 throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
-            if (TypeManager.TryChangeType(value, ValuesType, out var itemValue) &&
-                TypeManager.TryChangeType(key, KeysType, out var itemKey))
-                Collection.Add(itemKey, itemValue);
-            else
+            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic itemValue) ||
+                !TypeManager.TryChangeType(key, KeysType, out dynamic itemKey))
                 throw new ArgumentException($"Unable to convert key and/or value to a suitable type.", nameof(value));
+            else
+                Collection.Add(itemKey, itemValue);
         }
 
         /// <summary>
@@ -365,7 +360,7 @@
                     return Collection.Contains(value as dynamic);
                 case CollectionKind.GenericDictionary:
                     {
-                        return TypeManager.TryChangeType(value, KeysType, out var item) &&
+                        return TypeManager.TryChangeType(value, KeysType, out dynamic item) &&
                                (bool)Collection.ContainsKey(item);
                     }
                 default:
@@ -385,7 +380,7 @@
             if (IsDictionary)
                 return Contains(value);
 
-            if (!TypeManager.TryChangeType(value, KeysType, out var indexKey) ||
+            if (!TypeManager.TryChangeType(value, KeysType, out dynamic indexKey) ||
                 indexKey is not int index)
                 return false;
 
@@ -450,8 +445,8 @@
                     $"Collection of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
             }
 
-            if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
+                throw new ArgumentException(InvalidCastMessage, nameof(value));
 
             Collection.Insert(index, item);
         }
@@ -468,10 +463,10 @@
 
             if (IsDictionary)
             {
-                if (TypeManager.TryChangeType(value, KeysType, out var keyItem))
+                if (TypeManager.TryChangeType(value, KeysType, out dynamic keyItem))
                     Collection.Remove(keyItem);
                 else
-                    throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+                    throw new ArgumentException(InvalidCastMessage, nameof(value));
                 return;
             }
 
@@ -481,8 +476,8 @@
                     $"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
             }
 
-            if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(value));
+            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
+                throw new ArgumentException(InvalidCastMessage, nameof(value));
 
             Collection.Remove(item);
         }
@@ -534,7 +529,7 @@
             if (index < 0 || index >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(index));
 
-            var elementType = array.GetType().GetElementType();
+            var elementType = array.GetType().GetElementType()?.TypeInfo();
 
             if (elementType is null)
                 throw new ArgumentException($"Unable to obtain array element type.", nameof(array));
@@ -546,7 +541,7 @@
                 foreach (var value in Collection.Values)
                 {
                     if (!TypeManager.TryChangeType(value, elementType, out dynamic? item))
-                        throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(array));
+                        throw new ArgumentException(InvalidCastMessage, nameof(array));
 
                     array.SetValue(item, arrayIndex);
                     arrayIndex++;
@@ -560,7 +555,7 @@
                 while (enumerator.MoveNext())
                 {
                     if (!TypeManager.TryChangeType(enumerator.Current, elementType, out dynamic? item))
-                        throw new ArgumentException($"Unable to cast value to a suitable type.", nameof(array));
+                        throw new ArgumentException(InvalidCastMessage, nameof(array));
 
                     array.SetValue(item, arrayIndex);
                     arrayIndex++;
@@ -648,10 +643,10 @@
                 }
 
                 if (!TypeManager.TryChangeType(value, targetType, out object? changedValue))
-                    throw new InvalidCastException("Unable to cast value to a suitable type.");
+                    throw new InvalidCastException(InvalidCastMessage);
 
                 if (changedValue is not T typedValue)
-                    throw new InvalidCastException("Unable to cast value to a suitable type.");
+                    throw new InvalidCastException(InvalidCastMessage);
 
                 result[index] = typedValue;
             }

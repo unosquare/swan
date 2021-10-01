@@ -79,9 +79,9 @@ csharp_style_expression_bodied_accessors =true:suggestion
 csharp_style_expression_bodied_constructors =false:suggestion
 csharp_style_expression_bodied_indexers =true:suggestion
 csharp_style_expression_bodied_lambdas =true:suggestion
-csharp_style_expression_bodied_local_functions =false:suggestion
-csharp_style_expression_bodied_methods =false:suggestion
-csharp_style_expression_bodied_operators =false:suggestion
+csharp_style_expression_bodied_local_functions =true:suggestion
+csharp_style_expression_bodied_methods =true:suggestion
+csharp_style_expression_bodied_operators =true:suggestion
 csharp_style_expression_bodied_properties =true:suggestion
 
 # Pattern matching preferences
@@ -210,7 +210,7 @@ dotnet_diagnostic.CA1507.severity=error
 dotnet_diagnostic.IDE0019.severity=suggestion
 dotnet_diagnostic.IDE0020.severity=suggestion
 dotnet_diagnostic.IDE0021.severity=suggestion
-dotnet_diagnostic.IDE0022.severity=suggestion
+dotnet_diagnostic.IDE0022.severity=silent
 dotnet_diagnostic.IDE0029.severity=warning
 dotnet_diagnostic.IDE0090.severity=error
 dotnet_diagnostic.IDE0120.severity=error
