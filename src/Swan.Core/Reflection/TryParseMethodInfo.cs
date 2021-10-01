@@ -125,8 +125,7 @@
 
             var outputType = backingType.MakeByRefType();
 
-            var method = backingType.GetMethod(TryParseMethodName, new[] { StringType, NumberStylesType, FormatProviderType, outputType });
-            if (method is not null)
+            if (ParentType.BackingType.TryFindStaticMethod(TryParseMethodName, new[] { StringType, NumberStylesType, FormatProviderType, outputType }, out var method))
                 return (string input, out object? value) =>
                 {
                     value = defaultValue;
@@ -138,8 +137,7 @@
                     return result;
                 };
 
-            method = backingType.GetMethod(TryParseMethodName, new[] { StringType, FormatProviderType, outputType });
-            if (method is not null)
+            if (ParentType.BackingType.TryFindStaticMethod(TryParseMethodName, new[] { StringType, FormatProviderType, outputType }, out method))
                 return (string input, out object? value) =>
                 {
                     value = defaultValue;
@@ -151,8 +149,7 @@
                     return result;
                 };
 
-            method = backingType.GetMethod(TryParseMethodName, new[] { StringType, outputType });
-            if (method is not null)
+            if (ParentType.BackingType.TryFindStaticMethod(TryParseMethodName, new[] { StringType, outputType }, out method))
                 return (string input, out object? value) =>
                 {
                     value = defaultValue;
@@ -164,8 +161,7 @@
                     return result;
                 };
 
-            method = backingType.GetMethod(ParseMethodName, new[] { StringType, FormatProviderType });
-            if (method is not null)
+            if (ParentType.BackingType.TryFindStaticMethod(ParseMethodName, new[] { StringType, FormatProviderType }, out method))
                 return (string input, out object? value) =>
                 {
                     value = ParentType.DefaultValue;
@@ -184,8 +180,7 @@
                     return false;
                 };
 
-            method = backingType.GetMethod(ParseMethodName, new[] { StringType });
-            if (method is not null)
+            if (ParentType.BackingType.TryFindStaticMethod(ParseMethodName, new[] { StringType }, out method))
                 return (string input, out object? value) =>
                 {
                     value = defaultValue;

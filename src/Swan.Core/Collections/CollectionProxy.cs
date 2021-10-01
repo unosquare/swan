@@ -17,22 +17,24 @@
     {
         private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
         private readonly object _syncRoot = new();
+        private readonly DelegateFactory Delegates;
 
         /// <summary>
         /// Creates a new instance of the <see cref="CollectionProxy"/> class.
         /// </summary>
         /// <param name="info">The backing collection info.</param>
         /// <param name="target">The object that this collection proxy wraps.</param>
-        private CollectionProxy(ICollectionInfo info, dynamic target)
+        private CollectionProxy(ICollectionInfo info, IEnumerable target)
         {
             Info = info;
             Collection = target;
+            Delegates = new(target, info);
         }
 
         /// <summary>
         /// Gets the underlying collection object this proxy operates on.
         /// </summary>
-        public dynamic Collection { get; }
+        public object Collection { get; }
 
         /// <inheritdoc cref="IList" />
         public bool IsFixedSize
@@ -255,7 +257,7 @@
         {
             proxy = default;
 
-            if (target is null or not IEnumerable)
+            if (target is not IEnumerable enumerableTarget)
                 return false;
 
             if (target is CollectionProxy outputProxy)
@@ -268,13 +270,13 @@
             if (typeProxy is null)
                 return false;
 
-            proxy = new(typeProxy, target);
+            proxy = new(typeProxy, enumerableTarget);
             return true;
 
         }
 
         /// <inheritdoc />
-        public IEnumerator GetEnumerator() => (Collection as IEnumerable)!.GetEnumerator();
+        public IEnumerator GetEnumerator() => Delegates.GetEnumerator.Invoke();
 
         /// <inheritdoc />
         IDictionaryEnumerator IDictionary.GetEnumerator()
@@ -293,7 +295,8 @@
 
             switch (CollectionKind)
             {
-                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList when TypeManager.TryChangeType(value, ValuesType, out dynamic item):
+                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList
+                    when TypeManager.TryChangeType(value, ValuesType, out dynamic item):
                     Collection.Add(item);
                     return Count - 1;
                 case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList:
@@ -333,17 +336,11 @@
         /// <inheritdoc cref="IList" />
         public void Clear()
         {
-            if (IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Unable to clear collection of kind {CollectionKind} because it is read-only or fixed size.");
-
-            if (CollectionKind is not (CollectionKind.GenericCollection or CollectionKind.List or
-                CollectionKind.GenericList or CollectionKind.Dictionary or CollectionKind.GenericDictionary))
-            {
+            if (Delegates.Clear is null)
                 throw new NotSupportedException(
                     $"Collection of kind {CollectionKind} does not support the {nameof(Clear)} operation.");
-            }
 
-            Collection.Clear();
+            Delegates.Clear.Invoke();
         }
 
         /// <summary>
@@ -788,6 +785,27 @@
             {
                 _currentIndex = -1;
             }
+        }
+
+        private class DelegateFactory
+        {
+            private readonly Lazy<Func<IEnumerator>> GetEnumeratorLazy;
+            private readonly Lazy<Action?> ClearLazy;
+
+            public DelegateFactory(IEnumerable target, ICollectionInfo info)
+            {
+                GetEnumeratorLazy = new(() =>
+                {
+                    info.SourceType.TryFindPublicMethod(nameof(IEnumerable.GetEnumerator), null, out var method);
+                    return method!.CreateDelegate<Func<IEnumerator>>(target);
+                }, true);
+
+                ClearLazy = new(() => !info.SourceType.TryFindPublicMethod(nameof(IList.Clear), null, out var method) ? null : method.CreateDelegate<Action>(target), true);
+            }
+
+            public Func<IEnumerator> GetEnumerator => GetEnumeratorLazy.Value;
+
+            public Action? Clear => ClearLazy.Value;
         }
     }
 }

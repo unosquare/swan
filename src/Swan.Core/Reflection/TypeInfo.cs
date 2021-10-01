@@ -19,7 +19,7 @@
         /// </summary>
         private const BindingFlags PublicAndPrivate = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-        private static readonly Type[] ToStringMethodArgTypes = new[] { typeof(IFormatProvider) };
+        private static readonly Type[] ToStringMethodArgTypes = { typeof(IFormatProvider) };
 
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertiesLazy;
         private readonly Lazy<IReadOnlyDictionary<string, IPropertyProxy>> PropertyThesaurusLazy;
@@ -231,12 +231,10 @@
         public object CreateInstance() => CreateInstanceLazy.Value.Invoke();
 
         /// <inheritdoc />
-        public string ToStringInvariant(object? instance)
-        {
-            return instance is null
+        public string ToStringInvariant(object? instance) =>
+            instance is null
                 ? string.Empty
                 : ToStringMethodLazy.Value(instance);
-        }
 
         /// <inheritdoc />
         public bool TryParse(string? s, [MaybeNullWhen(false)] out object result)
@@ -248,6 +246,37 @@
             return true;
         }
 
+        /// <inheritdoc />
+        public bool TryFindMethod(BindingFlags flags, string methodName, Type[]? argumentTypes, [MaybeNullWhen(false)] out MethodInfo method)
+        {
+            method = default;
+            try
+            {
+                method = NativeType.GetMethod(
+                    methodName,
+                    flags, 
+                    null, 
+                    CallingConventions.Standard, 
+                    argumentTypes ?? Array.Empty<Type>(), 
+                    null);
+
+                return method is not null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc />
+        public bool TryFindPublicMethod(string methodName, Type[]? argumentTypes,
+            [MaybeNullWhen(false)] out MethodInfo method) =>
+            TryFindMethod(BindingFlags.Public | BindingFlags.Instance, methodName, argumentTypes, out method);
+
+        /// <inheritdoc />
+        public bool TryFindStaticMethod(string methodName, Type[]? argumentTypes,
+            [MaybeNullWhen(false)] out MethodInfo method) =>
+            TryFindMethod(BindingFlags.Public | BindingFlags.Static, methodName, argumentTypes, out method);
 
         /// <inheritdoc />
         public bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value)
@@ -301,13 +330,11 @@
         }
 
         /// <inheritdoc />
-        public bool TryWriteProperty(object instance, string propertyName, object? value)
-        {
-            return instance is null
+        public bool TryWriteProperty(object instance, string propertyName, object? value) =>
+            instance is null
                 ? throw new ArgumentNullException(nameof(instance))
                 : TryFindProperty(propertyName, out var property) is not false &&
                   property?.TryWrite(instance, value) is true;
-        }
 
         /// <inheritdoc />
         public override string ToString()
@@ -318,17 +345,6 @@
                 : NativeType.Name;
         }
 
-        private bool HasToStringFormatMethod()
-        {
-            try
-            {
-                var method = NativeType.GetMethod(nameof(ToString), ToStringMethodArgTypes);
-                return method is not null;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        private bool HasToStringFormatMethod() => TryFindPublicMethod(nameof(ToString), ToStringMethodArgTypes, out _);
     }
 }

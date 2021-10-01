@@ -198,6 +198,36 @@
         bool TryFindProperty(string name, [MaybeNullWhen(false)] out IPropertyProxy value);
 
         /// <summary>
+        /// Tries to find a specific method.
+        /// </summary>
+        /// <param name="flags">The binding flags.</param>
+        /// <param name="methodName">The method name.</param>
+        /// <param name="argumentTypes">The argument types.</param>
+        /// <param name="method">The output method.</param>
+        /// <returns>True if the method search succeeds.</returns>
+        bool TryFindMethod(BindingFlags flags, string methodName, Type[]? argumentTypes,
+            [MaybeNullWhen(false)] out MethodInfo method);
+
+        /// <summary>
+        /// Tries to find a specific public instance method.
+        /// </summary>
+        /// <param name="methodName">The method name.</param>
+        /// <param name="argumentTypes">The argument types.</param>
+        /// <param name="method">The output method.</param>
+        /// <returns>True if the method search succeeds.</returns>
+        bool TryFindPublicMethod(string methodName, Type[]? argumentTypes, [MaybeNullWhen(false)] out MethodInfo method);
+
+        /// <summary>
+        /// Tries to find a specific public static method.
+        /// </summary>
+        /// <param name="methodName">The method name.</param>
+        /// <param name="argumentTypes">The argument types.</param>
+        /// <param name="method">The output method.</param>
+        /// <returns>True if the method search succeeds.</returns>
+        public bool TryFindStaticMethod(string methodName, Type[]? argumentTypes,
+            [MaybeNullWhen(false)] out MethodInfo method);
+
+        /// <summary>
         /// Tries to find a property by name and tries to read its value.
         /// </summary>
         /// <param name="instance">The object instance</param>
