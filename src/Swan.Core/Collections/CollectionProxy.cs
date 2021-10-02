@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Provides a unified API for most commonly available collection types.
@@ -34,7 +35,7 @@
         /// <summary>
         /// Gets the underlying collection object this proxy operates on.
         /// </summary>
-        public object Collection { get; }
+        public dynamic Collection { get; }
 
         /// <inheritdoc cref="IList" />
         public bool IsFixedSize
@@ -455,28 +456,13 @@
         /// <param name="value">The value or key to look for.</param>
         public void Remove(object? value)
         {
-            if (IsFixedSize || IsReadOnly)
+            if (Delegates.Remove is null)
                 throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
 
-            if (IsDictionary)
-            {
-                if (TypeManager.TryChangeType(value, KeysType, out dynamic keyItem))
-                    Collection.Remove(keyItem);
-                else
-                    throw new ArgumentException(InvalidCastMessage, nameof(value));
-                return;
-            }
-
-            if (CollectionKind is not (CollectionKind.List or CollectionKind.GenericList or CollectionKind.GenericCollection))
-            {
-                throw new NotSupportedException(
-                    $"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
-            }
-
-            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
+            if (!TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var item))
                 throw new ArgumentException(InvalidCastMessage, nameof(value));
 
-            Collection.Remove(item);
+            Delegates.Remove(item);
         }
 
         /// <inheritdoc />
@@ -791,21 +777,42 @@
         {
             private readonly Lazy<Func<IEnumerator>> GetEnumeratorLazy;
             private readonly Lazy<Action?> ClearLazy;
+            private readonly Lazy<Action<object>?> RemoveLazy;
 
             public DelegateFactory(IEnumerable target, ICollectionInfo info)
             {
                 GetEnumeratorLazy = new(() =>
                 {
                     info.SourceType.TryFindPublicMethod(nameof(IEnumerable.GetEnumerator), null, out var method);
-                    return method!.CreateDelegate<Func<IEnumerator>>(target);
+                    return Expression.Lambda<Func<IEnumerator>>(Expression.Convert(
+                        Expression.Call(Expression.Constant(target), method!),
+                        typeof(IEnumerator))).Compile();
                 }, true);
 
-                ClearLazy = new(() => !info.SourceType.TryFindPublicMethod(nameof(IList.Clear), null, out var method) ? null : method.CreateDelegate<Action>(target), true);
+                ClearLazy = new(() => info.SourceType.TryFindPublicMethod(nameof(IList.Clear), null, out var method)
+                    ? method.CreateDelegate<Action>(target)
+                    : default, true);
+
+                RemoveLazy = new(() =>
+                {
+                    var elementType = info.IsDictionary ? info.KeysType.NativeType : info.ValuesType.NativeType;
+                    var parameterTypes = new[] { elementType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.Remove), parameterTypes, out var method))
+                        return default;
+
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+                    var typedParameter = Expression.Convert(valueParameter, elementType);
+                    var body = Expression.Call(Expression.Constant(target), method, typedParameter);
+                    return Expression.Lambda<Action<object?>>(body, valueParameter).Compile();
+                }, true);
             }
 
             public Func<IEnumerator> GetEnumerator => GetEnumeratorLazy.Value;
 
             public Action? Clear => ClearLazy.Value;
+
+            public Action<object?>? Remove => RemoveLazy.Value;
         }
     }
 }

@@ -228,7 +228,7 @@
                 [CollectionSamples.List] = false,
                 [CollectionSamples.ReadOnlyCollection] = true,
                 [CollectionSamples.GenericCollection] = false,
-                [CollectionSamples.Collection] = true,
+                [CollectionSamples.Collection] = false,
                 [CollectionSamples.GenericEnumerable] = true,
                 [CollectionSamples.Enumerable] = true,
                 [CollectionSamples.Array] = true,
