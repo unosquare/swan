@@ -7,12 +7,13 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Reflection;
 
     /// <summary>
     /// Provides a unified API for most commonly available collection types.
     /// Please note that the implementation of these methods is not as fast
     /// as the collection's native implementation due to some processing and
-    /// dynamic binding that this proxy requires o function properly.
+    /// lambda binding that this proxy requires o function properly.
     /// </summary>
     public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
     {
@@ -35,105 +36,46 @@
         /// <summary>
         /// Gets the underlying collection object this proxy operates on.
         /// </summary>
-        public dynamic Collection { get; }
+        public object Collection { get; }
 
         /// <inheritdoc cref="IList" />
-        public bool IsFixedSize
-        {
-            get
-            {
-                if (SourceType.IsArray)
-                    return true;
-
-                if (CollectionKind is CollectionKind.Collection or CollectionKind.Enumerable or CollectionKind.GenericEnumerable)
-                    return true;
-
-                return SourceType.TryReadProperty(Collection, nameof(IsFixedSize), out bool value)
-                    ? value
-                    : IsReadOnly;
-            }
-        }
+        public bool IsFixedSize =>
+            SourceType.IsArray ||
+            (CollectionKind is CollectionKind.Enumerable or CollectionKind.GenericEnumerable) ||
+            (SourceType.TryReadProperty(Collection, nameof(IsFixedSize), out bool value)
+                ? value
+                : IsReadOnly);
 
         /// <inheritdoc cref="IList" />
-        public bool IsReadOnly
-        {
-            get
-            {
-                if (SourceType.TryReadProperty(Collection, nameof(IsReadOnly), out bool value))
-                    return value;
-
-                return false;
-            }
-        }
+        public bool IsReadOnly =>
+            SourceType.TryReadProperty(Collection, nameof(IsReadOnly), out bool value) && value;
 
         /// <inheritdoc />
-        public int Count
-        {
-            get
-            {
-                if (SourceType.TryReadProperty(Collection, nameof(Count), out int value))
-                    return value;
-
-                var enumerator = GetEnumerator();
-                var result = 0;
-                while (enumerator.MoveNext())
-                    result++;
-
-                return result;
-            }
-        }
+        public int Count =>
+            SourceType.TryReadProperty(Collection, nameof(Count), out int value)
+                ? value
+                : Values.Count;
 
         /// <inheritdoc />
-        public bool IsSynchronized
-        {
-            get
-            {
-                if (SourceType.TryReadProperty(Collection, nameof(IsSynchronized), out bool value))
-                    return value;
-
-                return false;
-            }
-        }
+        public bool IsSynchronized =>
+            SourceType.TryReadProperty(Collection, nameof(IsSynchronized), out bool value) &&
+            value;
 
         /// <inheritdoc />
-        public object SyncRoot
-        {
-            get
-            {
-                return SourceType.TryReadProperty(Collection, nameof(SyncRoot), out object value)
-                    ? value
-                    : _syncRoot;
-            }
-        }
+        public object SyncRoot =>
+            SourceType.TryReadProperty(Collection, nameof(SyncRoot), out object? value)
+                ? value ?? _syncRoot
+                : _syncRoot;
 
         /// <inheritdoc />
-        public ICollection Keys
-        {
-            get
-            {
-                if (Collection is IDictionary dictionary)
-                    return dictionary.Keys;
-
-                return Enumerable.Range(0, Count).ToArray();
-            }
-        }
+        public ICollection Keys => Collection is IDictionary dictionary
+            ? dictionary.Keys
+            : Enumerable.Range(0, Count).ToArray();
 
         /// <inheritdoc />
-        public ICollection Values
-        {
-            get
-            {
-                if (Collection is IDictionary dictionary)
-                    return dictionary.Values;
-
-                var result = new List<dynamic?>(256);
-                var enumerator = GetEnumerator();
-                while (enumerator.MoveNext())
-                    result.Add(enumerator.Current);
-
-                return result;
-            }
-        }
+        public ICollection Values => Collection is IDictionary dictionary
+            ? dictionary.Values
+            : this.Cast<object?>().ToArray();
 
         /// <inheritdoc />
         public ITypeInfo SourceType => Info.SourceType;
@@ -159,35 +101,34 @@
         /// <inheritdoc />
         public object? this[object key]
         {
-            get => !TypeManager.TryChangeType(key, KeysType, out dynamic? keyItem)
+            get =>
+                !TypeManager.TryChangeType(key, KeysType, out var keyItem)
                     ? throw new ArgumentException(InvalidCastMessage, nameof(key))
-                    : (object?)(IsDictionary
-                    ? Collection[keyItem]
-                    : this[(int)keyItem!]);
+                    : KeysType.NativeType == typeof(int)
+                        ? this[(int)keyItem]
+                        : Delegates.ObjectGetter is not null
+                            ? Delegates.ObjectGetter(keyItem)
+                            : throw new NotSupportedException(
+                                $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
             set
             {
-                if (IsReadOnly)
-                    throw new InvalidOperationException("Unable to write to read-only collection.");
+                if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
+                    throw new ArgumentException(InvalidCastMessage, nameof(key));
 
-                if (IsDictionary)
+                if (!TypeManager.TryChangeType(value, ValuesType, out var valueItem))
+                    throw new ArgumentException(InvalidCastMessage, nameof(value));
+
+                if (KeysType.NativeType == typeof(int))
                 {
-                    if (!TypeManager.TryChangeType(key, KeysType, out dynamic keyItem))
-                        throw new ArgumentException(InvalidCastMessage, nameof(key));
-
-                    if (!TypeManager.TryChangeType(value, ValuesType, out dynamic valueItem))
-                        throw new ArgumentException(InvalidCastMessage, nameof(value));
-
-                    Collection[keyItem] = valueItem;
+                    this[(int)keyItem] = valueItem;
                     return;
                 }
 
-                if (TypeManager.TryChangeType(key, KeysType, out var index))
-                {
-                    this[(int)index!] = value;
-                    return;
-                }
+                if (Delegates.ObjectSetter is null)
+                    throw new NotSupportedException(
+                        $"Collection ({SourceType.ShortName}) does not support setting a value via key object.");
 
-                throw new ArgumentException($"Key is of an invalid type for this collection kind '{CollectionKind}'.", nameof(key));
+                Delegates.ObjectSetter.Invoke(keyItem, valueItem);
             }
         }
 
@@ -196,13 +137,16 @@
         {
             get
             {
-                if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
-                    return Collection[index];
+                if (Delegates.IndexGetter is not null)
+                    return Delegates.IndexGetter(index);
+
+                if (IsArray)
+                    return (Collection as Array)!.GetValue(index);
 
                 if (IsDictionary)
                 {
                     var currentIndex = -1;
-                    foreach (var value in Collection.Values)
+                    foreach (var value in Values)
                     {
                         currentIndex++;
 
@@ -226,19 +170,20 @@
             }
             set
             {
-                if (IsReadOnly)
-                    throw new InvalidOperationException("Collection is read-only.");
+                if (!TypeManager.TryChangeType(value, ValuesType, out var item))
+                    throw new ArgumentException(InvalidCastMessage, nameof(value));
 
-                if (CollectionKind is CollectionKind.List or CollectionKind.GenericList)
+                if (IsArray)
                 {
-                    if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
-                        throw new ArgumentException(InvalidCastMessage, nameof(value));
-
-                    Collection[index] = item;
+                    (Collection as Array)!.SetValue(item, index);
                     return;
                 }
 
-                throw new NotSupportedException("Collection does not support setting a value via indexer.");
+                if (Delegates.IndexSetter is null)
+                    throw new NotSupportedException(
+                        $"Collection ({SourceType.ShortName})  does not support setting a value via indexer.");
+
+                Delegates.IndexSetter(index, item);
             }
         }
 
@@ -291,33 +236,27 @@
         /// <inheritdoc />
         public int Add(object? value)
         {
-            if (IsDictionary || IsFixedSize || IsReadOnly)
+            if (Delegates.AddValue is null)
                 throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
-            switch (CollectionKind)
-            {
-                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList
-                    when TypeManager.TryChangeType(value, ValuesType, out dynamic item):
-                    Collection.Add(item);
-                    return Count - 1;
-                case CollectionKind.GenericCollection or CollectionKind.List or CollectionKind.GenericList:
-                    throw new ArgumentException($"Unable to convert value into type {ValuesType.ShortName}", nameof(value));
-                default:
-                    throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
-            }
+            if (!TypeManager.TryChangeType(value, ValuesType, out var item))
+                throw new ArgumentException(InvalidCastMessage, nameof(value));
+
+            Delegates.AddValue(item);
+            return Count - 1;
         }
 
         /// <inheritdoc />
         public void Add(object key, object? value)
         {
-            if (!IsDictionary || IsFixedSize || IsReadOnly)
-                throw new NotSupportedException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
+            if (Delegates.AddKeyValue is null)
+                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Add)} operation.");
 
-            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic itemValue) ||
-                !TypeManager.TryChangeType(key, KeysType, out dynamic itemKey))
-                throw new ArgumentException($"Unable to convert key and/or value to a suitable type.", nameof(value));
-            else
-                Collection.Add(itemKey, itemValue);
+            if (!TypeManager.TryChangeType(key, KeysType, out var itemKey) ||
+                !TypeManager.TryChangeType(value, ValuesType, out var itemValue))
+                throw new ArgumentException(InvalidCastMessage, nameof(value));
+
+            Delegates.AddKeyValue(itemKey, itemValue);
         }
 
         /// <summary>
@@ -339,7 +278,7 @@
         {
             if (Delegates.Clear is null)
                 throw new NotSupportedException(
-                    $"Collection of kind {CollectionKind} does not support the {nameof(Clear)} operation.");
+                    $"Collection ({SourceType.ShortName}) of kind {CollectionKind} does not support the {nameof(Clear)} operation.");
 
             Delegates.Clear.Invoke();
         }
@@ -350,21 +289,15 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>True if the value is found. False otherwise.</returns>
-        public bool Contains(object? value)
-        {
-            switch (CollectionKind)
-            {
-                case CollectionKind.Dictionary:
-                    return Collection.Contains(value as dynamic);
-                case CollectionKind.GenericDictionary:
-                    {
-                        return TypeManager.TryChangeType(value, KeysType, out dynamic item) &&
-                               (bool)Collection.ContainsKey(item);
-                    }
-                default:
-                    return IndexOf(value) >= 0;
-            }
-        }
+        public bool Contains(object? value) =>
+            !TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var searchValue)
+                ? throw new ArgumentException(InvalidCastMessage, nameof(value))
+                : !IsDictionary
+                    ? Delegates.Contains?.Invoke(searchValue) ??
+                      Values.Cast<object?>().Contains(searchValue)
+                    : Delegates.ContainsKey?.Invoke(searchValue) ?? (
+                      Delegates.Contains?.Invoke(searchValue) ??
+                      Keys.Cast<object?>().Contains(searchValue));
 
         /// <summary>
         /// For dictionaries, it returns the same as <see cref="Contains(object?)"/>.
@@ -378,7 +311,7 @@
             if (IsDictionary)
                 return Contains(value);
 
-            if (!TypeManager.TryChangeType(value, KeysType, out dynamic indexKey) ||
+            if (!TypeManager.TryChangeType(value, KeysType, out var indexKey) ||
                 indexKey is not int index)
                 return false;
 
@@ -401,31 +334,14 @@
         public int IndexOf(object? value)
         {
             var index = -1;
+            if (!TypeManager.TryChangeType(value, ValuesType, out var item))
+                item = value;
 
-            if (IsDictionary)
+            foreach (var currentItem in Values)
             {
-                if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                    item = value;
-
-                foreach (dynamic? key in Collection.Values)
-                {
-                    index++;
-                    if (object.Equals(key, item))
-                        return index;
-                }
-            }
-            else
-            {
-                if (!TypeManager.TryChangeType(value, ValuesType, out var item))
-                    item = value;
-
-                var enumerator = GetEnumerator();
-                while (enumerator.MoveNext())
-                {
-                    index++;
-                    if (object.Equals(enumerator.Current as dynamic, item))
-                        return index;
-                }
+                index++;
+                if (Equals(currentItem, item))
+                    return index;
             }
 
             return -1;
@@ -434,19 +350,14 @@
         /// <inheritdoc />
         public void Insert(int index, object? value)
         {
-            if (IsDictionary || IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
-
-            if (CollectionKind is not (CollectionKind.List or CollectionKind.GenericList))
-            {
+            if (Delegates.Insert is null)
                 throw new NotSupportedException(
-                    $"Collection of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
-            }
+                    $"Collection ({SourceType.ShortName}) of kind {CollectionKind} does not support the {nameof(Insert)} operation.");
 
-            if (!TypeManager.TryChangeType(value, ValuesType, out dynamic item))
+            if (!TypeManager.TryChangeType(value, ValuesType, out var item))
                 throw new ArgumentException(InvalidCastMessage, nameof(value));
 
-            Collection.Insert(index, item);
+            Delegates.Insert(index, item);
         }
 
         /// <summary>
@@ -457,7 +368,8 @@
         public void Remove(object? value)
         {
             if (Delegates.Remove is null)
-                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
+                throw new NotSupportedException(
+                    $"Collection ({SourceType.ShortName}) of kind {CollectionKind} does not support the {nameof(Remove)} operation.");
 
             if (!TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var item))
                 throw new ArgumentException(InvalidCastMessage, nameof(value));
@@ -469,7 +381,8 @@
         public void RemoveAt(int index)
         {
             if (IsFixedSize || IsReadOnly)
-                throw new InvalidOperationException($"Collection of kind {CollectionKind} does not support the {nameof(RemoveAt)} operation.");
+                throw new NotSupportedException(
+                    $"Collection ({SourceType.ShortName}) of kind {CollectionKind} does not support the {nameof(RemoveAt)} operation.");
 
             if (IsDictionary)
             {
@@ -483,24 +396,20 @@
                     if (keyIndex != index)
                         continue;
 
-                    Collection.Remove(key as dynamic);
+                    Remove(key);
                     break;
                 }
 
                 return;
             }
 
-            if (CollectionKind is CollectionKind.GenericCollection)
+            if (Delegates.RemoveAt is not null)
             {
-                Remove(this[index]);
+                Delegates.RemoveAt(index);
                 return;
             }
 
-            if (CollectionKind is not (CollectionKind.List or CollectionKind.GenericList))
-                throw new NotSupportedException(
-                    $"Collection of kind {CollectionKind} does not support the {nameof(RemoveAt)} operation.");
-
-            Collection.RemoveAt(index);
+            Remove(this[index]);
         }
 
         /// <inheritdoc />
@@ -521,9 +430,9 @@
 
             if (IsDictionary)
             {
-                foreach (var value in Collection.Values)
+                foreach (var value in Values)
                 {
-                    if (!TypeManager.TryChangeType(value, elementType, out dynamic? item))
+                    if (!TypeManager.TryChangeType(value, elementType, out var item))
                         throw new ArgumentException(InvalidCastMessage, nameof(array));
 
                     array.SetValue(item, arrayIndex);
@@ -537,7 +446,7 @@
                 var enumerator = GetEnumerator();
                 while (enumerator.MoveNext())
                 {
-                    if (!TypeManager.TryChangeType(enumerator.Current, elementType, out dynamic? item))
+                    if (!TypeManager.TryChangeType(enumerator.Current, elementType, out var item))
                         throw new ArgumentException(InvalidCastMessage, nameof(array));
 
                     array.SetValue(item, arrayIndex);
@@ -552,14 +461,14 @@
         /// Gets the last item in the <see cref="Values"/> collection.
         /// </summary>
         /// <returns>The value in the last position within the collection.</returns>
-        public dynamic? Last() => this[Count - 1];
+        public object? Last() => this[Count - 1];
 
         /// <summary>
         /// Gets the last item in the <see cref="Values"/> collection.
         /// If the last item does not exist, it returns the default value for <see cref="ValuesType"/>.
         /// </summary>
         /// <returns>The value in the last position within the collection.</returns>
-        public dynamic? LastOrDefault()
+        public object? LastOrDefault()
         {
             var count = Count;
             if (count <= 0) return ValuesType.DefaultValue;
@@ -571,14 +480,14 @@
         /// Gets the first item in the <see cref="Values"/> collection.
         /// </summary>
         /// <returns>The value in the first position within the collection.</returns>
-        public dynamic? First() => this[0];
+        public object? First() => this[0];
 
         /// <summary>
         /// Gets the first item in the <see cref="Values"/> collection.
         /// If the first item does not exist, it returns the default value for <see cref="ValuesType"/>.
         /// </summary>
         /// <returns>The value in the first position within the collection.</returns>
-        public dynamic? FirstOrDefault()
+        public object? FirstOrDefault()
         {
             var count = Count;
             if (count <= 0) return ValuesType.DefaultValue;
@@ -777,7 +686,17 @@
         {
             private readonly Lazy<Func<IEnumerator>> GetEnumeratorLazy;
             private readonly Lazy<Action?> ClearLazy;
-            private readonly Lazy<Action<object>?> RemoveLazy;
+            private readonly Lazy<Action<object?>?> RemoveLazy;
+            private readonly Lazy<Action<object?>?> AddValueLazy;
+            private readonly Lazy<Action<object, object?>?> AddKeyValueLazy;
+            private readonly Lazy<Func<object?, bool>?> ContainsLazy;
+            private readonly Lazy<Func<object?, bool>?> ContainsKeyLazy;
+            private readonly Lazy<Action<int, object?>?> InsertLazy;
+            private readonly Lazy<Action<int>?> RemoveAtLazy;
+            private readonly Lazy<Func<int, object?>?> IndexGetterLazy;
+            private readonly Lazy<Action<int, object?>?> IndexSetterLazy;
+            private readonly Lazy<Func<object, object?>?> ObjectGetterLazy;
+            private readonly Lazy<Action<object, object?>?> ObjectSetterLazy;
 
             public DelegateFactory(IEnumerable target, ICollectionInfo info)
             {
@@ -801,10 +720,242 @@
                     if (!info.SourceType.TryFindPublicMethod(nameof(IList.Remove), parameterTypes, out var method))
                         return default;
 
+                    elementType = method.GetParameters().First().ParameterType;
                     var valueParameter = Expression.Parameter(typeof(object), "value");
-                    var typedParameter = Expression.Convert(valueParameter, elementType);
-                    var body = Expression.Call(Expression.Constant(target), method, typedParameter);
+                    var body = Expression.Call(
+                        Expression.Constant(target), method, Expression.Convert(valueParameter, elementType));
                     return Expression.Lambda<Action<object?>>(body, valueParameter).Compile();
+                }, true);
+
+                RemoveAtLazy = new(() =>
+                {
+                    var parameterTypes = new[] { typeof(int) };
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.RemoveAt), parameterTypes, out var method))
+                        return default;
+
+                    var valueParameter = Expression.Parameter(typeof(int), "value");
+                    var body = Expression.Call(
+                        Expression.Constant(target), method, valueParameter);
+                    return Expression.Lambda<Action<int>>(body, valueParameter).Compile();
+                }, true);
+
+                AddValueLazy = new(() =>
+                {
+                    if (info.IsDictionary)
+                        return default;
+
+                    var elementType = info.ValuesType.NativeType;
+                    var parameterTypes = new[] { elementType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.Add), parameterTypes, out var method))
+                        return default;
+
+                    elementType = method.GetParameters().First().ParameterType;
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+                    var body = Expression.Call(
+                        Expression.Constant(target), method, Expression.Convert(valueParameter, elementType));
+                    return Expression.Lambda<Action<object?>>(body, valueParameter).Compile();
+                }, true);
+
+                AddKeyValueLazy = new(() =>
+                {
+                    if (!info.IsDictionary)
+                        return default;
+
+                    var keysType = info.KeysType.NativeType;
+                    var valuesType = info.ValuesType.NativeType;
+                    var parameterTypes = new[] { keysType, valuesType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary.Add), parameterTypes, out var method))
+                        return default;
+
+                    var keyParameter = Expression.Parameter(typeof(object), "key");
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+
+                    keysType = method.GetParameters().First().ParameterType;
+                    valuesType = method.GetParameters().Last().ParameterType;
+
+                    var body = Expression.Call(
+                        Expression.Constant(target), method,
+                        Expression.Convert(keyParameter, keysType),
+                        Expression.Convert(valueParameter, valuesType));
+                    return Expression.Lambda<Action<object, object?>>(body, keyParameter, valueParameter).Compile();
+                }, true);
+
+                ContainsLazy = new(() =>
+                {
+                    var elementType = info.IsDictionary ? info.KeysType.NativeType : info.ValuesType.NativeType;
+                    var parameterTypes = new[] { elementType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary.Contains), parameterTypes, out var method))
+                        return default;
+
+                    elementType = method.GetParameters().First().ParameterType;
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+
+                    var body = Expression.Call(
+                        Expression.Constant(target), method,
+                        Expression.Convert(valueParameter, elementType));
+                    return Expression.Lambda<Func<object?, bool>>(body, valueParameter).Compile();
+                }, true);
+
+                ContainsKeyLazy = new(() =>
+                {
+                    if (!info.IsDictionary)
+                        return default;
+
+                    var elementType = info.KeysType.NativeType;
+                    var parameterTypes = new[] { elementType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary<int, int>.ContainsKey), parameterTypes, out var method))
+                        return default;
+
+                    elementType = method.GetParameters().First().ParameterType;
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+
+                    var body = Expression.Call(
+                        Expression.Constant(target), method,
+                        Expression.Convert(valueParameter, elementType));
+                    return Expression.Lambda<Func<object?, bool>>(body, valueParameter).Compile();
+                }, true);
+
+                InsertLazy = new(() =>
+                {
+                    if (info.IsDictionary)
+                        return default;
+
+                    var elementType = info.KeysType.NativeType;
+                    var parameterTypes = new[] { typeof(int), elementType };
+
+                    if (!info.SourceType.TryFindPublicMethod(nameof(IList<int>.Insert), parameterTypes, out var method))
+                        return default;
+
+                    elementType = method.GetParameters().Last().ParameterType;
+                    var indexParameter = Expression.Parameter(typeof(int), "index");
+                    var valueParameter = Expression.Parameter(typeof(object), "value");
+
+                    var body = Expression.Call(
+                        Expression.Constant(target), method,
+                        indexParameter, Expression.Convert(valueParameter, elementType));
+                    return Expression.Lambda<Action<int, object?>>(body, indexParameter, valueParameter).Compile();
+
+                }, true);
+
+                IndexGetterLazy = new(() =>
+                {
+                    var allProperties = info.SourceType.NativeType
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .ToArray();
+
+                    var indexer = allProperties
+                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
+                        .FirstOrDefault(c =>
+                            c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType == typeof(int));
+
+                    if (indexer is null)
+                        return default;
+
+                    var argument = Expression.Parameter(typeof(int), "index");
+                    var property = Expression.Convert(
+                        Expression.Property(Expression.Constant(target), indexer.Property, argument),
+                        typeof(object));
+
+                    var getter = Expression
+                        .Lambda<Func<int, object?>>(property, argument)
+                        .Compile();
+
+                    return getter;
+
+                }, true);
+
+                ObjectGetterLazy = new(() =>
+                {
+                    var allProperties = info.SourceType.NativeType
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .ToArray();
+
+                    var indexer = allProperties
+                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
+                        .FirstOrDefault(c =>  c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
+
+                    if (indexer is null)
+                        return default;
+
+                    var argument = Expression.Parameter(typeof(object), "index");
+                    var conversionType = indexer.IndexParameters[0].ParameterType;
+
+                    var property = Expression.Convert(
+                        Expression.Property(Expression.Constant(target),
+                            indexer.Property,
+                            Expression.Convert(argument, conversionType)),
+                        typeof(object));
+
+                    var getter = Expression
+                        .Lambda<Func<object, object?>>(property, argument)
+                        .Compile();
+
+                    return getter;
+                }, true);
+
+                IndexSetterLazy = new(() =>
+                {
+                    var allProperties = info.SourceType.NativeType
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .ToArray();
+
+                    var indexer = allProperties
+                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
+                        .FirstOrDefault(c =>
+                            c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType == typeof(int));
+
+                    if (indexer is null)
+                        return default;
+
+                    var valueArgument = Expression.Parameter(typeof(object), "value");
+                    var indexArgument = Expression.Parameter(typeof(int), "index");
+
+                    var body = Expression.Assign(
+                        Expression.Property(Expression.Constant(target), indexer.Property, indexArgument),
+                        Expression.Convert(valueArgument, indexer.Property.PropertyType));
+
+                    var setter = Expression
+                        .Lambda<Action<int, object?>>(body, indexArgument, valueArgument)
+                        .Compile();
+
+                    return setter;
+
+                }, true);
+
+                ObjectSetterLazy = new(() =>
+                {
+                    var allProperties = info.SourceType.NativeType
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .ToArray();
+
+                    var indexer = allProperties
+                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
+                        .FirstOrDefault(c => c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
+
+                    if (indexer is null)
+                        return default;
+
+                    var valueArgument = Expression.Parameter(typeof(object), "value");
+                    var keyArgument = Expression.Parameter(typeof(object), "key");
+                    var keyType = indexer.IndexParameters[0].ParameterType;
+
+                    var body = Expression.Assign(
+                        Expression.Property(
+                            Expression.Constant(target),
+                            indexer.Property,
+                            Expression.Convert(keyArgument, keyType)),
+                        Expression.Convert(valueArgument, indexer.Property.PropertyType));
+
+                    var setter = Expression
+                        .Lambda<Action<object, object?>>(body, keyArgument, valueArgument)
+                        .Compile();
+
+                    return setter;
+
                 }, true);
             }
 
@@ -813,6 +964,26 @@
             public Action? Clear => ClearLazy.Value;
 
             public Action<object?>? Remove => RemoveLazy.Value;
+
+            public Action<object?>? AddValue => AddValueLazy.Value;
+
+            public Action<object, object?>? AddKeyValue => AddKeyValueLazy.Value;
+
+            public Func<object?, bool>? Contains => ContainsLazy.Value;
+
+            public Func<object?, bool>? ContainsKey => ContainsKeyLazy.Value;
+
+            public Action<int, object?>? Insert => InsertLazy.Value;
+
+            public Action<int>? RemoveAt => RemoveAtLazy.Value;
+
+            public Func<int, object?>? IndexGetter => IndexGetterLazy.Value;
+
+            public Func<object, object?>? ObjectGetter => ObjectGetterLazy.Value;
+
+            public Action<int, object?>? IndexSetter => IndexSetterLazy.Value;
+
+            public Action<object, object?>? ObjectSetter => ObjectSetterLazy.Value;
         }
     }
 }

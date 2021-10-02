@@ -88,11 +88,9 @@
         /// <param name="this">The stream of bytes in UTF8.</param>
         /// <param name="options">Optional JSON serializer options.</param>
         /// <returns>The deserialized object.</returns>
-        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, JsonSerializerOptions? options = default)
-        {
-            return await JsonSerializer
+        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, JsonSerializerOptions? options = default) =>
+            await JsonSerializer
                 .DeserializeAsync<T>(@this, options ?? JsonFlatOptions)
                 .ConfigureAwait(false);
-        }
     }
 }

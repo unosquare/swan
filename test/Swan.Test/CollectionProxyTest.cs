@@ -141,7 +141,7 @@
                 [CollectionSamples.List] = false,
                 [CollectionSamples.ReadOnlyCollection] = true,
                 [CollectionSamples.GenericCollection] = false,
-                [CollectionSamples.Collection] = true,
+                [CollectionSamples.Collection] = false,
                 [CollectionSamples.GenericEnumerable] = true,
                 [CollectionSamples.Enumerable] = true,
                 [CollectionSamples.Array] = true,
@@ -352,7 +352,7 @@
         [Test]
         public void FirstWorksAsExpected()
         {
-            var testCases = new Dictionary<IEnumerable, int>()
+            var testCases = new Dictionary<IEnumerable, object>()
             {
                 [CollectionSamples.ReadOnlyDictionary] = 1,
                 [CollectionSamples.GenericDictionary] = 1,
@@ -377,14 +377,14 @@
                 if (collection is Hashtable ht)
                     Assert.IsTrue(proxy.First() is int);
                 else
-                    Assert.IsTrue(proxy.First() == expected);
+                    Assert.IsTrue(Equals(proxy.First(), expected));
             }
         }
 
         [Test]
         public void LastWorksAsExpected()
         {
-            var testCases = new Dictionary<IEnumerable, int>()
+            var testCases = new Dictionary<IEnumerable, object>()
             {
                 [CollectionSamples.ReadOnlyDictionary] = 8,
                 [CollectionSamples.GenericDictionary] = 8,
@@ -409,7 +409,7 @@
                 if (collection is Hashtable ht)
                     Assert.IsTrue(proxy.Last() is int);
                 else
-                    Assert.IsTrue(proxy.Last() == expected);
+                    Assert.IsTrue(Equals(proxy.Last(), expected));
             }
         }
 
@@ -616,7 +616,7 @@
                 var proxy = collection.AsProxy();
                 var originalItem = proxy.LastOrDefault();
 
-                if (proxy.IsFixedSize || proxy.IsReadOnly)
+                if (proxy.IsFixedSize || proxy.IsReadOnly || proxy.SourceType.NativeType == typeof(Queue))
                 {
                     Assert.Catch(() => proxy.RemoveAt(proxy.Count - 1));
                     continue;
@@ -674,6 +674,9 @@
                     Assert.IsFalse(proxy.ContainsKey("item 6"));
                     continue;
                 }
+
+                if (proxy.Collection is Queue)
+                    continue;
 
                 Assert.IsTrue(proxy.ContainsValue(6));
                 proxy.Remove(6);

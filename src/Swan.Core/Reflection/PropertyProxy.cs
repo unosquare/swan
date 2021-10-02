@@ -3,7 +3,6 @@
 #pragma warning disable CA1031 // Do not catch general exception types
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
     using System.Reflection;
 
@@ -87,7 +86,7 @@
         }
 
         /// <inheritdoc />
-        public bool TryRead(object instance, [MaybeNullWhen(false)] out object? value)
+        public bool TryRead(object instance, out object? value)
         {
 
             value = DefaultValue;
@@ -140,7 +139,10 @@
             var typedInstance = Expression.Convert(instanceParameter, instanceType.NativeType);
             var property = Expression.Property(typedInstance, propertyInfo);
             var convert = Expression.Convert(property, typeof(object));
-            var dynamicGetter = (Func<object, object>)Expression.Lambda(convert, instanceParameter).Compile();
+            var dynamicGetter = Expression
+                .Lambda<Func<object, object?>>(convert, instanceParameter)
+                .Compile();
+
             return dynamicGetter;
         }
 
@@ -157,7 +159,9 @@
             var propertyValue = Expression.Convert(valueParameter, propertyInfo.PropertyType);
 
             var body = Expression.Assign(property, propertyValue);
-            var dynamicSetter = Expression.Lambda<Action<object, object?>>(body, instanceParameter, valueParameter).Compile();
+            var dynamicSetter = Expression
+                .Lambda<Action<object, object?>>(body, instanceParameter, valueParameter)
+                .Compile();
 
             return dynamicSetter;
         }
