@@ -34,14 +34,15 @@
 
             var proxy = instance.GetType().TypeInfo();
 
-            if (instance is Type typeValue)
-                return WriteAsString(options, $"{typeValue}", false);
-
-            if (instance is bool boolValue)
-                return boolValue ? options.TrueLiteral : options.FalseLiteral;
-
-            if (instance is string stringValue)
-                return WriteAsString(options, stringValue, false);
+            switch (instance)
+            {
+                case Type typeValue:
+                    return WriteAsString(options, $"{typeValue}", false);
+                case bool boolValue:
+                    return boolValue ? options.TrueLiteral : options.FalseLiteral;
+                case string stringValue:
+                    return WriteAsString(options, stringValue, false);
+            }
 
             if (proxy.IsNumeric)
                 return proxy.ToStringInvariant(instance);

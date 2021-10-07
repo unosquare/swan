@@ -1,6 +1,6 @@
 ﻿namespace Swan.Reflection
 {
-    using Swan.Collections;
+    using Collections;
     using System;
     using System.Collections;
     using System.Collections.Concurrent;
@@ -168,7 +168,7 @@
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out object targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out object? targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));

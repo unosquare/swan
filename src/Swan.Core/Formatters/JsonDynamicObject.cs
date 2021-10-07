@@ -11,8 +11,8 @@
     /// </summary>
     internal class JsonDynamicObject : DynamicObject
     {
-        private readonly Func<JsonElement, object?> _valueParser;
-        private readonly JsonElement _element;
+        private readonly Func<JsonElement, object?> ValueParser;
+        private readonly JsonElement Element;
 
         /// <summary>
         /// Creates a new instance of <see cref="JsonDynamicObject"/>.
@@ -21,8 +21,8 @@
         /// <param name="valueParser">A custom value parser that converts JSON data types into CLR types.</param>
         public JsonDynamicObject(JsonElement element, Func<JsonElement, object?>? valueParser = default)
         {
-            _element = element;
-            _valueParser = valueParser ?? ParseJsonElement;
+            Element = element;
+            ValueParser = valueParser ?? ParseJsonElement;
         }
 
         /// <summary>
@@ -30,15 +30,15 @@
         /// </summary>
         /// <returns>A dynamic object with materialized values.</returns>
         public object? Materialize() =>
-            Materialize(_element, _valueParser);
+            Materialize(Element, ValueParser);
 
         /// <inheritdoc />
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            if (_element.ValueKind != JsonValueKind.Object)
-                throw new InvalidOperationException($"Element does not represent an object because its value kind is {_element.ValueKind}");
+            if (Element.ValueKind != JsonValueKind.Object)
+                throw new InvalidOperationException($"Element does not represent an object because its value kind is {Element.ValueKind}");
 
-            foreach (var kvp in _element.EnumerateObject())
+            foreach (var kvp in Element.EnumerateObject())
                 yield return kvp.Name;
         }
 
@@ -50,12 +50,12 @@
             if (binder == null)
                 throw new ArgumentNullException(nameof(binder));
 
-            if (!_element.TryGetProperty(binder.Name, out var jsonEl))
+            if (!Element.TryGetProperty(binder.Name, out var jsonEl))
                 return false;
 
             try
             {
-                result = _valueParser(jsonEl);
+                result = ValueParser(jsonEl);
             }
             catch
             {
@@ -65,9 +65,8 @@
             return true;
         }
 
-        private object? ParseJsonElement(JsonElement jsonEl)
-        {
-            return jsonEl.ValueKind switch
+        private object? ParseJsonElement(JsonElement jsonEl) =>
+            jsonEl.ValueKind switch
             {
                 JsonValueKind.Null => null,
                 JsonValueKind.False => false,
@@ -79,16 +78,13 @@
                 JsonValueKind.Array => ParseArray(jsonEl),
                 _ => null,
             };
-        }
 
-        private static object? ParseString(JsonElement element)
-        {
-            return element.TryGetDateTime(out var dtValue)
+        private static object? ParseString(JsonElement element) =>
+            element.TryGetDateTime(out var dtValue)
                 ? dtValue
                 : element.TryGetGuid(out var guidValue)
-                ? guidValue
-                : element.GetString();
-        }
+                    ? guidValue
+                    : element.GetString();
 
         private static object ParseNumber(JsonElement element)
         {
@@ -120,33 +116,34 @@
         }
 
         private JsonDynamicObject ParseObject(JsonElement element) =>
-            new(element, _valueParser);
+            new(element, ValueParser);
 
         private JsonDynamicObject[] ParseArray(JsonElement element) =>
             element.EnumerateArray()
-                .Select(o => new JsonDynamicObject(o, _valueParser))
+                .Select(o => new JsonDynamicObject(o, ValueParser))
                 .ToArray();
 
         private static object? Materialize(JsonElement element, Func<JsonElement, object?> valueParser)
         {
-            if (element.ValueKind == JsonValueKind.Object)
+            switch (element.ValueKind)
             {
-                var result = new ExpandoObject();
-                foreach (var kvp in element.EnumerateObject())
-                    result.TryAdd(kvp.Name, Materialize(kvp.Value, valueParser));
+                case JsonValueKind.Object:
+                    {
+                        var result = new ExpandoObject();
+                        foreach (var kvp in element.EnumerateObject())
+                            result.TryAdd(kvp.Name, Materialize(kvp.Value, valueParser));
 
-                return result;
+                        return result;
+                    }
+                case JsonValueKind.Array:
+                    {
+                        return element.EnumerateArray()
+                            .Select(arrayElement => Materialize(arrayElement, valueParser))
+                            .ToArray();
+                    }
+                default:
+                    return valueParser.Invoke(element);
             }
-            else if (element.ValueKind == JsonValueKind.Array)
-            {
-                var result = new List<object?>();
-                foreach (var arrayElement in element.EnumerateArray())
-                    result.Add(Materialize(arrayElement, valueParser));
-
-                return result.ToArray();
-            }
-
-            return valueParser.Invoke(element);
         }
     }
 }
