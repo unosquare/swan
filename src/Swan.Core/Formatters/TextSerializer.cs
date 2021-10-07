@@ -27,7 +27,11 @@
             return Serialize(instance, options, stackTable, 0, 1).ToString();
         }
 
-        private static ReadOnlySpan<char> Serialize(object? instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static ReadOnlySpan<char> Serialize(object? instance,
+            TextSerializerOptions options,
+            StackTable stackTable,
+            int stackDepth,
+            int indentDepth)
         {
             if (instance is null)
                 return options.NullLiteral;

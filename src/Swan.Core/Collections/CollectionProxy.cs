@@ -13,7 +13,8 @@
     /// Provides a unified API for most commonly available collection types.
     /// Please note that the implementation of these methods is not as fast
     /// as the collection's native implementation due to some processing and
-    /// lambda binding that this proxy requires o function properly.
+    /// lambda binding that this proxy requires o function properly. Use the actual
+    /// collection object whenever possible.
     /// </summary>
     public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
     {
