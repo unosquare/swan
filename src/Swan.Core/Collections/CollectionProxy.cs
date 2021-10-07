@@ -104,12 +104,14 @@
             get =>
                 !TypeManager.TryChangeType(key, KeysType, out var keyItem)
                     ? throw new ArgumentException(InvalidCastMessage, nameof(key))
-                    : KeysType.NativeType == typeof(int)
-                        ? this[(int)keyItem]
-                        : Delegates.ObjectGetter is not null
-                            ? Delegates.ObjectGetter(keyItem)
-                            : throw new NotSupportedException(
-                                $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
+                    : keyItem is null
+                        ? throw new ArgumentNullException(nameof(key))
+                        : KeysType.NativeType == typeof(int)
+                            ? this[(int)keyItem]
+                            : Delegates.IndexerObjGetter is not null
+                                ? Delegates.IndexerObjGetter(keyItem)
+                                : throw new NotSupportedException(
+                                    $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
             set
             {
                 if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
@@ -120,15 +122,15 @@
 
                 if (KeysType.NativeType == typeof(int))
                 {
-                    this[(int)keyItem] = valueItem;
+                    this[(int)keyItem!] = valueItem;
                     return;
                 }
 
-                if (Delegates.ObjectSetter is null)
+                if (Delegates.IndexerObjSetter is null)
                     throw new NotSupportedException(
                         $"Collection ({SourceType.ShortName}) does not support setting a value via key object.");
 
-                Delegates.ObjectSetter.Invoke(keyItem, valueItem);
+                Delegates.IndexerObjSetter.Invoke(keyItem!, valueItem);
             }
         }
 
@@ -137,8 +139,8 @@
         {
             get
             {
-                if (Delegates.IndexGetter is not null)
-                    return Delegates.IndexGetter(index);
+                if (Delegates.IndexerIntGetter is not null)
+                    return Delegates.IndexerIntGetter(index);
 
                 if (IsArray)
                     return (Collection as Array)!.GetValue(index);
@@ -179,11 +181,11 @@
                     return;
                 }
 
-                if (Delegates.IndexSetter is null)
+                if (Delegates.IndexerIntSetter is null)
                     throw new NotSupportedException(
                         $"Collection ({SourceType.ShortName})  does not support setting a value via indexer.");
 
-                Delegates.IndexSetter(index, item);
+                Delegates.IndexerIntSetter(index, item);
             }
         }
 
@@ -255,6 +257,9 @@
             if (!TypeManager.TryChangeType(key, KeysType, out var itemKey) ||
                 !TypeManager.TryChangeType(value, ValuesType, out var itemValue))
                 throw new ArgumentException(InvalidCastMessage, nameof(value));
+
+            if (itemKey is null)
+                throw new ArgumentNullException(nameof(key));
 
             Delegates.AddKeyValue(itemKey, itemValue);
         }
@@ -609,7 +614,8 @@
                 ForEach(kvp =>
                 {
                     if (!TypeManager.TryChangeType(kvp.Key, target.KeysType, out var key) ||
-                        !TypeManager.TryChangeType(kvp.Value, target.ValuesType, out var value))
+                        !TypeManager.TryChangeType(kvp.Value, target.ValuesType, out var value) ||
+                        key is null)
                     {
                         success = false;
                         return;
@@ -693,10 +699,10 @@
             private readonly Lazy<Func<object?, bool>?> ContainsKeyLazy;
             private readonly Lazy<Action<int, object?>?> InsertLazy;
             private readonly Lazy<Action<int>?> RemoveAtLazy;
-            private readonly Lazy<Func<int, object?>?> IndexGetterLazy;
-            private readonly Lazy<Action<int, object?>?> IndexSetterLazy;
-            private readonly Lazy<Func<object, object?>?> ObjectGetterLazy;
-            private readonly Lazy<Action<object, object?>?> ObjectSetterLazy;
+            private readonly Lazy<Func<int, object?>?> IndexerIntGetterLazy;
+            private readonly Lazy<Action<int, object?>?> IndexerIntSetterLazy;
+            private readonly Lazy<Func<object, object?>?> IndexerKeyGetterLazy;
+            private readonly Lazy<Action<object, object?>?> IndexerKeySetterLazy;
 
             public DelegateFactory(IEnumerable target, ICollectionInfo info)
             {
@@ -841,7 +847,7 @@
 
                 }, true);
 
-                IndexGetterLazy = new(() =>
+                IndexerIntGetterLazy = new(() =>
                 {
                     var allProperties = info.SourceType.NativeType
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -868,7 +874,7 @@
 
                 }, true);
 
-                ObjectGetterLazy = new(() =>
+                IndexerKeyGetterLazy = new(() =>
                 {
                     var allProperties = info.SourceType.NativeType
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -876,7 +882,7 @@
 
                     var indexer = allProperties
                         .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
-                        .FirstOrDefault(c =>  c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
+                        .FirstOrDefault(c => c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
 
                     if (indexer is null)
                         return default;
@@ -897,7 +903,7 @@
                     return getter;
                 }, true);
 
-                IndexSetterLazy = new(() =>
+                IndexerIntSetterLazy = new(() =>
                 {
                     var allProperties = info.SourceType.NativeType
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -926,7 +932,7 @@
 
                 }, true);
 
-                ObjectSetterLazy = new(() =>
+                IndexerKeySetterLazy = new(() =>
                 {
                     var allProperties = info.SourceType.NativeType
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -977,13 +983,13 @@
 
             public Action<int>? RemoveAt => RemoveAtLazy.Value;
 
-            public Func<int, object?>? IndexGetter => IndexGetterLazy.Value;
+            public Func<int, object?>? IndexerIntGetter => IndexerIntGetterLazy.Value;
 
-            public Func<object, object?>? ObjectGetter => ObjectGetterLazy.Value;
+            public Func<object, object?>? IndexerObjGetter => IndexerKeyGetterLazy.Value;
 
-            public Action<int, object?>? IndexSetter => IndexSetterLazy.Value;
+            public Action<int, object?>? IndexerIntSetter => IndexerIntSetterLazy.Value;
 
-            public Action<object, object?>? ObjectSetter => ObjectSetterLazy.Value;
+            public Action<object, object?>? IndexerObjSetter => IndexerKeySetterLazy.Value;
         }
     }
 }
