@@ -32,7 +32,7 @@
         private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new(() => m =>
         {
             var x = m.ToString();
-            return x[0] + " " + x.Substring(1, x.Length - 1);
+            return x[0] + " " + x[1..];
         });
 
         private static readonly Lazy<char[]> InvalidFilenameChars =
