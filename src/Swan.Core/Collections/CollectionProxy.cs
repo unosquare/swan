@@ -6,8 +6,6 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Reflection;
 
     /// <summary>
     /// Provides a unified API for most commonly available collection types.
@@ -16,7 +14,7 @@
     /// lambda binding that this proxy requires o function properly. Use the actual
     /// collection object whenever possible.
     /// </summary>
-    public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo
+    public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInfo
     {
         private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
         private readonly object _syncRoot = new();
@@ -230,10 +228,9 @@
         /// <inheritdoc />
         IDictionaryEnumerator IDictionary.GetEnumerator()
         {
-            if (Collection is IDictionary dictionary)
-                return dictionary.GetEnumerator();
-
-            return new ListDictionaryEnumerator(this);
+            return Collection is IDictionary dictionary
+                ? dictionary.GetEnumerator()
+                : new ListDictionaryEnumerator(this);
         }
 
         /// <inheritdoc />
@@ -314,14 +311,12 @@
         /// <returns>True if the key is found. False otherwise.</returns>
         public bool ContainsKey(object? value)
         {
-            if (IsDictionary)
-                return Contains(value);
-
-            if (!TypeManager.TryChangeType(value, KeysType, out var indexKey) ||
-                indexKey is not int index)
-                return false;
-
-            return index >= 0 && index < Count;
+            return IsDictionary
+                ? Contains(value)
+                : TypeManager.TryChangeType(value, KeysType, out var indexKey) &&
+                    indexKey is int index &&
+                    index >= 0 &&
+                    index < Count;
         }
 
         /// <summary>
@@ -650,347 +645,6 @@
             }
 
             return true;
-        }
-
-        private class ListDictionaryEnumerator : IDictionaryEnumerator
-        {
-            private int _currentIndex = -1;
-
-            public ListDictionaryEnumerator(CollectionProxy proxy)
-            {
-                Proxy = proxy;
-            }
-
-            public DictionaryEntry Entry => _currentIndex >= 0 ? new(Key, Value) : default;
-
-            public object Key => _currentIndex;
-
-            public object? Value => _currentIndex >= 0 ? Proxy[_currentIndex] : default;
-
-            public object Current => _currentIndex >= 0 ? Entry : default;
-
-            private CollectionProxy Proxy { get; }
-
-            public bool MoveNext()
-            {
-                var elementCount = Proxy.Count;
-                _currentIndex++;
-                if (_currentIndex < elementCount)
-                    return true;
-
-                _currentIndex = elementCount - 1;
-                return false;
-
-            }
-
-            public void Reset()
-            {
-                _currentIndex = -1;
-            }
-        }
-
-        private class DelegateFactory
-        {
-            private readonly Lazy<Func<IEnumerator>> GetEnumeratorLazy;
-            private readonly Lazy<Action?> ClearLazy;
-            private readonly Lazy<Action<object?>?> RemoveLazy;
-            private readonly Lazy<Action<object?>?> AddValueLazy;
-            private readonly Lazy<Action<object, object?>?> AddKeyValueLazy;
-            private readonly Lazy<Func<object?, bool>?> ContainsLazy;
-            private readonly Lazy<Func<object?, bool>?> ContainsKeyLazy;
-            private readonly Lazy<Action<int, object?>?> InsertLazy;
-            private readonly Lazy<Action<int>?> RemoveAtLazy;
-            private readonly Lazy<Func<int, object?>?> IndexerIntGetterLazy;
-            private readonly Lazy<Action<int, object?>?> IndexerIntSetterLazy;
-            private readonly Lazy<Func<object, object?>?> IndexerKeyGetterLazy;
-            private readonly Lazy<Action<object, object?>?> IndexerKeySetterLazy;
-
-            public DelegateFactory(IEnumerable target, ICollectionInfo info)
-            {
-                GetEnumeratorLazy = new(() =>
-                {
-                    info.SourceType.TryFindPublicMethod(nameof(IEnumerable.GetEnumerator), null, out var method);
-                    return Expression.Lambda<Func<IEnumerator>>(Expression.Convert(
-                        Expression.Call(Expression.Constant(target), method!),
-                        typeof(IEnumerator))).Compile();
-                }, true);
-
-                ClearLazy = new(() => info.SourceType.TryFindPublicMethod(nameof(IList.Clear), null, out var method)
-                    ? method.CreateDelegate<Action>(target)
-                    : default, true);
-
-                RemoveLazy = new(() =>
-                {
-                    var elementType = info.IsDictionary ? info.KeysType.NativeType : info.ValuesType.NativeType;
-                    var parameterTypes = new[] { elementType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.Remove), parameterTypes, out var method))
-                        return default;
-
-                    elementType = method.GetParameters().First().ParameterType;
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-                    var body = Expression.Call(
-                        Expression.Constant(target), method, Expression.Convert(valueParameter, elementType));
-                    return Expression.Lambda<Action<object?>>(body, valueParameter).Compile();
-                }, true);
-
-                RemoveAtLazy = new(() =>
-                {
-                    var parameterTypes = new[] { typeof(int) };
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.RemoveAt), parameterTypes, out var method))
-                        return default;
-
-                    var valueParameter = Expression.Parameter(typeof(int), "value");
-                    var body = Expression.Call(
-                        Expression.Constant(target), method, valueParameter);
-                    return Expression.Lambda<Action<int>>(body, valueParameter).Compile();
-                }, true);
-
-                AddValueLazy = new(() =>
-                {
-                    if (info.IsDictionary)
-                        return default;
-
-                    var elementType = info.ValuesType.NativeType;
-                    var parameterTypes = new[] { elementType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IList.Add), parameterTypes, out var method))
-                        return default;
-
-                    elementType = method.GetParameters().First().ParameterType;
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-                    var body = Expression.Call(
-                        Expression.Constant(target), method, Expression.Convert(valueParameter, elementType));
-                    return Expression.Lambda<Action<object?>>(body, valueParameter).Compile();
-                }, true);
-
-                AddKeyValueLazy = new(() =>
-                {
-                    if (!info.IsDictionary)
-                        return default;
-
-                    var keysType = info.KeysType.NativeType;
-                    var valuesType = info.ValuesType.NativeType;
-                    var parameterTypes = new[] { keysType, valuesType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary.Add), parameterTypes, out var method))
-                        return default;
-
-                    var keyParameter = Expression.Parameter(typeof(object), "key");
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-
-                    keysType = method.GetParameters().First().ParameterType;
-                    valuesType = method.GetParameters().Last().ParameterType;
-
-                    var body = Expression.Call(
-                        Expression.Constant(target), method,
-                        Expression.Convert(keyParameter, keysType),
-                        Expression.Convert(valueParameter, valuesType));
-                    return Expression.Lambda<Action<object, object?>>(body, keyParameter, valueParameter).Compile();
-                }, true);
-
-                ContainsLazy = new(() =>
-                {
-                    var elementType = info.IsDictionary ? info.KeysType.NativeType : info.ValuesType.NativeType;
-                    var parameterTypes = new[] { elementType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary.Contains), parameterTypes, out var method))
-                        return default;
-
-                    elementType = method.GetParameters().First().ParameterType;
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-
-                    var body = Expression.Call(
-                        Expression.Constant(target), method,
-                        Expression.Convert(valueParameter, elementType));
-                    return Expression.Lambda<Func<object?, bool>>(body, valueParameter).Compile();
-                }, true);
-
-                ContainsKeyLazy = new(() =>
-                {
-                    if (!info.IsDictionary)
-                        return default;
-
-                    var elementType = info.KeysType.NativeType;
-                    var parameterTypes = new[] { elementType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IDictionary<int, int>.ContainsKey), parameterTypes, out var method))
-                        return default;
-
-                    elementType = method.GetParameters().First().ParameterType;
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-
-                    var body = Expression.Call(
-                        Expression.Constant(target), method,
-                        Expression.Convert(valueParameter, elementType));
-                    return Expression.Lambda<Func<object?, bool>>(body, valueParameter).Compile();
-                }, true);
-
-                InsertLazy = new(() =>
-                {
-                    if (info.IsDictionary)
-                        return default;
-
-                    var elementType = info.KeysType.NativeType;
-                    var parameterTypes = new[] { typeof(int), elementType };
-
-                    if (!info.SourceType.TryFindPublicMethod(nameof(IList<int>.Insert), parameterTypes, out var method))
-                        return default;
-
-                    elementType = method.GetParameters().Last().ParameterType;
-                    var indexParameter = Expression.Parameter(typeof(int), "index");
-                    var valueParameter = Expression.Parameter(typeof(object), "value");
-
-                    var body = Expression.Call(
-                        Expression.Constant(target), method,
-                        indexParameter, Expression.Convert(valueParameter, elementType));
-                    return Expression.Lambda<Action<int, object?>>(body, indexParameter, valueParameter).Compile();
-
-                }, true);
-
-                IndexerIntGetterLazy = new(() =>
-                {
-                    var allProperties = info.SourceType.NativeType
-                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .ToArray();
-
-                    var indexer = allProperties
-                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
-                        .FirstOrDefault(c =>
-                            c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType == typeof(int));
-
-                    if (indexer is null)
-                        return default;
-
-                    var argument = Expression.Parameter(typeof(int), "index");
-                    var property = Expression.Convert(
-                        Expression.Property(Expression.Constant(target), indexer.Property, argument),
-                        typeof(object));
-
-                    var getter = Expression
-                        .Lambda<Func<int, object?>>(property, argument)
-                        .Compile();
-
-                    return getter;
-
-                }, true);
-
-                IndexerKeyGetterLazy = new(() =>
-                {
-                    var allProperties = info.SourceType.NativeType
-                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .ToArray();
-
-                    var indexer = allProperties
-                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
-                        .FirstOrDefault(c => c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
-
-                    if (indexer is null)
-                        return default;
-
-                    var argument = Expression.Parameter(typeof(object), "index");
-                    var conversionType = indexer.IndexParameters[0].ParameterType;
-
-                    var property = Expression.Convert(
-                        Expression.Property(Expression.Constant(target),
-                            indexer.Property,
-                            Expression.Convert(argument, conversionType)),
-                        typeof(object));
-
-                    var getter = Expression
-                        .Lambda<Func<object, object?>>(property, argument)
-                        .Compile();
-
-                    return getter;
-                }, true);
-
-                IndexerIntSetterLazy = new(() =>
-                {
-                    var allProperties = info.SourceType.NativeType
-                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .ToArray();
-
-                    var indexer = allProperties
-                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
-                        .FirstOrDefault(c =>
-                            c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType == typeof(int));
-
-                    if (indexer is null)
-                        return default;
-
-                    var valueArgument = Expression.Parameter(typeof(object), "value");
-                    var indexArgument = Expression.Parameter(typeof(int), "index");
-
-                    var body = Expression.Assign(
-                        Expression.Property(Expression.Constant(target), indexer.Property, indexArgument),
-                        Expression.Convert(valueArgument, indexer.Property.PropertyType));
-
-                    var setter = Expression
-                        .Lambda<Action<int, object?>>(body, indexArgument, valueArgument)
-                        .Compile();
-
-                    return setter;
-
-                }, true);
-
-                IndexerKeySetterLazy = new(() =>
-                {
-                    var allProperties = info.SourceType.NativeType
-                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .ToArray();
-
-                    var indexer = allProperties
-                        .Select(c => new { Property = c, IndexParameters = c.GetIndexParameters() })
-                        .FirstOrDefault(c => c.IndexParameters.Length == 1 && c.IndexParameters[0].ParameterType != typeof(int));
-
-                    if (indexer is null)
-                        return default;
-
-                    var valueArgument = Expression.Parameter(typeof(object), "value");
-                    var keyArgument = Expression.Parameter(typeof(object), "key");
-                    var keyType = indexer.IndexParameters[0].ParameterType;
-
-                    var body = Expression.Assign(
-                        Expression.Property(
-                            Expression.Constant(target),
-                            indexer.Property,
-                            Expression.Convert(keyArgument, keyType)),
-                        Expression.Convert(valueArgument, indexer.Property.PropertyType));
-
-                    var setter = Expression
-                        .Lambda<Action<object, object?>>(body, keyArgument, valueArgument)
-                        .Compile();
-
-                    return setter;
-
-                }, true);
-            }
-
-            public Func<IEnumerator> GetEnumerator => GetEnumeratorLazy.Value;
-
-            public Action? Clear => ClearLazy.Value;
-
-            public Action<object?>? Remove => RemoveLazy.Value;
-
-            public Action<object?>? AddValue => AddValueLazy.Value;
-
-            public Action<object, object?>? AddKeyValue => AddKeyValueLazy.Value;
-
-            public Func<object?, bool>? Contains => ContainsLazy.Value;
-
-            public Func<object?, bool>? ContainsKey => ContainsKeyLazy.Value;
-
-            public Action<int, object?>? Insert => InsertLazy.Value;
-
-            public Action<int>? RemoveAt => RemoveAtLazy.Value;
-
-            public Func<int, object?>? IndexerIntGetter => IndexerIntGetterLazy.Value;
-
-            public Func<object, object?>? IndexerObjGetter => IndexerKeyGetterLazy.Value;
-
-            public Action<int, object?>? IndexerIntSetter => IndexerIntSetterLazy.Value;
-
-            public Action<object, object?>? IndexerObjSetter => IndexerKeySetterLazy.Value;
         }
     }
 }
