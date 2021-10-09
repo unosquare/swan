@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Swan.Net.Dns
+﻿namespace Swan.Net.Dns
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// DnsClient public interfaces.
     /// </summary>

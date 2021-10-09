@@ -1,18 +1,18 @@
-using Org.BouncyCastle.Asn1.X509;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Crypto.Generators;
-using Org.BouncyCastle.Crypto.Operators;
-using Org.BouncyCastle.Crypto.Prng;
-using Org.BouncyCastle.Math;
-using Org.BouncyCastle.Pkcs;
-using Org.BouncyCastle.Security;
-using Org.BouncyCastle.X509;
-using Swan.Logging;
-using System;
-using System.IO;
-
 namespace Swan.Test.Mocks
 {
+    using Org.BouncyCastle.Asn1.X509;
+    using Org.BouncyCastle.Crypto;
+    using Org.BouncyCastle.Crypto.Generators;
+    using Org.BouncyCastle.Crypto.Operators;
+    using Org.BouncyCastle.Crypto.Prng;
+    using Org.BouncyCastle.Math;
+    using Org.BouncyCastle.Pkcs;
+    using Org.BouncyCastle.Security;
+    using Org.BouncyCastle.X509;
+    using Swan.Logging;
+    using System;
+    using System.IO;
+
     /// <summary>
     /// Provides static methods to create, save and load certificate files
     /// </summary>

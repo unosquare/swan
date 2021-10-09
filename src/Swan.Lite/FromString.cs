@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.ComponentModel;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// Provides a standard way to convert strings to different types.
     /// </summary>

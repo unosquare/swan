@@ -1,28 +1,30 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using Collections;
+    using System;
+    using System.Collections;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
-    /// Provides efficient access to a cached repository of <see cref="TypeProxy"/>
+    /// Provides efficient access to a cached repository of <see cref="Reflection.TypeInfo"/>
     /// and various type utilities.
     /// </summary>
     public static partial class TypeManager
     {
-        private static readonly ConcurrentDictionary<Type, ITypeProxy> TypeCache = new();
+        private static readonly ConcurrentDictionary<Type, ITypeInfo> TypeCache = new();
 
         /// <summary>
         /// Provides cached and extended type information for
         /// easy and efficient access to common reflection scenarios.
         /// </summary>
         /// <param name="t">The type to provide extended info for.</param>
-        /// <returns>Returns an <see cref="TypeProxy"/> for the given type.</returns>
-        public static ITypeProxy TypeInfo(this Type t)
+        /// <returns>Returns an <see cref="Reflection.TypeInfo"/> for the given type.</returns>
+        public static ITypeInfo TypeInfo(this Type t)
         {
             if (t is null)
                 throw new ArgumentNullException(nameof(t));
@@ -30,7 +32,7 @@ namespace Swan.Reflection
             if (TypeCache.TryGetValue(t, out var typeInfo))
                 return typeInfo;
 
-            typeInfo = new TypeProxy(t);
+            typeInfo = new TypeInfo(t);
             TypeCache.TryAdd(t, typeInfo);
 
             return typeInfo;
@@ -72,9 +74,9 @@ namespace Swan.Reflection
             : throw new ArgumentNullException(nameof(type));
 
         /// <summary>
-        /// Calls the parameterless constructor on this type returning an isntance.
+        /// Calls the parameter-less constructor on this type returning an instance.
         /// For value types it returns the default value.
-        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// If no parameter-less constructor is available a <see cref="MissingMethodException"/> is thrown.
         /// </summary>
         /// <param name="type">The type to create an instance of.</param>
         /// <returns>A new instance of this type or the default value for value types.</returns>
@@ -83,47 +85,80 @@ namespace Swan.Reflection
             : throw new ArgumentNullException(nameof(type));
 
         /// <summary>
-        /// Calls the parameterless constructor on this type returning an isntance.
+        /// Calls the parameter-less constructor on this type returning an instance.
         /// For value types it returns the default value.
-        /// If no parameterless constructor is available a <see cref="MissingMethodException"/> is thrown.
+        /// If no parameter-less constructor is available a <see cref="MissingMethodException"/> is thrown.
         /// </summary>
         /// <typeparam name="T">The type to create an instance of.</typeparam>
         /// <returns>A new instance of this type or the default value for value types.</returns>
         public static T CreateInstance<T>() => (T)typeof(T).CreateInstance();
 
         /// <summary>
-        /// Creates an instance of a <see cref="Array"/> from the given
-        /// element type and count.
+        /// Determines if the types are compatible fro assignment.
         /// </summary>
-        /// <param name="elementType">The type of array elements.</param>
-        /// <param name="elementCount">The array length.</param>
-        /// <returns></returns>
-        public static Array CreateArray(Type elementType, int elementCount)
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this ITypeInfo target, ITypeInfo source)
         {
-            return Array.CreateInstance(elementType, elementCount);
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.NativeType.IsAssignableFrom(source.NativeType);
         }
 
         /// <summary>
-        /// Creates a <see cref="List{T}"/> from type arguments.
+        /// Determines if the types are compatible fro assignment.
         /// </summary>
-        /// <param name="elementType">The generic type argument.</param>
-        /// <returns>An instance of a <see cref="List{T}"/></returns>
-        public static IEnumerable CreateGenericList(Type elementType)
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this ITypeInfo target, Type source)
         {
-            var resultType = typeof(List<>).MakeGenericType(elementType);
-            return (resultType.TypeInfo().CreateInstance() as IEnumerable)!;
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.NativeType.IsAssignableFrom(source);
         }
 
         /// <summary>
-        /// Creates an <see cref="Dictionary{TKey, TValue}"/> from type arguments.
+        /// Determines if the types are compatible fro assignment.
         /// </summary>
-        /// <param name="keyType">The type for keys.</param>
-        /// <param name="valueType">The type for values.</param>
-        /// <returns>An instance of a <see cref="Dictionary{TKey, TValue}"/></returns>
-        public static IEnumerable CreateGenericDictionary(Type keyType, Type valueType)
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this IPropertyProxy target, IPropertyProxy source)
         {
-            var resultType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
-            return (resultType.TypeInfo().CreateInstance() as IEnumerable)!;
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.PropertyType.IsAssignableFrom(source.PropertyType);
+        }
+
+        /// <summary>
+        /// Determines if the types are compatible fro assignment.
+        /// </summary>
+        /// <param name="target">The assignee type.</param>
+        /// <param name="source">The assigner type.</param>
+        /// <returns>True if types are compatible. False otherwise.</returns>
+        public static bool IsAssignableFrom(this IPropertyProxy target, Type source)
+        {
+            if (target is null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+
+            return target.PropertyType.NativeType.IsAssignableFrom(source);
         }
 
         /// <summary>
@@ -133,78 +168,65 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, ITypeProxy targetType, out object? targetValue)
+        public static bool TryChangeType(object? sourceValue, ITypeInfo targetType, out object? targetValue)
         {
             if (targetType is null)
                 throw new ArgumentNullException(nameof(targetType));
 
+            // Case Object: boxing conversion; the easiest since source value is already boxed.
+            if (targetType.NativeType == typeof(object))
+            {
+                targetValue = sourceValue;
+                return true;
+            }
+
             // start with the default value of the target type
             // and if the input value is null simply return the default
             // value of the target type.
-            targetValue = targetType.DefaultValue;
+            targetValue = targetType.DefaultValue!;
             if (sourceValue is null || sourceValue == targetType.DefaultValue)
                 return true;
 
-            // Normalize target removing nullable semantics
-            if (targetType.IsNullableValueType)
+            var sourceType = sourceValue.GetType().TypeInfo();
+            if (targetType.IsEnum)
             {
-                targetType = targetType.UnderlyingType;
+                var stringValue = sourceType.IsEnum
+                    ? sourceType.BackingType.ToStringInvariant(Convert.ChangeType(sourceValue, sourceType.BackingType.NativeType, CultureInfo.InvariantCulture))
+                    : sourceType.ToStringInvariant(sourceValue);
+
+                return targetType.TryParse(stringValue, out targetValue);
+            }
+
+            // Normalize source removing nullable or enum semantics
+            if (sourceType.IsNullable)
+            {
+                sourceType = sourceType.BackingType;
+                sourceValue = Convert.ChangeType(
+                    sourceValue, sourceType.NativeType, CultureInfo.InvariantCulture);
+            }
+
+            // Normalize target removing nullable semantics
+            if (targetType.IsNullable)
+            {
+                targetType = targetType.BackingType;
                 targetValue = targetType.DefaultValue;
             }
 
-            // Normalize source removing nullable semantics
-            var sourceType = sourceValue.GetType().TypeInfo();
-            if (sourceType.IsNullableValueType)
-            {
-                sourceType = sourceType.UnderlyingType;
-                sourceValue = Convert.ChangeType(sourceValue,
-                    sourceType.UnderlyingType.ProxiedType,
-                    CultureInfo.InvariantCulture);
-            }
-
             // Case 0: Direct assignment if types are the same or compatible.
-            if (targetType.ProxiedType == sourceType.ProxiedType ||
-                targetType.ProxiedType.IsAssignableFrom(sourceType.ProxiedType))
+            if (targetType.IsAssignableFrom(sourceType))
             {
                 targetValue = sourceValue;
                 return true;
             }
 
             // Case 1: Target type is a string and conversion is performed invariant of culture.
-            if (targetType.ProxiedType == typeof(string))
+            if (targetType.NativeType == typeof(string))
             {
                 targetValue = sourceType.ToStringInvariant(sourceValue);
                 return true;
             }
 
-            // Case 2: Target type is an enum and using convert cannot produce enumeration values.
-            if (targetType.IsEnum)
-            {
-                // Convert source enum value to an integral type.
-                if (sourceType.IsEnum)
-                {
-                    sourceType = sourceType.UnderlyingType;
-                    sourceValue = Convert.ChangeType(sourceValue, sourceType.ProxiedType, CultureInfo.InvariantCulture);
-                }
-
-                // Parse the source value converted to a string
-                var sourceEnumString = sourceValue is string stringValue
-                    ? stringValue
-                    : sourceType.ToStringInvariant(sourceValue);
-
-                if (Enum.TryParse(targetType.ProxiedType, sourceEnumString, true, out var enumValue))
-                {
-                    targetValue = enumValue;
-                    return true;
-                }
-                else
-                {
-                    targetValue = targetType.DefaultValue;
-                    return false;
-                }
-            }
-
-            // Case 3: Change type works by parsing the value as a string
+            // Case 2: Change type works by parsing the value as a string
             if (targetType.CanParseNatively)
             {
                 var sourceString = sourceType.ToStringInvariant(sourceValue);
@@ -212,7 +234,7 @@ namespace Swan.Reflection
                     return true;
             }
 
-            // Case 4: Change type works directly
+            // Case 3: Change type works directly
             if (targetType.IsValueType)
             {
                 try
@@ -220,57 +242,34 @@ namespace Swan.Reflection
                     if (!sourceType.IsValueType)
                     {
                         var sourceString = sourceType.ToStringInvariant(sourceValue);
-                        targetValue = Convert.ChangeType(sourceString, targetType.ProxiedType, CultureInfo.InvariantCulture);
+                        targetValue = Convert.ChangeType(sourceString, targetType.NativeType, CultureInfo.InvariantCulture);
                         return true;
                     }
 
-                    targetValue = Convert.ChangeType(sourceValue, targetType.ProxiedType, CultureInfo.InvariantCulture);
+                    targetValue = Convert.ChangeType(sourceValue, targetType.NativeType, CultureInfo.InvariantCulture);
                     return true;
                 }
                 catch
                 {
-                    // placeholder
+                    return false;
                 }
             }
 
-            // Case 5: We might be dealing with enumerables
+            // Case 4: We might be dealing with IEnumerable types
             if (targetType.IsEnumerable && sourceType.IsEnumerable)
             {
-                var sourceItemType = GetItemType(sourceType);
-                var targetItemType = GetItemType(targetType);
-
-                if (sourceItemType is null || targetItemType is null)
+                if (!CollectionProxy.TryCreate(sourceValue, out var sourceCollection))
                     return false;
 
-                var targetItems = new List<object?>(256);
-                foreach (var sourceItem in (sourceValue as IEnumerable)!)
-                {
-                    if (!TryChangeType(sourceItem, targetItemType, out var targetItem))
-                        return false;
-
-                    targetItems.Add(targetItem);
-                }
-
-                // Copy to a new array
                 if (targetType.IsArray)
-                {
-                    var targetArray = CreateArray(targetItemType.ProxiedType, targetItems.Count);
-                    for (var i = 0; i < targetItems.Count; i++)
-                        targetArray.SetValue(targetItems[i], i);
+                    targetValue = CreateArray(targetType.NativeType.GetElementType()!, sourceCollection.Count);
+                else if (targetType.CanCreateInstance)
+                    targetValue = targetType.CreateInstance();
+                else
+                    return false;
 
-                    targetValue = targetArray;
-                    return true;
-                }
-                
-                // copy to a new collection
-                if (targetType.CanCreateInstance && targetType.GenericCollectionType is not null)
-                {
-                    var targetCollection = targetType.CreateInstance();
-                    var addMethod = targetType.ProxiedType.GetMethod("Add").CreateDelegate(typeof(Action<object?>), targetValue);
-                    targetType
-                    ICollection<string>
-                        IList<string>
-                }
+                return CollectionProxy.TryCreate(targetValue as IEnumerable, out var targetCollection) &&
+                       sourceCollection.TryCopyTo(targetCollection);
             }
 
             return false;
@@ -283,33 +282,7 @@ namespace Swan.Reflection
         /// <param name="targetType">The target type to turn the source value into.</param>
         /// <param name="targetValue">The resulting value.</param>
         /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType(object? sourceValue, Type targetType, out object? targetValue) =>
+        public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out object targetValue) =>
             TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
-
-        /// <summary>
-        /// Tries to convert a type of the source value to a type of the target value.
-        /// </summary>
-        /// <typeparam name="T">The target type to turn the source value into.</typeparam>
-        /// <param name="sourceValue">The value to be converted.</param>
-        /// <param name="targetValue">The resulting value.</param>
-        /// <returns>Returns true inf the conversion succeeds.</returns>
-        public static bool TryChangeType<T>(object? sourceValue, out T? targetValue)
-        {
-            var result = TryChangeType(sourceValue, typeof(T).TypeInfo(), out var target);
-            targetValue = target is null ? default : (T)target;
-            return result;
-        }
-
-        private static ITypeProxy? GetItemType(ITypeProxy enumerableType)
-        {
-            if (!enumerableType.IsEnumerable)
-                return null;
-
-            return enumerableType.IsArray
-                ? enumerableType.ElementType
-                : enumerableType.GenericCollectionType is not null
-                ? enumerableType.GenericTypeArguments[0]
-                : typeof(object).TypeInfo();
-        }
     }
 }

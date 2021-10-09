@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.RegularExpressions;
-
-namespace Swan.Validation
+﻿namespace Swan.Validation
 {
+    using System;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Regex validator.
     /// </summary>

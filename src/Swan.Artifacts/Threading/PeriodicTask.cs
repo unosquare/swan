@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Schedule an action to be periodically executed on the thread pool.
     /// </summary>

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+    using System.Threading;
+
     /// <summary>
     /// Defines an atomic generic Enum.
     /// </summary>

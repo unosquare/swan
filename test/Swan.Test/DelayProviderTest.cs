@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using Swan.Threading;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Threading;
+
     [TestFixture]
     public class DelayProviderTest
     {

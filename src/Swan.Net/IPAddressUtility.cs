@@ -1,7 +1,7 @@
-﻿using System.Net;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using System.Net;
+
     /// <summary>
     /// Provides utility methods to work with the <see cref="IPAddress"/> class.
     /// </summary>

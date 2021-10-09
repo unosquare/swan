@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using Swan.Reflection;
-using System;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Reflection;
+    using System;
+
     [TestFixture]
     public class ExceptionExtensionsTest
     {

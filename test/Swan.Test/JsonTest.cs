@@ -1,7 +1,7 @@
-﻿using Swan.Test.Mocks;
-
-namespace Swan.Test.JsonTests
+﻿namespace Swan.Test.JsonTests
 {
+    using Swan.Test.Mocks;
+
     public abstract class JsonTest : TestFixtureBase
     {
         protected const string ArrayStruct = "[{\"Value\":1,\"Name\":\"A\"},{\"Value\":2,\"Name\":\"B\"}]";

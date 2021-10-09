@@ -1,8 +1,8 @@
-﻿using Swan.Parsers;
-using System;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Parsers;
+    using System;
+
     public class CliVerbs
     {
         [VerbOption("verb")]

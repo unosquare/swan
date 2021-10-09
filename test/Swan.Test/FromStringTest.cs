@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class FromStringTest
     {
         private const string SomeString = "Any string, as long as it is not convertible to Int32";

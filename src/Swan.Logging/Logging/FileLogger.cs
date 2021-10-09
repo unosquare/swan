@@ -1,13 +1,13 @@
-﻿using Swan.Platform;
-using Swan.Threading;
-using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Logging
+﻿namespace Swan.Logging
 {
+    using Swan.Platform;
+    using Swan.Threading;
+    using System;
+    using System.Collections.Concurrent;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// A helper class to write into files the messages sent by the <see cref="Terminal" />.
     /// </summary>

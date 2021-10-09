@@ -1,13 +1,13 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Swan.DependencyInjection
+﻿namespace Swan.DependencyInjection
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// Represents a Concurrent Dictionary for TypeRegistration.
     /// </summary>

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Collections
+﻿namespace Swan.Collections
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// This class contains extension methods for types implementing IEnumerable&lt;TSource&gt;
     /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// This method produces a union of two IEnumerables
+        /// This method produces a union of two enumerables
         /// validation when some of them is null.
         /// </summary>
         /// <typeparam name="T">T</typeparam>

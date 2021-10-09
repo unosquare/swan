@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text.Json;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.Linq;
+    using System.Text.Json;
+
     /// <summary>
     /// A dynamic object 
     /// </summary>
@@ -65,9 +65,8 @@ namespace Swan.Formatters
             return true;
         }
 
-        private object? ParseJsonElement(JsonElement jsonEl)
-        {
-            return jsonEl.ValueKind switch
+        private object? ParseJsonElement(JsonElement jsonEl) =>
+            jsonEl.ValueKind switch
             {
                 JsonValueKind.Null => null,
                 JsonValueKind.False => false,
@@ -79,16 +78,13 @@ namespace Swan.Formatters
                 JsonValueKind.Array => ParseArray(jsonEl),
                 _ => null,
             };
-        }
 
-        private static object? ParseString(JsonElement element)
-        {
-            return element.TryGetDateTime(out var dtValue)
+        private static object? ParseString(JsonElement element) =>
+            element.TryGetDateTime(out var dtValue)
                 ? dtValue
                 : element.TryGetGuid(out var guidValue)
-                ? guidValue
-                : element.GetString();
-        }
+                    ? guidValue
+                    : element.GetString();
 
         private static object ParseNumber(JsonElement element)
         {
@@ -129,24 +125,25 @@ namespace Swan.Formatters
 
         private static object? Materialize(JsonElement element, Func<JsonElement, object?> valueParser)
         {
-            if (element.ValueKind == JsonValueKind.Object)
+            switch (element.ValueKind)
             {
-                var result = new ExpandoObject();
-                foreach (var kvp in element.EnumerateObject())
-                    result.TryAdd(kvp.Name, Materialize(kvp.Value, valueParser));
+                case JsonValueKind.Object:
+                    {
+                        var result = new ExpandoObject();
+                        foreach (var kvp in element.EnumerateObject())
+                            result.TryAdd(kvp.Name, Materialize(kvp.Value, valueParser));
 
-                return result;
+                        return result;
+                    }
+                case JsonValueKind.Array:
+                    {
+                        return element.EnumerateArray()
+                            .Select(arrayElement => Materialize(arrayElement, valueParser))
+                            .ToArray();
+                    }
+                default:
+                    return valueParser.Invoke(element);
             }
-            else if (element.ValueKind == JsonValueKind.Array)
-            {
-                var result = new List<object?>();
-                foreach (var arrayElement in element.EnumerateArray())
-                    result.Add(Materialize(arrayElement, valueParser));
-
-                return result.ToArray();
-            }
-
-            return valueParser.Invoke(element);
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using Swan.Net.Dns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using Swan.Net.Dns;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.NetworkInformation;
+    using System.Net.Sockets;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides miscellaneous network utilities such as a Public IP finder,
     /// a DNS client to query DNS records of any kind, and an NTP client.

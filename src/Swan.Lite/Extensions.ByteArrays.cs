@@ -1,15 +1,15 @@
-﻿using Swan.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan
+﻿namespace Swan
 {
+    using Swan.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides various extension methods for byte arrays and streams.
     /// </summary>

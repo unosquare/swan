@@ -1,10 +1,10 @@
-﻿using Swan.Formatters;
-using Swan.Platform;
-using Swan.Reflection;
-using System.IO;
-
-namespace Swan.Utilities
+﻿namespace Swan.Utilities
 {
+    using Swan.Formatters;
+    using Swan.Platform;
+    using Swan.Reflection;
+    using System.IO;
+
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file.
     /// </summary>

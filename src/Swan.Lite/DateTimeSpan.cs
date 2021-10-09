@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+
     /// <summary>
     /// Represents a struct of DateTimeSpan to compare dates and get in 
     /// separate fields the amount of time between those dates.

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Net.Http;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using System;
+    using System.Net.Http;
+
     /// <summary>
     /// Represents errors that occurs requesting a JSON file through HTTP.
     /// </summary>

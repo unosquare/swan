@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using System;
+
     public class User
     {
         public string Name { get; set; }

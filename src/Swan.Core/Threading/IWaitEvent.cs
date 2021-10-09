@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+
     /// <summary>
     /// Provides a generalized API for ManualResetEvent and ManualResetEventSlim.
     /// </summary>

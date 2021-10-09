@@ -1,24 +1,25 @@
-﻿using Swan.DependencyInjection;
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Logging;
-using Swan.Mapping;
-using Swan.Net;
-using Swan.Net.Dns;
-using Swan.Platform;
-using Swan.Reflection;
-using Swan.Threading;
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace Swan.Samples
+﻿namespace Swan.Samples
 {
+    using Swan.Collections;
+    using Swan.DependencyInjection;
+    using Swan.Extensions;
+    using Swan.Formatters;
+    using Swan.Logging;
+    using Swan.Mapping;
+    using Swan.Net;
+    using Swan.Net.Dns;
+    using Swan.Platform;
+    using Swan.Reflection;
+    using Swan.Threading;
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+
     class SubDict : Dictionary<string, object>
     {
 
@@ -56,6 +57,44 @@ namespace Swan.Samples
 
         private static void Sketchpad()
         {
+            
+
+            var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
+            var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));
+            using var csvReader = new CsvObjectReader<MockInfo>(csvStream, Encoding.UTF8);
+            foreach (var dict in csvReader)
+            {
+                var hello = dict.Name;
+            }
+
+            var ti = typeof(int).TypeInfo();
+
+            var myList = new List<int>();
+            if (CollectionProxy.TryCreate(myList, out var proxy))
+            {
+                var p = proxy.Add("1");
+                p = proxy.Add(2);
+                p = proxy.Add(34599.44d);
+
+                var strings = new string[6];
+                proxy.CopyTo(strings, 0);
+
+                proxy.Remove("2");
+                proxy.RemoveAt(0);
+                _ = proxy.SyncRoot;
+                _ = proxy.IsSynchronized;
+                _ = proxy.IsFixedSize;
+                _ = proxy.IsSynchronized;
+
+                proxy.Insert(0, "3");
+                // proxy.Add(1, 2);
+
+                var it = proxy["1"];
+                proxy.Clear();
+            }
+
+            
+
             var source = new int?();
             var e1 = FirstEnum.Two;
             var e2 = SecondEnum.Eleven;
@@ -90,9 +129,9 @@ namespace Swan.Samples
                 .RemoveMapping("Value")
                 .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
 
-            while (!reader.EndOfStream)
+            foreach (var entry in reader)
             {
-                var entry = reader.ReadObject();
+                var currentEntry = entry;
             }
 
             dynamic objectOne = new ExpandoObject();
@@ -368,7 +407,7 @@ namespace Swan.Samples
                 var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
-                var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test01FilePath);
+                var savedRecordCount = Csv.Save(generatedRecords, test01FilePath);
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
                     .Info(nameof(TestCsvFormatters));
 
@@ -376,7 +415,7 @@ namespace Swan.Samples
                 $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
                     nameof(TestCsvFormatters));
 
-                savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test02FilePath);
+                savedRecordCount = Csv.Save(generatedRecords, test02FilePath);
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}."
                     .Info(nameof(TestCsvFormatters));
 

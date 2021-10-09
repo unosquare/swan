@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-
-namespace Swan.Net.Smtp
+﻿namespace Swan.Net.Smtp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+
     /// <summary>
     /// Represents an SMTP server response object.
     /// </summary>
@@ -38,7 +38,7 @@ namespace Swan.Net.Smtp
 
             if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out var middleDigit))
             {
-                if (middleDigit >= 0 && middleDigit <= 5)
+                if (middleDigit is >= 0 and <= 5)
                     ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
             }
         }

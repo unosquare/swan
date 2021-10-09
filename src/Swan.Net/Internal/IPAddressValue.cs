@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-
-namespace Swan.Net.Internal
+﻿namespace Swan.Net.Internal
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Sockets;
+
     // NOTE TO CONTRIBUTORS: If you decide to use this type
     // in any context other than IPAddressRange, please be aware
     // that consistency checks were kept to the bare minimum

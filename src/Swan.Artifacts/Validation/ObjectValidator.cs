@@ -1,10 +1,10 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-
-namespace Swan.Validation
+﻿namespace Swan.Validation
 {
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents an object validator. 
     /// </summary>
@@ -162,7 +162,7 @@ namespace Swan.Validation
                     if (attribute is not IValidator val)
                         continue;
 
-                    if (val.IsValid(prop.GetValue(obj)))
+                    if (val.IsValid(prop.Read(obj)))
                         continue;
 
                     action?.Invoke(val.ErrorMessage, prop.PropertyName);

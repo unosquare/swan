@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Swan.Utilities
+﻿namespace Swan.Utilities
 {
+    using System;
+    using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
+
     /// <summary>
     /// Use this class to compute a hash in MD5, SHA1, SHA256 or SHA512.
     /// </summary>

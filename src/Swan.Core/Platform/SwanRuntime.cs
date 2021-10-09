@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-
-namespace Swan.Platform
+﻿namespace Swan.Platform
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading;
+
     /// <summary>
     /// Provides utility methods to retrieve information about the current application.
     /// </summary>

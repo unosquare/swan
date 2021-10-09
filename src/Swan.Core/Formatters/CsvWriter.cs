@@ -1,144 +1,58 @@
-﻿using Swan.Extensions;
-using Swan.Platform;
-using Swan.Reflection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
-    /// <summary>
-    /// A CSV writer useful for exporting a set of objects.
-    /// </summary>
-    /// <example>
-    /// The following code describes how to save a list of objects into a CSV file.
-    /// <code>
-    /// using System.Collections.Generic;
-    /// using Swan.Formatters;
-    ///  
-    /// class Example
-    /// {
-    ///     class Person
-    ///     {
-    ///         public string Name { get; set; }
-    ///         public int Age { get; set; }
-    ///     }
-    ///     
-    ///     static void Main()
-    ///     {
-    ///         // create a list of people 
-    ///         var people = new List&lt;Person&gt;
-    ///         {
-    ///             new Person { Name = "Artyom", Age = 20 },
-    ///             new Person { Name = "Aloy", Age = 18 }
-    ///         }
-    ///         
-    ///         // write items inside file.csv
-    ///         CsvWriter.SaveRecords(people, "C:\\Users\\user\\Documents\\file.csv");
-    ///         
-    ///         // output
-    ///         // | Name   | Age |
-    ///         // | Artyom | 20  |
-    ///         // | Aloy   | 18  |
-    ///     }
-    /// }
-    /// </code>
-    /// </example>
-    public class CsvWriter : IDisposable
-    {
-        private readonly object _syncLock = new();
-        private readonly Stream _outputStream;
-        private readonly Encoding _encoding;
-        private readonly bool _leaveStreamOpen;
-        private bool _isDisposing;
-        private ulong _mCount;
+    using Swan.Threading;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Threading.Tasks;
 
-        #region Constructors
+    /// <summary>
+    /// Represents a writer that writes sets of strings in CSV format into a stream.
+    /// </summary>
+    public class CsvWriter : IDisposable, IAsyncDisposable
+    {
+        private const int BufferSize = 4096;
+
+        private readonly StreamWriter _writer;
+        private readonly AtomicLong _count = new();
+        private readonly AtomicBoolean _isDisposed = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter" /> class.
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
-        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
         /// <param name="encoding">The encoding.</param>
-        public CsvWriter(Stream outputStream, bool leaveOpen, Encoding encoding)
+        /// <param name="separatorChar">The field separator character.</param>
+        /// <param name="escapeChar">The escape character.</param>
+        /// <param name="newLineSequence">Specifies the new line character sequence.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the stream reader object is disposed; otherwise, false.</param>
+        public CsvWriter(Stream outputStream,
+            Encoding? encoding = default,
+            char separatorChar = Csv.DefaultSeparatorChar,
+            char escapeChar = Csv.DefaultEscapeChar,
+            string? newLineSequence = default,
+            bool? leaveOpen = default)
         {
-            _outputStream = outputStream;
-            _encoding = encoding;
-            _leaveStreamOpen = leaveOpen;
+            _writer = new(outputStream,
+                encoding ?? Csv.DefaultEncoding,
+                BufferSize,
+                leaveOpen ?? false);
+
+            SeparatorChar = separatorChar;
+            EscapeChar = escapeChar;
+            NewLineSequence = newLineSequence ?? Environment.NewLine;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
-        /// It automatically closes the stream when disposing this writer.
-        /// </summary>
-        /// <param name="outputStream">The output stream.</param>
-        /// <param name="encoding">The encoding.</param>
-        public CsvWriter(Stream outputStream, Encoding encoding)
-            : this(outputStream, false, encoding)
-        {
-            // placeholder
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
-        /// It uses the Windows 1252 encoding and automatically closes
-        /// the stream upon disposing this writer.
-        /// </summary>
-        /// <param name="outputStream">The output stream.</param>
-        public CsvWriter(Stream outputStream)
-            : this(outputStream, false, SwanRuntime.Windows1252Encoding)
-        {
-            // placeholder
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
-        /// It opens the file given file, automatically closes the stream upon 
-        /// disposing of this writer, and uses the Windows 1252 encoding.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        public CsvWriter(string filename)
-            : this(File.OpenWrite(filename), false, SwanRuntime.Windows1252Encoding)
-        {
-            // placeholder
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
-        /// It opens the file given file, automatically closes the stream upon 
-        /// disposing of this writer, and uses the given text encoding for output.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <param name="encoding">The encoding.</param>
-        public CsvWriter(string filename, Encoding encoding)
-            : this(File.OpenWrite(filename), false, encoding)
-        {
-            // placeholder
-        }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Gets or sets the field separator character.
         /// </summary>
-        /// <value>
-        /// The separator character.
-        /// </value>
-        public char SeparatorCharacter { get; set; } = ',';
+        public char SeparatorChar { get; }
 
         /// <summary>
-        /// Gets or sets the escape character to use to escape field values.
+        /// Gets or sets the escape character to use to escape and enclose field values.
         /// </summary>
-        /// <value>
-        /// The escape character.
-        /// </value>
-        public char EscapeCharacter { get; set; } = '"';
+        public char EscapeChar { get; }
 
         /// <summary>
         /// Gets or sets the new line character sequence to use when writing a line.
@@ -146,320 +60,129 @@ namespace Swan.Formatters
         /// <value>
         /// The new line sequence.
         /// </value>
-        public string NewLineSequence { get; set; } = Environment.NewLine;
-
-        /// <summary>
-        /// Defines a list of properties to ignore when outputting CSV lines.
-        /// </summary>
-        /// <value>
-        /// The ignore property names.
-        /// </value>
-        public List<string> IgnorePropertyNames { get; } = new();
+        public string NewLineSequence { get; }
 
         /// <summary>
         /// Gets number of lines that have been written, including the headings line.
         /// </summary>
-        /// <value>
-        /// The count.
-        /// </value>
-        public ulong Count
+        public long Count => _count.Value;
+
+        /// <summary>
+        /// Clears all buffers from the current writer and causes all data to be written to the underlying stream.
+        /// </summary>
+        public void Flush() => _writer.Flush();
+
+        /// <summary>
+        /// Clears all buffers from the current writer and causes all data to be written to the underlying stream.
+        /// </summary>
+        public Task FlushAsync() => _writer.FlushAsync();
+
+        /// <summary>
+        /// Writes a CSV record with the specified values.
+        /// Individual items found to be null will be written out as empty strings.
+        /// </summary>
+        /// <param name="items">The set of strings to write out.</param>
+        public void WriteLine(IEnumerable<string?> items)
         {
-            get
-            {
-                lock (_syncLock)
-                {
-                    return _mCount;
-                }
-            }
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Saves the items to a stream.
-        /// It uses the Windows 1252 text encoding for output.
-        /// </summary>
-        /// <typeparam name="T">The type of enumeration.</typeparam>
-        /// <param name="items">The items.</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
-        /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
-        {
-            // truncate the file if it had data
-            if (truncateData && stream.Length > 0)
-                stream.SetLength(0);
-
-            using var writer = new CsvWriter(stream);
-            writer.WriteHeadings<T>();
-            writer.WriteObjects(items);
-            return (int)writer.Count;
-        }
-
-        /// <summary>
-        /// Saves the items to a CSV file.
-        /// If the file exits, it overwrites it. If it does not, it creates it.
-        /// It uses the Windows 1252 text encoding for output.
-        /// </summary>
-        /// <typeparam name="T">The type of enumeration.</typeparam>
-        /// <param name="items">The items.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item saved.</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath) => SaveRecords(items, File.OpenWrite(filePath), true);
-
-        #endregion
-
-        #region Generic, main Write Line Method
-
-        /// <summary>
-        /// Writes a line of CSV text. Items are converted to strings.
-        /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToStringInvariant() method is called on them.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(params object?[] items)
-            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
-
-        /// <summary>
-        /// Writes a line of CSV text. Items are converted to strings.
-        /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToStringInvariant() method is called on them.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(IEnumerable<object?> items)
-            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()));
-
-        /// <summary>
-        /// Writes a line of CSV text.
-        /// If items are found to be null, empty strings are written out.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(params string[] items) => WriteLine((IEnumerable<string>)items);
-
-        /// <summary>
-        /// Writes a line of CSV text.
-        /// If items are found to be null, empty strings are written out.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public void WriteLine(IEnumerable<string> items)
-        {
-            lock (_syncLock)
-            {
-                var length = items.Count();
-                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
-                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
-
-                // Declare state variables here to avoid recreation, allocation and
-                // reassignment in every loop
-                bool needsEnclosing;
-                string textValue;
-                byte[] output;
-
-                for (var i = 0; i < length; i++)
-                {
-                    textValue = items.ElementAt(i);
-
-                    // Determine if we need the string to be enclosed 
-                    // (it either contains an escape, new line, or separator char)
-                    needsEnclosing = textValue.Contains(SeparatorCharacter, StringComparison.Ordinal)
-                                     || textValue.Contains(EscapeCharacter, StringComparison.Ordinal)
-                                     || textValue.Contains('\r', StringComparison.Ordinal)
-                                     || textValue.Contains('\n', StringComparison.Ordinal);
-
-                    // Escape the escape characters by repeating them twice for every instance
-                    textValue = textValue.Replace($"{EscapeCharacter}",
-                        $"{EscapeCharacter}{EscapeCharacter}", StringComparison.Ordinal);
-
-                    // Enclose the text value if we need to
-                    if (needsEnclosing)
-                        textValue = $"{EscapeCharacter}{textValue}{EscapeCharacter}";
-
-                    // Get the bytes to write to the stream and write them
-                    output = _encoding.GetBytes(textValue);
-                    _outputStream.Write(output, 0, output.Length);
-
-                    // only write a separator if we are moving in between values.
-                    // the last value should not be written.
-                    if (i < length - 1)
-                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
-                }
-
-                // output the newline sequence
-                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
-                _mCount += 1;
-            }
-        }
-
-        #endregion
-
-        #region Write Object Method
-
-        /// <summary>
-        /// Writes a row of CSV text. It handles the special cases where the object is
-        /// a dynamic ExpandoObject or IEnumerable(s). It also handles non-collection objects fine.
-        /// If you do not like the way the output is handled, you can simply write an extension
-        /// method of this class and use the WriteLine method instead.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <exception cref="System.ArgumentNullException">item.</exception>
-        public void WriteObject(object? item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            lock (_syncLock)
-            {
-                switch (item)
-                {
-                    case IDictionary<string, object> typedItem:
-                        {
-                            var keys = typedItem.Keys.Where(c => !string.IsNullOrWhiteSpace(c) && !IgnorePropertyNames.Contains(c));
-                            var values = typedItem.Where(kvp => keys.Contains(kvp.Key)).Select(c => $"{c.Value}");
-                            WriteLine(values);
-                            return;
-                        }
-                    case IDictionary typedItem:
-                        {
-                            WriteLine(GetFilteredDictionary(typedItem));
-                            return;
-                        }
-                    case IEnumerable typedItem:
-                        WriteLine(typedItem.Cast<object>());
-                        return;
-                    default:
-                        WriteLine(GetFilteredTypeProperties(item.GetType()).Select(x => item.ReadProperty(x.PropertyName)));
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Writes a row of CSV text. It handles the special cases where the object is
-        /// a dynamic object or and array. It also handles non-collection objects fine.
-        /// If you do not like the way the output is handled, you can simply write an extension
-        /// method of this class and use the WriteLine method instead.
-        /// </summary>
-        /// <typeparam name="T">The type of object to write.</typeparam>
-        /// <param name="item">The item.</param>
-        public void WriteObject<T>(T item) => WriteObject(item as object);
-
-        /// <summary>
-        /// Writes a set of items, one per line and atomically by repeatedly calling the
-        /// WriteObject method. For more info check out the description of the WriteObject
-        /// method.
-        /// </summary>
-        /// <typeparam name="T">The type of object to write.</typeparam>
-        /// <param name="items">The items.</param>
-        /// <exception cref="ArgumentNullException">items.</exception>
-        public void WriteObjects<T>(IEnumerable<T> items)
-        {
-            if (items == null)
+            if (items is null)
                 throw new ArgumentNullException(nameof(items));
 
-            lock (_syncLock)
+            var writeTask = WriteLineAsync(items);
+
+            if (writeTask.IsCompletedSuccessfully)
+                return;
+
+            writeTask.AsTask().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Writes a CSV record with the specified values.
+        /// Individual items found to be null will be written out as empty strings.
+        /// </summary>
+        /// <param name="items">The set of strings to write out.</param>
+        public async ValueTask WriteLineAsync(IEnumerable<string?> items)
+        {
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            var isFirst = true;
+            foreach (var currentItem in items)
             {
-                foreach (var item in items)
-                    WriteObject(item);
+                var item = currentItem ?? string.Empty;
+
+                // Determine if we need the string to be enclosed 
+                // (it either contains an escape, new line, or separator char)
+                var needsEnclosing = item.Contains(SeparatorChar, StringComparison.Ordinal)
+                                 || item.Contains(EscapeChar, StringComparison.Ordinal)
+                                 || item.Contains('\r', StringComparison.Ordinal)
+                                 || item.Contains('\n', StringComparison.Ordinal);
+
+                // Escape the escape characters by repeating them twice for every instance
+                var textValue = item.Replace($"{EscapeChar}",
+                    $"{EscapeChar}{EscapeChar}", StringComparison.Ordinal);
+
+                // Enclose the text value if we need to
+                if (needsEnclosing)
+                    textValue = $"{EscapeChar}{textValue}{EscapeChar}";
+
+                if (isFirst)
+                {
+                    await _writer.WriteAsync(textValue);
+                    isFirst = false;
+                    continue;
+                }
+
+                await _writer.WriteAsync($"{SeparatorChar}{textValue}");
             }
+
+            // output the newline sequence
+            await _writer.WriteAsync(NewLineSequence);
+            _count.Increment();
         }
-
-        #endregion
-
-        #region Write Headings Methods
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="type">The type of object to extract headings.</param>
-        /// <exception cref="System.ArgumentNullException">type.</exception>
-        public void WriteHeadings(Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            var properties = GetFilteredTypeProperties(type).Select(p => p.PropertyName.Humanize()).Cast<object>();
-            WriteLine(properties);
-        }
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <typeparam name="T">The type of object to extract headings.</typeparam>
-        public void WriteHeadings<T>() => WriteHeadings(typeof(T));
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="dictionary">The dictionary to extract headings.</param>
-        /// <exception cref="System.ArgumentNullException">dictionary.</exception>
-        public void WriteHeadings(IDictionary dictionary)
-        {
-            if (dictionary == null)
-                throw new ArgumentNullException(nameof(dictionary));
-
-            WriteLine(GetFilteredDictionary(dictionary, true));
-        }
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="obj">The object to extract headings.</param>
-        /// <exception cref="ArgumentNullException">obj.</exception>
-        public void WriteHeadings(object obj)
-        {
-            if (obj == null)
-                throw new ArgumentNullException(nameof(obj));
-
-            WriteHeadings(obj.GetType());
-        }
-
-        #endregion
-
-        #region IDisposable Support
 
         /// <inheritdoc />
-        public void Dispose() => Dispose(true);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc />
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore();
+            Dispose(false);
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+            GC.SuppressFinalize(this);
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
+        }
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposeAlsoManaged)
+        protected virtual async ValueTask DisposeAsyncCore()
         {
-            if (_isDisposing) return;
+            if (_isDisposed) return;
+            _isDisposed.Value = true;
 
-            if (disposeAlsoManaged)
-            {
-                if (_leaveStreamOpen == false)
-                {
-                    _outputStream.Dispose();
-                }
-            }
-
-            _isDisposing = true;
+            await _writer.FlushAsync().ConfigureAwait(false);
+            await _writer.DisposeAsync().ConfigureAwait(false);
         }
 
-        #endregion
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool alsoManaged)
+        {
+            if (_isDisposed) return;
+            _isDisposed.Value = true;
 
-        #region Support Methods
+            if (!alsoManaged)
+                return;
 
-        private IEnumerable<string> GetFilteredDictionary(IDictionary dictionary, bool filterKeys = false)
-            => dictionary
-                .Keys
-                .Cast<object>()
-                .Select(key => key == null ? string.Empty : key.ToStringInvariant())
-                .Where(stringKey => !IgnorePropertyNames.Contains(stringKey))
-                .Select(stringKey =>
-                    filterKeys
-                        ? stringKey
-                        : dictionary[stringKey] == null ? string.Empty : dictionary[stringKey].ToStringInvariant());
-
-        private IEnumerable<IPropertyProxy> GetFilteredTypeProperties(Type type)
-            => type.Properties().Where(c => c.CanRead && !IgnorePropertyNames.Contains(c.PropertyName));
-
-        #endregion
-
+            _writer.Flush();
+            _writer.Dispose();
+        }
     }
 }

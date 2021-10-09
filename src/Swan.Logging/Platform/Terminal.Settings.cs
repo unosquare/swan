@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Platform
+﻿namespace Swan.Platform
 {
+    using System;
+
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
     /// This class is thread-safe :).

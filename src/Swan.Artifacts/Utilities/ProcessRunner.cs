@@ -1,14 +1,14 @@
-﻿using Swan.Platform;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Utilities
+﻿namespace Swan.Utilities
 {
+    using Swan.Platform;
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Defines a delegate to handle binary data reception from the standard 
     /// output or standard error streams from a process.

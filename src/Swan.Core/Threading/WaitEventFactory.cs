@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+    using System.Threading;
+
     /// <summary>
     /// Provides a Manual Reset Event factory with a unified API.
     /// </summary>
@@ -37,7 +37,7 @@ namespace Swan.Threading
     ///         // send second signal
     ///         waitEvent.Complete();
     ///             
-    ///         Terminal.Readline();
+    ///         Terminal.ReadLine();
     ///     }
     ///         
     ///     public static void DoWork(int taskNumber)

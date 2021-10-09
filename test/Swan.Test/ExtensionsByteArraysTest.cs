@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Swan.Test.ExtensionsByteArraysTest
+﻿namespace Swan.Test.ExtensionsByteArraysTest
 {
+    using NUnit.Framework;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
     public abstract class ExtensionsByteArraysTest : TestFixtureBase
     {
         protected const int Value = 123456789;

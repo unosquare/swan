@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using System;
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents logic providing several delay mechanisms.
     /// </summary>

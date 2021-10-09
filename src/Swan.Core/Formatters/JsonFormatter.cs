@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using System;
+    using System.IO;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides extension methods for JSON serialization and deserialization.
     /// </summary>
@@ -15,7 +15,7 @@ namespace Swan.Formatters
             PropertyNamingPolicy = null, // Pascal case
             PropertyNameCaseInsensitive = true,
             WriteIndented = false,
-            ReferenceHandler = null, // TODO: In .net 6.0 chenge this to IgnoreCycles
+            ReferenceHandler = null, // TODO: In .net 6.0 change this to IgnoreCycles
             IgnoreReadOnlyFields = false,
             IgnoreReadOnlyProperties = false,
             IncludeFields = true
@@ -88,11 +88,9 @@ namespace Swan.Formatters
         /// <param name="this">The stream of bytes in UTF8.</param>
         /// <param name="options">Optional JSON serializer options.</param>
         /// <returns>The deserialized object.</returns>
-        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, JsonSerializerOptions? options = default)
-        {
-            return await JsonSerializer
+        public static async Task<T?> JsonDeserializeAsync<T>(this Stream @this, JsonSerializerOptions? options = default) =>
+            await JsonSerializer
                 .DeserializeAsync<T>(@this, options ?? JsonFlatOptions)
                 .ConfigureAwait(false);
-        }
     }
 }

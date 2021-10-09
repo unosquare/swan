@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test.ExtensionsStringTest
+﻿namespace Swan.Test.ExtensionsStringTest
 {
+    using NUnit.Framework;
+    using Swan.Extensions;
+    using Swan.Formatters;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
     public class Humanize
     {

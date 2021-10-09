@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.Threading;
-using Swan.Types;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Threading;
+    using Swan.Types;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class ThreadWorkerBaseTest
     {

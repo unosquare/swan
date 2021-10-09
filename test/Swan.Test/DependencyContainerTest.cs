@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.DependencyInjection;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Test.DependencyContainerTest
+﻿namespace Swan.Test.DependencyContainerTest
 {
+    using NUnit.Framework;
+    using Swan.DependencyInjection;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     [TestFixture]
     public class AutoRegister
     {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public interface IAnimal
     {
         string Name { get; }

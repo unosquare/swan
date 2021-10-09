@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Runtime.CompilerServices;
-
-namespace Swan.Net.Extensions
+﻿namespace Swan.Net.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Runtime.CompilerServices;
+
     /// <summary>
     /// Provides extension methods for instances and collections of <see cref="IPAddressRange"/>.
     /// </summary>

@@ -1,13 +1,13 @@
-﻿#pragma warning disable CA1031 // Do not catch general exception types
-using Swan.Extensions;
-using System;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+#pragma warning disable CA1031 // Do not catch general exception types
+    using Swan.Extensions;
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// Provides methods to stringify objects.
     /// </summary>

@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Test.Mocks;
-using Swan.Threading;
-using System;
-using System.Threading.Tasks;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Test.Mocks;
+    using Swan.Threading;
+    using System;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class AppWorkerBaseTest
     {

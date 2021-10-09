@@ -1,13 +1,13 @@
-﻿using Swan.Formatters;
-using Swan.Reflection;
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace Swan.Extensions
+﻿namespace Swan.Extensions
 {
+    using Swan.Formatters;
+    using Swan.Reflection;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// String related extension methods.
     /// </summary>
@@ -32,7 +32,7 @@ namespace Swan.Extensions
         private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new(() => m =>
         {
             var x = m.ToString();
-            return x[0] + " " + x.Substring(1, x.Length - 1);
+            return x[0] + " " + x[1..];
         });
 
         private static readonly Lazy<char[]> InvalidFilenameChars =
@@ -49,15 +49,12 @@ namespace Swan.Extensions
         /// <returns>A <see cref="string" /> that represents the current object.</returns>
         public static string ToStringInvariant(this object? @this)
         {
-            if (@this == null)
-                return string.Empty;
-
-            if (@this is string stringValue)
-                return stringValue;
-
-            return @this.GetType()
-                .TypeInfo()
-                .ToStringInvariant(@this);
+            return @this switch
+            {
+                null => string.Empty,
+                string stringValue => stringValue,
+                _ => @this.GetType().TypeInfo().ToStringInvariant(@this)
+            };
         }
 
         /// <summary>
@@ -242,7 +239,7 @@ namespace Swan.Extensions
         /// <summary>
         /// Makes the file name system safe.
         /// </summary>
-        /// <param name="value">The s.</param>
+        /// <param name="value">The filename to convert.</param>
         /// <returns>
         /// A string with a safe file name.
         /// </returns>
@@ -266,13 +263,8 @@ namespace Swan.Extensions
                 throw new ArgumentNullException(nameof(value));
 
             var builder = new StringBuilder(value.Length);
-            foreach (var c in value)
-            {
-                if (c == find)
-                    continue;
-
+            foreach (var c in value.Where(c => c != find))
                 builder.Append(c);
-            }
 
             return builder.ToString();
         }

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using System;
+
     /// <summary>
     /// Provides settings for <see cref="ArgumentParser"/>.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.).

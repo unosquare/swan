@@ -1,8 +1,8 @@
-﻿using Swan.Reflection;
-using System.Linq;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using Swan.Reflection;
+    using System.Linq;
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// </summary>
@@ -41,7 +41,7 @@ namespace Swan.Parsers
 
                 if (verbProperty?.GetValue(instance) == null)
                 {
-                    var propertyInstance = TypeManager.CreateInstance(selectedVerb.PropertyType);
+                    var propertyInstance = selectedVerb.PropertyType.CreateInstance();
                     verbProperty?.SetValue(instance, propertyInstance);
                 }
 

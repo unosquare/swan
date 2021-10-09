@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Parsers;
-using Swan.Test.Mocks;
-using System.Linq;
-
-namespace Swan.Test
+﻿namespace Swan.Test
 {
+    using NUnit.Framework;
+    using Swan.Parsers;
+    using Swan.Test.Mocks;
+    using System.Linq;
+
     [TestFixture]
     public class TokenizerTest
     {

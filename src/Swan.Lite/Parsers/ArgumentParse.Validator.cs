@@ -1,9 +1,9 @@
-﻿using Swan.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Parsers
+﻿namespace Swan.Parsers
 {
+    using Swan.Reflection;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// 
@@ -58,7 +58,7 @@ namespace Swan.Parsers
                     if (optionAttr == null || optionAttr.IsRequired == false)
                         continue;
 
-                    if (targetProperty.GetValue(_instance) == null)
+                    if (targetProperty.Read(_instance) == null)
                     {
                         RequiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
                     }
@@ -130,10 +130,10 @@ namespace Swan.Parsers
                         _updatedList.Add(targetProperty);
                         propertyName = string.Empty;
                     }
-                    else if (targetProperty.PropertyType == typeof(bool))
+                    else if (targetProperty.PropertyType.NativeType == typeof(bool))
                     {
                         // If the arg is a boolean property set it to true.
-                        targetProperty.SetValue(_instance, true);
+                        targetProperty.TryWrite(_instance, true);
 
                         _updatedList.Add(targetProperty);
                         propertyName = string.Empty;
@@ -152,9 +152,9 @@ namespace Swan.Parsers
                 object result,
                 ArgumentOptionAttribute? optionAttr = null)
             {
-                return targetProperty.IsArray
+                return targetProperty.PropertyType.IsArray
                     ? targetProperty.PropertyInfo.TrySetArray(propertyValueString.Split(optionAttr?.Separator ?? ','), result)
-                    : targetProperty.TrySetValue(result, propertyValueString);
+                    : targetProperty.TryWrite(result, propertyValueString);
             }
 
             private IPropertyProxy? TryGetProperty(string propertyName) =>

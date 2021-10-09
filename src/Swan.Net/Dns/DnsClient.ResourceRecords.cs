@@ -1,13 +1,13 @@
-﻿using Swan.Formatters;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Text.Json.Serialization;
-
-namespace Swan.Net.Dns
+﻿namespace Swan.Net.Dns
 {
+    using Swan.Formatters;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Runtime.InteropServices;
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// DnsClient public methods.
     /// </summary>

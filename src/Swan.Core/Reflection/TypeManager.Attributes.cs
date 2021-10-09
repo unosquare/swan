@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Reflection
+﻿namespace Swan.Reflection
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static partial class TypeManager
     {
         internal static IEnumerable<object> FilterAttributes(this IEnumerable<object> attributes, Type filterType)

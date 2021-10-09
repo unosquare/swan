@@ -1,14 +1,14 @@
 ﻿namespace Swan.Formatters
 {
-    internal class CsvMapping<TReader, TTarget>
+    internal class CsvMapping<TContainer, TTarget>
     {
         internal delegate void ApplyMapping<TSource, TDestination>(CsvMapping<TSource, TDestination> mapping, TDestination instance);
 
-        public CsvMapping(TReader reader, string heading, string targetName, ApplyMapping<TReader, TTarget> apply)
+        public CsvMapping(TContainer container, string heading, string targetName, ApplyMapping<TContainer, TTarget> apply)
         {
             Heading = heading;
             TargetName = targetName;
-            Reader = reader;
+            Container = container;
             Apply = apply;
         }
 
@@ -16,8 +16,8 @@
 
         public string TargetName { get; }
 
-        public TReader Reader { get; }
+        public TContainer Container { get; }
 
-        public ApplyMapping<TReader, TTarget> Apply { get; }
+        public ApplyMapping<TContainer, TTarget> Apply { get; }
     }
 }

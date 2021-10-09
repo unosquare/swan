@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Parsers;
-using Swan.Test.Mocks;
-using System;
-using System.Linq;
-
-namespace Swan.Test.ArgumentParserTests
+﻿namespace Swan.Test.ArgumentParserTests
 {
+    using NUnit.Framework;
+    using Swan.Parsers;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Linq;
+
     [TestFixture]
     public class ParseArguments : TestFixtureBase
     {

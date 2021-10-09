@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Net.Internal
+﻿namespace Swan.Net.Internal
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// <para>Provides a way for types that override <see cref="object.GetHashCode"/>
     /// to correctly generate a hash code from the actual status of an instance.</para>

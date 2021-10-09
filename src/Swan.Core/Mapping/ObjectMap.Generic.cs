@@ -1,10 +1,10 @@
-﻿using Swan.Reflection;
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+    using Swan.Reflection;
+    using System;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// Represents strongly-typed version of an object map.
     /// </summary>
@@ -59,7 +59,7 @@ namespace Swan.Mapping
                     $"Target property '{targetProxy.PropertyName}' is read only.",
                     nameof(targetPropertyExpression));
 
-            if (!targetProxy.ProxiedType.IsAssignableFrom(typeof(TSourceMember)))
+            if (!targetProxy.IsAssignableFrom(typeof(TSourceMember)))
                 throw new ArgumentException(
                     $"Target property '{targetProxy.PropertyName}' cannot be assigned a value of type {typeof(TTargetMember)}.",
                     nameof(valueProvider));

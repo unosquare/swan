@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// TCP Listener manager with built-in events and asynchronous functionality.
     /// This networking component is typically used when writing server software.

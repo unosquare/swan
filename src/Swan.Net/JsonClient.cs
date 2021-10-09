@@ -1,15 +1,15 @@
-﻿using Swan.Formatters;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Net
+﻿namespace Swan.Net
 {
+    using Swan.Formatters;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Security;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a HttpClient with extended methods to use with JSON payloads 
     /// and bearer tokens authentication.

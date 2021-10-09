@@ -1,11 +1,11 @@
-﻿#pragma warning disable CA1710 // Identifiers should have correct suffix
-using Swan.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+#pragma warning disable CA1710 // Identifiers should have correct suffix
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+
     /// <summary>
     /// A delegate providing values and receiving a instance to produce values from.
     /// </summary>
@@ -23,12 +23,12 @@ namespace Swan.Mapping
         /// <summary>
         /// Gets the type of the target.
         /// </summary>
-        ITypeProxy TargetType { get; }
+        ITypeInfo TargetType { get; }
 
         /// <summary>
         /// Gets the type of the source.
         /// </summary>
-        ITypeProxy SourceType { get; }
+        ITypeInfo SourceType { get; }
 
         /// <summary>
         /// Creates an instance of the target type and evaluates the <see cref="SourceValueProvider"/>

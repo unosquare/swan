@@ -1,11 +1,11 @@
-﻿using Swan.Logging;
-using Swan.Types;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-
-namespace Swan.Threading
+﻿namespace Swan.Threading
 {
+    using Swan.Logging;
+    using Swan.Types;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+
     /// <summary>
     /// Represents an background worker abstraction with a life cycle and running at a independent thread.
     /// </summary>

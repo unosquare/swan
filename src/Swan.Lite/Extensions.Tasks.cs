@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Swan
+﻿namespace Swan
 {
+    using System;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Provides extension methods for <see cref="Task"/> and <see cref="Task{TResult}"/>.
     /// </summary>

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Collections
+﻿namespace Swan.Collections
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// A thread-safe collection cache repository for types.
     /// </summary>

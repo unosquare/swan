@@ -1,12 +1,13 @@
-﻿using Swan.Reflection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
-
-namespace Swan.Formatters
+﻿namespace Swan.Formatters
 {
+    using Swan.Collections;
+    using Swan.Reflection;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.Json;
+
     /// <summary>
     /// Represents a generic text serializer. 
     /// </summary>
@@ -26,21 +27,26 @@ namespace Swan.Formatters
             return Serialize(instance, options, stackTable, 0, 1).ToString();
         }
 
-        private static ReadOnlySpan<char> Serialize(object? instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static ReadOnlySpan<char> Serialize(object? instance,
+            TextSerializerOptions options,
+            StackTable stackTable,
+            int stackDepth,
+            int indentDepth)
         {
             if (instance is null)
                 return options.NullLiteral;
 
             var proxy = instance.GetType().TypeInfo();
 
-            if (instance is Type typeValue)
-                return WriteAsString(options, $"{typeValue}", false);
-
-            if (instance is bool boolValue)
-                return boolValue ? options.TrueLiteral : options.FalseLiteral;
-
-            if (instance is string stringValue)
-                return WriteAsString(options, stringValue, false);
+            switch (instance)
+            {
+                case Type typeValue:
+                    return WriteAsString(options, $"{typeValue}", false);
+                case bool boolValue:
+                    return boolValue ? options.TrueLiteral : options.FalseLiteral;
+                case string stringValue:
+                    return WriteAsString(options, stringValue, false);
+            }
 
             if (proxy.IsNumeric)
                 return proxy.ToStringInvariant(instance);
@@ -64,7 +70,7 @@ namespace Swan.Formatters
 
         private static bool WillIncrementStack(object? value)
         {
-            if (value is null || value is Type || value is string)
+            if (value is null or Type or string)
                 return false;
 
             var proxy = value.GetType().TypeInfo();
@@ -119,35 +125,21 @@ namespace Swan.Formatters
                  _ => element.ToString() ?? options.NullLiteral,
              };
 
-        private static bool TryWriteAsDictionary(StringBuilder builder, ITypeProxy proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static bool TryWriteAsDictionary(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
-            var dictionaryType = proxy.GenericDictionaryType;
-            if (dictionaryType is null || !dictionaryType.GenericTypeArguments[0].IsBasicType)
+            if (!CollectionProxy.TryCreate(instance, out var dictionary))
                 return false;
 
-            // obtain keys and values
-            var keys = dictionaryType.Properties[nameof(IDictionary.Keys)].GetValue(instance) as IEnumerable;
-            var values = dictionaryType.Properties[nameof(IDictionary.Values)].GetValue(instance) as IEnumerable;
-
-            // check that keys and values are in fact available.
-            if (keys is null || values is null)
-                return false;
-
-            var valuesEnumerator = values.GetEnumerator();
-            var keyType = dictionaryType.GenericTypeArguments[0];
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.ProxiedType})", builder);
-            foreach (var key in keys)
+            BeginObject(options, $"({proxy.FullName})", builder);
+            foreach (dynamic kvp in dictionary!)
             {
-                valuesEnumerator.MoveNext();
-                var value = valuesEnumerator.Current;
-
-                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(value))
+                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Key))
                     continue;
 
-                if (options.IgnoreRepeatedReferences && stackTable.HasReference(value))
+                if (options.IgnoreRepeatedReferences && stackTable.HasReference(kvp.Value))
                     continue;
 
                 if (!isFirst)
@@ -159,13 +151,13 @@ namespace Swan.Formatters
 
                 builder
                     .Append(IndentString(options, indentDepth))
-                    .Append(WriteAsString(options, keyType.ToStringInvariant(key), true))
+                    .Append(WriteAsString(options, dictionary.KeysType.ToStringInvariant(kvp.Key), true))
                     .Append(options.KeyValueSeparator);
 
                 if (options.WriteIndented)
                     builder.Append(' ');
 
-                builder.Append(Serialize(value, options, stackTable, stackDepth + 1, indentDepth + 1));
+                builder.Append(Serialize(kvp.Value, options, stackTable, stackDepth + 1, indentDepth + 1));
 
                 isFirst = false;
             }
@@ -207,18 +199,18 @@ namespace Swan.Formatters
             return true;
         }
 
-        private static string WriteAsObject(StringBuilder builder, ITypeProxy proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+        private static string WriteAsObject(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
             var isFirst = true;
             stackTable.AddReference(instance);
 
-            BeginObject(options, $"({proxy.ProxiedType})", builder);
+            BeginObject(options, $"({proxy.FullName})", builder);
             foreach (var property in proxy.Properties.Values)
             {
                 if (!property.CanRead)
                     continue;
 
-                if (!property.TryGetValue(instance, out var value))
+                if (!property.TryRead(instance, out var value))
                     continue;
 
                 if (stackDepth >= options.MaxStackDepth && WillIncrementStack(value))
@@ -278,7 +270,7 @@ namespace Swan.Formatters
 
         private static void EndObject(TextSerializerOptions options, StringBuilder builder, int indentDepth)
         {
-            if (options.ObjectCloser is null || options.ObjectCloser.Length <= 0)
+            if (options?.ObjectCloser is null || options.ObjectCloser.Length <= 0)
                 return;
 
             indentDepth = indentDepth > 0

@@ -1,13 +1,13 @@
-﻿using Swan.Formatters;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
-
-namespace Swan.Net.Dns
+﻿namespace Swan.Net.Dns
 {
+    using Swan.Formatters;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// DnsClient Response inner class.
     /// </summary>

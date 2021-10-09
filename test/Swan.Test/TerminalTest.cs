@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using Swan.Platform;
-using System;
-
-namespace Swan.Test.TerminalTests
+﻿namespace Swan.Test.TerminalTests
 {
+    using NUnit.Framework;
+    using Swan.Platform;
+    using System;
+
     [TestFixture]
     public class IsConsolePresent
     {

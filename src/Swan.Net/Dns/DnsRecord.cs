@@ -1,9 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Text;
-
-namespace Swan.Net.Dns
+﻿namespace Swan.Net.Dns
 {
+    using System;
+    using System.Net;
+    using System.Text;
+
     /// <summary>
     /// Represents a DNS record entry.
     /// </summary>

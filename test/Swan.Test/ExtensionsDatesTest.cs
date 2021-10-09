@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Swan.Extensions;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test.ExtensionsDatesTests
+﻿namespace Swan.Test.ExtensionsDatesTests
 {
+    using NUnit.Framework;
+    using Swan.Extensions;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
     public class ToSortableDate
     {

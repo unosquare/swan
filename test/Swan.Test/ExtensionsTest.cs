@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Swan.Mapping;
-using Swan.Net;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test.ExtensionsTest
+﻿namespace Swan.Test.ExtensionsTest
 {
+    using NUnit.Framework;
+    using Swan.Mapping;
+    using Swan.Net;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
     public class Retry : TestFixtureBase
     {

@@ -1,14 +1,14 @@
-﻿#pragma warning disable CA1031 // Do not catch general exception types
-using Swan.Collections;
-using Swan.Reflection;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace Swan.Mapping
+﻿namespace Swan.Mapping
 {
+#pragma warning disable CA1031 // Do not catch general exception types
+    using Swan.Collections;
+    using Swan.Reflection;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
     /// to another using defined properties map or using the default behaviour
@@ -240,7 +240,7 @@ namespace Swan.Mapping
         }
 
         /// <summary>
-        /// Retreives an existing map between target and source types.
+        /// Retrieves an existing map between target and source types.
         /// If the map already exists, it returns it from this mapper's internal storage.
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
@@ -321,8 +321,8 @@ namespace Swan.Mapping
                 .Distinct()
                 .ToDictionary(x => x.ToLowerInvariant(), x => properties.First(y => y.PropertyName == x))
                 .Where(x => sourceProperties.ContainsKey(x.Key))
-                .When(() => requiredProperties != null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
-                .When(() => ignoredProperties != null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
+                .When(() => requiredProperties is not null, q => q.Where(y => requiredProperties!.Contains(y.Key)))
+                .When(() => ignoredProperties is not null, q => q.Where(y => !ignoredProperties!.Contains(y.Key)))
                 .ToDictionary(x => x.Value, x => sourceProperties[x.Key])
                 .Sum(x => TrySetValue(x.Key.PropertyInfo, x.Value, target) ? 1 : 0);
         }
@@ -339,7 +339,7 @@ namespace Swan.Mapping
                     return true;
                 }
 
-                if (targetProperty.ToPropertyProxy().TrySetValue(targetInstance, value))
+                if (targetProperty.ToPropertyProxy().TryWrite(targetInstance, value))
                     return true;
 
             }
@@ -362,8 +362,8 @@ namespace Swan.Mapping
                 .Distinct()
                 .ToDictionary(
                     x => x.ToLowerInvariant(),
-                    x => Tuple.Create(sourceProperties.First(y => y.PropertyName == x).PropertyType,
-                        sourceProperties.First(y => y.PropertyName == x).GetValue(source)));
+                    x => Tuple.Create(sourceProperties.First(y => y.PropertyName == x).PropertyType.NativeType,
+                        sourceProperties.First(y => y.PropertyName == x).Read(source)));
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Collections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Swan.Test.ExtensionsDictionariesTests
+﻿namespace Swan.Test.ExtensionsDictionariesTests
 {
+    using NUnit.Framework;
+    using Swan.Collections;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     [TestFixture]
     public class GetValueOrDefault : TestFixtureBase
     {

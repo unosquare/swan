@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Swan.Mapping;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-
-namespace Swan.Test.ObjectMapperTests
+﻿namespace Swan.Test.ObjectMapperTests
 {
+    using NUnit.Framework;
+    using Swan.Mapping;
+    using Swan.Test.Mocks;
+    using System;
+    using System.Collections.Generic;
+
     public abstract class ObjectMapperTest : TestFixtureBase
     {
         protected User SourceUser => new()

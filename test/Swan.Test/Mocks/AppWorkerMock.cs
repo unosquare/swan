@@ -1,10 +1,10 @@
-﻿using Swan.Threading;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks
 {
+    using Swan.Threading;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class AppWorkerMock : TimerWorkerBase
     {
         public AppWorkerMock()
