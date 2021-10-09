@@ -5,12 +5,11 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a writer that writes sets of strings in CSV format into a stream.
     /// </summary>
-    public class CsvWriter : IDisposable, IAsyncDisposable
+    public class CsvWriter : IDisposable
     {
         private const int BufferSize = 4096;
 
@@ -73,34 +72,11 @@
         public void Flush() => _writer.Flush();
 
         /// <summary>
-        /// Clears all buffers from the current writer and causes all data to be written to the underlying stream.
-        /// </summary>
-        public Task FlushAsync() => _writer.FlushAsync();
-
-        /// <summary>
         /// Writes a CSV record with the specified values.
         /// Individual items found to be null will be written out as empty strings.
         /// </summary>
         /// <param name="items">The set of strings to write out.</param>
         public void WriteLine(IEnumerable<string?> items)
-        {
-            if (items is null)
-                throw new ArgumentNullException(nameof(items));
-
-            var writeTask = WriteLineAsync(items);
-
-            if (writeTask.IsCompletedSuccessfully)
-                return;
-
-            writeTask.AsTask().GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Writes a CSV record with the specified values.
-        /// Individual items found to be null will be written out as empty strings.
-        /// </summary>
-        /// <param name="items">The set of strings to write out.</param>
-        public async ValueTask WriteLineAsync(IEnumerable<string?> items)
         {
             if (items is null)
                 throw new ArgumentNullException(nameof(items));
@@ -127,16 +103,16 @@
 
                 if (isFirst)
                 {
-                    await _writer.WriteAsync(textValue);
+                    _writer.Write(textValue);
                     isFirst = false;
                     continue;
                 }
 
-                await _writer.WriteAsync($"{SeparatorChar}{textValue}");
+                _writer.Write($"{SeparatorChar}{textValue}");
             }
 
             // output the newline sequence
-            await _writer.WriteAsync(NewLineSequence);
+            _writer.Write(NewLineSequence);
             _count.Increment();
         }
 
@@ -145,28 +121,6 @@
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc />
-        public async ValueTask DisposeAsync()
-        {
-            await DisposeAsyncCore();
-            Dispose(false);
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
-            GC.SuppressFinalize(this);
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        protected virtual async ValueTask DisposeAsyncCore()
-        {
-            if (_isDisposed) return;
-            _isDisposed.Value = true;
-
-            await _writer.FlushAsync().ConfigureAwait(false);
-            await _writer.DisposeAsync().ConfigureAwait(false);
         }
 
         /// <summary>

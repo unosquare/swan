@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
 
@@ -178,7 +179,7 @@
             return sourceMaps.TryGetValue(sourceType, out map);
         }
 
-        private bool TryGetMap<TSource, TTarget>(out IObjectMap<TSource, TTarget> map)
+        private bool TryGetMap<TSource, TTarget>([MaybeNullWhen(false)] out IObjectMap<TSource, TTarget> map)
         {
             if (TryGetMap(typeof(TSource), typeof(TTarget), out var existingMap) &&
                 existingMap is IObjectMap<TSource, TTarget> typedMap)

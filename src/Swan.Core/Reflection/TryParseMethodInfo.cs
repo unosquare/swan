@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.Linq;
+    using System.Text;
 
     internal sealed class TryParseMethodInfo
     {
@@ -103,7 +104,21 @@
                 return (string input, out object? value) =>
                 {
                     value = defaultValue;
-                    if (!decimal.TryParse(input, AnyStyle, InvariantCulture, out var parsedValue))
+                    var builder = new StringBuilder(input.Length);
+                    foreach (var c in input.AsSpan())
+                    {
+                        if (!char.IsDigit(c) &&
+                            c != '.' &&
+                            c != 'e' &&
+                            c != 'E' &&
+                            c != '-' &&
+                            c != '+')
+                            continue;
+
+                        builder.Append(c);
+                    }
+
+                    if (!decimal.TryParse(builder.ToString(), AnyStyle, InvariantCulture, out var parsedValue))
                         return false;
 
                     if (ParentType.IsAssignableFrom(typeof(decimal)))

@@ -40,7 +40,7 @@
         private static readonly Lazy<Encoding> CurrentAnsiEncodingLazy = new(Encoding.GetEncoding(default(int)));
 
         private static readonly Lazy<Encoding> Windows1252EncodingLazy = new(
-            Encoding.GetEncodings().FirstOrDefault(c => c.CodePage == 1252)?.GetEncoding() ?? Encoding.GetEncoding(default(int)));
+            Encoding.GetEncodings().FirstOrDefault(c => c.CodePage == 1252)?.GetEncoding() ?? CurrentAnsiEncodingLazy.Value);
 
         private static readonly object SyncLock = new();
 

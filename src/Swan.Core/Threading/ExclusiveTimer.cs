@@ -205,7 +205,7 @@
         /// Logic that runs every time the timer hits the due time.
         /// </summary>
         /// <param name="state">The state.</param>
-        private void InternalCallback(object state)
+        private void InternalCallback(object? state)
         {
             lock (_syncLock)
             {

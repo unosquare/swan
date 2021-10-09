@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a CSV writer that can transform objects into their corresponding CSV representation.
@@ -86,6 +85,19 @@
             return this;
         }
 
+        /// <summary>
+        /// Removes all the mappings for the headings.
+        /// </summary>
+        /// <returns>This instance, in order to enable fluent API.</returns>
+        /// <exception cref="InvalidOperationException">Operation is not permitted when headings have already been written.</exception>
+        public CsvWriter<T> ClearMappings()
+        {
+            if (HasWrittenHeadings)
+                throw new InvalidOperationException("Cannot change headings once they have been written.");
+
+            _propertyMap.Clear();
+            return this;
+        }
 
         /// <summary>
         /// Adds or replaces a mapping between a heading and a source transform.
@@ -110,8 +122,7 @@
         /// Writes an object as a set of CSV strings.
         /// </summary>
         /// <param name="item">The object to write.</param>
-        /// <returns>An awaitable task.</returns>
-        public async ValueTask WriteLineAsync(T item)
+        public void WriteLine(T item)
         {
             if (item is null)
                 throw new ArgumentNullException(nameof(item));
@@ -119,7 +130,7 @@
             if (!HasWrittenHeadings)
             {
                 if (WritesHeadings)
-                    await WriteLineAsync(_propertyMap.Keys.AsEnumerable()).ConfigureAwait(false);
+                    WriteLine(_propertyMap.Keys.AsEnumerable());
 
                 HasWrittenHeadings = true;
             }
@@ -127,37 +138,7 @@
             var values = new List<string>(_propertyMap.Count);
             values.AddRange(_propertyMap.Select(kvp => kvp.Value.Invoke(item)));
 
-            await WriteLineAsync(values);
-        }
-
-        /// <summary>
-        /// Writes an object as a set of CSV strings.
-        /// </summary>
-        /// <param name="item">The object to write.</param>
-        public void WriteLine(T item)
-        {
-            if (item is null)
-                throw new ArgumentNullException(nameof(item));
-
-            var writeTask = WriteLineAsync(item);
-            if (writeTask.IsCompletedSuccessfully)
-                return;
-
-            writeTask.AsTask().GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Writes multiple objects as a set of CSV strings.
-        /// </summary>
-        /// <param name="items">The objects to write.</param>
-        /// <returns>An awaitable task.</returns>
-        public async ValueTask WriteLinesAsync(IEnumerable<T> items)
-        {
-            if (items is null)
-                throw new ArgumentNullException(nameof(items));
-
-            foreach (var item in items)
-                await WriteLineAsync(item);
+            WriteLine(values);
         }
 
         /// <summary>
@@ -169,11 +150,10 @@
             if (items is null)
                 throw new ArgumentNullException(nameof(items));
 
-            var writeTask = WriteLinesAsync(items);
-            if (writeTask.IsCompletedSuccessfully)
-                return;
+            foreach (var item in items)
+                WriteLine(item);
 
-            writeTask.AsTask().GetAwaiter().GetResult();
+            Flush();
         }
     }
 }

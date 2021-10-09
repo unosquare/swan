@@ -6,8 +6,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a base class for all CSV readers, which typically read
@@ -95,16 +93,6 @@
             throw new InvalidOperationException("The reader is not in a valid state.");
 
         /// <inheridoc />
-        public async ValueTask SkipAsync(int skipCount = 1)
-        {
-            if (skipCount < 1)
-                throw new ArgumentOutOfRangeException(nameof(skipCount));
-
-            for (var i = 0; i < skipCount; i++)
-                await ReadValuesAsync(true, false).ConfigureAwait(false);
-        }
-
-        /// <inheridoc />
         public void Skip(int skipCount = 1)
         {
             if (skipCount < 1)
@@ -135,26 +123,6 @@
         public bool MoveNext() => MoveNext(TrimsValues);
 
         /// <inheritdoc />
-        public async ValueTask<bool> MoveNextAsync() => await MoveNextAsync(TrimsValues);
-
-        /// <inheritdoc />
-        public async ValueTask<bool> MoveNextAsync(bool trimValues)
-        {
-            if (IsDisposed || EndOfStream)
-                return false;
-
-            try
-            {
-                await ReadValuesAsync(false, trimValues).ConfigureAwait(false);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <inheritdoc />
         public bool TryGetValue(int index, out string value)
         {
             value = string.Empty;
@@ -176,18 +144,8 @@
         }
 
         /// <inheritdoc />
-        public ValueTask DisposeAsync()
-        {
-            Dispose();
-            return ValueTask.CompletedTask;
-        }
-
-        /// <inheritdoc />
         public override string ToString() =>
             $"{GetType()}: {Count} records read.";
-
-        /// <inheritdoc />
-        public IAsyncEnumerator<TLine> GetAsyncEnumerator(CancellationToken cancellationToken = default) => this;
 
         /// <inheritdoc />
         public IEnumerator<TLine> GetEnumerator() => this;
@@ -203,7 +161,7 @@
         /// <param name="isSkipping">True if the <see cref="Count"/> and <see cref="Values"/> properties will not be set.</param>
         /// <param name="trimValues">Determines if values should be trimmed.</param>
         /// <returns>An awaitable task.</returns>
-        protected async ValueTask ReadValuesAsync(bool isSkipping, bool trimValues)
+        protected void ReadValues(bool isSkipping, bool trimValues)
         {
             if (IsDisposed)
                 throw new ObjectDisposedException(nameof(CsvReader));
@@ -211,28 +169,13 @@
             if (EndOfStream)
                 throw new EndOfStreamException("Unable to read past the end of the stream.");
 
-            var result = await ReadValuesAsync(_reader, trimValues, EscapeChar, SeparatorChar)
-                .ConfigureAwait(false);
+            var result = ReadValues(_reader, trimValues, EscapeChar, SeparatorChar);
 
             if (isSkipping)
                 return;
 
             Values = result;
             _count.Increment();
-        }
-
-        /// <summary>
-        /// Synchronously calls the <see cref="ReadValuesAsync(bool,bool)"/> method.
-        /// </summary>
-        /// <param name="isSkipping">True if the <see cref="Count"/> and <see cref="Values"/> properties will not be set.</param>
-        /// <param name="trimValues">Determines if values should be trimmed.</param>
-        protected void ReadValues(bool isSkipping, bool trimValues)
-        {
-            var readTask = ReadValuesAsync(isSkipping, trimValues);
-            if (readTask.IsCompletedSuccessfully)
-                return;
-
-            readTask.AsTask().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -260,14 +203,14 @@
         /// <param name="escapeChar">The escape character.</param>
         /// <param name="separatorChar">The separator character.</param>
         /// <returns>An array of the specified element type containing copies of the elements of the ArrayList.</returns>
-        private static async ValueTask<IReadOnlyList<string>> ReadValuesAsync(TextReader reader, bool trimValues, char escapeChar, char separatorChar)
+        private static IReadOnlyList<string> ReadValues(TextReader reader, bool trimValues, char escapeChar, char separatorChar)
         {
             var values = new List<string>(64);
             var currentValue = new StringBuilder(256);
             var currentState = ReadState.WaitingForNewField;
             string? line;
 
-            while ((line = await reader.ReadLineAsync()) is not null)
+            while ((line = reader.ReadLine()) is not null)
             {
                 for (var charIndex = 0; charIndex < line.Length; charIndex++)
                 {

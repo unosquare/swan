@@ -2,13 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides properties and methods common to all CSV readers.
     /// </summary>
     /// <typeparam name="TLine">The type of record the reader outputs.</typeparam>
-    public interface ICsvReader<out TLine> : IEnumerable<TLine>, IAsyncEnumerable<TLine>, IEnumerator<TLine>, IAsyncEnumerator<TLine>
+    public interface ICsvReader<out TLine> : IEnumerable<TLine>, IEnumerator<TLine>
     {
         /// <summary>
         /// Gets the current transformed record for schema-aware CSV readers and
@@ -32,7 +31,7 @@
 
         /// <summary>
         /// The number of records that have been read so far, including
-        /// headers and empty ones, but excluding calls to the <see cref="SkipAsync"/>
+        /// headers and empty ones, but excluding calls to the <see cref="Skip"/>
         /// or <see cref="Skip"/> methods.
         /// </summary>
         int Count { get; }
@@ -58,23 +57,6 @@
         /// </summary>
         /// <param name="skipCount">The number of records to skip.</param>
         void Skip(int skipCount = 1);
-
-        /// <summary>
-        /// Reads a set of literals parsed from the internal stream reader,
-        /// sets the <see cref="Values"/> property to the result and increments
-        /// the <see cref="Count"/> by one.
-        /// </summary>
-        /// <returns>Returns true if the operation was successful; otherwise returns false.</returns>
-        ValueTask<bool> MoveNextAsync(bool trimValues);
-
-        /// <summary>
-        /// Parses a set of literals from the current positions of the underlying
-        /// stream just as <see cref="MoveNextAsync"/> but does not increment the <see cref="Count"/>
-        /// and does not set <see cref="Values"/> property.
-        /// </summary>
-        /// <param name="skipCount">The number of records to skip.</param>
-        /// <returns>An awaitable task.</returns>
-        ValueTask SkipAsync(int skipCount = 1);
 
         /// <summary>
         /// Gets the string value of a given field index in the <see cref="Values"/> list.
