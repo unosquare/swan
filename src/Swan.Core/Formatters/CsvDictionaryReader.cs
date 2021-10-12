@@ -70,12 +70,9 @@
 
             valueProvider ??= (s) => s;
 
-            _targetMap[heading] = new(this, heading, targetName, (mapping, target) =>
-            {
-                target[mapping.TargetName] = mapping.Container.TryGetValue(mapping.Heading, out var value)
+            _targetMap[heading] = new(this, heading, targetName, (mapping, target) => target[mapping.TargetName] = mapping.Container.TryGetValue(mapping.Heading, out var value)
                     ? valueProvider(value)
-                    : default;
-            });
+                    : default);
 
             return this;
         }
@@ -83,7 +80,7 @@
         /// <summary>
         /// Adds a set of mappings between source headings and target keys.
         /// </summary>
-        /// <param name="map">The dictionary containing source headings and source dictionary keys.</param>
+        /// <param name="map">The dictionary containing source headings as keys and target headings as values.</param>
         /// <returns>This instance, in order to enable fluent API.</returns>
         public CsvDictionaryReader AddMappings(IDictionary<string, string> map)
         {

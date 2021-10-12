@@ -7,7 +7,10 @@
     using System.Text.Json;
 
     /// <summary>
-    /// A dynamic object 
+    /// When deserializing JSON without a specific type (i.e. object)
+    /// the default JSON deserializer returns <see cref="JsonElement"/> values.
+    /// This class materializes these elements by converting them to actual
+    /// properties with values.
     /// </summary>
     internal class JsonDynamicObject : DynamicObject
     {
