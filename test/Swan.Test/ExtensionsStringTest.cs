@@ -246,7 +246,7 @@
         [TestCase("4.94 TB", 5432675475323)]
         public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input)
         {
-            Assert.AreEqual(expected, ((ulong)input).FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
         }
 
         [TestCase("3 KB", 3072)]
@@ -255,7 +255,7 @@
         [TestCase("80.72 MB", 84645653)]
         public void WithLongParam_ReturnsFormattedBytes(string expected, long input)
         {
-            Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
         }
     }
 

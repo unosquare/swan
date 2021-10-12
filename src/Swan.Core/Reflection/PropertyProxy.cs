@@ -134,16 +134,16 @@
         {
             if (!propertyInfo.CanRead)
                 return null;
-
+            
             var instanceParameter = Expression.Parameter(typeof(object), "instance");
             var typedInstance = Expression.Convert(instanceParameter, instanceType.NativeType);
             var property = Expression.Property(typedInstance, propertyInfo);
             var convert = Expression.Convert(property, typeof(object));
-            var dynamicGetter = Expression
+            var lambdaGetter = Expression
                 .Lambda<Func<object, object?>>(convert, instanceParameter)
                 .Compile();
 
-            return dynamicGetter;
+            return lambdaGetter;
         }
 
         private static Action<object, object?>? CreateLambdaSetter(ITypeInfo instanceType, PropertyInfo propertyInfo)
@@ -159,11 +159,11 @@
             var propertyValue = Expression.Convert(valueParameter, propertyInfo.PropertyType);
 
             var body = Expression.Assign(property, propertyValue);
-            var dynamicSetter = Expression
+            var lambdaSetter = Expression
                 .Lambda<Action<object, object?>>(body, instanceParameter, valueParameter)
                 .Compile();
 
-            return dynamicSetter;
+            return lambdaSetter;
         }
     }
 }

@@ -97,8 +97,8 @@
 
         /// <summary>
         /// When dealing with nullable value types, this property will
-        /// return the underlying value type of the nullable. When dealing with enumerations, nullable or not,
-        /// it will return the numeric type backing it.
+        /// return the underlying value type of the nullable. When dealing with
+        /// enumerations, nullable or not, it will return the numeric type backing it.
         /// Otherwise it will return the same type as the <see cref="NativeType"/> property.
         /// </summary>
         ITypeInfo BackingType { get; }
@@ -125,7 +125,7 @@
 
         /// <summary>
         /// Determines if a parameter-less constructor can be called on this type.
-        /// This always returns true on value types.
+        /// This always returns <c>true</c> on value types.
         /// </summary>
         bool CanCreateInstance { get; }
 
@@ -143,7 +143,8 @@
         /// <summary>
         /// Gets the property proxies associated with this type.
         /// </summary>
-        /// <returns>A dictionary with property names as keys and <see cref="IPropertyProxy"/> objects as values.</returns>
+        /// <returns>A dictionary with property names as keys and <see cref="IPropertyProxy"/>
+        /// objects as values.</returns>
         IReadOnlyDictionary<string, IPropertyProxy> Properties { get; }
 
         /// <summary>
@@ -157,7 +158,8 @@
         IReadOnlyList<MethodInfo> Methods { get; }
 
         /// <summary>
-        /// Provides a collection of all instances of attributes applied on this type and its parent types.
+        /// Provides a collection of all instances of attributes
+        /// applied on this type and its parent types.
         /// </summary>
         IReadOnlyList<object> TypeAttributes { get; }
 

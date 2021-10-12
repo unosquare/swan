@@ -1,5 +1,6 @@
-﻿namespace Swan
+﻿namespace Swan.Utilities
 {
+    using Swan.Extensions;
     using System;
 
     /// <summary>
@@ -10,12 +11,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Paginator" /> class.
         /// </summary>
-        /// <param name="totalCount">The total count of items to page over.</param>
-        /// <param name="pageSize">The desired size of individual pages.</param>
+        /// <param name="totalCount">The total count of items to page over. Value must be a non-negative number.</param>
+        /// <param name="pageSize">The desired size of individual pages. Value must be 1 or greater.</param>
         public Paginator(int totalCount, int pageSize)
         {
-            TotalCount = totalCount;
-            PageSize = pageSize;
+            TotalCount = totalCount.ClampMin(0);
+            PageSize = pageSize.ClampMin(1);
             PageCount = ComputePageCount();
         }
 
@@ -74,12 +75,11 @@
         /// </summary>
         /// <param name="pageIndex">Index of the page.</param>
         /// <returns>A limit-bound index.</returns>
-        private int FixPageIndex(int pageIndex)
-        {
-            if (pageIndex < 0) return 0;
-
-            return pageIndex >= PageCount ? PageCount - 1 : pageIndex;
-        }
+        private int FixPageIndex(int pageIndex) => pageIndex < 0
+                ? 0
+                : pageIndex >= PageCount
+                ? PageCount - 1
+                : pageIndex;
 
         /// <summary>
         /// Computes the number of pages for the paginator.
@@ -88,10 +88,9 @@
         private int ComputePageCount()
         {
             // include this if when you always want at least 1 page 
-            if (TotalCount == 0)
-                return 0;
-
-            return TotalCount % PageSize != 0
+            return TotalCount == 0
+                ? 0
+                : TotalCount % PageSize != 0
                 ? (TotalCount / PageSize) + 1
                 : TotalCount / PageSize;
         }

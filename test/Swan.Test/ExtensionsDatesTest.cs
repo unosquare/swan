@@ -92,7 +92,7 @@
         {
             var date = new DateTime(2017, 10, 27).ToUniversalTime().Date;
 
-            Assert.AreEqual(1509062400, date.ToUnixEpochDate());
+            Assert.AreEqual(1509062400, date.ToUnixTimeSeconds());
         }
     }
 

@@ -18,8 +18,6 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
-
         private static readonly Lazy<Regex> SplitLinesRegex =
             new(() => new Regex("\r\n|\r|\n", StandardRegexOptions));
 
@@ -111,7 +109,7 @@
         /// <summary>
         /// Gets a part of the string clamping the length and startIndex parameters to safe values.
         /// If the string is null it returns an empty string. This is basically just a safe version
-        /// of string.Substring.
+        /// of <see cref="string.Substring(int, int)"/>.
         /// </summary>
         /// <param name="this">The string.</param>
         /// <param name="startIndex">The start index.</param>
@@ -137,7 +135,7 @@
         /// that are delimited by one or more characters in separator.
         /// </returns>
         public static string[] ToLines(this string? @this) =>
-            @this == null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(@this);
+            @this is null ? Array.Empty<string>() : SplitLinesRegex.Value.Split(@this);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
@@ -177,66 +175,6 @@
             };
 
         /// <summary>
-        /// Indents the specified multi-line text with the given amount of leading spaces
-        /// per line.
-        /// </summary>
-        /// <param name="value">The text.</param>
-        /// <param name="spaces">The spaces.</param>
-        /// <returns>A <see cref="string" /> that represents the current object.</returns>
-        public static string Indent(this string? value, int spaces = 4)
-        {
-            value ??= string.Empty;
-            if (spaces <= 0) return value;
-
-            var lines = value.ToLines();
-            var builder = new StringBuilder();
-            var indentStr = new string(' ', spaces);
-
-            foreach (var line in lines)
-            {
-                builder.AppendLine($"{indentStr}{line}");
-            }
-
-            return builder.ToString().TrimEnd();
-        }
-
-        /// <summary>
-        /// Gets the line and column number (i.e. not index) of the
-        /// specified character index. Useful to locate text in a multi-line
-        /// string the same way a text editor does.
-        /// Please not that the tuple contains first the line number and then the
-        /// column number.
-        /// </summary>
-        /// <param name="value">The string.</param>
-        /// <param name="charIndex">Index of the character.</param>
-        /// <returns>A 2-tuple whose value is (item1, item2).</returns>
-        public static Tuple<int, int> TextPositionAt(this string? value, int charIndex)
-        {
-            if (value == null)
-                return Tuple.Create(0, 0);
-
-            var index = charIndex.Clamp(0, value.Length - 1);
-
-            var lineIndex = 0;
-            var colNumber = 0;
-
-            for (var i = 0; i <= index; i++)
-            {
-                if (value[i] == '\n')
-                {
-                    lineIndex++;
-                    colNumber = 0;
-                    continue;
-                }
-
-                if (value[i] != '\r')
-                    colNumber++;
-            }
-
-            return Tuple.Create(lineIndex + 1, colNumber);
-        }
-
-        /// <summary>
         /// Makes the file name system safe.
         /// </summary>
         /// <param name="value">The filename to convert.</param>
@@ -250,6 +188,62 @@
                 : InvalidFilenameChars.Value
                     .Aggregate(value, (current, c) => current.RemoveChar(c))
                     .Slice(0, 220);
+
+        /// <summary>
+        /// Parses a YYYY-MM-DD and optionally, its time part, HH:II:SS into a DateTime.
+        /// </summary>
+        /// <param name="this">The sortable date.</param>
+        /// <returns>
+        /// A new instance of the DateTime structure to 
+        /// the specified year, month, day, hour, minute and second.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">sortableDate.</exception>
+        /// <exception cref="Exception">
+        /// Represents errors that occur during application execution.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Unable to parse sortable date and time. - sortableDate.
+        /// </exception>
+        public static DateTime ToDateTime(this string @this)
+        {
+            if (string.IsNullOrWhiteSpace(@this))
+                throw new ArgumentNullException(nameof(@this));
+
+            var hour = 0;
+            var minute = 0;
+            var second = 0;
+
+            var dateTimeParts = @this.Split(' ');
+
+            try
+            {
+                if (dateTimeParts.Length != 1 && dateTimeParts.Length != 2)
+                    throw new Exception();
+
+                var dateParts = dateTimeParts[0].Split('-');
+                if (dateParts.Length != 3) throw new Exception();
+
+                var year = int.Parse(dateParts[0]);
+                var month = int.Parse(dateParts[1]);
+                var day = int.Parse(dateParts[2]);
+
+                if (dateTimeParts.Length > 1)
+                {
+                    var timeParts = dateTimeParts[1].Split(':');
+                    if (timeParts.Length != 3) throw new Exception();
+
+                    hour = int.Parse(timeParts[0]);
+                    minute = int.Parse(timeParts[1]);
+                    second = int.Parse(timeParts[2]);
+                }
+
+                return new DateTime(year, month, day, hour, minute, second);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Unable to parse sortable date and time.", nameof(@this));
+            }
+        }
 
         /// <summary>
         /// Removes all instances of the given character from a string.
@@ -270,36 +264,6 @@
         }
 
         /// <summary>
-        /// Formats a long into the closest bytes string.
-        /// </summary>
-        /// <param name="bytes">The bytes length.</param>
-        /// <returns>
-        /// The string representation of the current Byte object, formatted as specified by the format parameter.
-        /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
-
-        /// <summary>
-        /// Formats a long into the closest bytes string.
-        /// </summary>
-        /// <param name="bytes">The bytes length.</param>
-        /// <returns>
-        /// A copy of format in which the format items have been replaced by the string 
-        /// representations of the corresponding arguments.
-        /// </returns>
-        public static string FormatBytes(this ulong bytes)
-        {
-            int i;
-            double dblSByte = bytes;
-
-            for (i = 0; i < ByteSuffixes.Length && bytes >= 1024; i++, bytes /= 1024)
-            {
-                dblSByte = bytes / 1024.0;
-            }
-
-            return $"{dblSByte:0.##} {ByteSuffixes[i]}";
-        }
-
-        /// <summary>
         /// Truncates the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -312,7 +276,9 @@
             Truncate(value, maximumLength, string.Empty);
 
         /// <summary>
-        /// Truncates the specified value and append the omission last.
+        /// Truncates the specified string and appends the omission indicator
+        /// while at the same time, guaranteeing that the resulting string
+        /// never exceeds the specified maximum length.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>
@@ -327,10 +293,9 @@
                 return null;
 
             var ellipsis = omissionIndicator ?? string.Empty;
-            if (maximumLength < ellipsis.Length + 1)
-                throw new ArgumentOutOfRangeException(nameof(maximumLength));
-
-            return value.Length > maximumLength
+            return maximumLength < ellipsis.Length + 1
+                ? throw new ArgumentOutOfRangeException(nameof(maximumLength))
+                : value.Length > maximumLength
                 ? $"{value.Substring(0, maximumLength - ellipsis.Length)}{ellipsis}"
                 : value;
         }

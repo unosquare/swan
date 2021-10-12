@@ -18,7 +18,7 @@
     {
         private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
         private readonly object _syncRoot = new();
-        private readonly DelegateFactory Delegates;
+        private readonly CollectionDelegates Delegates;
 
         /// <summary>
         /// Creates a new instance of the <see cref="CollectionProxy"/> class.
@@ -230,7 +230,7 @@
         {
             return Collection is IDictionary dictionary
                 ? dictionary.GetEnumerator()
-                : new ListDictionaryEnumerator(this);
+                : new CollectionEnumerator(this);
         }
 
         /// <inheritdoc />
