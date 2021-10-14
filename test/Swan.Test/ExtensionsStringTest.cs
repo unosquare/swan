@@ -187,18 +187,6 @@
     }
 
     [TestFixture]
-    public class Indent
-    {
-        [TestCase("", null, 0)]
-        [TestCase("     Test", "Test", 5)]
-        [TestCase("Test", "Test", 0)]
-        public void WithValidParams_ReturnsAnIndentedString(string expected, string input, int spaces)
-        {
-            Assert.AreEqual(expected, input.Indent(spaces), $"Testing with {input}");
-        }
-    }
-
-    [TestFixture]
     public class TextPositionAt
     {
         [TestCase(0, 0, null, 0)]

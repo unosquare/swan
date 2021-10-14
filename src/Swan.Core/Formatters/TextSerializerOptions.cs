@@ -14,16 +14,23 @@
         /// Outputs Pascal-case, compact, JSON compliant sequences.
         /// No whitespace or indenting is written to the output.
         /// </summary>
-        public static readonly TextSerializerOptions JsonCompact = new() { WriteIndented = false };
+        public static readonly TextSerializerOptions JsonCompact = new()
+        {
+            WriteIndented = false
+        };
 
         /// <summary>
         /// Outputs camel-case, compact, JSON compliant sequences.
         /// No whitespace or indenting is written to the output.
         /// </summary>
-        public static readonly TextSerializerOptions JsonCompactCamel = new() { WriteIndented = false, UseCamelCase = true };
+        public static readonly TextSerializerOptions JsonCompactCamel = new()
+        {
+            WriteIndented = false,
+            UseCamelCase = true
+        };
 
         /// <summary>
-        /// 
+        /// Typically used for dumping and inspecting object contents.
         /// </summary>
         public static readonly TextSerializerOptions HumanReadable = new()
         {
@@ -33,8 +40,16 @@
             KeyValuePadding = -8,
             ObjectOpener = string.Empty,
             ObjectCloser = string.Empty,
-            OutputTypeNames = true
+            OutputTypeNames = true,
+            ValueMaxLength = 56,
+            StringQuotation = string.Empty
         };
+
+        /// <summary>
+        /// When greater than zero, truncates the values
+        /// to a maximum length.
+        /// </summary>
+        public int ValueMaxLength { get; init; }
 
         /// <summary>
         /// Gets a value indicating whether the serializer

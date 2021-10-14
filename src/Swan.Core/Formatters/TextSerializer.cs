@@ -1,6 +1,7 @@
 ﻿namespace Swan.Formatters
 {
     using Swan.Collections;
+    using Swan.Extensions;
     using Swan.Reflection;
     using System;
     using System.Collections;
@@ -9,7 +10,7 @@
     using System.Text.Json;
 
     /// <summary>
-    /// Represents a generic text serializer. 
+    /// Represents a generic text serializer.
     /// </summary>
     public static class TextSerializer
     {
@@ -27,7 +28,7 @@
             return Serialize(instance, options, stackTable, 0, 1).ToString();
         }
 
-        private static ReadOnlySpan<char> Serialize(object? instance,
+        private static string Serialize(object? instance,
             TextSerializerOptions options,
             StackTable stackTable,
             int stackDepth,
@@ -59,13 +60,11 @@
 
             var builder = new StringBuilder(256);
 
-            if (TryWriteAsDictionary(builder, proxy, instance, options, stackTable, stackDepth, indentDepth))
-                return builder.ToString();
-
-            if (TryWriteAsArray(builder, instance, options, stackTable, stackDepth, indentDepth))
-                return builder.ToString();
-
-            return WriteAsObject(builder, proxy, instance, options, stackTable, stackDepth, indentDepth);
+            return TryWriteAsDictionary(builder, proxy, instance, options, stackTable, stackDepth, indentDepth)
+                ? builder.ToString()
+                : TryWriteAsArray(builder, instance, options, stackTable, stackDepth, indentDepth)
+                ? builder.ToString()
+                : WriteAsObject(builder, proxy, instance, options, stackTable, stackDepth, indentDepth);
         }
 
         private static bool WillIncrementStack(object? value)
@@ -88,7 +87,7 @@
             return true;
         }
 
-        private static ReadOnlySpan<char> WriteAsString(TextSerializerOptions options, in ReadOnlySpan<char> value, bool isKeyName)
+        private static string WriteAsString(TextSerializerOptions options, string value, bool isKeyName)
         {
             var stringValue = isKeyName
                 ? FormatKeyName(value, options)
@@ -96,20 +95,19 @@
 
             var encodedValue = Encoding.UTF8.GetString(JsonEncodedText.Encode(stringValue).EncodedUtf8Bytes);
             var quotedValue = !isKeyName || options.QuotePropertyNames
-                ? $"{options.StringQuotation}{encodedValue}{options.StringQuotation}"
+                ? $"{options.StringQuotation}{encodedValue.Truncate(options.ValueMaxLength)}{options.StringQuotation}"
                 : encodedValue;
 
-            if (!isKeyName || !options.KeyValuePadding.HasValue)
-                return quotedValue;
-
-            return options.KeyValuePadding > 0
+            return !isKeyName || !options.KeyValuePadding.HasValue
+                ? quotedValue
+                : options.KeyValuePadding > 0
                 ? quotedValue.PadLeft(options.KeyValuePadding.Value)
                 : options.KeyValuePadding < 0
                 ? quotedValue.PadRight(Math.Abs(options.KeyValuePadding.Value))
                 : quotedValue;
         }
 
-        private static ReadOnlySpan<char> WriteJsonElement(JsonElement element, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth) =>
+        private static string WriteJsonElement(JsonElement element, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth) =>
              element.ValueKind switch
              {
                  JsonValueKind.Null => options.NullLiteral,
@@ -117,7 +115,7 @@
                  JsonValueKind.True => options.TrueLiteral,
                  JsonValueKind.Undefined => options.NullLiteral,
                  JsonValueKind.Number => element.ToString() ?? "0",
-                 JsonValueKind.String => WriteAsString(options, element.GetString(), false),
+                 JsonValueKind.String => WriteAsString(options, element.GetString()!, false),
                  JsonValueKind.Array => Serialize(
                      new JsonDynamicObject(element).Materialize(), options, stackTable, stackDepth + 1, indentDepth),
                  JsonValueKind.Object => Serialize(
@@ -127,7 +125,7 @@
 
         private static bool TryWriteAsDictionary(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
         {
-            if (!CollectionProxy.TryCreate(instance, out var dictionary))
+            if (!CollectionProxy.TryCreate(instance, out var dictionary) || dictionary.IsDictionary == false)
                 return false;
 
             var isFirst = true;
@@ -136,7 +134,7 @@
             BeginObject(options, $"({proxy.FullName})", builder);
             foreach (dynamic kvp in dictionary!)
             {
-                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Key))
+                if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Value))
                     continue;
 
                 if (options.IgnoreRepeatedReferences && stackTable.HasReference(kvp.Value))
@@ -243,25 +241,24 @@
             return builder.ToString();
         }
 
-        private static ReadOnlySpan<char> IndentString(TextSerializerOptions options, int indentDepth) => options.WriteIndented
+        private static string IndentString(TextSerializerOptions options, int indentDepth) => options.WriteIndented
             ? new(' ', indentDepth * options.IndentSpaces)
             : string.Empty;
 
-        private static ReadOnlySpan<char> FormatKeyName(in ReadOnlySpan<char> name, TextSerializerOptions options)
+        private static string FormatKeyName(string name, TextSerializerOptions options)
         {
-            if (name.IsEmpty)
-                return name;
-
-            return options.UseCamelCase && char.IsLetter(name[0]) && !char.IsLower(name[0])
+            return string.IsNullOrEmpty(name)
+                ? name
+                : options.UseCamelCase && char.IsLetter(name[0]) && !char.IsLower(name[0])
                 ? char.ToLowerInvariant(name[0]) + new string(name.Length > 1 ? name[1..] : string.Empty)
                 : name;
         }
 
-        private static void BeginObject(TextSerializerOptions options, in ReadOnlySpan<char> typeName, StringBuilder builder)
+        private static void BeginObject(TextSerializerOptions options, string typeName, StringBuilder builder)
         {
             builder.Append(options.ObjectOpener);
 
-            if (options.OutputTypeNames && !typeName.IsEmpty)
+            if (options.OutputTypeNames && !string.IsNullOrEmpty(typeName))
                 builder.Append(typeName);
 
             if (options.WriteIndented)

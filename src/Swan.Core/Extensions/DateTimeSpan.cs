@@ -5,10 +5,9 @@
     /// <summary>
     /// Represents a struct of DateTimeSpan to compare dates and get in 
     /// separate fields the amount of time between those dates.
-    /// 
-    /// Based on https://stackoverflow.com/a/9216404/1096693.
+    /// This code is based on https://stackoverflow.com/a/9216404/1096693.
     /// </summary>
-    public readonly struct DateTimeSpan
+    public readonly struct DateTimeSpan : IEquatable<DateTimeSpan>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeSpan"/> struct.
@@ -20,7 +19,7 @@
         /// <param name="minutes">The minutes.</param>
         /// <param name="seconds">The seconds.</param>
         /// <param name="milliseconds">The milliseconds.</param>
-        public DateTimeSpan(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds)
+        private DateTimeSpan(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds)
         {
             Years = years;
             Months = months;
@@ -103,7 +102,7 @@
 
             var phase = Phase.Years;
             var span = new DateTimeSpan();
-            var officialDay = current.Day;
+            var initialDay = current.Day;
 
             while (phase != Phase.Done)
             {
@@ -126,9 +125,9 @@
                         {
                             phase = Phase.Days;
                             current = current.AddMonths(months);
-                            if (current.Day < officialDay &&
-                                officialDay <= DateTime.DaysInMonth(current.Year, current.Month))
-                                current = current.AddDays(officialDay - current.Day);
+                            if (current.Day < initialDay &&
+                                initialDay <= DateTime.DaysInMonth(current.Year, current.Month))
+                                current = current.AddDays(initialDay - current.Day);
                         }
                         else
                         {
@@ -170,5 +169,34 @@
             Days,
             Done,
         }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj) =>
+            obj is not null && obj is DateTimeSpan dt && dt == this;
+
+        /// <inheritdoc />
+        public bool Equals(DateTimeSpan other) =>
+            this == other;
+
+        /// <inheritdoc />
+        public override int GetHashCode() =>
+            HashCode.Combine(Years, Months, Days, Hours, Minutes, Seconds, Milliseconds);
+
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{Years} years, {Months} months, {Days} days, {Hours}:{Minutes}:{Seconds}.{Milliseconds}";
+
+        /// <inheritdoc />
+        public static bool operator ==(DateTimeSpan left, DateTimeSpan right) =>
+            left.Years == right.Years &&
+            left.Months == right.Months &&
+            left.Days == right.Days &&
+            left.Hours == right.Hours &&
+            left.Minutes == right.Minutes &&
+            left.Seconds == right.Seconds &&
+            left.Milliseconds == right.Milliseconds;
+
+        /// <inheritdoc />
+        public static bool operator !=(DateTimeSpan left, DateTimeSpan right) => !(left == right);
     }
 }

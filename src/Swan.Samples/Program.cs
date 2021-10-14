@@ -55,10 +55,8 @@
     public static partial class Program
     {
 
-        private static void Sketchpad()
+        private static void CsvSketchpad()
         {
-            
-
             var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
             var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));
             using var csvReader = new CsvObjectReader<MockInfo>(csvStream, Encoding.UTF8);
@@ -92,9 +90,10 @@
                 var it = proxy["1"];
                 proxy.Clear();
             }
+        }
 
-            
-
+        private static void ChangeTypeSketchpad()
+        {
             var source = new int?();
             var e1 = FirstEnum.Two;
             var e2 = SecondEnum.Eleven;
@@ -117,7 +116,10 @@
             {
 
             }
+        }
 
+        private static void Sketchpad()
+        {
             var x = new ExpandoObject();
             (x as IDictionary<string, object?>).Add("Hello World", 2);
 
@@ -129,10 +131,8 @@
                 .RemoveMapping("Value")
                 .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
 
-            foreach (var entry in reader)
-            {
-                var currentEntry = entry;
-            }
+            
+            var readerEntries = reader.ToList();
 
             dynamic objectOne = new ExpandoObject();
             dynamic objectTwo = new ExpandoObject();

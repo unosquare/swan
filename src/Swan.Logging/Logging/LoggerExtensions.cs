@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Text;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -612,6 +613,30 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Indents the specified multi-line text with the given amount of leading spaces
+        /// per line.
+        /// </summary>
+        /// <param name="value">The text.</param>
+        /// <param name="spaces">The spaces.</param>
+        /// <returns>A <see cref="string" /> that represents the current object.</returns>
+        internal static string Indent(this string? value, int spaces = 4)
+        {
+            value ??= string.Empty;
+            if (spaces <= 0) return value;
+
+            var lines = value.ToLines();
+            var builder = new StringBuilder();
+            var indentStr = new string(' ', spaces);
+
+            foreach (var line in lines)
+            {
+                builder.AppendLine($"{indentStr}{line}");
+            }
+
+            return builder.ToString().TrimEnd();
+        }
 
         private static void RemoveLogger(Func<ILogger, bool> criteria)
         {

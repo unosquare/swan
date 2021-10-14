@@ -15,31 +15,6 @@
         /// <returns>
         /// The string representing a human readable size in bytes.
         /// </returns>
-        public static string FormatByteSize(this long byteLength)
-        {
-            return byteLength < 0
-                ? $"-{Convert.ToUInt64(Math.Abs(byteLength)).FormatByteSize()}"
-                : Convert.ToUInt64(byteLength).FormatByteSize();
-        }
-
-        /// <summary>
-        /// Formats the specified bytes count as a human readable size in bytes.
-        /// In the context of this method, one kilobyte is 1024 bytes.
-        /// </summary>
-        /// <param name="byteLength">The length in number of bytes.</param>
-        /// <returns>
-        /// The string representing a human readable size in bytes.
-        /// </returns>
-        public static string FormatByteSize(this int byteLength) => Convert.ToInt64(byteLength).FormatByteSize();
-
-        /// <summary>
-        /// Formats the specified bytes count as a human readable size in bytes.
-        /// In the context of this method, one kilobyte is 1024 bytes.
-        /// </summary>
-        /// <param name="byteLength">The length in number of bytes.</param>
-        /// <returns>
-        /// The string representing a human readable size in bytes.
-        /// </returns>
         public static string FormatByteSize(this ulong byteLength)
         {
             const ulong KiloByte = 1024;
@@ -62,5 +37,29 @@
             }
         }
 
+        /// <summary>
+        /// Formats the specified bytes count as a human readable size in bytes.
+        /// In the context of this method, one kilobyte is 1024 bytes.
+        /// </summary>
+        /// <param name="byteLength">The length in number of bytes.</param>
+        /// <returns>
+        /// The string representing a human readable size in bytes.
+        /// </returns>
+        public static string FormatByteSize(this long byteLength)
+        {
+            return byteLength < 0
+                ? $"-{Convert.ToUInt64(Math.Abs(byteLength)).FormatByteSize()}"
+                : Convert.ToUInt64(byteLength).FormatByteSize();
+        }
+
+        /// <summary>
+        /// Formats the specified bytes count as a human readable size in bytes.
+        /// In the context of this method, one kilobyte is 1024 bytes.
+        /// </summary>
+        /// <param name="byteLength">The length in number of bytes.</param>
+        /// <returns>
+        /// The string representing a human readable size in bytes.
+        /// </returns>
+        public static string FormatByteSize(this int byteLength) => Convert.ToInt64(byteLength).FormatByteSize();
     }
 }

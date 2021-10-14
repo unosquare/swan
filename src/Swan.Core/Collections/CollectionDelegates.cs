@@ -10,7 +10,6 @@
 
     internal class CollectionDelegates
     {
-        private readonly Lazy<Func<IEnumerator>> GetEnumeratorLazy;
         private readonly Lazy<Action?> ClearLazy;
         private readonly Lazy<Action<object?>?> RemoveLazy;
         private readonly Lazy<Action<object?>?> AddValueLazy;
@@ -26,14 +25,6 @@
 
         public CollectionDelegates(IEnumerable target, ICollectionInfo info)
         {
-            GetEnumeratorLazy = new(() =>
-            {
-                info.SourceType.TryFindPublicMethod(nameof(IEnumerable.GetEnumerator), null, out var method);
-                return Expression.Lambda<Func<IEnumerator>>(Expression.Convert(
-                    Expression.Call(Expression.Constant(target), method!),
-                    typeof(IEnumerator))).Compile();
-            }, true);
-
             ClearLazy = new(() => info.SourceType.TryFindPublicMethod(nameof(IList.Clear), null, out var method)
                 ? method.CreateDelegate<Action>(target)
                 : default, true);
@@ -284,8 +275,6 @@
 
             }, true);
         }
-
-        public Func<IEnumerator> GetEnumerator => GetEnumeratorLazy.Value;
 
         public Action? Clear => ClearLazy.Value;
 

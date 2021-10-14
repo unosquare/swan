@@ -7,7 +7,7 @@
 
     /// <summary>
     /// Provides a <see cref="CsvReader"/> that is schema-aware
-    /// and is able to map records into a <see cref="Dictionary{TKey, TValue}"/>
+    /// and is able to map records into a dictionary where both, keys and values are strings.
     /// </summary>
     public class CsvDictionaryReader : CsvReader<CsvDictionaryReader, Dictionary<string, string?>>
     {

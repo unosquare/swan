@@ -223,7 +223,8 @@
         }
 
         /// <inheritdoc />
-        public IEnumerator GetEnumerator() => Delegates.GetEnumerator.Invoke();
+        public IEnumerator GetEnumerator() =>
+            (Collection as IEnumerable)?.GetEnumerator() ?? throw new InvalidCastException();
 
         /// <inheritdoc />
         IDictionaryEnumerator IDictionary.GetEnumerator()

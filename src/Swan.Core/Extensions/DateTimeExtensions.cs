@@ -48,14 +48,16 @@
         /// </summary>
         /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
         /// <returns>Seconds since Unix epoch.</returns>
-        public static long ToUnixTimeSeconds(this DateTime @this) => new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeSeconds();
+        public static long ToUnixTimeSeconds(this DateTime @this) =>
+            new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeSeconds();
 
         /// <summary>
         /// Get this datetime as a Unix epoch timestamp in milliseconds since Jan 1, 1970, midnight UTC.
         /// </summary>
         /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
         /// <returns>Milliseconds since Unix epoch.</returns>
-        public static long ToUnixTimeMilliseconds(this DateTime @this) => new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeMilliseconds();
+        public static long ToUnixTimeMilliseconds(this DateTime @this) =>
+            new DateTimeOffset(@this).ToUniversalTime().ToUnixTimeMilliseconds();
 
         /// <summary>
         /// Compares a Date to another one and returns the difference as a <c>DateTimeSpan</c>.

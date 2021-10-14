@@ -30,7 +30,6 @@
 
             _currentIndex = elementCount - 1;
             return false;
-
         }
 
         public void Reset()

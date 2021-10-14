@@ -217,31 +217,35 @@
 
             try
             {
-                if (dateTimeParts.Length != 1 && dateTimeParts.Length != 2)
-                    throw new Exception();
+                if (dateTimeParts.Length is not 1 and not 2)
+                    throw new FormatException("No date or time could be parsed from the specified string.");
 
                 var dateParts = dateTimeParts[0].Split('-');
-                if (dateParts.Length != 3) throw new Exception();
+                if (dateParts.Length != 3)
+                    throw new FormatException("The date part must contain exactly 3 components separated by '-'");
 
-                var year = int.Parse(dateParts[0]);
-                var month = int.Parse(dateParts[1]);
-                var day = int.Parse(dateParts[2]);
+                if (!int.TryParse(dateParts[0], out var year) ||
+                    !int.TryParse(dateParts[1], out var month) ||
+                    !int.TryParse(dateParts[2], out var day))
+                    throw new FormatException("The components of the date part must be valid integers.");
 
                 if (dateTimeParts.Length > 1)
                 {
                     var timeParts = dateTimeParts[1].Split(':');
-                    if (timeParts.Length != 3) throw new Exception();
+                    if (timeParts.Length != 3)
+                        throw new FormatException("The time part must contain exactly 3 components separated by ':'");
 
-                    hour = int.Parse(timeParts[0]);
-                    minute = int.Parse(timeParts[1]);
-                    second = int.Parse(timeParts[2]);
+                    if (!int.TryParse(timeParts[0], out hour) ||
+                        !int.TryParse(timeParts[1], out minute) ||
+                        !int.TryParse(timeParts[2], out second))
+                        throw new FormatException("The components of the time part must be valid integers.");
                 }
 
                 return new DateTime(year, month, day, hour, minute, second);
             }
-            catch (Exception)
+            catch (Exception innerEx)
             {
-                throw new ArgumentException("Unable to parse sortable date and time.", nameof(@this));
+                throw new ArgumentException($"Unable to parse sortable date and time '{@this}'.", nameof(@this), innerEx);
             }
         }
 
@@ -264,10 +268,12 @@
         }
 
         /// <summary>
-        /// Truncates the specified value.
+        /// Truncates the specified string and appends the omission indicator
+        /// while at the same time, guaranteeing that the resulting string
+        /// never exceeds the specified maximum length.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="maximumLength">The maximum length.</param>
+        /// <param name="maximumLength">The maximum character length. If zero or negative, the string is not truncated.</param>
         /// <returns>
         /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length.
@@ -281,7 +287,7 @@
         /// never exceeds the specified maximum length.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="maximumLength">The maximum length.</param>
+        /// <param name="maximumLength">The maximum character length. If zero or negative, the string is not truncated.</param>
         /// <param name="omissionIndicator">The a string showing that the string has been truncated, such as an ellipsis.</param>
         /// <returns>
         /// Retrieves a substring from this instance.
@@ -292,11 +298,14 @@
             if (value == null)
                 return null;
 
+            if (maximumLength <= 0)
+                return value;
+
             var ellipsis = omissionIndicator ?? string.Empty;
             return maximumLength < ellipsis.Length + 1
                 ? throw new ArgumentOutOfRangeException(nameof(maximumLength))
                 : value.Length > maximumLength
-                ? $"{value.Substring(0, maximumLength - ellipsis.Length)}{ellipsis}"
+                ? $"{value[..(maximumLength - ellipsis.Length)]}{ellipsis}"
                 : value;
         }
 
@@ -314,8 +323,8 @@
         /// <param name="chars">
         /// An array of <see cref="char"/> that contains characters to find.
         /// </param>
-        public static bool Contains(this string value, params char[] chars) =>
-            (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
+        public static bool Contains(this string value, params char[] chars) => chars is not null
+            && (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
 
         /// <summary>
         /// Replaces all chars in a string.
