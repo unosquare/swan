@@ -1,0 +1,54 @@
+# This GitHub Action bumps up the <Version /> tag in the csproj file depending on the commit's comment:
+#   SemVer format is: MAJOR.MINOR.PATCH-PRERELEASE
+#   If the commit's comment contains the string [MAJOR], [MINOR] or [PATCH] it bumps it accordingly.
+#   If no matching bump commment is found, the PRERELEASE component gets bumped.
+# Finally, it builds the project in .net 5 and .net 6, and publishes it to the local GitHub package registry.
+# by @geoperez and @mariodivece
+name: Pack and Publish
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: 'Swan.Core'
+      PROJECT_FILE_PATH: '/home/runner/work/swan/swan/src/Swan.Core/Swan.Core.csproj'
+      BUILD_PATH: '/home/runner/work/swan/swan/src/Swan.Core/bin/Release'
+      GITHUB_TOKEN: ${{ secrets.GPR_ACCESS_TOKEN }}
+      PRE_VERSIONS_KEPT: 10
+    steps:
+    - uses: actions/checkout@v2
+    - name: 🥓 Setup .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: 🍟 Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: 🚕 Restore dependencies
+      run: dotnet restore
+    - name: 🐝 Bump version
+      uses: unosquare/bump-nuget-version@master 
+      with:
+        level: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
+        csproj: ${{ env.PROJECT_FILE_PATH }}
+    - name: 🏗 Build and pack nuget
+      run: |
+        dotnet build -c Release
+        dotnet pack --configuration Release
+    - name: 🍱 Publish nuget
+      uses: unosquare/publish-nuget-package@master 
+      with:
+        access-token: ${{ env.GITHUB_TOKEN }}
+        path: ${{ env.BUILD_PATH }}
+    - name: 📌 Commit
+      uses: EndBug/add-and-commit@v7
+    - name: 🌿 Clean up stale packages
+      uses: actions/delete-package-versions@v2
+      with: 
+        package-name: ${{ env.PACKAGE_NAME }}
+        min-versions-to-keep: ${{ env.PRE_VERSIONS_KEPT }}
+        delete-only-pre-release-versions: 'true'
