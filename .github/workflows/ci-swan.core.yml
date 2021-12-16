@@ -20,6 +20,8 @@ jobs:
       PRE_VERSIONS_KEPT: 10
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ env.GITHUB_TOKEN }}
     - name: 🥓 Setup .NET 5
       uses: actions/setup-dotnet@v1
       with:
