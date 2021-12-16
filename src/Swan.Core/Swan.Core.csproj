@@ -16,7 +16,7 @@
 		<AssemblyTitle>Unosquare SWAN</AssemblyTitle>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<RootNamespace>Swan</RootNamespace>
-		<Version>5.0.2-2</Version>
+		<Version>5.0.2-3</Version>
 		<Authors>Unosquare</Authors>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
 		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
