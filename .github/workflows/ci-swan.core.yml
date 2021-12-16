@@ -16,7 +16,7 @@ jobs:
       PACKAGE_NAME: 'Swan.Core'
       PROJECT_FILE_PATH: '/home/runner/work/swan/swan/src/Swan.Core/Swan.Core.csproj'
       BUILD_PATH:        '/home/runner/work/swan/swan/src/Swan.Core/bin/Release'
-      GITHUB_TOKEN: ${{ secrets.GPR_ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.MAD_PACKAGE_MGMNT }}
       PRE_VERSIONS_KEPT: 10
     steps:
     - uses: actions/checkout@v2
