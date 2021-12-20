@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Text.Json;
+    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -15,7 +16,7 @@
             PropertyNamingPolicy = null, // Pascal case
             PropertyNameCaseInsensitive = true,
             WriteIndented = false,
-            ReferenceHandler = null, // TODO: In .net 6.0 change this to IgnoreCycles
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
             IgnoreReadOnlyFields = false,
             IgnoreReadOnlyProperties = false,
             IncludeFields = true

@@ -4,7 +4,7 @@
         <Description>Unit Testing project</Description>
         <Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>Unosquare.Swan.Test</AssemblyName>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
