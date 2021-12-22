@@ -4,16 +4,16 @@ on:
       project-name:
         description: 'The name of the swan project to build. Must match the directory name.'
         required: true
-        type: text
+        type: string
       base-path:
         description: 'The working directory base path with a trailing fwd-slash'     
         required: true
         default: '/home/runner/work/swan/swan/src/'
-        type: text
+        type: string
       github-token:
         description: 'The GitHub PAT token to perform checkout and publish.'
         default: '${{ github.token }}'
-        type: text
+        type: string
         required: true
       prerelease-versions-kept:
         description: 'The number of pre-release versions kept in the GitHup registry.'
