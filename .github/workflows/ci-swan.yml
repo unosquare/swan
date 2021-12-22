@@ -11,17 +11,17 @@ on:
         type: string
       base-path:
         description: 'The working directory base path with a trailing fwd-slash'     
-        required: true
+        required: false
         default: '/home/runner/work/swan/swan/src/'
         type: string
       prerelease-versions-kept:
         description: 'The number of pre-release versions kept in the GitHup registry.'
-        required: true
+        required: false
         type: number
         default: 10
       version-bump-level:
         description: 'The version component to bump after publishing.'
-        required: true
+        required: false
         default: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
         type: string
 jobs:
