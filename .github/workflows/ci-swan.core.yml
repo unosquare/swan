@@ -25,6 +25,7 @@ jobs:
           6.0.x
           
   build-and-publish:
+    needs: setup
     uses: unosquare/swan/.github/workflows/ci-swan.yml@master
     with:
       project-name: 'Swan.Core'
