@@ -11,14 +11,16 @@ on:
 
 jobs:
   swan-core:
-    uses: unosquare/swan/.github/workflows/ci-swan.yml@master
+    uses: unosquare/swan/.github/workflows/lib-ci.yml@master
     with:
+      source-path: 'src/'
       project-name: 'Swan.Core'
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
   swan-logging:
-    uses: unosquare/swan/.github/workflows/ci-swan.yml@master
+    uses: unosquare/swan/.github/workflows/lib-ci.yml@master
     with:
+      source-path: 'src/'
       project-name: 'Swan.Logging'
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}

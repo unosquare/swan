@@ -6,16 +6,21 @@ on:
         required: true
     inputs:
       project-name:
-        description: 'The name of the swan project to build. Must match the directory name.'
+        description: 'The name of the project to build. Must match the directory name.'
         required: true
         type: string
       base-path:
-        description: 'The working directory base path with a trailing fwd-slash'     
+        description: 'The working directory base path with a trailing forward-slash'     
         required: false
-        default: '/home/runner/work/swan/swan/src/'
+        default: '/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/src/'
+        type: string
+      source-path:
+        description: 'The source path relative to base path with a trailing forward-slash'     
+        required: false
+        default: ''
         type: string
       prerelease-versions-kept:
-        description: 'The number of pre-release versions kept in the GitHup registry.'
+        description: 'The number of pre-release versions kept in the GitHub registry.'
         required: false
         type: number
         default: 10
@@ -25,7 +30,7 @@ on:
         default: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
         type: string
 jobs:
-  ci:
+  lib-ci:
     runs-on: ubuntu-latest
     steps:
     - name: 🧑‍💻 Checkout codebase
@@ -42,15 +47,15 @@ jobs:
       uses: unosquare/bump-nuget-version@master 
       with:
         level: ${{ inputs.version-bump-level }}
-        csproj: '${{ inputs.base-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj'
+        csproj: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj'
     - name: 🏗 Build and pack nuget
       run: |
-        dotnet pack '${{ inputs.base-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release 
+        dotnet pack '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release 
     - name: 🍱 Publish nuget
       uses: unosquare/publish-nuget-package@master
       with:
         access-token: ${{ secrets.github-token }}
-        path: '${{ inputs.base-path }}${{ inputs.project-name }}/bin/Release'
+        path: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release'
     - name: 📌 Commit
       uses: EndBug/add-and-commit@v7
       with:
