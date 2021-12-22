@@ -15,7 +15,7 @@
 	<PropertyGroup>
 		<PackageId>Unosquare.Swan.Core</PackageId>
 		<Version>6.0.2-beta.4</Version>
-		<Authors>mariodivece, unosquare</Authors>
+		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Core</AssemblyTitle>
 		<Description>
@@ -29,9 +29,16 @@
 		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
-		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
-		<PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
+		<PackageTags>best-practices netcore network objectmapper json-serialization utilities reflection</PackageTags>
+		<PackageIcon>swan-logo-32.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\swan-logo-32.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 </Project>

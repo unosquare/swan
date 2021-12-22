@@ -14,7 +14,7 @@
 	<PropertyGroup>
 		<Description>Logging and Terminal utilities for SWAN.</Description>
 		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
-		<AssemblyTitle>Unosquare SWAN</AssemblyTitle>
+		<AssemblyTitle>SWAN Logging</AssemblyTitle>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Version>5.0.1</Version>
 		<Authors>Unosquare</Authors>
