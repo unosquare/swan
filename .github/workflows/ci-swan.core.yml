@@ -18,7 +18,7 @@ jobs:
       with:
         token: ${{ github.event.inputs.github-token }}
     - name: 👍 Build and Publish
-      uses: unosquare/swan/.github/actions/ci-swan@master
+      uses: ./.github/actions/ci-swan
       with:
         project-name: 'Swan.Core'
         github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
