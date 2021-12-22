@@ -12,7 +12,7 @@ on:
         type: text
       github-token:
         description: 'The GitHub PAT token to perform checkout and publish.'
-        default: ${{ github.token }}
+        default: '${{ github.token }}'
         type: text
         required: true
       prerelease-versions-kept:
@@ -23,7 +23,7 @@ on:
       version-bump-level:
         description: 'The version component to bump after publishing.'
         required: true
-        default: ${{ contains(env.COMMIT_MESSAGE, '[PATCH]') && 'patch' || contains(env.COMMIT_MESSAGE, '[MINOR]') && 'minor' || contains(env.COMMIT_MESSAGE, '[MAJOR]') && 'major' || 'prerelease' }}
+        default: '${{ contains(env.COMMIT_MESSAGE, '[PATCH]') && 'patch' || contains(env.COMMIT_MESSAGE, '[MINOR]') && 'minor' || contains(env.COMMIT_MESSAGE, '[MAJOR]') && 'major' || 'prerelease' }}'
         type: choice
         options:
          - prerelease
