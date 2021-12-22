@@ -1,4 +1,4 @@
-﻿name: Build and Publish to Nuget.org Registry
+﻿name: Lib - Build and Push (Nuget.org)
 on: 
   workflow_call:
     secrets:
@@ -40,4 +40,4 @@ jobs:
     - name: 🏗 Build, Pack and Publish to Nuget.org
       run: |
         dotnet pack ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj --configuration Release -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-        dotnet nuget push ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nuget-api-key }}
+        dotnet nuget push ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nuget-api-key }}

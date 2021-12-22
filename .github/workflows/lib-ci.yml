@@ -1,4 +1,4 @@
-name: Build and Publish to GitHub Registry
+name: Lib - Build, Bump and Push (GitHub Registry)
 on: 
   workflow_call:
     secrets:
