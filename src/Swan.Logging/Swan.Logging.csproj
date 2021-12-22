@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>Swan.Logging</AssemblyName>
 		<RootNamespace>Swan</RootNamespace>
 		<TargetFramework>net6.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
@@ -12,21 +11,31 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Description>Logging and Terminal utilities for SWAN.</Description>
+		<PackageId>Swan.Logging</PackageId>
+		<Version>6.0.2-beta.4</Version>
+		<Authors>mariodivece, geoperez, unosquare</Authors>
+		<Company>Unosquare</Company>
+		<AssemblyTitle>Unosquare SWAN Logging</AssemblyTitle>
+		<Description>
+			Logging subsystem and a handy Terminal abstraction.
+		</Description>
 		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
-		<AssemblyTitle>SWAN Logging</AssemblyTitle>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Version>5.0.2-4</Version>
-		<Authors>Unosquare</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
-		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
-		<PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
+		<PackageTags>logging terminal swan</PackageTags>
+		<PackageIcon>swan-logo-32.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Swan.Core\Swan.Core.csproj" />
+		<None Include="..\..\swan-logo-32.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Swan.Core" Version="6.0.2-beta.17" />
+	</ItemGroup>
 </Project>
