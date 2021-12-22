@@ -18,7 +18,7 @@ jobs:
       with:
         token: ${{ secrets.MAD_PACKAGE_MGMNT }}
     - name: 👍 Build and Publish
-      uses: ./.github/actions/ci-swan
+      uses: ./.github/workflows/ci-swan.yml
       with:
         project-name: 'Swan.Core'
         github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
