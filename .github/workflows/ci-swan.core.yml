@@ -27,4 +27,5 @@ jobs:
       uses: ./.github/actions/ci
       with:
         project-name: 'Swan.Core'
+      secrets:
         github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
