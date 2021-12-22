@@ -27,7 +27,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: |
-            6.0.x
+          5.0.x
+          6.0.x
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
       with:
