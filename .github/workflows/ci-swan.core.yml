@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     steps:
     - name: 🧑‍💻 Checkout codebase
@@ -23,8 +23,10 @@ jobs:
         dotnet-version: |
           5.0.x
           6.0.x
-    - name: 👍 Build and Publish
-      uses: ./.github/actions/ci
-      with:
-        project-name: 'Swan.Core'
-        github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
+          
+  build-and-publish:
+    uses: ./.github/workflows/ci-swan.yml@master
+    with:
+      project-name: 'Swan.Core'
+    secrets:
+      github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
