@@ -1,0 +1,66 @@
+on: 
+  workflow_dispatch:
+    inputs:
+      project-name:
+        description: 'The name of the swan project to build. Must match the directory name.'
+        required: true
+        type: text
+      base-path:
+        description: 'The working directory base path with a trailing fwd-slash'     
+        required: true
+        default: '/home/runner/work/swan/swan/src/'
+        type: text
+      github-token:
+        description: 'The GitHub PAT token to perform checkout and publish.'
+        default: ${{ github.token }}
+        type: text
+        required: true
+      prerelease-versions-kept:
+        description: 'The number of pre-release versions kept in the GitHup registry.'
+        required: true
+        type: number
+        default: '10'
+      version-bump-level:
+        description: 'The version component to bump after publishing.'
+        required: true
+        default: ${{ contains(env.COMMIT_MESSAGE, '[PATCH]') && 'patch' || contains(env.COMMIT_MESSAGE, '[MINOR]') && 'minor' || contains(env.COMMIT_MESSAGE, '[MAJOR]') && 'major' || 'prerelease' }}
+        type: choice
+        options:
+         - prerelease
+         - patch
+         - minor
+         - major
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🥓 Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          5.0.x
+          6.0.x
+    - name: 🐝 Bump version
+      uses: unosquare/bump-nuget-version@master 
+      with:
+        level: ${{ github.event.inputs.version-bump-level }}
+        csproj: '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/${{ github.event.inputs.project-name }}.csproj'
+    - name: 🏗 Build and pack nuget
+      run: |
+        dotnet pack '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/${{ github.event.inputs.project-name }}.csproj' --configuration Release 
+    - name: 🍱 Publish nuget
+      uses: unosquare/publish-nuget-package@master
+      with:
+        access-token: ${{ github.event.inputs.github-token }}
+        path: '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/bin/Release'
+    - name: 📌 Commit
+      uses: EndBug/add-and-commit@v7
+      with:
+        message: '[skip ci]'
+    - name: 🌿 Clean up stale packages
+      uses: actions/delete-package-versions@v2
+      with: 
+        package-name: ${{ github.event.inputs.project-name }}
+        min-versions-to-keep: ${{ github.event.inputs.prerelease-versions-kept }}
+        delete-only-pre-release-versions: 'true'
+  
