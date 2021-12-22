@@ -25,7 +25,7 @@ on:
         default: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
         type: string
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
     - name: 🧑‍💻 Checkout codebase
