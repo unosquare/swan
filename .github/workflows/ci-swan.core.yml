@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-publish:
+  swan-core:
     uses: unosquare/swan/.github/workflows/ci-swan.yml@master
     with:
       project-name: 'Swan.Core'
