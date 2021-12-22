@@ -13,7 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: unosquare/swan/.github/actions/ci-swan@master
+    - name: 🧑‍💻 Checkout codebase
+      uses: actions/checkout@v2
+      with:
+        token: ${{ github.event.inputs.github-token }}
+    - name: 👍 Build and Publish
+      uses: unosquare/swan/.github/actions/ci-swan@master
       with:
         project-name: 'Swan.Core'
         github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
