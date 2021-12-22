@@ -12,43 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PACKAGE_NAME:      'Swan.Core'
-      PROJECT_FILE_PATH: '/home/runner/work/swan/swan/src/Swan.Core/Swan.Core.csproj'
-      BUILD_PATH:        '/home/runner/work/swan/swan/src/Swan.Core/bin/Release'
-      GITHUB_TOKEN:      ${{ secrets.MAD_PACKAGE_MGMNT }}
-      PRE_VERSIONS_KEPT: 10
-      COMMIT_MESSAGE:    ${{ github.event.head_commit.message }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: unosquare/swan/.github/actions/ci-swan@master
       with:
-        token: ${{ env.GITHUB_TOKEN }}
-    - name: 🥓 Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: |
-          5.0.x
-          6.0.x
-    - name: 🐝 Bump version
-      uses: unosquare/bump-nuget-version@master 
-      with:
-        level: ${{ contains(env.COMMIT_MESSAGE, '[PATCH]') && 'patch' || contains(env.COMMIT_MESSAGE, '[MINOR]') && 'minor' || contains(env.COMMIT_MESSAGE, '[MAJOR]') && 'major' || 'prerelease' }}
-        csproj: ${{ env.PROJECT_FILE_PATH }}
-    - name: 🏗 Build and pack nuget
-      run: |
-        dotnet pack ${{ env.PROJECT_FILE_PATH }} --configuration Release 
-    - name: 🍱 Publish nuget
-      uses: unosquare/publish-nuget-package@master
-      with:
-        access-token: ${{ env.GITHUB_TOKEN }}
-        path: ${{ env.BUILD_PATH }}
-    - name: 📌 Commit
-      uses: EndBug/add-and-commit@v7
-      with:
-        message: '[skip ci]'
-    - name: 🌿 Clean up stale packages
-      uses: actions/delete-package-versions@v2
-      with: 
-        package-name: ${{ env.PACKAGE_NAME }}
-        min-versions-to-keep: ${{ env.PRE_VERSIONS_KEPT }}
-        delete-only-pre-release-versions: 'true'
+        project-name: 'Swan.Core'
+        github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
