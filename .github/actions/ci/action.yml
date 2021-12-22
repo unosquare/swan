@@ -1,5 +1,9 @@
 on: 
   workflow_dispatch:
+    secrets:
+      github-token:
+        description: 'The GitHub PAT token to perform checkout and publish.'
+        required: true
     inputs:
       project-name:
         description: 'The name of the swan project to build. Must match the directory name.'
@@ -10,11 +14,6 @@ on:
         required: true
         default: '/home/runner/work/swan/swan/src/'
         type: string
-      github-token:
-        description: 'The GitHub PAT token to perform checkout and publish.'
-        default: '${{ github.token }}'
-        type: string
-        required: true
       prerelease-versions-kept:
         description: 'The number of pre-release versions kept in the GitHup registry.'
         required: true
@@ -23,8 +22,8 @@ on:
       version-bump-level:
         description: 'The version component to bump after publishing.'
         required: true
-        default: "${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}"
-        type: choice
+        default: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
+        type: string
         options:
          - prerelease
          - patch
@@ -37,16 +36,16 @@ jobs:
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
       with:
-        level: ${{ github.event.inputs.version-bump-level }}
-        csproj: '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/${{ github.event.inputs.project-name }}.csproj'
+        level: ${{ inputs.version-bump-level }}
+        csproj: '${{ inputs.base-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj'
     - name: 🏗 Build and pack nuget
       run: |
-        dotnet pack '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/${{ github.event.inputs.project-name }}.csproj' --configuration Release 
+        dotnet pack '${{ inputs.base-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release 
     - name: 🍱 Publish nuget
       uses: unosquare/publish-nuget-package@master
       with:
-        access-token: ${{ github.event.inputs.github-token }}
-        path: '${{ github.event.inputs.base-path }}${{ github.event.inputs.project-name }}/bin/Release'
+        access-token: ${{ secrets.github-token }}
+        path: '${{ inputs.base-path }}${{ inputs.project-name }}/bin/Release'
     - name: 📌 Commit
       uses: EndBug/add-and-commit@v7
       with:
@@ -54,7 +53,7 @@ jobs:
     - name: 🌿 Clean up stale packages
       uses: actions/delete-package-versions@v2
       with: 
-        package-name: ${{ github.event.inputs.project-name }}
-        min-versions-to-keep: ${{ github.event.inputs.prerelease-versions-kept }}
+        package-name: ${{ inputs.project-name }}
+        min-versions-to-keep: ${{ inputs.prerelease-versions-kept }}
         delete-only-pre-release-versions: 'true'
   
