@@ -23,7 +23,7 @@ on:
       version-bump-level:
         description: 'The version component to bump after publishing.'
         required: true
-        default: '${{ contains(env.COMMIT_MESSAGE, '[PATCH]') && 'patch' || contains(env.COMMIT_MESSAGE, '[MINOR]') && 'minor' || contains(env.COMMIT_MESSAGE, '[MAJOR]') && 'major' || 'prerelease' }}'
+        default: "${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}"
         type: choice
         options:
          - prerelease
@@ -34,12 +34,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: 🥓 Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: |
-          5.0.x
-          6.0.x
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
       with:
