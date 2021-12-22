@@ -10,14 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🧑‍💻 Checkout codebase
-      uses: actions/checkout@v2
-      
   build-and-publish:
-    needs: setup
     uses: unosquare/swan/.github/workflows/ci-swan.yml@master
     with:
       project-name: 'Swan.Core'
