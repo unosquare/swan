@@ -29,8 +29,6 @@ jobs:
     steps:
     - name: 🧑‍💻 Checkout codebase
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.github-token }}
     - name: 🥓 Setup .NET
       uses: actions/setup-dotnet@v1
       with:
