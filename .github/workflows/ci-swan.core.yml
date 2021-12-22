@@ -16,7 +16,7 @@ jobs:
     - name: 🧑‍💻 Checkout codebase
       uses: actions/checkout@v2
       with:
-        token: ${{ github.event.inputs.github-token }}
+        token: ${{ secrets.MAD_PACKAGE_MGMNT }}
     - name: 👍 Build and Publish
       uses: ./.github/actions/ci-swan
       with:
