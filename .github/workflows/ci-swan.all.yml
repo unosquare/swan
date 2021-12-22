@@ -4,7 +4,7 @@
 #   If no matching bump commment is found, the PRERELEASE component gets bumped.
 # Finally, it builds the project in .net 5 and .net 6, and publishes it to the local GitHub package registry.
 # by @geoperez and @mariodivece
-name: Pack and Publish
+name: Pack and Publish SWAN Libraries
 on:
   push:
     branches: [ master ]

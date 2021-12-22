@@ -1,0 +1,43 @@
+﻿name: Build and Publish to Nuget.org Registry
+on: 
+  workflow_call:
+    secrets:
+      nuget-api-key:
+        description: 'The Nuget.org publish API key to push the Nuget package.'
+        required: true
+    inputs:
+      project-name:
+        description: 'The name of the project to build. Must match the directory name.'
+        required: true
+        type: string
+      base-path:
+        description: 'The working directory base path with a trailing forward-slash'     
+        required: false
+        default: '/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/'
+        type: string
+      source-path:
+        description: > 
+            The source path relative to the base path with a trailing forward-slash.
+            For example, if the project folder is in a subfolder called src, then this value needs to be set to src/
+            If there is no subfolder, just leave it empty.
+        required: false
+        default: ''
+        type: string
+jobs:
+  lib-publish-nuget:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🧑‍💻 Checkout codebase
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.github-token }}
+    - name: 🥓 Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          5.0.x
+          6.0.x
+    - name: 🏗 Build, Pack and Publish to Nuget.org
+      run: |
+        dotnet pack ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj --configuration Release -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+        dotnet nuget push ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nuget-api-key }}
