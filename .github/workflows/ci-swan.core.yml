@@ -15,15 +15,7 @@ jobs:
     steps:
     - name: 🧑‍💻 Checkout codebase
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.MAD_PACKAGE_MGMNT }}
-    - name: 🥓 Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: |
-          5.0.x
-          6.0.x
-          
+      
   build-and-publish:
     needs: setup
     uses: unosquare/swan/.github/workflows/ci-swan.yml@master
