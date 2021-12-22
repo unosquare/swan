@@ -16,7 +16,7 @@
 		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
 		<AssemblyTitle>SWAN Logging</AssemblyTitle>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Version>5.0.2-1</Version>
+		<Version>5.0.2-2</Version>
 		<Authors>Unosquare</Authors>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
 		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
