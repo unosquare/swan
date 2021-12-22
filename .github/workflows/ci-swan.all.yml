@@ -16,3 +16,9 @@ jobs:
       project-name: 'Swan.Core'
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
+  swan-logging:
+    uses: unosquare/swan/.github/workflows/ci-swan.yml@master
+    with:
+      project-name: 'Swan.Logging'
+    secrets:
+      github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
