@@ -1,5 +1,5 @@
 on: 
-  workflow_dispatch:
+  workflow_call:
     secrets:
       github-token:
         description: 'The GitHub PAT token to perform checkout and publish.'
@@ -18,17 +18,12 @@ on:
         description: 'The number of pre-release versions kept in the GitHup registry.'
         required: true
         type: number
-        default: '10'
+        default: 10
       version-bump-level:
         description: 'The version component to bump after publishing.'
         required: true
         default: ${{ contains(github.event.head_commit.message, '[PATCH]') && 'patch' || contains(github.event.head_commit.message, '[MINOR]') && 'minor' || contains(github.event.head_commit.message, '[MAJOR]') && 'major' || 'prerelease' }}
         type: string
-        options:
-         - prerelease
-         - patch
-         - minor
-         - major
 jobs:
   build:
     runs-on: ubuntu-latest
