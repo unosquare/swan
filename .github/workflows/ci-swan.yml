@@ -28,6 +28,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: 🧑‍💻 Checkout codebase
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.github-token }}
+    - name: 🥓 Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          5.0.x
+          6.0.x
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
       with:
