@@ -35,7 +35,11 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 	  <PackageReference Include="Swan.Core" Version="6.0.2-beta.17" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' != 'Release'">
+	  <ProjectReference Include="..\Swan.Core\Swan.Core.csproj" />
 	</ItemGroup>
 </Project>

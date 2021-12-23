@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test
 {
     using NUnit.Framework;
-    using Swan.Utilities;
+    using Swan.Gizmos;
 
     [TestFixture]
     public class PaginatorTest
