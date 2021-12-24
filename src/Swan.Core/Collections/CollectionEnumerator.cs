@@ -1,6 +1,6 @@
 ﻿namespace Swan.Collections;
 
-internal struct CollectionEnumerator : IDictionaryEnumerator
+internal struct CollectionEnumerator : IDictionaryEnumerator, IEnumerator<object?>
 {
     private int _currentIndex = -1;
 
@@ -15,7 +15,7 @@ internal struct CollectionEnumerator : IDictionaryEnumerator
 
     public object? Value => _currentIndex >= 0 ? Proxy[_currentIndex] : default;
 
-    public object Current => _currentIndex >= 0 ? Entry : default;
+    public object? Current => _currentIndex >= 0 ? Entry : default;
 
     private CollectionProxy Proxy { get; }
 
@@ -33,5 +33,10 @@ internal struct CollectionEnumerator : IDictionaryEnumerator
     public void Reset()
     {
         _currentIndex = -1;
+    }
+
+    void IDisposable.Dispose()
+    {
+        // placeholder
     }
 }

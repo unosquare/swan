@@ -158,7 +158,7 @@
         public static ConsoleKeyInfo ReadPrompt(
             string title,
             IDictionary<ConsoleKey, string> options,
-            string anyKeyOption)
+            string? anyKeyOption = default)
         {
             if (!IsConsolePresent) return default;
 
@@ -240,16 +240,17 @@
                     Table.Horizontal(lineLength - 2);
                     Table.BottomRight();
                 }
+
+                WriteLine();
+                var inputLeft = Settings.UserOptionText.Length + 3;
+                SetCursorPosition(inputLeft, CursorTop - 2);
+
+                var userInput = ReadKey(true);
+                Write(userInput.Key.ToString(), ConsoleColor.Gray);
+                SetCursorPosition(0, CursorTop + 2);
+
+                return userInput;
             }
-
-            var inputLeft = Settings.UserOptionText.Length + 3;
-
-            SetCursorPosition(inputLeft, CursorTop - 1);
-            var userInput = ReadKey(true);
-            Write(userInput.Key.ToString(), ConsoleColor.Gray);
-
-            SetCursorPosition(0, CursorTop + 2);
-            return userInput;
         }
 
         #endregion

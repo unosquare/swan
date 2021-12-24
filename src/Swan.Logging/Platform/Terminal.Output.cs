@@ -1,6 +1,7 @@
 ﻿namespace Swan.Platform
 {
     using System;
+    using System.Text;
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
@@ -20,21 +21,13 @@
         {
             lock (SyncLock)
             {
-                var text = new string(charCode, count);
-
+                var builder = new StringBuilder(count + Environment.NewLine.Length);
+                builder.Append(charCode, count);
                 if (newLine)
-                {
-                    text += Environment.NewLine;
-                }
+                    builder.Append(Environment.NewLine);
 
-                var buffer = OutputEncoding.GetBytes(text);
-                var context = new OutputContext
-                {
-                    OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriters = writerFlags,
-                };
-
+                var context = new OutputContext(
+                    builder.ToString(), writerFlags, color ?? Settings.DefaultColor, Settings.DefaultColor);
                 EnqueueOutput(context);
             }
         }
@@ -51,14 +44,9 @@
 
             lock (SyncLock)
             {
+                var context = new OutputContext(
+                    text, writerFlags, color ?? Settings.DefaultColor, Settings.DefaultColor);
                 var buffer = OutputEncoding.GetBytes(text);
-                var context = new OutputContext
-                {
-                    OutputColor = color ?? Settings.DefaultColor,
-                    OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriters = writerFlags,
-                };
-
                 EnqueueOutput(context);
             }
         }
@@ -78,7 +66,16 @@
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
         public static void WriteLine(string text, ConsoleColor? color = null, TerminalWriterFlags writerFlags = TerminalWriterFlags.StandardOutput)
-            => Write($"{text ?? string.Empty}{Environment.NewLine}", color, writerFlags);
+        {
+            var outputText = text ?? string.Empty;
+            var builder = new StringBuilder(outputText.Length + Environment.NewLine.Length);
+            builder
+                .Append(outputText)
+                .Append(Environment.NewLine);
+
+            Write(builder.ToString(), color, writerFlags);
+        }
+            
 
         /// <summary>
         /// As opposed to WriteLine methods, it prepends a Carriage Return character to the text

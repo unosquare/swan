@@ -9,7 +9,7 @@ using Swan.Reflection;
 /// lambda binding that this proxy requires to function properly. Use the actual
 /// collection object whenever possible.
 /// </summary>
-public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInfo
+public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInfo, IList<object?>
 {
     private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
     private readonly object _syncRoot = new();
@@ -198,6 +198,9 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
     public static bool TryCreate(object? target, [MaybeNullWhen(false)] out CollectionProxy proxy)
     {
         proxy = default;
+
+        if (target is null)
+            return false;
 
         if (target is not IEnumerable enumerableTarget)
             return false;
@@ -454,6 +457,9 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
         }
     }
 
+    /// <iinheritdoc />
+    public void CopyTo(object?[] array, int arrayIndex) => CopyTo(array as Array, arrayIndex);
+
     /// <summary>
     /// Gets the last item in the <see cref="Values"/> collection.
     /// </summary>
@@ -571,7 +577,7 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
     /// </summary>
     /// <typeparam name="T">The target element type.</typeparam>
     /// <returns>A list of values.</returns>
-    public List<T> ToList<T>() => new(ToArray<T>());
+    public IList<T> ToList<T>() => new List<T>(ToArray<T>());
 
     /// <summary>
     /// Iterates through the collection as a set of <see cref="DictionaryEntry"/> items.
@@ -642,4 +648,25 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
 
         return true;
     }
+
+    /// <iinheritdoc />
+    void ICollection<object?>.Add(object? item) => Add(item);
+
+    /// <iinheritdoc />
+    bool ICollection<object?>.Remove(object? item)
+    {
+        try
+        {
+            Remove(item);
+        }
+        catch
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <iinheritdoc />
+    IEnumerator<object?> IEnumerable<object?>.GetEnumerator() => new CollectionEnumerator(this);
 }

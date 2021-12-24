@@ -227,7 +227,7 @@
         public static async Task Main()
         {
 
-            Sketchpad();
+            // Sketchpad();
 
             Logger.RegisterLogger<FileLogger>();
 
@@ -345,7 +345,7 @@
 
         private static void TestReadPrompt()
         {
-            Terminal.Clear();
+            // Terminal.Clear();
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
                 {ConsoleKey.A, "Sample A"},
@@ -355,7 +355,7 @@
                 {ConsoleKey.E, "Sample E" }
             };
 
-            Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
+            Terminal.ReadPrompt("Please provide an option", sampleOptions);
         }
 
         private static async Task TestTerminalOutputs()

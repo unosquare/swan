@@ -16,6 +16,7 @@
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Logging</AssemblyTitle>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Description>
 			Logging subsystem and a handy Terminal abstraction.
 		</Description>

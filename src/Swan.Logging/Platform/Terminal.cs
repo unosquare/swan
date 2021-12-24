@@ -202,7 +202,7 @@
         }
 
         /// <summary>
-        /// Sets the cursor position.
+        /// Sets the cursor position withing the console buffer.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
@@ -213,7 +213,7 @@
             lock (SyncLock)
             {
                 Flush();
-                Console.SetCursorPosition(left.Clamp(0, left), top.Clamp(0, top));
+                Console.SetCursorPosition(left.Clamp(0, Console.BufferWidth - 1), top.Clamp(0, Console.BufferHeight - 1));
             }
         }
 
@@ -291,18 +291,17 @@
                 if (!IsConsolePresent) continue;
 
                 Console.ForegroundColor = context.OutputColor;
+                var buffer = OutputEncoding == Encoding.Default
+                    ? context.OutputText.ToCharArray().AsSpan()
+                    : OutputEncoding.GetChars(OutputEncoding.GetBytes(context.OutputText));
 
                 // Output to the standard output
                 if (context.OutputWriters.HasFlag(TerminalWriterFlags.StandardOutput))
-                {
-                    Console.Out.Write(context.OutputText);
-                }
+                    Console.Out.Write(buffer);
 
                 // output to the standard error
                 if (context.OutputWriters.HasFlag(TerminalWriterFlags.StandardError))
-                {
-                    Console.Error.Write(context.OutputText);
-                }
+                    Console.Error.Write(buffer);
 
                 Console.ResetColor();
                 Console.ForegroundColor = context.OriginalColor;
@@ -316,23 +315,13 @@
         /// <summary>
         /// Represents an asynchronous output context.
         /// </summary>
-        private sealed class OutputContext
+        private sealed record OutputContext(
+            string OutputText,
+            TerminalWriterFlags OutputWriters,
+            ConsoleColor OutputColor,
+            ConsoleColor OriginalColor)
         {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="OutputContext"/> class.
-            /// </summary>
-            public OutputContext()
-            {
-                OriginalColor = Settings.DefaultColor;
-                OutputWriters = IsConsolePresent
-                    ? TerminalWriterFlags.StandardOutput
-                    : TerminalWriterFlags.None;
-            }
-
-            public ConsoleColor OriginalColor { get; }
-            public ConsoleColor OutputColor { get; init; }
-            public char[] OutputText { get; init; }
-            public TerminalWriterFlags OutputWriters { get; init; }
+            // placeholder
         }
 
         #endregion
