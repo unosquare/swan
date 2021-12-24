@@ -13,6 +13,7 @@
 	<PropertyGroup>
 		<PackageId>Swan.Logging</PackageId>
 		<Version>6.0.2-beta.7</Version>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Logging</AssemblyTitle>
