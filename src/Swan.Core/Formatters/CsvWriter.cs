@@ -73,7 +73,7 @@ public class CsvWriter : IDisposable
     /// Individual items found to be null will be written out as empty strings.
     /// </summary>
     /// <param name="items">The set of strings to write out.</param>
-    public void WriteLine(IEnumerable<string?> items)
+    public void WriteLine(params string?[] items)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -112,6 +112,7 @@ public class CsvWriter : IDisposable
         _writer.Write(NewLineSequence);
         _count.Increment();
     }
+
 
     /// <inheritdoc />
     public void Dispose()

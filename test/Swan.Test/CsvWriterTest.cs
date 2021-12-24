@@ -82,8 +82,8 @@
             using (var stream = File.OpenWrite(tempFile))
             {
                 using var writer = new CsvWriter(stream);
-                writer.WriteLine(data.Keys.AsEnumerable());
-                writer.WriteLine(data.Values.AsEnumerable());
+                writer.WriteLine(data.Keys.ToArray());
+                writer.WriteLine(data.Values.ToArray());
             }
 
             var valuesInFile = Csv.Load(tempFile);
@@ -121,7 +121,7 @@
         {
             using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
             var reader = new CsvWriter(stream);
-            reader.WriteLine(DefaultDictionary.Values);
+            reader.WriteLine(DefaultDictionary.Values.ToArray());
 
             Assert.AreNotEqual(0, reader.Count);
         }
@@ -173,7 +173,7 @@
             using var stream = new MemoryStream();
             using var writer = new CsvWriter(stream);
 
-            Assert.Throws<ArgumentNullException>(() => writer.WriteLine(NullType as IEnumerable<string>));
+            Assert.Throws<ArgumentNullException>(() => writer.WriteLine(null!));
         }
 
         [Test]
@@ -199,7 +199,7 @@
 
             var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
 
-            writer.WriteLine(dictionaryHeaders.Keys);
+            writer.WriteLine(dictionaryHeaders.Keys.ToArray());
             writer.Flush();
 
             stream.Position = 0;

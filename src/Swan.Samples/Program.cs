@@ -229,7 +229,7 @@
 
             Sketchpad();
 
-            LoggerExtensions.RegisterLogger<FileLogger>();
+            Logger.RegisterLogger<FileLogger>();
 
             TestJson();
             TestApplicationInfo();

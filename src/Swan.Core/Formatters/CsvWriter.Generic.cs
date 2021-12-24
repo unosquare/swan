@@ -126,14 +126,12 @@ public class CsvWriter<T> : CsvWriter
         if (!HasWrittenHeadings)
         {
             if (WritesHeadings)
-                WriteLine(_propertyMap.Keys.AsEnumerable());
+                WriteLine(_propertyMap.Keys.ToArray());
 
             HasWrittenHeadings = true;
         }
 
-        var values = new List<string>(_propertyMap.Count);
-        values.AddRange(_propertyMap.Select(kvp => kvp.Value.Invoke(item)));
-
+        var values = _propertyMap.Select(kvp => kvp.Value.Invoke(item)).ToArray();
         WriteLine(values);
     }
 

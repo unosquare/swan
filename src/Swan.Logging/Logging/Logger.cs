@@ -15,14 +15,14 @@
     /// Entry-point for logging. Use this static class to register/unregister
     /// loggers instances. By default, the <c>ConsoleLogger</c> is registered.
     /// </summary>
-    public static class LoggerExtensions
+    public static class Logger
     {
         private static readonly object SyncLock = new();
         private static readonly List<ILogger> Loggers = new();
 
         private static ulong _loggingSequence;
 
-        static LoggerExtensions()
+        static Logger()
         {
             if (Terminal.IsConsolePresent)
                 Loggers.Add(ConsoleLogger.Instance);

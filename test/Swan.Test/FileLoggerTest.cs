@@ -12,10 +12,10 @@
         public async Task WithDefaultValues_FileExist()
         {
             var instance = new FileLogger();
-            LoggerExtensions.RegisterLogger(instance);
+            Logger.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
-            LoggerExtensions.UnregisterLogger(instance);
+            Logger.UnregisterLogger(instance);
 
             Assert.IsTrue(File.Exists(instance.FilePath));
         }
@@ -24,10 +24,10 @@
         public async Task WithDefaultValues_FileIsNotEmpty()
         {
             var instance = new FileLogger();
-            LoggerExtensions.RegisterLogger(instance);
+            Logger.RegisterLogger(instance);
             "Test".Info();
             await Task.Delay(1);
-            LoggerExtensions.UnregisterLogger(instance);
+            Logger.UnregisterLogger(instance);
 
             var logContent = File.ReadAllText(instance.FilePath);
             Assert.IsNotEmpty(logContent);
