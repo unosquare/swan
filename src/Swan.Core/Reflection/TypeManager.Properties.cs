@@ -50,7 +50,7 @@ public static partial class TypeManager
             throw new ArgumentNullException(nameof(t));
 
         if (string.IsNullOrWhiteSpace(propertyName))
-            throw new ArgumentNullException(nameof(propertyName));
+            return null;
 
         return t.TryFindProperty(propertyName, out var property)
             ? property
