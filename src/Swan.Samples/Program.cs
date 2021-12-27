@@ -11,6 +11,7 @@
     using Swan.Platform;
     using Swan.Reflection;
     using Swan.Threading;
+    using Swan.Data;
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
@@ -19,6 +20,8 @@
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using System.Data.SqlClient;
+    using Microsoft.Data.Sqlite;
 
     class SubDict : Dictionary<string, object>
     {
@@ -228,7 +231,9 @@
         {
 
             // Sketchpad();
-
+            var conn = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+            //var conn = new SqliteConnection("Data Source=hello.db");
+            var px = await conn.TableCommand("Projects").Take(10).ToListAsync();
             Logger.RegisterLogger<FileLogger>();
 
             TestJson();
