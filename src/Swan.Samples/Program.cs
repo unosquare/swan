@@ -233,7 +233,9 @@
             // Sketchpad();
             var conn = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
             //var conn = new SqliteConnection("Data Source=hello.db");
+            var tableNames = await conn.TableNames();
             var px = await conn.TableCommand("Projects").Take(10).ToListAsync();
+            return;
             Logger.RegisterLogger<FileLogger>();
 
             TestJson();

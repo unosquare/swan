@@ -34,6 +34,8 @@ public sealed class TableMetadata : Dictionary<string, ColumnMetadata>
         ColumnNames = Keys.Count > 0
             ? Values.OrderBy(c => c.ColumnOrdinal).Select(c => c.ColumnName).ToArray()
             : Array.Empty<string>();
+
+        IsReadOnly = KeyColumns == null || KeyColumns.Count <= 0;
     }
 
     /// <summary>
@@ -59,7 +61,7 @@ public sealed class TableMetadata : Dictionary<string, ColumnMetadata>
     /// <summary>
     /// When the table has no key columns, this will return true.
     /// </summary>
-    public bool IsReadOnly => KeyColumns == null || KeyColumns.Count <= 0;
+    public bool IsReadOnly { get; }
 
     /// <summary>
     /// Gets the unquoted list of all column names.

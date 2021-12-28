@@ -11,7 +11,6 @@ public sealed class CommandContext : IDisposable
     private const int DefaultSkip = default;
     private const int DefaultTake = int.MaxValue;
 
-    private readonly bool WasClosed;
     private readonly ProviderMetadata Provider;
     private bool IsDisposed;
     private int _Skip = DefaultSkip;
@@ -26,12 +25,6 @@ public sealed class CommandContext : IDisposable
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
-
-        if (connection.State != ConnectionState.Open)
-        {
-            WasClosed = true;
-            connection.Open();
-        }
 
         Provider = connection.Provider();
         Connection = connection;
@@ -574,10 +567,6 @@ public sealed class CommandContext : IDisposable
             Command?.Parameters?.Clear();
             Command?.Dispose();
             Command = null;
-
-            if (WasClosed)
-                Connection?.Close();
-
             Connection = null;
         }
         finally

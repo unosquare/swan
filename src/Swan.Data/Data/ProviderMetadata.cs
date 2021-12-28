@@ -1,33 +1,30 @@
 ﻿namespace Swan.Data;
 
 /// <summary>
-/// Provides connection-specific metadata for sq
+/// Provides connection-specific metadata useful
+/// in constructing commands.
 /// </summary>
 public record ProviderMetadata
 {
     private static readonly object CacheLock = new();
-    private static readonly Dictionary<Type, ProviderMetadata> _Cache = new(4);
+    private static readonly Dictionary<int, ProviderMetadata> _Cache = new(4);
 
-    private ProviderMetadata(Type connectionType)
+    private ProviderMetadata(DbConnection connection)
     {
-        if (connectionType is null)
-            throw new ArgumentNullException(nameof(connectionType));
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
 
-        var assemblyName = connectionType.Assembly.GetName().Name;
-        if (string.IsNullOrWhiteSpace(assemblyName))
-            throw new ArgumentException("Unable to acquire assembly name for connection type.", nameof(connectionType));
-
-        var factory = DbProviderFactories.GetFactory(assemblyName);
+        var factory = DbProviderFactories.GetFactory(connection);
 
         if (factory is null)
         {
             throw new ArgumentException(
-                $"Could not obtain {nameof(DbProviderFactory)} from connection type '{connectionType}'.",
-                nameof(connectionType));
+                $"Could not obtain {nameof(DbProviderFactory)} from connection type '{connection}'.",
+                nameof(connection));
         }
 
-
         ProviderAssembly = factory.GetType().Assembly;
+        var assemblyName = ProviderAssembly.GetName().Name;
         Kind = string.IsNullOrWhiteSpace(assemblyName)
             ? ProviderKind.Unknown
             : assemblyName.Contains("System.Data.SqlClient", StringComparison.Ordinal)
@@ -53,9 +50,8 @@ public record ProviderMetadata
             {
                 throw new ArgumentException(
                     $"Could not create a {nameof(DbCommandBuilder)} from connection.",
-                    nameof(connectionType));
+                    nameof(connection));
             }
-                
 
             QuotePrefix = builder.QuotePrefix;
             QuoteSuffix = builder.QuoteSuffix;
@@ -67,6 +63,8 @@ public record ProviderMetadata
             ProviderKind.Sqlite => "$",
             _ => "@",
         };
+
+        CacheKey = ComputeCacheKey(connection);
     }
 
     /// <summary>
@@ -105,6 +103,24 @@ public record ProviderMetadata
     /// </summary>
     public string DefaultSchemaName { get; }
 
+    /// <summary>
+    /// Gets the internal identifier for caching purposes.
+    /// </summary>
+    internal int CacheKey { get; }
+
+    internal static int ComputeCacheKey(DbConnection connection)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        connection.EnsureIsValid().GetAwaiter().GetResult();
+        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
+        var hashB = connection.Database.GetHashCode(StringComparison.Ordinal);
+        var hashC = connection.GetType().GetHashCode();
+
+        return HashCode.Combine(hashA, hashB, hashC);
+    }
+
     internal string Quote(TableMetadata table) =>
         !string.IsNullOrWhiteSpace(table.Schema)
             ? string.Join(string.Empty,
@@ -117,18 +133,19 @@ public record ProviderMetadata
                 QuoteSuffix)
             : $"{QuotePrefix}{table.TableName}{QuoteSuffix}";
 
-    internal static ProviderMetadata Acquire(Type connectionType)
+    internal static ProviderMetadata FromConnection(DbConnection connection)
     {
-        if (connectionType is null)
-            throw new ArgumentNullException(nameof(connectionType));
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
 
+        var cacheKey = ComputeCacheKey(connection);
         lock (CacheLock)
         {
-            if (_Cache.TryGetValue(connectionType, out var metadata))
+            if (_Cache.TryGetValue(cacheKey, out var metadata))
                 return metadata;
 
-            metadata = new ProviderMetadata(connectionType);
-            _Cache[connectionType] = metadata;
+            metadata = new ProviderMetadata(connection);
+            _Cache[cacheKey] = metadata;
             return metadata;
         }
     }
