@@ -75,7 +75,7 @@ public sealed class TableMetadata : Dictionary<string, ColumnMetadata>
 
     internal static async Task<TableMetadata> AcquireAsync(DbConnection connection, string tableName, string? schemaName)
     {
-        await connection.EnsureIsValid();
+        await connection.EnsureIsValidAsync();
 
         var existingMeta = ReadSchemaCache(connection, tableName);
         if (existingMeta != null)

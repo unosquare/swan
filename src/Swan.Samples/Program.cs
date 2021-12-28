@@ -60,6 +60,8 @@
 
         private static void CsvSketchpad()
         {
+            var n = new SqliteParameter();
+            
             var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
             var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));
             using var csvReader = new CsvObjectReader<MockInfo>(csvStream, Encoding.UTF8);

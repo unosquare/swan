@@ -6,7 +6,7 @@ using Swan.Extensions;
 /// Provides a fluent database command context to issue
 /// commands to the associated table.
 /// </summary>
-public sealed class CommandContext : IDisposable
+public sealed class DbCommandContext : IDisposable
 {
     private const int DefaultSkip = default;
     private const int DefaultTake = int.MaxValue;
@@ -17,11 +17,11 @@ public sealed class CommandContext : IDisposable
     private int _Take = DefaultTake;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CommandContext"/> class.
+    /// Creates a new instance of the <see cref="DbCommandContext"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableMeta"></param>
-    internal CommandContext(DbConnection connection, TableMetadata tableMeta)
+    internal DbCommandContext(DbConnection connection, TableMetadata tableMeta)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -32,10 +32,7 @@ public sealed class CommandContext : IDisposable
         Command = connection.CreateCommand();
     }
 
-    /// <summary>
-    /// Gets the table metadata.
-    /// </summary>
-    public TableMetadata Table { get; }
+
 
     /// <summary>
     /// Gets the command being built and that is ultimately issued via the connection.
@@ -52,7 +49,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="transaction">The associated transaction</param>
     /// <returns>The fluent API context.</returns>
-    public CommandContext WithTransaction(DbTransaction transaction)
+    public DbCommandContext WithTransaction(DbTransaction transaction)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -66,7 +63,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="textFactory">The factory method that produces the command text.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext WithText(Func<TableMetadata, string> textFactory)
+    public DbCommandContext WithText(Func<TableMetadata, string> textFactory)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -80,7 +77,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="commandText"></param>
     /// <returns></returns>
-    public CommandContext WithText(string commandText)
+    public DbCommandContext WithText(string commandText)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -94,7 +91,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="timeout">The command timeout as a TimeSpan.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext WithTimeout(TimeSpan timeout)
+    public DbCommandContext WithTimeout(TimeSpan timeout)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -108,7 +105,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="timeout">The command timeout in seconds.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext WithTimeout(int timeout)
+    public DbCommandContext WithTimeout(int timeout)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -124,7 +121,7 @@ public sealed class CommandContext : IDisposable
     /// <param name="value">The parameter name.</param>
     /// <param name="direction">The parameter direction.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext WithParameter(string name, object? value, ParameterDirection direction = ParameterDirection.Input)
+    public DbCommandContext WithParameter(string name, object? value, ParameterDirection direction = ParameterDirection.Input)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -183,7 +180,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="parametersObject">The object containing readable properties and matching parameter names.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext WithParameters(object parametersObject)
+    public DbCommandContext WithParameters(object parametersObject)
     {
         if (parametersObject is null)
             throw new ArgumentNullException(nameof(parametersObject));
@@ -204,7 +201,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="count">The number of records to skip or offset.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext Skip(int count)
+    public DbCommandContext Skip(int count)
     {
         _Skip = count.ClampMin(0);
         return this;
@@ -216,7 +213,7 @@ public sealed class CommandContext : IDisposable
     /// </summary>
     /// <param name="count">The number of records to return.</param>
     /// <returns>A fluent API context.</returns>
-    public CommandContext Take(int count)
+    public DbCommandContext Take(int count)
     {
         _Take = count.ClampMin(1);
         return this;

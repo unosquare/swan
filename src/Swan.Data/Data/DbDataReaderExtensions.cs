@@ -78,7 +78,7 @@ public static class DbDataReaderExtensions
         {
             var fieldName = reader.GetName(i);
             var fieldValue = reader.IsDBNull(i) ? null : reader.GetValue(i);
-            var propertyName = GetPropertyName(fieldName);
+            var propertyName = GetExpandoPropertyName(fieldName, i);
 
             result.TryAdd(propertyName, fieldValue);
         }
@@ -87,12 +87,14 @@ public static class DbDataReaderExtensions
     }
 
     /// <summary>
-    /// Removes special characters that cannot be represented as proeprty names such as spaces.
+    /// Removes special characters that cannot be represented as property names such as spaces.
     /// </summary>
     /// <param name="fieldName">The name of the field.</param>
+    /// <param name="fieldIndex">The index appearance of the field.</param>
     /// <returns>A valid property name with only letters, digits or underscores.</returns>
-    private static string GetPropertyName(string fieldName)
+    private static string GetExpandoPropertyName(string fieldName, int fieldIndex)
     {
+        fieldName ??= $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
         var builder = new StringBuilder(fieldName.Length);
         foreach (var c in fieldName)
         {
@@ -102,6 +104,8 @@ public static class DbDataReaderExtensions
             builder.Append(c);
         }
 
-        return builder.ToString();
+        return char.IsDigit(builder[0])
+            ? $"_{builder}"
+            : builder.ToString();
     }
 }

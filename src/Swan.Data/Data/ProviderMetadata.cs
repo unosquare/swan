@@ -65,6 +65,7 @@ public record ProviderMetadata
         };
 
         CacheKey = ComputeCacheKey(connection);
+        Database = connection.Database;
     }
 
     /// <summary>
@@ -76,6 +77,12 @@ public record ProviderMetadata
     /// Gets the SQL dialect that is used to issue commands.
     /// </summary>
     public ProviderKind Kind { get; }
+
+    /// <summary>
+    /// Gets the database name from the connection that was used
+    /// to build this object.
+    /// </summary>
+    public string Database { get; }
 
     /// <summary>
     /// Gets the prefix used to quote identifiers.
@@ -108,12 +115,19 @@ public record ProviderMetadata
     /// </summary>
     internal int CacheKey { get; }
 
+    /// <summary>
+    /// Computes a hash code that serves as a cache identifier for all
+    /// connections matching the initial connection string, database, and connection type.
+    /// </summary>
+    /// <param name="connection">The connection to derive the hash code from.</param>
+    /// <returns>A unique id for matching connections.</returns>
+    /// <exception cref="ArgumentNullException">Connection cannot be null.</exception>
     internal static int ComputeCacheKey(DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        connection.EnsureIsValid().GetAwaiter().GetResult();
+        connection.EnsureIsValid();
         var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
         var hashB = connection.Database.GetHashCode(StringComparison.Ordinal);
         var hashC = connection.GetType().GetHashCode();
