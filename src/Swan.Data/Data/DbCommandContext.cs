@@ -32,7 +32,10 @@ public sealed class DbCommandContext : IDisposable
         Command = connection.CreateCommand();
     }
 
-
+    /// <summary>
+    /// Gets the associated table for this command.
+    /// </summary>
+    public TableMetadata Table { get; }
 
     /// <summary>
     /// Gets the command being built and that is ultimately issued via the connection.

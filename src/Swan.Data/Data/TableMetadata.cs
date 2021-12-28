@@ -91,7 +91,7 @@ public sealed class TableMetadata : Dictionary<string, ColumnMetadata>
         using var command = connection.CreateCommand();
         command.CommandText = $"SELECT * FROM {QuotedName} WHERE 1 = 2";
 
-        using var reader = command.ExecuteReader(CommandBehavior.KeyInfo);
+        using var reader = command.ExecuteReader(CommandBehavior.KeyInfo | CommandBehavior.SchemaOnly);
         var schemaTable = reader.GetSchemaTable();
         if (schemaTable is null)
             throw new NotSupportedException("Unable to obtain schema information.");

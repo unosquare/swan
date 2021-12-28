@@ -70,16 +70,4 @@ public static class DbConnectionExtensions
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
-    public static async Task<DbCommand> QueryAsync(this DbConnection connection)
-    {
-        
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        await connection.EnsureIsValidAsync();
-        var provider = connection.Provider();
-        var dbc = connection.CreateCommand();
-        dbc.ExecuteReaderAsync()
-        
-    }
 }
