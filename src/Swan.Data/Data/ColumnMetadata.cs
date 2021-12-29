@@ -61,4 +61,6 @@ public record ColumnMetadata
     public string DataTypeName { get; internal set; }
     
     public bool IsColumnSet { get; internal set; }
+
+    public int NonVersionedProviderType { get; internal set; }
 }

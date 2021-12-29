@@ -6,7 +6,7 @@ using Swan.Extensions;
 /// Provides a fluent database command context to issue
 /// commands to the associated table.
 /// </summary>
-public sealed class DbCommandContext : IDisposable
+public sealed class DbTableContext : IDisposable
 {
     private const int DefaultSkip = default;
     private const int DefaultTake = int.MaxValue;
@@ -17,11 +17,11 @@ public sealed class DbCommandContext : IDisposable
     private int _Take = DefaultTake;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="DbCommandContext"/> class.
+    /// Creates a new instance of the <see cref="DbTableContext"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableMeta"></param>
-    internal DbCommandContext(DbConnection connection, TableMetadata tableMeta)
+    internal DbTableContext(DbConnection connection, TableMetadata tableMeta)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -52,7 +52,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="transaction">The associated transaction</param>
     /// <returns>The fluent API context.</returns>
-    public DbCommandContext WithTransaction(DbTransaction transaction)
+    public DbTableContext WithTransaction(DbTransaction transaction)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -66,7 +66,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="textFactory">The factory method that produces the command text.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext WithText(Func<TableMetadata, string> textFactory)
+    public DbTableContext WithText(Func<TableMetadata, string> textFactory)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -80,7 +80,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="commandText"></param>
     /// <returns></returns>
-    public DbCommandContext WithText(string commandText)
+    public DbTableContext WithText(string commandText)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -94,7 +94,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="timeout">The command timeout as a TimeSpan.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext WithTimeout(TimeSpan timeout)
+    public DbTableContext WithTimeout(TimeSpan timeout)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -108,7 +108,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="timeout">The command timeout in seconds.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext WithTimeout(int timeout)
+    public DbTableContext WithTimeout(int timeout)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -124,7 +124,7 @@ public sealed class DbCommandContext : IDisposable
     /// <param name="value">The parameter name.</param>
     /// <param name="direction">The parameter direction.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext WithParameter(string name, object? value, ParameterDirection direction = ParameterDirection.Input)
+    public DbTableContext WithParameter(string name, object? value, ParameterDirection direction = ParameterDirection.Input)
     {
         if (Command is null)
             throw new ObjectDisposedException(nameof(Command));
@@ -165,13 +165,7 @@ public sealed class DbCommandContext : IDisposable
                     ? throw new InvalidCastException($"Unable to set {value} as {column.DataType} for column {column.ColumnName}")
                     : convertedValue;
 
-            parameter.Size = column.ColumnSize;
-            parameter.Precision = Convert.ToByte(column.NumericPrecision);
-            parameter.Scale = Convert.ToByte(column.NumericScale);
-            parameter.SourceColumnNullMapping = column.AllowDBNull;
-
-            if (Provider.Kind == ProviderKind.SqlServer)
-                parameter.GetType().TypeInfo().TryWriteProperty(parameter, nameof(SqlDbType), (SqlDbType)column.ProviderType);
+            parameter.DbType = (DbType)column.NonVersionedProviderType;
         }
 
         Command.Parameters.Add(parameter);
@@ -183,7 +177,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="parametersObject">The object containing readable properties and matching parameter names.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext WithParameters(object parametersObject)
+    public DbTableContext WithParameters(object parametersObject)
     {
         if (parametersObject is null)
             throw new ArgumentNullException(nameof(parametersObject));
@@ -204,7 +198,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="count">The number of records to skip or offset.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext Skip(int count)
+    public DbTableContext Skip(int count)
     {
         _Skip = count.ClampMin(0);
         return this;
@@ -216,7 +210,7 @@ public sealed class DbCommandContext : IDisposable
     /// </summary>
     /// <param name="count">The number of records to return.</param>
     /// <returns>A fluent API context.</returns>
-    public DbCommandContext Take(int count)
+    public DbTableContext Take(int count)
     {
         _Take = count.ClampMin(1);
         return this;
@@ -531,10 +525,10 @@ public sealed class DbCommandContext : IDisposable
         return builder.ToString().Trim();
     }
 
-    private DbParameter? FindParameter(string name)
+    private IDataParameter? FindParameter(string name)
     {
         var parameterName = NormalizeParameterName(name);
-        foreach (DbParameter queryParameter in Command.Parameters)
+        foreach (IDataParameter queryParameter in Command.Parameters)
         {
             if (queryParameter.ParameterName == parameterName)
                 return queryParameter;

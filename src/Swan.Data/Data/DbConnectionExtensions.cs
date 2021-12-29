@@ -26,14 +26,14 @@ public static class DbConnectionExtensions
         return tables;
     }
 
-    public static async Task<DbCommandContext> TableCommandAsync(this DbConnection connection, string tableName, string? schemaName = default)
+    public static async Task<DbTableContext> TableCommandAsync(this DbConnection connection, string tableName, string? schemaName = default)
     {
         var tableMeta = await TableMetadata.AcquireAsync(connection, tableName, schemaName);
         await connection.EnsureIsValidAsync();
-        return new DbCommandContext(connection, tableMeta);
+        return new DbTableContext(connection, tableMeta);
     }
 
-    public static DbCommandContext TableCommand(this DbConnection connection, string tableName, string? schemaName = default) =>
+    public static DbTableContext TableCommand(this DbConnection connection, string tableName, string? schemaName = default) =>
         connection.TableCommandAsync(tableName, schemaName).ConfigureAwait(false).GetAwaiter().GetResult();
 
     /// <summary>
