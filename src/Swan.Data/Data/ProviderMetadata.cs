@@ -111,6 +111,24 @@ public record ProviderMetadata
     public string DefaultSchemaName { get; }
 
     /// <summary>
+    /// Gets a default configuration for command timout when
+    /// creating commands via this API. Default is 60 seconds.
+    /// </summary>
+    public TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
+
+    /// <summary>
+    /// Fluet API for setting the default timeout for commands that are
+    /// created via this API.
+    /// </summary>
+    /// <param name="timeout">The timeout to use.</param>
+    /// <returns>This object for fluent API compatibility.</returns>
+    public ProviderMetadata WithDefaultCommandTimeout(TimeSpan timeout)
+    {
+        DefaultCommandTimeout = timeout;
+        return this;
+    }
+
+    /// <summary>
     /// Gets the internal identifier for caching purposes.
     /// </summary>
     internal int CacheKey { get; }
@@ -135,7 +153,19 @@ public record ProviderMetadata
         return HashCode.Combine(hashA, hashB, hashC);
     }
 
-    internal string Quote(TableMetadata table) =>
+    internal string QuoteTable(string tableName, string? schemaName = default) =>
+        !string.IsNullOrWhiteSpace(schemaName)
+            ? string.Join(string.Empty,
+                QuotePrefix,
+                schemaName,
+                QuoteSuffix,
+                SchemaSeparator,
+                QuotePrefix,
+                tableName,
+                QuoteSuffix)
+            : $"{QuotePrefix}{tableName}{QuoteSuffix}";
+
+    internal string QuoteTable(TableMetadata table) =>
         !string.IsNullOrWhiteSpace(table.Schema)
             ? string.Join(string.Empty,
                 QuotePrefix,

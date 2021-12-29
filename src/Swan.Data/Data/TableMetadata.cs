@@ -23,7 +23,7 @@ public sealed class TableMetadata : Dictionary<string, ColumnMetadata>
         Database = connection.Database ?? string.Empty;
         TableName = tableName;
         Schema = schemaName ?? provider.DefaultSchemaName;
-        QuotedName = provider.Quote(this);
+        QuotedName = provider.QuoteTable(this);
 
         FillSchemaColumns(connection);
 
