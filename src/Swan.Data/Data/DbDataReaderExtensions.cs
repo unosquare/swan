@@ -12,7 +12,7 @@ public static class DbDataReaderExtensions
     /// <param name="t">The type of object this method returns.</param>
     /// <param name="typeFactory">An optional factory method to create an instance.</param>
     /// <returns>An object instance filled with the values from the reader.</returns>
-    public static object ReadObject(this DbDataReader reader, Type t, Func<object>? typeFactory = default)
+    public static object ReadObject(this IDataRecord reader, Type t, Func<object>? typeFactory = default)
     {
         if (reader is null)
             throw new ArgumentNullException(nameof(reader));
@@ -59,7 +59,7 @@ public static class DbDataReaderExtensions
     /// <param name="reader">The reader to read from.</param>
     /// <param name="typeFactory">An optional factory method to create an instance.</param>
     /// <returns>An object instance filled with the values from the reader.</returns>
-    public static T ReadObject<T>(this DbDataReader reader, Func<T>? typeFactory = default) =>
+    public static T ReadObject<T>(this IDataRecord reader, Func<T>? typeFactory = default) =>
         (T)reader.ReadObject(typeof(T), typeFactory is null ? default : () => typeFactory.Invoke()!);
 
     /// <summary>
@@ -67,7 +67,7 @@ public static class DbDataReaderExtensions
     /// </summary>
     /// <param name="reader"></param>
     /// <returns>A dynamic <see cref="ExpandoObject"/></returns>
-    public static dynamic ReadObject(this DbDataReader reader)
+    public static dynamic ReadObject(this IDataRecord reader)
     {
         if (reader is null)
             throw new ArgumentNullException(nameof(reader));

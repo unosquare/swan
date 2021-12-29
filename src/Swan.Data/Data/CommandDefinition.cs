@@ -4,12 +4,12 @@ using Swan.Extensions;
 
 public sealed class CommandDefinition
 {
-    private readonly ProviderMetadata _provider;
+    private readonly DbProvider _provider;
 
-    private DbCommand _command;
+    private IDbCommand _command;
     private StringBuilder _commandText = new();
 
-    internal CommandDefinition(DbConnection connection)
+    internal CommandDefinition(IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -21,7 +21,7 @@ public sealed class CommandDefinition
         _command.CommandTimeout = Convert.ToInt32(_provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0);
     }
 
-    public CommandDefinition WithTransaction(DbTransaction transaction)
+    public CommandDefinition WithTransaction(IDbTransaction transaction)
     {
         _command.Transaction = transaction;
         return this;
@@ -63,8 +63,6 @@ public sealed class CommandDefinition
             : this;
     }
 
-    public CommandDefinition SelectAllFields() => AppendText("SELECT *");
-
     public CommandDefinition FieldName(string item)
     {
         return !string.IsNullOrWhiteSpace(item)
@@ -84,11 +82,11 @@ public sealed class CommandDefinition
     {
         AppendText("FROM");
         return !string.IsNullOrEmpty(tableName)
-            ? Table(tableName, schemaName)
+            ? TableName(tableName, schemaName)
             : this;
     }
 
-    public CommandDefinition Table(string tableName, string? schemaName = default) =>
+    public CommandDefinition TableName(string tableName, string? schemaName = default) =>
         AppendText(_provider.QuoteTable(tableName, schemaName));
 
     public CommandDefinition Where() => AppendText("WHERE");
@@ -160,7 +158,7 @@ public sealed class CommandDefinition
         return AppendText(builder.ToString());
     }
 
-    public DbCommand Materialize()
+    public IDbCommand FinishCommand()
     {
         _command.CommandText = _commandText.ToString();
         var result = _command;

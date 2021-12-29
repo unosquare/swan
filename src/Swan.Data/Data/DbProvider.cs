@@ -1,20 +1,30 @@
 ﻿namespace Swan.Data;
 
+using System.Linq.Expressions;
+
 /// <summary>
 /// Provides connection-specific metadata useful
 /// in constructing commands.
 /// </summary>
-public record ProviderMetadata
+public record DbProvider
 {
-    private static readonly object CacheLock = new();
-    private static readonly Dictionary<int, ProviderMetadata> _Cache = new(4);
+    internal delegate void AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
-    private ProviderMetadata(DbConnection connection)
+    private const string AddWithValueMethodName = "AddWithValue";
+    private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
+    private static readonly object CacheLock = new();
+    private static readonly Dictionary<int, DbProvider> _Cache = new(4);
+
+    private readonly Lazy<AddWithValueDelegate?> LazyAddWithValue;
+
+    private DbProvider(IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        var factory = DbProviderFactories.GetFactory(connection);
+        var factory = connection is DbConnection conn
+            ? DbProviderFactories.GetFactory(conn)
+            : default;
 
         if (factory is null)
         {
@@ -23,15 +33,15 @@ public record ProviderMetadata
                 nameof(connection));
         }
 
-        ProviderAssembly = factory.GetType().Assembly;
-        var assemblyName = ProviderAssembly.GetName().Name;
-        Kind = string.IsNullOrWhiteSpace(assemblyName)
+        ConnectionType = connection.GetType();
+        var typeName = ConnectionType.FullName;
+        Kind = string.IsNullOrWhiteSpace(typeName)
             ? ProviderKind.Unknown
-            : assemblyName.Contains("System.Data.SqlClient", StringComparison.Ordinal)
+            : typeName.StartsWith("System.Data.SqlClient", StringComparison.Ordinal)
             ? ProviderKind.SqlServer
-            : assemblyName.Contains("MySql.Data.MySqlClient", StringComparison.Ordinal)
+            : typeName.StartsWith("MySql.Data.MySqlClient", StringComparison.Ordinal)
             ? ProviderKind.MySql
-            : assemblyName.Contains("Microsoft.Data.Sqlite", StringComparison.Ordinal)
+            : typeName.StartsWith("Microsoft.Data.Sqlite", StringComparison.Ordinal)
             ? ProviderKind.Sqlite
             : ProviderKind.Unknown;
 
@@ -66,12 +76,22 @@ public record ProviderMetadata
 
         CacheKey = ComputeCacheKey(connection);
         Database = connection.Database;
+        TypeMapper = DbTypeMapper.Default;
+
+        using var dummyCommand = connection.CreateCommand();
+        var dummyParametersType = dummyCommand.Parameters.GetType().TypeInfo();
+        LazyAddWithValue = new(() => GetAddWithValueMethod(dummyParametersType), true);
     }
 
     /// <summary>
-    /// Gets the ADO.NET standard provider assembly.
+    /// Gets the undrelying ADO.NET connection type.
     /// </summary>
-    public Assembly ProviderAssembly { get; }
+    public Type ConnectionType { get; }
+
+    /// <summary>
+    /// Gets the translator between CLR types and DbTypes.
+    /// </summary>
+    public DbTypeMapper TypeMapper { get; }
 
     /// <summary>
     /// Gets the SQL dialect that is used to issue commands.
@@ -117,12 +137,18 @@ public record ProviderMetadata
     public TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
 
     /// <summary>
+    /// If supported, provides the Parameters.AddWithValue delegate to call when
+    /// setting parameters.
+    /// </summary>
+    internal AddWithValueDelegate? AddWithValueMethod => LazyAddWithValue.Value;
+
+    /// <summary>
     /// Fluet API for setting the default timeout for commands that are
     /// created via this API.
     /// </summary>
     /// <param name="timeout">The timeout to use.</param>
     /// <returns>This object for fluent API compatibility.</returns>
-    public ProviderMetadata WithDefaultCommandTimeout(TimeSpan timeout)
+    public DbProvider WithDefaultCommandTimeout(TimeSpan timeout)
     {
         DefaultCommandTimeout = timeout;
         return this;
@@ -140,7 +166,7 @@ public record ProviderMetadata
     /// <param name="connection">The connection to derive the hash code from.</param>
     /// <returns>A unique id for matching connections.</returns>
     /// <exception cref="ArgumentNullException">Connection cannot be null.</exception>
-    internal static int ComputeCacheKey(DbConnection connection)
+    internal static int ComputeCacheKey(IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -177,7 +203,7 @@ public record ProviderMetadata
                 QuoteSuffix)
             : $"{QuotePrefix}{table.TableName}{QuoteSuffix}";
 
-    internal static ProviderMetadata FromConnection(DbConnection connection)
+    internal static DbProvider FromConnection(IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -188,9 +214,36 @@ public record ProviderMetadata
             if (_Cache.TryGetValue(cacheKey, out var metadata))
                 return metadata;
 
-            metadata = new ProviderMetadata(connection);
+            metadata = new DbProvider(connection);
             _Cache[cacheKey] = metadata;
             return metadata;
+        }
+    }
+
+    private static AddWithValueDelegate? GetAddWithValueMethod(ITypeInfo? collectionType)
+    {
+        if (collectionType is null)
+            return null;
+
+        if (!collectionType.TryFindPublicMethod(AddWithValueMethodName, AddWithValueArgumentTypes, out var addWithValueMethod))
+            return null;
+
+        try
+        {
+            var targetParameter = Expression.Parameter(typeof(IDataParameterCollection), "target");
+            var nameParameter = Expression.Parameter(typeof(string), "name");
+            var valueParameter = Expression.Parameter(typeof(object), "value");
+
+            var expressionBody = Expression.Call(
+                Expression.Convert(targetParameter, collectionType.NativeType), addWithValueMethod, nameParameter, valueParameter);
+
+            return Expression
+                .Lambda<AddWithValueDelegate>(expressionBody, targetParameter, nameParameter, valueParameter)
+                .Compile();
+        }
+        catch
+        {
+            return null;
         }
     }
 }

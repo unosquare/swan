@@ -11,7 +11,7 @@ public sealed class DbTableContext : IDisposable
     private const int DefaultSkip = default;
     private const int DefaultTake = int.MaxValue;
 
-    private readonly ProviderMetadata Provider;
+    private readonly DbProvider Provider;
     private bool IsDisposed;
     private int _Skip = DefaultSkip;
     private int _Take = DefaultTake;
