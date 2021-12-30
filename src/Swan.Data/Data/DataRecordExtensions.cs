@@ -1,9 +1,9 @@
 ﻿namespace Swan.Data;
 
 /// <summary>
-/// Provides data reader extensions to efficiently parse objects from the underlying data source.
+/// Provides data record extensions to efficiently parse objects from the underlying data source.
 /// </summary>
-public static class DbDataReaderExtensions
+public static class DataRecordExtensions
 {
     /// <summary>
     /// Reads an object from the underlying reader at the current position.
@@ -12,7 +12,7 @@ public static class DbDataReaderExtensions
     /// <param name="t">The type of object this method returns.</param>
     /// <param name="typeFactory">An optional factory method to create an instance.</param>
     /// <returns>An object instance filled with the values from the reader.</returns>
-    public static object ReadObject(this IDataRecord reader, Type t, Func<object>? typeFactory = default)
+    public static object ExtractObject(this IDataRecord reader, Type t, Func<object>? typeFactory = default)
     {
         if (reader is null)
             throw new ArgumentNullException(nameof(reader));
@@ -59,15 +59,15 @@ public static class DbDataReaderExtensions
     /// <param name="reader">The reader to read from.</param>
     /// <param name="typeFactory">An optional factory method to create an instance.</param>
     /// <returns>An object instance filled with the values from the reader.</returns>
-    public static T ReadObject<T>(this IDataRecord reader, Func<T>? typeFactory = default) =>
-        (T)reader.ReadObject(typeof(T), typeFactory is null ? default : () => typeFactory.Invoke()!);
+    public static T ExtractObject<T>(this IDataRecord reader, Func<T>? typeFactory = default) =>
+        (T)reader.ExtractObject(typeof(T), typeFactory is null ? default : () => typeFactory.Invoke()!);
 
     /// <summary>
     /// Reads a dynamically typed object from the underlying reader at the current position.
     /// </summary>
     /// <param name="reader"></param>
     /// <returns>A dynamic <see cref="ExpandoObject"/></returns>
-    public static dynamic ReadObject(this IDataRecord reader)
+    public static ExpandoObject ExtractExpando(this IDataRecord reader)
     {
         if (reader is null)
             throw new ArgumentNullException(nameof(reader));

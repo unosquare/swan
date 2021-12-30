@@ -42,13 +42,18 @@ public static class DbConnectionExtensions
     /// <param name="connection">The connection to check for validity.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An awaitable task.</returns>
-    public static async Task EnsureIsValidAsync(this DbConnection connection, CancellationToken ct = default)
+    public static async Task EnsureIsValidAsync(this IDbConnection connection, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
         if (connection.State != ConnectionState.Open)
-            await connection.OpenAsync(ct);
+        {
+            if (connection is DbConnection dbConnection)
+                await dbConnection.OpenAsync(ct);
+            else
+                connection.Open();
+        }
 
         if (string.IsNullOrWhiteSpace(connection.Database))
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
@@ -70,7 +75,39 @@ public static class DbConnectionExtensions
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
-    public static CommandDefinition StartCommand(this DbConnection connection) => connection is null
+    public static CommandDefinition StartCommand(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection);
+
+    public static IEnumerable<T> Query<T>(this IDbConnection connection, string sql, Func<IDataReader, T> deserialize, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (string.IsNullOrWhiteSpace(sql))
+            throw new ArgumentNullException(nameof(sql));
+
+        if (deserialize is null)
+            throw new ArgumentNullException(nameof(deserialize));
+
+        var commandDefinition = connection.StartCommand().WithText(sql);
+
+        if (transaction != null) commandDefinition.WithTransaction(transaction);
+        if (timeout != null) commandDefinition.WithCommandTimeout(timeout.Value);
+
+        var command = commandDefinition.FinishCommand();
+
+        if (param != null)
+            command.SetParameters(param);
+
+        return command.Query(behavior, deserialize);
+    }
+
+    public static IEnumerable<T> Query<T>(
+        this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+        => connection.Query(sql, (reader) => reader.ExtractObject<T>(), param, behavior, transaction, timeout);
+
+    public static IEnumerable<dynamic> Query(
+        this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+        => connection.Query(sql, (reader) => reader.ExtractExpando(), param, behavior, transaction, timeout);
 }

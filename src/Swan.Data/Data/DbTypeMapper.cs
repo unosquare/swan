@@ -50,7 +50,7 @@ public class DbTypeMapper
 
     public static DbTypeMapper Default { get; } = new();
 
-    public bool TryGetDbTypeFor(Type type, out DbType? dbType)
+    public bool TryGetDbTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)
     {
         dbType = default;
 

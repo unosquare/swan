@@ -2,6 +2,7 @@
 
 using Microsoft.Data.Sqlite;
 using Swan.Data;
+using System;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -20,12 +21,19 @@ internal static class DataPlayground
             .OrderBy("ProjectId")
             .Limit(10, 20)
             .FinishCommand()
-            .AddParameter("p1", 600)
-            .AddParameter("p2", 1500)
+            .SetParameter("p1", 600, System.Data.DbType.String)
+            .SetParameter("p2", 1500)
             .Query()
             .ToList();
-
+        
+        Console.WriteLine($"output contains {output.Count} records. Te first item is named '{output[0].Name}'");
         //    var px = await conn.TableCommand("Projects").Take(10).ToListAsync();
+
+        var sx = conn
+            .Query("SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId", new { P1 = 600, P2 = 1500 })
+            .ToList();
+
+        Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");
     }
 
 }

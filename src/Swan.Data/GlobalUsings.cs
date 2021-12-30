@@ -6,5 +6,5 @@ global using System.Data.Common;
 global using System.Dynamic;
 global using System.Globalization;
 global using System.Text;
-
+global using System.Diagnostics.CodeAnalysis;
 #pragma warning restore IDE0065

@@ -66,14 +66,14 @@ public sealed class CommandDefinition
     public CommandDefinition FieldName(string item)
     {
         return !string.IsNullOrWhiteSpace(item)
-        ? AppendText($"{_provider.QuotePrefix}{item}{_provider.QuoteSuffix}")
+        ? AppendText(_provider.QuoteField(item))
         : this;
     }
 
     public CommandDefinition FieldNames(params string[] items)
     {
         var quotedNames = items != null && items.Length > 0
-            ? string.Join(", ", items.Select(f => $"{_provider.QuotePrefix}{f}{_provider.QuoteSuffix}"))
+            ? string.Join(", ", items.Select(f => _provider.QuoteField(f)))
             : "*";
         return AppendText($"{quotedNames}");
     }
@@ -100,14 +100,14 @@ public sealed class CommandDefinition
     public CommandDefinition ParameterName(string item)
     {
         return !string.IsNullOrWhiteSpace(item)
-            ? AppendText($"{_provider.ParameterPrefix}{item}")
+            ? AppendText(_provider.QuoteParameter(item))
             : this;
     }
 
     public CommandDefinition ParameterNames(params string[] items)
     {
         var quotedNames = items != null && items.Length > 0
-            ? string.Join(", ", items.Select(f => $"{_provider.ParameterPrefix}{f}"))
+            ? string.Join(", ", items.Select(f => _provider.QuoteParameter(f)))
             : string.Empty;
 
         return AppendText($"{quotedNames}");
@@ -116,7 +116,7 @@ public sealed class CommandDefinition
     public CommandDefinition ParameterPairs(string pairSeparator, params string[] items)
     {
         var quotedNames = items != null && items.Length > 0
-            ? string.Join(", ", items.Select(f => $"{_provider.QuotePrefix}{f}{_provider.QuoteSuffix} = {_provider.ParameterPrefix}{f}"))
+            ? string.Join(", ", items.Select(f => $"{_provider.QuoteField(f)} = {_provider.QuoteParameter(f)}"))
             : string.Empty;
 
         return AppendText($"{quotedNames}");

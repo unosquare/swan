@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 /// </summary>
 public record DbProvider
 {
-    internal delegate void AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
+    internal delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
     private const string AddWithValueMethodName = "AddWithValue";
     private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
@@ -191,6 +191,33 @@ public record DbProvider
                 QuoteSuffix)
             : $"{QuotePrefix}{tableName}{QuoteSuffix}";
 
+    internal string QuoteField(string fieldName) =>
+        $"{QuotePrefix}{fieldName}{QuoteSuffix}";
+
+    /// <summary>
+    /// Adds the provider-specific parameter prefix to the specified parameter name.
+    /// If the specified name already contains the parameter prefix, it simply returns
+    /// the trimmed name.
+    /// </summary>
+    /// <param name="name">The name to add the parameter prefix to.</param>
+    /// <returns>The quoted parameter name.</returns>
+    internal string QuoteParameter(string name) =>
+        !string.IsNullOrWhiteSpace(ParameterPrefix) && name.StartsWith(ParameterPrefix, StringComparison.Ordinal)
+            ? name.Trim()
+            : $"{ParameterPrefix}{name.Trim()}";
+
+    /// <summary>
+    /// Removes the provider-specific parameter prefix from the specified parameter name.
+    /// If the specified parameter name does not contain a parameter prefix, it simply returns
+    /// the trimmed name.
+    /// </summary>
+    /// <param name="name">The name to remove the parameter prefix from.</param>
+    /// <returns>The unquoted parameter name.</returns>
+    internal string UnquoteParameter(string name) =>
+        !string.IsNullOrWhiteSpace(ParameterPrefix) && name.StartsWith(ParameterPrefix, StringComparison.Ordinal)
+            ? new string(name.AsSpan()[ParameterPrefix.Length..]).Trim()
+            : name.Trim();
+
     internal string QuoteTable(TableMetadata table) =>
         !string.IsNullOrWhiteSpace(table.Schema)
             ? string.Join(string.Empty,
@@ -234,11 +261,12 @@ public record DbProvider
             var nameParameter = Expression.Parameter(typeof(string), "name");
             var valueParameter = Expression.Parameter(typeof(object), "value");
 
-            var expressionBody = Expression.Call(
-                Expression.Convert(targetParameter, collectionType.NativeType), addWithValueMethod, nameParameter, valueParameter);
+            var expressionBody = Expression.Convert(
+                Expression.Call(Expression.Convert(targetParameter, collectionType.NativeType),
+                    addWithValueMethod, nameParameter, valueParameter), typeof(IDbDataParameter));
 
             return Expression
-                .Lambda<AddWithValueDelegate>(expressionBody, targetParameter, nameParameter, valueParameter)
+                .Lambda<AddWithValueDelegate>(expressionBody,targetParameter, nameParameter, valueParameter)
                 .Compile();
         }
         catch

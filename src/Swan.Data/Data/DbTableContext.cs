@@ -273,7 +273,7 @@ public sealed class DbTableContext : IDisposable
                 if (rowNumber <= offset)
                     continue;
 
-                result.Add(reader.ReadObject(typeFactory));
+                result.Add(reader.ExtractObject(typeFactory));
 
                 if (result.Count >= limit)
                     break;
@@ -330,7 +330,7 @@ public sealed class DbTableContext : IDisposable
                 if (rowNumber <= offset)
                     continue;
 
-                result.Add(reader.ReadObject());
+                result.Add(reader.ExtractExpando());
 
                 if (result.Count >= limit)
                     break;
@@ -489,7 +489,7 @@ public sealed class DbTableContext : IDisposable
 
     /// <summary>
     /// Trims the provided name and adds the corresponding
-    /// <see cref="TableMetadata.ParameterPrefix"/>
+    /// <see cref="DbProvider.ParameterPrefix"/>
     /// </summary>
     /// <param name="name">The name identifier.</param>
     /// <returns></returns>
