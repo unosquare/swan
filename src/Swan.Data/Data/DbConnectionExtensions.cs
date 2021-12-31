@@ -75,7 +75,7 @@ public static class DbConnectionExtensions
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
-    public static CommandDefinition StartCommand(this IDbConnection connection) => connection is null
+    public static DbCommandSource StartCommand(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection);
 
@@ -90,12 +90,11 @@ public static class DbConnectionExtensions
         if (deserialize is null)
             throw new ArgumentNullException(nameof(deserialize));
 
-        var commandDefinition = connection.StartCommand().WithText(sql);
-
-        if (transaction != null) commandDefinition.WithTransaction(transaction);
-        if (timeout != null) commandDefinition.WithCommandTimeout(timeout.Value);
-
-        var command = commandDefinition.FinishCommand();
+        var command = connection
+            .StartCommand()
+            .WithText(sql)
+            .WithTimeout(timeout)
+            .FinishCommand(transaction);
 
         if (param != null)
             command.SetParameters(param);
@@ -105,9 +104,9 @@ public static class DbConnectionExtensions
 
     public static IEnumerable<T> Query<T>(
         this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ExtractObject<T>(), param, behavior, transaction, timeout);
+        => connection.Query(sql, (reader) => reader.ParseObject<T>(), param, behavior, transaction, timeout);
 
     public static IEnumerable<dynamic> Query(
         this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ExtractExpando(), param, behavior, transaction, timeout);
+        => connection.Query(sql, (reader) => reader.ParseExpando(), param, behavior, transaction, timeout);
 }

@@ -75,7 +75,8 @@ public interface ITypeInfo
     /// <summary>
     /// Gets a value indicating whether the type is basic.
     /// Basic types are all primitive types plus strings, GUIDs , TimeSpans, DateTimes
-    /// including their nullable versions.
+    /// including their nullable versions. Also, enums, since they are just integral types
+    /// are considered basic types, even their nullable versions.
     /// </summary>
     bool IsBasicType { get; }
 

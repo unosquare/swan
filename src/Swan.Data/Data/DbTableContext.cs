@@ -273,7 +273,7 @@ public sealed class DbTableContext : IDisposable
                 if (rowNumber <= offset)
                     continue;
 
-                result.Add(reader.ExtractObject(typeFactory));
+                result.Add(reader.ParseObject(typeFactory));
 
                 if (result.Count >= limit)
                     break;
@@ -330,7 +330,7 @@ public sealed class DbTableContext : IDisposable
                 if (rowNumber <= offset)
                     continue;
 
-                result.Add(reader.ExtractExpando());
+                result.Add(reader.ParseExpando());
 
                 if (result.Count >= limit)
                     break;

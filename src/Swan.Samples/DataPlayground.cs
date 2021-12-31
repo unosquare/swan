@@ -16,8 +16,8 @@ internal static class DataPlayground
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
         var output = conn.StartCommand()
-            .Select().FieldNames().From("Projects").Where()
-            .FieldName("ProjectId").IsBetween().ParameterName("p1").And().ParameterName("p2")
+            .Select().Fields().From("Projects").Where()
+            .Field("ProjectId").IsBetween().Parameter("p1").And().Parameter("p2")
             .OrderBy("ProjectId")
             .Limit(10, 20)
             .FinishCommand()
@@ -30,7 +30,8 @@ internal static class DataPlayground
         //    var px = await conn.TableCommand("Projects").Take(10).ToListAsync();
 
         var sx = conn
-            .Query("SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId", new { P1 = 600, P2 = 1500 })
+            .Query("SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId",
+                new { P1 = 600, P2 = 1500 })
             .ToList();
 
         Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");

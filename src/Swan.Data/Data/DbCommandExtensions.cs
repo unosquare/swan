@@ -8,7 +8,7 @@ public static class DbCommandExtensions
     private const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
 
     /// <summary>
-    /// Tries to find a parameter within the command using the given name.
+    /// Tries to find a parameter within the command parameter collection using the given name.
     /// The search is case-insensitive and the name can optionally start with a
     /// parameter prefix.
     /// </summary>
@@ -64,7 +64,7 @@ public static class DbCommandExtensions
     /// <param name="direction">The parameter direction. Typically input.</param>
     /// <returns>The provided command for fluent API compatibility.</returns>
     public static T SetParameter<T>(this T command, string name, object? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
-        where T : IDbCommand => command.SetParameterWithType(name, (value?.GetType() ?? typeof(DBNull)), value, dbType, direction);
+        where T : IDbCommand => command.SetParameter(name, (value?.GetType() ?? typeof(DBNull)), value, dbType, direction);
 
     /// <summary>
     /// If the given parameter name does not exist, adds the parameter with the specified name and value,
@@ -79,10 +79,11 @@ public static class DbCommandExtensions
     /// <param name="direction">The parameter direction. Typically input.</param>
     /// <returns>The provided command for fluent API compatibility.</returns>
     public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
-        where TCommand : IDbCommand => command.SetParameterWithType(name, typeof(TValue), value, dbType, direction);
+        where TCommand : IDbCommand => command.SetParameter(name, typeof(TValue), value, dbType, direction);
 
     /// <summary>
-    /// This is the internal call to resolve the easy adding of command parameters.
+    /// If the given parameter name does not exist, adds the parameter with the specified name and value,
+    /// atomatically specifying the parameter's <see cref="IDataParameter.DbType"/> if not provided.
     /// </summary>
     /// <typeparam name="T">The command type.</typeparam>
     /// <param name="command">The command to add the parameter to.</param>
@@ -92,7 +93,7 @@ public static class DbCommandExtensions
     /// <param name="dbType">The optional database type.</param>
     /// <param name="direction">The parameter direction. Typically input.</param>
     /// <returns>The provided command for fluent API compatibility.</returns>
-    private static T SetParameterWithType<T>(this T command, string name, Type valueType, object? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
+    public static T SetParameter<T>(this T command, string name, Type valueType, object? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
         where T : IDbCommand
     {
         if (command is null)
@@ -163,7 +164,18 @@ public static class DbCommandExtensions
         return command;
     }
 
-
+    /// <summary>
+    /// Takes the given parameters object, extracts its publicly visible properties and values
+    /// and adds the to the command's parameter collection. If the command text is set, it looks
+    /// for the parameters within the command text before adding them.
+    /// </summary>
+    /// <typeparam name="TCommand"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="command"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public static TCommand SetParameters<TCommand, TValue>(this TCommand command, TValue parameters)
         where TCommand : IDbCommand
         where TValue : class
@@ -182,7 +194,8 @@ public static class DbCommandExtensions
 
         foreach (var (propertyName, property) in typeInfo.Properties)
         {
-            if (!property.CanRead || !property.HasPublicGetter || propertyName.Contains('.', StringComparison.Ordinal))
+            if (!property.CanRead || !property.HasPublicGetter || !property.PropertyType.IsBasicType ||
+                propertyName.Contains('.', StringComparison.Ordinal))
                 continue;
 
             var parameterName = provider.QuoteParameter(propertyName);
@@ -193,21 +206,21 @@ public static class DbCommandExtensions
             }
 
             if (property.TryRead(parameters, out var value))
-                command.SetParameterWithType(propertyName, property.PropertyType.NativeType, value);
+                command.SetParameter(propertyName, property.PropertyType.NativeType, value);
         }
 
         return command;
     }
 
     /// <summary>
-    /// Executes a data reader in the underlying stream as a single result-set
+    /// Executes a data reader in the underlying stream as a single result set
     /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over items, one at a time.
+    /// iterating over records, one at a time.
     /// </summary>
     /// <typeparam name="T">The type of elements to return.</typeparam>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
-    /// <param name="deserialize">The deserialization method used to produce the items based on the records.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior, Func<IDataReader, T> deserialize)
     {
@@ -254,11 +267,28 @@ public static class DbCommandExtensions
         }
     }
 
-    public static IEnumerable<T> Query<T>(this IDbCommand command) =>
-        command.Query(CommandBehavior.Default, (reader) => DataRecordExtensions.ExtractObject<T>(reader));
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
+    /// <typeparam name="T">The type of object to deserialize records into.</typeparam>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
+        command.Query(behavior, (reader) => DataRecordExtensions.ParseObject<T>(reader));
 
-    public static IEnumerable<dynamic> Query(this IDbCommand command) =>
-        command.Query(CommandBehavior.Default, (reader) => DataRecordExtensions.ExtractExpando(reader));
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<dynamic> Query(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
+        command.Query(behavior, (reader) => DataRecordExtensions.ParseExpando(reader));
 
     private static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {
