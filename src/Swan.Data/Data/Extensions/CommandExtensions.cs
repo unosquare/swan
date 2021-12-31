@@ -1,12 +1,10 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Extensions;
 
 /// <summary>
-/// Provides extension methods for connected database commands.
+/// Provides extension methods for <see cref="IDbCommand"/> objects.
 /// </summary>
-public static class DbCommandHelper
+public static partial class CommandExtensions
 {
-    private const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
-
     /// <summary>
     /// Tries to find a parameter within the command parameter collection using the given name.
     /// The search is case-insensitive and the name can optionally start with a
@@ -24,7 +22,7 @@ public static class DbCommandHelper
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
 
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
@@ -100,7 +98,7 @@ public static class DbCommandHelper
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
 
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(name);
@@ -184,7 +182,7 @@ public static class DbCommandHelper
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
 
         if (parameters is null)
             return command;
@@ -210,100 +208,5 @@ public static class DbCommandHelper
         }
 
         return command;
-    }
-
-    /// <summary>
-    /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <typeparam name="T">The type of elements to return.</typeparam>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="behavior">The command behavior.</param>
-    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior, Func<IDataReader, T> deserialize)
-    {
-        if (command == null)
-            throw new ArgumentNullException(nameof(command));
-
-        if (command.Connection is null)
-            throw new ArgumentException(CommandConnectionErrorMessage, nameof(command));
-
-        if (deserialize == null)
-            throw new ArgumentNullException(nameof(deserialize));
-
-        var reader = command.ExecuteOptimizedReader(behavior);
-
-        try
-        {
-            if (reader.FieldCount == 0)
-                yield break;
-
-            while (reader.Read())
-            {
-                yield return deserialize(reader);
-            }
-
-            // skip the following result sets.
-            while (reader.NextResult()) { }
-            reader.Dispose();
-            reader = null;
-        }
-        finally
-        {
-            if (reader != null)
-            {
-                if (!reader.IsClosed)
-                {
-                    try { command.Cancel(); }
-                    catch { /* don't spoil the existing exception */ }
-                }
-                reader.Dispose();
-            }
-
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <typeparam name="T">The type of object to deserialize records into.</typeparam>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="behavior">The command behavior.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => IDataRecordHelper.ParseObject<T>(reader));
-
-    /// <summary>
-    /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="behavior">The command behavior.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<dynamic> Query(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => IDataRecordHelper.ParseExpando(reader));
-
-    private static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
-    {
-        const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
-        IDataReader? reader = null;
-
-        try
-        {
-            reader = command.ExecuteReader(OptimizedBahavior | requiredFlags);
-            return reader;
-        }
-        catch (ArgumentException)
-        {
-            reader = command.ExecuteReader(requiredFlags);
-            return reader;
-        }
     }
 }

@@ -1,6 +1,4 @@
-﻿namespace Swan.Data;
-
-using Swan.Extensions;
+﻿namespace Swan.Data.Extensions;
 
 /// <summary>
 /// A simple helper class to define commands that can be used in the context

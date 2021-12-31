@@ -1,15 +1,20 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Extensions;
 
 /// <summary>
-/// Provides <see cref="DbConnection"/> extension methods.
+/// Provides extension methods for <see cref="IDbConnection"/> objects.
 /// </summary>
-public static partial class DbConnectionHelper
+public static partial class ConnectionExtensions
 {
+    /// <summary>
+    /// Retrieves the <see cref="DbProvider"/> associated with the given connection.
+    /// </summary>
+    /// <param name="connection">The connection to extract the provider from.</param>
+    /// <returns>The associated DB provider.</returns>
     public static DbProvider Provider(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : DbProvider.FromConnection(connection);
 
-    public static async Task<IReadOnlyList<string>> TableNames(this DbConnection connection)
+    public static async Task<IReadOnlyList<string>> TableNames(this IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -17,7 +22,7 @@ public static partial class DbConnectionHelper
         await connection.EnsureIsValidAsync();
 
         var tables = new List<string>();
-        var dt = connection.GetSchema("Tables");
+        var dt = (connection as DbConnection).GetSchema("Tables");
         foreach (DataRow row in dt.Rows)
         {
             string tablename = (string)row[2];
@@ -50,7 +55,7 @@ public static partial class DbConnectionHelper
     }
 
     /// <summary>
-    /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
+    /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
     /// </summary>
     /// <param name="connection">The connection to check for validity.</param>
     public static void EnsureIsValid(this IDbConnection connection)
@@ -68,35 +73,5 @@ public static partial class DbConnectionHelper
     public static DbCommandSource StartCommand(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection);
-
-    public static IEnumerable<T> Query<T>(this IDbConnection connection, string sql, Func<IDataReader, T> deserialize, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        if (string.IsNullOrWhiteSpace(sql))
-            throw new ArgumentNullException(nameof(sql));
-
-        if (deserialize is null)
-            throw new ArgumentNullException(nameof(deserialize));
-
-        var command = connection
-            .StartCommand()
-            .WithText(sql)
-            .WithTimeout(timeout)
-            .FinishCommand(transaction);
-
-        if (param != null)
-            command.SetParameters(param);
-
-        return command.Query(behavior, deserialize);
-    }
-
-    public static IEnumerable<T> Query<T>(
-        this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ParseObject<T>(), param, behavior, transaction, timeout);
-
-    public static IEnumerable<dynamic> Query(
-        this IDbConnection connection, string sql, object? param = default, CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ParseExpando(), param, behavior, transaction, timeout);
 }
+

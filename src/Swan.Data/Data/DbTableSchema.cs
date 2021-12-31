@@ -1,8 +1,8 @@
 ﻿namespace Swan.Data;
 
-public class DbTable
+public class DbTableSchema
 {
-    Dictionary<string, DbColumn> _columns = new(128);
+    Dictionary<string, DbColumnSchema> _columns = new(128);
     private const string CommandText = @"SELECT
 	 [Column].TABLE_CATALOG AS [Database]
 	,[Column].TABLE_SCHEMA AS [Schema]
@@ -38,7 +38,7 @@ LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS [Constraint] ON
 ORDER BY
 	[Database], [Schema], [Table], [ColumnOrdinal]";
 
-    public DbTable(IDbConnection connection, string tableName, string? schema)
+    public DbTableSchema(IDbConnection connection, string tableName, string? schema)
     {
         Provider = connection.Provider();
         Database = connection.Database;
@@ -50,7 +50,7 @@ ORDER BY
             if (item.Schema != Schema || item.Table != TableName)
                 continue;
 
-            _columns[item.ColumnName] = new DbColumn
+            _columns[item.ColumnName] = new DbColumnSchema
             {
                 AllowsDBNull = item.AllowsDBNull != 0,
                 ColumnName = item.ColumnName,
@@ -72,6 +72,6 @@ ORDER BY
 
     public string TableName { get; }
 
-    public IReadOnlyList<DbColumn> Columns => _columns.Values.ToArray();
+    public IReadOnlyList<DbColumnSchema> Columns => _columns.Values.ToArray();
 }
 

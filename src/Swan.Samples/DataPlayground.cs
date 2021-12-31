@@ -2,6 +2,7 @@
 
 using Microsoft.Data.Sqlite;
 using Swan.Data;
+using Swan.Data.Extensions;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -36,7 +37,7 @@ internal static class DataPlayground
 
         Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");
 
-        var table = new DbTable(conn, "Projects", null);
+        var table = new DbTableSchema(conn, "Projects", null);
         foreach (var col in table.Columns)
         {
             Console.WriteLine(col);

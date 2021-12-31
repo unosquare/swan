@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides column schema information.
 /// </summary>
-public record DbColumn
+public record DbColumnSchema
 {
     /// <summary>
     /// Gets the column name.

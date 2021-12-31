@@ -6,4 +6,6 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.Dynamic;
 global using System.Globalization;
 global using System.Text;
+global using Swan.Data.Extensions;
+global using Swan.Extensions;
 #pragma warning restore IDE0065

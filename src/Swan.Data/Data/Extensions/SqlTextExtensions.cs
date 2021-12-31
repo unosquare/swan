@@ -1,10 +1,6 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Extensions;
 
-/// <summary>
-/// Provides command text extenssions for easily adding common
-/// keywords, quoting tables, and quoting fields and parameters.
-/// </summary>
-public static class DbCommandTextHelper
+public static partial class SqlTextExtensions
 {
     /// <summary>
     /// Appends the SELECT keyword to the command text.
@@ -17,7 +13,7 @@ public static class DbCommandTextHelper
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
-        
+
         @this.AppendText("SELECT");
         return fields != null && fields.Length > 0
             ? @this.Fields(fields)
@@ -230,4 +226,3 @@ public static class DbCommandTextHelper
         return @this.AppendText(builder.ToString());
     }
 }
-
