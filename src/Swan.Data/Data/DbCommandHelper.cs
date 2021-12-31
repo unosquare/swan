@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides extension methods for connected database commands.
 /// </summary>
-public static class DbCommandExtensions
+public static class DbCommandHelper
 {
     private const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
 
@@ -277,7 +277,7 @@ public static class DbCommandExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => DataRecordExtensions.ParseObject<T>(reader));
+        command.Query(behavior, (reader) => IDataRecordHelper.ParseObject<T>(reader));
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
@@ -288,7 +288,7 @@ public static class DbCommandExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<dynamic> Query(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => DataRecordExtensions.ParseExpando(reader));
+        command.Query(behavior, (reader) => IDataRecordHelper.ParseExpando(reader));
 
     private static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {

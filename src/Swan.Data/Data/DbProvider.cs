@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 /// Provides connection-specific metadata useful
 /// in constructing commands.
 /// </summary>
-public record DbProvider
+public sealed record DbProvider
 {
     internal delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
@@ -217,18 +217,6 @@ public record DbProvider
         !string.IsNullOrWhiteSpace(ParameterPrefix) && name.StartsWith(ParameterPrefix, StringComparison.Ordinal)
             ? new string(name.AsSpan()[ParameterPrefix.Length..]).Trim()
             : name.Trim();
-
-    internal string QuoteTable(TableMetadata table) =>
-        !string.IsNullOrWhiteSpace(table.Schema)
-            ? string.Join(string.Empty,
-                QuotePrefix,
-                table.Schema,
-                QuoteSuffix,
-                SchemaSeparator,
-                QuotePrefix,
-                table.TableName,
-                QuoteSuffix)
-            : $"{QuotePrefix}{table.TableName}{QuoteSuffix}";
 
     internal static DbProvider FromConnection(IDbConnection connection)
     {

@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides <see cref="DbConnection"/> extension methods.
 /// </summary>
-public static class DbConnectionExtensions
+public static partial class DbConnectionHelper
 {
     public static DbProvider Provider(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
@@ -26,18 +26,8 @@ public static class DbConnectionExtensions
         return tables;
     }
 
-    public static async Task<DbTableContext> TableCommandAsync(this DbConnection connection, string tableName, string? schemaName = default)
-    {
-        var tableMeta = await TableMetadata.AcquireAsync(connection, tableName, schemaName);
-        await connection.EnsureIsValidAsync();
-        return new DbTableContext(connection, tableMeta);
-    }
-
-    public static DbTableContext TableCommand(this DbConnection connection, string tableName, string? schemaName = default) =>
-        connection.TableCommandAsync(tableName, schemaName).ConfigureAwait(false).GetAwaiter().GetResult();
-
     /// <summary>
-    /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
+    /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
     /// </summary>
     /// <param name="connection">The connection to check for validity.</param>
     /// <param name="ct">The cancellation token.</param>

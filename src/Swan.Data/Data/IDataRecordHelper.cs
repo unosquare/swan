@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides data record extensions to efficiently parse objects from the underlying data records.
 /// </summary>
-public static class DataRecordExtensions
+public static class IDataRecordHelper
 {
     /// <summary>
     /// Reads an object from the underlying reader at the current position.
