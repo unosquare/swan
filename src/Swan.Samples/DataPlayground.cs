@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using Swan.Data;
 using Swan.Data.Extensions;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -37,10 +38,17 @@ internal static class DataPlayground
 
         Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");
 
-        var table = new DbTableSchema(conn, "Projects", null);
+        var table = conn.Table("Projects");
         foreach (var col in table.Columns)
         {
-            Console.WriteLine(col);
+            Console.WriteLine($"{col.Name,-16} {col.ProviderDataType,-16} {col.DataType,-16} {col.IsKey,-6} {col.IsAutoIncrement,-6}");
+        }
+
+        using var schemaCommand = conn.StartCommand().Select().Fields().From("Projects").Where().AppendText("1 = 2").FinishCommand();
+        using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
+        foreach (var row in schemaReader.GetSchemaTable().Query())
+        {
+            Console.WriteLine(row);
         }
     }
 

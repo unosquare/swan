@@ -43,8 +43,7 @@ public static partial class DataRowExtensions
             var fieldValue = row[columnIndex];
             if (!property.TryWrite(result, fieldValue))
                 throw new InvalidCastException(
-                $"Unable to convert field type '{fieldValue.GetType().Name}'" +
-                $" to property '{property.PropertyType}' for field '{fieldName}'");
+                $"Unable to convert value for field '{fieldName}' of type '{fieldValue.GetType().Name}' to '{property.PropertyType}'");
 
         }
 

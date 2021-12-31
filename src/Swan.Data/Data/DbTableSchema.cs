@@ -2,66 +2,33 @@
 
 public class DbTableSchema
 {
-    Dictionary<string, DbColumnSchema> _columns = new(128);
-    private const string CommandText = @"SELECT
-	 [Column].TABLE_CATALOG AS [Database]
-	,[Column].TABLE_SCHEMA AS [Schema]
-	,[Column].TABLE_NAME AS [Table]
-	,[Column].COLUMN_NAME AS [ColumnName]
-	,[Column].ORDINAL_POSITION AS [ColumnOrdinal]
-	,[Column].DATA_TYPE AS [ProviderDataType]
-	,[Column].CHARACTER_MAXIMUM_LENGTH AS [MasLength]
-	,[Column].NUMERIC_PRECISION AS [Precision]
-	,[Column].NUMERIC_SCALE AS [Scale]
-	,CASE WHEN [Column].IS_NULLABLE = 'YES' THEN 1 ELSE 0 END AS [AllowsDBNull]
-	,CASE WHEN [Constraint].CONSTRAINT_TYPE = 'PRIMARY KEY' THEN 1 ELSE 0 END AS [IsKey]
-	,CASE WHEN COLUMNPROPERTY(object_id([Column].TABLE_NAME), [Column].COLUMN_NAME, 'IsIdentity') = 1
-		THEN 1
-		ELSE 0
-	 END AS [IsAutoIncrement]
-	,CASE WHEN COLUMNPROPERTY(object_id([Column].TABLE_NAME), [Column].COLUMN_NAME, 'IsComputed') = 1
-		THEN 1
-		ELSE 0
-	 END AS [IsComputed]
-FROM INFORMATION_SCHEMA.COLUMNS AS [Column]
-LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE [Usage] ON
-	[Column].TABLE_CATALOG = [Usage].TABLE_CATALOG AND
-	[Column].TABLE_NAME = [Usage].TABLE_NAME AND
-	[Column].TABLE_SCHEMA = [Usage].TABLE_SCHEMA AND
-	[Column].COLUMN_NAME = [Usage].COLUMN_NAME
-LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS [Constraint] ON
-	[Constraint].TABLE_CATALOG = [Usage].TABLE_CATALOG AND
-	[Constraint].TABLE_NAME = [Usage].TABLE_NAME AND
-	[Constraint].TABLE_SCHEMA = [Usage].TABLE_SCHEMA AND
-	[Constraint].CONSTRAINT_NAME = [Usage].CONSTRAINT_NAME AND
-	[Constraint].CONSTRAINT_TYPE <> 'FOREIGN KEY'
-ORDER BY
-	[Database], [Schema], [Table], [ColumnOrdinal]";
+    private static readonly object CacheLock = new();
+    private static readonly Dictionary<int, DbTableSchema> Cache = new();
 
-    public DbTableSchema(IDbConnection connection, string tableName, string? schema)
+    private readonly Dictionary<string, IDbColumn> _columns = new(128);
+
+    private DbTableSchema(IDbConnection connection, string tableName, string schema)
     {
         Provider = connection.Provider();
         Database = connection.Database;
         TableName = tableName;
-        Schema = schema ?? Provider.DefaultSchemaName;
+        Schema = schema;
 
-        foreach (var item in connection.Query(CommandText))
+        using var schemaCommand = connection.StartCommand()
+            .Select().Fields().From(TableName, Schema).Where("1 = 2").FinishCommand();
+
+        using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
+        using var schemaTable = schemaReader.GetSchemaTable();
+
+        if (schemaTable == null)
+            throw new InvalidOperationException("Could not retrieve table schema.");
+
+        foreach (IDbColumn row in schemaTable.Query<SqlServerColumn>())
         {
-            if (item.Schema != Schema || item.Table != TableName)
-                continue;
-
-            _columns[item.ColumnName] = new DbColumnSchema
-            {
-                AllowsDBNull = item.AllowsDBNull != 0,
-                ColumnName = item.ColumnName,
-                ColumnOrdinal = item.ColumnOrdinal,
-                IsAutoIncrement = item.IsAutoIncrement != 0,
-                IsReadOnly = item.IsAutoIncrement != 0 || item.IsComputed != 0,
-                IsKey = item.IsKey != 0,
-                ProviderDataType = item.ProviderDataType,
-            };
+            _columns[row.Name] = row;
         }
 
+        CacheKey = ComputeCacheKey(Provider, TableName, Schema);
     }
 
     public DbProvider Provider { get; }
@@ -72,6 +39,27 @@ ORDER BY
 
     public string TableName { get; }
 
-    public IReadOnlyList<DbColumnSchema> Columns => _columns.Values.ToArray();
+    internal int CacheKey { get; }
+
+    internal static int ComputeCacheKey(DbProvider provider, string tableName, string schema) =>
+        HashCode.Combine(provider.CacheKey, tableName, schema);
+
+    public IReadOnlyList<IDbColumn> Columns => _columns.Values.ToArray();
+
+    internal static DbTableSchema FromConnection(IDbConnection connection, string tableName, string? schema = default)
+    {
+        lock (CacheLock)
+        {
+            var provider = connection.Provider();
+            schema ??= provider.DefaultSchemaName;
+            var cacheKey = ComputeCacheKey(provider, tableName, schema);
+            if (Cache.TryGetValue(cacheKey, out var dbTable))
+                return dbTable;
+
+            dbTable = new(connection, tableName, schema);
+            Cache[cacheKey] = dbTable;
+            return dbTable;
+        }
+    }
 }
 

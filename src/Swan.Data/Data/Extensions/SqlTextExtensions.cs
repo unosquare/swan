@@ -88,10 +88,13 @@ public static partial class SqlTextExtensions
     /// Appends the WHERE keyword to the command text.
     /// </summary>
     /// <param name="this">The instance.</param>
+    /// <param name="condition">An optional condition that follows the WHERE keyword.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static DbCommandSource Where(this DbCommandSource @this) => @this is null
+    public static DbCommandSource Where(this DbCommandSource @this, string? condition = default) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
-        : @this.AppendText("WHERE");
+        : string.IsNullOrWhiteSpace(condition)
+        ? @this.AppendText("WHERE")
+        : @this.AppendText($"WHERE {condition}");
 
     /// <summary>
     /// Appends the BETWEEN keyword to the command text.
