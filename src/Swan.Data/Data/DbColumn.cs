@@ -34,17 +34,7 @@ public record DbColumn
     /// Gets whether the column is automatically incremented.
     /// </summary>
     public bool IsAutoIncrement { get; internal set; }
-    
-    /// <summary>
-    /// Gets whether the column represent a row version
-    /// or unique row identifier provided by the database.
-    /// </summary>
-    public bool IsRowVersion { get; internal set; }
-    
-    /// <summary>
-    /// Gets whether this column contains unique values.
-    /// </summary>
-    public bool IsUnique { get; internal set; }
+   
     
     /// <summary>
     /// Gets whether the column is an expression, autoincremental, or

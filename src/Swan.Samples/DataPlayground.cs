@@ -3,7 +3,6 @@
 using Microsoft.Data.Sqlite;
 using Swan.Data;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -37,37 +36,11 @@ internal static class DataPlayground
 
         Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");
 
-        var schemaQuery = conn.Query("SELECT * FROM [INFORMATION_SCHEMA].[COLUMNS]");
-        var columns = new List<DbColumn>(2048);
-        foreach (var item in schemaQuery)
+        var table = new DbTable(conn, "Projects", null);
+        foreach (var col in table.Columns)
         {
-            if (item is null)
-                continue;
-
-            var c = new DbColumn()
-            {
-                AllowsDBNull = item.IS_NULLABLE == "YES" ? true : false,
-                ColumnName = item.COLUMN_NAME,
-                ColumnOrdinal = item.ORDINAL_POSITION,
-            };
-
-            columns.Add(c);
+            Console.WriteLine(col);
         }
-
-        /* -- T-SQL Schema stuff
-SELECT * FROM [INFORMATION_SCHEMA].[COLUMNS]
-
-SELECT K.TABLE_SCHEMA, K.TABLE_NAME, K.COLUMN_NAME, C.CONSTRAINT_TYPE, K.CONSTRAINT_NAME,
-CASE WHEN COLUMNPROPERTY(object_id(K.TABLE_NAME), COLUMN_NAME, 'IsIdentity') = 1 THEN 1 ELSE 0 END AS IS_IDENTITY
-FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS C
-JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS K
-ON C.TABLE_NAME = K.TABLE_NAME
-AND C.CONSTRAINT_CATALOG = K.CONSTRAINT_CATALOG
-AND C.CONSTRAINT_SCHEMA = K.CONSTRAINT_SCHEMA
-AND C.CONSTRAINT_NAME = K.CONSTRAINT_NAME
-AND C.CONSTRAINT_NAME <> 'FOREIGN KEY'
-ORDER BY K.TABLE_NAME, C.CONSTRAINT_TYPE, K.CONSTRAINT_NAME
-         */
     }
 
 }
