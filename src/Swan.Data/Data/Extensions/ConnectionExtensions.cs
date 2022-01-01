@@ -31,8 +31,8 @@ public static partial class ConnectionExtensions
         return tables;
     }
 
-    public static DbTable Table(this IDbConnection connection, string tableName, string? schema = default) =>
-        DbTable.FromConnection(connection, tableName, schema);
+    public static TableContext Table(this IDbConnection connection, string tableName, string? schema = default) =>
+        new(connection, tableName, schema);
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
@@ -73,7 +73,7 @@ public static partial class ConnectionExtensions
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
-    public static DbCommandSource StartCommand(this IDbConnection connection) => connection is null
+    public static CommandSource StartCommand(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection);
 }

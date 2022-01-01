@@ -2,13 +2,15 @@
 
 /// <summary>
 /// Represents table structure information from the backing data store.
+/// While it uses a connection object to retrieve a schema, it does not store
+/// store a reference to a connection.
 /// </summary>
-public class DbTable
+public sealed class DbTableSchema : IDbTable
 {
-    private static readonly ValueCache<int, DbTable> Cache = new();
+    private static readonly ValueCache<int, DbTableSchema> Cache = new();
     private readonly Dictionary<string, IDbColumn> _columns = new(128);
 
-    private DbTable(IDbConnection connection, string tableName, string schema)
+    private DbTableSchema(IDbConnection connection, string tableName, string schema)
     {
         Provider = connection.Provider();
         Database = connection.Database;
@@ -68,12 +70,13 @@ public class DbTable
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional schema name.</param>
     /// <returns>A populated table schema.</returns>
-    internal static DbTable FromConnection(IDbConnection connection, string tableName, string? schema = default)
+    internal static DbTableSchema FromConnection(IDbConnection connection, string tableName, string? schema = default)
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
         var cacheKey = Library.ComputeCacheKey(provider, tableName, schema);
         return Cache.GetValue(cacheKey, () => new(connection, tableName, schema));
     }
+
 }
 

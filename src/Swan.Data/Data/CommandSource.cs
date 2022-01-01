@@ -6,16 +6,16 @@
 /// with functionality that is useful to build SQL commands along with their basic
 /// properties.
 /// </summary>
-public sealed class DbCommandSource
+public sealed class CommandSource : IConnected
 {
     private StringBuilder? _commandText = new();
-    private IDbConnection? _connection;
+    private IDbConnection _connection;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="DbCommandSource"/> class.
+    /// Creates a new instance of the <see cref="CommandSource"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
-    internal DbCommandSource(IDbConnection connection)
+    internal CommandSource(IDbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -25,6 +25,9 @@ public sealed class DbCommandSource
         CommandType = CommandType.Text;
         CommandTimeout = TimeSpan.FromSeconds(Convert.ToInt32(Provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0));
     }
+
+    /// <inheritdoc />
+    public IDbConnection Connection => _connection;
 
     /// <summary>
     /// Gets the resolved provider associated with the connection.
@@ -57,7 +60,7 @@ public sealed class DbCommandSource
     /// </summary>
     /// <param name="timeout">The timeout value.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public DbCommandSource WithTimeout(TimeSpan? timeout)
+    public CommandSource WithTimeout(TimeSpan? timeout)
     {
         var value = timeout.HasValue ?
             timeout.Value.TotalSeconds :
@@ -74,7 +77,7 @@ public sealed class DbCommandSource
     /// </summary>
     /// <param name="commandType">The command type.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public DbCommandSource WithCommandType(CommandType? commandType)
+    public CommandSource WithCommandType(CommandType? commandType)
     {
         CommandType = commandType ?? CommandType.Text;
         return this;
@@ -87,7 +90,7 @@ public sealed class DbCommandSource
     /// </summary>
     /// <param name="text">The sql text.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public DbCommandSource WithText(string? text)
+    public CommandSource WithText(string? text)
     {
         if (_commandText is null)
             throw new ObjectDisposedException(nameof(_commandText));
@@ -106,7 +109,7 @@ public sealed class DbCommandSource
     /// </summary>
     /// <param name="text">The text to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public DbCommandSource AppendText(string text)
+    public CommandSource AppendText(string text)
     {
         if (_commandText is null)
             throw new ObjectDisposedException(nameof(_commandText));
