@@ -12,8 +12,7 @@ public sealed record DbProvider
 
     private const string AddWithValueMethodName = "AddWithValue";
     private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
-    private static readonly object CacheLock = new();
-    private static readonly Dictionary<int, DbProvider> _Cache = new(4);
+    private static readonly ValueCache<int, DbProvider> _Cache = new();
 
     private readonly Lazy<AddWithValueDelegate?> LazyAddWithValue;
 
@@ -74,7 +73,7 @@ public sealed record DbProvider
             _ => "@",
         };
 
-        CacheKey = ComputeCacheKey(connection);
+        CacheKey = connection.ComputeCacheKey();
         Database = connection.Database;
         TypeMapper = DbTypeMapper.Default;
 
@@ -136,6 +135,12 @@ public sealed record DbProvider
     /// </summary>
     public TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
 
+    internal Type DbColumnType => Kind == ProviderKind.SqlServer
+        ? typeof(SqlServerColumn)
+        : Kind == ProviderKind.Sqlite
+        ? typeof(SqliteColumn)
+        : throw new NotSupportedException();
+
     /// <summary>
     /// If supported, provides the Parameters.AddWithValue delegate to call when
     /// setting parameters.
@@ -158,26 +163,6 @@ public sealed record DbProvider
     /// Gets the internal identifier for caching purposes.
     /// </summary>
     internal int CacheKey { get; }
-
-    /// <summary>
-    /// Computes a hash code that serves as a cache identifier for all
-    /// connections matching the initial connection string, database, and connection type.
-    /// </summary>
-    /// <param name="connection">The connection to derive the hash code from.</param>
-    /// <returns>A unique id for matching connections.</returns>
-    /// <exception cref="ArgumentNullException">Connection cannot be null.</exception>
-    internal static int ComputeCacheKey(IDbConnection connection)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        connection.EnsureIsValid();
-        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
-        var hashB = connection.Database.GetHashCode(StringComparison.Ordinal);
-        var hashC = connection.GetType().GetHashCode();
-
-        return HashCode.Combine(hashA, hashB, hashC);
-    }
 
     internal string QuoteTable(string tableName, string? schemaName = default) =>
         !string.IsNullOrWhiteSpace(schemaName)
@@ -223,16 +208,7 @@ public sealed record DbProvider
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        var cacheKey = ComputeCacheKey(connection);
-        lock (CacheLock)
-        {
-            if (_Cache.TryGetValue(cacheKey, out var metadata))
-                return metadata;
-
-            metadata = new DbProvider(connection);
-            _Cache[cacheKey] = metadata;
-            return metadata;
-        }
+        return _Cache.GetValue(connection.ComputeCacheKey(), () => new DbProvider(connection));
     }
 
     private static AddWithValueDelegate? GetAddWithValueMethod(ITypeInfo? collectionType)

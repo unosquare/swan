@@ -1,7 +1,6 @@
 ﻿namespace Swan.Samples;
 
 using Microsoft.Data.Sqlite;
-using Swan.Data;
 using Swan.Data.Extensions;
 using System;
 using System.Data;
@@ -23,7 +22,7 @@ internal static class DataPlayground
             .OrderBy("ProjectId")
             .Limit(10, 20)
             .FinishCommand()
-            .SetParameter("p1", 600, System.Data.DbType.String)
+            .SetParameter("p1", 600, DbType.String)
             .SetParameter("p2", 1500)
             .Query()
             .ToList();
@@ -36,7 +35,7 @@ internal static class DataPlayground
                 new { P1 = 600, P2 = 1500 })
             .ToList();
 
-        Console.WriteLine($"output contains {sx.Count} records. Te tenth item is named '{sx[10].Name}'");
+        Console.WriteLine($"output contains {sx.Count} records. The tenth item is named '{sx[10].Name}'");
 
         var table = conn.Table("Projects");
         foreach (var col in table.Columns)

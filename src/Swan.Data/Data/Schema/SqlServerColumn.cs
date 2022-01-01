@@ -1,6 +1,6 @@
 ﻿namespace Swan.Data.Schema;
 
-internal class SqlServerColumn : IDbColumn
+internal record SqlServerColumn : IDbColumn
 {
     public bool? AllowDBNull { get; set; }
 

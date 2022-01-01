@@ -53,5 +53,21 @@ internal static partial class InternalExtensions
             return reader;
         }
     }
+
+    public static int ComputeCacheKey(DbProvider provider, string tableName, string schema) =>
+        HashCode.Combine(provider.CacheKey, tableName, schema);
+
+    public static int ComputeCacheKey(this IDbConnection connection)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        connection.EnsureIsValid();
+        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
+        var hashB = connection.Database.GetHashCode(StringComparison.Ordinal);
+        var hashC = connection.GetType().GetHashCode();
+
+        return HashCode.Combine(hashA, hashB, hashC);
+    }
 }
 

@@ -1,10 +1,11 @@
 ﻿namespace Swan.Data;
 
+/// <summary>
+/// Represents table structure information from the backing data store.
+/// </summary>
 public class DbTableSchema
 {
-    private static readonly object CacheLock = new();
-    private static readonly Dictionary<int, DbTableSchema> Cache = new();
-
+    private static readonly ValueCache<int, DbTableSchema> Cache = new();
     private readonly Dictionary<string, IDbColumn> _columns = new(128);
 
     private DbTableSchema(IDbConnection connection, string tableName, string schema)
@@ -23,43 +24,49 @@ public class DbTableSchema
         if (schemaTable == null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-        foreach (IDbColumn row in schemaTable.Query<SqlServerColumn>())
-        {
-            _columns[row.Name] = row;
-        }
+        foreach (IDbColumn column in schemaTable.Query(Provider.DbColumnType))
+            _columns[column.Name] = column;
 
-        CacheKey = ComputeCacheKey(Provider, TableName, Schema);
+        CacheKey = InternalExtensions.ComputeCacheKey(Provider, TableName, Schema);
     }
 
+    /// <summary>
+    /// Gets the ssociated databse provider.
+    /// </summary>
     public DbProvider Provider { get; }
 
+    /// <summary>
+    /// Gets the database name (catalog) this table belongs to.
+    /// </summary>
     public string Database { get; }
 
+    /// <summary>
+    /// Gets the schema name this table belongs to. Returns
+    /// an empty string if provider does not support schemas.
+    /// </summary>
     public string Schema { get; }
 
+    /// <summary>
+    /// Gets the name of the table.
+    /// </summary>
     public string TableName { get; }
 
-    internal int CacheKey { get; }
-
-    internal static int ComputeCacheKey(DbProvider provider, string tableName, string schema) =>
-        HashCode.Combine(provider.CacheKey, tableName, schema);
-
+    /// <summary>
+    /// Gets the list of columns contained in this table.
+    /// </summary>
     public IReadOnlyList<IDbColumn> Columns => _columns.Values.ToArray();
+
+    /// <summary>
+    /// Gets the key that uniquely identifies this table.
+    /// </summary>
+    internal int CacheKey { get; }
 
     internal static DbTableSchema FromConnection(IDbConnection connection, string tableName, string? schema = default)
     {
-        lock (CacheLock)
-        {
-            var provider = connection.Provider();
-            schema ??= provider.DefaultSchemaName;
-            var cacheKey = ComputeCacheKey(provider, tableName, schema);
-            if (Cache.TryGetValue(cacheKey, out var dbTable))
-                return dbTable;
-
-            dbTable = new(connection, tableName, schema);
-            Cache[cacheKey] = dbTable;
-            return dbTable;
-        }
+        var provider = connection.Provider();
+        schema ??= provider.DefaultSchemaName;
+        var cacheKey = InternalExtensions.ComputeCacheKey(provider, tableName, schema);
+        return Cache.GetValue(cacheKey, () => new(connection, tableName, schema));
     }
 }
 
