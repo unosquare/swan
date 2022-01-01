@@ -31,8 +31,8 @@ public static partial class ConnectionExtensions
         return tables;
     }
 
-    public static DbTableSchema Table(this IDbConnection connection, string tableName, string? schema = default) =>
-        DbTableSchema.FromConnection(connection, tableName, schema);
+    public static DbTable Table(this IDbConnection connection, string tableName, string? schema = default) =>
+        DbTable.FromConnection(connection, tableName, schema);
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.

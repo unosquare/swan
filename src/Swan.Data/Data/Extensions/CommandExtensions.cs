@@ -22,7 +22,7 @@ public static partial class CommandExtensions
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
@@ -98,7 +98,7 @@ public static partial class CommandExtensions
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(name);
@@ -182,7 +182,7 @@ public static partial class CommandExtensions
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         if (parameters is null)
             return command;

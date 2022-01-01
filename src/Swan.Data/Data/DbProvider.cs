@@ -1,20 +1,13 @@
 ﻿namespace Swan.Data;
 
-using System.Linq.Expressions;
-
 /// <summary>
 /// Provides connection-specific metadata useful
 /// in constructing commands.
 /// </summary>
 public sealed record DbProvider
 {
-    internal delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
-
-    private const string AddWithValueMethodName = "AddWithValue";
-    private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
     private static readonly ValueCache<int, DbProvider> _Cache = new();
-
-    private readonly Lazy<AddWithValueDelegate?> LazyAddWithValue;
+    private readonly Lazy<Library.AddWithValueDelegate?> LazyAddWithValue;
 
     private DbProvider(IDbConnection connection)
     {
@@ -79,7 +72,7 @@ public sealed record DbProvider
 
         using var dummyCommand = connection.CreateCommand();
         var dummyParametersType = dummyCommand.Parameters.GetType().TypeInfo();
-        LazyAddWithValue = new(() => GetAddWithValueMethod(dummyParametersType), true);
+        LazyAddWithValue = new(() => Library.GetAddWithValueMethod(dummyParametersType), true);
     }
 
     /// <summary>
@@ -145,7 +138,7 @@ public sealed record DbProvider
     /// If supported, provides the Parameters.AddWithValue delegate to call when
     /// setting parameters.
     /// </summary>
-    internal AddWithValueDelegate? AddWithValueMethod => LazyAddWithValue.Value;
+    internal Library.AddWithValueDelegate? AddWithValueMethod => LazyAddWithValue.Value;
 
     /// <summary>
     /// Fluet API for setting the default timeout for commands that are
@@ -164,45 +157,6 @@ public sealed record DbProvider
     /// </summary>
     internal int CacheKey { get; }
 
-    internal string QuoteTable(string tableName, string? schemaName = default) =>
-        !string.IsNullOrWhiteSpace(schemaName)
-            ? string.Join(string.Empty,
-                QuotePrefix,
-                schemaName,
-                QuoteSuffix,
-                SchemaSeparator,
-                QuotePrefix,
-                tableName,
-                QuoteSuffix)
-            : $"{QuotePrefix}{tableName}{QuoteSuffix}";
-
-    internal string QuoteField(string fieldName) =>
-        $"{QuotePrefix}{fieldName}{QuoteSuffix}";
-
-    /// <summary>
-    /// Adds the provider-specific parameter prefix to the specified parameter name.
-    /// If the specified name already contains the parameter prefix, it simply returns
-    /// the trimmed name.
-    /// </summary>
-    /// <param name="name">The name to add the parameter prefix to.</param>
-    /// <returns>The quoted parameter name.</returns>
-    internal string QuoteParameter(string name) =>
-        !string.IsNullOrWhiteSpace(ParameterPrefix) && name.StartsWith(ParameterPrefix, StringComparison.Ordinal)
-            ? name.Trim()
-            : $"{ParameterPrefix}{name.Trim()}";
-
-    /// <summary>
-    /// Removes the provider-specific parameter prefix from the specified parameter name.
-    /// If the specified parameter name does not contain a parameter prefix, it simply returns
-    /// the trimmed name.
-    /// </summary>
-    /// <param name="name">The name to remove the parameter prefix from.</param>
-    /// <returns>The unquoted parameter name.</returns>
-    internal string UnquoteParameter(string name) =>
-        !string.IsNullOrWhiteSpace(ParameterPrefix) && name.StartsWith(ParameterPrefix, StringComparison.Ordinal)
-            ? new string(name.AsSpan()[ParameterPrefix.Length..]).Trim()
-            : name.Trim();
-
     internal static DbProvider FromConnection(IDbConnection connection)
     {
         if (connection is null)
@@ -211,31 +165,4 @@ public sealed record DbProvider
         return _Cache.GetValue(connection.ComputeCacheKey(), () => new DbProvider(connection));
     }
 
-    private static AddWithValueDelegate? GetAddWithValueMethod(ITypeInfo? collectionType)
-    {
-        if (collectionType is null)
-            return null;
-
-        if (!collectionType.TryFindPublicMethod(AddWithValueMethodName, AddWithValueArgumentTypes, out var addWithValueMethod))
-            return null;
-
-        try
-        {
-            var targetParameter = Expression.Parameter(typeof(IDataParameterCollection), "target");
-            var nameParameter = Expression.Parameter(typeof(string), "name");
-            var valueParameter = Expression.Parameter(typeof(object), "value");
-
-            var expressionBody = Expression.Convert(
-                Expression.Call(Expression.Convert(targetParameter, collectionType.NativeType),
-                    addWithValueMethod, nameParameter, valueParameter), typeof(IDbDataParameter));
-
-            return Expression
-                .Lambda<AddWithValueDelegate>(expressionBody,targetParameter, nameParameter, valueParameter)
-                .Compile();
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

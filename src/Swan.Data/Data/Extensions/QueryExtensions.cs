@@ -101,7 +101,7 @@ public static partial class QueryExtensions
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
-            throw new ArgumentException(InternalExtensions.CommandConnectionErrorMessage, nameof(command));
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         if (deserialize == null)
             throw new ArgumentNullException(nameof(deserialize));
