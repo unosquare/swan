@@ -144,18 +144,6 @@ public static partial class QueryExtensions
     /// and provides a foward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// </summary>
-    /// <typeparam name="T">The type of object to deserialize records into.</typeparam>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="behavior">The command behavior.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => reader.ParseObject<T>());
-
-    /// <summary>
-    /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
