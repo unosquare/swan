@@ -122,11 +122,11 @@ public sealed class CommandSource : IConnected
     }
 
     /// <summary>
-    /// Converts the current definition into a connection-bound
+    /// Converts the current definition into a connection-bound <see cref="IDbCommand"/> object.
     /// </summary>
-    /// <param name="transaction"></param>
-    /// <returns></returns>
-    public IDbCommand FinishCommand(IDbTransaction? transaction = default)
+    /// <param name="transaction">An optional associated transaction.</param>
+    /// <returns>The actual command that can be executed.</returns>
+    public IDbCommand EndCommand(IDbTransaction? transaction = default)
     {
         if (_connection is null)
             throw new ObjectDisposedException(nameof(_connection));

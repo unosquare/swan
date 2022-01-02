@@ -4,7 +4,7 @@
 /// Represents table structure information bound to a particular connection
 /// and from which you can issue table specific CRUD commands.
 /// </summary>
-public class TableContext : IDbTable, IConnected
+internal class TableContext : ITableContext
 {
     private readonly DbTableSchema TableSchema;
 
@@ -29,30 +29,19 @@ public class TableContext : IDbTable, IConnected
     /// <inheritdoc />
     public IDbConnection Connection { get; }
 
-    /// <summary>
-    /// Gets the ssociated databse provider.
-    /// </summary>
+    /// <inheritdoc />
     public DbProvider Provider => TableSchema.Provider;
 
-    /// <summary>
-    /// Gets the database name (catalog) this table belongs to.
-    /// </summary>
+    /// <inheritdoc />
     public string Database => TableSchema.Database;
 
-    /// <summary>
-    /// Gets the schema name this table belongs to. Returns
-    /// an empty string if provider does not support schemas.
-    /// </summary>
+    /// <inheritdoc />
     public string Schema => TableSchema.Schema;
 
-    /// <summary>
-    /// Gets the name of the table.
-    /// </summary>
+    /// <inheritdoc />
     public string TableName => TableSchema.TableName;
 
-    /// <summary>
-    /// Gets the list of columns contained in this table.
-    /// </summary>
+    /// <inheritdoc />
     public IReadOnlyList<IDbColumn> Columns => TableSchema.Columns;
 }
 

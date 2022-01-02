@@ -16,12 +16,12 @@ internal static class DataPlayground
         using var conn = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
-        var output = conn.StartCommand()
+        var output = conn.BeginCommand()
             .Select().Fields().From("Projects").Where()
             .Field("ProjectId").IsBetween().Parameter("p1").And().Parameter("p2")
             .OrderBy("ProjectId")
             .Limit(10, 20)
-            .FinishCommand()
+            .EndCommand()
             .SetParameter("p1", 600, DbType.String)
             .SetParameter("p2", 1500)
             .Query()
@@ -38,17 +38,11 @@ internal static class DataPlayground
         Console.WriteLine($"output contains {sx.Count} records. The tenth item is named '{sx[10].Name}'");
 
         var table = conn.Table("Projects");
-        foreach (var col in table.Columns)
-        {
-            Console.WriteLine($"{col.Name,-16} {col.ProviderDataType,-16} {col.DataType,-16} {col.IsKey,-6} {col.IsAutoIncrement,-6}");
-        }
+        var r = table.SelectAll().Query().ToList();
+        r = table.SelectByKey(new { ProjectId = 687 }).Query().ToList();
 
-        using var schemaCommand = conn.StartCommand().Select().Fields().From("Projects").Where().AppendText("1 = 2").FinishCommand();
-        using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
-        foreach (var row in schemaReader.GetSchemaTable().Query())
-        {
-            Console.WriteLine(row);
-        }
+        var ins = table.Insert();
+        Console.WriteLine($"output contains {r.Count} records. The tenth item is named '{r[0].Name}'");
     }
 
 }

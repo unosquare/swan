@@ -10,6 +10,13 @@ public sealed class DbTableSchema : IDbTable
     private static readonly ValueCache<int, DbTableSchema> Cache = new();
     private readonly Dictionary<string, IDbColumn> _columns = new(128);
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="DbTableSchema"/> class.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="tableName">The table name.</param>
+    /// <param name="schema">The schema name.</param>
+    /// <exception cref="InvalidOperationException"></exception>
     private DbTableSchema(IDbConnection connection, string tableName, string schema)
     {
         Provider = connection.Provider();
@@ -17,8 +24,8 @@ public sealed class DbTableSchema : IDbTable
         TableName = tableName;
         Schema = schema;
 
-        using var schemaCommand = connection.StartCommand()
-            .Select().Fields().From(TableName, Schema).Where("1 = 2").FinishCommand();
+        using var schemaCommand = connection.BeginCommand()
+            .Select().Fields().From(TableName, Schema).Where("1 = 2").EndCommand();
 
         using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
         using var schemaTable = schemaReader.GetSchemaTable();
@@ -77,6 +84,5 @@ public sealed class DbTableSchema : IDbTable
         var cacheKey = Library.ComputeCacheKey(provider, tableName, schema);
         return Cache.GetValue(cacheKey, () => new(connection, tableName, schema));
     }
-
 }
 

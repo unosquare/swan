@@ -74,6 +74,25 @@ public static partial class SqlTextExtensions
     }
 
     /// <summary>
+    /// Appends an INSERT INTO clause to the command text, and optionally appends
+    /// a table identifier to the command text.
+    /// </summary>
+    /// <param name="this">The instance.</param>
+    /// <param name="tableName">The name of the table</param>
+    /// <param name="schemaName">The optional schema name.</param>
+    /// <returns>This instance for fluent API support.</returns>
+    public static CommandSource InsertInto(this CommandSource @this, string? tableName = default, string? schemaName = default)
+    {
+        if (@this is null)
+            throw new ArgumentNullException(nameof(@this));
+
+        @this.AppendText("INSERT INTO");
+        return !string.IsNullOrEmpty(tableName)
+            ? @this.Table(tableName, schemaName)
+            : @this;
+    }
+
+    /// <summary>
     /// Appends the specified table identifier.
     /// </summary>
     /// <param name="this">The instance.</param>
@@ -163,13 +182,13 @@ public static partial class SqlTextExtensions
     /// <param name="itemSeparator">The optional string that separates the field and parameter. Typically just a comma.</param>
     /// <param name="operatorSeparator">The optional string that separates the field name and parameter name. Typically just a '=' sign.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource FieldParameters(this CommandSource @this, string[] items, string itemSeparator = ", ", string operatorSeparator = " = ")
+    public static CommandSource FieldParameters(this CommandSource @this, string[] items, string itemSeparator = ",", string operatorSeparator = "=")
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
         var quotedNames = items != null && items.Length > 0
-            ? string.Join(itemSeparator, items.Select(f => $"{@this.Provider.QuoteField(f)}{operatorSeparator}{@this.Provider.QuoteParameter(f)}"))
+            ? string.Join($" {itemSeparator} ", items.Select(f => $"{@this.Provider.QuoteField(f)} {operatorSeparator} {@this.Provider.QuoteParameter(f)}"))
             : string.Empty;
 
         return @this.AppendText($"{quotedNames}");
@@ -188,10 +207,9 @@ public static partial class SqlTextExtensions
 
         @this.AppendText("ORDER BY");
 
-        if (items != null && items.Length > 0)
-            return @this.Fields(items);
-
-        return @this;
+        return items != null && items.Length > 0
+            ? @this.Fields(items)
+            : @this;
     }
 
     /// <summary>

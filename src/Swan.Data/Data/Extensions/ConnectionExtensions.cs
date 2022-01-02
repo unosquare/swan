@@ -31,8 +31,8 @@ public static partial class ConnectionExtensions
         return tables;
     }
 
-    public static TableContext Table(this IDbConnection connection, string tableName, string? schema = default) =>
-        new(connection, tableName, schema);
+    public static ITableContext Table(this IDbConnection connection, string tableName, string? schema = default) =>
+        new TableContext(connection, tableName, schema);
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
@@ -73,7 +73,14 @@ public static partial class ConnectionExtensions
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
-    public static CommandSource StartCommand(this IDbConnection connection) => connection is null
+    /// <summary>
+    /// Starts a fluent command definition using a <see cref="CommandSource"/>.
+    /// When done, use the <see cref="CommandSource.EndCommand(IDbTransaction?)"/> method call
+    /// to extract the action <see cref="IDbCommand"/>.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <returns>A fluent command definition.</returns>
+    public static CommandSource BeginCommand(this IDbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection);
 }

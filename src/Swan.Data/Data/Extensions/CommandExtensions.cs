@@ -168,15 +168,13 @@ public static partial class CommandExtensions
     /// for the parameters within the command text before adding them.
     /// </summary>
     /// <typeparam name="TCommand"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
     /// <param name="command"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    public static TCommand SetParameters<TCommand, TValue>(this TCommand command, TValue parameters)
+    public static TCommand SetParameters<TCommand>(this TCommand command, object parameters)
         where TCommand : IDbCommand
-        where TValue : class
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -209,4 +207,13 @@ public static partial class CommandExtensions
 
         return command;
     }
+
+    public static TCommand WithTransaction<TCommand>(this TCommand command, IDbTransaction? transaction)
+        where TCommand : IDbCommand
+    {
+        command.Transaction = transaction;
+        return command;
+    }
+
+
 }

@@ -35,10 +35,10 @@ public static partial class QueryExtensions
             throw new ArgumentNullException(nameof(deserialize));
 
         var command = connection
-            .StartCommand()
+            .BeginCommand()
             .WithText(sql)
             .WithTimeout(timeout)
-            .FinishCommand(transaction);
+            .EndCommand(transaction);
 
         if (param != null)
             command.SetParameters(param);
