@@ -8,22 +8,25 @@
 /// </summary>
 public sealed class CommandSource : IConnected
 {
-    private StringBuilder? _commandText = new();
+    private StringBuilder? _commandText;
     private IDbConnection _connection;
 
     /// <summary>
     /// Creates a new instance of the <see cref="CommandSource"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
-    internal CommandSource(IDbConnection connection)
+    /// <param name="initialText">An optional initial command text.</param>
+    internal CommandSource(IDbConnection connection, string? initialText = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
         _connection = connection;
         Provider = connection.Provider();
-        CommandType = CommandType.Text;
-        CommandTimeout = TimeSpan.FromSeconds(Convert.ToInt32(Provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0));
+
+        _commandText = !string.IsNullOrWhiteSpace(initialText)
+            ? new(initialText)
+            : new();
     }
 
     /// <inheritdoc />
@@ -41,67 +44,6 @@ public sealed class CommandSource : IConnected
     public string CommandText => _commandText is null
         ? throw new ObjectDisposedException(nameof(_commandText))
         : _commandText.ToString();
-
-    /// <summary>
-    /// Gets the command type.
-    /// </summary>
-    public CommandType CommandType { get; private set; }
-
-    /// <summary>
-    /// Gets the command timeout.
-    /// </summary>
-    public TimeSpan CommandTimeout { get; private set; }
-
-    /// <summary>
-    /// Sets a command execution timeout. If no value is provided,
-    /// the default provider timeout is applied.
-    /// The timeout includes both, execution of the command and
-    /// transfer of the results packets over the network.
-    /// </summary>
-    /// <param name="timeout">The timeout value.</param>
-    /// <returns>This instance for fluent API support.</returns>
-    public CommandSource WithTimeout(TimeSpan? timeout)
-    {
-        var value = timeout.HasValue ?
-            timeout.Value.TotalSeconds :
-            Provider.DefaultCommandTimeout.TotalSeconds;
-        
-        CommandTimeout = TimeSpan.FromSeconds(Convert.ToInt32(value).ClampMin(0));
-        return this;
-    }
-
-
-    /// <summary>
-    /// Sets the command type. Typically just text or stored procedure.
-    /// If no value is provided, it's automatically set to text.
-    /// </summary>
-    /// <param name="commandType">The command type.</param>
-    /// <returns>This instance for fluent API support.</returns>
-    public CommandSource WithCommandType(CommandType? commandType)
-    {
-        CommandType = commandType ?? CommandType.Text;
-        return this;
-    }
-
-    /// <summary>
-    /// Clears the current command text and replaces it with the provided command text.
-    /// If a null or empty string is provided, it simply clears the current text, setting
-    /// the command text to an empty string.
-    /// </summary>
-    /// <param name="text">The sql text.</param>
-    /// <returns>This instance for fluent API support.</returns>
-    public CommandSource WithText(string? text)
-    {
-        if (_commandText is null)
-            throw new ObjectDisposedException(nameof(_commandText));
-
-        _commandText.Clear();
-        if (string.IsNullOrWhiteSpace(text))
-            return this;
-
-        _commandText.Append(text);
-        return this;
-    }
 
     /// <summary>
     /// Appends the specified text to the command. Automatically pre-appends
@@ -124,9 +66,8 @@ public sealed class CommandSource : IConnected
     /// <summary>
     /// Converts the current definition into a connection-bound <see cref="IDbCommand"/> object.
     /// </summary>
-    /// <param name="transaction">An optional associated transaction.</param>
     /// <returns>The actual command that can be executed.</returns>
-    public IDbCommand EndCommand(IDbTransaction? transaction = default)
+    public IDbCommand EndCommand()
     {
         if (_connection is null)
             throw new ObjectDisposedException(nameof(_connection));
@@ -136,10 +77,8 @@ public sealed class CommandSource : IConnected
 
         var command = _connection.CreateCommand();
         command.CommandText = _commandText.ToString();
-        command.CommandType = CommandType;
-        command.CommandTimeout = Convert.ToInt32(CommandTimeout.TotalSeconds).ClampMin(0);
-        if (transaction != null)
-            command.Transaction = transaction;
+        command.CommandType = CommandType.Text;
+        command.CommandTimeout = Convert.ToInt32(Provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0);
 
         _connection = null;
         _commandText.Clear();

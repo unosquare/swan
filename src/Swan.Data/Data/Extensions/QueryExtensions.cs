@@ -35,10 +35,10 @@ public static partial class QueryExtensions
             throw new ArgumentNullException(nameof(deserialize));
 
         var command = connection
-            .BeginCommand()
-            .WithText(sql)
-            .WithTimeout(timeout)
-            .EndCommand(transaction);
+            .BeginCommand(sql)
+            .EndCommand()
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
+            .WithTransaction(transaction);
 
         if (param != null)
             command.SetParameters(param);
@@ -95,7 +95,8 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior, Func<IDataReader, T> deserialize)
+    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+        Func<IDataReader, T>? deserialize = default)
     {
         if (command == null)
             throw new ArgumentNullException(nameof(command));
@@ -103,9 +104,7 @@ public static partial class QueryExtensions
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
-        if (deserialize == null)
-            throw new ArgumentNullException(nameof(deserialize));
-
+        deserialize ??= (r) => r.ParseObject<T>();
         var reader = command.ExecuteOptimizedReader(behavior);
 
         try
@@ -130,7 +129,7 @@ public static partial class QueryExtensions
                 if (!reader.IsClosed)
                 {
                     try { command.Cancel(); }
-                    catch { /* don't spoil the existing exception */ }
+                    catch { /* ignore */ }
                 }
                 reader.Dispose();
             }

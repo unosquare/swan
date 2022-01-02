@@ -208,12 +208,72 @@ public static partial class CommandExtensions
         return command;
     }
 
+    /// <summary>
+    /// Sets a trasnaction (or null value) to the provided command.
+    /// </summary>
+    /// <typeparam name="TCommand">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <param name="transaction">The transaction.</param>
+    /// <returns>The modified command object.</returns>
     public static TCommand WithTransaction<TCommand>(this TCommand command, IDbTransaction? transaction)
         where TCommand : IDbCommand
     {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
         command.Transaction = transaction;
         return command;
     }
 
+    /// <summary>
+    /// Sets a command execution timeout.
+    /// The timeout includes both, execution of the command and
+    /// transfer of the results packets over the network.
+    /// </summary>
+    /// <param name="command">The command object.</param>
+    /// <param name="timeout">The timeout value.</param>
+    /// <returns>The modified command object.</returns>
+    public static TCommand WithTimeout<TCommand>(this TCommand command, TimeSpan timeout)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
 
+        command.CommandTimeout = Convert.ToInt32(timeout.TotalSeconds).ClampMin(0);
+        return command;
+    }
+
+    /// <summary>
+    /// Sets a command execution timeout.
+    /// The timeout includes both, execution of the command and
+    /// transfer of the results packets over the network.
+    /// </summary>
+    /// <param name="command">The command object.</param>
+    /// <param name="seconds">The timeout value in seconds.</param>
+    /// <returns>The modified command object.</returns>
+    public static TCommand WithTimeout<TCommand>(this TCommand command, int seconds)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        command.CommandTimeout = seconds.ClampMin(0);
+        return command;
+    }
+
+    /// <summary>
+    /// Sets the command type. Typically text or stored procedure.
+    /// </summary>
+    /// <param name="command">The command object.</param>
+    /// <param name="commandType">The command type.</param>
+    /// <returns>The modified command object.</returns>
+    public static TCommand WithCommandType<TCommand>(this TCommand command, CommandType commandType)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        command.CommandType = commandType;
+        return command;
+    }
 }

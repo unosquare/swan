@@ -38,6 +38,7 @@ internal static class DataPlayground
         Console.WriteLine($"output contains {sx.Count} records. The tenth item is named '{sx[10].Name}'");
 
         var table = conn.Table("Projects");
+        table.BeginSelect().EndCommand().WithTransaction(null);
         var r = table.SelectAll().Query().ToList();
         r = table.SelectByKey(new { ProjectId = 687 }).Query().ToList();
 

@@ -79,9 +79,10 @@ public static partial class ConnectionExtensions
     /// to extract the action <see cref="IDbCommand"/>.
     /// </summary>
     /// <param name="connection">The connection.</param>
+    /// <param name="initialText">The optional, initial command text to start building upon.</param>
     /// <returns>A fluent command definition.</returns>
-    public static CommandSource BeginCommand(this IDbConnection connection) => connection is null
+    public static CommandSource BeginCommand(this IDbConnection connection, string? initialText = default) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
-        : new(connection);
+        : new(connection, initialText);
 }
 
