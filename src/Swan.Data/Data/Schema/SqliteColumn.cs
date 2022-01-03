@@ -40,7 +40,7 @@ internal record SqliteColumn : IDbColumn
 
     int IDbColumn.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
 
-    Type IDbColumn.DataType => DataType ?? typeof(object);
+    Type IDbColumn.DataType => DataType ?? typeof(string);
 
     string IDbColumn.ProviderDataType => DataTypeName ?? string.Empty;
 
@@ -52,9 +52,9 @@ internal record SqliteColumn : IDbColumn
 
     bool IDbColumn.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
 
-    int IDbColumn.Precision => NumericPrecision.GetValueOrDefault(-1);
+    byte IDbColumn.Precision => Convert.ToByte(NumericPrecision.GetValueOrDefault().ClampMin(0));
 
-    int IDbColumn.Scale => NumericScale.GetValueOrDefault(-1);
+    byte IDbColumn.Scale => Convert.ToByte(NumericScale.GetValueOrDefault().ClampMin(0));
 
     int IDbColumn.MaxLength => ColumnSize.GetValueOrDefault();
 }

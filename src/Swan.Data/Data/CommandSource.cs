@@ -8,8 +8,9 @@
 /// </summary>
 public sealed class CommandSource : IConnected
 {
+    private const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
     private StringBuilder? _commandText;
-    private IDbConnection _connection;
+    private IDbConnection? _connection;
 
     /// <summary>
     /// Creates a new instance of the <see cref="CommandSource"/> class.
@@ -30,7 +31,7 @@ public sealed class CommandSource : IConnected
     }
 
     /// <inheritdoc />
-    public IDbConnection Connection => _connection;
+    public IDbConnection Connection => _connection ?? throw new InvalidOperationException(NoConnectionErrorMessage);
 
     /// <summary>
     /// Gets the resolved provider associated with the connection.
@@ -42,7 +43,7 @@ public sealed class CommandSource : IConnected
     /// the internal string builder.
     /// </summary>
     public string CommandText => _commandText is null
-        ? throw new ObjectDisposedException(nameof(_commandText))
+        ? throw new InvalidOperationException(NoConnectionErrorMessage)
         : _commandText.ToString();
 
     /// <summary>
@@ -54,7 +55,7 @@ public sealed class CommandSource : IConnected
     public CommandSource AppendText(string text)
     {
         if (_commandText is null)
-            throw new ObjectDisposedException(nameof(_commandText));
+            throw new InvalidOperationException(NoConnectionErrorMessage);
 
         if (_commandText.Length > 0 && !char.IsWhiteSpace(_commandText[^1]))
             _commandText.Append(' ');
@@ -70,10 +71,10 @@ public sealed class CommandSource : IConnected
     public IDbCommand EndCommand()
     {
         if (_connection is null)
-            throw new ObjectDisposedException(nameof(_connection));
+            throw new InvalidOperationException(NoConnectionErrorMessage);
         
         if (_commandText is null)
-            throw new ObjectDisposedException(nameof(_commandText));
+            throw new InvalidOperationException(NoConnectionErrorMessage);
 
         var command = _connection.CreateCommand();
         command.CommandText = _commandText.ToString();

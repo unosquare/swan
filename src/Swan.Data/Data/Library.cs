@@ -21,7 +21,9 @@ internal static partial class Library
     /// <returns>A valid property name with only letters, digits or underscores.</returns>
     public static string ToExpandoPropertyName(this string fieldName, int fieldIndex)
     {
-        fieldName ??= $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
+        if (string.IsNullOrWhiteSpace(fieldName))
+            fieldName = $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
+        
         var builder = new StringBuilder(fieldName.Length);
         foreach (var c in fieldName)
         {

@@ -49,12 +49,12 @@ public interface IDbColumn
     /// <summary>
     /// Gets the precision for numeric fields.
     /// </summary>
-    int Precision { get; }
+    byte Precision { get; }
 
     /// <summary>
     /// Gets the scale for numeric fields.
     /// </summary>
-    int Scale { get; }
+    byte Scale { get; }
 
     /// <summary>
     /// Gets the maximum data byte or character length for the field.

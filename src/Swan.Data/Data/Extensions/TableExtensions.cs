@@ -23,19 +23,27 @@ public static class TableExtensions
             .EndCommand()
             .SetParameters(key);
 
-    public static IDbCommand Insert(this ITableContext table)
+    public static IDbCommand Insert(this ITableContext table, object? param = default)
     {
-        var fieldNames = table.Columns.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).Select(c => c.Name).ToArray();
+        if (table is null)
+            throw new ArgumentNullException(nameof(table));
 
-        var source = new CommandSource(table.Connection)
+        var insertColumns = table.Columns.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+        var columnNames = insertColumns.Select(c => c.Name).ToArray();
+
+        var command = new CommandSource(table.Connection)
             .InsertInto(table.TableName, table.Schema)
             .AppendText("(")
-            .Fields(fieldNames)
+            .Fields(columnNames)
             .AppendText(") VALUES (")
-            .Parameters(fieldNames)
-            .AppendText(")");
+            .Parameters(columnNames)
+            .AppendText(")")
+            .EndCommand()
+            .DefineParameters(insertColumns);
 
-        return source.EndCommand();
+        if (param is not null)
+            command.SetParameters(param);
+
+        return command;
     }
 }
-

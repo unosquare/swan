@@ -6,6 +6,30 @@
 public static partial class CommandExtensions
 {
     /// <summary>
+    /// Tries to preprare a command on the server side.
+    /// Useful when executing the command multiple times by varying argument values.
+    /// </summary>
+    /// <typeparam name="T">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <returns>True if prepare succeeded. False otherwise.</returns>
+    public static bool TryPrepare<T>(this T command)
+        where T : IDbCommand
+    {
+        if (command is null)
+            return false;
+
+        try
+        {
+            command.Prepare();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Tries to find a parameter within the command parameter collection using the given name.
     /// The search is case-insensitive and the name can optionally start with a
     /// parameter prefix.
@@ -50,49 +74,43 @@ public static partial class CommandExtensions
         return false;
     }
 
-    /// <summary>
-    /// If the given parameter name does not exist, adds the parameter with the specified name and value,
-    /// atomatically specifying the parameter's <see cref="IDataParameter.DbType"/> if not provided.
-    /// </summary>
-    /// <typeparam name="T">The command type.</typeparam>
-    /// <param name="command">The command to add the parameter to.</param>
-    /// <param name="name">The quoted or unquoted parameter name.</param>
-    /// <param name="value">The parameter value.</param>
-    /// <param name="dbType">The optional database type.</param>
-    /// <param name="direction">The parameter direction. Typically input.</param>
-    /// <returns>The provided command for fluent API compatibility.</returns>
-    public static T SetParameter<T>(this T command, string name, object? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
-        where T : IDbCommand => command.SetParameter(name, (value?.GetType() ?? typeof(DBNull)), value, dbType, direction);
+    public static IDbDataParameter DefineParameter(this IDbCommand command, string name, DbType dbType,
+        ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
 
-    /// <summary>
-    /// If the given parameter name does not exist, adds the parameter with the specified name and value,
-    /// atomatically specifying the parameter's <see cref="IDataParameter.DbType"/> if not provided.
-    /// </summary>
-    /// <typeparam name="TCommand">The command type.</typeparam>
-    /// <typeparam name="TValue">The CLR type of the value.</typeparam>
-    /// <param name="command">The command to add the parameter to.</param>
-    /// <param name="name">The quoted or unquoted parameter name.</param>
-    /// <param name="value">The parameter value.</param>
-    /// <param name="dbType">The optional database type.</param>
-    /// <param name="direction">The parameter direction. Typically input.</param>
-    /// <returns>The provided command for fluent API compatibility.</returns>
-    public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
-        where TCommand : IDbCommand => command.SetParameter(name, typeof(TValue), value, dbType, direction);
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
 
-    /// <summary>
-    /// If the given parameter name does not exist, adds the parameter with the specified name and value,
-    /// atomatically specifying the parameter's <see cref="IDataParameter.DbType"/> if not provided.
-    /// </summary>
-    /// <typeparam name="T">The command type.</typeparam>
-    /// <param name="command">The command to add the parameter to.</param>
-    /// <param name="name">The quoted or unquoted parameter name.</param>
-    /// <param name="valueType">The enforced CLR type of the value.</param>
-    /// <param name="value">The parameter value.</param>
-    /// <param name="dbType">The optional database type.</param>
-    /// <param name="direction">The parameter direction. Typically input.</param>
-    /// <returns>The provided command for fluent API compatibility.</returns>
-    public static T SetParameter<T>(this T command, string name, Type valueType, object? value, DbType? dbType = default, ParameterDirection direction = ParameterDirection.Input)
-        where T : IDbCommand
+        var needsAdding = false;
+        if (!command.TryFindParameter(name, out var parameter))
+        {
+            needsAdding = true;
+            parameter = command.CreateParameter();
+            parameter.ParameterName = name;
+        }
+
+        parameter.DbType = dbType;
+        parameter.Direction = direction;
+        parameter.Size = size;
+        parameter.Precision = Convert.ToByte(precision.Clamp(0, 255));
+        parameter.Scale = Convert.ToByte(scale.Clamp(0, 255));
+
+        if (isNullable)
+        {
+            parameter.GetType().TypeInfo().TryWriteProperty(
+                parameter, nameof(IDbDataParameter.IsNullable), true);
+        }
+
+        if (needsAdding)
+            command.Parameters.Add(parameter);
+
+        return parameter;
+    }
+
+    public static IDbDataParameter DefineParameter(this IDbCommand command, string name, Type clrType,
+        ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -100,65 +118,96 @@ public static partial class CommandExtensions
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
+        var provider = command.Connection.Provider();
+        if (!provider.TypeMapper.TryGetDbTypeFor(clrType, out var dbType))
+            dbType = DbType.String;
+
+        return command.DefineParameter(name, dbType.GetValueOrDefault(DbType.String), direction, size, precision, scale, isNullable);
+    }
+
+    public static IDbDataParameter DefineParameter(this IDbCommand command, IDbColumn column)
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (column is null)
+            throw new ArgumentNullException(nameof(column));
+
+        return command.DefineParameter(column.Name, column.DataType, ParameterDirection.Input,
+            column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
+    }
+
+    public static TCommand DefineParameters<TCommand>(this TCommand command, params IDbColumn[] columns)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (columns is null)
+            throw new ArgumentNullException(nameof(columns));
+
+        foreach (var column in columns)
+            command.DefineParameter(column);
+
+        return command;
+    }
+
+    public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue value, int? size = default)
+        where TCommand : IDbCommand => command.SetParameter(name, value, typeof(TValue), size);
+
+    public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, Type clrType, int? size = default)
+    where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(name);
 
         var isNullValue = Equals(value, null) || Equals(value, DBNull.Value);
         object dataValue = isNullValue ? DBNull.Value : value!;
 
-        // Case 1: The parameter exists. Simply update the parameter value,
-        // and if dbtype is specified, update it as well.
+        // Let's update the parameter if it already exists.
         if (command.TryFindParameter(name, out var parameter))
         {
             parameter.Value = dataValue;
-            if (dbType.HasValue)
-                parameter.DbType = dbType.Value;
+            if (size.HasValue)
+                parameter.Size = size.Value;
 
             return command;
         }
 
-        // Case 2: DbType was specified
-        if (dbType.HasValue)
+        parameter = command.DefineParameter(name, clrType, size: size.GetValueOrDefault());
+        parameter.Value = dataValue;
+        return command;
+    }
+
+    public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, DbType dbType, int? size = default)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(name);
+
+        var isNullValue = Equals(value, null) || Equals(value, DBNull.Value);
+        object dataValue = isNullValue ? DBNull.Value : value!;
+
+        // Update the parameter if it exists.
+        if (command.TryFindParameter(name, out var parameter))
         {
-            parameter = command.CreateParameter();
-            parameter.ParameterName = name;
-            parameter.Direction = direction;
-            parameter.DbType = dbType.Value;
             parameter.Value = dataValue;
-            command.Parameters.Add(parameter);
+            parameter.DbType = dbType;
+
+            if (size.HasValue)
+                parameter.Size = size.Value;
+
             return command;
         }
 
-        var provider = command.Connection.Provider();
-
-        // Case 3: Can use AddWithValue via reflection and compiled delegate
-        if (!isNullValue && provider.AddWithValueMethod != null)
-        {
-            parameter = provider.AddWithValueMethod!.Invoke(command.Parameters, name, dataValue);
-            parameter.Direction = direction;
-            return command;
-        }
-
-        // Case 4: Can use the type mapper
-        if (provider.TypeMapper.TryGetDbTypeFor(valueType, out var mappedType) && mappedType.HasValue)
-        {
-            parameter = command.CreateParameter();
-            parameter.ParameterName = name;
-            parameter.Direction = direction;
-            parameter.DbType = mappedType.Value;
-            parameter.Value = dataValue;
-            command.Parameters.Add(parameter);
-            return command;
-        }
-
-        // Case 5: Worst case, just use a string and convert the value to string
-        parameter = command.CreateParameter();
-        parameter.ParameterName = name;
-        parameter.Direction = direction;
-        parameter.DbType = DbType.String;
-        parameter.Value = isNullValue ? DBNull.Value : $"{dataValue}";
-        command.Parameters.Add(parameter);
-
+        parameter = command.DefineParameter(name, dbType, size: size.GetValueOrDefault());
+        parameter.Value = dataValue;
         return command;
     }
 
@@ -202,9 +251,59 @@ public static partial class CommandExtensions
             }
 
             if (property.TryRead(parameters, out var value))
-                command.SetParameter(propertyName, property.PropertyType.NativeType, value);
+                command.SetParameter(propertyName, value, property.PropertyType.BackingType.NativeType);
         }
 
+        return command;
+    }
+
+    /// <summary>
+    /// Sets the command's basic properties. Properties with null values will not be set.
+    /// Calling this method with default argument only will result in no modification of the
+    /// command object.
+    /// </summary>
+    /// <typeparam name="TCommand">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <param name="commandText">The optional command text.</param>
+    /// <param name="commandType">The optional command type.</param>
+    /// <param name="dbTransaction">The optional associated transaction.</param>
+    /// <param name="timeout">The optional command timeout.</param>
+    /// <returns>The modified command object.</returns>
+    public static TCommand WithProperties<TCommand>(this TCommand command, string? commandText = default, CommandType? commandType = default, IDbTransaction? dbTransaction = default, TimeSpan? timeout = default)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (commandType.HasValue)
+            command.CommandType = commandType.Value;
+
+        if (dbTransaction != default)
+            command.Transaction = dbTransaction;
+
+        if (timeout.HasValue)
+            command.CommandTimeout = Convert.ToInt32(timeout.Value.TotalSeconds).ClampMin(0);
+
+        if (!string.IsNullOrWhiteSpace(commandText))
+            command.CommandText = commandText;
+
+        return command;
+    }
+
+    /// <summary>
+    /// Sets a command text to the provided command.
+    /// </summary>
+    /// <typeparam name="TCommand">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <param name="commandText">The command text.</param>
+    /// <returns>The modified command object.</returns>
+    public static TCommand WithText<TCommand>(this TCommand command, string? commandText)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        command.CommandText = commandText ?? string.Empty;
         return command;
     }
 

@@ -48,9 +48,9 @@ internal record SqlServerColumn : IDbColumn
 
     public SqlDbType NonVersionedProviderType { get; set; }
 
-    public int? NumericPrecision { get; set; }
+    public byte? NumericPrecision { get; set; }
 
-    public int? NumericScale { get; set; }
+    public byte? NumericScale { get; set; }
 
     public string? ProviderSpecificDataType { get; set; }
 
@@ -58,26 +58,28 @@ internal record SqlServerColumn : IDbColumn
 
     public string? UdtAssemblyQualifiedName { get; set; }
 
-    int IDbColumn.Precision => NumericPrecision ?? default;
+    byte IDbColumn.Precision => NumericPrecision.GetValueOrDefault() == byte.MaxValue ?
+        byte.MinValue : NumericPrecision.GetValueOrDefault();
 
-    int IDbColumn.Scale => NumericScale ?? default;
+    byte IDbColumn.Scale => NumericScale.GetValueOrDefault() == byte.MaxValue ?
+        byte.MinValue : NumericScale.GetValueOrDefault();
 
-    int IDbColumn.MaxLength => ColumnSize ?? default;
+    int IDbColumn.MaxLength => ColumnSize.GetValueOrDefault();
 
     string IDbColumn.Name => ColumnName ?? string.Empty;
 
-    int IDbColumn.Ordinal => ColumnOrdinal ?? -1;
+    int IDbColumn.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
 
-    Type IDbColumn.DataType => DataType ?? typeof(object);
+    Type IDbColumn.DataType => DataType ?? typeof(string);
 
     string IDbColumn.ProviderDataType => DataTypeName ?? string.Empty;
 
-    bool IDbColumn.AllowsDBNull => AllowDBNull ?? default;
+    bool IDbColumn.AllowsDBNull => AllowDBNull.GetValueOrDefault();
 
-    bool IDbColumn.IsKey => IsKey ?? default;
+    bool IDbColumn.IsKey => IsKey.GetValueOrDefault();
 
-    bool IDbColumn.IsAutoIncrement => IsAutoIncrement ?? default;
+    bool IDbColumn.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
 
-    bool IDbColumn.IsReadOnly => IsReadOnly ?? default;
+    bool IDbColumn.IsReadOnly => IsReadOnly.GetValueOrDefault();
 }
 
