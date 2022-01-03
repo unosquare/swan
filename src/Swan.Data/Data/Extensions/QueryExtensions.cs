@@ -35,8 +35,8 @@ public static partial class QueryExtensions
             throw new ArgumentNullException(nameof(deserialize));
 
         var command = connection
-            .BeginCommand(sql)
-            .EndCommand()
+            .BeginCommandText(sql)
+            .EndCommandText()
             .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
             .WithTransaction(transaction);
 

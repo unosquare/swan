@@ -24,8 +24,8 @@ public sealed class DbTableSchema : IDbTable
         TableName = tableName;
         Schema = schema;
 
-        using var schemaCommand = connection.BeginCommand()
-            .Select().Fields().From(TableName, Schema).Where("1 = 2").EndCommand();
+        using var schemaCommand = connection.BeginCommandText()
+            .Select().Fields().From(TableName, Schema).Where("1 = 2").EndCommandText();
 
         using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
         using var schemaTable = schemaReader.GetSchemaTable();

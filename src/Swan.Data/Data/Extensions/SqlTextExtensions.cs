@@ -1,5 +1,8 @@
 ﻿namespace Swan.Data.Extensions;
 
+/// <summary>
+/// Extension methods to build SQL command text using <see cref="CommandSource"/> objects.
+/// </summary>
 public static partial class SqlTextExtensions
 {
     /// <summary>
@@ -172,7 +175,6 @@ public static partial class SqlTextExtensions
         return @this.AppendText($"{quotedNames}");
     }
 
-
     /// <summary>
     /// Appends a set of fields names and matching parameter names.
     /// Useful when building UPDATE clauses and WHERE clauses.
@@ -182,7 +184,7 @@ public static partial class SqlTextExtensions
     /// <param name="itemSeparator">The optional string that separates the field and parameter. Typically just a comma.</param>
     /// <param name="operatorSeparator">The optional string that separates the field name and parameter name. Typically just a '=' sign.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource FieldParameters(this CommandSource @this, string[] items, string itemSeparator = ",", string operatorSeparator = "=")
+    public static CommandSource FieldsAndParameters(this CommandSource @this, string[] items, string itemSeparator = ",", string operatorSeparator = "=")
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));

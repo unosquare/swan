@@ -75,13 +75,13 @@ public static partial class ConnectionExtensions
 
     /// <summary>
     /// Starts a fluent command definition using a <see cref="CommandSource"/>.
-    /// When done, use the <see cref="CommandSource.EndCommand(IDbTransaction?)"/> method call
+    /// When done, use the <see cref="CommandSource.EndCommandText"/> method call
     /// to extract the action <see cref="IDbCommand"/>.
     /// </summary>
     /// <param name="connection">The connection.</param>
     /// <param name="initialText">The optional, initial command text to start building upon.</param>
     /// <returns>A fluent command definition.</returns>
-    public static CommandSource BeginCommand(this IDbConnection connection, string? initialText = default) => connection is null
+    public static CommandSource BeginCommandText(this IDbConnection connection, string? initialText = default) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection, initialText);
 }

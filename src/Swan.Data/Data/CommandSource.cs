@@ -68,7 +68,7 @@ public sealed class CommandSource : IConnected
     /// Converts the current definition into a connection-bound <see cref="IDbCommand"/> object.
     /// </summary>
     /// <returns>The actual command that can be executed.</returns>
-    public IDbCommand EndCommand()
+    public IDbCommand EndCommandText()
     {
         if (_connection is null)
             throw new InvalidOperationException(NoConnectionErrorMessage);

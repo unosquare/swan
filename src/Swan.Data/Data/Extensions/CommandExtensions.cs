@@ -11,12 +11,18 @@ public static partial class CommandExtensions
     /// </summary>
     /// <typeparam name="T">The compatible command type.</typeparam>
     /// <param name="command">The command object.</param>
+    /// <param name="exception">When prepare fails, the associated exception.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
-    public static bool TryPrepare<T>(this T command)
+    public static bool TryPrepare<T>(this T command, [NotNullWhen(false)] out Exception? exception)
         where T : IDbCommand
     {
+        exception = null;
+
         if (command is null)
+        {
+            exception = new ArgumentNullException(nameof(command));
             return false;
+        }
 
         try
         {
@@ -25,6 +31,7 @@ public static partial class CommandExtensions
         }
         catch (Exception ex)
         {
+            exception = ex;
             return false;
         }
     }
@@ -93,14 +100,14 @@ public static partial class CommandExtensions
 
         parameter.DbType = dbType;
         parameter.Direction = direction;
-        parameter.Size = size;
+        parameter.Size = (size == default && dbType == DbType.String) ? 4000 : size;
         parameter.Precision = Convert.ToByte(precision.Clamp(0, 255));
         parameter.Scale = Convert.ToByte(scale.Clamp(0, 255));
 
         if (isNullable)
         {
             parameter.GetType().TypeInfo().TryWriteProperty(
-                parameter, nameof(IDbDataParameter.IsNullable), true);
+                parameter, nameof(IDataParameter.IsNullable), true);
         }
 
         if (needsAdding)
@@ -137,7 +144,7 @@ public static partial class CommandExtensions
             column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
     }
 
-    public static TCommand DefineParameters<TCommand>(this TCommand command, params IDbColumn[] columns)
+    public static TCommand DefineParameters<TCommand>(this TCommand command, IEnumerable<IDbColumn> columns)
         where TCommand : IDbCommand
     {
         if (command is null)
@@ -156,7 +163,7 @@ public static partial class CommandExtensions
         where TCommand : IDbCommand => command.SetParameter(name, value, typeof(TValue), size);
 
     public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, Type clrType, int? size = default)
-    where TCommand : IDbCommand
+        where TCommand : IDbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -236,6 +243,11 @@ public static partial class CommandExtensions
 
         var typeInfo = parameters.GetType().TypeInfo();
         var provider = command.Connection.Provider();
+        
+        var hasCommandText = !string.IsNullOrWhiteSpace(command.CommandText);
+        var commandText = hasCommandText
+            ? command.CommandText.AsSpan()
+            : Array.Empty<char>().AsSpan();
 
         foreach (var (propertyName, property) in typeInfo.Properties)
         {
@@ -244,11 +256,9 @@ public static partial class CommandExtensions
                 continue;
 
             var parameterName = provider.QuoteParameter(propertyName);
-            if (!string.IsNullOrWhiteSpace(command.CommandText) &&
-                !command.CommandText.Contains(parameterName, StringComparison.InvariantCulture))
-            {
+            var containsParamter = hasCommandText && commandText.IndexOf(parameterName, StringComparison.InvariantCulture) >= 0;
+            if (hasCommandText && !containsParamter)
                 continue;
-            }
 
             if (property.TryRead(parameters, out var value))
                 command.SetParameter(propertyName, value, property.PropertyType.BackingType.NativeType);
@@ -286,6 +296,36 @@ public static partial class CommandExtensions
 
         if (!string.IsNullOrWhiteSpace(commandText))
             command.CommandText = commandText;
+
+        return command;
+    }
+
+    /// <summary>
+    /// Appends the specified text to the <see cref="IDbCommand.CommandText"/>.
+    /// Automatic spacing is enabled, and therefore, if the command text does not end with
+    /// whitespace, it automatically adds a space between the existing command text and the appended
+    /// one so you don't have to.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <param name="command">The command to append text to.</param>
+    /// <param name="text">The text to append.</param>
+    /// <param name="autoSpace">The auto-spacing flag.</param>
+    /// <returns>The command with the modified command text.</returns>
+    public static TCommand AppendText<TCommand>(this TCommand command, string text, bool autoSpace = true)
+        where TCommand : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (command.CommandText is null)
+        {
+            command.CommandText = text;
+            return command;
+        }
+
+        command.CommandText = (autoSpace && command.CommandText.Length > 0 && !char.IsWhiteSpace(command.CommandText[0]))
+            ? $"{command.CommandText} {text}"
+            : $"{command.CommandText}{text}";
 
         return command;
     }

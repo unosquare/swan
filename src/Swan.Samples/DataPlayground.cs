@@ -13,7 +13,12 @@ internal static class DataPlayground
     {
         var liteName = typeof(SqliteConnection).FullName;
 
+        // Create a connection as usual.
         using var conn = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+        
+        // You can configure the default timeout for commands created using the SWAN API.
+        conn.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
+
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
         conn.TestSampleInsert();
@@ -21,12 +26,12 @@ internal static class DataPlayground
 
     private static void TestSampleCommandSource(this IDbConnection connection)
     {
-        var output = connection.BeginCommand()
+        var output = connection.BeginCommandText()
             .Select().Fields().From("Projects").Where()
             .Field("ProjectId").IsBetween().Parameter("p1").And().Parameter("p2")
             .OrderBy("ProjectId")
             .Limit(10, 20)
-            .EndCommand()
+            .EndCommandText()
             .SetParameter("p1", 600, DbType.String)
             .SetParameter("p2", 1500)
             .Query()
@@ -46,31 +51,41 @@ internal static class DataPlayground
 
     private static void TestSampleInsert(this IDbConnection connection)
     {
-        connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
+        // Acquire a table context. The table schema is only retrieved once.
         var tableContext = connection.Table("Projects");
         using var tran = connection.BeginTransaction();
 
-        var insertCommand = tableContext.Insert(new
-        {
-            Name = "Dummy Project",
-            ProjectType = 1,
-            CompanyId = 61,
-            IsActive = true,
-            StartDate = DateTime.UtcNow,
-            EndDate = default(DateTime?),
-            ProjectScope = "This is some dummy insert"
-        }).WithTransaction(tran);
-        insertCommand.CommandText = $"{insertCommand.CommandText}; SELECT SCOPE_IDENTITY();";
-        if (insertCommand.TryPrepare())
+        var insertCommand = tableContext
+            .Insert(new
+            {
+                Name = "Dummy Project",
+                ProjectType = 1,
+                CompanyId = 61,
+                IsActive = false,
+                StartDate = DateTime.UtcNow,
+                EndDate = default(DateTime?),
+                ProjectScope = "This is some dummy insert"
+            })
+            .AppendText("; SELECT ProjectId = SCOPE_IDENTITY();")
+            .WithTransaction(tran);
+
+        if (insertCommand.TryPrepare(out var ex))
         {
             Console.WriteLine($"Command Prepared:\r\n  {insertCommand.CommandText}");
-            var result = insertCommand.Query().ToList();
-            Console.WriteLine($"");
+            var result = insertCommand.Query().Single();
+            var insertId = (int)result.ProjectId;
+            Console.WriteLine($"Insert Id: {insertId}");
+            var item = connection.Table("Projects")
+                .SelectByKey(new { ProjectId = insertId })
+                .WithTransaction(tran)
+                .Query().Single();
+            Console.WriteLine($"Id: {item.ProjectId} Name: {item.Name} IsActive: {item.IsActive}");
         }
         else
         {
-            Console.WriteLine("Unable to prepare command :(");
+            Console.WriteLine($"Unable to prepare command: {ex.Message}");
         }
+
         tran.Rollback();
     }
 
