@@ -34,6 +34,10 @@ public static partial class ConnectionExtensions
     public static ITableContext Table(this IDbConnection connection, string tableName, string? schema = default) =>
         new TableContext(connection, tableName, schema);
 
+    public static ITableContext<T> Table<T>(this IDbConnection connection, string tableName, string? schema = default)
+        where T : class =>
+        new TableContext<T>(connection, tableName, schema);
+
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
     /// </summary>

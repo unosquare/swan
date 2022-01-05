@@ -48,7 +48,7 @@ internal static partial class Library
     public static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {
         const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
-        IDataReader? reader = null;
+        IDataReader? reader;
 
         try
         {

@@ -37,6 +37,43 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
+    /// Tries to preprare a command on the server side.
+    /// Useful when executing a command multiple times by varying argument values.
+    /// </summary>
+    /// <typeparam name="T">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <returns>True if prepare succeeded. False otherwise.</returns>
+    public static bool TryPrepare<T>(this T command)
+        where T : IDbCommand => command.TryPrepare(out _);
+
+    /// <summary>
+    /// Tries to preprare a command on the server side.
+    /// Useful when executing a command multiple times by varying argument values.
+    /// </summary>
+    /// <typeparam name="T">The compatible command type.</typeparam>
+    /// <param name="command">The command object.</param>
+    /// <returns>True if prepare succeeded. False otherwise.</returns>
+    public static async Task<bool> TryPrepareAsync<T>(this T command, CancellationToken ct = default)
+        where T : IDbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (command is not DbCommand dbCommand)
+            return command.TryPrepare();
+
+        try
+        {
+            await dbCommand.PrepareAsync(ct);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Tries to find a parameter within the command parameter collection using the given name.
     /// The search is case-insensitive and the name can optionally start with a
     /// parameter prefix.

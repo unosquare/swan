@@ -23,7 +23,7 @@ internal static class DataPlayground
 
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
-        conn.TestSampleInsert();
+        conn.TestSampleInsertButBetter();
     }
 
     private static void TestSampleCommandSource(this IDbConnection connection)
@@ -105,6 +105,32 @@ internal static class DataPlayground
         else
         {
             $"Unable to prepare command:\r\n  {ex.Message}".Warn();
+        }
+
+        // We won't actually insert anything. We'll rollback the transaction.
+        tran.Rollback();
+        Terminal.Flush();
+    }
+
+    private static void TestSampleInsertButBetter(this IDbConnection connection)
+    {
+        // Now, instead of doing all that stuff manually, if we play with
+        // typical game rules, we can do stuff in a much simpler way :)
+        var projects = connection.Table<Project>("Projects");
+
+        // We'll use a transaction in this example. We won't actually insert anything.
+        // since we will be rolling back the transaction.
+        using var tran = connection.BeginTransaction();
+
+        // Create a dummy record
+        var dummyProject = new Project(
+            default, "Dummy Project", ProjectTypes.Exciting, 61, false, DateTime.UtcNow, default, "Dummy Scope");
+
+        var types = new ProjectTypes[] { ProjectTypes.Exciting, ProjectTypes.Boring };
+        foreach (var type in types)
+        {
+            var inserted = projects.InsertOne(dummyProject with { ProjectType = type }, tran);
+            $"ADDED:\r\n{inserted}".Info();
         }
 
         // We won't actually insert anything. We'll rollback the transaction.

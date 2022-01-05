@@ -13,7 +13,8 @@
 
     /// <summary>
     /// Entry-point for logging. Use this static class to register/unregister
-    /// loggers instances. By default, the <c>ConsoleLogger</c> is registered.
+    /// loggers instances. By default, the <see cref="ConsoleLogger"/> is registered
+    /// if the presence of a console is detected.
     /// </summary>
     public static class Logger
     {
@@ -680,13 +681,13 @@
                 callerFilePath,
                 callerLineNumber);
 
-            foreach (var logger in Loggers)
+            Parallel.ForEach(Loggers, (logger) =>
             {
                 if (logLevel < logger.LogLevel)
-                    continue;
+                    return;
 
-                _ = Task.Run(() => logger.Log(eventArgs));
-            }
+                logger.Log(eventArgs);
+            });
         }
     }
 }

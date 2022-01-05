@@ -22,7 +22,7 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(
-        this IDbConnection connection, string sql, Func<IDataReader, T> deserialize, object? param = default,
+        this IDbConnection connection, string sql, Func<IDataRecord, T> deserialize, object? param = default,
         CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
     {
         if (connection is null)
@@ -96,7 +96,7 @@ public static partial class QueryExtensions
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
-        Func<IDataReader, T>? deserialize = default)
+        Func<IDataRecord, T>? deserialize = default)
     {
         if (command == null)
             throw new ArgumentNullException(nameof(command));

@@ -6,7 +6,7 @@
     using System;
 
     /// <summary>
-    /// Use this class for text-based logger.
+    /// Use this class for text-based loggers.
     /// </summary>
     public abstract class TextLogger
     {
@@ -26,7 +26,7 @@
         /// <returns>
         /// The output message formatted and the color of the console to be used.
         /// </returns>
-        protected (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)
+        protected static (string outputMessage, ConsoleColor color) GetOutputAndColor(LogMessageReceivedEventArgs logEvent)
         {
             var (prefix, color) = GetConsoleColorAndPrefix(logEvent.MessageType);
 
