@@ -9,6 +9,10 @@ public sealed record DbProvider
     private static readonly ValueCache<int, DbProvider> _Cache = new();
     private readonly Lazy<Library.AddWithValueDelegate?> LazyAddWithValue;
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="DbProvider"/> class.
+    /// </summary>
+    /// <param name="connection">The connection to crete the provider from.</param>
     private DbProvider(IDbConnection connection)
     {
         if (connection is null)
@@ -128,6 +132,9 @@ public sealed record DbProvider
     /// </summary>
     public TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
 
+    /// <summary>
+    /// Gets the deserialization type for chema table columns.
+    /// </summary>
     internal Type DbColumnType => Kind == ProviderKind.SqlServer
         ? typeof(SqlServerColumn)
         : Kind == ProviderKind.Sqlite
@@ -157,11 +164,17 @@ public sealed record DbProvider
     /// </summary>
     internal int CacheKey { get; }
 
+    /// <summary>
+    /// Retrieves a the cached provider for the connection or create a new one if
+    /// it does not yet exist. A provider is the same for connection with matching types and
+    /// connection strings.
+    /// </summary>
+    /// <param name="connection">The connection to get the provider for.</param>
+    /// <returns>The db provider.</returns>
     internal static DbProvider FromConnection(IDbConnection connection)
     {
         return connection is null
             ? throw new ArgumentNullException(nameof(connection))
             : _Cache.GetValue(connection.ComputeCacheKey(), () => new DbProvider(connection));
     }
-
 }

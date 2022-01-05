@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CA1812
 namespace Swan.Data.Schema;
 
-internal record SqliteColumn : IDbColumn
+internal record SqliteColumn : IDbColumnSchema
 {
     public bool? AllowDBNull { get; set; }
 
@@ -37,27 +37,27 @@ internal record SqliteColumn : IDbColumn
 
     public short? NumericScale { get; set; }
 
-    string IDbColumn.Name => ColumnName ?? string.Empty;
+    string IDbColumnSchema.Name => ColumnName ?? string.Empty;
 
-    int IDbColumn.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
+    int IDbColumnSchema.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
 
-    Type IDbColumn.DataType => DataType ?? typeof(string);
+    Type IDbColumnSchema.DataType => DataType ?? typeof(string);
 
-    string IDbColumn.ProviderDataType => DataTypeName ?? string.Empty;
+    string IDbColumnSchema.ProviderDataType => DataTypeName ?? string.Empty;
 
-    bool IDbColumn.AllowsDBNull => AllowDBNull.GetValueOrDefault();
+    bool IDbColumnSchema.AllowsDBNull => AllowDBNull.GetValueOrDefault();
 
-    bool IDbColumn.IsKey => IsKey.GetValueOrDefault();
+    bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
-    bool IDbColumn.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
+    bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
 
-    bool IDbColumn.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
+    bool IDbColumnSchema.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
 
-    byte IDbColumn.Precision => Convert.ToByte(NumericPrecision.GetValueOrDefault().ClampMin(0));
+    byte IDbColumnSchema.Precision => Convert.ToByte(NumericPrecision.GetValueOrDefault().ClampMin(0));
 
-    byte IDbColumn.Scale => Convert.ToByte(NumericScale.GetValueOrDefault().ClampMin(0));
+    byte IDbColumnSchema.Scale => Convert.ToByte(NumericScale.GetValueOrDefault().ClampMin(0));
 
-    int IDbColumn.MaxLength => ColumnSize.GetValueOrDefault();
+    int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
 }
 
 #pragma warning restore CA1812

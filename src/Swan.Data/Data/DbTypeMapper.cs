@@ -1,5 +1,9 @@
 ﻿namespace Swan.Data;
 
+/// <summary>
+/// Represents a mapper that is able to resolve types between
+/// a database provider and CLR types.
+/// </summary>
 public class DbTypeMapper
 {
     private static readonly IReadOnlyDictionary<Type, DbType> DefaultTypeMap = new Dictionary<Type, DbType>(64)
@@ -43,13 +47,25 @@ public class DbTypeMapper
 
     private readonly Dictionary<Type, DbType> TypeMap;
 
+    /// <summary>
+    /// Creates a default type mapper.
+    /// </summary>
     public DbTypeMapper()
     {
         TypeMap = new(DefaultTypeMap);
     }
 
+    /// <summary>
+    /// Retrieves the default type mapper instance.
+    /// </summary>
     public static DbTypeMapper Default { get; } = new();
 
+    /// <summary>
+    /// Tries to obtain an equivalent <see cref="DbType"/> for the given CLR type.
+    /// </summary>
+    /// <param name="type">The CLR type.</param>
+    /// <param name="dbType">The <see cref="DbType"/>.</param>
+    /// <returns>True if the type is found, false otherwise.</returns>
     public bool TryGetDbTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)
     {
         dbType = default;
@@ -63,7 +79,12 @@ public class DbTypeMapper
         return false;
     }
 
-    public bool TryGetDbTypeFor<T>(T? value, out DbType? dbType) =>
+    /// <summary>
+    /// Tries to obtain an equivalent <see cref="DbType"/> for the given CLR type.
+    /// </summary>
+    /// <typeparam name="T">The CLR type.</typeparam>
+    /// <param name="dbType">The <see cref="DbType"/>.</param>
+    /// <returns>True if the type is found, false otherwise.</returns>
+    public bool TryGetDbTypeFor<T>(out DbType? dbType) =>
         TryGetDbTypeFor(typeof(T), out dbType);
-
 }

@@ -3,15 +3,17 @@
 /// <summary>
 /// Represents table structure information from the backing data store.
 /// </summary>
-internal sealed class DbTableSchema : IDbTable
+internal sealed class DbTableSchema : IDbTableSchema
 {
-    
-    private readonly Dictionary<string, IDbColumn> _columns = new(128, StringComparer.InvariantCultureIgnoreCase);
+    /// <summary>
+    /// Holds the column collection as a dictionary where column names are case-insensitive.
+    /// </summary>
+    private readonly Dictionary<string, IDbColumnSchema> _columns = new(128, StringComparer.InvariantCultureIgnoreCase);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DbTableSchema"/> class.
     /// </summary>
-    internal DbTableSchema(DbProvider provider, string tableName, string schema, IEnumerable<IDbColumn>? columns = default)
+    internal DbTableSchema(DbProvider provider, string tableName, string schema, IEnumerable<IDbColumnSchema>? columns = default)
     {
         Provider = provider;
         Database = provider.Database;
@@ -26,7 +28,7 @@ internal sealed class DbTableSchema : IDbTable
     }
 
     /// <inheritdoc />
-    public IDbColumn? this[string name] => _columns.TryGetValue(name, out var column) ? column : null;
+    public IDbColumnSchema? this[string name] => _columns.TryGetValue(name, out var column) ? column : null;
 
     /// <inheritdoc />
     public DbProvider Provider { get; }
@@ -41,10 +43,10 @@ internal sealed class DbTableSchema : IDbTable
     public string TableName { get; }
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumn> Columns => _columns.Values.ToArray();
+    public IReadOnlyList<IDbColumnSchema> Columns => _columns.Values.ToArray();
 
     /// <inheritdoc />
-    public void AddColumn(IDbColumn column)
+    public void AddColumn(IDbColumnSchema column)
     {
         if (column is null)
             throw new ArgumentNullException(nameof(column));
@@ -81,7 +83,7 @@ internal sealed class DbTableSchema : IDbTable
         if (schemaTable == null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-        var columns = schemaTable.Query(provider.DbColumnType).Cast<IDbColumn>().ToList();
+        var columns = schemaTable.Query(provider.DbColumnType).Cast<IDbColumnSchema>().ToList();
         return new DbTableSchema(provider, tableName, schema, columns);
     }
 }

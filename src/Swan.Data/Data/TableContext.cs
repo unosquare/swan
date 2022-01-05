@@ -6,8 +6,8 @@
 /// </summary>
 internal class TableContext : ITableContext
 {
-    private static readonly ValueCache<int, IDbTable> SchemaCache = new();
-    private readonly IDbTable TableSchema;
+    private static readonly ValueCache<int, IDbTableSchema> SchemaCache = new();
+    private readonly IDbTableSchema TableSchema;
 
     /// <summary>
     /// Creates a new instance of the <see cref="TableContext"/> class.
@@ -28,7 +28,7 @@ internal class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public IDbColumn? this[string name] => TableSchema[name];
+    public IDbColumnSchema? this[string name] => TableSchema[name];
 
     /// <inheritdoc />
     public IDbConnection Connection { get; }
@@ -46,15 +46,23 @@ internal class TableContext : ITableContext
     public string TableName => TableSchema.TableName;
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumn> Columns => TableSchema.Columns;
+    public IReadOnlyList<IDbColumnSchema> Columns => TableSchema.Columns;
 
     /// <inheritdoc />
-    public void AddColumn(IDbColumn column) => TableSchema.AddColumn(column);
+    public void AddColumn(IDbColumnSchema column) => TableSchema.AddColumn(column);
 
     /// <inheritdoc />
     public void RemoveColumn(string column) => TableSchema.RemoveColumn(column);
 
-    private static IDbTable LoadTableSchema(IDbConnection connection, string tableName, string? schema)
+    /// <summary>
+    /// Retrieves the table schema information from the database. If the schema
+    /// has been previously retrieved, then it simply returns it from cache.
+    /// </summary>
+    /// <param name="connection">The connection to retrieve the schema from.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The optional table schema.</param>
+    /// <returns>The table schema.</returns>
+    private static IDbTableSchema LoadTableSchema(IDbConnection connection, string tableName, string? schema)
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;

@@ -81,6 +81,18 @@ public static partial class CommandExtensions
         return false;
     }
 
+    /// <summary>
+    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// </summary>
+    /// <param name="command">The command.</param>
+    /// <param name="name">The parameter name to add or update.</param>
+    /// <param name="dbType">The database type.</param>
+    /// <param name="direction">The direction.</param>
+    /// <param name="size">The direction.</param>
+    /// <param name="precision">The numeric precision.</param>
+    /// <param name="scale">The numeric scale.</param>
+    /// <param name="isNullable">Whether the parameter accepts database nulls.</param>
+    /// <returns>The added or updated parameter object.</returns>
     public static IDbDataParameter DefineParameter(this IDbCommand command, string name, DbType dbType,
         ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
     {
@@ -116,6 +128,18 @@ public static partial class CommandExtensions
         return parameter;
     }
 
+    /// <summary>
+    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// </summary>
+    /// <param name="command">The command.</param>
+    /// <param name="name">The parameter name to add or update.</param>
+    /// <param name="clrType">The CLR type that will map to the <see cref="DbType"/>.</param>
+    /// <param name="direction">The direction.</param>
+    /// <param name="size">The direction.</param>
+    /// <param name="precision">The numeric precision.</param>
+    /// <param name="scale">The numeric scale.</param>
+    /// <param name="isNullable">Whether the parameter accepts database nulls.</param>
+    /// <returns>The added or updated parameter object.</returns>
     public static IDbDataParameter DefineParameter(this IDbCommand command, string name, Type clrType,
         ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
     {
@@ -125,6 +149,12 @@ public static partial class CommandExtensions
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        if (clrType is null)
+            throw new ArgumentNullException(nameof(clrType));
+
         var provider = command.Connection.Provider();
         if (!provider.TypeMapper.TryGetDbTypeFor(clrType, out var dbType))
             dbType = DbType.String;
@@ -132,19 +162,31 @@ public static partial class CommandExtensions
         return command.DefineParameter(name, dbType.GetValueOrDefault(DbType.String), direction, size, precision, scale, isNullable);
     }
 
-    public static IDbDataParameter DefineParameter(this IDbCommand command, IDbColumn column)
+    /// <summary>
+    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// </summary>
+    /// <param name="command">The command.</param>
+    /// <param name="column">The column information used to create or update the parameter definition.</param>
+    /// <param name="direction">The optional parameter direction. The default is input.</param>
+    /// <returns>The added or updated parameter object.</returns>
+    public static IDbDataParameter DefineParameter(this IDbCommand command, IDbColumnSchema column,
+        ParameterDirection direction = ParameterDirection.Input)
     {
-        if (command is null)
-            throw new ArgumentNullException(nameof(command));
-
-        if (column is null)
-            throw new ArgumentNullException(nameof(column));
-
-        return command.DefineParameter(column.Name, column.DataType, ParameterDirection.Input,
-            column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
+        return column is null
+            ? throw new ArgumentNullException(nameof(column))
+            : command.DefineParameter(column.Name, column.DataType, direction,
+                column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
     }
 
-    public static TCommand DefineParameters<TCommand>(this TCommand command, IEnumerable<IDbColumn> columns)
+    /// <summary>
+    /// Adds or updates multiple parameters in the command's parameter collection
+    /// </summary>
+    /// <typeparam name="TCommand"></typeparam>
+    /// <param name="command"></param>
+    /// <param name="columns"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static TCommand DefineParameters<TCommand>(this TCommand command, IEnumerable<IDbColumnSchema> columns)
         where TCommand : IDbCommand
     {
         if (command is null)
@@ -159,9 +201,29 @@ public static partial class CommandExtensions
         return command;
     }
 
+    /// <summary>
+    /// Adds or updates a parameter definition, and sets the parameter's value.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <typeparam name="TValue">The value type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="name">The parameter name.</param>
+    /// <param name="value">The perameter value.</param>
+    /// <param name="size">The parameter size.</param>
+    /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue value, int? size = default)
         where TCommand : IDbCommand => command.SetParameter(name, value, typeof(TValue), size);
 
+    /// <summary>
+    /// Adds or updates a parameter definition, and sets the parameter's value.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="name">The parameter name.</param>
+    /// <param name="value">The perameter value.</param>
+    /// <param name="clrType">The CLR type that maps to the <see cref="DbType"/>.</param>
+    /// <param name="size">The parameter size.</param>
+    /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, Type clrType, int? size = default)
         where TCommand : IDbCommand
     {
@@ -189,6 +251,16 @@ public static partial class CommandExtensions
         return command;
     }
 
+    /// <summary>
+    /// Adds or updates a parameter definition, and sets the parameter's value.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="name">The parameter name.</param>
+    /// <param name="value">The perameter value.</param>
+    /// <param name="dbType">The database type of the parameter.</param>
+    /// <param name="size">The parameter size.</param>
+    /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, DbType dbType, int? size = default)
         where TCommand : IDbCommand
     {
@@ -243,7 +315,7 @@ public static partial class CommandExtensions
 
         var typeInfo = parameters.GetType().TypeInfo();
         var provider = command.Connection.Provider();
-        
+
         var hasCommandText = !string.IsNullOrWhiteSpace(command.CommandText);
         var commandText = hasCommandText
             ? command.CommandText.AsSpan()

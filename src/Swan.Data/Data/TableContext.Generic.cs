@@ -6,10 +6,10 @@ using System.Data;
 /// A table context that maps between a given type and a data store.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-internal class ObjectContext<T> : TableContext, ITableContext<T>
+internal class TableContext<T> : TableContext, ITableContext<T>
     where T : class
 {
-    public ObjectContext(IDbConnection connection, string tableName, string? schema = null)
+    public TableContext(IDbConnection connection, string tableName, string? schema = null)
         : base(connection, tableName, schema)
     {
 
@@ -36,11 +36,6 @@ internal class ObjectContext<T> : TableContext, ITableContext<T>
     }
 
     public IEnumerable<T> RetrieveAll(IDbTransaction? transaction = null)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<T> RetrievePaged(int skip, int take, IDbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }

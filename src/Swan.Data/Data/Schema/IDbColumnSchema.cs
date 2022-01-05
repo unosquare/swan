@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents minimal information about a field in a supported database provider.
 /// </summary>
-public interface IDbColumn
+public interface IDbColumnSchema
 {
     /// <summary>
     /// Gets the column name.

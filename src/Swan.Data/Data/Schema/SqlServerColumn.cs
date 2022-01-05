@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CA1812
 namespace Swan.Data.Schema;
 
-internal record SqlServerColumn : IDbColumn
+internal record SqlServerColumn : IDbColumnSchema
 {
     public bool? AllowDBNull { get; set; }
 
@@ -59,29 +59,29 @@ internal record SqlServerColumn : IDbColumn
 
     public string? UdtAssemblyQualifiedName { get; set; }
 
-    byte IDbColumn.Precision => NumericPrecision.GetValueOrDefault() == byte.MaxValue ?
+    byte IDbColumnSchema.Precision => NumericPrecision.GetValueOrDefault() == byte.MaxValue ?
         byte.MinValue : NumericPrecision.GetValueOrDefault();
 
-    byte IDbColumn.Scale => NumericScale.GetValueOrDefault() == byte.MaxValue ?
+    byte IDbColumnSchema.Scale => NumericScale.GetValueOrDefault() == byte.MaxValue ?
         byte.MinValue : NumericScale.GetValueOrDefault();
 
-    int IDbColumn.MaxLength => ColumnSize.GetValueOrDefault();
+    int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
 
-    string IDbColumn.Name => ColumnName ?? string.Empty;
+    string IDbColumnSchema.Name => ColumnName ?? string.Empty;
 
-    int IDbColumn.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
+    int IDbColumnSchema.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
 
-    Type IDbColumn.DataType => DataType ?? typeof(string);
+    Type IDbColumnSchema.DataType => DataType ?? typeof(string);
 
-    string IDbColumn.ProviderDataType => DataTypeName ?? string.Empty;
+    string IDbColumnSchema.ProviderDataType => DataTypeName ?? string.Empty;
 
-    bool IDbColumn.AllowsDBNull => AllowDBNull.GetValueOrDefault();
+    bool IDbColumnSchema.AllowsDBNull => AllowDBNull.GetValueOrDefault();
 
-    bool IDbColumn.IsKey => IsKey.GetValueOrDefault();
+    bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
-    bool IDbColumn.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
+    bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
 
-    bool IDbColumn.IsReadOnly => IsReadOnly.GetValueOrDefault();
+    bool IDbColumnSchema.IsReadOnly => IsReadOnly.GetValueOrDefault();
 }
 
 #pragma warning restore CA1812

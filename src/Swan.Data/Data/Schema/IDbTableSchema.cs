@@ -3,14 +3,14 @@
 /// <summary>
 /// Represents table structure information from the backing data store.
 /// </summary>
-public interface IDbTable
+public interface IDbTableSchema
 {
     /// <summary>
     /// Gets the column schema data for the given column name.
     /// </summary>
     /// <param name="name">The column name.</param>
     /// <returns>The column schema.</returns>
-    IDbColumn? this[string name]
+    IDbColumnSchema? this[string name]
     {
         get;
     }
@@ -39,14 +39,14 @@ public interface IDbTable
     /// <summary>
     /// Gets the list of columns contained in this table.
     /// </summary>
-    public IReadOnlyList<IDbColumn> Columns { get; }
+    public IReadOnlyList<IDbColumnSchema> Columns { get; }
 
     /// <summary>
     /// Adds a column to the table schema.
     /// Column name is mandatory.
     /// </summary>
     /// <param name="column">The column to add.</param>
-    void AddColumn(IDbColumn column);
+    void AddColumn(IDbColumnSchema column);
 
     /// <summary>
     /// Removes a column from the table schema by its column name.
@@ -54,4 +54,3 @@ public interface IDbTable
     /// <param name="column">The name of the column to remove.</param>
     void RemoveColumn(string column);
 }
-
