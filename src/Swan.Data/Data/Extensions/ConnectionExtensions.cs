@@ -85,4 +85,3 @@ public static partial class ConnectionExtensions
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection, initialText);
 }
-

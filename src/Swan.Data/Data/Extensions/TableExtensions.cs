@@ -35,7 +35,12 @@ public static class TableExtensions
             .DefineParameters(keyColumns);
 
         if (key != null)
-            command.SetParameters(key);
+        {
+            if (keyColumns.Length == 1 && key.GetType().TypeInfo().IsBasicType)
+                command.SetParameter(keyColumns[0].Name, key);
+            else
+                command.SetParameters(key);
+        }
 
         return command;
     }

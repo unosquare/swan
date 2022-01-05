@@ -161,7 +161,7 @@ internal static partial class Library
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The name of the schema.</param>
     /// <returns>A hash code representing a cache entry id.</returns>
-    public static int ComputeCacheKey(DbProvider provider, string tableName, string schema) =>
+    public static int ComputeTableCacheKey(DbProvider provider, string tableName, string schema) =>
         HashCode.Combine(provider.CacheKey, tableName, schema);
 
     /// <summary>

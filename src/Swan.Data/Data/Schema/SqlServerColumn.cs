@@ -1,4 +1,5 @@
-﻿namespace Swan.Data.Schema;
+﻿#pragma warning disable CA1812
+namespace Swan.Data.Schema;
 
 internal record SqlServerColumn : IDbColumn
 {
@@ -83,3 +84,4 @@ internal record SqlServerColumn : IDbColumn
     bool IDbColumn.IsReadOnly => IsReadOnly.GetValueOrDefault();
 }
 
+#pragma warning restore CA1812

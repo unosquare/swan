@@ -8,3 +8,8 @@ public interface ITableContext : IDbTable, IConnected
     // placeholder
 }
 
+public interface ITableContext<T> : ITableContext
+    where T : class
+{
+    // placeholder
+}

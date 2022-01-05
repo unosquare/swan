@@ -302,7 +302,7 @@ public static partial class CommandExtensions
 
     /// <summary>
     /// Appends the specified text to the <see cref="IDbCommand.CommandText"/>.
-    /// Automatic spacing is enabled, and therefore, if the command text does not end with
+    /// Automatic spacing is enabled by default, and therefore, if the command text does not end with
     /// whitespace, it automatically adds a space between the existing command text and the appended
     /// one so you don't have to.
     /// </summary>
@@ -323,10 +323,11 @@ public static partial class CommandExtensions
             return command;
         }
 
-        command.CommandText = (autoSpace && command.CommandText.Length > 0 && !char.IsWhiteSpace(command.CommandText[0]))
-            ? $"{command.CommandText} {text}"
-            : $"{command.CommandText}{text}";
+        var whitespace = autoSpace && command.CommandText.Length > 0 && !char.IsWhiteSpace(command.CommandText[0])
+            ? " "
+            : string.Empty;
 
+        command.CommandText = $"{command.CommandText}{whitespace}{text}";
         return command;
     }
 

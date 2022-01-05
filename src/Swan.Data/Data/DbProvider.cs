@@ -159,10 +159,9 @@ public sealed record DbProvider
 
     internal static DbProvider FromConnection(IDbConnection connection)
     {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        return _Cache.GetValue(connection.ComputeCacheKey(), () => new DbProvider(connection));
+        return connection is null
+            ? throw new ArgumentNullException(nameof(connection))
+            : _Cache.GetValue(connection.ComputeCacheKey(), () => new DbProvider(connection));
     }
 
 }

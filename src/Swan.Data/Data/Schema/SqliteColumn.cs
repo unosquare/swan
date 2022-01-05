@@ -1,4 +1,5 @@
-﻿namespace Swan.Data.Schema;
+﻿#pragma warning disable CA1812
+namespace Swan.Data.Schema;
 
 internal record SqliteColumn : IDbColumn
 {
@@ -59,3 +60,4 @@ internal record SqliteColumn : IDbColumn
     int IDbColumn.MaxLength => ColumnSize.GetValueOrDefault();
 }
 
+#pragma warning restore CA1812

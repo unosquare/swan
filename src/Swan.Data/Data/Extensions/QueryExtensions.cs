@@ -194,7 +194,7 @@ public static partial class QueryExtensions
     /// <param name="t">The type to parse data rows into.</param>
     /// <param name="deserialize">An optional deserializer method that produces an object by providing a data row.</param>
     /// <returns>An enumerable set of objects.</returns>
-    public static IEnumerable Query(this DataTable table, Type t, Func<DataRow, object>? deserialize = default)
+    public static IEnumerable<object> Query(this DataTable table, Type t, Func<DataRow, object>? deserialize = default)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));

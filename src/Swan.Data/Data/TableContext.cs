@@ -6,7 +6,8 @@
 /// </summary>
 internal class TableContext : ITableContext
 {
-    private readonly DbTableSchema TableSchema;
+    private static readonly ValueCache<int, IDbTable> SchemaCache = new();
+    private readonly IDbTable TableSchema;
 
     /// <summary>
     /// Creates a new instance of the <see cref="TableContext"/> class.
@@ -22,9 +23,12 @@ internal class TableContext : ITableContext
         if (string.IsNullOrWhiteSpace(tableName))
             throw new ArgumentNullException(nameof(tableName));
 
-        TableSchema = DbTableSchema.FromConnection(connection, tableName, schema);
+        TableSchema = LoadTableSchema(connection, tableName, schema);
         Connection = connection;
     }
+
+    /// <inheritdoc />
+    public IDbColumn? this[string name] => TableSchema[name];
 
     /// <inheritdoc />
     public IDbConnection Connection { get; }
@@ -43,5 +47,18 @@ internal class TableContext : ITableContext
 
     /// <inheritdoc />
     public IReadOnlyList<IDbColumn> Columns => TableSchema.Columns;
-}
 
+    /// <inheritdoc />
+    public void AddColumn(IDbColumn column) => TableSchema.AddColumn(column);
+
+    /// <inheritdoc />
+    public void RemoveColumn(string column) => TableSchema.RemoveColumn(column);
+
+    private static IDbTable LoadTableSchema(IDbConnection connection, string tableName, string? schema)
+    {
+        var provider = connection.Provider();
+        schema ??= provider.DefaultSchemaName;
+        var cacheKey = Library.ComputeTableCacheKey(provider, tableName, schema);
+        return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
+    }
+}

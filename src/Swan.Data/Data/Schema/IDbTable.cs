@@ -6,6 +6,16 @@
 public interface IDbTable
 {
     /// <summary>
+    /// Gets the column schema data for the given column name.
+    /// </summary>
+    /// <param name="name">The column name.</param>
+    /// <returns>The column schema.</returns>
+    IDbColumn? this[string name]
+    {
+        get;
+    }
+
+    /// <summary>
     /// Gets the ssociated databse provider.
     /// </summary>
     DbProvider Provider { get; }
@@ -30,5 +40,18 @@ public interface IDbTable
     /// Gets the list of columns contained in this table.
     /// </summary>
     public IReadOnlyList<IDbColumn> Columns { get; }
+
+    /// <summary>
+    /// Adds a column to the table schema.
+    /// Column name is mandatory.
+    /// </summary>
+    /// <param name="column">The column to add.</param>
+    void AddColumn(IDbColumn column);
+
+    /// <summary>
+    /// Removes a column from the table schema by its column name.
+    /// </summary>
+    /// <param name="column">The name of the column to remove.</param>
+    void RemoveColumn(string column);
 }
 
