@@ -50,11 +50,10 @@ public static partial class CommandExtensions
     /// Tries to preprare a command on the server side.
     /// Useful when executing a command multiple times by varying argument values.
     /// </summary>
-    /// <typeparam name="T">The compatible command type.</typeparam>
     /// <param name="command">The command object.</param>
+    /// <param name="ct">The cancellation token.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
-    public static async Task<bool> TryPrepareAsync<T>(this T command, CancellationToken ct = default)
-        where T : IDbCommand
+    public static async Task<bool> TryPrepareAsync(this IDbCommand command, CancellationToken ct = default)
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -64,7 +63,7 @@ public static partial class CommandExtensions
 
         try
         {
-            await dbCommand.PrepareAsync(ct);
+            await dbCommand.PrepareAsync(ct).ConfigureAwait(false);
             return true;
         }
         catch

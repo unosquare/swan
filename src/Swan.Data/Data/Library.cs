@@ -11,33 +11,9 @@ internal static partial class Library
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
     public const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
+    public const string ProviderWithoutAsyncSupport = $"The ADO.NET provider for this {nameof(IDbConnection)} does not support asynchronous operations.";
     private const string AddWithValueMethodName = "AddWithValue";
     private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
-
-    /// <summary>
-    /// Removes special characters that cannot be represented as property names such as spaces.
-    /// </summary>
-    /// <param name="fieldName">The name of the field.</param>
-    /// <param name="fieldIndex">The index appearance of the field.</param>
-    /// <returns>A valid property name with only letters, digits or underscores.</returns>
-    public static string ToExpandoPropertyName(this string fieldName, int fieldIndex)
-    {
-        if (string.IsNullOrWhiteSpace(fieldName))
-            fieldName = $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
-        
-        var builder = new StringBuilder(fieldName.Length);
-        foreach (var c in fieldName)
-        {
-            if (!char.IsLetterOrDigit(c) && c != '_')
-                continue;
-
-            builder.Append(c);
-        }
-
-        return char.IsDigit(builder[0])
-            ? $"_{builder}"
-            : builder.ToString();
-    }
 
     /// <summary>
     /// Attempts to execute the reader with sequential access and single result, in addition to user-provided
@@ -73,14 +49,39 @@ internal static partial class Library
     {
         try
         {
-            var reader = await command.ExecuteReaderAsync(OptimizedBahavior | requiredFlags, ct);
+            var reader = await command.ExecuteReaderAsync(OptimizedBahavior | requiredFlags, ct).ConfigureAwait(false);
             return reader;
         }
         catch (ArgumentException)
         {
-            var reader = await command.ExecuteReaderAsync(OptimizedBahavior | requiredFlags, ct);
+            var reader = await command.ExecuteReaderAsync(requiredFlags, ct).ConfigureAwait(false);
             return reader;
         }
+    }
+
+    /// <summary>
+    /// Removes special characters that cannot be represented as property names such as spaces.
+    /// </summary>
+    /// <param name="fieldName">The name of the field.</param>
+    /// <param name="fieldIndex">The index appearance of the field.</param>
+    /// <returns>A valid property name with only letters, digits or underscores.</returns>
+    public static string ToExpandoPropertyName(this string fieldName, int fieldIndex)
+    {
+        if (string.IsNullOrWhiteSpace(fieldName))
+            fieldName = $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
+        
+        var builder = new StringBuilder(fieldName.Length);
+        foreach (var c in fieldName)
+        {
+            if (!char.IsLetterOrDigit(c) && c != '_')
+                continue;
+
+            builder.Append(c);
+        }
+
+        return char.IsDigit(builder[0])
+            ? $"_{builder}"
+            : builder.ToString();
     }
 
     /// <summary>

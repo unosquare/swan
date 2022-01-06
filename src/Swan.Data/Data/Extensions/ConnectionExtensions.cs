@@ -19,7 +19,7 @@ public static partial class ConnectionExtensions
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        await connection.EnsureIsValidAsync();
+        await connection.EnsureIsValidAsync().ConfigureAwait(false);
 
         var tables = new List<string>();
         var dt = (connection as DbConnection).GetSchema("Tables");
@@ -52,7 +52,7 @@ public static partial class ConnectionExtensions
         if (connection.State != ConnectionState.Open)
         {
             if (connection is DbConnection dbConnection)
-                await dbConnection.OpenAsync(ct);
+                await dbConnection.OpenAsync(ct).ConfigureAwait(false);
             else
                 connection.Open();
         }

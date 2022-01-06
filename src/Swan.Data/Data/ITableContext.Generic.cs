@@ -102,8 +102,12 @@ public interface ITableContext<T> : ITableContext
             throw new ArgumentNullException(nameof(items));
 
         var result = 0;
-        using var command = BuildInsertCommand(transaction);
-        await command.TryPrepareAsync(ct);
+        using var command = BuildInsertCommand(transaction) as DbCommand;
+
+        if (command is null)
+            throw new NotSupportedException(Library.ProviderWithoutAsyncSupport);
+
+        await command.TryPrepareAsync(ct).ConfigureAwait(false);
 
         foreach (var item in items)
         {
@@ -111,9 +115,7 @@ public interface ITableContext<T> : ITableContext
                 continue;
 
             command.SetParameters(item);
-            result += command is DbCommand cmd
-                ? await cmd.ExecuteNonQueryAsync(ct)
-                : command.ExecuteNonQuery();
+            result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
         }
 
         return result;

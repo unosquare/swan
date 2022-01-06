@@ -160,25 +160,27 @@ public static partial class QueryExtensions
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         if (command is not DbCommand cmd)
-            throw new ArgumentException("Command does not support asynchronous operations.", nameof(command));
+            throw new NotSupportedException(Library.ProviderWithoutAsyncSupport);
 
         deserialize ??= (r) => r.ParseObject<T>();
-        var reader = await cmd.ExecuteOptimizedReaderAsync(behavior, ct);
+        var reader = await cmd.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
 
         try
         {
             if (reader.FieldCount <= 0)
                 yield break;
 
-            while (await reader.ReadAsync(ct))
+            while (await reader.ReadAsync(ct).ConfigureAwait(false))
             {
-                await Task.Delay(500, ct);
+                await Task.Delay(500, ct).ConfigureAwait(false);
                 yield return deserialize(reader);
             }
 
-            // skip the following result sets.
-            while (await reader.NextResultAsync(ct)) { }
-            await reader.DisposeAsync();
+            // Skip the following result sets.
+            while (await reader.NextResultAsync(ct).ConfigureAwait(false)) { }
+
+            // Gracefully dispose the reader.
+            await reader.DisposeAsync().ConfigureAwait(false);
             reader = null;
         }
         finally
@@ -191,11 +193,11 @@ public static partial class QueryExtensions
                     catch { /* ignore */ }
                 }
 
-                await reader.DisposeAsync();
+                await reader.DisposeAsync().ConfigureAwait(false);
             }
 
             cmd.Parameters?.Clear();
-            await cmd.DisposeAsync();
+            await cmd.DisposeAsync().ConfigureAwait(false);
         }
     }
 
