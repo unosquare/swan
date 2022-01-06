@@ -9,7 +9,7 @@ public partial class TableContext
     public IDbColumnSchema? this[string name] => TableSchema[name];
 
     /// <inheritdoc />
-    public IDbConnection Connection { get; }
+    public DbConnection Connection { get; }
 
     /// <inheritdoc />
     public DbProvider Provider => TableSchema.Provider;
@@ -55,7 +55,7 @@ public partial class TableContext
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional table schema.</param>
     /// <returns>The table schema.</returns>
-    private static IDbTableSchema LoadTableSchema(IDbConnection connection, string tableName, string? schema)
+    private static IDbTableSchema LoadTableSchema(DbConnection connection, string tableName, string? schema)
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;

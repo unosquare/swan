@@ -23,7 +23,7 @@ public interface ITableContext<T> : ITableContext
     /// <param name="item">The item to insert.</param>
     /// <param name="transaction">The optional associated transaction.</param>
     /// <returns>The newly inserted item whenever possible.</returns>
-    T? InsertOne(T item, IDbTransaction? transaction = null);
+    T? InsertOne(T item, DbTransaction? transaction = null);
 
     /// <summary>
     /// Inserts a set of records of the given type to the table.
@@ -32,7 +32,7 @@ public interface ITableContext<T> : ITableContext
     /// <param name="items">The items to insert.</param>
     /// <param name="transaction">The optional associated transaction.</param>
     /// <returns>The number of records affected.</returns>
-    int InsertMany(IEnumerable<T> items, IDbTransaction? transaction = null);
+    int InsertMany(IEnumerable<T> items, DbTransaction? transaction = null);
 
     /// <summary>
     /// Inserts a set of records of the given type to the table.
@@ -42,7 +42,7 @@ public interface ITableContext<T> : ITableContext
     /// <param name="transaction">The optional associated transaction.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>The number of records affected.</returns>
-    Task<int> InsertManyAsync(IEnumerable<T> items, IDbTransaction? transaction = null, CancellationToken ct = default);
+    Task<int> InsertManyAsync(IEnumerable<T> items, DbTransaction? transaction = null, CancellationToken ct = default);
 
     /// <summary>
     /// Updates a single item. Key values must be correctly set in the passed object.
@@ -50,7 +50,7 @@ public interface ITableContext<T> : ITableContext
     /// <param name="item">The item to update.</param>
     /// <param name="transaction">The optional associated transaction.</param>
     /// <returns>The number of affected records.</returns>
-    int UpdateOne(T item, IDbTransaction? transaction = null);
+    int UpdateOne(T item, DbTransaction? transaction = null);
 
     /// <summary>
     /// Updates 
@@ -59,11 +59,11 @@ public interface ITableContext<T> : ITableContext
     /// <param name="transaction"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    int UpdateMany(IEnumerable<T> items, IDbTransaction? transaction = null);
+    int UpdateMany(IEnumerable<T> items, DbTransaction? transaction = null);
 
-    bool TryFind(T key, out T item, IDbTransaction? transaction = null);
+    bool TryFind(T key, out T item, DbTransaction? transaction = null);
 
-    T DeleteOne(T item, IDbTransaction? transaction = null);
+    T DeleteOne(T item, DbTransaction? transaction = null);
 
-    T DeleteMany(IEnumerable<T> items, IDbTransaction? transaction = null);
+    T DeleteMany(IEnumerable<T> items, DbTransaction? transaction = null);
 }

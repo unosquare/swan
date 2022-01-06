@@ -11,7 +11,7 @@ public interface ITableContext : IDbTableSchema, IConnected
     /// </summary>
     /// <param name="transaction">An optional transaction.</param>
     /// <returns>The command.</returns>
-    IDbCommand BuildInsertCommand(IDbTransaction? transaction = null);
+    DbCommand BuildInsertCommand(DbTransaction? transaction = null);
 
     /// <summary>
     /// Creates a command where an object found via its key column values
@@ -19,5 +19,5 @@ public interface ITableContext : IDbTableSchema, IConnected
     /// </summary>
     /// <param name="transaction">The optional transaction.</param>
     /// <returns>The command.</returns>
-    IDbCommand BuildUpdateCommand(IDbTransaction? transaction = null);
+    DbCommand BuildUpdateCommand(DbTransaction? transaction = null);
 }

@@ -1,7 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
 /// <summary>
-/// Provides extension methods for <see cref="IDbConnection"/> objects.
+/// Provides extension methods for <see cref="DbConnection"/> objects.
 /// </summary>
 public static partial class ConnectionExtensions
 {
@@ -10,11 +10,11 @@ public static partial class ConnectionExtensions
     /// </summary>
     /// <param name="connection">The connection to extract the provider from.</param>
     /// <returns>The associated DB provider.</returns>
-    public static DbProvider Provider(this IDbConnection connection) => connection is null
+    public static DbProvider Provider(this DbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : DbProvider.FromConnection(connection);
 
-    public static async Task<IReadOnlyList<string>> TableNames(this IDbConnection connection)
+    public static async Task<IReadOnlyList<string>> TableNames(this DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -22,7 +22,7 @@ public static partial class ConnectionExtensions
         await connection.EnsureIsValidAsync().ConfigureAwait(false);
 
         var tables = new List<string>();
-        var dt = (connection as DbConnection).GetSchema("Tables");
+        var dt = connection.GetSchema("Tables");
         foreach (DataRow row in dt.Rows)
         {
             string tablename = (string)row[2];
@@ -31,41 +31,36 @@ public static partial class ConnectionExtensions
         return tables;
     }
 
-    public static ITableContext Table(this IDbConnection connection, string tableName, string? schema = default) =>
+    public static ITableContext Table(this DbConnection connection, string tableName, string? schema = default) =>
         new TableContext(connection, tableName, schema);
 
-    public static ITableContext<T> Table<T>(this IDbConnection connection, string tableName, string? schema = default)
+    public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default)
         where T : class =>
         new TableContext<T>(connection, tableName, schema);
 
     /// <summary>
-    /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
+    /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
     /// </summary>
     /// <param name="connection">The connection to check for validity.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An awaitable task.</returns>
-    public static async Task EnsureIsValidAsync(this IDbConnection connection, CancellationToken ct = default)
+    public static async Task EnsureIsValidAsync(this DbConnection connection, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
         if (connection.State != ConnectionState.Open)
-        {
-            if (connection is DbConnection dbConnection)
-                await dbConnection.OpenAsync(ct).ConfigureAwait(false);
-            else
-                connection.Open();
-        }
+                await connection.OpenAsync(ct).ConfigureAwait(false);
 
         if (string.IsNullOrWhiteSpace(connection.Database))
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
     }
 
     /// <summary>
-    /// Ensures the connection state is open and that the <see cref="IDbConnection.Database"/> property has been set.
+    /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
     /// </summary>
     /// <param name="connection">The connection to check for validity.</param>
-    public static void EnsureIsValid(this IDbConnection connection)
+    public static void EnsureIsValid(this DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -80,12 +75,12 @@ public static partial class ConnectionExtensions
     /// <summary>
     /// Starts a fluent command definition using a <see cref="CommandSource"/>.
     /// When done, use the <see cref="CommandSource.EndCommandText"/> method call
-    /// to extract the action <see cref="IDbCommand"/>.
+    /// to extract the action <see cref="DbCommand"/>.
     /// </summary>
     /// <param name="connection">The connection.</param>
     /// <param name="initialText">The optional, initial command text to start building upon.</param>
     /// <returns>A fluent command definition.</returns>
-    public static CommandSource BeginCommandText(this IDbConnection connection, string? initialText = default) => connection is null
+    public static CommandSource BeginCommandText(this DbConnection connection, string? initialText = default) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection, initialText);
 }

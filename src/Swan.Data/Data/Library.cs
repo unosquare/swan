@@ -8,8 +8,8 @@ internal static partial class Library
     private const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
-    public const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
-    public const string ProviderWithoutAsyncSupport = $"The ADO.NET provider for this {nameof(IDbConnection)} does not support asynchronous operations.";
+    public const string CommandConnectionErrorMessage = $"The {nameof(DbCommand)}.{nameof(DbCommand.Connection)} cannot be null.";
+    public const string ProviderWithoutAsyncSupport = $"The ADO.NET provider for this {nameof(DbConnection)} does not support asynchronous operations.";
     public const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
 
     private const string AddWithValueMethodName = "AddWithValue";
@@ -22,7 +22,7 @@ internal static partial class Library
     /// <param name="command">The command to execute the reader.</param>
     /// <param name="requiredFlags">The required behavior flags.</param>
     /// <returns>The data reader resulting from command execution.</returns>
-    public static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
+    public static IDataReader ExecuteOptimizedReader(this DbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {
         try
         {
@@ -193,7 +193,7 @@ internal static partial class Library
     /// </summary>
     /// <param name="connection">The connection to compute the hash key for.</param>
     /// <returns>A hash code representing a cache entry id.</returns>
-    public static int ComputeCacheKey(this IDbConnection connection)
+    public static int ComputeCacheKey(this DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));

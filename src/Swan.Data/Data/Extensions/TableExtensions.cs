@@ -18,10 +18,10 @@ public static class TableExtensions
         ? throw new ArgumentException("Table connection must be set.", nameof(table))
         : new CommandSource(table.Connection).Select(table.Columns.Select(c => c.Name).ToArray()).From(table.TableName, table.Schema);
 
-    public static IDbCommand SelectAll(this ITableContext table) =>
+    public static DbCommand SelectAll(this ITableContext table) =>
         table.BeginSelectText().EndCommandText();
 
-    public static IDbCommand SelectByKey(this ITableContext table, object? key = default)
+    public static DbCommand SelectByKey(this ITableContext table, object? key = default)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));
@@ -54,7 +54,7 @@ public static class TableExtensions
     /// <param name="param">The optional object where parameters will be read from.</param>
     /// <returns>The generated command.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IDbCommand Insert(this ITableContext table, object? param = default)
+    public static DbCommand Insert(this ITableContext table, object? param = default)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));

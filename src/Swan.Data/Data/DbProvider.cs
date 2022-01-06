@@ -13,7 +13,7 @@ public sealed record DbProvider
     /// Creates a new instance of the <see cref="DbProvider"/> class.
     /// </summary>
     /// <param name="connection">The connection to crete the provider from.</param>
-    private DbProvider(IDbConnection connection)
+    private DbProvider(DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -171,7 +171,7 @@ public sealed record DbProvider
     /// </summary>
     /// <param name="connection">The connection to get the provider for.</param>
     /// <returns>The db provider.</returns>
-    internal static DbProvider FromConnection(IDbConnection connection)
+    internal static DbProvider FromConnection(DbConnection connection)
     {
         return connection is null
             ? throw new ArgumentNullException(nameof(connection))

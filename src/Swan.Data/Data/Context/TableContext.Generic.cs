@@ -13,7 +13,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional table schema.</param>
-    public TableContext(IDbConnection connection, string tableName, string? schema = null)
+    public TableContext(DbConnection connection, string tableName, string? schema = null)
         : base(connection, tableName, schema)
     {
         Deserializer = new((r) => r.ParseObject<T>());
@@ -23,7 +23,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     public Func<IDataRecord, T>? Deserializer { get; set; }
 
     /// <inheritdoc />
-    public T? InsertOne(T item, IDbTransaction? transaction = null)
+    public T? InsertOne(T item, DbTransaction? transaction = null)
     {
         if (item is null)
             throw new ArgumentNullException(nameof(item));
@@ -61,7 +61,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public int InsertMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    public int InsertMany(IEnumerable<T> items, DbTransaction? transaction = null)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -83,7 +83,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public async Task<int> InsertManyAsync(IEnumerable<T> items, IDbTransaction? transaction = null, CancellationToken ct = default)
+    public async Task<int> InsertManyAsync(IEnumerable<T> items, DbTransaction? transaction = null, CancellationToken ct = default)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -109,7 +109,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public int UpdateOne(T item, IDbTransaction? transaction = null)
+    public int UpdateOne(T item, DbTransaction? transaction = null)
     {
         if (item is null)
             throw new ArgumentNullException(nameof(item));
@@ -121,7 +121,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public int UpdateMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    public int UpdateMany(IEnumerable<T> items, DbTransaction? transaction = null)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -140,19 +140,19 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public bool TryFind(T key, out T item, IDbTransaction? transaction = null)
+    public bool TryFind(T key, out T item, DbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public T DeleteOne(T item, IDbTransaction? transaction = null)
+    public T DeleteOne(T item, DbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public T DeleteMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    public T DeleteMany(IEnumerable<T> items, DbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }

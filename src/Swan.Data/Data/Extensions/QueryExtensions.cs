@@ -5,7 +5,7 @@
 /// </summary>
 public static partial class QueryExtensions
 {
-    #region IDbConnection
+    #region DbConnection
 
     /// <summary>
     /// Executes a data reader in the underlying connection as a single result set
@@ -22,8 +22,8 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(
-        this IDbConnection connection, string sql, Func<IDataRecord, T> deserialize, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+        this DbConnection connection, string sql, Func<IDataRecord, T> deserialize, object? param = default,
+        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -60,8 +60,8 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<T> Query<T>(
-        this IDbConnection connection, string sql, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+        this DbConnection connection, string sql, object? param = default,
+        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
         => connection.Query(sql, (reader) => reader.ParseObject<T>(), param, behavior, transaction, timeout);
 
     /// <summary>
@@ -77,13 +77,13 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<dynamic> Query(
-        this IDbConnection connection, string sql, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, IDbTransaction? transaction = default, TimeSpan? timeout = default)
+        this DbConnection connection, string sql, object? param = default,
+        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
         => connection.Query(sql, (reader) => reader.ParseExpando(), param, behavior, transaction, timeout);
 
     #endregion
 
-    #region IDbCommand
+    #region DbCommand
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
@@ -95,7 +95,7 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+    public static IEnumerable<T> Query<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default,
         Func<IDataRecord, T>? deserialize = default)
     {
         if (command == null)
@@ -150,7 +150,7 @@ public static partial class QueryExtensions
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static async IAsyncEnumerable<T> QueryAsync<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+    public static async IAsyncEnumerable<T> QueryAsync<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default,
         Func<IDataRecord, T>? deserialize = default, [EnumeratorCancellation] CancellationToken ct = default)
     {
         if (command == null)
@@ -209,7 +209,7 @@ public static partial class QueryExtensions
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<dynamic> Query(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
+    public static IEnumerable<dynamic> Query(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
         command.Query(behavior, (reader) => reader.ParseExpando());
 
     /// <summary>
@@ -221,7 +221,7 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IAsyncEnumerable<dynamic> QueryAsync(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+    public static IAsyncEnumerable<dynamic> QueryAsync(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default,
         CancellationToken ct = default) =>
         command.QueryAsync(behavior, (reader) => reader.ParseExpando(), ct);
 

@@ -97,7 +97,7 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional schema name.</param>
     /// <returns>A populated table schema.</returns>
-    public static IDbTableSchema Load(IDbConnection connection, string tableName, string? schema)
+    public static IDbTableSchema Load(DbConnection connection, string tableName, string? schema)
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;

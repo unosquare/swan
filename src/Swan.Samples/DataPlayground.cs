@@ -6,6 +6,7 @@ using Swan.Logging;
 using Swan.Platform;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
@@ -69,7 +70,7 @@ internal static class DataPlayground
         Terminal.Flush();
     }
 
-    private static void TestSampleCommandSource(this IDbConnection connection)
+    private static void TestSampleCommandSource(this DbConnection connection)
     {
         var output = connection.BeginCommandText()
             .Select().Fields().From("Projects").Where()
@@ -85,7 +86,7 @@ internal static class DataPlayground
         $"output contains {output.Count} records. Te first item is named '{output[0].Name}'".Info();
     }
 
-    private static void TestSimpleQuery(this IDbConnection connection)
+    private static void TestSimpleQuery(this DbConnection connection)
     {
         var sx = connection.Query("SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId",
             new { P1 = 600, P2 = 700 })
@@ -94,7 +95,7 @@ internal static class DataPlayground
         $"output contains {sx.Count} records. The last item is named '{sx.Last().Name}'".Info();
     }
 
-    private static void TestSampleInsert(this IDbConnection connection)
+    private static void TestSampleInsert(this DbConnection connection)
     {
         // Acquire a table context. The table schema is only retrieved once
         // the rest of the times it is cached. This is useful because
@@ -155,7 +156,7 @@ internal static class DataPlayground
         Terminal.Flush();
     }
 
-    private static void TestSampleInsertButBetter(this IDbConnection connection)
+    private static void TestSampleInsertButBetter(this DbConnection connection)
     {
         // Now, instead of doing all that stuff manually, if we play with
         // typical game rules, we can do stuff in a much simpler way :)

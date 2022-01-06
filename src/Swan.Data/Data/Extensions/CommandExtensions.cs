@@ -1,7 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
 /// <summary>
-/// Provides extension methods for <see cref="IDbCommand"/> objects.
+/// Provides extension methods for <see cref="DbCommand"/> objects.
 /// </summary>
 public static partial class CommandExtensions
 {
@@ -14,7 +14,7 @@ public static partial class CommandExtensions
     /// <param name="exception">When prepare fails, the associated exception.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
     public static bool TryPrepare<T>(this T command, [NotNullWhen(false)] out Exception? exception)
-        where T : IDbCommand
+        where T : DbCommand
     {
         exception = null;
 
@@ -44,7 +44,7 @@ public static partial class CommandExtensions
     /// <param name="command">The command object.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
     public static bool TryPrepare<T>(this T command)
-        where T : IDbCommand => command.TryPrepare(out _);
+        where T : DbCommand => command.TryPrepare(out _);
 
     /// <summary>
     /// Tries to preprare a command on the server side.
@@ -53,7 +53,7 @@ public static partial class CommandExtensions
     /// <param name="command">The command object.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
-    public static async Task<bool> TryPrepareAsync(this IDbCommand command, CancellationToken ct = default)
+    public static async Task<bool> TryPrepareAsync(this DbCommand command, CancellationToken ct = default)
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -83,7 +83,7 @@ public static partial class CommandExtensions
     /// <param name="parameter">The parameter output (if found).</param>
     /// <returns>True if the paramater was found. False otherwise.</returns>
     public static bool TryFindParameter<T>(this T command, string name, [MaybeNullWhen(false)] out IDbDataParameter parameter)
-        where T : IDbCommand
+        where T : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -129,7 +129,7 @@ public static partial class CommandExtensions
     /// <param name="scale">The numeric scale.</param>
     /// <param name="isNullable">Whether the parameter accepts database nulls.</param>
     /// <returns>The added or updated parameter object.</returns>
-    public static IDbDataParameter DefineParameter(this IDbCommand command, string name, DbType dbType,
+    public static IDbDataParameter DefineParameter(this DbCommand command, string name, DbType dbType,
         ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
     {
         if (command is null)
@@ -149,8 +149,8 @@ public static partial class CommandExtensions
         parameter.DbType = dbType;
         parameter.Direction = direction;
         parameter.Size = (size == default && dbType == DbType.String) ? 4000 : size;
-        parameter.Precision = Convert.ToByte(precision.Clamp(0, 255));
-        parameter.Scale = Convert.ToByte(scale.Clamp(0, 255));
+        parameter.Precision = Convert.ToByte(precision.Clamp(0, byte.MaxValue));
+        parameter.Scale = Convert.ToByte(scale.Clamp(0, byte.MaxValue));
 
         if (isNullable)
         {
@@ -176,7 +176,7 @@ public static partial class CommandExtensions
     /// <param name="scale">The numeric scale.</param>
     /// <param name="isNullable">Whether the parameter accepts database nulls.</param>
     /// <returns>The added or updated parameter object.</returns>
-    public static IDbDataParameter DefineParameter(this IDbCommand command, string name, Type clrType,
+    public static IDbDataParameter DefineParameter(this DbCommand command, string name, Type clrType,
         ParameterDirection direction = ParameterDirection.Input, int size = default, int precision = default, int scale = default, bool isNullable = default)
     {
         if (command is null)
@@ -205,7 +205,7 @@ public static partial class CommandExtensions
     /// <param name="column">The column information used to create or update the parameter definition.</param>
     /// <param name="direction">The optional parameter direction. The default is input.</param>
     /// <returns>The added or updated parameter object.</returns>
-    public static IDbDataParameter DefineParameter(this IDbCommand command, IDbColumnSchema column,
+    public static IDbDataParameter DefineParameter(this DbCommand command, IDbColumnSchema column,
         ParameterDirection direction = ParameterDirection.Input)
     {
         return column is null
@@ -223,7 +223,7 @@ public static partial class CommandExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     public static TCommand DefineParameters<TCommand>(this TCommand command, IEnumerable<IDbColumnSchema> columns)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -248,7 +248,7 @@ public static partial class CommandExtensions
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue value, int? size = default)
-        where TCommand : IDbCommand => command.SetParameter(name, value, typeof(TValue), size);
+        where TCommand : DbCommand => command.SetParameter(name, value, typeof(TValue), size);
 
     /// <summary>
     /// Adds or updates a parameter definition, and sets the parameter's value.
@@ -261,7 +261,7 @@ public static partial class CommandExtensions
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, Type clrType, int? size = default)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -298,7 +298,7 @@ public static partial class CommandExtensions
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand>(this TCommand command, string name, object? value, DbType dbType, int? size = default)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -338,7 +338,7 @@ public static partial class CommandExtensions
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
     public static TCommand SetParameters<TCommand>(this TCommand command, object parameters)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -387,8 +387,8 @@ public static partial class CommandExtensions
     /// <param name="dbTransaction">The optional associated transaction.</param>
     /// <param name="timeout">The optional command timeout.</param>
     /// <returns>The modified command object.</returns>
-    public static TCommand WithProperties<TCommand>(this TCommand command, string? commandText = default, CommandType? commandType = default, IDbTransaction? dbTransaction = default, TimeSpan? timeout = default)
-        where TCommand : IDbCommand
+    public static TCommand WithProperties<TCommand>(this TCommand command, string? commandText = default, CommandType? commandType = default, DbTransaction? dbTransaction = default, TimeSpan? timeout = default)
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -409,7 +409,7 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
-    /// Appends the specified text to the <see cref="IDbCommand.CommandText"/>.
+    /// Appends the specified text to the <see cref="DbCommand.CommandText"/>.
     /// Automatic spacing is enabled by default, and therefore, if the command text does not end with
     /// whitespace, it automatically adds a space between the existing command text and the appended
     /// one so you don't have to.
@@ -420,7 +420,7 @@ public static partial class CommandExtensions
     /// <param name="autoSpace">The auto-spacing flag.</param>
     /// <returns>The command with the modified command text.</returns>
     public static TCommand AppendText<TCommand>(this TCommand command, string text, bool autoSpace = true)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -447,7 +447,7 @@ public static partial class CommandExtensions
     /// <param name="commandText">The command text.</param>
     /// <returns>The modified command object.</returns>
     public static TCommand WithText<TCommand>(this TCommand command, string? commandText)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -463,8 +463,8 @@ public static partial class CommandExtensions
     /// <param name="command">The command object.</param>
     /// <param name="transaction">The transaction.</param>
     /// <returns>The modified command object.</returns>
-    public static TCommand WithTransaction<TCommand>(this TCommand command, IDbTransaction? transaction)
-        where TCommand : IDbCommand
+    public static TCommand WithTransaction<TCommand>(this TCommand command, DbTransaction? transaction)
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -482,7 +482,7 @@ public static partial class CommandExtensions
     /// <param name="timeout">The timeout value.</param>
     /// <returns>The modified command object.</returns>
     public static TCommand WithTimeout<TCommand>(this TCommand command, TimeSpan timeout)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -500,7 +500,7 @@ public static partial class CommandExtensions
     /// <param name="seconds">The timeout value in seconds.</param>
     /// <returns>The modified command object.</returns>
     public static TCommand WithTimeout<TCommand>(this TCommand command, int seconds)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
@@ -516,7 +516,7 @@ public static partial class CommandExtensions
     /// <param name="commandType">The command type.</param>
     /// <returns>The modified command object.</returns>
     public static TCommand WithCommandType<TCommand>(this TCommand command, CommandType commandType)
-        where TCommand : IDbCommand
+        where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));

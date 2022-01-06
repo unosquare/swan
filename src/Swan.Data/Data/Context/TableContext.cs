@@ -12,7 +12,7 @@ public partial class TableContext : ITableContext
     /// <param name="connection">The connection to associate this context to.</param>
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The name of the schema.</param>
-    public TableContext(IDbConnection connection, string tableName, string? schema = null)
+    public TableContext(DbConnection connection, string tableName, string? schema = null)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -25,7 +25,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public IDbCommand BuildInsertCommand(IDbTransaction? transaction = null)
+    public DbCommand BuildInsertCommand(DbTransaction? transaction = null)
     {
         var insertColumns = InsertableColumns;
         var columnNames = insertColumns.Select(c => c.Name).ToArray();
@@ -47,7 +47,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public IDbCommand BuildUpdateCommand(IDbTransaction? transaction = null)
+    public DbCommand BuildUpdateCommand(DbTransaction? transaction = null)
     {
         var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();

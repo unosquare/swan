@@ -9,14 +9,14 @@
 public sealed class CommandSource : IConnected
 {
     private StringBuilder? _commandText;
-    private IDbConnection? _connection;
+    private DbConnection? _connection;
 
     /// <summary>
     /// Creates a new instance of the <see cref="CommandSource"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="initialText">An optional initial command text.</param>
-    internal CommandSource(IDbConnection connection, string? initialText = default)
+    internal CommandSource(DbConnection connection, string? initialText = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -30,7 +30,7 @@ public sealed class CommandSource : IConnected
     }
 
     /// <inheritdoc />
-    public IDbConnection Connection => _connection ?? throw new InvalidOperationException(Library.NoConnectionErrorMessage);
+    public DbConnection Connection => _connection ?? throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
     /// <summary>
     /// Gets the resolved provider associated with the connection.
@@ -64,10 +64,10 @@ public sealed class CommandSource : IConnected
     }
 
     /// <summary>
-    /// Converts the current definition into a connection-bound <see cref="IDbCommand"/> object.
+    /// Converts the current definition into a connection-bound <see cref="DbCommand"/> object.
     /// </summary>
     /// <returns>The actual command that can be executed.</returns>
-    public IDbCommand EndCommandText()
+    public DbCommand EndCommandText()
     {
         if (_connection is null)
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);

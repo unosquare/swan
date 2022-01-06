@@ -8,5 +8,5 @@ public interface IConnected
     /// <summary>
     /// Gets the live connection associated with this object.
     /// </summary>
-    IDbConnection Connection { get; }
+    DbConnection Connection { get; }
 }
