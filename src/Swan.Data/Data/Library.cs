@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 /// </summary>
 internal static partial class Library
 {
+    private const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
     public const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
@@ -47,17 +48,37 @@ internal static partial class Library
     /// <returns>The data reader resulting from command execution.</returns>
     public static IDataReader ExecuteOptimizedReader(this IDbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {
-        const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
-        IDataReader? reader;
-
         try
         {
-            reader = command.ExecuteReader(OptimizedBahavior | requiredFlags);
+            var reader = command.ExecuteReader(OptimizedBahavior | requiredFlags);
             return reader;
         }
         catch (ArgumentException)
         {
-            reader = command.ExecuteReader(requiredFlags);
+            var reader = command.ExecuteReader(requiredFlags);
+            return reader;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to execute the reader with sequential access and single result, in addition to user-provided
+    /// required falgs. If execution fails, it then tries to execute the reader without optimization flags.
+    /// </summary>
+    /// <param name="command">The command to execute the reader.</param>
+    /// <param name="requiredFlags">The required behavior flags.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The data reader resulting from command execution.</returns>
+    public static async Task<DbDataReader> ExecuteOptimizedReaderAsync(this DbCommand command,
+        CommandBehavior requiredFlags = CommandBehavior.Default, CancellationToken ct = default)
+    {
+        try
+        {
+            var reader = await command.ExecuteReaderAsync(OptimizedBahavior | requiredFlags, ct);
+            return reader;
+        }
+        catch (ArgumentException)
+        {
+            var reader = await command.ExecuteReaderAsync(OptimizedBahavior | requiredFlags, ct);
             return reader;
         }
     }

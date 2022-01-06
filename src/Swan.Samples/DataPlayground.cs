@@ -8,6 +8,8 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 internal static class DataPlayground
 {
@@ -16,14 +18,55 @@ internal static class DataPlayground
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        using var conn = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+        using var connection = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
 
         // You can configure the default timeout for commands created using the SWAN API.
-        conn.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
+        connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
 
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
-        conn.TestSampleInsertButBetter();
+        connection.TestSampleInsertButBetter();
+    }
+
+    public static async Task AsyncQuerying()
+    {
+        using var connection = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId";
+        command.SetParameters(new { P1 = 600, P2 = 700 });
+
+        command.Disposed += (s, e) =>
+        {
+            "Command was disposed.".Info();
+        };
+
+        var cts = new CancellationTokenSource();
+        var items = command.QueryAsync<Project>(ct: cts.Token);
+        var count = 0;
+        try
+        {
+            await foreach (var item in items)
+            {
+                $"{item}".Info();
+                count++;
+
+                if (count == 4)
+                {
+                    Terminal.Write("Press 'c' to cancel. Any other key to continue: ");
+                    var key = Terminal.ReadKey(true);
+                    Terminal.WriteLine();
+                    if (key.Key == ConsoleKey.C)
+                        cts.Cancel();
+                }
+
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            $"Task was cancelled".Warn();
+        }
+
+        Terminal.Flush();
     }
 
     private static void TestSampleCommandSource(this IDbConnection connection)

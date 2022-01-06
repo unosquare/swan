@@ -231,6 +231,9 @@
         {
 
             // Sketchpad();
+            await DataPlayground.AsyncQuerying();
+            return;
+
             DataPlayground.BasicExample();
 
             return;

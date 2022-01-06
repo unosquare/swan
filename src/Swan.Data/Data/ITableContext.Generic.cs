@@ -72,7 +72,20 @@ public interface ITableContext<T> : ITableContext
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
-        return InsertManyAsync(items, transaction).GetAwaiter().GetResult();
+        var result = 0;
+        using var command = BuildInsertCommand(transaction);
+        command.TryPrepare(out _);
+
+        foreach (var item in items)
+        {
+            if (item is null)
+                continue;
+
+            command.SetParameters(item);
+            result += command.ExecuteNonQuery();
+        }
+
+        return result;
     }
 
     /// <summary>

@@ -144,11 +144,84 @@ public static partial class QueryExtensions
     /// and provides a foward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// </summary>
+    /// <typeparam name="T">The type of elements to return.</typeparam>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static async IAsyncEnumerable<T> QueryAsync<T>(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+        Func<IDataRecord, T>? deserialize = default, [EnumeratorCancellation] CancellationToken ct = default)
+    {
+        if (command == null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (command.Connection is null)
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
+
+        if (command is not DbCommand cmd)
+            throw new ArgumentException("Command does not support asynchronous operations.", nameof(command));
+
+        deserialize ??= (r) => r.ParseObject<T>();
+        var reader = await cmd.ExecuteOptimizedReaderAsync(behavior, ct);
+
+        try
+        {
+            if (reader.FieldCount <= 0)
+                yield break;
+
+            while (await reader.ReadAsync(ct))
+            {
+                await Task.Delay(500, ct);
+                yield return deserialize(reader);
+            }
+
+            // skip the following result sets.
+            while (await reader.NextResultAsync(ct)) { }
+            await reader.DisposeAsync();
+            reader = null;
+        }
+        finally
+        {
+            if (reader is not null)
+            {
+                if (!reader.IsClosed)
+                {
+                    try { cmd.Cancel(); }
+                    catch { /* ignore */ }
+                }
+
+                await reader.DisposeAsync();
+            }
+
+            cmd.Parameters?.Clear();
+            await cmd.DisposeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<dynamic> Query(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
         command.Query(behavior, (reader) => reader.ParseExpando());
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IAsyncEnumerable<dynamic> QueryAsync(this IDbCommand command, CommandBehavior behavior = CommandBehavior.Default,
+        CancellationToken ct = default) =>
+        command.QueryAsync(behavior, (reader) => reader.ParseExpando(), ct);
 
     #endregion
 
