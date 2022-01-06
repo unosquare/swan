@@ -1,7 +1,5 @@
 ﻿namespace Swan.Data;
 
-using System.Linq.Expressions;
-
 /// <summary>
 /// Provides utility methods visibly to this library only.
 /// </summary>
@@ -12,6 +10,8 @@ internal static partial class Library
 
     public const string CommandConnectionErrorMessage = $"The {nameof(IDbCommand)}.{nameof(IDbCommand.Connection)} cannot be null.";
     public const string ProviderWithoutAsyncSupport = $"The ADO.NET provider for this {nameof(IDbConnection)} does not support asynchronous operations.";
+    public const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
+
     private const string AddWithValueMethodName = "AddWithValue";
     private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
 

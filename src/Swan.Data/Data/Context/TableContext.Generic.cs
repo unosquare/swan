@@ -1,29 +1,29 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Context;
 
 /// <summary>
-/// Represents a table and schema that is bound to a specific connection
-/// and that also maps to a specific CLR type.
+/// A table context that maps between a given type and a data store.
 /// </summary>
-/// <typeparam name="T">The CLR type to map the table to.</typeparam>
-public interface ITableContext<T> : ITableContext
+/// <typeparam name="T">The type this table context maps to.</typeparam>
+public class TableContext<T> : TableContext, ITableContext<T>
     where T : class
 {
     /// <summary>
-    /// Specifies a callback function that turns a <see cref="IDataRecord"/>
-    /// into an object of the mapped type. If no deserializer is specified,
-    /// a default one will be used.
+    /// Creates a new instance of the <see cref="TableContext{T}"/> class.
     /// </summary>
-    Func<IDataRecord, T>? Deserializer { get; }
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The optional table schema.</param>
+    public TableContext(IDbConnection connection, string tableName, string? schema = null)
+        : base(connection, tableName, schema)
+    {
+        Deserializer = new((r) => r.ParseObject<T>());
+    }
 
-    /// <summary>
-    /// Inserts an item of the given type to the database
-    /// and if the table has defined a single, auto incremental key
-    /// column (identity column), returns the inserted item.
-    /// </summary>
-    /// <param name="item">The item to insert.</param>
-    /// <param name="transaction">The optional associated transaction.</param>
-    /// <returns>The newly inserted item whenever possible.</returns>
-    T? InsertOne(T item, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public Func<IDataRecord, T>? Deserializer { get; set; }
+
+    /// <inheritdoc />
+    public T? InsertOne(T item, IDbTransaction? transaction = null)
     {
         if (item is null)
             throw new ArgumentNullException(nameof(item));
@@ -60,14 +60,8 @@ public interface ITableContext<T> : ITableContext
         return command.Query<T>(CommandBehavior.SingleRow, Deserializer).FirstOrDefault();
     }
 
-    /// <summary>
-    /// Inserts a set of records of the given type to the table.
-    /// By defualt, this implementation does not represent a bulk insert operation.
-    /// </summary>
-    /// <param name="items">The items to insert.</param>
-    /// <param name="transaction">The optional associated transaction.</param>
-    /// <returns>The number of records affected.</returns>
-    int InsertMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public int InsertMany(IEnumerable<T> items, IDbTransaction? transaction = null)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -88,15 +82,8 @@ public interface ITableContext<T> : ITableContext
         return result;
     }
 
-    /// <summary>
-    /// Inserts a set of records of the given type to the table.
-    /// By defualt, this implementation does not represent a bulk insert operation.
-    /// </summary>
-    /// <param name="items">The items to insert.</param>
-    /// <param name="transaction">The optional associated transaction.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>The number of records affected.</returns>
-    async Task<int> InsertManyAsync(IEnumerable<T> items, IDbTransaction? transaction = null, CancellationToken ct = default)
+    /// <inheritdoc />
+    public async Task<int> InsertManyAsync(IEnumerable<T> items, IDbTransaction? transaction = null, CancellationToken ct = default)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -121,13 +108,8 @@ public interface ITableContext<T> : ITableContext
         return result;
     }
 
-    /// <summary>
-    /// Updates a single item. Key values must be correctly set in the passed object.
-    /// </summary>
-    /// <param name="item">The item to update.</param>
-    /// <param name="transaction">The optional associated transaction.</param>
-    /// <returns>The number of affected records.</returns>
-    int UpdateOne(T item, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public int UpdateOne(T item, IDbTransaction? transaction = null)
     {
         if (item is null)
             throw new ArgumentNullException(nameof(item));
@@ -138,14 +120,8 @@ public interface ITableContext<T> : ITableContext
         return command.ExecuteNonQuery();
     }
 
-    /// <summary>
-    /// Updates 
-    /// </summary>
-    /// <param name="items"></param>
-    /// <param name="transaction"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    int UpdateMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public int UpdateMany(IEnumerable<T> items, IDbTransaction? transaction = null)
     {
         if (items is null)
             throw new ArgumentNullException(nameof(items));
@@ -163,17 +139,20 @@ public interface ITableContext<T> : ITableContext
         return result;
     }
 
-    bool TryFind(T key, out T item, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public bool TryFind(T key, out T item, IDbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }
 
-    T DeleteOne(T item, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public T DeleteOne(T item, IDbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }
 
-    T DeleteMany(IEnumerable<T> items, IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public T DeleteMany(IEnumerable<T> items, IDbTransaction? transaction = null)
     {
         throw new NotImplementedException();
     }

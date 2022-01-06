@@ -1,31 +1,9 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Context;
 
-/// <summary>
-/// Represents table structure information bound to a particular connection
-/// and from which you can issue table specific CRUD commands.
-/// </summary>
-internal class TableContext : ITableContext
+public partial class TableContext
 {
-    private static readonly ValueCache<int, IDbTableSchema> SchemaCache = new();
-    private readonly IDbTableSchema TableSchema;
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="TableContext"/> class.
-    /// </summary>
-    /// <param name="connection">The connection to associate this context to.</param>
-    /// <param name="tableName">The name of the table.</param>
-    /// <param name="schema">The name of the schema.</param>
-    public TableContext(IDbConnection connection, string tableName, string? schema = null)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        if (string.IsNullOrWhiteSpace(tableName))
-            throw new ArgumentNullException(nameof(tableName));
-
-        TableSchema = LoadTableSchema(connection, tableName, schema);
-        Connection = connection;
-    }
+	private static readonly ValueCache<int, IDbTableSchema> SchemaCache = new();
+	private readonly IDbTableSchema TableSchema;
 
     /// <inheritdoc />
     public IDbColumnSchema? this[string name] => TableSchema[name];
@@ -49,10 +27,25 @@ internal class TableContext : ITableContext
     public IReadOnlyList<IDbColumnSchema> Columns => TableSchema.Columns;
 
     /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> KeyColumns => TableSchema.KeyColumns;
+
+    /// <inheritdoc />
+    public IDbColumnSchema? IdentityKeyColumn => TableSchema.IdentityKeyColumn;
+
+    /// <inheritdoc />
+    public bool HasKeyIdentityColumn => TableSchema.HasKeyIdentityColumn;
+
+    /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> InsertableColumns => TableSchema.InsertableColumns;
+
+    /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => TableSchema.UpdateableColumns;
+
+    /// <inheritdoc />
     public void AddColumn(IDbColumnSchema column) => TableSchema.AddColumn(column);
 
     /// <inheritdoc />
-    public void RemoveColumn(string column) => TableSchema.RemoveColumn(column);
+    public void RemoveColumn(string columnName) => TableSchema.RemoveColumn(columnName);
 
     /// <summary>
     /// Retrieves the table schema information from the database. If the schema
@@ -70,3 +63,4 @@ internal class TableContext : ITableContext
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
     }
 }
+

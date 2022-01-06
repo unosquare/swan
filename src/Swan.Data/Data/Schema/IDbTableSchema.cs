@@ -44,29 +44,29 @@ public interface IDbTableSchema
     /// <summary>
     /// Gets a list of key columns by qhich records are uniquely identified.
     /// </summary>
-    IReadOnlyList<IDbColumnSchema> KeyColumns => Columns.Where(c => c.IsKey).ToArray();
+    IReadOnlyList<IDbColumnSchema> KeyColumns { get; }
 
     /// <summary>
     /// Gets the identity column (if any) for this table.
     /// Returns null if no identity column is found.
     /// </summary>
-    IDbColumnSchema? IdentityKeyColumn => Columns.FirstOrDefault(c => c.IsKey && c.IsAutoIncrement);
+    IDbColumnSchema? IdentityKeyColumn { get; }
 
     /// <summary>
     /// Determines if the table has an identity column.
     /// </summary>
-    bool HasKeyIdentityColumn => IdentityKeyColumn != null;
+    bool HasKeyIdentityColumn { get; }
 
     /// <summary>
     /// Gets the columns that can be used for Insert statements.
     /// These are columns that are not read-only or automatically set by the RDBMS.
     /// </summary>
-    IReadOnlyList<IDbColumnSchema> InsertableColumns => Columns.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    IReadOnlyList<IDbColumnSchema> InsertableColumns { get; }
 
     /// <summary>
     /// Gets the columns that can be used for update statements.
     /// </summary>
-    IReadOnlyList<IDbColumnSchema> UpdateableColumns => Columns.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    IReadOnlyList<IDbColumnSchema> UpdateableColumns { get; }
 
     /// <summary>
     /// Adds a column to the table schema.
@@ -78,6 +78,6 @@ public interface IDbTableSchema
     /// <summary>
     /// Removes a column from the table schema by its column name.
     /// </summary>
-    /// <param name="column">The name of the column to remove.</param>
-    void RemoveColumn(string column);
+    /// <param name="columnName">The name of the column to remove.</param>
+    void RemoveColumn(string columnName);
 }

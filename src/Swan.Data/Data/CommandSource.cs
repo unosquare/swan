@@ -1,4 +1,4 @@
-﻿namespace Swan.Data.Extensions;
+﻿namespace Swan.Data;
 
 /// <summary>
 /// A simple helper class to define commands that can be used in the context
@@ -8,7 +8,6 @@
 /// </summary>
 public sealed class CommandSource : IConnected
 {
-    private const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
     private StringBuilder? _commandText;
     private IDbConnection? _connection;
 
@@ -31,7 +30,7 @@ public sealed class CommandSource : IConnected
     }
 
     /// <inheritdoc />
-    public IDbConnection Connection => _connection ?? throw new InvalidOperationException(NoConnectionErrorMessage);
+    public IDbConnection Connection => _connection ?? throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
     /// <summary>
     /// Gets the resolved provider associated with the connection.
@@ -43,7 +42,7 @@ public sealed class CommandSource : IConnected
     /// the internal string builder.
     /// </summary>
     public string CommandText => _commandText is null
-        ? throw new InvalidOperationException(NoConnectionErrorMessage)
+        ? throw new InvalidOperationException(Library.NoConnectionErrorMessage)
         : _commandText.ToString();
 
     /// <summary>
@@ -55,7 +54,7 @@ public sealed class CommandSource : IConnected
     public CommandSource AppendText(string text)
     {
         if (_commandText is null)
-            throw new InvalidOperationException(NoConnectionErrorMessage);
+            throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
         if (_commandText.Length > 0 && !char.IsWhiteSpace(_commandText[^1]))
             _commandText.Append(' ');
@@ -71,10 +70,10 @@ public sealed class CommandSource : IConnected
     public IDbCommand EndCommandText()
     {
         if (_connection is null)
-            throw new InvalidOperationException(NoConnectionErrorMessage);
+            throw new InvalidOperationException(Library.NoConnectionErrorMessage);
         
         if (_commandText is null)
-            throw new InvalidOperationException(NoConnectionErrorMessage);
+            throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
         var command = _connection.CreateCommand();
         command.CommandText = _commandText.ToString();

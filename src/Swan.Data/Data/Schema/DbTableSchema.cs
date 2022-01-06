@@ -13,8 +13,17 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <summary>
     /// Creates a new instance of the <see cref="DbTableSchema"/> class.
     /// </summary>
-    internal DbTableSchema(DbProvider provider, string tableName, string schema, IEnumerable<IDbColumnSchema>? columns = default)
+    public DbTableSchema(DbProvider provider, string tableName, string schema, IEnumerable<IDbColumnSchema>? columns = default)
     {
+        if (provider is null)
+            throw new ArgumentNullException(nameof(provider));
+
+        if (tableName is null)
+            throw new ArgumentNullException(nameof(tableName));
+
+        if (schema is null)
+            throw new ArgumentNullException(nameof(schema));
+
         Provider = provider;
         Database = provider.Database;
         TableName = tableName;
@@ -46,13 +55,28 @@ internal sealed class DbTableSchema : IDbTableSchema
     public IReadOnlyList<IDbColumnSchema> Columns => _columns.Values.ToArray();
 
     /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> KeyColumns => Columns.Where(c => c.IsKey).ToArray();
+
+    /// <inheritdoc />
+    public IDbColumnSchema? IdentityKeyColumn => Columns.FirstOrDefault(c => c.IsKey && c.IsAutoIncrement);
+
+    /// <inheritdoc />
+    public bool HasKeyIdentityColumn => IdentityKeyColumn != null;
+
+    /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> InsertableColumns => Columns.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+
+    /// <inheritdoc />
+    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => Columns.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+
+    /// <inheritdoc />
     public void AddColumn(IDbColumnSchema column)
     {
         if (column is null)
             throw new ArgumentNullException(nameof(column));
 
         if (string.IsNullOrWhiteSpace(column.Name))
-            throw new ArgumentException("The column name is mandatory.", nameof(column));
+            throw new ArgumentException("The column name must be specified.", nameof(column));
 
         _columns[column.Name] = column;
     }
@@ -60,6 +84,9 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <inheritdoc />
     public void RemoveColumn(string name)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+
         _columns.Remove(name);
     }
 
@@ -70,7 +97,7 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional schema name.</param>
     /// <returns>A populated table schema.</returns>
-    public static DbTableSchema Load(IDbConnection connection, string tableName, string? schema)
+    public static IDbTableSchema Load(IDbConnection connection, string tableName, string? schema)
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;

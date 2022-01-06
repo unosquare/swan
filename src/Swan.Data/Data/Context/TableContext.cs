@@ -1,17 +1,31 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Context;
 
 /// <summary>
-/// Represents a table and schema that is bound to a specific connection.
+/// Represents table structure information bound to a particular connection
+/// and from which you can issue table specific CRUD commands.
 /// </summary>
-public interface ITableContext : IDbTableSchema, IConnected
+public partial class TableContext : ITableContext
 {
     /// <summary>
-    /// Builds a command and its parameters that can be used to insert
-    /// records into this table.
+    /// Creates a new instance of the <see cref="TableContext"/> class.
     /// </summary>
-    /// <param name="transaction">An optional transaction.</param>
-    /// <returns>The command.</returns>
-    IDbCommand BuildInsertCommand(IDbTransaction? transaction = null)
+    /// <param name="connection">The connection to associate this context to.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The name of the schema.</param>
+    public TableContext(IDbConnection connection, string tableName, string? schema = null)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (string.IsNullOrWhiteSpace(tableName))
+            throw new ArgumentNullException(nameof(tableName));
+
+        TableSchema = LoadTableSchema(connection, tableName, schema);
+        Connection = connection;
+    }
+
+    /// <inheritdoc />
+    public IDbCommand BuildInsertCommand(IDbTransaction? transaction = null)
     {
         var insertColumns = InsertableColumns;
         var columnNames = insertColumns.Select(c => c.Name).ToArray();
@@ -32,7 +46,8 @@ public interface ITableContext : IDbTableSchema, IConnected
         return command;
     }
 
-    IDbCommand BuildUpdateCommand(IDbTransaction? transaction = null)
+    /// <inheritdoc />
+    public IDbCommand BuildUpdateCommand(IDbTransaction? transaction = null)
     {
         var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
@@ -46,4 +61,5 @@ public interface ITableContext : IDbTableSchema, IConnected
             .DefineParameters(UpdateableColumns.Union(KeyColumns))
             .WithTransaction(transaction);
     }
+
 }
