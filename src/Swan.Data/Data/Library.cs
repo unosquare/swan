@@ -9,7 +9,6 @@ internal static partial class Library
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
     public const string CommandConnectionErrorMessage = $"The {nameof(DbCommand)}.{nameof(DbCommand.Connection)} cannot be null.";
-    public const string ProviderWithoutAsyncSupport = $"The ADO.NET provider for this {nameof(DbConnection)} does not support asynchronous operations.";
     public const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
 
     private const string AddWithValueMethodName = "AddWithValue";

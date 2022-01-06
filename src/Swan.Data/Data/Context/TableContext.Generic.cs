@@ -88,12 +88,9 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
-        var result = 0;
-        using var command = BuildInsertCommand(transaction) as DbCommand;
-
-        if (command is null)
-            throw new NotSupportedException(Library.ProviderWithoutAsyncSupport);
-
+        var result = default(int);
+        var command = BuildInsertCommand(transaction);
+        await using var commandDisposer = command.ConfigureAwait(false);
         await command.TryPrepareAsync(ct).ConfigureAwait(false);
 
         foreach (var item in items)
@@ -105,6 +102,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
             result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
         }
 
+        command.Parameters.Clear();
         return result;
     }
 

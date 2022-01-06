@@ -18,9 +18,7 @@ public sealed record DbProvider
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        var factory = connection is DbConnection conn
-            ? DbProviderFactories.GetFactory(conn)
-            : default;
+        var factory = DbProviderFactories.GetFactory(connection);
 
         if (factory is null)
         {
@@ -34,6 +32,8 @@ public sealed record DbProvider
         Kind = string.IsNullOrWhiteSpace(typeName)
             ? ProviderKind.Unknown
             : typeName.StartsWith("System.Data.SqlClient", StringComparison.Ordinal)
+            ? ProviderKind.SqlServer
+            : typeName.StartsWith("Microsoft.Data.SqlClient", StringComparison.Ordinal)
             ? ProviderKind.SqlServer
             : typeName.StartsWith("MySql.Data.MySqlClient", StringComparison.Ordinal)
             ? ProviderKind.MySql

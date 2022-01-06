@@ -153,17 +153,14 @@ public static partial class QueryExtensions
     public static async IAsyncEnumerable<T> QueryAsync<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default,
         Func<IDataRecord, T>? deserialize = default, [EnumeratorCancellation] CancellationToken ct = default)
     {
-        if (command == null)
+        if (command is null)
             throw new ArgumentNullException(nameof(command));
 
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
-        if (command is not DbCommand cmd)
-            throw new NotSupportedException(Library.ProviderWithoutAsyncSupport);
-
         deserialize ??= (r) => r.ParseObject<T>();
-        var reader = await cmd.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
+        var reader = await command.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
 
         try
         {
@@ -189,15 +186,15 @@ public static partial class QueryExtensions
             {
                 if (!reader.IsClosed)
                 {
-                    try { cmd.Cancel(); }
+                    try { command.Cancel(); }
                     catch { /* ignore */ }
                 }
 
                 await reader.DisposeAsync().ConfigureAwait(false);
             }
 
-            cmd.Parameters?.Clear();
-            await cmd.DisposeAsync().ConfigureAwait(false);
+            command.Parameters?.Clear();
+            await command.DisposeAsync().ConfigureAwait(false);
         }
     }
 
