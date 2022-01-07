@@ -58,12 +58,9 @@ public static partial class CommandExtensions
         if (command is null)
             throw new ArgumentNullException(nameof(command));
 
-        if (command is not DbCommand dbCommand)
-            return command.TryPrepare();
-
         try
         {
-            await dbCommand.PrepareAsync(ct).ConfigureAwait(false);
+            await command.PrepareAsync(ct).ConfigureAwait(false);
             return true;
         }
         catch
@@ -98,23 +95,36 @@ public static partial class CommandExtensions
         var quotedName = provider.QuoteParameter(name);
         var unquotedName = provider.UnquoteParameter(name);
 
-        parameter = default;
-        foreach (IDbDataParameter p in command.Parameters)
-        {
-            var parameterName = p.ParameterName;
-
-            if (string.IsNullOrWhiteSpace(parameterName))
-                continue;
-
-            if (string.Equals(unquotedName, parameterName, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(quotedName, parameterName, StringComparison.OrdinalIgnoreCase))
-            {
-                parameter = p;
-                return true;
-            }
-        }
+        parameter = command.GetNamedParameters().FirstOrDefault((kvp) =>
+            kvp.Key.Equals(unquotedName, StringComparison.Ordinal) ||
+            kvp.Key.Equals(quotedName, StringComparison.Ordinal)).Value;
 
         return false;
+    }
+
+    /// <summary>
+    /// Provides a way to iterate over parameters as key-value pairs.
+    /// Keys are the parameter names.
+    /// </summary>
+    /// <typeparam name="T">The command type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <returns>An enumerable source of parameters.</returns>
+    public static IEnumerable<KeyValuePair<string, IDbDataParameter>> GetNamedParameters<T>(this T command)
+        where T : DbCommand
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        foreach (var item in command.Parameters)
+        {
+            if (item is not IDbDataParameter p)
+                continue;
+
+            if (string.IsNullOrWhiteSpace(p.ParameterName))
+                continue;
+
+            yield return new KeyValuePair<string, IDbDataParameter>(p.ParameterName, p);
+        }
     }
 
     /// <summary>
