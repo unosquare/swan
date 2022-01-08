@@ -13,6 +13,7 @@ public static partial class CommandExtensions
     /// <param name="command">The command object.</param>
     /// <param name="exception">When prepare fails, the associated exception.</param>
     /// <returns>True if prepare succeeded. False otherwise.</returns>
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exception is consumed by the API call user.")]
     public static bool TryPrepare<T>(this T command, [NotNullWhen(false)] out Exception? exception)
         where T : DbCommand
     {
