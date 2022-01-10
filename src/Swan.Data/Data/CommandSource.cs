@@ -48,13 +48,17 @@ public sealed class CommandSource : IConnected
     /// <summary>
     /// Appends the specified text to the command. Automatically pre-appends
     /// a space if the current text does not end with a whitespace character.
+    /// Nothing is appended if the text provided is null or whitespace.
     /// </summary>
     /// <param name="text">The text to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public CommandSource AppendText(string text)
+    public CommandSource AppendText(string? text)
     {
         if (_commandText is null)
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);
+
+        if (string.IsNullOrWhiteSpace(text))
+            return this;
 
         if (_commandText.Length > 0 && !char.IsWhiteSpace(_commandText[^1]))
             _commandText.Append(' ');

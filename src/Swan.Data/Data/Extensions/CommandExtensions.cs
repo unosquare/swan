@@ -348,7 +348,7 @@ public static partial class CommandExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    public static TCommand SetParameters<TCommand>(this TCommand command, object parameters)
+    public static TCommand SetParameters<TCommand>(this TCommand command, object? parameters)
         where TCommand : DbCommand
     {
         if (command is null)

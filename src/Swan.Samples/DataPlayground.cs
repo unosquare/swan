@@ -14,12 +14,14 @@ using System.Threading.Tasks;
 
 internal static class DataPlayground
 {
+    private const string ConnectionString = "data source=.;initial catalog=unocorp-timecore;Integrated Security=true;";
+
     public static void BasicExample()
     {
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        using var connection = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+        using var connection = new SqlConnection(ConnectionString);
 
         // You can configure the default timeout for commands created using the SWAN API.
         connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
@@ -31,15 +33,11 @@ internal static class DataPlayground
 
     public static async Task AsyncQuerying()
     {
-        using var connection = new SqlConnection("data source=.;initial catalog=unocorp-timecore;Integrated Security=true;");
+        using var connection = new SqlConnection(ConnectionString);
         var command = connection.CreateCommand();
         command.CommandText = "SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId";
         command.SetParameters(new { P1 = 600, P2 = 700 });
-
-        command.Disposed += (s, e) =>
-        {
-            "Command was disposed.".Info();
-        };
+        command.Disposed += (s, e) => "Command was disposed.".Info();
 
         var cts = new CancellationTokenSource();
         var items = command.QueryAsync<Project>(ct: cts.Token);

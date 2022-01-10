@@ -5,84 +5,6 @@
 /// </summary>
 public static partial class QueryExtensions
 {
-    #region DbConnection
-
-    /// <summary>
-    /// Executes a data reader in the underlying connection as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <typeparam name="T">The type of elements to return.</typeparam>
-    /// <param name="connection">The source connection.</param>
-    /// <param name="sql">The SQL text to execute against the connection.</param>
-    /// <param name="deserialize">A desdearialization function that outputs object of the given type.</param>
-    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
-    /// <param name="behavior">Optional command behavior.</param>
-    /// <param name="transaction">Optional associated transaction.</param>
-    /// <param name="timeout">Optional command timeout.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(
-        this DbConnection connection, string sql, Func<IDataRecord, T> deserialize, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        if (string.IsNullOrWhiteSpace(sql))
-            throw new ArgumentNullException(nameof(sql));
-
-        if (deserialize is null)
-            throw new ArgumentNullException(nameof(deserialize));
-
-        var command = connection
-            .BeginCommandText(sql)
-            .EndCommandText()
-            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
-            .WithTransaction(transaction);
-
-        if (param != null)
-            command.SetParameters(param);
-
-        return command.Query(behavior, deserialize);
-    }
-
-    /// <summary>
-    /// Executes a data reader in the underlying connection as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <typeparam name="T">The type of elements to return.</typeparam>
-    /// <param name="connection">The source connection.</param>
-    /// <param name="sql">The SQL text to execute against the connection.</param>
-    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
-    /// <param name="behavior">Optional command behavior.</param>
-    /// <param name="transaction">Optional associated transaction.</param>
-    /// <param name="timeout">Optional command timeout.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(
-        this DbConnection connection, string sql, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ParseObject<T>(), param, behavior, transaction, timeout);
-
-    /// <summary>
-    /// Executes a data reader in the underlying connection as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
-    /// </summary>
-    /// <param name="connection">The source connection.</param>
-    /// <param name="sql">The SQL text to execute against the connection.</param>
-    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
-    /// <param name="behavior">Optional command behavior.</param>
-    /// <param name="transaction">Optional associated transaction.</param>
-    /// <param name="timeout">Optional command timeout.</param>
-    /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<dynamic> Query(
-        this DbConnection connection, string sql, object? param = default,
-        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
-        => connection.Query(sql, (reader) => reader.ParseExpando(), param, behavior, transaction, timeout);
-
-    #endregion
-
     #region DbCommand
 
     /// <summary>
@@ -92,11 +14,11 @@ public static partial class QueryExtensions
     /// </summary>
     /// <typeparam name="T">The type of elements to return.</typeparam>
     /// <param name="command">The command to execute.</param>
-    /// <param name="behavior">The command behavior.</param>
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default,
-        Func<IDataRecord, T>? deserialize = default)
+    public static IEnumerable<T> Query<T>(this DbCommand command, Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.Default)
     {
         if (command == null)
             throw new ArgumentNullException(nameof(command));
@@ -148,28 +70,126 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
     public static IEnumerable<dynamic> Query(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
-        command.Query(behavior, (reader) => reader.ParseExpando());
+        command.Query((r) => r.ParseExpando(), behavior);
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// containing a single row of data.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <returns>The parse object.</returns>
+    public static T? FirstOrDefault<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.SingleRow,
+        Func<IDataRecord, T>? deserialize = default) =>
+        command.Query(deserialize, behavior).FirstOrDefault();
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// containing a single row of data.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>The parse object.</returns>
+    public static dynamic? FirstOrDefault(this DbCommand command, CommandBehavior behavior = CommandBehavior.SingleRow) =>
+        command.Query(behavior).FirstOrDefault();
+
+    #endregion
+
+    #region DbConnection
+
+    /// <summary>
+    /// Executes a data reader in the underlying connection as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
+    /// <typeparam name="T">The type of elements to return.</typeparam>
+    /// <param name="connection">The source connection.</param>
+    /// <param name="sql">The SQL text to execute against the connection.</param>
+    /// <param name="deserialize">A desdearialization function that outputs object of the given type.</param>
+    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
+    /// <param name="behavior">Optional command behavior.</param>
+    /// <param name="transaction">Optional associated transaction.</param>
+    /// <param name="timeout">Optional command timeout.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<T> Query<T>(
+        this DbConnection connection, string sql, object? param = default, Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (string.IsNullOrWhiteSpace(sql))
+            throw new ArgumentNullException(nameof(sql));
+
+        deserialize ??= (reader) => reader.ParseObject<T>();
+
+        var command = connection
+            .BeginCommandText(sql)
+            .EndCommandText()
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
+            .WithTransaction(transaction);
+
+        if (param is not null)
+            command.SetParameters(param);
+
+        return command.Query(deserialize, behavior);
+    }
+
+    /// <summary>
+    /// Executes a data reader in the underlying connection as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// </summary>
+    /// <param name="connection">The source connection.</param>
+    /// <param name="sql">The SQL text to execute against the connection.</param>
+    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
+    /// <param name="behavior">Optional command behavior.</param>
+    /// <param name="transaction">Optional associated transaction.</param>
+    /// <param name="timeout">Optional command timeout.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<dynamic> Query(
+        this DbConnection connection, string sql, object? param = default,
+        CommandBehavior behavior = CommandBehavior.Default, DbTransaction? transaction = default, TimeSpan? timeout = default)
+        => connection.Query(sql, param, (r) => r.ParseExpando(), behavior, transaction, timeout);
+
+    /// <summary>
+    /// Executes a data reader in the underlying connection as a single result set
+    /// and a single row that gets converted to an object via a deserialization callback.
+    /// </summary>
+    /// <typeparam name="T">The type of elements to return.</typeparam>
+    /// <param name="connection">The source connection.</param>
+    /// <param name="sql">The SQL text to execute against the connection.</param>
+    /// <param name="deserialize">A desdearialization function that outputs object of the given type.</param>
+    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
+    /// <param name="behavior">Optional command behavior.</param>
+    /// <param name="transaction">Optional associated transaction.</param>
+    /// <param name="timeout">Optional command timeout.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static T? FirstOrDefault<T>(
+        this DbConnection connection, string sql, object? param = default, Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.SingleRow, DbTransaction? transaction = default, TimeSpan? timeout = default)
+        => connection.Query(sql, param, deserialize, behavior, transaction, timeout).FirstOrDefault();
+
+    /// <summary>
+    /// Executes a data reader in the underlying connection as a single result set
+    /// and a single row that gets converted to an object via a deserialization callback.
+    /// </summary>
+    /// <param name="connection">The source connection.</param>
+    /// <param name="sql">The SQL text to execute against the connection.</param>
+    /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
+    /// <param name="behavior">Optional command behavior.</param>
+    /// <param name="transaction">Optional associated transaction.</param>
+    /// <param name="timeout">Optional command timeout.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static dynamic? FirstOrDefault(
+        this DbConnection connection, string sql, object? param = default,
+        CommandBehavior behavior = CommandBehavior.SingleRow, DbTransaction? transaction = default, TimeSpan? timeout = default)
+        => connection.Query(sql, param, behavior, transaction, timeout).FirstOrDefault();
 
     #endregion
 
     #region DataTable
-
-    /// <summary>
-    /// Converts a <see cref="DataTable"/> object into an enumerable set
-    /// of <see cref="ExpandoObject"/> with property names corresponding to columns.
-    /// Property names are normalized by removing whitespace, special
-    /// characters or leading digits.
-    /// </summary>
-    /// <param name="table">The data table to extract rows from.</param>
-    /// <returns>An enumerable set of dynamically typed Expando objects.</returns>
-    public static IEnumerable<dynamic> Query(this DataTable table)
-    {
-        if (table is null)
-            throw new ArgumentNullException(nameof(table));
-
-        foreach (DataRow row in table.Rows)
-            yield return row.ParseExpando();
-    }
 
     /// <summary>
     /// Converts a <see cref="DataTable"/> object into an enumerable set
@@ -191,24 +211,19 @@ public static partial class QueryExtensions
 
     /// <summary>
     /// Converts a <see cref="DataTable"/> object into an enumerable set
-    /// of objects of the given type with property names corresponding to columns.
+    /// of <see cref="ExpandoObject"/> with property names corresponding to columns.
+    /// Property names are normalized by removing whitespace, special
+    /// characters or leading digits.
     /// </summary>
     /// <param name="table">The data table to extract rows from.</param>
-    /// <param name="t">The type to parse data rows into.</param>
-    /// <param name="deserialize">An optional deserializer method that produces an object by providing a data row.</param>
-    /// <returns>An enumerable set of objects.</returns>
-    public static IEnumerable<object> Query(this DataTable table, Type t, Func<DataRow, object>? deserialize = default)
+    /// <returns>An enumerable set of dynamically typed Expando objects.</returns>
+    public static IEnumerable<dynamic> Query(this DataTable table)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));
 
-        if (t is null)
-            throw new ArgumentNullException(nameof(t));
-
-        deserialize ??= (r) => r.ParseObject(t);
-
         foreach (DataRow row in table.Rows)
-            yield return deserialize.Invoke(row);
+            yield return row.ParseExpando();
     }
 
     #endregion

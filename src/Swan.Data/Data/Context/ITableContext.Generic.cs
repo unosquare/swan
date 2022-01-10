@@ -10,10 +10,9 @@ public interface ITableContext<T> : ITableContext
 {
     /// <summary>
     /// Specifies a callback function that turns a <see cref="IDataRecord"/>
-    /// into an object of the mapped type. If no deserializer is specified,
-    /// a default one will be used.
+    /// into an object of the mapped type.
     /// </summary>
-    Func<IDataRecord, T>? Deserializer { get; }
+    Func<IDataRecord, T> Deserializer { get; }
 
     /// <summary>
     /// Inserts an item of the given type to the database

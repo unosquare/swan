@@ -20,21 +20,12 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public Func<IDataRecord, T>? Deserializer { get; set; }
+    public Func<IDataRecord, T> Deserializer { get; set; }
 
-    /// <inheritdoc />
-    public T? InsertOne(T item, DbTransaction? transaction = null)
+    private bool AppendSelectBackTo(DbCommand command)
     {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        using var command = BuildInsertCommand(transaction).SetParameters(item);
-
         if (Provider.Kind == ProviderKind.Unknown || IdentityKeyColumn is null || KeyColumns.Count != 1)
-        {
-            _ = command.ExecuteNonQuery();
-            return default;
-        }
+            return false;
 
         var quotedFields = string.Join(", ", Columns.Select(c => Provider.QuoteField(c.Name)));
         var quotedTable = Provider.QuoteTable(TableName, Schema);
@@ -44,20 +35,69 @@ public class TableContext<T> : TableContext, ITableContext<T>
         {
             case ProviderKind.SqlServer:
                 command.AppendText($"; SELECT TOP 1 {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = SCOPE_IDENTITY();");
-                break;
+                return true;
             case ProviderKind.Sqlite:
                 var sequenceValue = $"(SELECT seq FROM sqlite_sequence WHERE name = '{TableName}')";
                 command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE _rowid_ = {sequenceValue} LIMIT 1;");
-                break;
+                return true;
             case ProviderKind.MySql:
                 command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = LAST_INSERT_ID() LIMIT 1;");
-                break;
+                return true;
             default:
-                _ = command.ExecuteNonQuery();
-                return default;
+                return false;
+        }
+    }
+
+    public IEnumerable<T> Query(string? trailingSql = default, object? param = default)
+    {
+        using var command = new CommandSource(Connection)
+            .Select(Columns).From(this).AppendText(trailingSql).EndCommandText()
+            .SetParameters(param);
+
+        return command.Query<T>(deserialize: Deserializer);
+    }
+
+    public IAsyncEnumerable<T> QueryAsync(string? trailingSql = default, object? param = default, CancellationToken ct = default)
+    {
+        using var command = new CommandSource(Connection)
+            .Select(Columns).From(this).AppendText(trailingSql).EndCommandText()
+            .SetParameters(param);
+
+        return command.QueryAsync<T>(deserialize: Deserializer, ct: ct);
+    }
+
+    /// <inheritdoc />
+    public T? InsertOne(T item, DbTransaction? transaction = null)
+    {
+        if (item is null)
+            throw new ArgumentNullException(nameof(item));
+
+        using var command = BuildInsertCommand(transaction).SetParameters(item);
+
+        if (!AppendSelectBackTo(command))
+        {
+            _ = command.ExecuteNonQuery();
+            return default;
         }
 
-        return command.Query<T>(CommandBehavior.SingleRow, Deserializer).FirstOrDefault();
+        return command.FirstOrDefault(CommandBehavior.SingleRow, Deserializer);
+    }
+
+    public async Task<T?> InsertOneAsync(T item, DbTransaction? transaction = null, CancellationToken ct = default)
+    {
+        if (item is null)
+            throw new ArgumentNullException(nameof(item));
+
+        var command = BuildInsertCommand(transaction).SetParameters(item);
+        await using var commandDisposer = command.ConfigureAwait(false);
+
+        if (!AppendSelectBackTo(command))
+        {
+            _ = await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+            return default;
+        }
+
+        return await command.FisrtOrDefaultAsync<T>(ct: ct).ConfigureAwait(false);
     }
 
     /// <inheritdoc />

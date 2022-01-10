@@ -23,6 +23,14 @@ public static partial class SqlTextExtensions
             : @this;
     }
 
+    public static CommandSource Select(this CommandSource @this, IDbTableSchema table) => table is not null
+    ? @this.Select(table.Columns.Select(c => c.Name).ToArray())
+    : throw new ArgumentNullException(nameof(table));
+
+    public static CommandSource Select(this CommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
+        ? @this.Select(columns.Select(c => c.Name).ToArray())
+        : throw new ArgumentNullException(nameof(columns));
+
     /// <summary>
     /// Appends a field name to the command text by first quoting it.
     /// </summary>
@@ -57,6 +65,14 @@ public static partial class SqlTextExtensions
         return @this.AppendText($"{quotedNames}");
     }
 
+    public static CommandSource Fields(this CommandSource @this, IDbTableSchema table) => table is not null
+        ? @this.Fields(table.Columns.Select(c => c.Name).ToArray())
+        : throw new ArgumentNullException(nameof(table));
+
+    public static CommandSource Fields(this CommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
+        ? @this.Fields(columns.Select(c => c.Name).ToArray())
+        : throw new ArgumentNullException(nameof(columns));
+
     /// <summary>
     /// Appends a FROM keyword to the command text, and optionally appends
     /// a table identifier to the command text.
@@ -75,6 +91,18 @@ public static partial class SqlTextExtensions
             ? @this.Table(tableName, schemaName)
             : @this;
     }
+
+    /// <summary>
+    /// Appends a FROM keyword to the command text, and appends
+    /// a table identifier to the command text.
+    /// </summary>
+    /// <param name="this">The instance.</param>
+    /// <param name="table">The table.</param>
+    /// <returns>This instance for fluent API support.</returns>
+    public static CommandSource From(this CommandSource @this, IDbTableSchema table) => table is not null
+        ? @this.From(table.TableName, table.Schema)
+        : throw new ArgumentNullException(nameof(table));
+
 
     /// <summary>
     /// Appends an INSERT INTO clause to the command text, and optionally appends

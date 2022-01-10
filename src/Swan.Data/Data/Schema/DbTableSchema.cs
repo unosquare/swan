@@ -110,7 +110,8 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (schemaTable == null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-        var columns = schemaTable.Query(provider.DbColumnType).Cast<IDbColumnSchema>().ToList();
+        var deserialize = (DataRow r) => r.ParseObject(provider.DbColumnType) as IDbColumnSchema;
+        var columns = schemaTable.Query(deserialize).ToList();
         return new DbTableSchema(provider, tableName, schema, columns);
     }
 }
