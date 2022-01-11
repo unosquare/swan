@@ -13,7 +13,7 @@
 
 	<PropertyGroup>
 		<PackageId>Swan.Core</PackageId>
-		<Version>6.0.2-beta.68</Version>
+		<Version>6.0.2-beta.70</Version>
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Core</AssemblyTitle>
