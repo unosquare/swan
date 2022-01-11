@@ -70,7 +70,7 @@ public static partial class ConnectionExtensions
             throw new ArgumentNullException(nameof(connection));
 
         if (connection.State != ConnectionState.Open)
-                await connection.OpenAsync(ct).ConfigureAwait(false);
+            await connection.OpenAsync(ct).ConfigureAwait(false);
 
         if (string.IsNullOrWhiteSpace(connection.Database))
             throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
@@ -103,4 +103,129 @@ public static partial class ConnectionExtensions
     public static CommandSource BeginCommandText(this DbConnection connection, string? initialText = default) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection, initialText);
+
+    /// <summary>
+    /// Executes SQL statements against the database and returns the number of affected records.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="sql">The SQL statements to execute.</param>
+    /// <param name="param">The object containing parameter names as properties and their values.</param>
+    /// <param name="transaction">The optional associated transaction.</param>
+    /// <param name="commandType">The command type.</param>
+    /// <param name="timeout">The timeout value to execute and retrieve the result.</param>
+    /// <returns>The number of affected records.</returns>
+    public static int ExecuteNonQuery(this DbConnection connection, string sql, object? param = default,
+        DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default)
+    {
+        var command = new CommandSource(connection, sql).EndCommandText()
+            .SetParameters(param)
+            .WithTransaction(transaction)
+            .WithCommandType(commandType)
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout);
+
+        try
+        {
+            return command.ExecuteNonQuery();
+        }
+        finally
+        {
+            command.Parameters?.Clear();
+            command.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Executes SQL statements against the database and returns the number of affected records.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="sql">The SQL statements to execute.</param>
+    /// <param name="param">The object containing parameter names as properties and their values.</param>
+    /// <param name="transaction">The optional associated transaction.</param>
+    /// <param name="commandType">The command type.</param>
+    /// <param name="timeout">The timeout value to execute and retrieve the result.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The number of affected records.</returns>
+    public static async Task<int> ExecuteNonQueryAsync(this DbConnection connection, string sql, object? param = default,
+        DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default,
+        CancellationToken ct = default)
+    {
+        var command = new CommandSource(connection, sql).EndCommandText()
+            .SetParameters(param)
+            .WithTransaction(transaction)
+            .WithCommandType(commandType)
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout);
+
+        try
+        {
+            return await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+        }
+        finally
+        {
+            command.Parameters?.Clear();
+            await command.DisposeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Executes SQL statements against the database and returns the first column of the row.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="sql">The SQL statements to execute.</param>
+    /// <param name="param">The object containing parameter names as properties and their values.</param>
+    /// <param name="transaction">The optional associated transaction.</param>
+    /// <param name="commandType">The command type.</param>
+    /// <param name="timeout">The timeout value to execute and retrieve the result.</param>
+    /// <returns>The the first column of the first row of the result.</returns>
+    public static object? ExecuteScalar(this DbConnection connection, string sql, object? param = default,
+        DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default)
+    {
+        var command = new CommandSource(connection, sql).EndCommandText()
+            .SetParameters(param)
+            .WithTransaction(transaction)
+            .WithCommandType(commandType)
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout);
+
+        try
+        {
+            return command.ExecuteScalar();
+        }
+        finally
+        {
+            command.Parameters?.Clear();
+            command.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Executes SQL statements against the database and returns the first column of the row.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="sql">The SQL statements to execute.</param>
+    /// <param name="param">The object containing parameter names as properties and their values.</param>
+    /// <param name="transaction">The optional associated transaction.</param>
+    /// <param name="commandType">The command type.</param>
+    /// <param name="timeout">The timeout value to execute and retrieve the result.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The the first column of the first row of the result.</returns>
+    public static async Task<object?> ExecuteScalarAsync(this DbConnection connection, string sql, object? param = default,
+        DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default,
+        CancellationToken ct = default)
+    {
+        var command = new CommandSource(connection, sql).EndCommandText()
+            .SetParameters(param)
+            .WithTransaction(transaction)
+            .WithCommandType(commandType)
+            .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout);
+
+        try
+        {
+            return await command.ExecuteScalarAsync(ct).ConfigureAwait(false);
+        }
+        finally
+        {
+            command.Parameters?.Clear();
+            await command.DisposeAsync();
+        }
+    }
+
 }

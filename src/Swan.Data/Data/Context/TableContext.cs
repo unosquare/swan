@@ -25,7 +25,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildInsertCommand(DbTransaction? transaction = default)
+    public virtual DbCommand BuildInsertCommand(DbTransaction? transaction = default)
     {
         var insertColumns = InsertableColumns;
         var columnNames = insertColumns.Select(c => c.Name).ToArray();
@@ -47,7 +47,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildUpdateCommand(DbTransaction? transaction = default)
+    public virtual DbCommand BuildUpdateCommand(DbTransaction? transaction = default)
     {
         var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
@@ -63,7 +63,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildDeleteCommand(DbTransaction? transaction = default)
+    public virtual DbCommand BuildDeleteCommand(DbTransaction? transaction = default)
     {
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
         var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
@@ -76,7 +76,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildSelectCommand(DbTransaction? transaction = default)
+    public virtual DbCommand BuildSelectCommand(DbTransaction? transaction = default)
     {
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
         var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));

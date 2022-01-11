@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
+#pragma warning disable CA1031 // Do not catch general exception types
 namespace Swan.Data.Extensions;
 
 /// <summary>
@@ -540,4 +541,6 @@ public static partial class CommandExtensions
         return command;
     }
 }
+
+#pragma warning restore CA1031 // Do not catch general exception types
 #pragma warning restore CA2100 // Review SQL queries for security vulnerabilities

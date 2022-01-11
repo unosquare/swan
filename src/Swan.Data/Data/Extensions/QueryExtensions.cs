@@ -1,4 +1,5 @@
-﻿namespace Swan.Data.Extensions;
+﻿#pragma warning disable CA1031 // Do not catch general exception types
+namespace Swan.Data.Extensions;
 
 /// <summary>
 /// Provides extension methods for querying data.
@@ -233,3 +234,4 @@ public static partial class QueryExtensions
 
     #endregion
 }
+#pragma warning restore CA1031 // Do not catch general exception types
