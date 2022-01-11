@@ -5,6 +5,8 @@ using Swan.Data.Extensions;
 using Swan.Logging;
 using Swan.Platform;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -22,6 +24,10 @@ internal static class DataPlayground
 
         // Create a connection as usual.
         using var connection = new SqlConnection(ConnectionString);
+
+        var names = await connection.GetTableNamesAsync();
+
+        var table = connection.Table("Projects").GenerateRecordCode("Project");
 
         // You can configure the default timeout for commands created using the SWAN API.
         connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
@@ -105,8 +111,12 @@ internal static class DataPlayground
         using var tran = await connection.BeginTransactionAsync();
 
         // Create a dummy record
-        var dummyProject = new Project(
-            default, "Dummy Project", ProjectTypes.Exciting, 61, false, DateTime.UtcNow, default, "Dummy Scope");
+        var dummyProject = new Project()
+        {
+            Name = "Dummy",
+            CompanyId = 61,
+            ProjectScope = "DummyScope"
+        };
 
         var items = new Project[]
         {
@@ -131,25 +141,71 @@ internal static class DataPlayground
 
     }
 
-    private record Project(
-        int ProjectId,
-        string? Name,
-        ProjectTypes ProjectType,
-        int? CompanyId,
-        bool IsActive,
-        DateTime? StartDate,
-        DateTime? EndDate,
-        string? ProjectScope
-    )
+    /// <summary>
+    /// Represents a record that maps to the dbo.Projects table.
+    /// </summary>
+    [Table("Projects", Schema = "dbo")]
+    public record Project
     {
         /// <summary>
-        /// Parameter-less constructor
+        /// Creates a new instance of the <see cref="Project" /> class.
         /// </summary>
-        public Project()
-            : this(default, default, default, default, default, default, default, default) { }
+        public Project() { /* placeholder */ }
+
+        /// <summary>
+        /// Gets or sets a value for Project Id.
+        /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column(nameof(ProjectId), Order = 0)]
+        public int ProjectId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Name.
+        /// </summary>
+        [MaxLength(100)]
+        [Column(nameof(Name), Order = 1)]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Project Type.
+        /// </summary>
+        [Column(nameof(ProjectType), Order = 2)]
+        public ProjectTypes ProjectType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Company Id.
+        /// </summary>
+        [Column(nameof(CompanyId), Order = 3)]
+        public int? CompanyId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Is Active.
+        /// </summary>
+        [Column(nameof(IsActive), Order = 4)]
+        public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Start Date.
+        /// </summary>
+        [Column(nameof(StartDate), Order = 5)]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for End Date.
+        /// </summary>
+        [Column(nameof(EndDate), Order = 6)]
+        public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Project Scope.
+        /// </summary>
+        [MaxLength(2147483647)]
+        [Column(nameof(ProjectScope), Order = 7)]
+        public string? ProjectScope { get; set; }
     }
 
-    private enum ProjectTypes
+    public enum ProjectTypes
     {
         Boring,
         Exciting

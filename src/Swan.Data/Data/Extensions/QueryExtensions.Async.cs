@@ -99,7 +99,7 @@ public static partial class QueryExtensions
         CancellationToken ct = default)
     {
         var enumerable = command.QueryAsync(deserialize, behavior, ct);
-        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public static partial class QueryExtensions
         CancellationToken ct = default)
     {
         var enumerable = command.QueryAsync(behavior, ct);
-        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
     }
 
     #endregion
@@ -218,7 +218,7 @@ public static partial class QueryExtensions
     {
         var enumerable = connection.QueryAsync(sql, param, deserialize, behavior, transaction, timeout, ct);
         enumerable.ConfigureAwait(false);
-        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public static partial class QueryExtensions
     {
         var enumerable = connection.QueryAsync(sql, param, behavior, transaction, timeout, ct);
         enumerable.ConfigureAwait(false);
-        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
     }
 
     #endregion

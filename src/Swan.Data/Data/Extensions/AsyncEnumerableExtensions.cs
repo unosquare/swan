@@ -12,15 +12,36 @@ public static class AsyncEnumerableExtensions
     /// <param name="enumerable">The enumerable object.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>The first item or the default value for the type parameter.</returns>
-    public static async Task<T?> FirstOrDefault<T>(this IAsyncEnumerable<T> enumerable, CancellationToken ct = default)
+    public static async Task<T?> FirstOrDefaultAsync<T>(this IAsyncEnumerable<T> enumerable, CancellationToken ct = default)
     {
         if (enumerable is null)
             return default;
-
+        
         await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
             return item;
 
         return default;
+    }
+
+    /// <summary>
+    /// Asynchronously iterates over each element and produces a list of items.
+    /// </summary>
+    /// <typeparam name="T">The element type of the list.</typeparam>
+    /// <param name="enumerable">The enumerable to iterate over.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>A list of elements.</returns>
+    public static async Task<List<T?>> ToListAsync<T>(this IAsyncEnumerable<T> enumerable, CancellationToken ct = default)
+    {
+        const int BufferSize = 1024;
+
+        if (enumerable is null)
+            return new List<T?>(0);
+
+        var result = new List<T?>(BufferSize);
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            result.Add(item);
+
+        return result;
     }
 }
 

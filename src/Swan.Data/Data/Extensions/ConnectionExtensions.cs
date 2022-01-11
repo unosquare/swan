@@ -14,21 +14,49 @@ public static partial class ConnectionExtensions
         ? throw new ArgumentNullException(nameof(connection))
         : DbProvider.FromConnection(connection);
 
-    public static async Task<IReadOnlyList<string>> TableNames(this DbConnection connection)
+    /// <summary>
+    /// Retrieves a list of table names in the database. This may include views and temporary tables.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>A list of table names in the database.</returns>
+    public static async Task<IReadOnlyList<TableName>> GetTableNamesAsync(this DbConnection connection, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        await connection.EnsureIsValidAsync().ConfigureAwait(false);
+        await connection.EnsureIsValidAsync(ct).ConfigureAwait(false);
+        if (connection.Database.Contains('\'', StringComparison.Ordinal))
+            throw new NotSupportedException("Unable to get tables from database names with special character '");
 
-        var tables = new List<string>();
-        var dt = connection.GetSchema("Tables");
-        foreach (DataRow row in dt.Rows)
-        {
-            string tablename = (string)row[2];
-            tables.Add(tablename);
-        }
-        return tables;
+        var commandText = connection.Provider().GetListTablesCommandText();
+        var result = new List<TableName>(128);
+        await foreach (var item in connection.QueryAsync<TableName>(commandText, ct: ct).ConfigureAwait(false))
+            result.Add(item);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a list of table names in the database. This may include views and temporary tables.
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <returns>A list of table names in the database.</returns>
+    public static IReadOnlyList<TableName> GetTableNames(this DbConnection connection)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        connection.EnsureIsValid();
+        if (connection.Database.Contains('\'', StringComparison.Ordinal))
+            throw new NotSupportedException("Unable to get tables from database names with special character '");
+
+        var commandText = connection.Provider().GetListTablesCommandText();
+        var result = new List<TableName>(128);
+        foreach (var item in connection.Query<TableName>(commandText))
+            result.Add(item);
+
+        return result;
     }
 
     /// <summary>
@@ -45,6 +73,19 @@ public static partial class ConnectionExtensions
         new TableContext(connection, tableName, schema);
 
     /// <summary>
+    /// Acquires a connected table context that can be used to inspect the associated
+    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
+    /// and reused whenever the table context is re-acquired. Caching keys are
+    /// computed based on the connection string, provider type and table name and schema.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="table">The associated table.</param>
+    /// <returns>A connected table context.</returns>
+    public static ITableContext Table(this DbConnection connection, TableName table) => table is not null
+        ? new TableContext(connection, table.Name, table.Schema)
+        : throw new ArgumentNullException(nameof(table));
+
+    /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
     /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
     /// and reused whenever the table context is re-acquired. Caching keys are
@@ -57,6 +98,20 @@ public static partial class ConnectionExtensions
     public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default)
         where T : class =>
         new TableContext<T>(connection, tableName, schema);
+
+    /// <summary>
+    /// Acquires a typed, connected table context that can be used to inspect the associated
+    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
+    /// and reused whenever the table context is re-acquired. Caching keys are
+    /// computed based on the connection string, provider type and table name and schema.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="table">The associated table.</param>
+    /// <returns>A connected table context.</returns>
+    public static ITableContext<T> Table<T>(this DbConnection connection, TableName table)
+        where T : class => table is not null
+        ? new TableContext<T>(connection, table.Name, table.Schema)
+        : throw new ArgumentNullException(nameof(table));
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
