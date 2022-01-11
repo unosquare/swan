@@ -1,0 +1,11 @@
+name: Publish Swan.Data to Nuget.org
+on: workflow_dispatch
+
+jobs:
+  publish-nuget:
+    uses: unosquare/swan/.github/workflows/lib-publish-nuget-org.yml@master
+    with:
+      source-path: 'src/'
+      project-name: 'Swan.Data'
+    secrets:
+      nuget-api-key: ${{ secrets.NUGET_API_KEY }}
