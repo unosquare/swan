@@ -20,7 +20,7 @@
 		<Description>
 			Logging subsystem and a handy Terminal abstraction.
 		</Description>
-		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>

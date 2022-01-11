@@ -10,10 +10,7 @@ public interface IDbTableSchema
     /// </summary>
     /// <param name="name">The column name.</param>
     /// <returns>The column schema.</returns>
-    IDbColumnSchema? this[string name]
-    {
-        get;
-    }
+    IDbColumnSchema? this[string name] { get; }
 
     /// <summary>
     /// Gets the ssociated databse provider.

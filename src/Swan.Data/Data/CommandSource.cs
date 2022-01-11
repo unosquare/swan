@@ -1,4 +1,5 @@
-﻿namespace Swan.Data;
+﻿#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
+namespace Swan.Data;
 
 /// <summary>
 /// A simple helper class to define commands that can be used in the context
@@ -80,9 +81,8 @@ public sealed class CommandSource : IConnected
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
         var command = _connection.CreateCommand();
-#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
+        command.Connection = _connection;
         command.CommandText = _commandText.ToString();
-#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
         command.CommandType = CommandType.Text;
         command.CommandTimeout = Convert.ToInt32(Provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0);
         command.ConfigureAwait(false);
@@ -93,3 +93,4 @@ public sealed class CommandSource : IConnected
         return command;
     }
 }
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities

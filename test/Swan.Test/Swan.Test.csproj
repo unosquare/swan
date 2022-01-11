@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <Description>Unit Testing project</Description>
-        <Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
+        <Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
         <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
         <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>Unosquare.Swan.Test</AssemblyName>

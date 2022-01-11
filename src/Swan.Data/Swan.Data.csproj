@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>Swan</RootNamespace>
@@ -21,7 +21,7 @@
 		<Description>
 			Provides data operations and schema information on database connections.
 		</Description>
-		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
@@ -31,7 +31,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<PackageReference Include="Swan.Core" Version="6.0.2-beta.25" />
+		<PackageReference Include="Swan.Core" Version="6.0.2-beta.62" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' != 'Release'">

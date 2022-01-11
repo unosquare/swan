@@ -1,5 +1,4 @@
-﻿#pragma warning disable IDE0065
-global using Swan.Data.Context;
+﻿global using Swan.Data.Context;
 global using Swan.Data.Extensions;
 global using Swan.Data.Schema;
 global using Swan.Extensions;
@@ -13,4 +12,5 @@ global using System.Globalization;
 global using System.Linq.Expressions;
 global using System.Runtime.CompilerServices;
 global using System.Text;
-#pragma warning restore IDE0065
+
+[assembly: CLSCompliant(true)] 

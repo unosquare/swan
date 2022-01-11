@@ -1,4 +1,5 @@
-﻿namespace Swan.Data.Extensions;
+﻿#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
+namespace Swan.Data.Extensions;
 
 /// <summary>
 /// Provides extension methods for <see cref="DbCommand"/> objects.
@@ -100,7 +101,7 @@ public static partial class CommandExtensions
             kvp.Key.Equals(unquotedName, StringComparison.Ordinal) ||
             kvp.Key.Equals(quotedName, StringComparison.Ordinal)).Value;
 
-        return false;
+        return parameter is not null;
     }
 
     /// <summary>
@@ -115,6 +116,9 @@ public static partial class CommandExtensions
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
+
+        if (command.Parameters is null)
+            yield break;
 
         foreach (var item in command.Parameters)
         {
@@ -536,3 +540,4 @@ public static partial class CommandExtensions
         return command;
     }
 }
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities

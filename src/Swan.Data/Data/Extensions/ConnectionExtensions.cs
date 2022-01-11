@@ -31,9 +31,29 @@ public static partial class ConnectionExtensions
         return tables;
     }
 
+    /// <summary>
+    /// Acquires a connected table context that can be used to inspect the associated
+    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
+    /// and reused whenever the table context is re-acquired. Caching keys are
+    /// computed based on the connection string, provider type and table name and schema.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The associated table name.</param>
+    /// <param name="schema">The optional schema.</param>
+    /// <returns>A connected table context.</returns>
     public static ITableContext Table(this DbConnection connection, string tableName, string? schema = default) =>
         new TableContext(connection, tableName, schema);
 
+    /// <summary>
+    /// Acquires a typed, connected table context that can be used to inspect the associated
+    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
+    /// and reused whenever the table context is re-acquired. Caching keys are
+    /// computed based on the connection string, provider type and table name and schema.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The associated table name.</param>
+    /// <param name="schema">The optional schema.</param>
+    /// <returns>A connected table context.</returns>
     public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default)
         where T : class =>
         new TableContext<T>(connection, tableName, schema);

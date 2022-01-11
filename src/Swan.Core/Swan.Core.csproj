@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>Swan</RootNamespace>
@@ -26,7 +26,7 @@
 			to kill that cycle once and for all. This is the result of that idea. Our philosophy is that SWAN should
 			have no external dependencies, it should be cross-platform, and it should be useful.
 		</Description>
-		<Copyright>Copyright (c) 2016-2021 - Unosquare</Copyright>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/unosquare/swan/</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>

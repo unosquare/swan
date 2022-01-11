@@ -231,10 +231,10 @@
         {
 
             // Sketchpad();
-            await DataPlayground.AsyncQuerying();
-            return;
+            //await DataPlayground.AsyncQuerying();
+            //return;
 
-            DataPlayground.BasicExample();
+            await DataPlayground.BasicExample();
 
             return;
             Logger.RegisterLogger<FileLogger>();

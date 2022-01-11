@@ -12,7 +12,7 @@ public partial class TableContext : ITableContext
     /// <param name="connection">The connection to associate this context to.</param>
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The name of the schema.</param>
-    public TableContext(DbConnection connection, string tableName, string? schema = null)
+    public TableContext(DbConnection connection, string tableName, string? schema = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -25,7 +25,7 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildInsertCommand(DbTransaction? transaction = null)
+    public DbCommand BuildInsertCommand(DbTransaction? transaction = default)
     {
         var insertColumns = InsertableColumns;
         var columnNames = insertColumns.Select(c => c.Name).ToArray();
@@ -47,18 +47,44 @@ public partial class TableContext : ITableContext
     }
 
     /// <inheritdoc />
-    public DbCommand BuildUpdateCommand(DbTransaction? transaction = null)
+    public DbCommand BuildUpdateCommand(DbTransaction? transaction = default)
     {
         var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
 
         var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var setPairs = string.Join(", ", settableFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
-        var updateText = $"UPDATE {Provider.QuoteTable(TableName, Schema)} SET {setPairs} WHERE {keyPairs}";
+        var commandText = $"UPDATE {Provider.QuoteTable(TableName, Schema)} SET {setPairs} WHERE {keyPairs}";
 
-        return new CommandSource(Connection, updateText)
+        return new CommandSource(Connection, commandText)
             .EndCommandText()
             .DefineParameters(UpdateableColumns.Union(KeyColumns))
+            .WithTransaction(transaction);
+    }
+
+    /// <inheritdoc />
+    public DbCommand BuildDeleteCommand(DbTransaction? transaction = default)
+    {
+        var keyFields = KeyColumns.Select(c => c.Name).ToArray();
+        var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+        var commandText = $"DELETE FROM {Provider.QuoteTable(TableName, Schema)} WHERE {keyPairs}";
+
+        return new CommandSource(Connection, commandText)
+            .EndCommandText()
+            .DefineParameters(KeyColumns)
+            .WithTransaction(transaction);
+    }
+
+    /// <inheritdoc />
+    public DbCommand BuildSelectCommand(DbTransaction? transaction = default)
+    {
+        var keyFields = KeyColumns.Select(c => c.Name).ToArray();
+        var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+
+        return new CommandSource(Connection)
+            .Select(this).Where(keyPairs)
+            .EndCommandText()
+            .DefineParameters(KeyColumns)
             .WithTransaction(transaction);
     }
 

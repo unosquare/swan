@@ -16,7 +16,7 @@ internal static class DataPlayground
 {
     private const string ConnectionString = "data source=.;initial catalog=unocorp-timecore;Integrated Security=true;";
 
-    public static void BasicExample()
+    public static async Task BasicExample()
     {
         var liteName = typeof(SqliteConnection).FullName;
 
@@ -28,7 +28,7 @@ internal static class DataPlayground
 
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
-        connection.TestSampleInsertButBetter();
+        await connection.TestSampleInsertButBetter();
     }
 
     public static async Task AsyncQuerying()
@@ -37,7 +37,7 @@ internal static class DataPlayground
         using var connection = new SqlConnection(ConnectionString);
         var cts = new CancellationTokenSource();
         var items = connection.Table<Project>("Projects").QueryAsync(
-            commandText, new { P1 = 600, P2 = 700 }, cts.Token);
+            commandText, new { P1 = 600, P2 = 700 }, default, cts.Token);
 
         var count = 0;
         try
@@ -155,7 +155,7 @@ internal static class DataPlayground
         Terminal.Flush();
     }
 
-    private static void TestSampleInsertButBetter(this DbConnection connection)
+    private static async Task TestSampleInsertButBetter(this DbConnection connection)
     {
         // Now, instead of doing all that stuff manually, if we play with
         // typical game rules, we can do stuff in a much simpler way :)
@@ -163,16 +163,22 @@ internal static class DataPlayground
 
         // We'll use a transaction in this example. We won't actually insert anything.
         // since we will be rolling back the transaction.
-        using var tran = connection.BeginTransaction();
+        using var tran = await connection.BeginTransactionAsync();
 
         // Create a dummy record
         var dummyProject = new Project(
             default, "Dummy Project", ProjectTypes.Exciting, 61, false, DateTime.UtcNow, default, "Dummy Scope");
 
-        var types = new ProjectTypes[] { ProjectTypes.Exciting, ProjectTypes.Boring };
-        foreach (var type in types)
+        var items = new Project[]
         {
-            var inserted = projects.InsertOne(dummyProject with { ProjectType = type }, tran);
+            dummyProject with { Name = "Dummy 1", ProjectType = ProjectTypes.Boring },
+            dummyProject with { Name = "Dummy 2", ProjectType = ProjectTypes.Exciting },
+            dummyProject with { Name = "Dummy 3", ProjectType = ProjectTypes.Exciting },
+        };
+
+        foreach (var item in items)
+        {
+            var inserted = await projects.InsertOneAsync(item, tran);
             $"ADDED:\r\n{inserted}".Info();
         }
 

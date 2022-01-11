@@ -7,7 +7,8 @@ public static partial class QueryExtensions
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
     /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
+    /// iterating over records, one at a time. The command is automatically disposed
+    /// after the iteration completes.
     /// </summary>
     /// <typeparam name="T">The type of elements to return.</typeparam>
     /// <param name="command">The command to execute.</param>
@@ -65,7 +66,8 @@ public static partial class QueryExtensions
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
     /// and provides a foward-only enumerable set which can then be processed by
-    /// iterating over records, one at a time.
+    /// iterating over records, one at a time. The command is automatically disposed
+    /// after the iteration completes.
     /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
@@ -84,13 +86,13 @@ public static partial class QueryExtensions
     /// Retrieves the first result from a query command and parses it as an
     /// object of the given type.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="command"></param>
-    /// <param name="behavior"></param>
-    /// <param name="deserialize"></param>
-    /// <param name="ct"></param>
+    /// <typeparam name="T">The type of element to return.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization callback.</param>
+    /// <param name="ct">The cancellation token.</param>
     /// <returns>The element to return or null of not found.</returns>
-    public static async Task<T?> FisrtOrDefaultAsync<T>(this DbCommand command,
+    public static async Task<T?> FirstOrDefaultAsync<T>(this DbCommand command,
         Func<IDataRecord, T>? deserialize = default,
         CommandBehavior behavior = CommandBehavior.SingleRow,
         CancellationToken ct = default)
@@ -103,11 +105,11 @@ public static partial class QueryExtensions
     /// Retrieves the first result from a query command and parses it as a
     /// <see cref="ExpandoObject"/>.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="behavior"></param>
-    /// <param name="ct"></param>
+    /// <param name="command">The command.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="ct">The cancellation token.</param>
     /// <returns>The element to return or null of not found.</returns>
-    public static async Task<dynamic?> FisrtOrDefaultAsync(this DbCommand command,
+    public static async Task<dynamic?> FirstOrDefaultAsync(this DbCommand command,
         CommandBehavior behavior = CommandBehavior.SingleRow,
         CancellationToken ct = default)
     {

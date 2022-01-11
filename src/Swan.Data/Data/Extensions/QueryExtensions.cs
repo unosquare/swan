@@ -18,7 +18,8 @@ public static partial class QueryExtensions
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <param name="behavior">The command behavior.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IEnumerable<T> Query<T>(this DbCommand command, Func<IDataRecord, T>? deserialize = default,
+    public static IEnumerable<T> Query<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
         CommandBehavior behavior = CommandBehavior.Default)
     {
         if (command == null)
@@ -83,8 +84,9 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
     /// <returns>The parse object.</returns>
-    public static T? FirstOrDefault<T>(this DbCommand command, CommandBehavior behavior = CommandBehavior.SingleRow,
-        Func<IDataRecord, T>? deserialize = default) =>
+    public static T? FirstOrDefault<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.SingleRow) =>
         command.Query(deserialize, behavior).FirstOrDefault();
 
 
