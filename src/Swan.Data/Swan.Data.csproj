@@ -37,5 +37,12 @@
 	<ItemGroup Condition="'$(Configuration)' != 'Release'">
 		<ProjectReference Include="..\Swan.Core\Swan.Core.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\swan-logo-32.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 	
 </Project>
