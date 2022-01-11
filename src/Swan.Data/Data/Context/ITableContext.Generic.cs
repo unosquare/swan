@@ -84,7 +84,7 @@ public interface ITableContext<T> : ITableContext
     int UpdateOne(T item, DbTransaction? transaction = null);
 
     /// <summary>
-    /// Updates a single item. Key values must be correctly set in the passed object.
+    /// Updates a single item. Key values must be correctly set for the passed object.
     /// </summary>
     /// <param name="item">The item to update.</param>
     /// <param name="transaction">The optional associated transaction.</param>
@@ -93,12 +93,12 @@ public interface ITableContext<T> : ITableContext
     Task<int> UpdateOneAsync(T item, DbTransaction? transaction = null, CancellationToken ct = default);
 
     /// <summary>
-    /// Updates 
+    /// Updates the provided set of items. Key values must be correctly set for the
+    /// objects in the passed enumerable.
     /// </summary>
-    /// <param name="items"></param>
-    /// <param name="transaction"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <param name="items">The items to update.</param>
+    /// <param name="transaction">The optional associated transaction.</param>
+    /// <returns>The number of affected records.</returns>
     int UpdateMany(IEnumerable<T> items, DbTransaction? transaction = null);
 
     bool TryFind(T key, out T item, DbTransaction? transaction = null);
