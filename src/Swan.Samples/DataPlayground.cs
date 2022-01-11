@@ -33,14 +33,12 @@ internal static class DataPlayground
 
     public static async Task AsyncQuerying()
     {
+        const string commandText = ""; // "WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId";
         using var connection = new SqlConnection(ConnectionString);
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId";
-        command.SetParameters(new { P1 = 600, P2 = 700 });
-        command.Disposed += (s, e) => "Command was disposed.".Info();
-
         var cts = new CancellationTokenSource();
-        var items = command.QueryAsync<Project>(ct: cts.Token);
+        var items = connection.Table<Project>("Projects").QueryAsync(
+            commandText, new { P1 = 600, P2 = 700 }, cts.Token);
+
         var count = 0;
         try
         {
@@ -65,6 +63,9 @@ internal static class DataPlayground
             $"Task was cancelled".Warn();
         }
 
+        $"Records retrieved: {count}".Info();
+        
+        // Terminal.ReadKey(true);
         Terminal.Flush();
     }
 

@@ -17,13 +17,10 @@ public static class AsyncEnumerableExtensions
         if (enumerable is null)
             return default;
 
-        enumerable.WithCancellation(ct);
-        var enumerator = enumerable.GetAsyncEnumerator(ct);
-        await using var enumeratorDisposer = enumerator.ConfigureAwait(false);
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            return item;
 
-        return await enumerator.MoveNextAsync().ConfigureAwait(false)
-            ? enumerator.Current
-            : default;
+        return default;
     }
 }
 

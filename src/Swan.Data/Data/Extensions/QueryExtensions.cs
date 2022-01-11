@@ -11,6 +11,7 @@ public static partial class QueryExtensions
     /// Executes a data reader in the underlying stream as a single result set
     /// and provides a foward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
+    /// The associated command is automatically disposed after iterating over the elements.
     /// </summary>
     /// <typeparam name="T">The type of elements to return.</typeparam>
     /// <param name="command">The command to execute.</param>
@@ -65,6 +66,7 @@ public static partial class QueryExtensions
     /// Executes a data reader in the underlying stream as a single result set
     /// and provides a foward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
+    /// The associated command is automatically disposed after iterating over the elements.
     /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
@@ -75,6 +77,7 @@ public static partial class QueryExtensions
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
     /// containing a single row of data.
+    /// The associated command is automatically disposed after returning the first element.
     /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
@@ -84,9 +87,11 @@ public static partial class QueryExtensions
         Func<IDataRecord, T>? deserialize = default) =>
         command.Query(deserialize, behavior).FirstOrDefault();
 
+
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
     /// containing a single row of data.
+    /// The associated command is automatically disposed after returning the first element.
     /// </summary>
     /// <param name="command">The command to execute.</param>
     /// <param name="behavior">The command behavior.</param>
@@ -128,10 +133,8 @@ public static partial class QueryExtensions
             .BeginCommandText(sql)
             .EndCommandText()
             .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
-            .WithTransaction(transaction);
-
-        if (param is not null)
-            command.SetParameters(param);
+            .WithTransaction(transaction)
+            .SetParameters(param);
 
         return command.Query(deserialize, behavior);
     }

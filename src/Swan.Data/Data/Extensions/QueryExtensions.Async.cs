@@ -71,13 +71,13 @@ public static partial class QueryExtensions
     /// <param name="behavior">The command behavior.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IAsyncEnumerable<dynamic> QueryAsync(this DbCommand command,
+    public static async IAsyncEnumerable<dynamic> QueryAsync(this DbCommand command,
         CommandBehavior behavior = CommandBehavior.Default,
-        CancellationToken ct = default)
+        [EnumeratorCancellation] CancellationToken ct = default)
     {
         var enumerable = command.QueryAsync((r) => r.ParseExpando(), behavior, ct);
-        enumerable.ConfigureAwait(false);
-        return enumerable;
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            yield return item;
     }
 
     /// <summary>
@@ -96,12 +96,11 @@ public static partial class QueryExtensions
         CancellationToken ct = default)
     {
         var enumerable = command.QueryAsync(deserialize, behavior, ct);
-        enumerable.ConfigureAwait(false);
-        return await enumerable.FirstOrDefault().ConfigureAwait(false);
+        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
     }
 
     /// <summary>
-    /// Retrieves the first result from a query command and parses it as an
+    /// Retrieves the first result from a query command and parses it as a
     /// <see cref="ExpandoObject"/>.
     /// </summary>
     /// <param name="command"></param>
@@ -113,8 +112,7 @@ public static partial class QueryExtensions
         CancellationToken ct = default)
     {
         var enumerable = command.QueryAsync(behavior, ct);
-        enumerable.ConfigureAwait(false);
-        return await enumerable.FirstOrDefault().ConfigureAwait(false);
+        return await enumerable.FirstOrDefault(ct).ConfigureAwait(false);
     }
 
     #endregion
@@ -136,14 +134,14 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IAsyncEnumerable<T> QueryAsync<T>(this DbConnection connection,
+    public static async IAsyncEnumerable<T> QueryAsync<T>(this DbConnection connection,
         string sql, object?
         param = default,
         Func<IDataRecord, T>? deserialize = default,
         CommandBehavior behavior = CommandBehavior.Default,
         DbTransaction? transaction = default,
         TimeSpan? timeout = default,
-        CancellationToken ct = default)
+        [EnumeratorCancellation] CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -157,14 +155,12 @@ public static partial class QueryExtensions
             .BeginCommandText(sql)
             .EndCommandText()
             .WithTimeout(timeout ?? connection.Provider().DefaultCommandTimeout)
-            .WithTransaction(transaction);
+            .WithTransaction(transaction)
+            .SetParameters(param);
 
-        if (param is not null)
-            command.SetParameters(param);
-
-        var enumerator = command.QueryAsync(deserialize, behavior, ct);
-        enumerator.ConfigureAwait(false);
-        return enumerator;
+        var enumerable = command.QueryAsync(deserialize, behavior, ct);
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            yield return item;
     }
 
     /// <summary>
@@ -180,18 +176,18 @@ public static partial class QueryExtensions
     /// <param name="timeout">Optional command timeout.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An enumerable, forward-only data source.</returns>
-    public static IAsyncEnumerable<dynamic> QueryAsync(this DbConnection connection,
+    public static async IAsyncEnumerable<dynamic> QueryAsync(this DbConnection connection,
         string sql,
         object? param = default,
         CommandBehavior behavior = CommandBehavior.Default,
         DbTransaction? transaction = default, TimeSpan? timeout = default,
-        CancellationToken ct = default)
+        [EnumeratorCancellation] CancellationToken ct = default)
     {
-        var enumerator = connection.QueryAsync(
+        var enumerable = connection.QueryAsync(
             sql, param, (r) => r.ParseExpando(), behavior, transaction, timeout, ct);
-        
-        enumerator.ConfigureAwait(false);
-        return enumerator;
+
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            yield return item;
     }
 
     /// <summary>

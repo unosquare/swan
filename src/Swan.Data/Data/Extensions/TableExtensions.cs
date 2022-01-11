@@ -70,10 +70,8 @@ public static class TableExtensions
             .Parameters(columnNames)
             .AppendText(")")
             .EndCommandText()
-            .DefineParameters(insertColumns);
-
-        if (param is not null)
-            command.SetParameters(param);
+            .DefineParameters(insertColumns)
+            .SetParameters(param);
 
         return command;
     }

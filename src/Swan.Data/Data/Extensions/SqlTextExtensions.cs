@@ -23,10 +23,24 @@ public static partial class SqlTextExtensions
             : @this;
     }
 
+    /// <summary>
+    /// Appends a SELECT statement with the table fields and defined columns
+    /// to this command source.
+    /// </summary>
+    /// <param name="this">The instance.</param>
+    /// <param name="table">The table with columns.</param>
+    /// <returns>This instance for fluent API support.</returns>
     public static CommandSource Select(this CommandSource @this, IDbTableSchema table) => table is not null
-    ? @this.Select(table.Columns.Select(c => c.Name).ToArray())
-    : throw new ArgumentNullException(nameof(table));
+        ? @this.Select(table.Columns.Select(c => c.Name).ToArray()).From(table)
+        : throw new ArgumentNullException(nameof(table));
 
+    /// <summary>
+    /// Appends a SELECT clause by taking in columns to this command source.
+    /// It does not include the table name.
+    /// </summary>
+    /// <param name="this">The instance.</param>
+    /// <param name="columns">The columns.</param>
+    /// <returns>This instance for fluent API support.</returns>
     public static CommandSource Select(this CommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
         ? @this.Select(columns.Select(c => c.Name).ToArray())
         : throw new ArgumentNullException(nameof(columns));
@@ -64,14 +78,6 @@ public static partial class SqlTextExtensions
             : "*";
         return @this.AppendText($"{quotedNames}");
     }
-
-    public static CommandSource Fields(this CommandSource @this, IDbTableSchema table) => table is not null
-        ? @this.Fields(table.Columns.Select(c => c.Name).ToArray())
-        : throw new ArgumentNullException(nameof(table));
-
-    public static CommandSource Fields(this CommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
-        ? @this.Fields(columns.Select(c => c.Name).ToArray())
-        : throw new ArgumentNullException(nameof(columns));
 
     /// <summary>
     /// Appends a FROM keyword to the command text, and optionally appends

@@ -80,9 +80,12 @@ public sealed class CommandSource : IConnected
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 
         var command = _connection.CreateCommand();
+#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
         command.CommandText = _commandText.ToString();
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
         command.CommandType = CommandType.Text;
         command.CommandTimeout = Convert.ToInt32(Provider.DefaultCommandTimeout.TotalSeconds).ClampMin(0);
+        command.ConfigureAwait(false);
 
         _connection = null;
         _commandText.Clear();
