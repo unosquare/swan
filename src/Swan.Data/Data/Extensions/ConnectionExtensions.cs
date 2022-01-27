@@ -20,7 +20,7 @@ public static partial class ConnectionExtensions
     /// <param name="connection">The connection.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A list of table names in the database.</returns>
-    public static async Task<IReadOnlyList<TableName>> GetTableNamesAsync(this DbConnection connection, CancellationToken ct = default)
+    public static async Task<IReadOnlyList<TableIdentifier>> GetTableNamesAsync(this DbConnection connection, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -30,8 +30,8 @@ public static partial class ConnectionExtensions
             throw new NotSupportedException("Unable to get tables from database names with special character '");
 
         var commandText = connection.Provider().GetListTablesCommandText();
-        var result = new List<TableName>(128);
-        await foreach (var item in connection.QueryAsync<TableName>(commandText, ct: ct).ConfigureAwait(false))
+        var result = new List<TableIdentifier>(128);
+        await foreach (var item in connection.QueryAsync<TableIdentifier>(commandText, ct: ct).ConfigureAwait(false))
             result.Add(item);
 
         return result;
@@ -42,7 +42,7 @@ public static partial class ConnectionExtensions
     /// </summary>
     /// <param name="connection">The connection.</param>
     /// <returns>A list of table names in the database.</returns>
-    public static IReadOnlyList<TableName> GetTableNames(this DbConnection connection)
+    public static IReadOnlyList<TableIdentifier> GetTableNames(this DbConnection connection)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
@@ -52,11 +52,27 @@ public static partial class ConnectionExtensions
             throw new NotSupportedException("Unable to get tables from database names with special character '");
 
         var commandText = connection.Provider().GetListTablesCommandText();
-        var result = new List<TableName>(128);
-        foreach (var item in connection.Query<TableName>(commandText))
+        var result = new List<TableIdentifier>(128);
+        foreach (var item in connection.Query<TableIdentifier>(commandText))
             result.Add(item);
 
         return result;
+    }
+
+    /// <summary>
+    /// Provides a quick way to generate and execute stand-alone table DDL commands.
+    /// No foreign keys or indexes are generated.
+    /// </summary>
+    /// <typeparam name="T">The type to get column names and types from.</typeparam>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The table name.</param>
+    /// <param name="schemaName">The schema name.</param>
+    /// <returns></returns>
+    public static TableSchemaBuilder TableBuilder<T>(this DbConnection connection, string tableName, string? schemaName = default)
+    {
+        var builder = new TableSchemaBuilder(connection, tableName, schemaName ?? string.Empty);
+        builder.MapType(typeof(T));
+        return builder;
     }
 
     /// <summary>
@@ -81,7 +97,7 @@ public static partial class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="table">The associated table.</param>
     /// <returns>A connected table context.</returns>
-    public static ITableContext Table(this DbConnection connection, TableName table) => table is not null
+    public static ITableContext Table(this DbConnection connection, TableIdentifier table) => table is not null
         ? new TableContext(connection, table.Name, table.Schema)
         : throw new ArgumentNullException(nameof(table));
 
@@ -108,7 +124,7 @@ public static partial class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="table">The associated table.</param>
     /// <returns>A connected table context.</returns>
-    public static ITableContext<T> Table<T>(this DbConnection connection, TableName table)
+    public static ITableContext<T> Table<T>(this DbConnection connection, TableIdentifier table)
         where T : class => table is not null
         ? new TableContext<T>(connection, table.Name, table.Schema)
         : throw new ArgumentNullException(nameof(table));
@@ -283,4 +299,23 @@ public static partial class ConnectionExtensions
         }
     }
 
+    /// <summary>
+    /// Computes an integer representing a hash code for the connection,
+    /// taking into account the connection string, the database, and the type of the
+    /// connection.
+    /// </summary>
+    /// <param name="connection">The connection to compute the hash key for.</param>
+    /// <returns>A hash code representing a cache entry id.</returns>
+    internal static int ComputeCacheKey(this DbConnection connection)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        connection.EnsureIsValid();
+        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
+        var hashB = connection.Database.ToUpperInvariant().GetHashCode(StringComparison.Ordinal);
+        var hashC = connection.GetType().GetHashCode();
+
+        return HashCode.Combine(hashA, hashB, hashC);
+    }
 }

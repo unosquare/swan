@@ -5,11 +5,11 @@
 /// </summary>
 /// <param name="Name">The table name.</param>
 /// <param name="Schema">The schema name this table belongs to.</param>
-public record TableName(string Name, string Schema)
+public sealed record TableIdentifier(string Name, string Schema)
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="TableName"/> record.
+    /// Creates a new instance of the <see cref="TableIdentifier"/> record.
     /// </summary>
-    public TableName() : this(string.Empty, string.Empty) { }
+    public TableIdentifier() : this(string.Empty, string.Empty) { }
 }
 

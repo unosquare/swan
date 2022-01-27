@@ -82,6 +82,8 @@ internal record SqlServerColumn : IDbColumnSchema
     bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
 
     bool IDbColumnSchema.IsReadOnly => IsReadOnly.GetValueOrDefault();
+
+    string? IDbColumnSchema.IndexName => default;
 }
 
 #pragma warning restore CA1812

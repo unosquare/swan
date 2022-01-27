@@ -392,8 +392,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
                 command.AppendText($"; SELECT TOP 1 {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = SCOPE_IDENTITY();");
                 return true;
             case ProviderKind.Sqlite:
-                var sequenceValue = $"(SELECT seq FROM sqlite_sequence WHERE name = '{TableName}')";
-                command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE _rowid_ = {sequenceValue} LIMIT 1;");
+                command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE _rowid_ = last_insert_rowid() LIMIT 1;");
                 return true;
             case ProviderKind.MySql:
                 command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = LAST_INSERT_ID() LIMIT 1;");

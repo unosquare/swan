@@ -20,6 +20,7 @@ internal static class DataPlayground
 
     public static async Task BasicExample()
     {
+        await SqliteStuff();
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
@@ -27,14 +28,34 @@ internal static class DataPlayground
 
         var names = await connection.GetTableNamesAsync();
 
-        var table = connection.Table("Projects").GenerateRecordCode("Project");
+        var table = connection.Table("Projects").GeneratePocoCode("Project");
 
         // You can configure the default timeout for commands created using the SWAN API.
         connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
-        
+
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
         await connection.TestSampleInsertButBetter();
+    }
+
+    private static async Task SqliteStuff()
+    {
+        var conn = new SqliteConnection("Data Source=mydb.sqlite");
+        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+
+        var table = conn.Table<Project>("Projects");
+        var project = table.InsertOne(new()
+        {
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "PRoject ONE",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Boring,
+            StartDate = DateTime.Now.AddMonths(-1)
+        });
+
+        Console.WriteLine(project);
     }
 
     public static async Task AsyncQuerying()
@@ -70,7 +91,7 @@ internal static class DataPlayground
         }
 
         $"Records retrieved: {count}".Info();
-        
+
         // Terminal.ReadKey(true);
         Terminal.Flush();
     }

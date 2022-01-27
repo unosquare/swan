@@ -6,7 +6,7 @@
 public interface ITypeInfo
 {
     /// <summary>
-    /// Provides the unique type that owns this type proxy.
+    /// Provides the unique type from which this type info was derived.
     /// </summary>
     Type NativeType { get; }
 

@@ -30,12 +30,12 @@ public static class CodeGenExtensions
     /// <summary>
     /// Provides a very simple record class code generator (C#) that matches
     /// a table schema definition. Useful if you want to get started quickly
-    /// without writing a ton of POCO classes.
+    /// without having to write a ton of POCO classes.
     /// </summary>
     /// <param name="table">The table to extract column schema info from.</param>
     /// <param name="entityName">The optional name of the generated record class.</param>
     /// <returns>A string contining code that defines a record class.</returns>
-    public static string GenerateRecordCode(this IDbTableSchema table, string? entityName = default)
+    public static string GeneratePocoCode(this IDbTableSchema table, string? entityName = default)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));

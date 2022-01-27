@@ -48,7 +48,7 @@
             NativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
             IsValueType = nativeType.IsValueType;
 
-            if (Nullable.GetUnderlyingType(NativeType) is { } nullableBackingType)
+            if (Nullable.GetUnderlyingType(NativeType) is Type nullableBackingType)
             {
                 IsValueType = false;
                 IsNullable = true;

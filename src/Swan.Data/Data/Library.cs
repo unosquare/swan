@@ -111,7 +111,7 @@ internal static partial class Library
                     addWithValueMethod, nameParameter, valueParameter), typeof(IDbDataParameter));
 
             return Expression
-                .Lambda<Library.AddWithValueDelegate>(
+                .Lambda<AddWithValueDelegate>(
                     expressionBody, targetParameter, nameParameter, valueParameter)
                 .Compile();
         }
@@ -119,90 +119,6 @@ internal static partial class Library
         {
             return null;
         }
-    }
-
-    /// <summary>
-    /// Adds quotes around a table name along with an optional schema name.
-    /// </summary>
-    /// <param name="provider">The provider.</param>
-    /// <param name="tableName">The name of the table.</param>
-    /// <param name="schemaName">The name of the schema.</param>
-    /// <returns>A quoted table name.</returns>
-    public static string QuoteTable(this DbProvider provider, string tableName, string? schemaName = default) =>
-        !string.IsNullOrWhiteSpace(schemaName)
-            ? string.Join(string.Empty,
-                provider.QuotePrefix,
-                schemaName,
-                provider.QuoteSuffix,
-                provider.SchemaSeparator,
-                provider.QuotePrefix,
-                tableName,
-                provider.QuoteSuffix)
-            : $"{provider.QuotePrefix}{tableName}{provider.QuoteSuffix}";
-
-    /// <summary>
-    /// Adds quotes arounf a field or column name.
-    /// </summary>
-    /// <param name="provider">The provider.</param>
-    /// <param name="fieldName">The name of the field.</param>
-    /// <returns>A quited field name.</returns>
-    public static string QuoteField(this DbProvider provider, string fieldName) =>
-        $"{provider.QuotePrefix}{fieldName}{provider.QuoteSuffix}";
-
-    /// <summary>
-    /// Adds the provider-specific parameter prefix to the specified parameter name.
-    /// If the specified name already contains the parameter prefix, it simply returns
-    /// the trimmed name.
-    /// </summary>
-    /// <param name="provider">The provider.</param>
-    /// <param name="name">The name to add the parameter prefix to.</param>
-    /// <returns>The quoted parameter name.</returns>
-    public static string QuoteParameter(this DbProvider provider, string name) =>
-        !string.IsNullOrWhiteSpace(provider.ParameterPrefix) && name.StartsWith(provider.ParameterPrefix, StringComparison.Ordinal)
-            ? name.Trim()
-            : $"{provider.ParameterPrefix}{name.Trim()}";
-
-    /// <summary>
-    /// Removes the provider-specific parameter prefix from the specified parameter name.
-    /// If the specified parameter name does not contain a parameter prefix, it simply returns
-    /// the trimmed name.
-    /// </summary>
-    /// <param name="provider">The provider.</param>
-    /// <param name="name">The name to remove the parameter prefix from.</param>
-    /// <returns>The unquoted parameter name.</returns>
-    public static string UnquoteParameter(this DbProvider provider, string name) =>
-        !string.IsNullOrWhiteSpace(provider.ParameterPrefix) && name.StartsWith(provider.ParameterPrefix, StringComparison.Ordinal)
-            ? new string(name.AsSpan()[provider.ParameterPrefix.Length..]).Trim()
-            : name.Trim();
-
-    /// <summary>
-    /// Computes an integer representing a hash code for a table schema.
-    /// </summary>
-    /// <param name="provider">The associated provider.</param>
-    /// <param name="tableName">The name of the table.</param>
-    /// <param name="schema">The name of the schema.</param>
-    /// <returns>A hash code representing a cache entry id.</returns>
-    public static int ComputeTableCacheKey(DbProvider provider, string tableName, string schema) =>
-        HashCode.Combine(provider.CacheKey, tableName, schema);
-
-    /// <summary>
-    /// Computes an integer representing a hash code for the connection,
-    /// taking into account the connection string, the database, and the type of the
-    /// connection.
-    /// </summary>
-    /// <param name="connection">The connection to compute the hash key for.</param>
-    /// <returns>A hash code representing a cache entry id.</returns>
-    public static int ComputeCacheKey(this DbConnection connection)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        connection.EnsureIsValid();
-        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
-        var hashB = connection.Database.GetHashCode(StringComparison.Ordinal);
-        var hashC = connection.GetType().GetHashCode();
-
-        return HashCode.Combine(hashA, hashB, hashC);
     }
 }
 

@@ -70,11 +70,11 @@ public interface IDbTableSchema
     /// Column name is mandatory.
     /// </summary>
     /// <param name="column">The column to add.</param>
-    void AddColumn(IDbColumnSchema column);
+    IDbTableSchema AddColumn(IDbColumnSchema column);
 
     /// <summary>
     /// Removes a column from the table schema by its column name.
     /// </summary>
     /// <param name="columnName">The name of the column to remove.</param>
-    void RemoveColumn(string columnName);
+    IDbTableSchema RemoveColumn(string columnName);
 }

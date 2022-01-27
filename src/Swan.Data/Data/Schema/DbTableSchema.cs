@@ -70,7 +70,7 @@ internal sealed class DbTableSchema : IDbTableSchema
     public IReadOnlyList<IDbColumnSchema> UpdateableColumns => Columns.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
 
     /// <inheritdoc />
-    public void AddColumn(IDbColumnSchema column)
+    public IDbTableSchema AddColumn(IDbColumnSchema column)
     {
         if (column is null)
             throw new ArgumentNullException(nameof(column));
@@ -79,15 +79,17 @@ internal sealed class DbTableSchema : IDbTableSchema
             throw new ArgumentException("The column name must be specified.", nameof(column));
 
         _columns[column.Name] = column;
+        return this;
     }
 
     /// <inheritdoc />
-    public void RemoveColumn(string name)
+    public IDbTableSchema RemoveColumn(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            return;
+            return this;
 
         _columns.Remove(name);
+        return this;
     }
 
     /// <summary>

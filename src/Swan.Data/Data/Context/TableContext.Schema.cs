@@ -42,10 +42,10 @@ public partial class TableContext
     public IReadOnlyList<IDbColumnSchema> UpdateableColumns => TableSchema.UpdateableColumns;
 
     /// <inheritdoc />
-    public void AddColumn(IDbColumnSchema column) => TableSchema.AddColumn(column);
+    public IDbTableSchema AddColumn(IDbColumnSchema column) => TableSchema.AddColumn(column);
 
     /// <inheritdoc />
-    public void RemoveColumn(string columnName) => TableSchema.RemoveColumn(columnName);
+    public IDbTableSchema RemoveColumn(string columnName) => TableSchema.RemoveColumn(columnName);
 
     /// <summary>
     /// Retrieves the table schema information from the database. If the schema
@@ -59,7 +59,7 @@ public partial class TableContext
     {
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
-        var cacheKey = Library.ComputeTableCacheKey(provider, tableName, schema);
+        var cacheKey = provider.ComputeTableCacheKey(tableName, schema);
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
     }
 }

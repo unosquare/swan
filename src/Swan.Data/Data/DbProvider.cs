@@ -72,7 +72,7 @@ public sealed record DbProvider
 
         CacheKey = connection.ComputeCacheKey();
         Database = connection.Database;
-        TypeMapper = DbTypeMapper.Default;
+        TypeMapper = DbTypeMapper.GetDefault(Kind);
 
         using var dummyCommand = connection.CreateCommand();
         var dummyParametersType = dummyCommand.Parameters.GetType().TypeInfo();
@@ -87,7 +87,7 @@ public sealed record DbProvider
     /// <summary>
     /// Gets the translator between CLR types and DbTypes.
     /// </summary>
-    public DbTypeMapper TypeMapper { get; }
+    public IDbTypeMapper TypeMapper { get; }
 
     /// <summary>
     /// Gets the SQL dialect that is used to issue commands.

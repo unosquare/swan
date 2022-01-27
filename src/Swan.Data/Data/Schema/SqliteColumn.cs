@@ -49,7 +49,8 @@ internal record SqliteColumn : IDbColumnSchema
 
     bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
-    bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
+    bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault() ||
+        (IsKey.GetValueOrDefault() && (DataTypeName ?? string.Empty).ToUpperInvariant().Equals("INTEGER", StringComparison.Ordinal));
 
     bool IDbColumnSchema.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
 
@@ -58,6 +59,8 @@ internal record SqliteColumn : IDbColumnSchema
     byte IDbColumnSchema.Scale => Convert.ToByte(NumericScale.GetValueOrDefault().ClampMin(0));
 
     int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
+
+    string? IDbColumnSchema.IndexName => default;
 }
 
 #pragma warning restore CA1812
