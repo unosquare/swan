@@ -42,7 +42,7 @@ public class TableSchemaBuilder : IConnected
     /// Creates a DDL command to create the table if it does not exist.
     /// </summary>
     /// <returns>The DDL command.</returns>
-    public DbCommand DdlCommand()
+    public DbCommand CreateDdlCommand()
     {
         if (Provider.Kind == ProviderKind.Unknown)
             throw new NotSupportedException("Cannot generate DDL code for unknown provider.");
@@ -76,15 +76,22 @@ public class TableSchemaBuilder : IConnected
     /// Executes the DDL command that creates the table if it does not exist.
     /// </summary>
     /// <returns>The number of affected records.</returns>
-    public int ExecuteDdlCommand() => DdlCommand().ExecuteNonQuery();
+    public int ExecuteDdlCommand()
+    {
+        using var command = CreateDdlCommand();
+        return command.ExecuteNonQuery();
+    }
 
     /// <summary>
     /// Executes the DDL command that creates the table if it does not exist.
     /// </summary>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>The number of affected records.</returns>
-    public async Task<int> ExecuteDdlCommandAsync(CancellationToken ct = default) =>
-        await DdlCommand().ExecuteNonQueryAsync(ct);
+    public async Task<int> ExecuteDdlCommandAsync(CancellationToken ct = default)
+    {
+        await using var command = CreateDdlCommand();
+        return await command.ExecuteNonQueryAsync(ct);
+    }
 
     internal TableSchemaBuilder WithIdentity(string columnName)
     {

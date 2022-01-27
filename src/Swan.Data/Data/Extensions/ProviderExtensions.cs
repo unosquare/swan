@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides extension methods for the <see cref="DbProvider"/> class.
 /// </summary>
-public static class ProviderExtensions
+internal static class ProviderExtensions
 {
     /// <summary>
     /// Adds quotes around a table name along with an optional schema name.
@@ -77,6 +77,9 @@ public static class ProviderExtensions
     /// <returns>The DDL string that represents the column.</returns>
     internal static string? GetColumnDdlString(this DbProvider provider, IDbColumnSchema column)
     {
+        if (!string.IsNullOrWhiteSpace(column.ProviderDataType))
+            return $"{provider.QuoteField(column.Name),16} {column.ProviderDataType}{(!column.AllowsDBNull ? " NOT" : string.Empty)} NULL";
+
         if (!provider.TypeMapper.TryGetProviderTypeFor(column.DataType, out var providerType))
             return default;
 
@@ -96,8 +99,6 @@ public static class ProviderExtensions
         var hasLength = column.MaxLength > 0;
         var hasPrecision = column.Precision > 0;
         var hasScale = column.Scale > 0;
-
-
         var trimmedType = providerType!.Contains('(', StringComparison.Ordinal)
             ? providerType[..providerType.IndexOf('(', StringComparison.Ordinal)]
             : providerType;

@@ -21,12 +21,13 @@ internal static class DataPlayground
     public static async Task BasicExample()
     {
         await SqliteStuff();
+        return;
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
         using var connection = new SqlConnection(ConnectionString);
 
-        var text = connection.TableBuilder<Project>("Projects").DdlCommand().CommandText;
+        var text = connection.TableBuilder<Project>("Projects").CreateDdlCommand().CommandText;
 
         var names = await connection.GetTableNamesAsync();
 
@@ -43,7 +44,7 @@ internal static class DataPlayground
     private static async Task SqliteStuff()
     {
         var conn = new SqliteConnection("Data Source=mydb.sqlite");
-        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        var result = await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
         var table = conn.Table<Project>("Projects");
         var project = table.InsertOne(new()
@@ -51,9 +52,9 @@ internal static class DataPlayground
             CompanyId = 1,
             EndDate = DateTime.Now,
             IsActive = true,
-            Name = "PRoject ONE",
+            Name = "Project ONE",
             ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Boring,
+            ProjectType = ProjectTypes.Exciting,
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
