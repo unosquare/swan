@@ -53,7 +53,9 @@ public class TableSchemaBuilder : IConnected
         var schemaName = string.IsNullOrWhiteSpace(Table.Schema) ? Provider.DefaultSchemaName : Table.Schema;
         var quotedTableName = Provider.QuoteTable(Table.Name, schemaName);
         var orderedFields = _columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
-        var builder = new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n")
+        var builder = (Provider.Kind == ProviderKind.SqlServer
+            ? new StringBuilder($"IF OBJECT_ID('{quotedTableName}') IS NULL\r\nCREATE TABLE {quotedTableName} (\r\n")
+            : new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n"))
             .Append(string.Join($",\r\n", orderedFields.Select(c => $"    {Provider.GetColumnDdlString(c)}").ToArray()));
 
         if (Provider.Kind == ProviderKind.MySql &&

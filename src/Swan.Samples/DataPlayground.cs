@@ -26,6 +26,8 @@ internal static class DataPlayground
         // Create a connection as usual.
         using var connection = new SqlConnection(ConnectionString);
 
+        var text = connection.TableBuilder<Project>("Projects").DdlCommand().CommandText;
+
         var names = await connection.GetTableNamesAsync();
 
         var table = connection.Table("Projects").GeneratePocoCode("Project");
