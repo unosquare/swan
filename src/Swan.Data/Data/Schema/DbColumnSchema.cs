@@ -2,13 +2,13 @@
 
 internal sealed record DbColumnSchema : IDbColumnSchema
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public int Ordinal { get; set; }
 
-    public Type DataType { get; set; }
+    public Type DataType { get; set; } = typeof(string);
 
-    public string ProviderDataType { get; set; }
+    public string ProviderDataType { get; set; } = string.Empty;
 
     public bool AllowsDBNull { get; set; }
 

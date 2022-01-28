@@ -58,9 +58,21 @@ public partial class TableContext
     private static IDbTableSchema LoadTableSchema(DbConnection connection, string tableName, string? schema)
     {
         var provider = connection.Provider();
-        schema ??= provider.DefaultSchemaName;
-        var cacheKey = provider.ComputeTableCacheKey(tableName, schema);
+        if (string.IsNullOrWhiteSpace(schema))
+            schema = provider.DefaultSchemaName;
+
+        var cacheKey = ComputeTableCacheKey(provider, tableName, schema);
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
     }
+
+    /// <summary>
+    /// Computes an integer representing a hash code for a table schema.
+    /// </summary>
+    /// <param name="provider">The associated provider.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The name of the schema.</param>
+    /// <returns>A hash code representing a cache entry id.</returns>
+    private static int ComputeTableCacheKey(DbProvider provider, string tableName, string schema) =>
+        HashCode.Combine(provider.CacheKey, tableName, schema);
 }
 
