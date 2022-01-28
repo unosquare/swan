@@ -13,10 +13,10 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <summary>
     /// Creates a new instance of the <see cref="DbTableSchema"/> class.
     /// </summary>
-    public DbTableSchema(DbProvider provider, string tableName, string schema, IEnumerable<IDbColumnSchema>? columns = default)
+    public DbTableSchema(string database, string tableName, string schema, IEnumerable<IDbColumnSchema>? columns = default)
     {
-        if (provider is null)
-            throw new ArgumentNullException(nameof(provider));
+        if (string.IsNullOrWhiteSpace(database))
+            throw new ArgumentNullException(nameof(database));
 
         if (tableName is null)
             throw new ArgumentNullException(nameof(tableName));
@@ -24,8 +24,7 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (schema is null)
             throw new ArgumentNullException(nameof(schema));
 
-        Provider = provider;
-        Database = provider.Database;
+        Database = database;
         TableName = tableName;
         Schema = schema;
 
@@ -38,9 +37,6 @@ internal sealed class DbTableSchema : IDbTableSchema
 
     /// <inheritdoc />
     public IDbColumnSchema? this[string name] => _columns.TryGetValue(name, out var column) ? column : null;
-
-    /// <inheritdoc />
-    public DbProvider Provider { get; }
 
     /// <inheritdoc />
     public string Database { get; }
@@ -112,8 +108,8 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (schemaTable == null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-        var deserialize = (DataRow r) => r.ParseObject(provider.DbColumnType) as IDbColumnSchema;
+        var deserialize = (DataRow r) => r.ParseObject(provider.ColumnSchemaFactory);
         var columns = schemaTable.Query(deserialize).ToList();
-        return new DbTableSchema(provider, tableName, schema, columns);
+        return new DbTableSchema(connection.Database, tableName, schema, columns);
     }
 }

@@ -13,11 +13,6 @@ public interface IDbTableSchema
     IDbColumnSchema? this[string name] { get; }
 
     /// <summary>
-    /// Gets the ssociated databse provider.
-    /// </summary>
-    DbProvider Provider { get; }
-
-    /// <summary>
     /// Gets the database name (catalog) this table belongs to.
     /// </summary>
     string Database { get; }

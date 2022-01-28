@@ -12,7 +12,7 @@ public partial class TableContext
     public DbConnection Connection { get; }
 
     /// <inheritdoc />
-    public DbProvider Provider => TableSchema.Provider;
+    public DbProvider Provider { get; }
 
     /// <inheritdoc />
     public string Database => TableSchema.Database;

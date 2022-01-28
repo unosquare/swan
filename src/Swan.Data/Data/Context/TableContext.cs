@@ -22,6 +22,7 @@ public partial class TableContext : ITableContext
 
         TableSchema = LoadTableSchema(connection, tableName, schema);
         Connection = connection;
+        Provider = connection.Provider();
     }
 
     /// <inheritdoc />

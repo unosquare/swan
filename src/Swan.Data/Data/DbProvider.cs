@@ -57,13 +57,9 @@ public class DbProvider
     public virtual TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
 
     /// <summary>
-    /// Gets the deserialization type for chema table columns.
+    /// Gets a provider-specific schema column factory into which column metadata is read.
     /// </summary>
-    internal Type DbColumnType => Kind == ProviderKind.SqlServer
-        ? typeof(SqlServerColumn)
-        : Kind == ProviderKind.Sqlite
-        ? typeof(SqliteColumn)
-        : throw new NotSupportedException();
+    public virtual Func<IDbColumnSchema> ColumnSchemaFactory { get; } = () => new DbColumnSchema();
 
     /// <summary>
     /// Fluet API for setting the default timeout for commands that are
@@ -174,14 +170,10 @@ public class DbProvider
     }
 
     /// <summary>
-    /// Gets the command text that provides a list of table names.
+    /// Gets the command that provides a list of table names and schemas.
+    /// The recods must contain 2 columns, 1 for 
     /// </summary>
-    /// <returns>The command text.</returns>
-    internal string GetListTablesCommandText() => (Kind) switch
-    {
-        ProviderKind.SqlServer => "SELECT [TABLE_NAME] AS [Name], [TABLE_SCHEMA] AS [Schema] FROM [INFORMATION_SCHEMA].[TABLES]",
-        ProviderKind.MySql => $"SELECT [table_name] AS [Name], '' AS [Schema] FROM [information_schema].[tables] WHERE [table_schema] = '{Database}'",
-        ProviderKind.Sqlite => "SELECT name AS [Name], '' AS [Schema] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type= 'table' ORDER BY name",
-        _ => throw new NotSupportedException("Connection provider does not support retrieving table names.")
-    };
+    /// <returns>The command to be executed.</returns>
+    public virtual DbCommand GetListTablesCommand(DbConnection connection) =>
+        throw new NotSupportedException("Connection provider does not support retrieving table names.");
 }
