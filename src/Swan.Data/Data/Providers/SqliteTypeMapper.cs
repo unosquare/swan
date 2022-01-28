@@ -1,4 +1,4 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Providers;
 
 internal class SqliteTypeMapper : DbTypeMapper
 {

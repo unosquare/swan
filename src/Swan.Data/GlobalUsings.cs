@@ -1,5 +1,6 @@
 ﻿global using Swan.Data.Context;
 global using Swan.Data.Extensions;
+global using Swan.Data.Providers;
 global using Swan.Data.Schema;
 global using Swan.Extensions;
 global using Swan.Gizmos;

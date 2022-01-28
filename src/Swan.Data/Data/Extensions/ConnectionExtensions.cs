@@ -12,7 +12,9 @@ public static partial class ConnectionExtensions
     /// <returns>The associated DB provider.</returns>
     public static DbProvider Provider(this DbConnection connection) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
-        : DbProvider.FromConnection(connection);
+        : connection.TryGetProvider(out var provider)
+        ? provider
+        : throw new ArgumentException($"Provider for connection type '{connection.GetType()}' is not registered.", nameof(connection));
 
     /// <summary>
     /// Retrieves a list of table names in the database. This may include views and temporary tables.
@@ -297,25 +299,5 @@ public static partial class ConnectionExtensions
             command.Parameters?.Clear();
             await command.DisposeAsync();
         }
-    }
-
-    /// <summary>
-    /// Computes an integer representing a hash code for the connection,
-    /// taking into account the connection string, the database, and the type of the
-    /// connection.
-    /// </summary>
-    /// <param name="connection">The connection to compute the hash key for.</param>
-    /// <returns>A hash code representing a cache entry id.</returns>
-    internal static int ComputeCacheKey(this DbConnection connection)
-    {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        connection.EnsureIsValid();
-        var hashA = connection.ConnectionString.GetHashCode(StringComparison.Ordinal);
-        var hashB = connection.Database.ToUpperInvariant().GetHashCode(StringComparison.Ordinal);
-        var hashC = connection.GetType().GetHashCode();
-
-        return HashCode.Combine(hashA, hashB, hashC);
     }
 }

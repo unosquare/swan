@@ -4,7 +4,7 @@
 /// Represents a mapper that is able to resolve types between
 /// a database provider and CLR types.
 /// </summary>
-internal abstract class DbTypeMapper : IDbTypeMapper
+internal class DbTypeMapper : IDbTypeMapper
 {
     protected readonly Dictionary<Type, DbType> DbTypeMap = new(64)
     {
@@ -53,29 +53,13 @@ internal abstract class DbTypeMapper : IDbTypeMapper
     /// <summary>
     /// Creates a new instance of the <see cref="DbTypeMapper"/> class.
     /// </summary>
-    protected DbTypeMapper()
+    public DbTypeMapper()
     {
         // placeholder
     }
 
     /// <inheritdoc />
     public virtual IReadOnlyList<Type> SupportedTypes => DbTypeMap.Keys.ToArray();
-
-    /// <summary>
-    /// Gets a default type mapper for the given provider type.
-    /// </summary>
-    /// <param name="kind">The provider kind.</param>
-    /// <returns>An suitable type mapper for the given proivider type.</returns>
-    public static IDbTypeMapper GetDefault(ProviderKind kind)
-    {
-        return kind switch
-        {
-            ProviderKind.MySql => new MySqlTypeMapper(),
-            ProviderKind.SqlServer => new SqlServerTypeMapper(),
-            ProviderKind.Sqlite => new SqliteTypeMapper(),
-            _ => throw new NotSupportedException(),
-        };
-    }
 
     /// <inheritdoc />
     public virtual bool TryGetDbTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)

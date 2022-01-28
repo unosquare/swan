@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CA1812
-namespace Swan.Data.Schema;
+namespace Swan.Data.Providers;
 
 internal record SqlServerColumn : IDbColumnSchema
 {
