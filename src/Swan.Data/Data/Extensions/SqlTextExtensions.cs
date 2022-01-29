@@ -109,7 +109,6 @@ public static partial class SqlTextExtensions
         ? @this.From(table.TableName, table.Schema)
         : throw new ArgumentNullException(nameof(table));
 
-
     /// <summary>
     /// Appends an INSERT INTO clause to the command text, and optionally appends
     /// a table identifier to the command text.
@@ -269,17 +268,10 @@ public static partial class SqlTextExtensions
         if (skip == DefaultSkip && take == DefaultTake)
             return @this;
 
-        switch (@this.Provider.Kind)
-        {
-            case ProviderKind.SqlServer:
-                builder.Append(CultureInfo.InvariantCulture, $"OFFSET {skip} ROWS FETCH NEXT {take} ROWS ONLY");
-                break;
-            case ProviderKind.MySql:
-            case ProviderKind.Sqlite:
-                builder.Append(CultureInfo.InvariantCulture, $"LIMIT {take} OFFSET {skip}");
-                break;
-        }
-
+        builder
+            .Append(' ')
+            .Append(@this.Provider.GetLimitClause(skip, take));
+        
         return @this.AppendText(builder.ToString());
     }
 }

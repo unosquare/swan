@@ -28,7 +28,7 @@ public static partial class ConnectionExtensions
             throw new ArgumentNullException(nameof(connection));
 
         await connection.EnsureIsValidAsync(ct).ConfigureAwait(false);
-        await using var command = connection.Provider().GetListTablesCommand(connection);
+        await using var command = connection.Provider().CreateListTablesCommand(connection);
         var result = new List<TableIdentifier>(128);
         await foreach (var item in command.QueryAsync<TableIdentifier>(ct: ct).ConfigureAwait(false))
             result.Add(item);
@@ -50,7 +50,7 @@ public static partial class ConnectionExtensions
         if (connection.Database.Contains('\'', StringComparison.Ordinal))
             throw new NotSupportedException("Unable to get tables from database names with special character '");
 
-        using var command = connection.Provider().GetListTablesCommand(connection);
+        using var command = connection.Provider().CreateListTablesCommand(connection);
         var result = new List<TableIdentifier>(128);
         foreach (var item in command.Query<TableIdentifier>())
             result.Add(item);

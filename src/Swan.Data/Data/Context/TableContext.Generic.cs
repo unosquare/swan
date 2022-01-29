@@ -83,12 +83,13 @@ public class TableContext<T> : TableContext, ITableContext<T>
 
         using var command = BuildInsertCommand(transaction).SetParameters(item);
 
-        if (!AppendSelectBackTo(command))
+        if (!Provider.TryGetSelectLastInserted(this, out var selectBack))
         {
             _ = command.ExecuteNonQuery();
             return default;
         }
 
+        command.AppendText($";\r\n{selectBack};");
         return command.FirstOrDefault(Deserializer);
     }
 
@@ -102,12 +103,13 @@ public class TableContext<T> : TableContext, ITableContext<T>
 
         try
         {
-            if (!AppendSelectBackTo(command))
+            if (!Provider.TryGetSelectLastInserted(this, out var selectBack))
             {
                 _ = await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
                 return default;
             }
 
+            command.AppendText($";\r\n{selectBack};");
             return await command.FirstOrDefaultAsync(Deserializer, CommandBehavior.SingleRow, ct).ConfigureAwait(false);
         }
         finally
@@ -369,36 +371,5 @@ public class TableContext<T> : TableContext, ITableContext<T>
         }
 
         return result;
-    }
-
-    /// <summary>
-    /// Appends appropriate sql statements to the command in order to retrieve the last inserted
-    /// record to the table.
-    /// </summary>
-    /// <param name="command">The command to append the select-back statement to.</param>
-    /// <returns>True if select-backs are supported, false otherwise.</returns>
-    private bool AppendSelectBackTo(DbCommand command)
-    {
-        if (Provider.Kind == ProviderKind.Unknown || IdentityKeyColumn is null || KeyColumns.Count != 1)
-            return false;
-
-        var quotedFields = string.Join(", ", Columns.Select(c => Provider.QuoteField(c.Name)));
-        var quotedTable = Provider.QuoteTable(TableName, Schema);
-        var quotedKeyField = Provider.QuoteField(IdentityKeyColumn.Name);
-
-        switch (Provider.Kind)
-        {
-            case ProviderKind.SqlServer:
-                command.AppendText($"; SELECT TOP 1 {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = SCOPE_IDENTITY();");
-                return true;
-            case ProviderKind.Sqlite:
-                command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE _rowid_ = last_insert_rowid() LIMIT 1;");
-                return true;
-            case ProviderKind.MySql:
-                command.AppendText($"; SELECT {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = LAST_INSERT_ID() LIMIT 1;");
-                return true;
-            default:
-                return false;
-        }
     }
 }

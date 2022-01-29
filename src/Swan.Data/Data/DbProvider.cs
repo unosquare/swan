@@ -20,11 +20,6 @@ public class DbProvider
     public virtual IDbTypeMapper TypeMapper { get; } = new DbTypeMapper();
 
     /// <summary>
-    /// Gets the SQL dialect that is used to issue commands.
-    /// </summary>
-    public ProviderKind Kind { get; }
-
-    /// <summary>
     /// Gets the prefix used to quote identifiers.
     /// </summary>
     public virtual string QuotePrefix { get; } = "[";
@@ -141,17 +136,6 @@ public class DbProvider
         if (!TypeMapper.TryGetProviderTypeFor(column.DataType, out var providerType))
             return default;
 
-        if (column.IsIdentity)
-        {
-            return Kind switch
-            {
-                ProviderKind.MySql => $"{QuoteField(column.Name),16} {providerType} NOT NULL AUTO_INCREMENT",
-                ProviderKind.SqlServer => $"{QuoteField(column.Name),16} {providerType} IDENTITY NOT NULL PRIMARY KEY",
-                ProviderKind.Sqlite => $"{QuoteField(column.Name),16} INTEGER PRIMARY KEY",
-                _ => throw new NotSupportedException("Provider is not supported.")
-            };
-        }
-
         var hasLength = column.MaxLength > 0;
         var hasPrecision = column.Precision > 0;
         var hasScale = column.Scale > 0;
@@ -170,10 +154,48 @@ public class DbProvider
     }
 
     /// <summary>
-    /// Gets the command that provides a list of table names and schemas.
-    /// The recods must contain 2 columns, 1 for 
+    /// Gets a command that provides a list of table identifiers in the current database.
+    /// The recods must contain 2 columns, Name and Schema
     /// </summary>
     /// <returns>The command to be executed.</returns>
-    public virtual DbCommand GetListTablesCommand(DbConnection connection) =>
+    public virtual DbCommand CreateListTablesCommand(DbConnection connection) =>
         throw new NotSupportedException("Connection provider does not support retrieving table names.");
+
+    /// <summary>
+    /// Gets a provider-specific DDL command for the given table.
+    /// </summary>
+    /// <param name="connection">The connection to build the command for.</param>
+    /// <param name="table">The schema table.</param>
+    /// <returns>The command.</returns>
+    public virtual DbCommand CreateTableDdlCommand(DbConnection connection, IDbTableSchema table)
+    {
+        if (table is null)
+            throw new ArgumentNullException(nameof(table));
+
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (!table.Columns.Any())
+            throw new InvalidOperationException("Cannot generate DDL code with no columns.");
+
+        var schemaName = string.IsNullOrWhiteSpace(table.Schema) ? DefaultSchemaName : table.Schema;
+        var quotedTableName = QuoteTable(table.TableName, schemaName);
+        var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
+        var builder = new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n")
+            .Append(string.Join($",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").ToArray()))
+            .AppendLine("\r\n);");
+
+        return connection
+            .BeginCommandText(builder.ToString())
+            .EndCommandText();
+    }
+
+    public virtual bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
+    {
+        commandText = null;
+        return false;
+    }
+
+    public virtual string GetLimitClause(int skip, int take) =>
+        $"LIMIT {take} OFFSET {skip}";
 }
