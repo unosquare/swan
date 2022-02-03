@@ -18,6 +18,7 @@ jobs:
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
   swan-logging:
+    needs: swan-core
     uses: unosquare/swan/.github/workflows/lib-ci.yml@master
     with:
       source-path: 'src/'
@@ -25,6 +26,7 @@ jobs:
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
   swan-data:
+    needs: swan-logging
     uses: unosquare/swan/.github/workflows/lib-ci.yml@master
     with:
       source-path: 'src/'
