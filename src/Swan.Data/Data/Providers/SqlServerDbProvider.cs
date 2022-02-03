@@ -1,12 +1,10 @@
 ﻿namespace Swan.Data.Providers;
 
-using Swan.Data.Schema;
-using System;
-using System.Data.Common;
-
 internal class SqlServerDbProvider : DbProvider
 {
     public override string DefaultSchemaName { get; } = "dbo";
+
+    public override IDbTypeMapper TypeMapper { get; } = new SqlServerTypeMapper();
 
     public override Func<IDbColumnSchema> ColumnSchemaFactory { get; } = () => new SqlServerColumn();
 

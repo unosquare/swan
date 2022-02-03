@@ -33,9 +33,12 @@ public class TableSchemaBuilder : IConnected
     /// </summary>
     public DbConnection Connection { get; }
 
+    /// <summary>
+    /// Generates a provider-specific DDL command for thecurrent table schema.
+    /// </summary>
+    /// <returns>The database command that can be executed to crete the table.</returns>
     public DbCommand CreateDdlCommand() =>
         Provider.CreateTableDdlCommand(Connection, Table);
-
 
     /// <summary>
     /// Executes the DDL command that creates the table if it does not exist.

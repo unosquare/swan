@@ -66,9 +66,12 @@ public static partial class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The table name.</param>
     /// <param name="schemaName">The schema name.</param>
-    /// <returns></returns>
+    /// <returns>A table schema builder for schema generation.</returns>
     public static TableSchemaBuilder TableBuilder<T>(this DbConnection connection, string tableName, string? schemaName = default)
     {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
         var builder = new TableSchemaBuilder(connection, tableName, schemaName ?? string.Empty);
         builder.MapType(typeof(T));
         return builder;

@@ -190,12 +190,25 @@ public class DbProvider
             .EndCommandText();
     }
 
+    /// <summary>
+    /// When overriden in a derived class, produces a SELECT statement that gets the last inserted
+    /// record in a database table. Useful for insert commands.
+    /// </summary>
+    /// <param name="table">The table.</param>
+    /// <param name="commandText">The output SELECT command text.</param>
+    /// <returns>True if the provider supports producing the SELECT-back statement. False otherwise.</returns>
     public virtual bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
     {
         commandText = null;
         return false;
     }
 
+    /// <summary>
+    /// Provides a limit clause clause to skip and take a certain number of records.
+    /// </summary>
+    /// <param name="skip">The number of records to skip.</param>
+    /// <param name="take">The number of records to take.</param>
+    /// <returns>The SQL text that can be appended to the SQL statement.</returns>
     public virtual string GetLimitClause(int skip, int take) =>
         $"LIMIT {take} OFFSET {skip}";
 }
