@@ -1,6 +1,6 @@
 ﻿namespace Swan.Gizmos;
 
-// <summary>
+/// <summary>
 /// Provides a thread-safe, lazy provider of cached values.
 /// </summary>
 /// <typeparam name="TKey">The type of the keys.</typeparam>
