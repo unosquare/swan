@@ -27,7 +27,6 @@ public static partial class ConnectionExtensions
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        await connection.EnsureIsValidAsync(ct).ConfigureAwait(false);
         await using var command = connection.Provider().CreateListTablesCommand(connection);
         var result = new List<TableIdentifier>(128);
         await foreach (var item in command.QueryAsync<TableIdentifier>(ct: ct).ConfigureAwait(false))
@@ -45,10 +44,6 @@ public static partial class ConnectionExtensions
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
-
-        connection.EnsureIsValid();
-        if (connection.Database.Contains('\'', StringComparison.Ordinal))
-            throw new NotSupportedException("Unable to get tables from database names with special character '");
 
         using var command = connection.Provider().CreateListTablesCommand(connection);
         var result = new List<TableIdentifier>(128);
@@ -137,32 +132,40 @@ public static partial class ConnectionExtensions
     /// <param name="connection">The connection to check for validity.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>An awaitable task.</returns>
-    public static async Task EnsureIsValidAsync(this DbConnection connection, CancellationToken ct = default)
+    public static async Task<T> EnsureConnectedAsync<T>(this T connection, CancellationToken ct = default)
+        where T : DbConnection
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
+        connection.ConfigureAwait(false);
+
         if (connection.State != ConnectionState.Open)
             await connection.OpenAsync(ct).ConfigureAwait(false);
 
-        if (string.IsNullOrWhiteSpace(connection.Database))
-            throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
+        return string.IsNullOrWhiteSpace(connection.Database)
+            ? throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.")
+            : connection;
     }
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.
     /// </summary>
     /// <param name="connection">The connection to check for validity.</param>
-    public static void EnsureIsValid(this DbConnection connection)
+    public static T EnsureConnected<T>(this T connection)
+        where T : DbConnection
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
+        connection.ConfigureAwait(false);
+
         if (connection.State != ConnectionState.Open)
             connection.Open();
 
-        if (string.IsNullOrWhiteSpace(connection.Database))
-            throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.");
+        return string.IsNullOrWhiteSpace(connection.Database)
+            ? throw new InvalidOperationException($"{nameof(connection)}.{nameof(connection.Database)} must be set.")
+            : connection;
     }
 
     /// <summary>

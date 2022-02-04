@@ -108,7 +108,6 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (schemaTable == null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-
         var deserialize = (DataRow r) =>
         {
             var instance = provider.ColumnSchemaFactory();

@@ -61,8 +61,6 @@ public partial class TableContext
         if (string.IsNullOrWhiteSpace(schema))
             schema = provider.DefaultSchemaName;
 
-        connection.EnsureIsValid();
-
         var database = connection.Database;
         var cacheKey = ComputeTableCacheKey(provider, database, tableName, schema);
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
@@ -77,6 +75,10 @@ public partial class TableContext
     /// <param name="schema">The name of the schema.</param>
     /// <returns>A hash code representing a cache entry id.</returns>
     private static int ComputeTableCacheKey(DbProvider provider, string database, string tableName, string schema) =>
-        HashCode.Combine(provider.GetType(), database, tableName, schema);
+        HashCode.Combine(
+            provider.GetType(),
+            database.Trim().ToUpperInvariant(),
+            tableName.Trim().ToUpperInvariant(),
+            schema.Trim().ToUpperInvariant());
 }
 

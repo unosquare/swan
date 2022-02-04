@@ -6,12 +6,19 @@
 /// </summary>
 public class TableSchemaBuilder : IConnected
 {
+    /// <summary>
+    /// Creates a new instance of the <see cref="TableSchemaBuilder"/> class.
+    /// </summary>
+    /// <param name="connection">The connection object.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schemaName">The name of the schema.</param>
     internal TableSchemaBuilder(DbConnection connection, string tableName, string? schemaName = default)
     {
         if (string.IsNullOrWhiteSpace(tableName))
             throw new ArgumentNullException(nameof(tableName));
 
-        connection.EnsureIsValid();
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
 
         Connection = connection;
         Provider = Connection.Provider();

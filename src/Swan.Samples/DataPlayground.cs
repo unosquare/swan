@@ -7,11 +7,8 @@ using Swan.Platform;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 internal static class DataPlayground
@@ -25,7 +22,7 @@ internal static class DataPlayground
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        using var connection = new SqlConnection(ConnectionString);
+        using var connection = await new SqlConnection(ConnectionString).EnsureConnectedAsync();
 
         var text = connection.TableBuilder<Project>("Projects").CreateDdlCommand().CommandText;
 
@@ -43,7 +40,7 @@ internal static class DataPlayground
 
     private static async Task SqliteStuff()
     {
-        var conn = new SqliteConnection("Data Source=mydb.sqlite");
+        var conn = await new SqliteConnection("Data Source=mydb.sqlite").EnsureConnectedAsync();
         var result = await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
         var table = conn.Table<Project>("Projects");
@@ -59,69 +56,6 @@ internal static class DataPlayground
         });
 
         Console.WriteLine(project);
-    }
-
-    public static async Task AsyncQuerying()
-    {
-        const string commandText = ""; // "WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId";
-        using var connection = new SqlConnection(ConnectionString);
-        var cts = new CancellationTokenSource();
-        var items = connection.Table<Project>("Projects").QueryAsync(
-            commandText, new { P1 = 600, P2 = 700 }, default, cts.Token);
-
-        var count = 0;
-        try
-        {
-            await foreach (var item in items)
-            {
-                $"{item}".Info();
-                count++;
-
-                if (count == 4)
-                {
-                    Terminal.Write("Press 'c' to cancel. Any other key to continue: ");
-                    var key = Terminal.ReadKey(true);
-                    Terminal.WriteLine();
-                    if (key.Key == ConsoleKey.C)
-                        cts.Cancel();
-                }
-
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            $"Task was cancelled".Warn();
-        }
-
-        $"Records retrieved: {count}".Info();
-
-        // Terminal.ReadKey(true);
-        Terminal.Flush();
-    }
-
-    private static void TestSampleCommandSource(this DbConnection connection)
-    {
-        var output = connection.BeginCommandText()
-            .Select().Fields().From("Projects").Where()
-            .Field("ProjectId").IsBetween().Parameter("p1").And().Parameter("p2")
-            .OrderBy("ProjectId")
-            .Limit(10, 20)
-            .EndCommandText()
-            .SetParameter("p1", 600, DbType.String)
-            .SetParameter("p2", 1500)
-            .Query()
-            .ToList();
-
-        $"output contains {output.Count} records. Te first item is named '{output[0].Name}'".Info();
-    }
-
-    private static void TestSimpleQuery(this DbConnection connection)
-    {
-        var sx = connection.Query("SELECT * FROM Projects WHERE ProjectId BETWEEN @P1 AND @P2 ORDER BY ProjectId",
-            new { P1 = 600, P2 = 700 })
-            .ToList();
-
-        $"output contains {sx.Count} records. The last item is named '{sx.Last().Name}'".Info();
     }
 
     private static async Task TestSampleInsertButBetter(this DbConnection connection)
@@ -158,11 +92,6 @@ internal static class DataPlayground
         // We won't actually insert anything. We'll rollback the transaction.
         tran.Rollback();
         Terminal.Flush();
-    }
-
-    private static void TestSampleDdl(this IDbConnection connection)
-    {
-
     }
 
     /// <summary>

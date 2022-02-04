@@ -13,9 +13,7 @@ internal class MySqlDbProvider : DbProvider
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        connection.EnsureIsValid();
         var database = connection.Database;
-
         return connection
             .BeginCommandText($"SELECT `table_name` AS `Name`, '' AS `Schema` FROM `information_schema`.`tables` WHERE `table_schema` = {QuoteParameter(nameof(database))}")
             .EndCommandText()
