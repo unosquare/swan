@@ -29,6 +29,7 @@ public static partial class QueryExtensions
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
+        command.Connection.EnsureConnected();
         deserialize ??= (r) => r.ParseObject<T>();
         var reader = command.ExecuteOptimizedReader(behavior);
 

@@ -86,19 +86,6 @@ public static partial class ConnectionExtensions
         new TableContext(connection, tableName, schema);
 
     /// <summary>
-    /// Acquires a connected table context that can be used to inspect the associated
-    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
-    /// and reused whenever the table context is re-acquired. Caching keys are
-    /// computed based on the connection string, provider type and table name and schema.
-    /// </summary>
-    /// <param name="connection">The associated connection.</param>
-    /// <param name="table">The associated table.</param>
-    /// <returns>A connected table context.</returns>
-    public static ITableContext Table(this DbConnection connection, TableIdentifier table) => table is not null
-        ? new TableContext(connection, table.Name, table.Schema)
-        : throw new ArgumentNullException(nameof(table));
-
-    /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
     /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
     /// and reused whenever the table context is re-acquired. Caching keys are
@@ -193,6 +180,8 @@ public static partial class ConnectionExtensions
     public static int ExecuteNonQuery(this DbConnection connection, string sql, object? param = default,
         DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default)
     {
+        connection.EnsureConnected();
+
         var command = new CommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
@@ -225,6 +214,8 @@ public static partial class ConnectionExtensions
         DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default,
         CancellationToken ct = default)
     {
+        await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
+
         var command = new CommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
@@ -255,6 +246,8 @@ public static partial class ConnectionExtensions
     public static object? ExecuteScalar(this DbConnection connection, string sql, object? param = default,
         DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default)
     {
+        connection.EnsureConnected();
+
         var command = new CommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
@@ -287,6 +280,8 @@ public static partial class ConnectionExtensions
         DbTransaction? transaction = default, CommandType commandType = CommandType.Text, TimeSpan? timeout = default,
         CancellationToken ct = default)
     {
+        await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
+
         var command = new CommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)

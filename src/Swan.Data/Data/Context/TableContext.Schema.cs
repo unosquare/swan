@@ -55,8 +55,9 @@ public partial class TableContext
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional table schema.</param>
     /// <returns>The table schema.</returns>
-    private static IDbTableSchema LoadTableSchema(DbConnection connection, string tableName, string? schema)
+    protected static IDbTableSchema LoadTableSchema(DbConnection connection, string tableName, string? schema)
     {
+        connection.EnsureConnected();
         var provider = connection.Provider();
         if (string.IsNullOrWhiteSpace(schema))
             schema = provider.DefaultSchemaName;
@@ -64,6 +65,18 @@ public partial class TableContext
         var database = connection.Database;
         var cacheKey = ComputeTableCacheKey(provider, database, tableName, schema);
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
+    }
+
+    protected static async Task<IDbTableSchema> LoadTableSchemaAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
+    {
+        connection.EnsureConnected();
+        var provider = connection.Provider();
+        if (string.IsNullOrWhiteSpace(schema))
+            schema = provider.DefaultSchemaName;
+
+        var database = connection.Database;
+        var cacheKey = ComputeTableCacheKey(provider, database, tableName, schema);
+        return await SchemaCache.GetValueAsync(cacheKey, () => DbTableSchema.LoadAsync(connection, tableName, schema, ct));
     }
 
     /// <summary>

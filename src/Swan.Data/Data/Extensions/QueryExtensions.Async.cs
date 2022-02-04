@@ -28,6 +28,7 @@ public static partial class QueryExtensions
         if (command.Connection is null)
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
+        await command.Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         deserialize ??= (r) => r.ParseObject<T>();
         var reader = await command.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
 

@@ -81,6 +81,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        Connection.EnsureConnected();
         using var command = BuildInsertCommand(transaction).SetParameters(item);
 
         if (!Provider.TryGetSelectLastInserted(this, out var selectBack))
@@ -99,6 +100,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var command = BuildInsertCommand(transaction).SetParameters(item);
 
         try
@@ -125,6 +127,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        Connection.EnsureConnected();
         var result = 0;
         var command = BuildInsertCommand(transaction);
 
@@ -156,6 +159,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var result = default(int);
         var command = BuildInsertCommand(transaction);
 
@@ -187,6 +191,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        Connection.EnsureConnected();
         var command = BuildUpdateCommand(transaction).SetParameters(item);
 
         try
@@ -206,6 +211,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var command = BuildUpdateCommand(transaction).SetParameters(item);
         try
         {
@@ -224,6 +230,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        Connection.EnsureConnected();
         var result = 0;
         var command = BuildUpdateCommand(transaction);
 
@@ -251,6 +258,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var result = default(int);
         var command = BuildUpdateCommand(transaction);
 
@@ -282,6 +290,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        Connection.EnsureConnected();
         var command = BuildDeleteCommand(transaction).SetParameters(item);
 
         try
@@ -301,6 +310,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (item is null)
             throw new ArgumentNullException(nameof(item));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var command = BuildDeleteCommand(transaction).SetParameters(item);
         try
         {
@@ -319,6 +329,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        Connection.EnsureConnected();
         var result = 0;
         var command = BuildDeleteCommand(transaction);
         
@@ -349,6 +360,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         if (items is null)
             throw new ArgumentNullException(nameof(items));
 
+        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var result = 0;
         var command = BuildDeleteCommand(transaction);
 

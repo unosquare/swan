@@ -97,24 +97,44 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <returns>A populated table schema.</returns>
     public static IDbTableSchema Load(DbConnection connection, string tableName, string? schema)
     {
+        connection.EnsureConnected();
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
         using var schemaCommand = connection.BeginCommandText()
-                .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
+            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
 
         using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
         using var schemaTable = schemaReader.GetSchemaTable();
 
-        if (schemaTable == null)
+        if (schemaTable is null)
             throw new InvalidOperationException("Could not retrieve table schema.");
 
-        var deserialize = (DataRow r) =>
-        {
-            var instance = provider.ColumnSchemaFactory();
-            return r.ParseObject(instance.GetType(), () => instance) as IDbColumnSchema;
-        };
-
-        var columns = schemaTable.Query(deserialize).ToList();
+        var columnInstance = provider.ColumnSchemaFactory.Invoke();
+        var columnType = columnInstance.GetType().TypeInfo();
+        var columns = schemaTable.Query((r) => DeserializeColumn(r, columnType)).ToList();
         return new DbTableSchema(connection.Database, tableName, schema, columns);
     }
+
+    public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
+    {
+        connection.EnsureConnected();
+        var provider = connection.Provider();
+        schema ??= provider.DefaultSchemaName;
+        using var schemaCommand = connection.BeginCommandText()
+            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
+
+        using var schemaReader = await schemaCommand.ExecuteReaderAsync(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo, ct);
+        using var schemaTable = await schemaReader.GetSchemaTableAsync(ct);
+
+        if (schemaTable is null)
+            throw new InvalidOperationException("Could not retrieve table schema.");
+
+        var columnInstance = provider.ColumnSchemaFactory.Invoke();
+        var columnType = columnInstance.GetType().TypeInfo();
+        var columns = schemaTable.Query((r) => DeserializeColumn(r, columnType)).ToList();
+        return new DbTableSchema(connection.Database, tableName, schema, columns);
+    }
+
+    private static IDbColumnSchema DeserializeColumn(DataRow columnInfo, ITypeInfo columnType) =>
+        (columnInfo.ParseObject(columnType.NativeType, columnType.CreateInstance) as IDbColumnSchema)!;
 }
