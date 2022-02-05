@@ -10,17 +10,17 @@ public partial class TableContext : ITableContext
     /// Creates a new instance of the <see cref="TableContext"/> class.
     /// </summary>
     /// <param name="connection">The connection to associate this context to.</param>
-    /// <param name="tableName">The name of the table.</param>
-    /// <param name="schema">The name of the schema.</param>
-    public TableContext(DbConnection connection, string tableName, string? schema = default)
+    /// <param name="schema">The table schema information.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public TableContext(DbConnection connection, IDbTableSchema schema)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        if (string.IsNullOrWhiteSpace(tableName))
-            throw new ArgumentNullException(nameof(tableName));
+        if (schema is null)
+            throw new ArgumentNullException(nameof(schema));
 
-        TableSchema = LoadTableSchema(connection, tableName, schema);
+        TableSchema = schema;
         Connection = connection;
         Provider = connection.Provider();
     }

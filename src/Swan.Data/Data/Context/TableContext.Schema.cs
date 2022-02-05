@@ -55,25 +55,40 @@ public partial class TableContext
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional table schema.</param>
     /// <returns>The table schema.</returns>
-    protected static IDbTableSchema LoadTableSchema(DbConnection connection, string tableName, string? schema)
+    public static IDbTableSchema CacheLoadTableSchema(DbConnection connection, string tableName, string? schema)
     {
-        connection.EnsureConnected();
+        if (string.IsNullOrWhiteSpace(tableName))
+            throw new ArgumentNullException(nameof(tableName));
+
         var provider = connection.Provider();
         if (string.IsNullOrWhiteSpace(schema))
             schema = provider.DefaultSchemaName;
 
+        connection.EnsureConnected();
         var database = connection.Database;
         var cacheKey = ComputeTableCacheKey(provider, database, tableName, schema);
         return SchemaCache.GetValue(cacheKey, () => DbTableSchema.Load(connection, tableName, schema));
     }
 
-    protected static async Task<IDbTableSchema> LoadTableSchemaAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
+    /// <summary>
+    /// Retrieves the table schema information from the database. If the schema
+    /// has been previously retrieved, then it simply returns it from cache.
+    /// </summary>
+    /// <param name="connection">The connection to retrieve the schema from.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The optional table schema.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The table schema.</returns>
+    public static async Task<IDbTableSchema> CacheLoadTableSchemaAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
     {
-        connection.EnsureConnected();
+        if (string.IsNullOrWhiteSpace(tableName))
+            throw new ArgumentNullException(nameof(tableName));
+
         var provider = connection.Provider();
         if (string.IsNullOrWhiteSpace(schema))
             schema = provider.DefaultSchemaName;
 
+        await connection.EnsureConnectedAsync(ct);
         var database = connection.Database;
         var cacheKey = ComputeTableCacheKey(provider, database, tableName, schema);
         return await SchemaCache.GetValueAsync(cacheKey, () => DbTableSchema.LoadAsync(connection, tableName, schema, ct));

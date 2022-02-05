@@ -22,13 +22,13 @@ internal static class DataPlayground
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        using var connection = await new SqlConnection(ConnectionString).EnsureConnectedAsync();
+        using var connection = new SqlConnection(ConnectionString);
 
         var text = connection.TableBuilder<Project>("Projects").CreateDdlCommand().CommandText;
 
         var names = await connection.GetTableNamesAsync();
 
-        var table = connection.Table("Projects").GeneratePocoCode("Project");
+        var table = (await connection.TableAsync("Projects")).GeneratePocoCode("Project");
 
         // You can configure the default timeout for commands created using the SWAN API.
         connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
@@ -40,7 +40,7 @@ internal static class DataPlayground
 
     private static async Task SqliteStuff()
     {
-        var conn = await new SqliteConnection("Data Source=mydb.sqlite").EnsureConnectedAsync();
+        var conn = new SqliteConnection("Data Source=mydb.sqlite");
         var result = await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
         var table = conn.Table<Project>("Projects");

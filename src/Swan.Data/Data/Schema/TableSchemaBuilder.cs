@@ -53,6 +53,7 @@ public class TableSchemaBuilder : IConnected
     /// <returns>The number of affected records.</returns>
     public int ExecuteDdlCommand()
     {
+        Connection.EnsureConnected();
         using var command = Provider.CreateTableDdlCommand(Connection, Table);
         return command.ExecuteNonQuery();
     }
@@ -64,7 +65,9 @@ public class TableSchemaBuilder : IConnected
     /// <returns>The number of affected records.</returns>
     public async Task<int> ExecuteDdlCommandAsync(CancellationToken ct = default)
     {
+        await Connection.EnsureConnectedAsync(ct);
         await using var command = Provider.CreateTableDdlCommand(Connection, Table);
+        
         return await command.ExecuteNonQueryAsync(ct);
     }
 

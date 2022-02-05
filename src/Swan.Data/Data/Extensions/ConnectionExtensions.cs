@@ -83,7 +83,25 @@ public static partial class ConnectionExtensions
     /// <param name="schema">The optional schema.</param>
     /// <returns>A connected table context.</returns>
     public static ITableContext Table(this DbConnection connection, string tableName, string? schema = default) =>
-        new TableContext(connection, tableName, schema);
+        new TableContext(connection, TableContext.CacheLoadTableSchema(connection, tableName, schema));
+
+    /// <summary>
+    /// Acquires a connected table context that can be used to inspect the associated
+    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
+    /// and reused whenever the table context is re-acquired. Caching keys are
+    /// computed based on the connection string, provider type and table name and schema.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The associated table name.</param>
+    /// <param name="schema">The optional schema.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>A connected table context.</returns>
+    public static async Task<ITableContext> TableAsync(
+        this DbConnection connection, string tableName, string? schema = default, CancellationToken ct = default)
+    {
+        var tableSchema = await TableContext.CacheLoadTableSchemaAsync(connection, tableName, schema, ct).ConfigureAwait(false);
+        return new TableContext(connection, tableSchema);
+    }
 
     /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
@@ -97,7 +115,7 @@ public static partial class ConnectionExtensions
     /// <returns>A connected table context.</returns>
     public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default)
         where T : class =>
-        new TableContext<T>(connection, tableName, schema);
+        new TableContext<T>(connection, TableContext.CacheLoadTableSchema(connection, tableName, schema));
 
     /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
@@ -106,12 +124,17 @@ public static partial class ConnectionExtensions
     /// computed based on the connection string, provider type and table name and schema.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
-    /// <param name="table">The associated table.</param>
+    /// <param name="tableName">The associated table name.</param>
+    /// <param name="schema">The optional schema.</param>
+    /// <param name="ct">The cancellation token.</param>
     /// <returns>A connected table context.</returns>
-    public static ITableContext<T> Table<T>(this DbConnection connection, TableIdentifier table)
-        where T : class => table is not null
-        ? new TableContext<T>(connection, table.Name, table.Schema)
-        : throw new ArgumentNullException(nameof(table));
+    public static async Task<ITableContext<T>> TableAsync<T>(
+        this DbConnection connection, string tableName, string? schema = default, CancellationToken ct = default)
+        where T : class
+    {
+        var tableSchema = await TableContext.CacheLoadTableSchemaAsync(connection, tableName, schema, ct).ConfigureAwait(false);
+        return new TableContext<T>(connection, tableSchema);
+    }
 
     /// <summary>
     /// Ensures the connection state is open and that the <see cref="DbConnection.Database"/> property has been set.

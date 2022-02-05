@@ -11,10 +11,9 @@ public class TableContext<T> : TableContext, ITableContext<T>
     /// Creates a new instance of the <see cref="TableContext{T}"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
-    /// <param name="tableName">The name of the table.</param>
-    /// <param name="schema">The optional table schema.</param>
-    public TableContext(DbConnection connection, string tableName, string? schema = null)
-        : base(connection, tableName, schema)
+    /// <param name="schema">The table schema information.</param>
+    public TableContext(DbConnection connection, IDbTableSchema schema)
+        : base(connection, schema)
     {
         // placeholder
     }

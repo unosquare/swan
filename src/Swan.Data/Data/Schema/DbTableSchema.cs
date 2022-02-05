@@ -115,6 +115,14 @@ internal sealed class DbTableSchema : IDbTableSchema
         return new DbTableSchema(connection.Database, tableName, schema, columns);
     }
 
+    /// <summary>
+    /// Loads table schema information from a database connection.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schema">The optional schema name.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>A populated table schema.</returns>
     public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
     {
         connection.EnsureConnected();
