@@ -61,7 +61,7 @@ jobs:
         access-token: ${{ secrets.github-token }}
         path: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release'
     - name: 📌 Commit
-      uses: EndBug/add-and-commit@v7
+      uses: EndBug/add-and-commit@v8.0.2
       with:
         message: '[skip ci]'
     - name: 🌿 Clean up stale packages
