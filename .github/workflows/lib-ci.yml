@@ -65,7 +65,7 @@ jobs:
       with:
         message: '[skip ci]'
     - name: 🌿 Clean up stale packages
-      uses: actions/delete-package-versions@v2
+      uses: actions/delete-package-versions@v3
       with: 
         package-name: ${{ inputs.project-name }}
         min-versions-to-keep: ${{ inputs.prerelease-versions-kept }}
