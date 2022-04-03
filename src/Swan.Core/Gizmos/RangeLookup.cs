@@ -6,7 +6,7 @@
 /// </summary>
 /// <typeparam name="TKey">The key type. Typycally dates or integers representing years.</typeparam>
 /// <typeparam name="TValue">The type of values stored within the keys.</typeparam>
-internal class RangeLookup<TKey, TValue> : IDictionary<TKey, TValue>
+public class RangeLookup<TKey, TValue> : IDictionary<TKey, TValue>
     where TKey : struct, IComparable, IComparable<TKey>
 {
     private readonly SortedList<TKey, TValue> _values = new();
