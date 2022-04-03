@@ -13,7 +13,7 @@
 
 	<PropertyGroup>
 		<PackageId>Swan.Data</PackageId>
-		<Version>6.0.0-beta.21</Version>
+		<Version>6.0.2-beta.22</Version>
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Data</AssemblyTitle>
@@ -31,7 +31,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<PackageReference Include="Swan.Core" Version="6.0.2-beta.62" />
+		<PackageReference Include="Swan.Core" Version="6.0.2-*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' != 'Release'">
