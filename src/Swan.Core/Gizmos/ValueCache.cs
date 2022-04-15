@@ -9,6 +9,7 @@ public class ValueCache<TKey, TValue>
     where TKey : notnull
 {
     private readonly ConcurrentDictionary<TKey, TValue> _dictionary = new();
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ValueCache{TKey, TValue}"/> class.
@@ -68,8 +69,16 @@ public class ValueCache<TKey, TValue>
         if (_dictionary.TryGetValue(key, out var value))
             return value;
 
-        _dictionary[key] = value = await factory().ConfigureAwait(false);
-        return value;
+        try
+        {
+            await _semaphore.WaitAsync().ConfigureAwait(false);
+            _dictionary[key] = value = await factory().ConfigureAwait(false);
+            return value;
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
     }
 
     /// <summary>
