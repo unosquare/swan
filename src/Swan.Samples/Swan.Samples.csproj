@@ -10,6 +10,7 @@
         <PackageId>Unosquare.Swan.Samples</PackageId>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
