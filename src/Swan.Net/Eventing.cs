@@ -1,84 +1,83 @@
-﻿namespace Swan.Net
+﻿namespace Swan.Net;
+
+using System;
+using System.Text;
+
+/// <summary>
+/// The event arguments for connection failure events.
+/// </summary>
+/// <seealso cref="System.EventArgs" />
+public class ConnectionFailureEventArgs : EventArgs
 {
-    using System;
-    using System.Text;
-
     /// <summary>
-    /// The event arguments for connection failure events.
+    /// Initializes a new instance of the <see cref="ConnectionFailureEventArgs"/> class.
     /// </summary>
-    /// <seealso cref="System.EventArgs" />
-    public class ConnectionFailureEventArgs : EventArgs
+    /// <param name="ex">The ex.</param>
+    public ConnectionFailureEventArgs(Exception ex)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionFailureEventArgs"/> class.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        public ConnectionFailureEventArgs(Exception ex)
-        {
-            Error = ex;
-        }
-
-        /// <summary>
-        /// Gets the error.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
-        public Exception Error { get; }
+        Error = ex;
     }
 
     /// <summary>
-    /// Event arguments for when data is received.
+    /// Gets the error.
     /// </summary>
-    /// <seealso cref="System.EventArgs" />
-    public class ConnectionDataReceivedEventArgs : EventArgs
+    /// <value>
+    /// The error.
+    /// </value>
+    public Exception Error { get; }
+}
+
+/// <summary>
+/// Event arguments for when data is received.
+/// </summary>
+/// <seealso cref="System.EventArgs" />
+public class ConnectionDataReceivedEventArgs : EventArgs
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ConnectionDataReceivedEventArgs"/> class.
+    /// </summary>
+    /// <param name="buffer">The buffer.</param>
+    /// <param name="trigger">The trigger.</param>
+    /// <param name="moreAvailable">if set to <c>true</c> [more available].</param>
+    public ConnectionDataReceivedEventArgs(byte[] buffer, ConnectionDataReceivedTrigger trigger, bool moreAvailable)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionDataReceivedEventArgs"/> class.
-        /// </summary>
-        /// <param name="buffer">The buffer.</param>
-        /// <param name="trigger">The trigger.</param>
-        /// <param name="moreAvailable">if set to <c>true</c> [more available].</param>
-        public ConnectionDataReceivedEventArgs(byte[] buffer, ConnectionDataReceivedTrigger trigger, bool moreAvailable)
-        {
-            Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
-            Trigger = trigger;
-            HasMoreAvailable = moreAvailable;
-        }
-
-        /// <summary>
-        /// Gets the buffer.
-        /// </summary>
-        /// <value>
-        /// The buffer.
-        /// </value>
-        public byte[] Buffer { get; }
-
-        /// <summary>
-        /// Gets the cause as to why this event was thrown.
-        /// </summary>
-        /// <value>
-        /// The trigger.
-        /// </value>
-        public ConnectionDataReceivedTrigger Trigger { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the receive buffer has more bytes available.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance has more available; otherwise, <c>false</c>.
-        /// </value>
-        public bool HasMoreAvailable { get; }
-
-        /// <summary>
-        /// Gets the string from buffer.
-        /// </summary>
-        /// <param name="encoding">The encoding.</param>
-        /// <returns>
-        /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">encoding.</exception>
-        public string GetStringFromBuffer(Encoding encoding)
-            => encoding?.GetString(Buffer).TrimEnd('\r', '\n') ?? throw new ArgumentNullException(nameof(encoding));
+        Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
+        Trigger = trigger;
+        HasMoreAvailable = moreAvailable;
     }
+
+    /// <summary>
+    /// Gets the buffer.
+    /// </summary>
+    /// <value>
+    /// The buffer.
+    /// </value>
+    public byte[] Buffer { get; }
+
+    /// <summary>
+    /// Gets the cause as to why this event was thrown.
+    /// </summary>
+    /// <value>
+    /// The trigger.
+    /// </value>
+    public ConnectionDataReceivedTrigger Trigger { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the receive buffer has more bytes available.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance has more available; otherwise, <c>false</c>.
+    /// </value>
+    public bool HasMoreAvailable { get; }
+
+    /// <summary>
+    /// Gets the string from buffer.
+    /// </summary>
+    /// <param name="encoding">The encoding.</param>
+    /// <returns>
+    /// A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">encoding.</exception>
+    public string GetStringFromBuffer(Encoding encoding)
+        => encoding?.GetString(Buffer).TrimEnd('\r', '\n') ?? throw new ArgumentNullException(nameof(encoding));
 }
