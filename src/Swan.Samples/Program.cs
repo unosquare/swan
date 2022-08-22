@@ -2,7 +2,6 @@
 {
     using Microsoft.Data.Sqlite;
     using Swan.Collections;
-    using Swan.DependencyInjection;
     using Swan.Extensions;
     using Swan.Formatters;
     using Swan.Logging;
@@ -250,7 +249,7 @@
             {
                 Terminal.WriteLine($"Error testing network {ex}", ConsoleColor.Red, TerminalWriterFlags.StandardError);
             }
-            TestContainerAndMessageHub();
+
             TestExceptionLogging();
 
             TestFastOutput();
@@ -330,15 +329,6 @@
                 .Info(nameof(Network));
             $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]"
                 .Info(nameof(Network));
-        }
-
-        private static void TestContainerAndMessageHub()
-        {
-            DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
-            $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
-            DependencyContainer.Current.Unregister<ISampleAnimal>();
-            DependencyContainer.Current.Register<ISampleAnimal, SampleMonkey>();
-            $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
         }
 
         private static void TestFastOutput()
