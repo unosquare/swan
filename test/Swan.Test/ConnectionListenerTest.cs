@@ -1,125 +1,124 @@
-﻿namespace Swan.Test
+﻿namespace Swan.Test;
+
+using NUnit.Framework;
+using Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+
+[TestFixture]
+public class ConnectionListenerTest
 {
-    using NUnit.Framework;
-    using Swan.Net;
-    using System.Net.Sockets;
-    using System.Threading.Tasks;
-
-    [TestFixture]
-    public class ConnectionListenerTest
+    [Test]
+    public async Task OnConnectionAcceptingTest()
     {
-        [Test]
-        public async Task OnConnectionAcceptingTest()
+        const int port = 12345;
+
+        using var connectionListener = new ConnectionListener(port);
+        using (var client = new TcpClient())
         {
-            const int port = 12345;
-
-            using var connectionListener = new ConnectionListener(port);
-            using (var client = new TcpClient())
-            {
-                var isAccepting = false;
-                connectionListener.Start();
-                connectionListener.OnConnectionAccepting += (s, e) =>
-                {
-                    Assert.IsTrue(e.Client.Connected);
-
-                    isAccepting = true;
-                };
-
-                await client.ConnectAsync("localhost", port);
-                await Task.Delay(100);
-
-                Assert.IsTrue(connectionListener.IsListening);
-                Assert.IsTrue(client.Connected);
-                Assert.IsTrue(isAccepting);
-
-                client.Close();
-            }
-
-            connectionListener.Stop();
-        }
-
-        [Test]
-        public void UsingLoopback_CanListen()
-        {
-            const int port = 12346;
-
-            using var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), port);
+            var isAccepting = false;
             connectionListener.Start();
-            Assert.IsTrue(connectionListener.IsListening);
-
-            connectionListener.Stop();
-        }
-
-        [Test]
-        public async Task OnConnectionAcceptedTest()
-        {
-            const int port = 12347;
-
-            using var connectionListener = new ConnectionListener(port);
-            using (var client = new TcpClient())
-            {
-                var isAccepted = false;
-                connectionListener.OnConnectionAccepted += (s, e) =>
-                {
-                    isAccepted = true;
-                };
-
-                connectionListener.Start();
-                await client.ConnectAsync("localhost", port);
-                await Task.Delay(100);
-                Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
-                Assert.IsTrue(client.Connected, "Client is connected");
-                Assert.IsTrue(isAccepted, "The flag was set");
-                client.Close();
-            }
-
-            connectionListener.Stop();
-        }
-
-        [Test]
-        public async Task OnConnectionFailureTest()
-        {
-            Assert.Ignore("Fix");
-
-            const int port = 12348;
-
-            using var connectionListener = new ConnectionListener(port);
-            using var client = new TcpClient();
-            var isFailure = false;
             connectionListener.OnConnectionAccepting += (s, e) =>
             {
-                e.Cancel = true;
+                Assert.IsTrue(e.Client.Connected);
+
+                isAccepting = true;
             };
-            connectionListener.OnConnectionFailure += (s, e) =>
+
+            await client.ConnectAsync("localhost", port);
+            await Task.Delay(100);
+
+            Assert.IsTrue(connectionListener.IsListening);
+            Assert.IsTrue(client.Connected);
+            Assert.IsTrue(isAccepting);
+
+            client.Close();
+        }
+
+        connectionListener.Stop();
+    }
+
+    [Test]
+    public void UsingLoopback_CanListen()
+    {
+        const int port = 12346;
+
+        using var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), port);
+        connectionListener.Start();
+        Assert.IsTrue(connectionListener.IsListening);
+
+        connectionListener.Stop();
+    }
+
+    [Test]
+    public async Task OnConnectionAcceptedTest()
+    {
+        const int port = 12347;
+
+        using var connectionListener = new ConnectionListener(port);
+        using (var client = new TcpClient())
+        {
+            var isAccepted = false;
+            connectionListener.OnConnectionAccepted += (s, e) =>
             {
-                isFailure = true;
+                isAccepted = true;
             };
 
             connectionListener.Start();
             await client.ConnectAsync("localhost", port);
-            connectionListener.Stop();
-
-            Assert.IsTrue(isFailure);
+            await Task.Delay(100);
+            Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
+            Assert.IsTrue(client.Connected, "Client is connected");
+            Assert.IsTrue(isAccepted, "The flag was set");
+            client.Close();
         }
 
-        [Test]
-        public void OnListenerStoppedTest()
+        connectionListener.Stop();
+    }
+
+    [Test]
+    public async Task OnConnectionFailureTest()
+    {
+        Assert.Ignore("Fix");
+
+        const int port = 12348;
+
+        using var connectionListener = new ConnectionListener(port);
+        using var client = new TcpClient();
+        var isFailure = false;
+        connectionListener.OnConnectionAccepting += (s, e) =>
         {
-            const int port = 12349;
+            e.Cancel = true;
+        };
+        connectionListener.OnConnectionFailure += (s, e) =>
+        {
+            isFailure = true;
+        };
 
-            using var connectionListener = new ConnectionListener(port);
-            var isStopped = false;
-            connectionListener.Start();
-            connectionListener.OnListenerStopped += (s, e) =>
-            {
-                isStopped = true;
-            };
+        connectionListener.Start();
+        await client.ConnectAsync("localhost", port);
+        connectionListener.Stop();
 
-            Assert.IsTrue(connectionListener.IsListening);
-            connectionListener.Stop();
-            Assert.IsFalse(connectionListener.IsListening);
-            Assert.IsTrue(isStopped);
-            connectionListener.Stop();
-        }
+        Assert.IsTrue(isFailure);
+    }
+
+    [Test]
+    public void OnListenerStoppedTest()
+    {
+        const int port = 12349;
+
+        using var connectionListener = new ConnectionListener(port);
+        var isStopped = false;
+        connectionListener.Start();
+        connectionListener.OnListenerStopped += (s, e) =>
+        {
+            isStopped = true;
+        };
+
+        Assert.IsTrue(connectionListener.IsListening);
+        connectionListener.Stop();
+        Assert.IsFalse(connectionListener.IsListening);
+        Assert.IsTrue(isStopped);
+        connectionListener.Stop();
     }
 }

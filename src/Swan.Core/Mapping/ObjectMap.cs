@@ -1,6 +1,6 @@
 ﻿namespace Swan.Mapping;
 
-using Swan.Reflection;
+using Reflection;
 
 /// <summary>
 /// Provides a basic implementation of a <see cref="IObjectMap"/>

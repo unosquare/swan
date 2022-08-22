@@ -1,6 +1,6 @@
 ﻿namespace Swan;
 
-using Swan.Reflection;
+using Reflection;
 using System;
 
 /// <summary>

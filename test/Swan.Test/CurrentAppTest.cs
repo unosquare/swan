@@ -1,34 +1,33 @@
-﻿namespace Swan.Test
+﻿namespace Swan.Test;
+
+using NUnit.Framework;
+using Platform;
+using System;
+
+[TestFixture]
+public class CurrentAppTest
 {
-    using NUnit.Framework;
-    using Swan.Platform;
-    using System;
-
-    [TestFixture]
-    public class CurrentAppTest
+    [Test]
+    public void IsSingleInstanceTest()
     {
-        [Test]
-        public void IsSingleInstanceTest()
-        {
-            Assert.IsTrue(SwanRuntime.IsTheOnlyInstance);
-        }
+        Assert.IsTrue(SwanRuntime.IsTheOnlyInstance);
+    }
 
-        [Test]
-        public void IsUsingMonoRuntimeTest()
-        {
-            Assert.AreEqual(Type.GetType("Mono.Runtime") != null, SwanRuntime.IsUsingMonoRuntime);
-        }
+    [Test]
+    public void IsUsingMonoRuntimeTest()
+    {
+        Assert.AreEqual(Type.GetType("Mono.Runtime") != null, SwanRuntime.IsUsingMonoRuntime);
+    }
 
-        [Test]
-        public void GetLocalStorageTest()
-        {
-            Assert.IsNotEmpty(SwanRuntime.LocalStoragePath, $"Retrieving a local storage path: {SwanRuntime.LocalStoragePath}");
-        }
+    [Test]
+    public void GetLocalStorageTest()
+    {
+        Assert.IsNotEmpty(SwanRuntime.LocalStoragePath, $"Retrieving a local storage path: {SwanRuntime.LocalStoragePath}");
+    }
 
-        [Test]
-        public void GetEntryAssemblyDirectoryTest()
-        {
-            Assert.IsNotNull(SwanRuntime.EntryAssemblyDirectory);
-        }
+    [Test]
+    public void GetEntryAssemblyDirectoryTest()
+    {
+        Assert.IsNotNull(SwanRuntime.EntryAssemblyDirectory);
     }
 }

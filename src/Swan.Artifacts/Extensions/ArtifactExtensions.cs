@@ -7,15 +7,6 @@ using System.Globalization;
 /// </summary>
 public static class ArtifactExtensions
 {
-    private static readonly Dictionary<string, int> DateRanges = new()
-    {
-        { "minute", 59 },
-        { "hour", 23 },
-        { "dayOfMonth", 31 },
-        { "month", 12 },
-        { "dayOfWeek", 6 },
-    };
-
     /// <summary>
     /// Gets the line and column number (i.e. not index) of the
     /// specified character index. Useful to locate text in a multi-line
@@ -52,7 +43,6 @@ public static class ArtifactExtensions
         return Tuple.Create(lineIndex + 1, colNumber);
     }
 
-
     /// <summary>
     /// Rounds up a date to match a timespan.
     /// </summary>
@@ -65,54 +55,6 @@ public static class ArtifactExtensions
         => new(((date.Ticks + timeSpan.Ticks - 1) / timeSpan.Ticks) * timeSpan.Ticks);
 
     /// <summary>
-    /// Compare the Date elements(Months, Days, Hours, Minutes).
-    /// </summary>
-    /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
-    /// <param name="minute">The minute (0-59).</param>
-    /// <param name="hour">The hour. (0-23).</param>
-    /// <param name="dayOfMonth">The day of month. (1-31).</param>
-    /// <param name="month">The month. (1-12).</param>
-    /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0).</param>
-    /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c>.</returns>
-    public static bool AsCronCanRun(this DateTime @this, int? minute = null, int? hour = null, int? dayOfMonth = null, int? month = null, int? dayOfWeek = null)
-    {
-        var results = new List<bool?>
-        {
-            GetElementParts(minute, @this.Minute),
-            GetElementParts(hour, @this.Hour),
-            GetElementParts(dayOfMonth, @this.Day),
-            GetElementParts(month, @this.Month),
-            GetElementParts(dayOfWeek, (int) @this.DayOfWeek),
-        };
-
-        return results.Any(x => x != false);
-    }
-
-    /// <summary>
-    /// Compare the Date elements(Months, Days, Hours, Minutes).
-    /// </summary>
-    /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
-    /// <param name="minute">The minute (0-59).</param>
-    /// <param name="hour">The hour. (0-23).</param>
-    /// <param name="dayOfMonth">The day of month. (1-31).</param>
-    /// <param name="month">The month. (1-12).</param>
-    /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0).</param>
-    /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c>.</returns>
-    public static bool AsCronCanRun(this DateTime @this, string minute = "*", string hour = "*", string dayOfMonth = "*", string month = "*", string dayOfWeek = "*")
-    {
-        var results = new List<bool?>
-        {
-            GetElementParts(minute, nameof(minute), @this.Minute),
-            GetElementParts(hour, nameof(hour), @this.Hour),
-            GetElementParts(dayOfMonth, nameof(dayOfMonth), @this.Day),
-            GetElementParts(month, nameof(month), @this.Month),
-            GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) @this.DayOfWeek),
-        };
-
-        return results.Any(x => x != false);
-    }
-
-    /// <summary>
     /// Converts a <see cref="DateTime"/> to the <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#RFC1123">RFC1123 format</see>.
     /// </summary>
     /// <param name="this">The <see cref="DateTime"/> on which this method is called.</param>
@@ -122,47 +64,4 @@ public static class ArtifactExtensions
     /// </remarks>
     public static string ToRfc1123String(this DateTime @this)
         => @this.ToUniversalTime().ToString("R", CultureInfo.InvariantCulture);
-
-    private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : null;
-
-    private static bool? GetElementParts(string parts, string type, int value)
-    {
-        if (string.IsNullOrWhiteSpace(parts) || parts == "*")
-            return null;
-
-        if (parts.Contains(',', StringComparison.Ordinal))
-        {
-            return parts.Split(',').Select(int.Parse).Contains(value);
-        }
-
-        var stop = DateRanges[type];
-
-        if (parts.Contains('/', StringComparison.Ordinal))
-        {
-            var multiple = int.Parse(parts.Split('/').Last(), CultureInfo.InvariantCulture);
-            var start = type is "dayOfMonth" or "month" ? 1 : 0;
-
-            for (var i = start; i <= stop; i += multiple)
-                if (i == value) return true;
-
-            return false;
-        }
-
-        if (parts.Contains('-', StringComparison.Ordinal))
-        {
-            var range = parts.Split('-');
-            var start = int.Parse(range.First(), CultureInfo.InvariantCulture);
-            stop = Math.Max(stop, int.Parse(range.Last(), CultureInfo.InvariantCulture));
-
-            if ((type is "dayOfMonth" or "month") && start == 0)
-                start = 1;
-
-            for (var i = start; i <= stop; i++)
-                if (i == value) return true;
-
-            return false;
-        }
-
-        return int.Parse(parts, CultureInfo.InvariantCulture) == value;
-    }
 }

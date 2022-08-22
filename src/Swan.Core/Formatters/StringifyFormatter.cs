@@ -1,7 +1,7 @@
 ﻿namespace Swan.Formatters;
 
 #pragma warning disable CA1031 // Do not catch general exception types
-using Swan.Extensions;
+using Extensions;
 using System;
 using System.Linq;
 using System.Text;

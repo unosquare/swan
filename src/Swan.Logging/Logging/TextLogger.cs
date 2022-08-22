@@ -1,8 +1,8 @@
 ﻿namespace Swan.Logging;
 
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Platform;
+using Extensions;
+using Formatters;
+using Platform;
 using System;
 
 /// <summary>

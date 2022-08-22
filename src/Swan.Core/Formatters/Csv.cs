@@ -1,6 +1,6 @@
 ﻿namespace Swan.Formatters;
 
-using Swan.Platform;
+using Platform;
 using System.IO;
 
 /// <summary>

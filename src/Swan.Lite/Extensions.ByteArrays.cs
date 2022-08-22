@@ -1,6 +1,6 @@
 ﻿namespace Swan;
 
-using Swan.Extensions;
+using Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -439,7 +439,7 @@ public static class ByteArrayExtensions
                 if (read == 0)
                     break;
 
-                await dest.WriteAsync(buff.Slice(0, bufferLength), cancellationToken);
+                await dest.WriteAsync(buff[..bufferLength], cancellationToken);
                 length -= read;
             }
         }

@@ -1,28 +1,27 @@
-﻿namespace Swan.Test.SingletonBaseTest
+﻿namespace Swan.Test.SingletonBaseTest;
+
+using NUnit.Framework;
+using Mocks;
+
+[TestFixture]
+public class Dispose
 {
-    using NUnit.Framework;
-    using Swan.Test.Mocks;
-
-    [TestFixture]
-    public class Dispose
+    [Test]
+    public void WithDispose_DoesntThrowsException()
     {
-        [Test]
-        public void WithDispose_DoesntThrowsException()
-        {
-            MockProvider.Instance.Dispose();
+        MockProvider.Instance.Dispose();
 
-            // here we only check if we don't get any exception
-            Assert.IsTrue(true);
-        }
+        // here we only check if we don't get any exception
+        Assert.IsTrue(true);
+    }
 
-        [Test]
-        public void WithDisposeTwiceTest_DoesntThrowsException()
-        {
-            MockProvider.Instance.Dispose();
-            MockProvider.Instance.Dispose();
+    [Test]
+    public void WithDisposeTwiceTest_DoesntThrowsException()
+    {
+        MockProvider.Instance.Dispose();
+        MockProvider.Instance.Dispose();
 
-            // here we only check if we don't get any exception
-            Assert.IsTrue(true);
-        }
+        // here we only check if we don't get any exception
+        Assert.IsTrue(true);
     }
 }

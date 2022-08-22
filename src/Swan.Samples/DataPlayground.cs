@@ -2,8 +2,8 @@
 
 using Microsoft.Data.Sqlite;
 using Swan.Data.Extensions;
-using Swan.Logging;
-using Swan.Platform;
+using Logging;
+using Platform;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,7 +22,7 @@ internal static class DataPlayground
         var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        using var connection = new SqlConnection(ConnectionString);
+        await using var connection = new SqlConnection(ConnectionString);
 
         var text = connection.TableBuilder<Project>("Projects").CreateDdlCommand().CommandText;
 

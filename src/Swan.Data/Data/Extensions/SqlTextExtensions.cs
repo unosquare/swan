@@ -71,7 +71,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items != null && items.Length > 0
+        var quotedNames = items is {Length: > 0}
             ? string.Join(", ", items.Select(f => @this.Provider.QuoteField(f)))
             : "*";
         return @this.AppendText($"{quotedNames}");
@@ -199,7 +199,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items != null && items.Length > 0
+        var quotedNames = items is {Length: > 0}
             ? string.Join(", ", items.Select(f => @this.Provider.QuoteParameter(f)))
             : string.Empty;
 

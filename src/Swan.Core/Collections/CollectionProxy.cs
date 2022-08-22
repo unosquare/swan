@@ -1,6 +1,6 @@
 ﻿namespace Swan.Collections;
 
-using Swan.Reflection;
+using Reflection;
 
 /// <summary>
 /// Provides a unified API for most commonly available collection types.

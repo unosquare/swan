@@ -1,6 +1,6 @@
 ﻿namespace Swan.Mapping;
 
-using Swan.Reflection;
+using Reflection;
 using System.Linq.Expressions;
 
 /// <summary>

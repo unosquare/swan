@@ -1,6 +1,6 @@
 ﻿namespace Swan.Reflection;
 
-using Swan.Collections;
+using Collections;
 
 public static partial class TypeManager
 {

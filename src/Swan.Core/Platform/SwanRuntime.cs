@@ -96,14 +96,6 @@ public static class SwanRuntime
     }
 
     /// <summary>
-    /// Gets a value indicating whether this application instance is using the MONO runtime.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is using MONO runtime; otherwise, <c>false</c>.
-    /// </value>
-    public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") is not null;
-
-    /// <summary>
     /// Gets the assembly that started the application.
     /// </summary>
     /// <value>

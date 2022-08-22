@@ -1,6 +1,6 @@
 ﻿namespace Swan.Net;
 
-using Swan.Formatters;
+using Formatters;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

@@ -18,15 +18,9 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (string.IsNullOrWhiteSpace(database))
             throw new ArgumentNullException(nameof(database));
 
-        if (tableName is null)
-            throw new ArgumentNullException(nameof(tableName));
-
-        if (schema is null)
-            throw new ArgumentNullException(nameof(schema));
-
         Database = database;
-        TableName = tableName;
-        Schema = schema;
+        TableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
+        Schema = schema ?? throw new ArgumentNullException(nameof(schema));
 
         if (columns is null)
             return;
@@ -128,10 +122,10 @@ internal sealed class DbTableSchema : IDbTableSchema
         connection.EnsureConnected();
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
-        using var schemaCommand = connection.BeginCommandText()
+        await using var schemaCommand = connection.BeginCommandText()
             .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
 
-        using var schemaReader = await schemaCommand.ExecuteReaderAsync(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo, ct);
+        await using var schemaReader = await schemaCommand.ExecuteReaderAsync(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo, ct);
         using var schemaTable = await schemaReader.GetSchemaTableAsync(ct);
 
         if (schemaTable is null)

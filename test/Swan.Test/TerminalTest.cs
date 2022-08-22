@@ -1,50 +1,49 @@
-﻿namespace Swan.Test.TerminalTests
+﻿namespace Swan.Test.TerminalTests;
+
+using NUnit.Framework;
+using Platform;
+using System;
+
+[TestFixture]
+public class IsConsolePresent
 {
-    using NUnit.Framework;
-    using Swan.Platform;
-    using System;
-
-    [TestFixture]
-    public class IsConsolePresent
+    [Test]
+    public void ConsolePresent_ReturnsTrue()
     {
-        [Test]
-        public void ConsolePresent_ReturnsTrue()
-        {
-            if (OperatingSystem.IsWindows())
-                Assert.Ignore("Failing test on Windows");
+        if (OperatingSystem.IsWindows())
+            Assert.Ignore("Failing test on Windows");
 
-            Assert.IsTrue(Terminal.IsConsolePresent);
-        }
+        Assert.IsTrue(Terminal.IsConsolePresent);
     }
+}
 
-    [TestFixture]
-    public class AvailableWriters
+[TestFixture]
+public class AvailableWriters
+{
+    [Test]
+    public void Writers_ReturnsNotEqualWriters()
     {
-        [Test]
-        public void Writers_ReturnsNotEqualWriters()
-        {
-            if (OperatingSystem.IsWindows())
-                Assert.Ignore("Windows doesn't provide writers");
+        if (OperatingSystem.IsWindows())
+            Assert.Ignore("Windows doesn't provide writers");
 
-            var writers = Terminal.AvailableWriters;
+        var writers = Terminal.AvailableWriters;
 
-            Assert.AreNotEqual(writers, TerminalWriterFlags.None, "Check for at least one available writer");
-        }
+        Assert.AreNotEqual(writers, TerminalWriterFlags.None, "Check for at least one available writer");
     }
+}
 
-    [TestFixture]
-    public class OutputEncoding
+[TestFixture]
+public class OutputEncoding
+{
+    [Test]
+    public void DefaultEncoding_ReturnsEqualEncoding()
     {
-        [Test]
-        public void DefaultEncoding_ReturnsEqualEncoding()
-        {
-            var defaultEncoding = Terminal.OutputEncoding;
+        var defaultEncoding = Terminal.OutputEncoding;
 
-            Assert.IsNotNull(defaultEncoding);
+        Assert.IsNotNull(defaultEncoding);
 
-            Terminal.OutputEncoding = System.Text.Encoding.UTF8;
+        Terminal.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Assert.AreEqual(Terminal.OutputEncoding, System.Text.Encoding.UTF8, "Change to UTF8 encoding");
-        }
+        Assert.AreEqual(Terminal.OutputEncoding, System.Text.Encoding.UTF8, "Change to UTF8 encoding");
     }
 }

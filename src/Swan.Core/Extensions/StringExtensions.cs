@@ -1,7 +1,7 @@
 ﻿namespace Swan.Extensions;
 
-using Swan.Formatters;
-using Swan.Reflection;
+using Formatters;
+using Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -42,15 +42,13 @@ public static class StringExtensions
     /// </summary>
     /// <param name="this">The item.</param>
     /// <returns>A <see cref="string" /> that represents the current object.</returns>
-    public static string ToStringInvariant(this object? @this)
-    {
-        return @this switch
+    public static string ToStringInvariant(this object? @this) =>
+        @this switch
         {
             null => string.Empty,
             string stringValue => stringValue,
             _ => @this.GetType().TypeInfo().ToStringInvariant(@this)
         };
-    }
 
     /// <summary>
     /// Returns a string that represents the given item
@@ -301,8 +299,8 @@ public static class StringExtensions
         return maximumLength < ellipsis.Length + 1
             ? throw new ArgumentOutOfRangeException(nameof(maximumLength))
             : value.Length > maximumLength
-            ? $"{value[..(maximumLength - ellipsis.Length)]}{ellipsis}"
-            : value;
+                ? $"{value[..(maximumLength - ellipsis.Length)]}{ellipsis}"
+                : value;
     }
 
     /// <summary>
@@ -319,8 +317,10 @@ public static class StringExtensions
     /// <param name="chars">
     /// An array of <see cref="char"/> that contains characters to find.
     /// </param>
-    public static bool Contains(this string value, params char[] chars) => chars is not null
-        && (chars.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1));
+    public static bool Contains(this string value, params char[]? chars) => chars is not null
+                                                                            && (chars.Length == 0 ||
+                                                                                (!string.IsNullOrEmpty(value) &&
+                                                                                    value.IndexOfAny(chars) > -1));
 
     /// <summary>
     /// Replaces all chars in a string.

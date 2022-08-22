@@ -1,6 +1,6 @@
 ﻿namespace Swan.Formatters;
 
-using Swan.Threading;
+using Threading;
 using System.IO;
 
 /// <summary>

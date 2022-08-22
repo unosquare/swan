@@ -1,5 +1,5 @@
 ﻿namespace Swan.Gizmos;
-using Swan.Extensions;
+using Extensions;
 
 /// <summary>
 /// A utility class to compute paging or batching offsets.

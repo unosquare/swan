@@ -1,7 +1,7 @@
 ﻿namespace Swan.Mapping;
 
-using Swan.Collections;
-using Swan.Reflection;
+using Collections;
+using Reflection;
 
 /// <summary>
 /// Represents an AutoMapper-like object to map from one object type

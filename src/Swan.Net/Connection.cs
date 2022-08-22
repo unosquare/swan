@@ -1,6 +1,6 @@
 ﻿namespace Swan.Net;
 
-using Swan.Logging;
+using Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -668,7 +668,7 @@ public sealed class Connection : IDisposable
 
         try
         {
-            await secureStream.AuthenticateAsClientAsync(hostname ?? Network.HostName.ToLowerInvariant()).ConfigureAwait(false);
+            await secureStream.AuthenticateAsClientAsync(hostname ?? Dns.GetHostName().ToLowerInvariant()).ConfigureAwait(false);
             SecureStream = secureStream;
         }
 #pragma warning disable CA1031 // Do not catch general exception types

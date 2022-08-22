@@ -1,5 +1,5 @@
 ﻿namespace Swan.Extensions;
-using Swan.Gizmos;
+using Gizmos;
 
 /// <summary>
 /// Provides extension methods for <see cref="DateTime"/>.

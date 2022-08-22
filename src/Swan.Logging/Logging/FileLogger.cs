@@ -1,7 +1,7 @@
 ﻿namespace Swan.Logging;
 
-using Swan.Platform;
-using Swan.Threading;
+using Platform;
+using Threading;
 using System;
 using System.Collections.Concurrent;
 using System.IO;

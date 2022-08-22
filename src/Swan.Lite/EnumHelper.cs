@@ -1,10 +1,7 @@
 ﻿namespace Swan;
 
-using Swan.Collections;
-using Swan.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Collections;
+using Extensions;
 
 /// <summary>
 /// Provide Enumerations helpers with internal cache.
@@ -18,12 +15,10 @@ public class EnumHelper
     /// <typeparam name="T">The type of the attribute to be retrieved.</typeparam>
     /// <returns>A tuple of enumerator names and their value stored for the specified type.</returns>
     public static IEnumerable<Tuple<string?, object>> Retrieve<T>()
-        where T : struct, IConvertible
-    {
-        return Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
+        where T : struct, IConvertible =>
+        Instance.Retrieve(typeof(T), t => Enum.GetValues(t)
             .Cast<object>()
             .Select(item => Tuple.Create(Enum.GetName(t, item), item)));
-    }
 
     /// <summary>
     /// Gets the cached items with the enum item value.
@@ -35,11 +30,9 @@ public class EnumHelper
     /// that represents items with the enum item value.
     /// </returns>
     public static IEnumerable<Tuple<int, string>> GetItemsWithValue<T>(bool humanize = true)
-        where T : struct, IConvertible
-    {
-        return Retrieve<T>()
+        where T : struct, IConvertible =>
+        Retrieve<T>()
             .Select(x => Tuple.Create((int)x.Item2, humanize ? x.Item1.Humanize() : x.Item1));
-    }
 
     /// <summary>
     /// Gets the flag values.

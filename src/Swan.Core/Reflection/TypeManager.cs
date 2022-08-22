@@ -1,6 +1,6 @@
 ﻿namespace Swan.Reflection;
 
-using Swan.Collections;
+using Collections;
 
 /// <summary>
 /// Provides efficient access to a cached repository of <see cref="Reflection.TypeInfo"/>

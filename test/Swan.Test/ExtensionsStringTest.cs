@@ -1,284 +1,283 @@
-﻿namespace Swan.Test.ExtensionsStringTest
-{
-    using NUnit.Framework;
-    using Swan.Extensions;
-    using Swan.Formatters;
-    using Swan.Test.Mocks;
-    using System;
-    using System.Collections.Generic;
+﻿namespace Swan.Test.ExtensionsStringTest;
 
-    [TestFixture]
-    public class Humanize
-    {
-        [TestCase("Camel Case", "CamelCase")]
-        [TestCase("Snake Case", "Snake_Case")]
-        public void WithValidString_ReturnsHumanizedString(string expected, string input) =>
+using NUnit.Framework;
+using Extensions;
+using Formatters;
+using Mocks;
+using System;
+using System.Collections.Generic;
+
+[TestFixture]
+public class Humanize
+{
+    [TestCase("Camel Case", "CamelCase")]
+    [TestCase("Snake Case", "Snake_Case")]
+    public void WithValidString_ReturnsHumanizedString(string expected, string input) =>
         Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
 
-        [TestCase("Yes", true)]
-        [TestCase("No", false)]
-        public void WithValidBoolean_ReturnsHumanizedString(string expected, bool input) =>
-            Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
+    [TestCase("Yes", true)]
+    [TestCase("No", false)]
+    public void WithValidBoolean_ReturnsHumanizedString(string expected, bool input) =>
+        Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
 
-        [TestCase("Camel Case", "CamelCase")]
-        [TestCase("Yes", true)]
-        [TestCase("(null)", null)]
-        [TestCase("12", 12)]
-        public void WithValidObject_ReturnsHumanizedString(string expected, object input) =>
-            Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
+    [TestCase("Camel Case", "CamelCase")]
+    [TestCase("Yes", true)]
+    [TestCase("(null)", null)]
+    [TestCase("12", 12)]
+    public void WithValidObject_ReturnsHumanizedString(string expected, object input) =>
+        Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
+}
+
+[TestFixture]
+public class ReplaceAll
+{
+    [TestCase("Cam lCas ", "CamelCase", new[] { 'e' }, " ")]
+    [TestCase("CamelCase", "CxamxelCxaxse", new[] { 'x' }, "")]
+    public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, string input, char[] toBeReplaced, string toReplace) =>
+        Assert.AreEqual(expected, input.ReplaceAll(toReplace, toBeReplaced), $"Testing with {input}");
+}
+
+[TestFixture]
+public class Stringify : TestFixtureBase
+{
+    [TestCase("string", "string")]
+    [TestCase("(null)", null)]
+    public void WithValidParam_ReturnsStringifiedObject(string expected, object input)
+    {
+        Assert.IsTrue(input.Stringify().EndsWith(expected), $"Testing with {input}");
     }
 
-    [TestFixture]
-    public class ReplaceAll
+    [Test]
+    public void WithJsonAsParam_ReturnsStringifiedJson()
     {
-        [TestCase("Cam lCas ", "CamelCase", new[] { 'e' }, " ")]
-        [TestCase("CamelCase", "CxamxelCxaxse", new[] { 'x' }, "")]
-        public void WithValidString_ReturnsStringWithReplacedCharacters(string expected, string input, char[] toBeReplaced, string toReplace) =>
-            Assert.AreEqual(expected, input.ReplaceAll(toReplace, toBeReplaced), $"Testing with {input}");
+        var family = SampleFamily.Create(true);
+        var familyString = family.Stringify();
+
+        var s = "hello world".Stringify();
+
+        var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
+
+        Assert.GreaterOrEqual(7, objectInfoLines.Length);
+        Assert.AreEqual("  DecimalData     : 10.33", objectInfoLines[4]);
     }
 
-    [TestFixture]
-    public class Stringify : TestFixtureBase
+    [Test]
+    public void WithEmptyJsonAsParam_ReturnsStringifiedJson()
     {
-        [TestCase("string", "string")]
-        [TestCase("(null)", null)]
-        public void WithValidParam_ReturnsStringifiedObject(string expected, object input)
-        {
-            Assert.IsTrue(input.Stringify().EndsWith(expected), $"Testing with {input}");
-        }
+        var emptyJson = new EmptyJson();
+        var objectInfoLines = emptyJson.Stringify().ToLines();
 
-        [Test]
-        public void WithJsonAsParam_ReturnsStringifiedJson()
-        {
-            var family = SampleFamily.Create(true);
-            var familyString = family.Stringify();
-
-            var s = "hello world".Stringify();
-
-            var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
-
-            Assert.GreaterOrEqual(7, objectInfoLines.Length);
-            Assert.AreEqual("  DecimalData     : 10.33", objectInfoLines[4]);
-        }
-
-        [Test]
-        public void WithEmptyJsonAsParam_ReturnsStringifiedJson()
-        {
-            var emptyJson = new EmptyJson();
-            var objectInfoLines = emptyJson.Stringify().ToLines();
-
-            Assert.IsTrue(objectInfoLines[0]?.Length > 0);
-        }
-
-        [Test]
-        public void WithListOfArraysAsParam_ReturnsStringifiedArray()
-        {
-            var arrayInt = new[] { 1234, 4321 };
-
-            var arrayList = new List<int[]>
-            {
-                arrayInt,
-                arrayInt,
-            };
-
-            var objectInfoLines = arrayList.Stringify().ToLines();
-
-            Assert.AreEqual("[0]: array[2]", objectInfoLines[0]);
-            Assert.AreEqual("    [0]: 1234", objectInfoLines[1]);
-            Assert.AreEqual("    [1]: 4321", objectInfoLines[2]);
-        }
-
-        [Test]
-        public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
-        {
-            var wordDictionary =
-                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { DefaultStringList.ToArray(), DefaultStringList.ToArray() } } };
-
-            var objectInfoLines = wordDictionary.Stringify().ToLines();
-
-            Assert.AreEqual("  Horde Capitals  : ", objectInfoLines[1]);
-            Assert.AreEqual("    [1]: ", objectInfoLines[6]);
-            Assert.AreEqual("      [0]: A", objectInfoLines[7]);
-        }
-
-        [Test]
-        public void WithDictionaryOfDictionariesAsParam_ReturnsStringifiedArray()
-        {
-            var persons = new Dictionary<string, Dictionary<int, string>>
-            {
-                {"Tyrande", DefaultDictionary },
-                {"Jaina", DefaultDictionary },
-                {"Liadrin", DefaultDictionary },
-            };
-
-            var objectInfoLines = persons.Stringify().ToLines();
-
-            Assert.IsTrue(objectInfoLines[1].StartsWith("  Tyrande         : "));
-            Assert.IsTrue(objectInfoLines[7].StartsWith("  Jaina           : "));
-            Assert.IsTrue(objectInfoLines[13].StartsWith("  Liadrin         : "));
-        }
+        Assert.IsTrue(objectInfoLines[0]?.Length > 0);
     }
 
-    [TestFixture]
-    public class ToStringInvariant : TestFixtureBase
+    [Test]
+    public void WithListOfArraysAsParam_ReturnsStringifiedArray()
     {
-        [TestCase("", null)]
-        [TestCase("Test", "Test")]
-        [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
-        public void WithObjectAsParam_ReturnsAString(string expected, object input)
-        {
-            Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
-        }
+        var arrayInt = new[] { 1234, 4321 };
 
-        [TestCase("Test", "Test")]
-        [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
-        public void WithGenericAsParam_ReturnsAString<T>(string expected, T input)
+        var arrayList = new List<int[]>
         {
-            Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
-        }
+            arrayInt,
+            arrayInt,
+        };
+
+        var objectInfoLines = arrayList.Stringify().ToLines();
+
+        Assert.AreEqual("[0]: array[2]", objectInfoLines[0]);
+        Assert.AreEqual("    [0]: 1234", objectInfoLines[1]);
+        Assert.AreEqual("    [1]: 4321", objectInfoLines[2]);
     }
 
-    [TestFixture]
-    public class RemoveControlChars : TestFixtureBase
+    [Test]
+    public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
     {
-        [TestCase("Test", "Test", null)]
-        [TestCase("Test", "\0Test\0", null)]
-        [TestCase("\0Test", "\0Test", new[] { '\0' })]
-        [TestCase("\0Test", "\0Test\t", new[] { '\0' })]
-        public void WithValidString_ReturnsStringWithoutControlCharacters(
-            string expected,
-            string input,
-            char[] excludeChars)
-        {
-            var output = input.RemoveControlChars(excludeChars);
-            Assert.AreEqual(expected, output, $"Testing with {input}");
-        }
+        var wordDictionary =
+            new Dictionary<string, string[][]> { { "Horde Capitals", new[] { DefaultStringList.ToArray(), DefaultStringList.ToArray() } } };
 
-        [Test]
-        public void WithValidString_ReturnsStringWithoutControlCharacters()
-        {
-            const string input = "\0Test\t";
-            Assert.AreEqual("Test", input.RemoveControlChars(), $"Testing with {input}");
-        }
+        var objectInfoLines = wordDictionary.Stringify().ToLines();
+
+        Assert.AreEqual("  Horde Capitals  : ", objectInfoLines[1]);
+        Assert.AreEqual("    [1]: ", objectInfoLines[6]);
+        Assert.AreEqual("      [0]: A", objectInfoLines[7]);
     }
 
-    [TestFixture]
-    public class Slice
+    [Test]
+    public void WithDictionaryOfDictionariesAsParam_ReturnsStringifiedArray()
     {
-        [TestCase("", null, 0, 0)]
-        [TestCase("Swan", "ThisIsASwanTest", 7, 10)]
-        [TestCase("", "ThisIsASwanTest", 10, 7)]
-        public void WithValidParams_ReturnsASlicedString(string expected, string input, int startIndex, int endIndex)
+        var persons = new Dictionary<string, Dictionary<int, string>>
         {
-            Assert.AreEqual(expected, input.Slice(startIndex, endIndex), $"Testing with {input}");
-        }
+            {"Tyrande", DefaultDictionary },
+            {"Jaina", DefaultDictionary },
+            {"Liadrin", DefaultDictionary },
+        };
+
+        var objectInfoLines = persons.Stringify().ToLines();
+
+        Assert.IsTrue(objectInfoLines[1].StartsWith("  Tyrande         : "));
+        Assert.IsTrue(objectInfoLines[7].StartsWith("  Jaina           : "));
+        Assert.IsTrue(objectInfoLines[13].StartsWith("  Liadrin         : "));
+    }
+}
+
+[TestFixture]
+public class ToStringInvariant : TestFixtureBase
+{
+    [TestCase("", null)]
+    [TestCase("Test", "Test")]
+    [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
+    public void WithObjectAsParam_ReturnsAString(string expected, object input)
+    {
+        Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
     }
 
-    [TestFixture]
-    public class SliceLength
+    [TestCase("Test", "Test")]
+    [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
+    public void WithGenericAsParam_ReturnsAString<T>(string expected, T input)
     {
-        [TestCase("", null, 0, 0)]
-        [TestCase("Swan", "ThisIsASwanTest", 7, 4)]
-        [TestCase("", "ThisIsASwanTest", 10, 0)]
-        public void WithValidParam_ReturnsASubstring(string expected, string input, int startIndex, int length)
-        {
-            Assert.AreEqual(expected, input.SliceLength(startIndex, length), $"Testing with {input}");
-        }
+        Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
+    }
+}
+
+[TestFixture]
+public class RemoveControlChars : TestFixtureBase
+{
+    [TestCase("Test", "Test", null)]
+    [TestCase("Test", "\0Test\0", null)]
+    [TestCase("\0Test", "\0Test", new[] { '\0' })]
+    [TestCase("\0Test", "\0Test\t", new[] { '\0' })]
+    public void WithValidString_ReturnsStringWithoutControlCharacters(
+        string expected,
+        string input,
+        char[] excludeChars)
+    {
+        var output = input.RemoveControlChars(excludeChars);
+        Assert.AreEqual(expected, output, $"Testing with {input}");
     }
 
-    [TestFixture]
-    public class TextPositionAt
+    [Test]
+    public void WithValidString_ReturnsStringWithoutControlCharacters()
     {
-        [TestCase(0, 0, null, 0)]
-        [TestCase(1, 7, "ThisIsASwanTest", 6)]
-        [TestCase(2, 0, "ThisIs\nASwanTest", 6)]
-        public void WithValidParams_ReturnsATuple(int firstExpected, int secExpected, string input, int charIndex)
-        {
-            var expected = Tuple.Create(firstExpected, secExpected);
+        const string input = "\0Test\t";
+        Assert.AreEqual("Test", input.RemoveControlChars(), $"Testing with {input}");
+    }
+}
 
-            Assert.AreEqual(expected, input.TextPositionAt(charIndex), $"Testing with {input}");
-        }
+[TestFixture]
+public class Slice
+{
+    [TestCase("", null, 0, 0)]
+    [TestCase("Swan", "ThisIsASwanTest", 7, 10)]
+    [TestCase("", "ThisIsASwanTest", 10, 7)]
+    public void WithValidParams_ReturnsASlicedString(string expected, string input, int startIndex, int endIndex)
+    {
+        Assert.AreEqual(expected, input.Slice(startIndex, endIndex), $"Testing with {input}");
+    }
+}
+
+[TestFixture]
+public class SliceLength
+{
+    [TestCase("", null, 0, 0)]
+    [TestCase("Swan", "ThisIsASwanTest", 7, 4)]
+    [TestCase("", "ThisIsASwanTest", 10, 0)]
+    public void WithValidParam_ReturnsASubstring(string expected, string input, int startIndex, int length)
+    {
+        Assert.AreEqual(expected, input.SliceLength(startIndex, length), $"Testing with {input}");
+    }
+}
+
+[TestFixture]
+public class TextPositionAt
+{
+    [TestCase(0, 0, null, 0)]
+    [TestCase(1, 7, "ThisIsASwanTest", 6)]
+    [TestCase(2, 0, "ThisIs\nASwanTest", 6)]
+    public void WithValidParams_ReturnsATuple(int firstExpected, int secExpected, string input, int charIndex)
+    {
+        var expected = Tuple.Create(firstExpected, secExpected);
+
+        Assert.AreEqual(expected, input.TextPositionAt(charIndex), $"Testing with {input}");
+    }
+}
+
+[TestFixture]
+public class ToSafeFilename : TestFixtureBase
+{
+    [TestCase("FileName", ":File|Name*")]
+    [TestCase(
+        "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF",
+        "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
+    public void WithValidParams_ReturnsASafeFileName(string expected, string input)
+    {
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Ignored");
+
+        Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
     }
 
-    [TestFixture]
-    public class ToSafeFilename : TestFixtureBase
+    [Test]
+    public void WithNullString_ThrowsArgumentNullException()
     {
-        [TestCase("FileName", ":File|Name*")]
-        [TestCase(
-            "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF",
-            "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
-        public void WithValidParams_ReturnsASafeFileName(string expected, string input)
-        {
-            if (!OperatingSystem.IsWindows())
-                Assert.Ignore("Ignored");
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Ignored");
 
-            Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
-        }
+        Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());
+    }
+}
 
-        [Test]
-        public void WithNullString_ThrowsArgumentNullException()
-        {
-            if (!OperatingSystem.IsWindows())
-                Assert.Ignore("Ignored");
-
-            Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());
-        }
+[TestFixture]
+public class FormatBytes
+{
+    [TestCase("2 KB", 2048)]
+    [TestCase("97.66 KB", 100000)]
+    [TestCase("3.38 MB", 3546346)]
+    [TestCase("4.94 TB", 5432675475323)]
+    public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input)
+    {
+        Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
     }
 
-    [TestFixture]
-    public class FormatBytes
+    [TestCase("3 KB", 3072)]
+    [TestCase("52.2 KB", 53453)]
+    [TestCase("639.32 KB", 654664)]
+    [TestCase("80.72 MB", 84645653)]
+    public void WithLongParam_ReturnsFormattedBytes(string expected, long input)
     {
-        [TestCase("2 KB", 2048)]
-        [TestCase("97.66 KB", 100000)]
-        [TestCase("3.38 MB", 3546346)]
-        [TestCase("4.94 TB", 5432675475323)]
-        public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input)
-        {
-            Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
-        }
-
-        [TestCase("3 KB", 3072)]
-        [TestCase("52.2 KB", 53453)]
-        [TestCase("639.32 KB", 654664)]
-        [TestCase("80.72 MB", 84645653)]
-        public void WithLongParam_ReturnsFormattedBytes(string expected, long input)
-        {
-            Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
-        }
+        Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
     }
+}
 
-    [TestFixture]
-    public class Truncate
+[TestFixture]
+public class Truncate
+{
+    [TestCase("ThisIs", "ThisIsASwanTest", 6)]
+    [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
+    [TestCase(null, null, 60)]
+    public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength)
     {
-        [TestCase("ThisIs", "ThisIsASwanTest", 6)]
-        [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
-        [TestCase(null, null, 60)]
-        public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength)
-        {
-            Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
-        }
+        Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
     }
+}
 
-    [TestFixture]
-    public class Contains
+[TestFixture]
+public class Contains
+{
+    [TestCase(new[] { 'l' })]
+    [TestCase(new[] { 'l', 'W' })]
+    public void WithValid_ReturnsTrue(params char[]? chars)
     {
-        [TestCase(new[] { 'l' })]
-        [TestCase(new[] { 'l', 'W' })]
-        public void WithValid_ReturnsTrue(params char[] chars)
-        {
-            Assert.IsTrue("Hello World".Contains(chars));
-        }
+        Assert.IsTrue("Hello World".Contains(chars));
     }
+}
 
-    [TestFixture]
-    public class Hex2Int
+[TestFixture]
+public class Hex2Int
+{
+    [TestCase(10, 'A')]
+    [TestCase(15, 'F')]
+    [TestCase(3, '3')]
+    public void WithValidChar_ReturnsAsInt(int expected, char input)
     {
-        [TestCase(10, 'A')]
-        [TestCase(15, 'F')]
-        [TestCase(3, '3')]
-        public void WithValidChar_ReturnsAsInt(int expected, char input)
-        {
-            Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
-        }
+        Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
     }
 }

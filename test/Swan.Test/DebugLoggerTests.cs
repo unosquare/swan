@@ -1,18 +1,17 @@
-﻿namespace Swan.Test
+﻿namespace Swan.Test;
+
+using NUnit.Framework;
+using Logging;
+
+[TestFixture]
+public class DebugLoggerTests
 {
-    using NUnit.Framework;
-    using Swan.Logging;
+    [Test]
+    public void DebugLoggerTest() =>
+        Assert.That(DebugLogger.Instance, Is.Not.Null);
 
-    [TestFixture]
-    public class DebugLoggerTests
-    {
-        [Test]
-        public void DebugLoggerTest() =>
-            Assert.That(DebugLogger.Instance, Is.Not.Null);
-
-        [Test]
-        public void LogLevelTest() =>
-            Assert.That(DebugLogger.Instance.LogLevel,
-                Is.EqualTo(DebugLogger.IsDebuggerAttached ? LogLevel.Trace : LogLevel.None));
-    }
+    [Test]
+    public void LogLevelTest() =>
+        Assert.That(DebugLogger.Instance.LogLevel,
+            Is.EqualTo(DebugLogger.IsDebuggerAttached ? LogLevel.Trace : LogLevel.None));
 }

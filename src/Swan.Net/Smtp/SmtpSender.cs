@@ -1,6 +1,6 @@
 ﻿namespace Swan.Net.Smtp;
 
-using Swan.Logging;
+using Logging;
 using System;
 using System.Linq;
 using System.Net.Mail;

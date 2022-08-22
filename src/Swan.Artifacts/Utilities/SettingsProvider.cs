@@ -1,8 +1,8 @@
 ﻿namespace Swan.Utilities;
 
-using Swan.Formatters;
-using Swan.Platform;
-using Swan.Reflection;
+using Formatters;
+using Platform;
+using Reflection;
 using System.IO;
 
 /// <summary>

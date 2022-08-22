@@ -1,8 +1,8 @@
 ﻿namespace Swan.Formatters;
 
-using Swan.Collections;
-using Swan.Extensions;
-using Swan.Reflection;
+using Collections;
+using Extensions;
+using Reflection;
 using System.Text.Json;
 
 /// <summary>

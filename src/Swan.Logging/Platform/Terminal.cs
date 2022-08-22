@@ -1,7 +1,7 @@
 ﻿namespace Swan.Platform;
 
-using Swan.Extensions;
-using Swan.Threading;
+using Extensions;
+using Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Text;

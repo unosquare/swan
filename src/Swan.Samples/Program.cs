@@ -1,16 +1,14 @@
 ﻿namespace Swan.Samples;
 
 using Microsoft.Data.Sqlite;
-using Swan.Collections;
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Logging;
-using Swan.Mapping;
-using Swan.Net;
-using Swan.Net.Dns;
-using Swan.Platform;
-using Swan.Reflection;
-using Swan.Threading;
+using Collections;
+using Formatters;
+using Logging;
+using Mapping;
+using Net;
+using Platform;
+using Reflection;
+using Threading;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -54,7 +52,6 @@ public enum SecondEnum
 
 public static partial class Program
 {
-
     private static void CsvSketchpad()
     {
         var n = new SqliteParameter();
@@ -241,15 +238,6 @@ public static partial class Program
         TestJson();
         TestApplicationInfo();
         await TestTerminalOutputs();
-        try
-        {
-            await TestNetworkUtilities();
-        }
-        catch (System.Net.Http.HttpRequestException ex)
-        {
-            Terminal.WriteLine($"Error testing network {ex}", ConsoleColor.Red, TerminalWriterFlags.StandardError);
-        }
-
         TestExceptionLogging();
 
         TestFastOutput();
@@ -274,7 +262,7 @@ public static partial class Program
     private static void TestApplicationInfo()
     {
         Terminal.WriteWelcomeBanner();
-        $"Operating System Type: {Environment.OSVersion}    CLR Type: {(SwanRuntime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
+        $"Operating System Type: {Environment.OSVersion}".Info();
         $"Local Storage Path: {SwanRuntime.LocalStoragePath}".Info();
     }
 
@@ -302,33 +290,6 @@ public static partial class Program
         jsonObject.Dump(typeof(Program));
 
         "test".Dump(typeof(Program));
-    }
-
-    private static async Task TestNetworkUtilities()
-    {
-        const string domainName = "unosquare.com";
-        const string ntpServer = "time.windows.com";
-
-        var dnsServers = Network.GetIPv4DnsServers();
-        var privateIPs = Network.GetIPv4Addresses(false);
-        var publicIP = await Network.GetPublicIPAddressAsync();
-        var dnsLookup = await Network.GetDnsHostEntryAsync(domainName);
-        var ptrRecord = await Network.GetDnsPointerEntryAsync(publicIP);
-        var mxRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.MX);
-        var txtRecords = await Network.QueryDnsAsync("unosquare.com", DnsRecordType.TXT);
-        var ntpTime = await Network.GetNetworkTimeUtcAsync(ntpServer);
-
-        $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
-        $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
-        $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
-        $"Public IP  : [{publicIP}]".Info(nameof(Network));
-        $"Reverse DNS: [{publicIP}]: [{ptrRecord}]".Info(nameof(Network));
-        $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(
-            nameof(Network));
-        $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]"
-            .Info(nameof(Network));
-        $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]"
-            .Info(nameof(Network));
     }
 
     private static void TestFastOutput()

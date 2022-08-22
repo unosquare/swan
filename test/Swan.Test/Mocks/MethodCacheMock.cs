@@ -1,34 +1,33 @@
-﻿namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks;
+
+using System.Threading.Tasks;
+
+internal class MethodCacheMock
 {
-    using System.Threading.Tasks;
+    public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
 
-    internal class MethodCacheMock
+    public void SingleMethod()
     {
-        public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
+        // do nothing
+    }
 
-        public void SingleMethod()
-        {
-            // do nothing
-        }
+    public void MultiMethod(int number)
+    {
+        // do nothing
+    }
 
-        public void MultiMethod(int number)
-        {
-            // do nothing
-        }
+    public void MultiMethod(decimal number)
+    {
+        // do nothing
+    }
 
-        public void MultiMethod(decimal number)
-        {
-            // do nothing
-        }
+    public void AmbiguousMethod(int number)
+    {
+        // do nothing
+    }
 
-        public void AmbiguousMethod(int number)
-        {
-            // do nothing
-        }
-
-        public void AmbiguousMethod(decimal number)
-        {
-            // do nothing
-        }
+    public void AmbiguousMethod(decimal number)
+    {
+        // do nothing
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace Swan.Logging;
 
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Platform;
-using Swan.Reflection;
+using Extensions;
+using Formatters;
+using Platform;
+using Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;

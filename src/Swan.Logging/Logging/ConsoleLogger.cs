@@ -1,6 +1,6 @@
 ﻿namespace Swan.Logging;
 
-using Swan.Platform;
+using Platform;
 using System;
 
 /// <summary>

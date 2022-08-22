@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2B307C2C-8
 		.github\workflows\lib-publish-nuget-org.yml = .github\workflows\lib-publish-nuget-org.yml
 		LICENSE = LICENSE
 		mail.js = mail.js
-		ntp.js = ntp.js
 		.github\workflows\publish-core.yml = .github\workflows\publish-core.yml
 		.github\workflows\publish-logging.yml = .github\workflows\publish-logging.yml
 		README.md = README.md

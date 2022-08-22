@@ -16,7 +16,7 @@ public interface ITableContext<T> : ITableContext
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over items, one at a time.
     /// </summary>
     /// <param name="trailingSql">The optional sql statements appended after the basic SELECT clause.</param>
@@ -27,7 +27,7 @@ public interface ITableContext<T> : ITableContext
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over items, one at a time.
     /// </summary>
     /// <param name="trailingSql">The optional sql statements appended after the basic SELECT clause.</param>
@@ -59,7 +59,6 @@ public interface ITableContext<T> : ITableContext
     Task<T?> FirstOrDefaultAsync(
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default, CancellationToken ct = default);
 
-
     /// <summary>
     /// Inserts an item of the given type to the database
     /// and if the table has defined a single, auto incremental key
@@ -83,7 +82,7 @@ public interface ITableContext<T> : ITableContext
 
     /// <summary>
     /// Inserts a set of records of the given type to the table.
-    /// By defualt, this implementation does not represent a bulk insert operation.
+    /// By default, this implementation does not represent a bulk insert operation.
     /// </summary>
     /// <param name="items">The items to insert.</param>
     /// <param name="transaction">The optional associated transaction.</param>
@@ -92,7 +91,7 @@ public interface ITableContext<T> : ITableContext
 
     /// <summary>
     /// Inserts a set of records of the given type to the table.
-    /// By defualt, this implementation does not represent a bulk insert operation.
+    /// By default, this implementation does not represent a bulk insert operation.
     /// </summary>
     /// <param name="items">The items to insert.</param>
     /// <param name="transaction">The optional associated transaction.</param>

@@ -1,179 +1,178 @@
-﻿namespace Swan.Test
+﻿namespace Swan.Test;
+
+using NUnit.Framework;
+using Threading;
+using System;
+using System.Threading.Tasks;
+
+[TestFixture]
+public class AtomicTypeTest
 {
-    using NUnit.Framework;
-    using Swan.Threading;
-    using System;
-    using System.Threading.Tasks;
-
-    [TestFixture]
-    public class AtomicTypeTest
+    private enum Companies
     {
-        private enum Companies
+        Value1,
+        Value2,
+        Value3,
+    }
+
+    [Test]
+    public void AtomicityLong()
+    {
+        AtomicTypeBase<long> atomic = new AtomicLong();
+
+        void SumTask()
         {
-            Value1,
-            Value2,
-            Value3,
+            for (var x = 0; x < 3000; x++)
+                atomic.Increment();
         }
 
-        [Test]
-        public void AtomicityLong()
+        Task.WaitAll(
+            Task.Run(SumTask),
+            Task.Run(SumTask),
+            Task.Run(SumTask));
+
+        Assert.That(atomic.Value, Is.EqualTo(9000));
+    }
+
+    [Test]
+    public void AtomicityDouble()
+    {
+        AtomicTypeBase<double> atomic = new AtomicDouble(0);
+
+        var expected = BitConverter.DoubleToInt64Bits(0);
+        expected += 900;
+
+        void SumTask()
         {
-            AtomicTypeBase<long> atomic = new AtomicLong();
-
-            void SumTask()
-            {
-                for (var x = 0; x < 3000; x++)
-                    atomic.Increment();
-            }
-
-            Task.WaitAll(
-                Task.Run(SumTask),
-                Task.Run(SumTask),
-                Task.Run(SumTask));
-
-            Assert.That(atomic.Value, Is.EqualTo(9000));
+            for (var x = 0; x < 300; x++)
+                atomic.Increment();
         }
 
-        [Test]
-        public void AtomicityDouble()
+        Task.WaitAll(
+            Task.Run(SumTask),
+            Task.Run(SumTask),
+            Task.Run(SumTask));
+
+        Assert.That(atomic.Value, Is.EqualTo(BitConverter.Int64BitsToDouble(expected)));
+    }
+
+    [Test]
+    public void AtomicityBoolean()
+    {
+        AtomicTypeBase<bool> atomic = new AtomicBoolean();
+
+        void ToggleValueTask()
         {
-            AtomicTypeBase<double> atomic = new AtomicDouble(0);
-
-            var expected = BitConverter.DoubleToInt64Bits(0);
-            expected += 900;
-
-            void SumTask()
-            {
-                for (var x = 0; x < 300; x++)
-                    atomic.Increment();
-            }
-
-            Task.WaitAll(
-                Task.Run(SumTask),
-                Task.Run(SumTask),
-                Task.Run(SumTask));
-
-            Assert.That(atomic.Value, Is.EqualTo(BitConverter.Int64BitsToDouble(expected)));
+            for (var x = 0; x < 100; x++)
+                atomic.Value = !atomic.Value;
         }
 
-        [Test]
-        public void AtomicityBoolean()
+        Task.WaitAll(
+            Task.Run(ToggleValueTask),
+            Task.Run(ToggleValueTask),
+            Task.Run(ToggleValueTask));
+
+        Assert.IsFalse(atomic.Value);
+    }
+
+    [Test]
+    public void AtomicityInt()
+    {
+        AtomicTypeBase<int> atomic = new AtomicInteger();
+
+        void SumTask()
         {
-            AtomicTypeBase<bool> atomic = new AtomicBoolean();
-
-            void ToggleValueTask()
-            {
-                for (var x = 0; x < 100; x++)
-                    atomic.Value = !atomic.Value;
-            }
-
-            Task.WaitAll(
-                Task.Run(ToggleValueTask),
-                Task.Run(ToggleValueTask),
-                Task.Run(ToggleValueTask));
-
-            Assert.IsFalse(atomic.Value);
+            for (var x = 0; x < 300; x++)
+                atomic.Increment();
         }
 
-        [Test]
-        public void AtomicityInt()
+        Task.WaitAll(
+            Task.Run(SumTask),
+            Task.Run(SumTask),
+            Task.Run(SumTask));
+
+        Assert.That(atomic.Value, Is.EqualTo(900));
+    }
+
+    [Test]
+    public void AtomicityEnum()
+    {
+        var atomic = new AtomicEnum<Companies>(Companies.Value1);
+
+        void ExchangeTask()
         {
-            AtomicTypeBase<int> atomic = new AtomicInteger();
-
-            void SumTask()
-            {
-                for (var x = 0; x < 300; x++)
-                    atomic.Increment();
-            }
-
-            Task.WaitAll(
-                Task.Run(SumTask),
-                Task.Run(SumTask),
-                Task.Run(SumTask));
-
-            Assert.That(atomic.Value, Is.EqualTo(900));
+            atomic.Value++;
         }
 
-        [Test]
-        public void AtomicityEnum()
+        Task.WaitAll(
+            Task.Run(ExchangeTask),
+            Task.Run(ExchangeTask));
+
+        Assert.GreaterOrEqual(2, (int)atomic.Value);
+    }
+
+    [Test]
+    public void AtomicityDateTime()
+    {
+        var currentDate = DateTime.Now;
+
+        AtomicTypeBase<DateTime> atomic = new AtomicDateTime(currentDate);
+
+        void ToggleValueTask()
         {
-            var atomic = new AtomicEnum<Companies>(Companies.Value1);
-
-            void ExchangeTask()
-            {
-                atomic.Value++;
-            }
-
-            Task.WaitAll(
-                Task.Run(ExchangeTask),
-                Task.Run(ExchangeTask));
-
-            Assert.GreaterOrEqual(2, (int)atomic.Value);
+            for (var x = 0; x < 10; x++)
+                atomic.Increment();
         }
 
-        [Test]
-        public void AtomicityDateTime()
-        {
-            var currentDate = DateTime.Now;
+        Task.WaitAll(
+            Task.Run(ToggleValueTask),
+            Task.Run(ToggleValueTask),
+            Task.Run(ToggleValueTask));
 
-            AtomicTypeBase<DateTime> atomic = new AtomicDateTime(currentDate);
+        var expected = currentDate.AddTicks(30).Date;
 
-            void ToggleValueTask()
-            {
-                for (var x = 0; x < 10; x++)
-                    atomic.Increment();
-            }
+        Assert.That(atomic.Value.Date == expected);
+    }
 
-            Task.WaitAll(
-                Task.Run(ToggleValueTask),
-                Task.Run(ToggleValueTask),
-                Task.Run(ToggleValueTask));
+    [Test]
+    public void CompareTo()
+    {
+        long objectValue = 10;
+        long objectOtherValue = 100;
+        AtomicTypeBase<long> original = new AtomicLong(10);
+        AtomicTypeBase<long> copy = new AtomicLong(10);
+        AtomicTypeBase<long> other = new AtomicLong(100);
 
-            var expected = currentDate.AddTicks(30).Date;
+        Assert.That(original.CompareTo(copy), Is.EqualTo(0));
+        Assert.That(original.CompareTo(other), Is.Not.EqualTo(0));
 
-            Assert.That(atomic.Value.Date == expected);
-        }
+        Assert.That(original.CompareTo(copy as object), Is.EqualTo(0));
+        Assert.That(original.CompareTo(objectValue as object), Is.EqualTo(0));
+        Assert.That(original.CompareTo(null as object), Is.EqualTo(1));
 
-        [Test]
-        public void CompareTo()
-        {
-            long objectValue = 10;
-            long objectOtherValue = 100;
-            AtomicTypeBase<long> original = new AtomicLong(10);
-            AtomicTypeBase<long> copy = new AtomicLong(10);
-            AtomicTypeBase<long> other = new AtomicLong(100);
+        Assert.That(original.CompareTo(objectValue), Is.EqualTo(0));
+        Assert.That(original.CompareTo(objectOtherValue), Is.Not.EqualTo(0));
 
-            Assert.That(original.CompareTo(copy), Is.EqualTo(0));
-            Assert.That(original.CompareTo(other), Is.Not.EqualTo(0));
+        Assert.Throws<ArgumentException>(() => original.CompareTo(new object()));
+    }
 
-            Assert.That(original.CompareTo(copy as object), Is.EqualTo(0));
-            Assert.That(original.CompareTo(objectValue as object), Is.EqualTo(0));
-            Assert.That(original.CompareTo(null as object), Is.EqualTo(1));
+    [Test]
+    public void Equals()
+    {
+        long objectValue = 10;
+        long objectOtherValue = 100;
+        AtomicTypeBase<long> original = new AtomicLong(10);
+        AtomicTypeBase<long> copy = new AtomicLong(10);
+        AtomicTypeBase<long> other = new AtomicLong(100);
 
-            Assert.That(original.CompareTo(objectValue), Is.EqualTo(0));
-            Assert.That(original.CompareTo(objectOtherValue), Is.Not.EqualTo(0));
+        Assert.That(original.Equals(copy));
+        Assert.That(original.Equals(other), Is.False);
 
-            Assert.Throws<ArgumentException>(() => original.CompareTo(new object()));
-        }
+        Assert.That(original.Equals(copy as object));
+        Assert.That(original.Equals(objectValue as object));
+        Assert.That(original.Equals(null as object), Is.False);
 
-        [Test]
-        public void Equals()
-        {
-            long objectValue = 10;
-            long objectOtherValue = 100;
-            AtomicTypeBase<long> original = new AtomicLong(10);
-            AtomicTypeBase<long> copy = new AtomicLong(10);
-            AtomicTypeBase<long> other = new AtomicLong(100);
-
-            Assert.That(original.Equals(copy));
-            Assert.That(original.Equals(other), Is.False);
-
-            Assert.That(original.Equals(copy as object));
-            Assert.That(original.Equals(objectValue as object));
-            Assert.That(original.Equals(null as object), Is.False);
-
-            Assert.That(original.Equals(objectValue));
-            Assert.That(original.Equals(objectOtherValue), Is.False);
-        }
+        Assert.That(original.Equals(objectValue));
+        Assert.That(original.Equals(objectOtherValue), Is.False);
     }
 }

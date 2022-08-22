@@ -1,41 +1,40 @@
-﻿namespace Swan.Test
+﻿namespace Swan.Test;
+
+using NUnit.Framework;
+using Threading;
+
+[TestFixture]
+public class WaitEvent
 {
-    using NUnit.Framework;
-    using Swan.Threading;
-
-    [TestFixture]
-    public class WaitEvent
+    [Test]
+    [TestCase(true, true)]
+    [TestCase(true, false)]
+    public void NormalCycle(bool initialValue, bool useSlim)
     {
-        [Test]
-        [TestCase(true, true)]
-        [TestCase(true, false)]
-        public void NormalCycle(bool initialValue, bool useSlim)
-        {
-            var wait = WaitEventFactory.Create(initialValue, useSlim);
+        var wait = WaitEventFactory.Create(initialValue, useSlim);
 
-            Assert.IsTrue(wait.IsCompleted);
+        Assert.IsTrue(wait.IsCompleted);
 
-            wait.Begin();
+        wait.Begin();
 
-            Assert.IsFalse(wait.IsCompleted);
-            Assert.IsTrue(wait.IsInProgress);
+        Assert.IsFalse(wait.IsCompleted);
+        Assert.IsTrue(wait.IsInProgress);
 
-            wait.Complete();
+        wait.Complete();
 
-            Assert.IsTrue(wait.IsCompleted);
-            Assert.IsFalse(wait.IsInProgress);
-        }
+        Assert.IsTrue(wait.IsCompleted);
+        Assert.IsFalse(wait.IsInProgress);
+    }
 
-        [Test]
-        public void IfDisposed_IsInProgressEqualsFalse()
-        {
-            var wait = WaitEventFactory.Create(true);
-            wait.Begin();
-            wait.Dispose();
-            wait.Begin();
+    [Test]
+    public void IfDisposed_IsInProgressEqualsFalse()
+    {
+        var wait = WaitEventFactory.Create(true);
+        wait.Begin();
+        wait.Dispose();
+        wait.Begin();
 
-            Assert.IsFalse(wait.IsInProgress);
-            Assert.IsFalse(wait.IsValid);
-        }
+        Assert.IsFalse(wait.IsInProgress);
+        Assert.IsFalse(wait.IsValid);
     }
 }

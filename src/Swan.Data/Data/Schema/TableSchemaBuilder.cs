@@ -17,10 +17,7 @@ public class TableSchemaBuilder : IConnected
         if (string.IsNullOrWhiteSpace(tableName))
             throw new ArgumentNullException(nameof(tableName));
 
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        Connection = connection;
+        Connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Provider = Connection.Provider();
         Table = new DbTableSchema(connection.Database, tableName, schemaName ?? Provider.DefaultSchemaName);
     }

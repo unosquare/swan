@@ -1,6 +1,5 @@
 ﻿namespace Swan.Net.Smtp;
 
-using Swan.Net.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,7 +104,7 @@ public class SmtpClient
     {
         Host = host ?? throw new ArgumentNullException(nameof(host));
         Port = port;
-        ClientHostname = Network.HostName;
+        ClientHostname = Dns.GetHostName();
     }
 
     /// <summary>
@@ -148,51 +147,6 @@ public class SmtpClient
     /// The client hostname.
     /// </value>
     public string ClientHostname { get; set; }
-
-    /// <summary>
-    /// Sends an email message asynchronously.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="sessionId">The session identifier.</param>
-    /// <param name="callback">The callback.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>
-    /// A task that represents the asynchronous of send email operation.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">message.</exception>
-    public Task SendMailAsync(
-        MailMessage message,
-        string? sessionId = null,
-        RemoteCertificateValidationCallback? callback = null,
-        CancellationToken cancellationToken = default)
-    {
-        if (message == null)
-            throw new ArgumentNullException(nameof(message));
-
-        var state = new SmtpSessionState
-        {
-            AuthMode = Credentials == null ? string.Empty : SmtpDefinitions.SmtpAuthMethods.Login,
-            ClientHostname = ClientHostname,
-            IsChannelSecure = EnableSsl,
-            SenderAddress = message.From.Address,
-        };
-
-        if (Credentials != null)
-        {
-            state.Username = Credentials.UserName;
-            state.Password = Credentials.Password;
-        }
-
-        foreach (var recipient in message.To)
-        {
-            state.Recipients.Add(recipient.Address);
-        }
-
-        using var mimeBuffer = message.ToMimeMessage();
-        state.DataBuffer.AddRange(mimeBuffer.ToArray());
-
-        return SendMailAsync(state, sessionId, callback, cancellationToken);
-    }
 
     /// <summary>
     /// Sends an email message using a session state object.

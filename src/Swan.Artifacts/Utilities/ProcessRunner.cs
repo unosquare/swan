@@ -1,13 +1,8 @@
 ﻿namespace Swan.Utilities;
 
-using Swan.Platform;
-using System;
+using Platform;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Defines a delegate to handle binary data reception from the standard 
@@ -61,7 +56,9 @@ public static class ProcessRunner
         string? workingDirectory = null,
         CancellationToken cancellationToken = default)
     {
-        var result = await GetProcessResultAsync(filename, arguments, workingDirectory, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var result =
+            await GetProcessResultAsync(filename, arguments, workingDirectory, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
         return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
     }
 
@@ -85,7 +82,8 @@ public static class ProcessRunner
         Encoding? encoding = null,
         CancellationToken cancellationToken = default)
     {
-        var result = await GetProcessResultAsync(filename, arguments, null, encoding, cancellationToken).ConfigureAwait(false);
+        var result = await GetProcessResultAsync(filename, arguments, null, encoding, cancellationToken)
+            .ConfigureAwait(false);
         return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
     }
 
@@ -427,7 +425,7 @@ public static class ProcessRunner
                     var eventTask = Task.Run(() => onDataCallback.Invoke(eventBuffer, process), ct);
 
                     // wait for the event to process before the next read occurs
-                    if (syncEvents) eventTask.Wait(ct);
+                    if (syncEvents) await eventTask.WaitAsync(ct);
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch
