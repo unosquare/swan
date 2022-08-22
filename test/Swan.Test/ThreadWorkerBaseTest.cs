@@ -2,10 +2,6 @@
 {
     using NUnit.Framework;
     using Swan.Threading;
-    using Swan.Types;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     [TestFixture]
     public class ThreadWorkerBaseTest
@@ -32,9 +28,6 @@
         protected override void ExecuteCycleLogic(CancellationToken cancellationToken)
             => Counter.Increment();
 
-        protected override void OnCycleException(Exception ex)
-        {
-            throw new NotImplementedException();
-        }
+        protected override void OnCycleException(Exception ex) => throw new NotImplementedException();
     }
 }

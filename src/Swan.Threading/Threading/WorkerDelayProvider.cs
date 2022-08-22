@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets the default delay provider.
         /// </summary>
-        public static IWorkerDelayProvider Default => TokenTimeout;
+        public static IWorkerDelayProvider? Default => TokenTimeout;
 
         /// <summary>
         /// Provides a delay implementation which simply waits on the task and cancels on
@@ -25,7 +25,7 @@
         /// Provides a delay implementation which waits on the task and cancels on both,
         /// the cancellation token and a wanted delay timeout.
         /// </summary>
-        public static IWorkerDelayProvider TokenTimeout => new TokenTimeoutCancellableDelay();
+        public static IWorkerDelayProvider? TokenTimeout => new TokenTimeoutCancellableDelay();
 
         /// <summary>
         /// Provides a delay implementation which uses short sleep intervals of 5ms.

@@ -22,7 +22,7 @@
         /// <param name="priority">The thread priority.</param>
         /// <param name="period">The interval of cycle execution.</param>
         /// <param name="delayProvider">The cycle delay provide implementation.</param>
-        protected ThreadWorkerBase(string name, ThreadPriority priority, TimeSpan period, IWorkerDelayProvider delayProvider)
+        protected ThreadWorkerBase(string name, ThreadPriority priority, TimeSpan period, IWorkerDelayProvider? delayProvider)
             : base(name, period)
         {
             DelayProvider = delayProvider;
@@ -48,7 +48,7 @@
         /// <summary>
         /// Provides an implementation on a cycle delay provider.
         /// </summary>
-        protected IWorkerDelayProvider DelayProvider { get; }
+        protected IWorkerDelayProvider? DelayProvider { get; }
 
         /// <inheritdoc />
         public override Task<WorkerState> StartAsync()

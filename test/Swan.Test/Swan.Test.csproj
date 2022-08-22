@@ -8,6 +8,7 @@
         <AssemblyName>Unosquare.Swan.Test</AssemblyName>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
