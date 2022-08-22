@@ -13,7 +13,7 @@ public class SmtpSessionState
     /// </summary>
     public SmtpSessionState()
     {
-        DataBuffer = new List<byte>();
+        DataBuffer = new();
         Reset(true);
         ResetAuthentication();
     }

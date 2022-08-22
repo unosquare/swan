@@ -57,12 +57,12 @@ public abstract class ExpressionParser
         foreach (var token in tokens)
         {
             if (expressionStack.Any() == false)
-                expressionStack.Add(new Stack<Expression>());
+                expressionStack.Add(new());
 
             switch (token.Type)
             {
                 case TokenType.Wall:
-                    expressionStack.Add(new Stack<Expression>());
+                    expressionStack.Add(new());
                     break;
                 case TokenType.Number:
                     expressionStack.Last().Push(Expression.Constant(Convert.ToDecimal(token.Value, formatProvider)));

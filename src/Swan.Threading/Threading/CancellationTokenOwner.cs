@@ -38,7 +38,7 @@
                 if (_isDisposed) return;
                 _tokenSource.Cancel();
                 _tokenSource.Dispose();
-                _tokenSource = new CancellationTokenSource();
+                _tokenSource = new();
             }
         }
 

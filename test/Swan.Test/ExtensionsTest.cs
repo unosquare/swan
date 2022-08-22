@@ -15,7 +15,7 @@
         {
             var total = 0;
 
-            var action = new Func<int>(() => total++ < 2 ? throw new Exception() : total);
+            var action = new Func<int>(() => total++ < 2 ? throw new() : total);
 
             var result = action.Retry();
             Assert.AreEqual(3, result);
@@ -27,7 +27,7 @@
             Assert.Throws<AggregateException>(() =>
             {
                 var action =
-                    new Action(() => JsonClient.GetString(new Uri("http://accesscore.azurewebsites.net/api/token")).Wait());
+                    new Action(() => JsonClient.GetString(new("http://accesscore.azurewebsites.net/api/token")).Wait());
 
                 action.Retry();
             });
@@ -43,7 +43,7 @@
                 var action = new Action(() =>
                 {
                     if (total++ < 2)
-                        throw new Exception();
+                        throw new();
                 });
 
                 action.Retry();

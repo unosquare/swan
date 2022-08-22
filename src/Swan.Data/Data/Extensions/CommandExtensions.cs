@@ -129,7 +129,7 @@ public static partial class CommandExtensions
             if (string.IsNullOrWhiteSpace(p.ParameterName))
                 continue;
 
-            yield return new KeyValuePair<string, IDbDataParameter>(p.ParameterName, p);
+            yield return new(p.ParameterName, p);
         }
     }
 

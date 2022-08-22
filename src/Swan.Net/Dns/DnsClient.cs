@@ -21,7 +21,7 @@ internal partial class DnsClient
     }
 
     public DnsClient(IPAddress ip, int port = Network.DnsDefaultPort, IDnsRequestResolver? resolver = null)
-        : this(new IPEndPoint(ip, port), resolver)
+        : this(new(ip, port), resolver)
     {
     }
 

@@ -184,8 +184,8 @@ internal sealed class TryParseMethodInfo
                 }
                 catch
                 {
-                        // ignore
-                    }
+                    // ignore
+                }
 
                 return false;
             };
@@ -203,8 +203,8 @@ internal sealed class TryParseMethodInfo
                 }
                 catch
                 {
-                        // ignore
-                    }
+                    // ignore
+                }
 
                 return false;
             };

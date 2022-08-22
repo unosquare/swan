@@ -26,7 +26,7 @@ public class ObjectValidationResult
     /// <param name="propertyName">The property name.</param>
     /// <param name="errorMessage">The error message.</param>
     public void Add(string propertyName, string errorMessage) =>
-        _errors.Add(new ValidationError(errorMessage, propertyName));
+        _errors.Add(new(errorMessage, propertyName));
 
     /// <summary>
     /// Defines a validation error.

@@ -26,7 +26,7 @@
             : base(name, period)
         {
             DelayProvider = delayProvider;
-            _thread = new Thread(RunWorkerLoop)
+            _thread = new(RunWorkerLoop)
             {
                 IsBackground = true,
                 Priority = priority,

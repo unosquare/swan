@@ -289,7 +289,7 @@
             {
                 Data = "Data",
                 IgnoredData = "Ignored",
-                Inner = new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" },
+                Inner = new() { Data = "Data", IgnoredData = "Ignored" },
             }).JsonSerialize();
 
             Assert.AreEqual(
@@ -304,7 +304,7 @@
             {
                 Id = "22332",
                 Name = "Yeyo",
-                Inner = new JsonIngoreNestedPropertySample
+                Inner = new()
                 {
                     Id = "AESD",
                     Data = 44,
@@ -325,7 +325,7 @@
             {
                 Id = "22332",
                 Name = "Yeyo",
-                Inner = new JsonIngoreNestedPropertySample
+                Inner = new()
                 {
                     Id = "AESD",
                     Data = 44,

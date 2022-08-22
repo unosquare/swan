@@ -184,7 +184,7 @@ public sealed class Connection : IDisposable
     /// <param name="client">The client.</param>
     /// <param name="blockSize">Size of the block.</param>
     public Connection(TcpClient client, int blockSize)
-        : this(client, Encoding.UTF8, new string('\n', blockSize + 1), false, blockSize)
+        : this(client, Encoding.UTF8, new('\n', blockSize + 1), false, blockSize)
     {
         // placeholder
     }
@@ -633,7 +633,7 @@ public sealed class Connection : IDisposable
 
         try
         {
-            secureStream = new SslStream(NetworkStream, true);
+            secureStream = new(NetworkStream, true);
             await secureStream.AuthenticateAsServerAsync(serverCertificate).ConfigureAwait(false);
             SecureStream = secureStream;
             return true;
@@ -642,7 +642,7 @@ public sealed class Connection : IDisposable
         catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
         {
-            ConnectionFailure(this, new ConnectionFailureEventArgs(ex));
+            ConnectionFailure(this, new(ex));
             secureStream?.Dispose();
 
             return false;
@@ -663,7 +663,7 @@ public sealed class Connection : IDisposable
             return true;
 
         var secureStream = callback == null
-            ? new SslStream(NetworkStream, true)
+            ? new(NetworkStream, true)
             : new SslStream(NetworkStream, true, callback);
 
         try
@@ -676,7 +676,7 @@ public sealed class Connection : IDisposable
 #pragma warning restore CA1031 // Do not catch general exception types
         {
             secureStream.Dispose();
-            ConnectionFailure(this, new ConnectionFailureEventArgs(ex));
+            ConnectionFailure(this, new(ex));
             return false;
         }
 
@@ -827,7 +827,7 @@ public sealed class Connection : IDisposable
         Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
 
         DataReceived(this,
-            new ConnectionDataReceivedEventArgs(
+            new(
                 eventBuffer,
                 trigger,
                 moreAvailable));

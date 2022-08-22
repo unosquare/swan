@@ -21,7 +21,7 @@ public class SmtpServerReply
     /// <param name="content">The content.</param>
     public SmtpServerReply(int responseCode, string statusCode, params string[] content)
     {
-        Content = new List<string>();
+        Content = new();
         ReplyCode = responseCode;
         EnhancedStatusCode = statusCode;
         Content.AddRange(content);
@@ -182,7 +182,7 @@ public class SmtpServerReply
     public static SmtpServerReply Parse(string? text)
     {
         var lines = text?.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-        if (lines == null || lines.Length == 0) return new SmtpServerReply();
+        if (lines == null || lines.Length == 0) return new();
 
         var lastLineParts = lines.Last().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
         var enhancedStatusCode = string.Empty;
@@ -208,7 +208,7 @@ public class SmtpServerReply
             content.Add(lineContent);
         }
 
-        return new SmtpServerReply(responseCode, enhancedStatusCode, content.ToArray());
+        return new(responseCode, enhancedStatusCode, content.ToArray());
     }
 
     /// <summary>

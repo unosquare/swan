@@ -13,7 +13,7 @@ public class CollectionCacheRepository<TValue>
 {
     private readonly Lazy<ConcurrentDictionary<Type, IEnumerable<TValue>>> _data =
         new(() =>
-            new ConcurrentDictionary<Type, IEnumerable<TValue>>(), true);
+            new(), true);
 
     /// <summary>
     /// Determines whether the cache contains the specified key.

@@ -121,7 +121,7 @@
         [Test]
         public void WithValidBytes_ReturnsNegativeOne()
         {
-            Assert.AreEqual(-1, Bytes.GetIndexOf(new byte[0]), "Get index of empty array is -1");
+            Assert.AreEqual(-1, Bytes.GetIndexOf(Array.Empty<byte>()), "Get index of empty array is -1");
         }
 
         [Test]

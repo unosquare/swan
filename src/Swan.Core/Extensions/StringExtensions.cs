@@ -16,13 +16,13 @@ public static class StringExtensions
         RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
     private static readonly Lazy<Regex> SplitLinesRegex =
-        new(() => new Regex("\r\n|\r|\n", StandardRegexOptions));
+        new(() => new("\r\n|\r|\n", StandardRegexOptions));
 
     private static readonly Lazy<Regex> UnderscoreRegex =
-        new(() => new Regex(@"_", StandardRegexOptions));
+        new(() => new(@"_", StandardRegexOptions));
 
     private static readonly Lazy<Regex> CamelCaseRegEx =
-        new(() => new Regex(@"[a-z][A-Z]", StandardRegexOptions));
+        new(() => new(@"[a-z][A-Z]", StandardRegexOptions));
 
     private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new(() => m =>
     {
@@ -74,13 +74,12 @@ public static class StringExtensions
     /// <exception cref="ArgumentNullException">input.</exception>
     public static string RemoveControlChars(this string value, params char[]? excludeChars)
     {
-        if (excludeChars is null)
-            excludeChars = Array.Empty<char>();
+        excludeChars ??= Array.Empty<char>();
 
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 
-        return new string(value
+        return new(value
             .Where(c => !char.IsControl(c) || excludeChars.Contains(c))
             .ToArray());
     }
@@ -238,7 +237,7 @@ public static class StringExtensions
                     throw new FormatException("The components of the time part must be valid integers.");
             }
 
-            return new DateTime(year, month, day, hour, minute, second);
+            return new(year, month, day, hour, minute, second);
         }
         catch (Exception innerEx)
         {
@@ -331,7 +330,7 @@ public static class StringExtensions
     /// <param name="chars">The chars.</param>
     /// <returns>The string with the characters replaced.</returns>
     public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
-        chars.Aggregate(value, (current, c) => current.Replace(new string(c, 1), replaceValue, StringComparison.Ordinal));
+        chars.Aggregate(value, (current, c) => current.Replace(new(c, 1), replaceValue, StringComparison.Ordinal));
 
     /// <summary>
     /// Convert hex character to an integer. Return -1 if char is something

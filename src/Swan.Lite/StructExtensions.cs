@@ -105,7 +105,7 @@ public static class StructExtensions
             var length = Marshal.SizeOf(field.FieldType);
 
             endian ??= field.GetCustomAttributes(true)
-                .FirstOrDefault(c => c.GetType() == typeof(StructEndiannessAttribute)) as StructEndiannessAttribute;
+                .FirstOrDefault(c => c is StructEndiannessAttribute) as StructEndiannessAttribute;
 
             if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                                    endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))

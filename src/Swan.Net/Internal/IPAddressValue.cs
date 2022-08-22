@@ -115,7 +115,7 @@ internal struct IPAddressValue : IEquatable<IPAddressValue>, IComparable<IPAddre
             ? (_n0, (_n1 & HighBitMasks[prefixLength - 64]) | LowBitMasks[128 - prefixLength])
             : ((_n0 & HighBitMasks[prefixLength]) | LowBitMasks[64 - prefixLength], 0xFFFFFFFFFFFFFFFFUL);
 
-        return new IPAddressValue(n0, n1, _isV4);
+        return new(n0, n1, _isV4);
     }
 
     private static IReadOnlyList<ulong> BuildLowBitMasks()

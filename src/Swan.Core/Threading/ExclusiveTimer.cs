@@ -29,7 +29,7 @@
         {
             _period = period;
             _userCallback = timerCallback;
-            _backingTimer = new Timer(InternalCallback, state ?? this, dueTime, Timeout.Infinite);
+            _backingTimer = new(InternalCallback, state ?? this, dueTime, Timeout.Infinite);
         }
 
         /// <summary>

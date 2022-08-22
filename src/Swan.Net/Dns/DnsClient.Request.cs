@@ -25,7 +25,7 @@ internal partial class DnsClient
         public DnsClientRequest(IPEndPoint dns, IDnsRequest? request = null, IDnsRequestResolver? resolver = null)
         {
             Dns = dns;
-            _request = request == null ? new DnsRequest() : new DnsRequest(request);
+            _request = request == null ? new() : new DnsRequest(request);
             _resolver = resolver ?? new DnsUdpRequestResolver();
         }
 
@@ -102,7 +102,7 @@ internal partial class DnsClient
         public DnsRequest()
         {
             Questions = new List<DnsQuestion>();
-            header = new DnsHeader
+            header = new()
             {
                 OperationCode = DnsOperationCode.Query,
                 Response = false,
@@ -112,7 +112,7 @@ internal partial class DnsClient
 
         public DnsRequest(IDnsRequest request)
         {
-            header = new DnsHeader();
+            header = new();
             Questions = new List<DnsQuestion>(request.Questions);
 
             header.Response = false;
@@ -203,7 +203,7 @@ internal partial class DnsClient
 
                 var response = DnsResponse.FromArray(buffer);
 
-                return new DnsClientResponse(request, response, buffer);
+                return new(request, response, buffer);
             }
             finally
             {
@@ -276,7 +276,7 @@ internal partial class DnsClient
 
                 return response.IsTruncated
                     ? await _fallback.Request(request).ConfigureAwait(false)
-                    : new DnsClientResponse(request, response, buffer);
+                    : new(request, response, buffer);
             }
             finally
             {
@@ -530,7 +530,7 @@ internal partial class DnsClient
                 endOffset = offset;
             }
 
-            return new DnsDomain(labels.Select(l => l.ToText(Encoding.ASCII)).ToArray());
+            return new(labels.Select(l => l.ToText(Encoding.ASCII)).ToArray());
         }
 
         public static DnsDomain PointerName(IPAddress ip)
@@ -620,7 +620,7 @@ internal partial class DnsClient
 
             endOffset = offset + Tail.SIZE;
 
-            return new DnsQuestion(domain, tail.Type, tail.Class);
+            return new(domain, tail.Type, tail.Class);
         }
 
         public DnsQuestion(

@@ -66,7 +66,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
         if (address == null)
             throw new ArgumentNullException(nameof(address));
 
-        _start = _end = new IPAddressValue(address);
+        _start = _end = new(address);
         _isV6 = address.AddressFamily == AddressFamily.InterNetworkV6;
         _prefixLength = 0;
     }
@@ -104,8 +104,8 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
         if (end.AddressFamily != startFamily)
             throw MismatchedEndFamily(nameof(end));
 
-        _start = new IPAddressValue(start);
-        _end = new IPAddressValue(end);
+        _start = new(start);
+        _end = new(end);
         if (_end.CompareTo(_start) < 0)
             throw EndLowerThanStart(nameof(end));
 
@@ -150,7 +150,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
         if (prefixLength < 1 || prefixLength > maxPrefixLength)
             throw InvalidPrefixLength(nameof(prefixLength));
 
-        _start = new IPAddressValue(baseAddress);
+        _start = new(baseAddress);
         if (!_start.IsStartOfSubnet(prefixLength))
             throw InvalidSubnetBaseAddress(nameof(baseAddress));
 
@@ -458,7 +458,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
             if (!addressValue.IsStartOfSubnet(prefixLength))
                 return InvalidSubnetBaseAddress();
 
-            result = new IPAddressRange(addressValue, addressValue.GetEndOfSubnet(prefixLength), address.AddressFamily == AddressFamily.InterNetworkV6, prefixLength);
+            result = new(addressValue, addressValue.GetEndOfSubnet(prefixLength), address.AddressFamily == AddressFamily.InterNetworkV6, prefixLength);
             return null;
         }
 
@@ -480,7 +480,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
         if (!addressValue.IsStartOfSubnet(prefixLength))
             return InvalidSubnetBaseAddress();
 
-        result = new IPAddressRange(addressValue, addressValue.GetEndOfSubnet(prefixLength), false, prefixLength);
+        result = new(addressValue, addressValue.GetEndOfSubnet(prefixLength), false, prefixLength);
         return null;
     }
 
@@ -505,7 +505,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
         if (end.CompareTo(start) < 0)
             return EndLowerThanStart();
 
-        result = new IPAddressRange(start, end, addressFamily == AddressFamily.InterNetworkV6, 0);
+        result = new(start, end, addressFamily == AddressFamily.InterNetworkV6, 0);
         return null;
     }
 
@@ -517,7 +517,7 @@ public sealed class IPAddressRange : IEquatable<IPAddressRange>
             return InvalidIPAddress();
 
         var addressValue = new IPAddressValue(address);
-        result = new IPAddressRange(addressValue, addressValue, address.AddressFamily == AddressFamily.InterNetworkV6, 0);
+        result = new(addressValue, addressValue, address.AddressFamily == AddressFamily.InterNetworkV6, 0);
         return null;
     }
 

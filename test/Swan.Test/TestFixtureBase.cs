@@ -29,7 +29,7 @@
             NegativeInt = -1,
             DecimalData = 10.33M,
             BoolData = true,
-            Date = new DateTime(2017, 10, 10),
+            Date = new(2017, 10, 10),
         };
 
         protected SampleStruct DefaultStruct => new()

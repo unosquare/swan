@@ -84,7 +84,7 @@ public class TableSchemaBuilder : IConnected
 
         if (Table[columnName] is not DbColumnSchema column)
         {
-            column = new DbColumnSchema()
+            column = new()
             {
                 Name = columnName,
                 DataType = typeof(int),
@@ -137,7 +137,7 @@ public class TableSchemaBuilder : IConnected
 
         if (Table[columnName] is not DbColumnSchema column)
         {
-            column = new DbColumnSchema()
+            column = new()
             {
                 Ordinal = Table.Columns.Count,
                 Name = columnName,

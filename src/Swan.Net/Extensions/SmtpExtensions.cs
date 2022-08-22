@@ -35,7 +35,7 @@ public static class SmtpExtensions
             MimeMessageConstants.IsRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true },
             null);
 
-        result = new MemoryStream(result.ToArray());
+        result = new(result.ToArray());
         MimeMessageConstants.CloseMethod.Invoke(
             mailWriter,
             PrivateInstanceFlags,

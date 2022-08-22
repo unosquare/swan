@@ -66,10 +66,10 @@ public abstract class RunnerBase : ConfiguredObject, IDisposable
             return;
 
         "Start Requested".Debug(Name);
-        _cancelTokenSource = new CancellationTokenSource();
-        _workFinished = new ManualResetEvent(false);
+        _cancelTokenSource = new();
+        _workFinished = new(false);
 
-        _worker = new Thread(() =>
+        _worker = new(() =>
         {
             _workFinished.Reset();
             IsRunning = true;

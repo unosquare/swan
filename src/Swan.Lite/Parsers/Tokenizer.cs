@@ -201,7 +201,7 @@ public abstract class Tokenizer
                         if (stack.Any() && stack.Peek().Type == TokenType.Function)
                         {
                             if (includeFunctionStopper)
-                                yield return new Token(TokenType.Wall, tok.Value);
+                                yield return new(TokenType.Wall, tok.Value);
                         }
 
                         stack.Push(tok);
@@ -253,14 +253,14 @@ public abstract class Tokenizer
             switch (input[i])
             {
                 case CommaChar:
-                    Tokens.Add(new Token(TokenType.Comma, new string(new[] { input[i] })));
+                    Tokens.Add(new(TokenType.Comma, new(new[] { input[i] })));
                     continue;
                 case StringQuotedChar:
                     i = ExtractString(input, i);
                     continue;
                 case OpenFuncChar:
                 case CloseFuncChar:
-                    Tokens.Add(new Token(TokenType.Parenthesis, new string(new[] { input[i] })));
+                    Tokens.Add(new(TokenType.Parenthesis, new(new[] { input[i] })));
                     continue;
             }
 
@@ -302,7 +302,7 @@ public abstract class Tokenizer
 
         // Extract and set the value
         var value = input.SliceLength(i + right, charCount);
-        Tokens.Add(new Token(tokenTypeEvaluation(value), value));
+        Tokens.Add(new(tokenTypeEvaluation(value), value));
 
         i += charCount + left;
         return i;

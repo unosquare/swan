@@ -109,7 +109,7 @@ public partial class ArgumentParser
     /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
     /// </summary>
     public ArgumentParser()
-        : this(new ArgumentParserSettings())
+        : this(new())
     {
     }
 

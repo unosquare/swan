@@ -94,7 +94,7 @@
             /// <param name="isCompleted">if set to <c>true</c> [is completed].</param>
             public WaitEvent(bool isCompleted)
             {
-                _event = new ManualResetEvent(isCompleted);
+                _event = new(isCompleted);
             }
 
             /// <inheritdoc />
@@ -158,7 +158,7 @@
             /// <param name="isCompleted">if set to <c>true</c> [is completed].</param>
             public WaitEventSlim(bool isCompleted)
             {
-                _event = new ManualResetEventSlim(isCompleted);
+                _event = new(isCompleted);
             }
 
             /// <inheritdoc />

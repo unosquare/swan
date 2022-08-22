@@ -42,7 +42,7 @@
         {
             var result =
                 ExpressionParserMock.ResolveExpression<string>("=Global!Variable1",
-                    new Dictionary<string, object> { { "Global!Variable1", "hola" } });
+                    new() { { "Global!Variable1", "hola" } });
 
             Assert.AreEqual("hola", result);
         }

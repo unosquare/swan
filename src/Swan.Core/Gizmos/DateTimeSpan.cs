@@ -17,9 +17,7 @@ public record struct DateTimeSpan(int Years, int Months, int Days, int Hours, in
     {
         if (date2 < date1)
         {
-            var sub = date1;
-            date1 = date2;
-            date2 = sub;
+            (date1, date2) = (date2, date1);
         }
 
         var current = date1;
@@ -67,7 +65,7 @@ public record struct DateTimeSpan(int Years, int Months, int Days, int Hours, in
                     {
                         current = current.AddDays(days);
                         var timespan = date2 - current;
-                        span = new DateTimeSpan(
+                        span = new(
                             years,
                             months,
                             days,

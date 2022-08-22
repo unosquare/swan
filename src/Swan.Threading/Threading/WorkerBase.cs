@@ -29,9 +29,9 @@
         protected WorkerBase(string name, TimeSpan period)
         {
             Name = name;
-            _timeSpan = new AtomicTimeSpan(period);
+            _timeSpan = new(period);
 
-            StateChangeRequests = new Dictionary<StateChangeRequest, bool>(5)
+            StateChangeRequests = new(5)
             {
                 [StateChangeRequest.Start] = false,
                 [StateChangeRequest.Pause] = false,

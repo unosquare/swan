@@ -19,10 +19,7 @@ public sealed class CommandSource : IConnected
     /// <param name="initialText">An optional initial command text.</param>
     internal CommandSource(DbConnection connection, string? initialText = default)
     {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        _connection = connection;
+        _connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Provider = connection.Provider();
 
         _commandText = !string.IsNullOrWhiteSpace(initialText)

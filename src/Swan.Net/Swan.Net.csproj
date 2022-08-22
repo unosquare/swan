@@ -1,32 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>Swan.Net</AssemblyName>
-    <RootNamespace>Swan</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>Swan.Net</AssemblyName>
+		<RootNamespace>Swan</RootNamespace>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Description>This package provides network utilities for the SWAN library.</Description>
-    <Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
-    <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>5.0.1</Version>
-    <Authors>Unosquare</Authors>
-    <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This package provides network utilities for the SWAN library.</Description>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
+		<AssemblyTitle>Unosquare SWAN</AssemblyTitle>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Version>5.0.1</Version>
+		<Authors>Unosquare</Authors>
+		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
+		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
+		<PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Swan.Lite\Swan.Lite.csproj" />
-    <ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Swan.Lite\Swan.Lite.csproj" />
+		<ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
+	</ItemGroup>
 
 </Project>

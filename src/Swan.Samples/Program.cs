@@ -185,7 +185,7 @@
             dynamic expando = new ExpandoObject();
             expando.Property1 = "one property";
             expando.Property2 = new[] { 6, 7, 8, 9, 10 };
-            expando.Property3 = new List<MockInfo> { new MockInfo(), new MockInfo() };
+            expando.Property3 = new List<MockInfo> { new(), new() };
             expando.Property4 = arrayOfArrays;
             expando.Property5 = twoDimensionalArray;
 
@@ -281,7 +281,7 @@
         private static void TestJson()
         {
             var instance = new SampleCopyTarget
-            { AlternateId = 10, CreationDate = new DateTime(2010, 1, 1), Id = 1, Score = "A" };
+            { AlternateId = 10, CreationDate = new(2010, 1, 1), Id = 1, Score = "A" };
 
             var payload = instance.JsonSerialize();
 

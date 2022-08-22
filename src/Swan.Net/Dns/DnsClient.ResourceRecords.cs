@@ -88,7 +88,7 @@ internal partial class DnsClient
 
             endOffset = offset + data.Length;
 
-            return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
+            return new(domain, data, tail.Type, tail.Class, tail.TimeToLive);
         }
 
         public byte[] ToArray()
@@ -163,7 +163,7 @@ internal partial class DnsClient
         public DnsIPAddressResourceRecord(IDnsResourceRecord record)
             : base(record)
         {
-            IPAddress = new IPAddress(Data);
+            IPAddress = new(Data);
         }
 
         public IPAddress IPAddress { get; }

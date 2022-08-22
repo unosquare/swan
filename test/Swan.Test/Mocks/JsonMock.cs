@@ -30,12 +30,12 @@
 
         public string Specialty => m_Specialty;
 
-        public List<int> Primes { get; set; } = new List<int>() { 2, 3, 5, 7, 11 };
+        public List<int> Primes { get; set; } = new() { 2, 3, 5, 7, 11 };
     }
 
     public class SampleFamily
     {
-        public Dictionary<string, SamplePerson> Members { get; set; } = new Dictionary<string, SamplePerson>();
+        public Dictionary<string, SamplePerson> Members { get; set; } = new();
 
         public static SampleFamily Create(bool createCycle)
         {

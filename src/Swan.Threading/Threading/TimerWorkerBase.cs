@@ -24,7 +24,7 @@
             : base(name, period)
         {
             // Instantiate the timer that will be used to schedule cycles
-            _timer = new Timer(
+            _timer = new(
                 ExecuteTimerCallback,
                 this,
                 Timeout.Infinite,

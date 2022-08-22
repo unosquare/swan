@@ -44,7 +44,7 @@
                 }
 
                 // Here we start the output task, fire-and-forget
-                DequeueOutputTimer = new ExclusiveTimer(DequeueOutputCycle);
+                DequeueOutputTimer = new(DequeueOutputCycle);
                 DequeueOutputTimer.Resume(OutputFlushInterval);
             }
         }

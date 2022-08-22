@@ -14,14 +14,8 @@ public partial class TableContext : ITableContext
     /// <exception cref="ArgumentNullException"></exception>
     public TableContext(DbConnection connection, IDbTableSchema schema)
     {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        if (schema is null)
-            throw new ArgumentNullException(nameof(schema));
-
-        TableSchema = schema;
-        Connection = connection;
+        TableSchema = schema ?? throw new ArgumentNullException(nameof(schema));
+        Connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Provider = connection.Provider();
     }
 
@@ -53,8 +47,10 @@ public partial class TableContext : ITableContext
         var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
 
-        var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
-        var setPairs = string.Join(", ", settableFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+        var keyPairs = string.Join(" AND ",
+            keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+        var setPairs = string.Join(", ",
+            settableFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var commandText = $"UPDATE {Provider.QuoteTable(TableName, Schema)} SET {setPairs} WHERE {keyPairs}";
 
         return new CommandSource(Connection, commandText)
@@ -67,7 +63,8 @@ public partial class TableContext : ITableContext
     public virtual DbCommand BuildDeleteCommand(DbTransaction? transaction = default)
     {
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
-        var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+        var keyPairs = string.Join(" AND ",
+            keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var commandText = $"DELETE FROM {Provider.QuoteTable(TableName, Schema)} WHERE {keyPairs}";
 
         return new CommandSource(Connection, commandText)
@@ -80,7 +77,8 @@ public partial class TableContext : ITableContext
     public virtual DbCommand BuildSelectCommand(DbTransaction? transaction = default)
     {
         var keyFields = KeyColumns.Select(c => c.Name).ToArray();
-        var keyPairs = string.Join(" AND ", keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
+        var keyPairs = string.Join(" AND ",
+            keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
 
         return new CommandSource(Connection)
             .Select(this).Where(keyPairs)
@@ -88,5 +86,4 @@ public partial class TableContext : ITableContext
             .DefineParameters(KeyColumns)
             .WithTransaction(transaction);
     }
-
 }

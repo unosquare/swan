@@ -39,7 +39,7 @@
             _filePath = filePath;
             DailyFile = dailyFile;
 
-            _timer = new ExclusiveTimer(
+            _timer = new(
                 async () => await WriteLogEntries().ConfigureAwait(false),
                 TimeSpan.Zero,
                 TimeSpan.FromSeconds(5));

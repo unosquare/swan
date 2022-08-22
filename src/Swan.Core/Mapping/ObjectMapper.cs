@@ -10,7 +10,7 @@ using Swan.Reflection;
 /// </summary>
 public class ObjectMapper
 {
-    private static readonly Lazy<ObjectMapper> LazyInstance = new(() => new ObjectMapper());
+    private static readonly Lazy<ObjectMapper> LazyInstance = new(() => new());
 
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<Type, IObjectMap>> TargetMaps = new();
 
@@ -89,17 +89,14 @@ public class ObjectMapper
             ignoreProperties);
     }
 
-
     public bool HasMap(Type sourceType, Type targetType) =>
-        !TargetMaps.TryGetValue(targetType, out var sourceMaps)
-        ? false
-        : sourceMaps.ContainsKey(sourceType);
+        TargetMaps.TryGetValue(targetType, out var sourceMaps) && sourceMaps.ContainsKey(sourceType);
 
     public bool TryGetMap(Type sourceType, Type targetType, out IObjectMap map)
     {
         if (!TargetMaps.TryGetValue(targetType, out var sourceMaps))
         {
-            sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+            sourceMaps = new();
             TargetMaps.TryAdd(targetType, sourceMaps);
         }
 
@@ -119,24 +116,21 @@ public class ObjectMapper
         return false;
     }
 
-    private bool TrySetMap<TSource, TTarget>(IObjectMap map)
+    private void TrySetMap<TSource, TTarget>(IObjectMap map)
     {
         if (map is null)
             throw new ArgumentNullException(nameof(map));
 
         if (!TargetMaps.TryGetValue(typeof(TTarget), out var sourceMaps))
         {
-            sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+            sourceMaps = new();
             TargetMaps.TryAdd(typeof(TTarget), sourceMaps);
         }
 
         if (!sourceMaps.ContainsKey(typeof(TSource)))
         {
             sourceMaps[typeof(TSource)] = map;
-            return true;
         }
-
-        return false;
     }
 
     /// <summary>
@@ -154,7 +148,7 @@ public class ObjectMapper
 
         if (!TargetMaps.TryGetValue(typeof(TTarget), out var sourceMaps))
         {
-            sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
+            sourceMaps = new();
             TargetMaps.TryAdd(typeof(TTarget), sourceMaps);
         }
 
@@ -229,7 +223,7 @@ public class ObjectMapper
 
     private static int CopyInternal(
         object target,
-        Dictionary<string, Tuple<Type, object?>> sourceProperties,
+        IReadOnlyDictionary<string, Tuple<Type, object?>> sourceProperties,
         IEnumerable<string>? propertiesToCopy,
         IEnumerable<string>? ignoreProperties)
     {

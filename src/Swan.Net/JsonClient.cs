@@ -415,7 +415,7 @@ public static class JsonClient
         if (!string.IsNullOrWhiteSpace(authorization))
         {
             requestMessage.Headers.Authorization
-                = new AuthenticationHeaderValue("Bearer", authorization);
+                = new("Bearer", authorization);
         }
 
         if (headers != null)

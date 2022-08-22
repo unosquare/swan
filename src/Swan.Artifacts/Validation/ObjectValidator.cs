@@ -69,7 +69,7 @@ using System.Collections.Generic;
 /// </example>
 public class ObjectValidator
 {
-    private static readonly Lazy<ObjectValidator> LazyInstance = new(() => new ObjectValidator());
+    private static readonly Lazy<ObjectValidator> LazyInstance = new(() => new());
 
     private readonly ConcurrentDictionary<Type, List<Tuple<Delegate, string>>> _predicates =
         new();
@@ -129,7 +129,7 @@ public class ObjectValidator
 
         if (!_predicates.TryGetValue(typeof(T), out var existing))
         {
-            existing = new List<Tuple<Delegate, string>>();
+            existing = new();
             _predicates[typeof(T)] = existing;
         }
 

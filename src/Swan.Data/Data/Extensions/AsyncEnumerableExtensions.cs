@@ -35,7 +35,7 @@ public static class AsyncEnumerableExtensions
         const int BufferSize = 1024;
 
         if (enumerable is null)
-            return new List<T?>(0);
+            return new(0);
 
         var result = new List<T?>(BufferSize);
         await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))

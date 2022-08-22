@@ -23,14 +23,14 @@ namespace Swan.Test.Mocks
             var keyPairGenerator = new RsaKeyPairGenerator();
 
             // certificate strength 2048 bits
-            keyPairGenerator.Init(new KeyGenerationParameters(
-                new SecureRandom(new CryptoApiRandomGenerator()), 2048));
+            keyPairGenerator.Init(new(
+                new(new CryptoApiRandomGenerator()), 2048));
 
             keyPair = keyPairGenerator.GenerateKeyPair();
 
             var certGenerator = new X509V3CertificateGenerator();
             var certName = new X509Name("CN=" + subjectName);
-            var serialNo = BigInteger.ProbablePrime(120, new Random());
+            var serialNo = BigInteger.ProbablePrime(120, new());
 
             certGenerator.SetSerialNumber(serialNo);
             certGenerator.SetSubjectDN(certName);
@@ -41,7 +41,7 @@ namespace Swan.Test.Mocks
 
             var key = new AuthorityKeyIdentifier(
                 SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public),
-                new GeneralNames(new GeneralName(certName)),
+                new(new GeneralName(certName)),
                 serialNo);
 
             certGenerator.AddExtension(
@@ -84,14 +84,14 @@ namespace Swan.Test.Mocks
             certificateStore.SetCertificateEntry(certificateAlias, certificateEntry);
             certificateStore.SetKeyEntry(
                 certificateAlias,
-                new AsymmetricKeyEntry(keyPair.Private),
+                new(keyPair.Private),
                 new[] { certificateEntry });
 
             using var outputFileStream = File.Create(outputFilePath);
             certificateStore.Save(
                 outputFileStream,
                 certificatePassword.ToCharArray(),
-                new SecureRandom(new CryptoApiRandomGenerator()));
+                new(new CryptoApiRandomGenerator()));
         }
 
         internal static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(
@@ -107,7 +107,7 @@ namespace Swan.Test.Mocks
                     certificate.SaveToFile(keyPair, certificateFilePath, hostname, password);
                 }
 
-                return new System.Security.Cryptography.X509Certificates.X509Certificate2(certificateFilePath,
+                return new(certificateFilePath,
                     password);
             }
             catch (Exception ex)

@@ -108,10 +108,10 @@
         {
             public SampleException()
                 : base("This is a sample exception.",
-                    new Exception("An inner exception is shown here"))
+                    new("An inner exception is shown here"))
             {
                 InnerReference = this;
-                Aggregates = new AggregateException(new Exception("EXCEPTION 1"), new Exception("EXCEPTION 2"),
+                Aggregates = new(new Exception("EXCEPTION 1"), new Exception("EXCEPTION 2"),
                     new Exception("EXCEPTION 3"), new Exception("EXCEPTION 4"));
             }
 

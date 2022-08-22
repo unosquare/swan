@@ -104,7 +104,7 @@
         [Test]
         public void WithFullDateTimes_ReturnsDateTimeSpan()
         {
-            var result = _date.GetDateTimeSpan(new DateTime(1969, 8, 15, 5, 7, 10, 100));
+            var result = _date.GetDateTimeSpan(new(1969, 8, 15, 5, 7, 10, 100));
 
             Assert.That(result.Years, Is.EqualTo(32));
             Assert.That(result.Months, Is.EqualTo(10));

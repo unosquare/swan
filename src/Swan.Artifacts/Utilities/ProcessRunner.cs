@@ -170,7 +170,7 @@ public static class ProcessRunner
                 cancellationToken)
             .ConfigureAwait(false);
 
-        return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
+        return new(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public static class ProcessRunner
             var process = new Process
             {
                 EnableRaisingEvents = false,
-                StartInfo = new ProcessStartInfo
+                StartInfo = new()
                 {
                     Arguments = arguments,
                     CreateNoWindow = true,

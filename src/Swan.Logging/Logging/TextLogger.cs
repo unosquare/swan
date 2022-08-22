@@ -61,7 +61,7 @@
                 LogLevel.Trace => (ConsoleLogger.TracePrefix, ConsoleLogger.TraceColor),
                 LogLevel.Warning => (ConsoleLogger.WarnPrefix, ConsoleLogger.WarnColor),
                 LogLevel.Fatal => (ConsoleLogger.FatalPrefix, ConsoleLogger.FatalColor),
-                _ => (new string(' ', ConsoleLogger.InfoPrefix.Length), Terminal.Settings.DefaultColor)
+                _ => (new(' ', ConsoleLogger.InfoPrefix.Length), Terminal.Settings.DefaultColor)
             };
 
         private static string CreateOutputMessage(string sourceName, string loggerMessage, string prefix, DateTime date)

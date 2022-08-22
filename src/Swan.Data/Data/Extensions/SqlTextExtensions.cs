@@ -18,7 +18,7 @@ public static partial class SqlTextExtensions
             throw new ArgumentNullException(nameof(@this));
 
         @this.AppendText("SELECT");
-        return fields != null && fields.Length > 0
+        return fields is {Length: > 0}
             ? @this.Fields(fields)
             : @this;
     }
@@ -51,14 +51,12 @@ public static partial class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="item">The field name to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Field(this CommandSource @this, string item)
-    {
-        return @this is null
+    public static CommandSource Field(this CommandSource @this, string item) =>
+        @this is null
             ? throw new ArgumentNullException(nameof(@this))
             : !string.IsNullOrWhiteSpace(item)
-            ? @this.AppendText(@this.Provider.QuoteField(item))
-            : @this;
-    }
+                ? @this.AppendText(@this.Provider.QuoteField(item))
+                : @this;
 
     /// <summary>
     /// Appends a set of field names, quoting them and separating them by commas.
@@ -222,7 +220,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items != null && items.Length > 0
+        var quotedNames = items is {Length: > 0}
             ? string.Join($" {itemSeparator} ", items.Select(f => $"{@this.Provider.QuoteField(f)} {operatorSeparator} {@this.Provider.QuoteParameter(f)}"))
             : string.Empty;
 
@@ -242,7 +240,7 @@ public static partial class SqlTextExtensions
 
         @this.AppendText("ORDER BY");
 
-        return items != null && items.Length > 0
+        return items is {Length: > 0}
             ? @this.Fields(items)
             : @this;
     }

@@ -12,8 +12,8 @@
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
-            Role = new Role { Name = "Admin" },
-            StartDate = new DateTime(2000, 2, 5),
+            Role = new() { Name = "Admin" },
+            StartDate = new(2000, 2, 5),
         };
 
         protected Dictionary<string, object?> SourceDict => new()

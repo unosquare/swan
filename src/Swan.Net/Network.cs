@@ -242,7 +242,7 @@ public static class Network
 
         var client = new DnsClient(dnsServer, port);
         var response = await client.Resolve(query, recordType).ConfigureAwait(false);
-        return new DnsQueryResult(response);
+        return new(response);
     }
 
     /// <summary>
@@ -290,7 +290,7 @@ public static class Network
         }
         catch
         {
-            return new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return new(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         }
 
         // Offset to get to the "Transmit Timestamp" field (time at which the reply 

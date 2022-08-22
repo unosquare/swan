@@ -90,10 +90,6 @@ public sealed class PeriodicTask : IDisposable
             {
                 break;
             }
-            catch
-            {
-                throw;
-            }
         }
     }
 }

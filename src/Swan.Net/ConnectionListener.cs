@@ -198,9 +198,9 @@ public sealed class ConnectionListener : IDisposable
     private async Task DoWorkAsync()
     {
         _cancellationPending = false;
-        _listenerSocket = new TcpListener(LocalEndPoint);
+        _listenerSocket = new(LocalEndPoint);
         _listenerSocket.Start();
-        _cancelListening = new CancellationTokenSource();
+        _cancelListening = new();
 
         try
         {
@@ -218,28 +218,28 @@ public sealed class ConnectionListener : IDisposable
                         continue;
                     }
 
-                    OnConnectionAccepted(this, new ConnectionAcceptedEventArgs(client));
+                    OnConnectionAccepted(this, new(client));
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
                 {
-                    OnConnectionFailure(this, new ConnectionFailureEventArgs(ex));
+                    OnConnectionFailure(this, new(ex));
                 }
             }
 
-            OnListenerStopped(this, new ConnectionListenerStoppedEventArgs(LocalEndPoint));
+            OnListenerStopped(this, new(LocalEndPoint));
         }
         catch (ObjectDisposedException)
         {
-            OnListenerStopped(this, new ConnectionListenerStoppedEventArgs(LocalEndPoint));
+            OnListenerStopped(this, new(LocalEndPoint));
         }
 #pragma warning disable CA1031 // Do not catch general exception types
         catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
         {
             OnListenerStopped(this,
-                new ConnectionListenerStoppedEventArgs(LocalEndPoint, _cancellationPending ? null : ex));
+                new(LocalEndPoint, _cancellationPending ? null : ex));
         }
         finally
         {

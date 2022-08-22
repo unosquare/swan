@@ -66,7 +66,7 @@
         {
             var options = new OptionMock();
             var dumpArgs = new[] { "-N", "babu", "-V" };
-            var parser = new ArgumentParser(new ArgumentParserSettings { CaseSensitive = true });
+            var parser = new ArgumentParser(new() { CaseSensitive = true });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Parsing is not valid");
@@ -77,7 +77,7 @@
         {
             var options = new OptionMock();
             var dumpArgs = new[] { "-XOR" };
-            var parser = new ArgumentParser(new ArgumentParserSettings { IgnoreUnknownArguments = false });
+            var parser = new ArgumentParser(new() { IgnoreUnknownArguments = false });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Argument is unknown");
@@ -154,7 +154,7 @@
         public void EmptyArray_ReturnsFalse()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[0];
+            var arguments = Array.Empty<string>();
             var expected = ArgumentParser.Current.ParseArguments(arguments, verbOptions);
 
             Assert.IsFalse(expected);

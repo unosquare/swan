@@ -66,7 +66,7 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var client = new SmtpClient(LocalHost, 1030) { Credentials = new System.Net.NetworkCredential("mail", "pass") };
+            var client = new SmtpClient(LocalHost, 1030) { Credentials = new("mail", "pass") };
             var session = new SmtpSessionState { SenderAddress = SenderEmail };
 
             session.Recipients.Add(RecipientEmail);
@@ -92,7 +92,7 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var client = new SmtpClient(LocalHost, 1030) { Credentials = new System.Net.NetworkCredential("mail", "pass") };
+            var client = new SmtpClient(LocalHost, 1030) { Credentials = new("mail", "pass") };
             var emailMessage = new System.Net.Mail.MailMessage(SenderEmail, RecipientEmail, "Test", "Sure");
 
             await client.SendMailAsync(emailMessage);

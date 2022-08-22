@@ -28,19 +28,19 @@ public class DnsQueryResult
         if (response.AnswerRecords != null)
         {
             foreach (var record in response.AnswerRecords)
-                AnswerRecords.Add(new DnsRecord(record));
+                AnswerRecords.Add(new(record));
         }
 
         if (response.AuthorityRecords != null)
         {
             foreach (var record in response.AuthorityRecords)
-                AuthorityRecords.Add(new DnsRecord(record));
+                AuthorityRecords.Add(new(record));
         }
 
         if (response.AdditionalRecords != null)
         {
             foreach (var record in response.AdditionalRecords)
-                AdditionalRecords.Add(new DnsRecord(record));
+                AdditionalRecords.Add(new(record));
         }
     }
 

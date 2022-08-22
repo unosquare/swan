@@ -25,7 +25,7 @@
 
             if (!string.IsNullOrWhiteSpace(input) && input[0] == OpenExpressionChar) return true;
 
-            Tokens.Add(new Token(TokenType.String, input));
+            Tokens.Add(new(TokenType.String, input));
             return false;
         }
 

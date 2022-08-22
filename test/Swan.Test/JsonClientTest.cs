@@ -24,7 +24,7 @@
         {
             var responseObj = new Dictionary<string, object> { { AuthorizationToken, "123" } };
 
-            var data = await JsonClient.Authenticate(new Uri($"{DefaultHttp}/Authenticate"), "admin", "password");
+            var data = await JsonClient.Authenticate(new($"{DefaultHttp}/Authenticate"), "admin", "password");
 
             Assert.IsNotNull(data);
             Assert.IsTrue(data!.ContainsKey(AuthorizationToken));
@@ -35,14 +35,14 @@
         public void WithInvalidParams_ThrowsSecurityException()
         {
             Assert.ThrowsAsync<SecurityException>(async () =>
-                await JsonClient.Authenticate(new Uri($"{DefaultHttp}/511"), "admin", "password"));
+                await JsonClient.Authenticate(new($"{DefaultHttp}/511"), "admin", "password"));
         }
 
         [Test]
         public void WithNullUsername_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await JsonClient.Authenticate(new Uri(DefaultHttp), null, "password"));
+                await JsonClient.Authenticate(new(DefaultHttp), null, "password"));
         }
     }
 
@@ -57,7 +57,7 @@
             const string status = "OK";
             var basicJson = BasicJson.GetDefault();
 
-            var data = await JsonClient.Post<BasicJson>(new Uri($"{DefaultHttp}{Api}/WithValidParams"), basicJson);
+            var data = await JsonClient.Post<BasicJson>(new($"{DefaultHttp}{Api}/WithValidParams"), basicJson);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(status, data.StringData);
@@ -67,7 +67,7 @@
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
             var data = await JsonClient.Post(
-                new Uri($"{DefaultHttp}{Api}/WithValidParamsAndAuthorizationToken"),
+                new($"{DefaultHttp}{Api}/WithValidParamsAndAuthorizationToken"),
                 BasicJson.GetDefault(),
                 AuthorizationToken);
 
@@ -81,7 +81,7 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                await JsonClient.Post<BasicJson>(new Uri($"{DefaultHttp}/404"), BasicJson.GetDefault());
+                await JsonClient.Post<BasicJson>(new($"{DefaultHttp}/404"), BasicJson.GetDefault());
             });
 
             Assert.AreEqual(404, exception.HttpErrorCode);
@@ -103,7 +103,7 @@
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            var jsonString = await JsonClient.GetString(new Uri(
+            var jsonString = await JsonClient.GetString(new(
                     $"{DefaultHttp}{Api}/WithValidParamsAndAuthorizationToken"),
                 AuthorizationToken);
 
@@ -115,7 +115,7 @@
         public void WithInvalidParam_ThrowsJsonRequestException()
         {
             Assert.ThrowsAsync<JsonRequestException>(async () =>
-                await JsonClient.GetString(new Uri(DefaultHttp + Api + "/InvalidParam")));
+                await JsonClient.GetString(new(DefaultHttp + Api + "/InvalidParam")));
         }
     }
 
@@ -129,7 +129,7 @@
         {
             const string status = "OK";
 
-            var data = await JsonClient.Put<BasicJson>(new Uri($"{DefaultHttp}{Api}/WithValidParams"), BasicJson.GetDefault());
+            var data = await JsonClient.Put<BasicJson>(new($"{DefaultHttp}{Api}/WithValidParams"), BasicJson.GetDefault());
 
             Assert.IsNotNull(data);
             Assert.AreEqual(status, data.StringData);
@@ -139,7 +139,7 @@
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
             var data = await JsonClient.Put(
-                new Uri($"{DefaultHttp}{Api}/WithValidParamsAndAuthorizationToken"),
+                new($"{DefaultHttp}{Api}/WithValidParamsAndAuthorizationToken"),
                 BasicJson.GetDefault(),
                 AuthorizationToken);
 
@@ -153,7 +153,7 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                await JsonClient.Put<BasicJson>(new Uri($"{DefaultHttp}/404"), BasicJson.GetDefault());
+                await JsonClient.Put<BasicJson>(new($"{DefaultHttp}/404"), BasicJson.GetDefault());
             });
 
             Assert.AreEqual(404, exception.HttpErrorCode);
@@ -179,7 +179,7 @@
             new Random().NextBytes(buffer);
 
             var data = await JsonClient.PostFileString(
-                new Uri($"{DefaultHttp}{Api}/WithValidParams"),
+                new($"{DefaultHttp}{Api}/WithValidParams"),
                 buffer,
                 nameof(WithValidParams_ReturnsTrue));
 
@@ -199,7 +199,7 @@
             new Random().NextBytes(buffer);
 
             var data = await JsonClient.PostFile<JsonFile>(
-                new Uri($"{DefaultHttp}{Api}/WithValidParams"),
+                new($"{DefaultHttp}{Api}/WithValidParams"),
                 buffer,
                 nameof(WithValidParams_ReturnsTrue));
 
@@ -223,7 +223,7 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            var headers = await JsonClient.GetBinary(new Uri($"{DefaultHttp}{Api}/WithValidParams"));
+            var headers = await JsonClient.GetBinary(new($"{DefaultHttp}{Api}/WithValidParams"));
 
             Assert.IsTrue(headers.Any());
         }
@@ -232,7 +232,7 @@
         public void WithInvalidUrl_ThrowsJsonRequestException()
         {
             Assert.ThrowsAsync<JsonRequestException>(async () =>
-                await JsonClient.GetBinary(new Uri($"{DefaultHttp}/InvalidParam")));
+                await JsonClient.GetBinary(new($"{DefaultHttp}/InvalidParam")));
         }
     }
 
@@ -251,7 +251,7 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            var basicJson = await JsonClient.Get<BasicJson>(new Uri($"{DefaultHttp}{Api}/WithValidParams"));
+            var basicJson = await JsonClient.Get<BasicJson>(new($"{DefaultHttp}{Api}/WithValidParams"));
 
             Assert.IsNotNull(basicJson);
         }

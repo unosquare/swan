@@ -24,14 +24,14 @@ public static class DbProviders
     /// <param name="connectionType">The connection type.</param>
     /// <param name="provider">The resulting provider.</param>
     /// <returns>True of the provider was previously registered and was retrieved. False otherwise.</returns>
-    public static bool TryGetProvider(Type connectionType, [MaybeNullWhen(false)] out DbProvider provider)
+    public static bool TryGetProvider(Type? connectionType, [MaybeNullWhen(false)] out DbProvider provider)
     {
         provider = null;
 
         if (connectionType is null)
             return false;
 
-        if (!connectionType.TypeInfo().Interfaces.Any(c => c == typeof(IDbConnection)))
+        if (connectionType.TypeInfo().Interfaces.All(c => c != typeof(IDbConnection)))
             return false;
 
         var providerNs = connectionType.Namespace ?? string.Empty;
@@ -45,7 +45,7 @@ public static class DbProviders
     /// <param name="connection">The connection.</param>
     /// <param name="provider">The resulting provider.</param>
     /// <returns>True of the provider was previously registered and was retrieved. False otherwise.</returns>
-    public static bool TryGetProvider<T>(this T connection, [MaybeNullWhen(false)] out DbProvider provider)
+    public static bool TryGetProvider<T>(this T? connection, [MaybeNullWhen(false)] out DbProvider provider)
         where T : IDbConnection
     {
         provider = null;

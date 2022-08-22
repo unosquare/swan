@@ -308,15 +308,12 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
     /// </summary>
     /// <param name="value"></param>
     /// <returns>True if the key is found. False otherwise.</returns>
-    public bool ContainsKey(object? value)
-    {
-        return IsDictionary
+    public bool ContainsKey(object? value) =>
+        IsDictionary
             ? Contains(value)
             : TypeManager.TryChangeType(value, KeysType, out var indexKey) &&
-                indexKey is int index &&
-                index >= 0 &&
-                index < Count;
-    }
+              indexKey is int index and >= 0 &&
+              index < Count;
 
     /// <summary>
     /// Determines whether the collection contains a specific value.

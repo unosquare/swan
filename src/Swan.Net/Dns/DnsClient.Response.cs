@@ -169,14 +169,14 @@ internal partial class DnsClient
 
             if (header.Truncated)
             {
-                return new DnsResponse(header,
+                return new(header,
                     DnsQuestion.GetAllFromArray(message, offset, header.QuestionCount),
                     new List<IDnsResourceRecord>(),
                     new List<IDnsResourceRecord>(),
                     new List<IDnsResourceRecord>());
             }
 
-            return new DnsResponse(header,
+            return new(header,
                 DnsQuestion.GetAllFromArray(message, offset, header.QuestionCount, out offset),
                 DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AnswerRecordCount, out offset),
                 DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AuthorityRecordCount, out offset),
