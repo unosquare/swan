@@ -1,68 +1,67 @@
-﻿namespace Swan.Threading
+﻿namespace Swan.Threading;
+
+using System;
+using System.Threading;
+
+/// <summary>
+/// Acts as a <see cref="CancellationTokenSource"/> but with reusable tokens.
+/// </summary>
+public sealed class CancellationTokenOwner : IDisposable
 {
-    using System;
-    using System.Threading;
+    private readonly object _syncLock = new();
+    private bool _isDisposed;
+    private CancellationTokenSource _tokenSource = new();
 
     /// <summary>
-    /// Acts as a <see cref="CancellationTokenSource"/> but with reusable tokens.
+    /// Gets the token of the current.
     /// </summary>
-    public sealed class CancellationTokenOwner : IDisposable
+    public CancellationToken Token
     {
-        private readonly object _syncLock = new();
-        private bool _isDisposed;
-        private CancellationTokenSource _tokenSource = new();
-
-        /// <summary>
-        /// Gets the token of the current.
-        /// </summary>
-        public CancellationToken Token
-        {
-            get
-            {
-                lock (_syncLock)
-                {
-                    return _isDisposed
-                        ? CancellationToken.None
-                        : _tokenSource.Token;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Cancels the last referenced token and creates a new token source.
-        /// </summary>
-        public void Cancel()
+        get
         {
             lock (_syncLock)
             {
-                if (_isDisposed) return;
+                return _isDisposed
+                    ? CancellationToken.None
+                    : _tokenSource.Token;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Cancels the last referenced token and creates a new token source.
+    /// </summary>
+    public void Cancel()
+    {
+        lock (_syncLock)
+        {
+            if (_isDisposed) return;
+            _tokenSource.Cancel();
+            _tokenSource.Dispose();
+            _tokenSource = new();
+        }
+    }
+
+    /// <inheritdoc />
+    public void Dispose() => Dispose(true);
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    private void Dispose(bool disposing)
+    {
+        lock (_syncLock)
+        {
+            if (_isDisposed) return;
+
+            if (disposing)
+            {
                 _tokenSource.Cancel();
                 _tokenSource.Dispose();
-                _tokenSource = new();
             }
-        }
 
-        /// <inheritdoc />
-        public void Dispose() => Dispose(true);
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        private void Dispose(bool disposing)
-        {
-            lock (_syncLock)
-            {
-                if (_isDisposed) return;
-
-                if (disposing)
-                {
-                    _tokenSource.Cancel();
-                    _tokenSource.Dispose();
-                }
-
-                _isDisposed = true;
-            }
+            _isDisposed = true;
         }
     }
 }
