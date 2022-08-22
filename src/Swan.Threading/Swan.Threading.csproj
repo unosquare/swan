@@ -25,7 +25,11 @@
 		<PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<PackageReference Include="Swan.Core" Version="6.0.2-*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' != 'Release'">
 		<ProjectReference Include="..\Swan.Core\Swan.Core.csproj" />
 	</ItemGroup>
 </Project>
