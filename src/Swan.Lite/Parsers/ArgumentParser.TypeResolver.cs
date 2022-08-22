@@ -1,54 +1,53 @@
-﻿namespace Swan.Parsers
+﻿namespace Swan.Parsers;
+
+using Swan.Reflection;
+using System.Linq;
+
+/// <summary>
+/// Provides methods to parse command line arguments.
+/// </summary>
+public partial class ArgumentParser
 {
-    using Swan.Reflection;
-    using System.Linq;
-
-    /// <summary>
-    /// Provides methods to parse command line arguments.
-    /// </summary>
-    public partial class ArgumentParser
+    private sealed class TypeResolver<T>
     {
-        private sealed class TypeResolver<T>
+        private readonly string _selectedVerb;
+
+        private IPropertyProxy[]? _properties;
+
+        public TypeResolver(string selectedVerb) => _selectedVerb = selectedVerb;
+
+        public bool HasVerb { get; private set; }
+
+        public IPropertyProxy[]? Properties => _properties?.Any() == true ? _properties : null;
+
+        public object? GetOptionsObject(T instance)
         {
-            private readonly string _selectedVerb;
+            _properties = typeof(T).Properties().ToArray();
 
-            private IPropertyProxy[]? _properties;
+            if (!_properties.Any(x => x.HasAttribute<VerbOptionAttribute>()))
+                return instance;
 
-            public TypeResolver(string selectedVerb) => _selectedVerb = selectedVerb;
+            HasVerb = true;
 
-            public bool HasVerb { get; private set; }
+            var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
+                ? null
+                : _properties.FirstOrDefault(x => x.Attribute<VerbOptionAttribute>()?.Name == _selectedVerb);
 
-            public IPropertyProxy[]? Properties => _properties?.Any() == true ? _properties : null;
+            if (selectedVerb == null) return null;
 
-            public object? GetOptionsObject(T instance)
+            var type = instance.GetType();
+
+            var verbProperty = type.GetProperty(selectedVerb.PropertyName);
+
+            if (verbProperty?.GetValue(instance) == null)
             {
-                _properties = typeof(T).Properties().ToArray();
-
-                if (!_properties.Any(x => x.HasAttribute<VerbOptionAttribute>()))
-                    return instance;
-
-                HasVerb = true;
-
-                var selectedVerb = string.IsNullOrWhiteSpace(_selectedVerb)
-                    ? null
-                    : _properties.FirstOrDefault(x => x.Attribute<VerbOptionAttribute>()?.Name == _selectedVerb);
-
-                if (selectedVerb == null) return null;
-
-                var type = instance.GetType();
-
-                var verbProperty = type.GetProperty(selectedVerb.PropertyName);
-
-                if (verbProperty?.GetValue(instance) == null)
-                {
-                    var propertyInstance = selectedVerb.PropertyType.CreateInstance();
-                    verbProperty?.SetValue(instance, propertyInstance);
-                }
-
-                _properties = selectedVerb.PropertyType.Properties().ToArray();
-
-                return verbProperty?.GetValue(instance);
+                var propertyInstance = selectedVerb.PropertyType.CreateInstance();
+                verbProperty?.SetValue(instance, propertyInstance);
             }
+
+            _properties = selectedVerb.PropertyType.Properties().ToArray();
+
+            return verbProperty?.GetValue(instance);
         }
     }
 }

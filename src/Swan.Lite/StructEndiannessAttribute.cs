@@ -1,30 +1,29 @@
-﻿namespace Swan
+﻿namespace Swan;
+
+using System;
+
+/// <summary>
+/// An attribute used to help conversion structs back and forth into arrays of bytes via
+/// extension methods included in this library ToStruct and ToBytes.
+/// </summary>
+/// <seealso cref="Attribute" />
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
+public sealed class StructEndiannessAttribute : Attribute
 {
-    using System;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StructEndiannessAttribute"/> class.
+    /// </summary>
+    /// <param name="endianness">The endianness.</param>
+    public StructEndiannessAttribute(Endianness endianness)
+    {
+        Endianness = endianness;
+    }
 
     /// <summary>
-    /// An attribute used to help conversion structs back and forth into arrays of bytes via
-    /// extension methods included in this library ToStruct and ToBytes.
+    /// Gets the endianness.
     /// </summary>
-    /// <seealso cref="Attribute" />
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
-    public sealed class StructEndiannessAttribute : Attribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StructEndiannessAttribute"/> class.
-        /// </summary>
-        /// <param name="endianness">The endianness.</param>
-        public StructEndiannessAttribute(Endianness endianness)
-        {
-            Endianness = endianness;
-        }
-
-        /// <summary>
-        /// Gets the endianness.
-        /// </summary>
-        /// <value>
-        /// The endianness.
-        /// </value>
-        public Endianness Endianness { get; }
-    }
+    /// <value>
+    /// The endianness.
+    /// </value>
+    public Endianness Endianness { get; }
 }

@@ -1,40 +1,39 @@
-﻿namespace Swan.Parsers
+﻿namespace Swan.Parsers;
+
+using System;
+
+/// <summary>
+/// Models a verb option.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class VerbOptionAttribute : Attribute
 {
-    using System;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VerbOptionAttribute" /> class.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <exception cref="ArgumentNullException">name.</exception>
+    public VerbOptionAttribute(string name)
+    {
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+    }
 
     /// <summary>
-    /// Models a verb option.
+    /// Gets the name of the verb option.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class VerbOptionAttribute : Attribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VerbOptionAttribute" /> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <exception cref="ArgumentNullException">name.</exception>
-        public VerbOptionAttribute(string name)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-        }
+    /// <value>
+    /// Name.
+    /// </value>
+    public string Name { get; }
 
-        /// <summary>
-        /// Gets the name of the verb option.
-        /// </summary>
-        /// <value>
-        /// Name.
-        /// </value>
-        public string Name { get; }
+    /// <summary>
+    /// Gets or sets a short description of this command line verb. Usually a sentence summary.
+    /// </summary>
+    /// <value>
+    /// The help text.
+    /// </value>
+    public string HelpText { get; set; }
 
-        /// <summary>
-        /// Gets or sets a short description of this command line verb. Usually a sentence summary.
-        /// </summary>
-        /// <value>
-        /// The help text.
-        /// </value>
-        public string HelpText { get; set; }
-
-        /// <inheritdoc />
-        public override string ToString() => $"  {Name}\t\t{HelpText}";
-    }
+    /// <inheritdoc />
+    public override string ToString() => $"  {Name}\t\t{HelpText}";
 }
