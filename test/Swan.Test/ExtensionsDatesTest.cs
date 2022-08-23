@@ -1,7 +1,7 @@
-﻿namespace Swan.Test.ExtensionsDatesTests;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Extensions;
+using Swan.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -34,18 +34,12 @@ public class ToDateTime
     [TestCase(null)]
     [TestCase("")]
     [TestCase(" ")]
-    public void InvalidArguments_ThrowsArgumentNullException(string date)
-    {
-        Assert.Throws<ArgumentNullException>(() => date.ToDateTime());
-    }
+    public void InvalidArguments_ThrowsArgumentNullException(string date) => Assert.Throws<ArgumentNullException>(() => date.ToDateTime());
 
     [TestCase("2017 10 26")]
     [TestCase("2017-10")]
     [TestCase("2017-10-26 15:35")]
-    public void DatesNotParsable_ThrowsException(string date)
-    {
-        Assert.Throws<ArgumentException>(() => date.ToDateTime());
-    }
+    public void DatesNotParsable_ThrowsException(string date) => Assert.Throws<ArgumentException>(() => date.ToDateTime());
 }
 
 [TestFixture]
@@ -67,20 +61,6 @@ public class DateRange
         };
 
         CollectionAssert.AreEqual(rangeExpected, rangeActual);
-    }
-}
-
-[TestFixture]
-public class RoundUp
-{
-    [Test]
-    public void GivingADate_RoundUp()
-    {
-        var datetime = new DateTime(2017, 10, 27, 12, 35, 10);
-        var timeSpan = new TimeSpan(4, 4, 10, 23);
-        var expectedTicksIntoDateTime = new DateTime(636449107780000000);
-
-        Assert.AreEqual(expectedTicksIntoDateTime, datetime.RoundUp(timeSpan));
     }
 }
 
@@ -126,17 +106,5 @@ public class CompareDates
         Assert.AreEqual(result.Minutes, 0);
         Assert.AreEqual(result.Seconds, 0);
         Assert.AreEqual(result.Milliseconds, 200);
-    }
-}
-
-[TestFixture]
-public class ToRfc1123String
-{
-    private readonly DateTime _date = new(2002, 7, 3, 12, 0, 0, 200, DateTimeKind.Utc);
-
-    [Test]
-    public void WithValidDate_ReturnsRfc1123String()
-    {
-        Assert.AreEqual("Wed, 03 Jul 2002 12:00:00 GMT", _date.ToRfc1123String());
     }
 }

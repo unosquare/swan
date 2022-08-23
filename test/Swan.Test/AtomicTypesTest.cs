@@ -37,7 +37,7 @@ public class AtomicTypeTest
     [Test]
     public void AtomicityDouble()
     {
-        AtomicTypeBase<double> atomic = new AtomicDouble(0);
+        AtomicTypeBase<double> atomic = new AtomicDouble();
 
         var expected = BitConverter.DoubleToInt64Bits(0);
         expected += 900;

@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.CsvWriterTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Formatters;
-using Mocks;
+using Swan.Formatters;
+using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +19,7 @@ public abstract class CsvWriterTest : TestFixtureBase
 }
 
 [TestFixture]
-public class Constructor : CsvWriterTest
+public class CsvWriterConstructor : CsvWriterTest
 {
     [Test]
     public void WithMemoryStreamAndEncoding_Valid()

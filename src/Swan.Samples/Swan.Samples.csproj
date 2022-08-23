@@ -19,9 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Swan.Artifacts\Swan.Artifacts.csproj" />
         <ProjectReference Include="..\Swan.Data\Swan.Data.csproj" />
-        <ProjectReference Include="..\Swan.Net\Swan.Net.csproj" />
+        <ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
         <ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />
     </ItemGroup>
 

@@ -22,10 +22,7 @@ public class AppWorkerMock : TimerWorkerBase
         return base.StopAsync();
     }
 
-    protected override void OnCycleException(Exception ex)
-    {
-        Exception = ex;
-    }
+    protected override void OnCycleException(Exception ex) => Exception = ex;
 
     protected override void ExecuteCycleLogic(CancellationToken ct)
     {

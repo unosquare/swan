@@ -1,21 +1,15 @@
-﻿namespace Swan.Test.JsonTests;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Formatters;
-using Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Swan.Formatters;
+using Swan.Test.Mocks;
 using System.Text.Json;
 
 [TestFixture]
 public class ToJson : JsonTest
 {
     [Test]
-    public void CheckJsonFormat_ValidatesIfObjectsAreEqual()
-    {
-        Assert.AreEqual(BasicStr, BasicJson.GetDefault().JsonSerialize(false));
-    }
+    public void CheckJsonFormat_ValidatesIfObjectsAreEqual() => Assert.AreEqual(BasicStr, BasicJson.GetDefault().JsonSerialize());
 
     [Test]
     public void CheckJsonFormat_ValidatesIfObjectsAreNotEqual()
@@ -25,20 +19,14 @@ public class ToJson : JsonTest
     }
 
     [Test]
-    public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
-    {
-        Assert.AreEqual(string.Empty, NullObj.JsonSerialize());
-    }
+    public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals() => Assert.AreEqual(string.Empty, NullObj.JsonSerialize());
 }
 
 [TestFixture]
 public class Serialize : JsonTest
 {
     [Test]
-    public void WithStringArray_ReturnsArraySerialized()
-    {
-        Assert.AreEqual(BasicAStr, DefaultStringList.JsonSerialize());
-    }
+    public void WithStringArray_ReturnsArraySerialized() => Assert.AreEqual(BasicAStr, DefaultStringList.JsonSerialize());
 
     [Test]
     public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
@@ -66,16 +54,10 @@ public class Serialize : JsonTest
     }
 
     [Test]
-    public void WithNumericArray_ReturnsArraySerialized()
-    {
-        Assert.AreEqual(NumericAStr, NumericArray.JsonSerialize());
-    }
+    public void WithNumericArray_ReturnsArraySerialized() => Assert.AreEqual(NumericAStr, NumericArray.JsonSerialize());
 
     [Test]
-    public void WithBasicObjectWithArray_ReturnsObjectWithArraySerialized()
-    {
-        Assert.AreEqual(BasicAObjStr, BasicAObj.JsonSerialize());
-    }
+    public void WithBasicObjectWithArray_ReturnsObjectWithArraySerialized() => Assert.AreEqual(BasicAObjStr, BasicAObj.JsonSerialize());
 
     [Test]
     public void WithArrayOfObjects_ReturnsArrayOfObjectsSerialized()
@@ -91,16 +73,10 @@ public class Serialize : JsonTest
     }
 
     [Test]
-    public void AdvObject_ReturnsAdvObjectSerialized()
-    {
-        Assert.AreEqual(AdvStr, AdvObj.JsonSerialize());
-    }
+    public void AdvObject_ReturnsAdvObjectSerialized() => Assert.AreEqual(AdvStr, AdvObj.JsonSerialize());
 
     [Test]
-    public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
-    {
-        Assert.AreEqual(AdvAStr, AdvAObj.JsonSerialize());
-    }
+    public void AdvObjectArray_ReturnsAdvObjectArraySerialized() => Assert.AreEqual(AdvAStr, AdvAObj.JsonSerialize());
 
     [TestCase("1", 1)]
     [TestCase("1", 1F)]
@@ -109,10 +85,7 @@ public class Serialize : JsonTest
     [TestCase("false", false)]
     [TestCase("", null)]
     [TestCase("", default)]
-    public void WithPrimitive_ReturnsStringValue(string expected, object actual)
-    {
-        Assert.AreEqual(expected, actual.JsonSerialize());
-    }
+    public void WithPrimitive_ReturnsStringValue(string expected, object actual) => Assert.AreEqual(expected, actual.JsonSerialize());
 
     [Test]
     public void WithDateTest_ReturnsDateTestSerialized()
@@ -147,22 +120,13 @@ public class Serialize : JsonTest
     }
 
     [Test]
-    public void WithEmptyClass_ReturnsEmptyClassSerialized()
-    {
-        Assert.AreEqual("{}", (new EmptyJson()).JsonSerialize());
-    }
+    public void WithEmptyClass_ReturnsEmptyClassSerialized() => Assert.AreEqual("{}", (new EmptyJson()).JsonSerialize());
 
     [Test]
-    public void WithStructure_ReturnsStructureSerialized()
-    {
-        Assert.AreEqual("{\"Value\":1,\"Name\":\"DefaultStruct\"}", DefaultStruct.JsonSerialize());
-    }
+    public void WithStructure_ReturnsStructureSerialized() => Assert.AreEqual("{\"Value\":1,\"Name\":\"DefaultStruct\"}", DefaultStruct.JsonSerialize());
 
     [Test]
-    public void WithObjEnumString_ReturnsObjectSerialized()
-    {
-        Assert.AreEqual("{\"Id\":0,\"MyEnum\":3}", (new ObjectEnum()).JsonSerialize());
-    }
+    public void WithObjEnumString_ReturnsObjectSerialized() => Assert.AreEqual("{\"Id\":0,\"MyEnum\":3}", (new ObjectEnum()).JsonSerialize());
 }
 
 [TestFixture]
@@ -186,16 +150,10 @@ public class SerializeOnly : JsonTest
     }
 
     [Test]
-    public void WithString_ReturnsString()
-    {
-        Assert.AreEqual("\"\\b\\t\\f\\u0000\"", "\b\t\f\0".JsonSerialize());
-    }
+    public void WithString_ReturnsString() => Assert.AreEqual("\"\\b\\t\\f\\u0000\"", "\b\t\f\0".JsonSerialize());
 
     [Test]
-    public void WithEmptyString_ReturnsEmptyString()
-    {
-        Assert.AreEqual("\"\"", string.Empty.JsonSerialize());
-    }
+    public void WithEmptyString_ReturnsEmptyString() => Assert.AreEqual("\"\"", string.Empty.JsonSerialize());
 
     [Test]
     public void WithType_SerializingTypeThrows()
@@ -255,23 +213,6 @@ public class SerializeOnly : JsonTest
 [TestFixture]
 public class SerializeExcluding : JsonTest
 {
-    [Test]
-    public void WithObject_ReturnsObjectSerializedExcludingProps()
-    {
-        var excludeNames = new[]
-        {
-            nameof(BasicJson.StringData),
-            nameof(BasicJson.IntData),
-            nameof(BasicJson.NegativeInt),
-        };
-
-        var dataSerialized = BasicJson.GetDefault().JsonSerialize();
-
-        Assert.AreEqual(
-            "{\"DecimalData\":10.33,\"BoolData\":true,\"StringNull\":null}",
-            dataSerialized);
-    }
-
     [Test]
     public void WithJsonProperty_ReturnsObjectSerializedExcludingProps()
     {

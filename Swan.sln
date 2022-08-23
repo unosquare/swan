@@ -8,41 +8,29 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2B307C2C-8FC4-492F-80D7-D56F818C8482}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		appveyor.yml = appveyor.yml
 		.github\workflows\ci-all.yml = .github\workflows\ci-all.yml
 		docfx.json = docfx.json
 		.github\workflows\lib-ci.yml = .github\workflows\lib-ci.yml
 		.github\workflows\lib-publish-nuget-org.yml = .github\workflows\lib-publish-nuget-org.yml
 		LICENSE = LICENSE
-		mail.js = mail.js
 		.github\workflows\publish-core.yml = .github\workflows\publish-core.yml
 		.github\workflows\publish-logging.yml = .github\workflows\publish-logging.yml
 		README.md = README.md
-		tcp.js = tcp.js
-		web.js = web.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FD98D3F3-CD24-467A-A730-CAA79F92E693}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Lite", "src\Swan.Lite\Swan.Lite.csproj", "{061C78DC-13E2-425B-AD58-1388416E11EE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Samples", "src\Swan.Samples\Swan.Samples.csproj", "{A691E7B6-AB1F-4469-B185-F34C9C898D70}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Test", "test\Swan.Test\Swan.Test.csproj", "{947AB9D4-B34D-45E9-91D5-2CCEC136C274}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Artifacts", "src\Swan.Artifacts\Swan.Artifacts.csproj", "{969671A9-0522-4471-A649-C989FA9911AD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Threading", "src\Swan.Threading\Swan.Threading.csproj", "{C51BE971-06BA-4B42-88C2-D74701FD1171}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Logging", "src\Swan.Logging\Swan.Logging.csproj", "{3552BE82-2D92-4150-A865-518112DE5BCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Net", "src\Swan.Net\Swan.Net.csproj", "{30025269-DE05-4C77-9394-4F84A4EC6252}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Core", "src\Swan.Core\Swan.Core.csproj", "{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Data", "src\Swan.Data\Swan.Data.csproj", "{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "legacy", "legacy", "{85901DCC-AB64-46C6-ACA3-F6D4E7F13E80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +38,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{061C78DC-13E2-425B-AD58-1388416E11EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,10 +46,6 @@ Global
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274}.Release|Any CPU.Build.0 = Release|Any CPU
-		{969671A9-0522-4471-A649-C989FA9911AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{969671A9-0522-4471-A649-C989FA9911AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{969671A9-0522-4471-A649-C989FA9911AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{969671A9-0522-4471-A649-C989FA9911AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C51BE971-06BA-4B42-88C2-D74701FD1171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C51BE971-06BA-4B42-88C2-D74701FD1171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C51BE971-06BA-4B42-88C2-D74701FD1171}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -74,10 +54,6 @@ Global
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3552BE82-2D92-4150-A865-518112DE5BCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30025269-DE05-4C77-9394-4F84A4EC6252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30025269-DE05-4C77-9394-4F84A4EC6252}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30025269-DE05-4C77-9394-4F84A4EC6252}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30025269-DE05-4C77-9394-4F84A4EC6252}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,13 +67,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{061C78DC-13E2-425B-AD58-1388416E11EE} = {85901DCC-AB64-46C6-ACA3-F6D4E7F13E80}
 		{A691E7B6-AB1F-4469-B185-F34C9C898D70} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{947AB9D4-B34D-45E9-91D5-2CCEC136C274} = {FD98D3F3-CD24-467A-A730-CAA79F92E693}
-		{969671A9-0522-4471-A649-C989FA9911AD} = {85901DCC-AB64-46C6-ACA3-F6D4E7F13E80}
 		{C51BE971-06BA-4B42-88C2-D74701FD1171} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{3552BE82-2D92-4150-A865-518112DE5BCE} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
-		{30025269-DE05-4C77-9394-4F84A4EC6252} = {85901DCC-AB64-46C6-ACA3-F6D4E7F13E80}
 		{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 	EndGlobalSection

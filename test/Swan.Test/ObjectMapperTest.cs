@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.ObjectMapperTests;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Mapping;
-using Mocks;
+using Swan.Mapping;
+using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
 
@@ -54,16 +54,10 @@ public class CreateMap : ObjectMapperTest
     }
 
     [Test]
-    public void MapWithoutSource_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Default.Apply<UserDto>(null));
-    }
+    public void MapWithoutSource_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Default.Apply<UserDto>(null));
 
     [Test]
-    public void WithAutoresolveFalse_ThrowsInvalidOperationException()
-    {
-        Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Apply<UserDto>(SourceUser, false));
-    }
+    public void WithAutoresolveFalse_ThrowsInvalidOperationException() => Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Apply<UserDto>(SourceUser, false));
 }
 
 [TestFixture]
@@ -84,24 +78,17 @@ public class PropertyMap : ObjectMapperTest
     }
 
     [Test]
-    public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
-    {
+    public void PropertyDestinationWithInvalidPropertySource_ThrowsException() =>
         Assert.Throws<ArgumentException>(() =>
             new ObjectMapper().AddMap<User, UserDto>().Add(t => t, s => s.Role.Name));
-    }
 
     [Test]
-    public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
-    {
+    public void PropertySourceWithInvalidPropertyDestination_ThrowsException() =>
         Assert.Throws<ArgumentException>(() =>
             new ObjectMapper().AddMap<User, UserDto>().Add(t => t.Role, s => s));
-    }
 
     [Test]
-    public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException()
-    {
-        Assert.Throws<InvalidOperationException>(() => ObjectMapper.Default.AddMap<User, ErrorJson>());
-    }
+    public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException() => Assert.Throws<InvalidOperationException>(() => ObjectMapper.Default.AddMap<User, ErrorJson>());
 }
 
 [TestFixture]
@@ -122,18 +109,14 @@ public class RemoveMap : ObjectMapperTest
     }
 
     [Test]
-    public void RemoveInvalidProperty_ThrowsException()
-    {
+    public void RemoveInvalidProperty_ThrowsException() =>
         Assert.Throws<ArgumentException>(() =>
             new ObjectMapper().AddMap<User, UserDto>().Remove(t => t));
-    }
 
     [Test]
-    public void PropertyDestinationInfoNull_ReturnsException()
-    {
+    public void PropertyDestinationInfoNull_ReturnsException() =>
         Assert.Throws<ArgumentException>(() =>
             new ObjectMapper().AddMap<User, UserDto>().Remove(x => x.Name == null));
-    }
 }
 
 [TestFixture]
@@ -156,16 +139,10 @@ public class AutoMap : ObjectMapperTest
 public class Copy : ObjectMapperTest
 {
     [Test]
-    public void SourceNull_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
-    }
+    public void SourceNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
 
     [Test]
-    public void TargetNull_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(new UserDto(), null));
-    }
+    public void TargetNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(new UserDto(), null));
 
     [Test]
     public void SourceDictionaryNull_ThrowsArgumentNullException()
@@ -176,10 +153,7 @@ public class Copy : ObjectMapperTest
     }
 
     [Test]
-    public void TargetDictionaryNull_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(SourceDict, null));
-    }
+    public void TargetDictionaryNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(SourceDict, null));
 
     [Test]
     public void SourceAndTargetNotNull_ReturnsCopy()

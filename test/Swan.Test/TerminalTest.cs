@@ -1,7 +1,7 @@
-﻿namespace Swan.Test.TerminalTests;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Platform;
+using Swan.Platform;
 using System;
 
 [TestFixture]

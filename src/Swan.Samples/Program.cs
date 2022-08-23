@@ -5,7 +5,6 @@ using Collections;
 using Formatters;
 using Logging;
 using Mapping;
-using Net;
 using Platform;
 using Reflection;
 using Threading;
@@ -154,7 +153,7 @@ public static partial class Program
 
         // return;
         bool boolValue = true;
-        var atomic = new AtomicBoolean(false);
+        var atomic = new AtomicBoolean();
         boolValue = atomic;
 
         var simpleInt = 0;

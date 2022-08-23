@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.ExtensionsReflectionTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Reflection;
-using Mocks;
+using Swan.Reflection;
+using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -57,16 +57,10 @@ public class GetDefault : TestFixtureBase
 {
     [TestCase(null, typeof(Fish))]
     [TestCase(0, typeof(int))]
-    public void WithType_ReturnsDefaultValue(object expected, Type input)
-    {
-        Assert.AreEqual(expected, input.GetDefault(), $"Get default type of {input}");
-    }
+    public void WithType_ReturnsDefaultValue(object expected, Type input) => Assert.AreEqual(expected, input.GetDefault(), $"Get default type of {input}");
 
     [Test]
-    public void WithNullType_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => NullType.GetDefault());
-    }
+    public void WithNullType_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => NullType.GetDefault());
 }
 
 [TestFixture]
@@ -74,16 +68,10 @@ public class IsCollection : TestFixtureBase
 {
     [TestCase(true, typeof(List<Fish>))]
     [TestCase(false, typeof(int))]
-    public void WithType_ReturnsABool(bool expected, Type input)
-    {
-        Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsCollection value of {input}");
-    }
+    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsCollection value of {input}");
 
     [Test]
-    public void WithNullType_ThrowsArgumentNullException()
-    {
-        Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsEnumerable);
-    }
+    public void WithNullType_ThrowsArgumentNullException() => Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsEnumerable);
 }
 
 [TestFixture]
@@ -117,10 +105,7 @@ public class IsIEnumerable : TestFixtureBase
     [TestCase(true, typeof(IEnumerable<Fish>))]
     [TestCase(true, typeof(string))]
     [TestCase(false, typeof(int))]
-    public void WithType_ReturnsABool(bool expected, Type input)
-    {
-        Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsIEnumerable value of {input}");
-    }
+    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsIEnumerable value of {input}");
 }
 
 [TestFixture]
@@ -243,30 +228,22 @@ public class GetMethod : TestFixtureBase
     }
 
     [Test]
-    public void WithNullSourceType_ThrowsArgumentNullException()
-    {
+    public void WithNullSourceType_ThrowsArgumentNullException() =>
         Assert.Throws<ArgumentNullException>(() =>
             NullType.GetMethod(Flags, MethodName, _genericTypes, _parameterTypes));
-    }
 
     [Test]
-    public void WithNullMethodName_ThrowsArgumentNullException()
-    {
+    public void WithNullMethodName_ThrowsArgumentNullException() =>
         Assert.Throws<ArgumentNullException>(() =>
             _type.GetMethod(Flags, null, _genericTypes, _parameterTypes));
-    }
 
     [Test]
-    public void WithNullGenericTypes_ThrowsArgumentNullException()
-    {
+    public void WithNullGenericTypes_ThrowsArgumentNullException() =>
         Assert.Throws<ArgumentNullException>(() =>
             _type.GetMethod(Flags, MethodName, null, _parameterTypes));
-    }
 
     [Test]
-    public void WithNullParameterTypes_ThrowsArgumentNullException()
-    {
+    public void WithNullParameterTypes_ThrowsArgumentNullException() =>
         Assert.Throws<ArgumentNullException>(() =>
             _type.GetMethod(Flags, MethodName, _genericTypes, null));
-    }
 }

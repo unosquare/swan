@@ -1,7 +1,7 @@
-﻿namespace Swan.Test.ExtensionsValueTypeTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Extensions;
+using Swan.Extensions;
 
 [TestFixture]
 public class Clamp

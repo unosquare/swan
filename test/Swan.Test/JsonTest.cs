@@ -1,4 +1,4 @@
-﻿namespace Swan.Test.JsonTests;
+﻿namespace Swan.Test;
 
 using Mocks;
 
@@ -16,10 +16,10 @@ public abstract class JsonTest : TestFixtureBase
         InnerChild = BasicJson.GetDefault(),
     };
 
-    protected static string BasicStr => "{" + BasicJson.GetControlValue() + "}";
+    protected static string BasicStr => $"{{{BasicJson.GetControlValue()}}}";
 
     protected string AdvStr =>
-        "{\"InnerChild\":" + BasicStr + "," + BasicJson.GetControlValue() + "}";
+        $"{{\"InnerChild\":{BasicStr},{BasicJson.GetControlValue()}}}";
 
     protected string BasicAStr => "[\"A\",\"B\",\"C\"]";
 
@@ -41,5 +41,5 @@ public abstract class JsonTest : TestFixtureBase
 
     protected string BasicAObjStr => "{\"Id\":1,\"Properties\":[\"One\",\"Two\",\"Babu\"]}";
 
-    protected string AdvAStr => "{\"Id\":1,\"Properties\":[" + BasicStr + "," + BasicStr + "]}";
+    protected string AdvAStr => $"{{\"Id\":1,\"Properties\":[{BasicStr},{BasicStr}]}}";
 }

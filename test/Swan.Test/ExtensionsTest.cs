@@ -1,8 +1,8 @@
-﻿namespace Swan.Test.ExtensionsTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Mapping;
-using Mocks;
+using Swan.Mapping;
+using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
 
@@ -36,10 +36,7 @@ public class CopyPropertiesTo
     }
 
     [Test]
-    public void WithNullObjectAttr_CopyPropertiesToTarget()
-    {
-        Assert.Throws<ArgumentNullException>(() => ObjectAttr.GetDefault().CopyPropertiesTo(null));
-    }
+    public void WithNullObjectAttr_CopyPropertiesToTarget() => Assert.Throws<ArgumentNullException>(() => ObjectAttr.GetDefault().CopyPropertiesTo(null));
 
     [Test]
     public void WithValidParamsAndNewProperty_CopyPropertiesToTarget()
@@ -201,11 +198,9 @@ public class CopyOnlyPropertiesToNew : TestFixtureBase
     }
 
     [Test]
-    public void WithNullSource_ThrowsArgumentNullException()
-    {
+    public void WithNullSource_ThrowsArgumentNullException() =>
         Assert.Throws<ArgumentNullException>(() =>
             NullObj.CopyOnlyPropertiesToNew<ObjectAttr>(nameof(ObjectAttr.Name)));
-    }
 
     [Test]
     public void WithValidBasicJson_CopyOnlyPropertiesToNewBasicJson()

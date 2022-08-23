@@ -1,11 +1,9 @@
-﻿namespace Swan.Test.ExtensionsStringTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Extensions;
-using Formatters;
-using Mocks;
-using System;
-using System.Collections.Generic;
+using Swan.Extensions;
+using Swan.Formatters;
+using Swan.Test.Mocks;
 
 [TestFixture]
 public class Humanize
@@ -23,7 +21,7 @@ public class Humanize
     [TestCase("Camel Case", "CamelCase")]
     [TestCase("Yes", true)]
     [TestCase("(null)", null)]
-    [TestCase("12", 12)]
+    [TestCase("(Stringified)   : 12", 12)]
     public void WithValidObject_ReturnsHumanizedString(string expected, object input) =>
         Assert.AreEqual(expected, input.Humanize(), $"Testing with {input}");
 }
@@ -42,10 +40,7 @@ public class Stringify : TestFixtureBase
 {
     [TestCase("string", "string")]
     [TestCase("(null)", null)]
-    public void WithValidParam_ReturnsStringifiedObject(string expected, object input)
-    {
-        Assert.IsTrue(input.Stringify().EndsWith(expected), $"Testing with {input}");
-    }
+    public void WithValidParam_ReturnsStringifiedObject(string expected, object input) => Assert.IsTrue(input.Stringify().EndsWith(expected), $"Testing with {input}");
 
     [Test]
     public void WithJsonAsParam_ReturnsStringifiedJson()
@@ -125,17 +120,11 @@ public class ToStringInvariant : TestFixtureBase
     [TestCase("", null)]
     [TestCase("Test", "Test")]
     [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
-    public void WithObjectAsParam_ReturnsAString(string expected, object input)
-    {
-        Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
-    }
+    public void WithObjectAsParam_ReturnsAString(string expected, object input) => Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
 
     [TestCase("Test", "Test")]
     [TestCase("Swan.Test.Mocks.Monkey", typeof(Monkey))]
-    public void WithGenericAsParam_ReturnsAString<T>(string expected, T input)
-    {
-        Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
-    }
+    public void WithGenericAsParam_ReturnsAString<T>(string expected, T input) => Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
 }
 
 [TestFixture]
@@ -168,10 +157,7 @@ public class Slice
     [TestCase("", null, 0, 0)]
     [TestCase("Swan", "ThisIsASwanTest", 7, 10)]
     [TestCase("", "ThisIsASwanTest", 10, 7)]
-    public void WithValidParams_ReturnsASlicedString(string expected, string input, int startIndex, int endIndex)
-    {
-        Assert.AreEqual(expected, input.Slice(startIndex, endIndex), $"Testing with {input}");
-    }
+    public void WithValidParams_ReturnsASlicedString(string expected, string input, int startIndex, int endIndex) => Assert.AreEqual(expected, input.Slice(startIndex, endIndex), $"Testing with {input}");
 }
 
 [TestFixture]
@@ -180,24 +166,7 @@ public class SliceLength
     [TestCase("", null, 0, 0)]
     [TestCase("Swan", "ThisIsASwanTest", 7, 4)]
     [TestCase("", "ThisIsASwanTest", 10, 0)]
-    public void WithValidParam_ReturnsASubstring(string expected, string input, int startIndex, int length)
-    {
-        Assert.AreEqual(expected, input.SliceLength(startIndex, length), $"Testing with {input}");
-    }
-}
-
-[TestFixture]
-public class TextPositionAt
-{
-    [TestCase(0, 0, null, 0)]
-    [TestCase(1, 7, "ThisIsASwanTest", 6)]
-    [TestCase(2, 0, "ThisIs\nASwanTest", 6)]
-    public void WithValidParams_ReturnsATuple(int firstExpected, int secExpected, string input, int charIndex)
-    {
-        var expected = Tuple.Create(firstExpected, secExpected);
-
-        Assert.AreEqual(expected, input.TextPositionAt(charIndex), $"Testing with {input}");
-    }
+    public void WithValidParam_ReturnsASubstring(string expected, string input, int startIndex, int length) => Assert.AreEqual(expected, input.SliceLength(startIndex, length), $"Testing with {input}");
 }
 
 [TestFixture]
@@ -232,19 +201,13 @@ public class FormatBytes
     [TestCase("97.66 KB", 100000)]
     [TestCase("3.38 MB", 3546346)]
     [TestCase("4.94 TB", 5432675475323)]
-    public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input)
-    {
-        Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
-    }
+    public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input) => Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
 
     [TestCase("3 KB", 3072)]
     [TestCase("52.2 KB", 53453)]
     [TestCase("639.32 KB", 654664)]
     [TestCase("80.72 MB", 84645653)]
-    public void WithLongParam_ReturnsFormattedBytes(string expected, long input)
-    {
-        Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
-    }
+    public void WithLongParam_ReturnsFormattedBytes(string expected, long input) => Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
 }
 
 [TestFixture]
@@ -253,10 +216,7 @@ public class Truncate
     [TestCase("ThisIs", "ThisIsASwanTest", 6)]
     [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
     [TestCase(null, null, 60)]
-    public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength)
-    {
-        Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
-    }
+    public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength) => Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
 }
 
 [TestFixture]
@@ -264,10 +224,7 @@ public class Contains
 {
     [TestCase(new[] { 'l' })]
     [TestCase(new[] { 'l', 'W' })]
-    public void WithValid_ReturnsTrue(params char[]? chars)
-    {
-        Assert.IsTrue("Hello World".Contains(chars));
-    }
+    public void WithValid_ReturnsTrue(params char[]? chars) => Assert.IsTrue("Hello World".Contains(chars));
 }
 
 [TestFixture]
@@ -276,8 +233,5 @@ public class Hex2Int
     [TestCase(10, 'A')]
     [TestCase(15, 'F')]
     [TestCase(3, '3')]
-    public void WithValidChar_ReturnsAsInt(int expected, char input)
-    {
-        Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
-    }
+    public void WithValidChar_ReturnsAsInt(int expected, char input) => Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
 }

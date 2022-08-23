@@ -781,11 +781,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             if (proxy.IsDictionary)
@@ -821,11 +818,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             proxy.ForEach((kvp) =>

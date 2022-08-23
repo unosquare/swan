@@ -30,7 +30,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
             .WithTransaction(transaction)
             .SetParameters(param);
 
-        return command.Query(Deserializer, CommandBehavior.Default);
+        return command.Query(Deserializer);
     }
 
     /// <inheritdoc />

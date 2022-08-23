@@ -1,9 +1,9 @@
-﻿namespace Swan.Test.CsvReaderTest;
+﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Formatters;
 using Platform;
-using Mocks;
+using Swan.Formatters;
+using Swan.Test.Mocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +28,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     };
 }
 
-public class Constructor : CsvReaderTest
+public class CsvReaderConstructor : CsvReaderTest
 {
     [Test]
     public void WithValidStreamAndValidEncoding_ReturnsReader()
@@ -40,22 +40,18 @@ public class Constructor : CsvReaderTest
     }
 
     [Test]
-    public void WithNullStream_ThrowsNullReferenceException()
-    {
+    public void WithNullStream_ThrowsNullReferenceException() =>
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var csvReader = new CsvReader(default(MemoryStream), Encoding.ASCII);
+            var _ = new CsvReader(default(MemoryStream), Encoding.ASCII);
         });
-    }
 
     [Test]
-    public void WithNullEncoding_ThrowsNullReferenceException()
-    {
+    public void WithNullEncoding_ThrowsNullReferenceException() =>
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var csvReader = new CsvReader(default(MemoryStream));
+            var _ = new CsvReader(default(MemoryStream));
         });
-    }
 }
 
 public class SkipRecord : CsvReaderTest
@@ -63,7 +59,7 @@ public class SkipRecord : CsvReaderTest
     [Test]
     public void WithValidStream_SkipsRecord()
     {
-        var position = 0;
+        const int position = 0;
 
         using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
         var reader = new CsvReader(stream, Encoding.ASCII);
@@ -74,8 +70,8 @@ public class SkipRecord : CsvReaderTest
     [Test]
     public void WithValidStringAndEscapeCharacter_SkipsRecord()
     {
-        var position = 0;
-        var data = "Orgrimmar,m";
+        const int position = 0;
+        const string data = "Orgrimmar,m";
 
         using var stream = new MemoryStream(Encoding.ASCII.GetBytes(data));
         var reader = new CsvReader(stream, Encoding.ASCII, escapeChar: 'm');

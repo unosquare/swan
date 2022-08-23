@@ -1,7 +1,5 @@
 ﻿namespace Swan.Test.Mocks;
 
-using System;
-
 public class User
 {
     public string Name { get; set; }
