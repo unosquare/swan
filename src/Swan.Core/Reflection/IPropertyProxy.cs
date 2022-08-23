@@ -69,7 +69,7 @@ public interface IPropertyProxy
     /// <param name="instance">The target instance to read the property from.</param>
     /// <param name="value">The output value. Will be set to the default value of the property type if unsuccessful.</param>
     /// <returns>True if the operation succeeds. False otherwise.</returns>
-    bool TryRead(object instance, [MaybeNullWhen(false)] out object? value);
+    bool TryRead(object instance, out object? value);
 
     /// <summary>
     /// Sets the property value via a stored delegate.

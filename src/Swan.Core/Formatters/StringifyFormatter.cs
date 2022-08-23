@@ -63,57 +63,63 @@ public static class StringifyFormatter
         if (stackLevel == 0)
             builder.Append(CultureInfo.InvariantCulture, $"{"(Stringified)",-16}: ");
 
-        if (element.ValueKind == JsonValueKind.Object)
+        switch (element.ValueKind)
         {
-            var properties = element.EnumerateObject().ToArray();
-            var idProperty = properties.FirstOrDefault(p => p.Name == "$id");
-            var valuesProperty = !idProperty.IsUndefined()
-                ? properties.FirstOrDefault(p => p.Name == "$values" && p.Value.ValueKind == JsonValueKind.Array)
-                : default;
-
-            if (!valuesProperty.IsUndefined())
-            {
-                builder.Append($"{idProperty.Name} = {idProperty.Value}" + StringifyJson(valuesProperty.Value, indentSpaces, stackLevel));
-            }
-            else
-            {
-                if (!idProperty.IsUndefined())
-                    builder.Append($"{idProperty.Name} = {idProperty.Value}");
-
-                builder.AppendLine();
-
-                foreach (var property in properties)
+            case JsonValueKind.Object:
                 {
-                    if (property.Name.StartsWith("$id", StringComparison.Ordinal))
-                        continue;
+                    var properties = element.EnumerateObject().ToArray();
+                    var idProperty = properties.FirstOrDefault(p => p.Name == "$id");
+                    var valuesProperty = !idProperty.IsUndefined()
+                        ? properties.FirstOrDefault(p => p.Name == "$values" && p.Value.ValueKind == JsonValueKind.Array)
+                        : default;
 
-                    builder
-                        .Append($"{indentString}{property.Name,-16}: ")
-                        .Append($"{StringifyJson(property.Value, indentSpaces, stackLevel + 1)}")
-                        .AppendLine();
+                    if (!valuesProperty.IsUndefined())
+                    {
+                        builder.Append($"{idProperty.Name} = {idProperty.Value}" + StringifyJson(valuesProperty.Value, indentSpaces, stackLevel));
+                    }
+                    else
+                    {
+                        if (!idProperty.IsUndefined())
+                            builder.Append($"{idProperty.Name} = {idProperty.Value}");
+
+                        builder.AppendLine();
+
+                        foreach (var property in properties)
+                        {
+                            if (property.Name.StartsWith("$id", StringComparison.Ordinal))
+                                continue;
+
+                            builder
+                                .Append($"{indentString}{property.Name,-16}: ")
+                                .Append($"{StringifyJson(property.Value, indentSpaces, stackLevel + 1)}")
+                                .AppendLine();
+                        }
+                    }
+
+                    break;
                 }
-            }
-        }
-        else if (element.ValueKind == JsonValueKind.Array)
-        {
-            builder.AppendLine();
+            case JsonValueKind.Array:
+                {
+                    builder.AppendLine();
 
-            var index = 0;
-            foreach (var arrayElement in element.EnumerateArray())
-            {
-                builder
-                    .Append($"{indentString}[{index}]: ")
-                    .Append($"{StringifyJson(arrayElement, indentSpaces, stackLevel + 1)}")
-                    .AppendLine();
+                    var index = 0;
+                    foreach (var arrayElement in element.EnumerateArray())
+                    {
+                        builder
+                            .Append($"{indentString}[{index}]: ")
+                            .Append($"{StringifyJson(arrayElement, indentSpaces, stackLevel + 1)}")
+                            .AppendLine();
 
-                index++;
-            }
-        }
-        else
-        {
-            builder.AppendLine(element.ValueKind == JsonValueKind.Null
-                ? "(null)"
-                : $"{element}".Truncate(24, "...")?.RemoveControlChars());
+                        index++;
+                    }
+
+                    break;
+                }
+            default:
+                builder.AppendLine(element.ValueKind == JsonValueKind.Null
+                    ? "(null)"
+                    : $"{element}".Truncate(24, "...")?.RemoveControlChars());
+                break;
         }
 
         return builder.ToString().TrimEnd();

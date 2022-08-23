@@ -43,7 +43,7 @@
         public TypeInfo(Type nativeType)
         {
             if (nativeType.IsGenericType && !nativeType.IsConstructedGenericType)
-                throw new ArgumentException($"Generic type definitions cannot be proxied.");
+                throw new ArgumentException("Generic type definitions cannot be proxied.");
 
             NativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
             IsValueType = nativeType.IsValueType;

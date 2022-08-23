@@ -182,7 +182,7 @@ public class DbProvider
         var quotedTableName = QuoteTable(table.TableName, schemaName);
         var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
         var builder = new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n")
-            .Append(string.Join($",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").ToArray()))
+            .Append(string.Join(",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").ToArray()))
             .AppendLine("\r\n);");
 
         return connection

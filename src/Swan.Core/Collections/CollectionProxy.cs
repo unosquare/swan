@@ -421,7 +421,7 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
         var elementType = array.GetType().GetElementType()?.TypeInfo();
 
         if (elementType is null)
-            throw new ArgumentException($"Unable to obtain array element type.", nameof(array));
+            throw new ArgumentException("Unable to obtain array element type.", nameof(array));
 
         var arrayIndex = index;
 

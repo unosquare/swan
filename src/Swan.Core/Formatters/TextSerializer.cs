@@ -21,7 +21,7 @@ public static class TextSerializer
     {
         options ??= TextSerializerOptions.JsonPrettyPrint;
         var stackTable = new StackTable();
-        return Serialize(instance, options, stackTable, 0, 1).ToString();
+        return Serialize(instance, options, stackTable, 0, 1);
     }
 
     private static string Serialize(object? instance,
@@ -59,8 +59,8 @@ public static class TextSerializer
         return TryWriteAsDictionary(builder, proxy, instance, options, stackTable, stackDepth, indentDepth)
             ? builder.ToString()
             : TryWriteAsArray(builder, instance, options, stackTable, stackDepth, indentDepth)
-            ? builder.ToString()
-            : WriteAsObject(builder, proxy, instance, options, stackTable, stackDepth, indentDepth);
+                ? builder.ToString()
+                : WriteAsObject(builder, proxy, instance, options, stackTable, stackDepth, indentDepth);
     }
 
     private static bool WillIncrementStack(object? value)
@@ -97,29 +97,31 @@ public static class TextSerializer
         return !isKeyName || !options.KeyValuePadding.HasValue
             ? quotedValue
             : options.KeyValuePadding > 0
-            ? quotedValue.PadLeft(options.KeyValuePadding.Value)
-            : options.KeyValuePadding < 0
-            ? quotedValue.PadRight(Math.Abs(options.KeyValuePadding.Value))
-            : quotedValue;
+                ? quotedValue.PadLeft(options.KeyValuePadding.Value)
+                : options.KeyValuePadding < 0
+                    ? quotedValue.PadRight(Math.Abs(options.KeyValuePadding.Value))
+                    : quotedValue;
     }
 
-    private static string WriteJsonElement(JsonElement element, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth) =>
-         element.ValueKind switch
-         {
-             JsonValueKind.Null => options.NullLiteral,
-             JsonValueKind.False => options.FalseLiteral,
-             JsonValueKind.True => options.TrueLiteral,
-             JsonValueKind.Undefined => options.NullLiteral,
-             JsonValueKind.Number => element.ToString() ?? "0",
-             JsonValueKind.String => WriteAsString(options, element.GetString()!, false),
-             JsonValueKind.Array => Serialize(
-                 new JsonDynamicObject(element).Materialize(), options, stackTable, stackDepth + 1, indentDepth),
-             JsonValueKind.Object => Serialize(
-                 new JsonDynamicObject(element).Materialize(), options, stackTable, stackDepth + 1, indentDepth),
-             _ => element.ToString() ?? options.NullLiteral,
-         };
+    private static string WriteJsonElement(JsonElement element, TextSerializerOptions options, StackTable stackTable,
+        int stackDepth, int indentDepth) =>
+        element.ValueKind switch
+        {
+            JsonValueKind.Null => options.NullLiteral,
+            JsonValueKind.False => options.FalseLiteral,
+            JsonValueKind.True => options.TrueLiteral,
+            JsonValueKind.Undefined => options.NullLiteral,
+            JsonValueKind.Number => element.ToString() ?? "0",
+            JsonValueKind.String => WriteAsString(options, element.GetString()!, false),
+            JsonValueKind.Array => Serialize(
+                new JsonDynamicObject(element).Materialize(), options, stackTable, stackDepth + 1, indentDepth),
+            JsonValueKind.Object => Serialize(
+                new JsonDynamicObject(element).Materialize(), options, stackTable, stackDepth + 1, indentDepth),
+            _ => element.ToString() ?? options.NullLiteral,
+        };
 
-    private static bool TryWriteAsDictionary(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+    private static bool TryWriteAsDictionary(StringBuilder builder, ITypeInfo proxy, object instance,
+        TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
     {
         if (!CollectionProxy.TryCreate(instance, out var dictionary) || dictionary.IsDictionary == false)
             return false;
@@ -161,7 +163,8 @@ public static class TextSerializer
         return true;
     }
 
-    private static bool TryWriteAsArray(StringBuilder builder, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+    private static bool TryWriteAsArray(StringBuilder builder, object instance, TextSerializerOptions options,
+        StackTable stackTable, int stackDepth, int indentDepth)
     {
         if (instance is not IEnumerable collection)
             return false;
@@ -193,7 +196,8 @@ public static class TextSerializer
         return true;
     }
 
-    private static string WriteAsObject(StringBuilder builder, ITypeInfo proxy, object instance, TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
+    private static string WriteAsObject(StringBuilder builder, ITypeInfo proxy, object instance,
+        TextSerializerOptions options, StackTable stackTable, int stackDepth, int indentDepth)
     {
         var isFirst = true;
         stackTable.AddReference(instance);
@@ -241,14 +245,12 @@ public static class TextSerializer
         ? new(' ', indentDepth * options.IndentSpaces)
         : string.Empty;
 
-    private static string FormatKeyName(string name, TextSerializerOptions options)
-    {
-        return string.IsNullOrEmpty(name)
+    private static string FormatKeyName(string name, TextSerializerOptions options) =>
+        string.IsNullOrEmpty(name)
             ? name
             : options.UseCamelCase && char.IsLetter(name[0]) && !char.IsLower(name[0])
-            ? char.ToLowerInvariant(name[0]) + new string(name.Length > 1 ? name[1..] : string.Empty)
-            : name;
-    }
+                ? char.ToLowerInvariant(name[0]) + new string(name.Length > 1 ? name[1..] : string.Empty)
+                : name;
 
     private static void BeginObject(TextSerializerOptions options, string typeName, StringBuilder builder)
     {
@@ -297,15 +299,7 @@ public static class TextSerializer
             this[instance] += 1;
         }
 
-        public bool HasReference(object? instance)
-        {
-            if (instance is null)
-                return false;
-
-            if (!TryGetValue(instance, out var count))
-                return false;
-
-            return count > 0;
-        }
+        public bool HasReference(object? instance) =>
+            instance is not null && TryGetValue(instance, out var count) && count > 0;
     }
 }

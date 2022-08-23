@@ -2,7 +2,7 @@
 
 public static partial class TypeManager
 {
-    internal static IEnumerable<object> FilterAttributes(this IEnumerable<object> attributes, Type filterType)
+    internal static IEnumerable<object> FilterAttributes(this IEnumerable<object>? attributes, Type filterType)
     {
         if (filterType is null)
             throw new ArgumentNullException(nameof(filterType));

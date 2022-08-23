@@ -29,7 +29,7 @@ public static partial class JsonFormatter
     /// <param name="options">Optional JSON document options.</param>
     /// <param name="valueParser">Optional JSON element value parser.</param>
     /// <returns>The deserialized dynamic object.</returns>
-    public static async Task<dynamic?> JsonDeserializeAsync(this Stream @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
+    public static async Task<dynamic?> JsonDeserializeAsync(this Stream? @this, JsonDocumentOptions options = default, Func<JsonElement, object?>? valueParser = default)
     {
         if (@this is null)
             return null;

@@ -19,7 +19,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     }
 
     /// <inheritdoc />
-    public virtual Func<IDataRecord, T> Deserializer { get; set; } = new((r) => r.ParseObject<T>());
+    public virtual Func<IDataRecord, T> Deserializer { get; set; } = r => r.ParseObject<T>();
 
     /// <inheritdoc />
     public virtual IEnumerable<T> Query(
