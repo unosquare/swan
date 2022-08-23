@@ -1,10 +1,7 @@
 ﻿namespace Swan.Test;
 
+using Collections;
 using NUnit.Framework;
-using Swan.Collections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 public abstract class ExtensionsFunctionalTest : TestFixtureBase
 {

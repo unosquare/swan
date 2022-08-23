@@ -1,31 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <Description>Unit Testing project</Description>
-        <Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
-        <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-        <TargetFramework>net6.0</TargetFramework>
-        <AssemblyName>Unosquare.Swan.Test</AssemblyName>
-        <LangVersion>latest</LangVersion>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+	<PropertyGroup>
+		<Description>Unit Testing project</Description>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
+		<AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
+		<TargetFramework>net6.0</TargetFramework>
+		<AssemblyName>Unosquare.Swan.Test</AssemblyName>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Swan.Threading\Swan.Threading.csproj" />
-        <ProjectReference Include="..\..\src\Swan.Logging\Swan.Logging.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Swan.Threading\Swan.Threading.csproj" />
+		<ProjectReference Include="..\..\src\Swan.Logging\Swan.Logging.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="AutoFixture" Version="4.17.0" />
-        <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
-        <PackageReference Include="Moq" Version="4.18.2" />
-        <packagereference Include="NUnit3TestAdapter" Version="4.2.1">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </packagereference>
-        <PackageReference Include="NUnit" Version="3.13.3" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+		<packagereference Include="NUnit3TestAdapter" Version="4.2.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</packagereference>
+		<PackageReference Include="NUnit" Version="3.13.3" />
+	</ItemGroup>
 
 </Project>

@@ -1,10 +1,8 @@
 ﻿namespace Swan.Test;
 
+using Mapping;
+using Mocks;
 using NUnit.Framework;
-using Swan.Mapping;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
 
 [TestFixture]
 public class CopyPropertiesTo

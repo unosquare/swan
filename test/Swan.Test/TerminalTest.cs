@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Platform;
-using System;
+using Platform;
+using System.Text;
 
 [TestFixture]
 public class IsConsolePresent
@@ -42,8 +42,8 @@ public class OutputEncoding
 
         Assert.IsNotNull(defaultEncoding);
 
-        Terminal.OutputEncoding = System.Text.Encoding.UTF8;
+        Terminal.OutputEncoding = Encoding.UTF8;
 
-        Assert.AreEqual(Terminal.OutputEncoding, System.Text.Encoding.UTF8, "Change to UTF8 encoding");
+        Assert.AreEqual(Terminal.OutputEncoding, Encoding.UTF8, "Change to UTF8 encoding");
     }
 }

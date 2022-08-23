@@ -1,10 +1,8 @@
 ﻿namespace Swan.Test;
 
+using Mapping;
+using Mocks;
 using NUnit.Framework;
-using Swan.Mapping;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
 
 public abstract class ObjectMapperTest : TestFixtureBase
 {
@@ -88,7 +86,8 @@ public class PropertyMap : ObjectMapperTest
             new ObjectMapper().AddMap<User, UserDto>().Add(t => t.Role, s => s));
 
     [Test]
-    public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException() => Assert.Throws<InvalidOperationException>(() => ObjectMapper.Default.AddMap<User, ErrorJson>());
+    public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException() =>
+        Assert.Throws<InvalidOperationException>(() => ObjectMapper.Default.AddMap<User, ErrorJson>());
 }
 
 [TestFixture]

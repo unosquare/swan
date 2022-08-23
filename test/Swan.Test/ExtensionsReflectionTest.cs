@@ -1,13 +1,10 @@
 ﻿namespace Swan.Test;
 
+using Mocks;
 using NUnit.Framework;
-using Swan.Reflection;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
+using Reflection;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 
 public enum FirstEnum
 {
@@ -68,10 +65,12 @@ public class IsCollection : TestFixtureBase
 {
     [TestCase(true, typeof(List<Fish>))]
     [TestCase(false, typeof(int))]
-    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsCollection value of {input}");
+    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected,
+        input.TypeInfo().IsEnumerable, $"Get IsCollection value of {input}");
 
     [Test]
-    public void WithNullType_ThrowsArgumentNullException() => Assert.Throws<NullReferenceException>(() => _ = NullType.GetType().TypeInfo().IsEnumerable);
+    public void WithNullType_ThrowsArgumentNullException() =>
+        Assert.Throws<ArgumentNullException>(() => _ = NullType.TypeInfo().IsEnumerable);
 }
 
 [TestFixture]
@@ -105,7 +104,8 @@ public class IsIEnumerable : TestFixtureBase
     [TestCase(true, typeof(IEnumerable<Fish>))]
     [TestCase(true, typeof(string))]
     [TestCase(false, typeof(int))]
-    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected, input.TypeInfo().IsEnumerable, $"Get IsIEnumerable value of {input}");
+    public void WithType_ReturnsABool(bool expected, Type input) => Assert.AreEqual(expected,
+        input.TypeInfo().IsEnumerable, $"Get IsIEnumerable value of {input}");
 }
 
 [TestFixture]
@@ -120,12 +120,8 @@ public class GetAllTypes
     }
 
     [Test]
-    public void WithAssembly_ReturnsTypeObjects()
-    {
-        var data = typeof(string).Assembly.GetAllTypes();
-
-        Assert.AreEqual("System.RuntimeType[]", data.ToString());
-    }
+    public void WithAssembly_ReturnsTypeObjects() =>
+        Assert.AreEqual("System.RuntimeType[]", typeof(string).Assembly.GetAllTypes().ToString());
 }
 
 [TestFixture]

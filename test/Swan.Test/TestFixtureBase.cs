@@ -1,8 +1,6 @@
 ﻿namespace Swan.Test;
 
 using Mocks;
-using System;
-using System.Collections.Generic;
 
 public abstract class TestFixtureBase
 {
@@ -12,25 +10,11 @@ public abstract class TestFixtureBase
 
     protected string? NullString => null;
 
-    protected byte[]? NullByteArray => null;
-
     protected List<string>? NullStringList => null;
 
     protected Type? NullType => null;
 
-    protected Action? NullAction => null;
-
     protected Exception? NullException => null;
-
-    protected DateBasicJson DefaultObject => new()
-    {
-        StringData = "string",
-        IntData = 1,
-        NegativeInt = -1,
-        DecimalData = 10.33M,
-        BoolData = true,
-        Date = new(2017, 10, 10),
-    };
 
     protected SampleStruct DefaultStruct => new()
     {

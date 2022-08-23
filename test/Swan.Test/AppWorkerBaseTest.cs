@@ -1,10 +1,8 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
 using Mocks;
+using NUnit.Framework;
 using Threading;
-using System;
-using System.Threading.Tasks;
 
 [TestFixture]
 public class AppWorkerBaseTest

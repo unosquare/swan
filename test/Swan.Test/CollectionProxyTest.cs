@@ -1,13 +1,10 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
 using Collections;
+using NUnit.Framework;
 using Reflection;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 public static class CollectionSamples
 {
@@ -69,7 +66,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void ProxyIsCreatedWithValidKind()
     {
-        var testCases = new Dictionary<CollectionKind, IEnumerable>()
+        var testCases = new Dictionary<CollectionKind, IEnumerable>
         {
             [CollectionKind.GenericDictionary] = CollectionSamples.GenericDictionary,
             [CollectionKind.Dictionary] = CollectionSamples.Dictionary,
@@ -102,7 +99,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void IsReadOnlyWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = true,
             [CollectionSamples.GenericDictionary] = false,
@@ -118,20 +115,18 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = false,
         };
 
-        var index = 0;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsReadOnly;
             Assert.AreEqual(result, expected);
-            index++;
         }
     }
 
     [Test]
     public void IsFixedSizeWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = true,
             [CollectionSamples.GenericDictionary] = false,
@@ -147,20 +142,18 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        var index = 0;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsFixedSize;
             Assert.AreEqual(result, expected);
-            index++;
         }
     }
 
     [Test]
     public void CountWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = true,
             [CollectionSamples.GenericDictionary] = false,
@@ -176,20 +169,18 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        var index = 0;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.Count;
             Assert.IsTrue(result > 0);
-            index++;
         }
     }
 
     [Test]
     public void IsSynchronizedWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = false,
             [CollectionSamples.GenericDictionary] = false,
@@ -205,20 +196,18 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = false,
         };
 
-        var index = 0;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsSynchronized;
             Assert.AreEqual(result, expected);
-            index++;
         }
     }
 
     [Test]
     public void ClearWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = true,
             [CollectionSamples.GenericDictionary] = false,
@@ -234,11 +223,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             if (expected)
@@ -255,7 +241,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void IndexerWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, bool>()
+        var testCases = new Dictionary<IEnumerable, bool>
         {
             [CollectionSamples.ReadOnlyDictionary] = true,
             [CollectionSamples.GenericDictionary] = false,
@@ -271,11 +257,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
             Assert.IsTrue(proxy[7] is int or char);
 
@@ -312,18 +295,13 @@ public class CollectionProxyTest : TestFixtureBase
                 Assert.IsTrue(proxy["7"] is int or char);
             else
                 Assert.IsTrue(proxy["item 1"] is int);
-
-            if (proxy.IsReadOnly is false)
-            {
-                // if (proxy.)
-            }
         }
     }
 
     [Test]
     public void CollectionTypeAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, Type>()
+        var testCases = new Dictionary<IEnumerable, Type>
         {
             [CollectionSamples.ReadOnlyDictionary] = typeof(IDictionary<string, int>),
             [CollectionSamples.GenericDictionary] = typeof(IDictionary<string, int>),
@@ -339,11 +317,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = typeof(IList),
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
             Assert.IsTrue(proxy.CollectionType.NativeType == expected);
         }
@@ -352,7 +327,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void FirstWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, object>()
+        var testCases = new Dictionary<IEnumerable, object>
         {
             [CollectionSamples.ReadOnlyDictionary] = 1,
             [CollectionSamples.GenericDictionary] = 1,
@@ -368,13 +343,10 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 'H',
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
-            if (collection is Hashtable ht)
+            if (collection is Hashtable)
                 Assert.IsTrue(proxy.First() is int);
             else
                 Assert.IsTrue(Equals(proxy.First(), expected));
@@ -384,7 +356,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void LastWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, object>()
+        var testCases = new Dictionary<IEnumerable, object>
         {
             [CollectionSamples.ReadOnlyDictionary] = 8,
             [CollectionSamples.GenericDictionary] = 8,
@@ -400,13 +372,10 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = '!',
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
-            if (collection is Hashtable ht)
+            if (collection is Hashtable)
                 Assert.IsTrue(proxy.Last() is int);
             else
                 Assert.IsTrue(Equals(proxy.Last(), expected));
@@ -416,7 +385,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void CopyToWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 8,
             [CollectionSamples.GenericDictionary] = 8,
@@ -432,11 +401,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = '!',
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
             var target = new object[proxy.Count];
             proxy.CopyTo(target, 0);
@@ -450,7 +416,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void ConversionWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 8,
             [CollectionSamples.GenericDictionary] = 8,
@@ -466,11 +432,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = '!',
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
             var list = proxy.ToList<string>();
             var arr = proxy.ToArray<int>();
@@ -489,7 +452,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void AddWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -505,34 +468,33 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
-            if (expected == 0)
-            {
-                Assert.Catch(() => proxy.Add("hello"));
-                Assert.Catch(() => proxy.AddRange(new[] { 2, 3, 4, 5 }));
-                continue;
-            }
 
-            if (expected == 1)
+            switch (expected)
             {
-                Assert.Catch(() => proxy.Add("item 8", 30));
-                proxy.Add("9");
-                proxy.AddRange(new[] { 2, 3, 4, 5 });
-                var lastItem = proxy.Last();
-                Assert.IsTrue(lastItem is int or string);
-            }
+                case 0:
+                    Assert.Catch(() => proxy.Add("hello"));
+                    Assert.Catch(() => proxy.AddRange(new[] { 2, 3, 4, 5 }));
+                    continue;
+                case 1:
+                    {
+                        Assert.Catch(() => proxy.Add("item 8", 30));
+                        proxy.Add("9");
+                        proxy.AddRange(new[] { 2, 3, 4, 5 });
+                        var lastItem = proxy.Last();
+                        Assert.IsTrue(lastItem is int or string);
+                        break;
+                    }
+                case 2:
+                    {
+                        proxy.Add("item 9", 9);
 
-            if (expected == 2)
-            {
-                proxy.Add("item 9", 9);
-
-                var lastItem = proxy.Last();
-                Assert.IsTrue(lastItem is int or string);
+                        var lastItem = proxy.Last();
+                        Assert.IsTrue(lastItem is int or string);
+                        break;
+                    }
             }
         }
     }
@@ -540,7 +502,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void IndexOfWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -556,11 +518,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             if (proxy.CollectionKind is CollectionKind.GenericDictionary)
@@ -592,7 +551,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void RemoveAtWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -608,11 +567,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
         foreach ((IEnumerable collection, var expected) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
             var originalItem = proxy.LastOrDefault();
 
@@ -634,7 +590,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void RemoveWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -650,13 +606,9 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
-            var originalCount = proxy.Count;
 
             if (!proxy.IsDictionary && proxy.ValuesType.NativeType != typeof(object))
                 Assert.Catch(() => proxy.Remove("XXXXX"));
@@ -687,7 +639,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void InsertWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -703,11 +655,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             if (proxy.IsFixedSize || proxy.IsReadOnly || proxy.IsDictionary || (
@@ -726,7 +675,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void KeysWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -742,11 +691,8 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        var index = -1;
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach ((IEnumerable collection, _) in testCases)
         {
-            index++;
-
             var proxy = collection.AsProxy();
 
             if (proxy.IsDictionary)
@@ -765,7 +711,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void ContainsKeyWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -802,7 +748,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void EnumeratorsWorksAsExpected()
     {
-        var testCases = new Dictionary<IEnumerable, int>()
+        var testCases = new Dictionary<IEnumerable, int>
         {
             [CollectionSamples.ReadOnlyDictionary] = 0,
             [CollectionSamples.GenericDictionary] = 2,
@@ -822,7 +768,7 @@ public class CollectionProxyTest : TestFixtureBase
         {
             var proxy = collection.AsProxy();
 
-            proxy.ForEach((kvp) =>
+            proxy.ForEach(kvp =>
             {
                 Assert.IsTrue(kvp.Key is string or int);
                 Assert.IsTrue(kvp.Value is int or char);

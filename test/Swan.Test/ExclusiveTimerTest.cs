@@ -2,8 +2,6 @@
 
 using NUnit.Framework;
 using Threading;
-using System;
-using System.Threading;
 
 [TestFixture]
 public class ExclusiveTimerTest

@@ -1,12 +1,9 @@
 ﻿namespace Swan.Test;
 
+using Formatters;
+using Mocks;
 using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.Dynamic;
 using System.Text;
 
 public abstract class CsvWriterTest : TestFixtureBase
@@ -152,7 +149,7 @@ public class WriteObject : CsvWriterTest
     [Test]
     public void DynamicObject_ReturnsAreEqual()
     {
-        dynamic dynObject = new System.Dynamic.ExpandoObject();
+        dynamic dynObject = new ExpandoObject();
         dynObject.A = nameof(MemoryStream);
 
         using var stream = new MemoryStream();

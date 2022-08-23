@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
+using Formatters;
+using Mocks;
 using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
 using System.Text.Json;
 
 [TestFixture]
@@ -135,13 +135,6 @@ public class SerializeOnly : JsonTest
     [Test]
     public void WithObject_ReturnsObjectSerialized()
     {
-        var includeNames = new[]
-        {
-            nameof(BasicJson.StringData),
-            nameof(BasicJson.IntData),
-            nameof(BasicJson.NegativeInt),
-        };
-
         var dataSerialized = BasicJson.GetDefault().JsonSerialize();
 
         Assert.AreEqual(
@@ -156,11 +149,7 @@ public class SerializeOnly : JsonTest
     public void WithEmptyString_ReturnsEmptyString() => Assert.AreEqual("\"\"", string.Empty.JsonSerialize());
 
     [Test]
-    public void WithType_SerializingTypeThrows()
-    {
-        var typeData = typeof(string).JsonSerialize();
-        Assert.Throws<InvalidOperationException>(() => typeof(string).JsonSerialize());
-    }
+    public void WithType_SerializingTypeThrows() => Assert.Throws<InvalidOperationException>(() => typeof(string).JsonSerialize());
 
     [Test]
     public void WithEmptyEnumerable_ReturnsEmptyArrayLiteral()
@@ -216,7 +205,7 @@ public class SerializeExcluding : JsonTest
     [Test]
     public void WithJsonProperty_ReturnsObjectSerializedExcludingProps()
     {
-        var dataSerialized = (new JsonPropertySample() { Data = "Data", IgnoredData = "Ignored" }).JsonSerialize();
+        var dataSerialized = (new JsonPropertySample { Data = "Data", IgnoredData = "Ignored" }).JsonSerialize();
 
         Assert.AreEqual(
             "{\"data\":\"Data\"}",
@@ -226,7 +215,7 @@ public class SerializeExcluding : JsonTest
     [Test]
     public void WithInnerJsonProperty_ReturnsObjectSerializedExcludingProps()
     {
-        var dataSerialized = (new InnerJsonPropertySample()
+        var dataSerialized = (new InnerJsonPropertySample
         {
             Data = "Data",
             IgnoredData = "Ignored",

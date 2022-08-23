@@ -1,8 +1,6 @@
 ﻿namespace Swan.Test.Mocks;
 
 using Mapping;
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 public class ErrorJson
@@ -64,14 +62,6 @@ public class SampleFamily
     }
 }
 
-public class BasicJsonWithoutCtor
-{
-    protected BasicJsonWithoutCtor()
-    {
-        // Ignore
-    }
-}
-
 public class BasicJson
 {
     public string StringData { get; set; }
@@ -105,11 +95,6 @@ public class BasicJsonWithNewProperty : BasicJson
     public new int StringNull { get; set; }
 }
 
-public class DateBasicJson : BasicJson
-{
-    public DateTime Date { get; set; }
-}
-
 public class EmptyJson
 {
     // Nothing
@@ -132,13 +117,6 @@ public class AdvArrayJson
     public int Id { get; set; }
 
     public BasicJson[] Properties { get; set; }
-}
-
-public class ArrayJsonWithInitialData
-{
-    public int Id { get; set; } = 1;
-
-    public string[] Properties { get; set; } = { "ONE", "TWO" };
 }
 
 public class DateTimeJson
@@ -190,25 +168,10 @@ public class JsonIngorePropertySample
     public JsonIngoreNestedPropertySample Inner { get; set; }
 }
 
-public class JsonFile
-{
-    public string Filename { get; set; }
-    public byte[] Data { get; set; }
-}
-
 public struct SampleStruct
 {
     public int Value;
     public string Name;
-}
-
-public struct SampleStructWithProps
-{
-    public int StudentId { get; set; }
-
-    public double Average { get; set; }
-
-    public string Notes { get; set; }
 }
 
 public class ObjectEnum
@@ -217,56 +180,11 @@ public class ObjectEnum
     public MyEnum MyEnum { get; set; } = MyEnum.Three;
 }
 
-public class ObjectNoEmptyCtor
-{
-    public ObjectNoEmptyCtor(int id)
-    {
-        Id = id;
-    }
-
-    public int Id { get; set; }
-}
-
 public enum MyEnum
 {
     One = 1,
     Two,
     Three,
-}
-
-[Flags]
-public enum MyFlag
-{
-    NoneOrZero = 0,
-    One = 1,
-    Two = 2,
-    All = One | Two,
-}
-
-[Flags]
-public enum MyFlagByte : byte
-{
-    NoneOrZero = 0,
-    One = 1,
-    Two = 2,
-    All = One | Two,
-}
-
-[Flags]
-public enum MyFlagLong : long
-{
-    NoneOrZero = 0,
-    One = 1,
-    Two = 2,
-    All = One | Two,
-}
-
-[Flags]
-public enum MyFlag2
-{
-    None = 0,
-    One = 1,
-    Two = 2,
 }
 
 public class ObjectAttr

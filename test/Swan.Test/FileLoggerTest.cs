@@ -1,9 +1,7 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
 using Logging;
-using System.IO;
-using System.Threading.Tasks;
+using NUnit.Framework;
 
 [TestFixture]
 public class FileLoggerTest

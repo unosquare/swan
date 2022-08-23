@@ -2,8 +2,6 @@
 
 using NUnit.Framework;
 using Threading;
-using System;
-using System.Threading.Tasks;
 
 [TestFixture]
 public class AtomicTypeTest
@@ -137,8 +135,9 @@ public class AtomicTypeTest
     [Test]
     public void CompareTo()
     {
-        long objectValue = 10;
-        long objectOtherValue = 100;
+        const long objectValue = 10;
+        const long objectOtherValue = 100;
+
         AtomicTypeBase<long> original = new AtomicLong(10);
         AtomicTypeBase<long> copy = new AtomicLong(10);
         AtomicTypeBase<long> other = new AtomicLong(100);
@@ -159,8 +158,9 @@ public class AtomicTypeTest
     [Test]
     public void Equals()
     {
-        long objectValue = 10;
-        long objectOtherValue = 100;
+        const long objectValue = 10;
+        const long objectOtherValue = 100;
+
         AtomicTypeBase<long> original = new AtomicLong(10);
         AtomicTypeBase<long> copy = new AtomicLong(10);
         AtomicTypeBase<long> other = new AtomicLong(100);

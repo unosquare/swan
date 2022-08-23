@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <Description>Some usage samples of the SWAN library</Description>
-        <Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
-        <AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
-        <TargetFramework>net6.0</TargetFramework>
-        <AssemblyName>Swan.Samples</AssemblyName>
-        <OutputType>Exe</OutputType>
-        <PackageId>Unosquare.Swan.Samples</PackageId>
-        <LangVersion>latest</LangVersion>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+	<PropertyGroup>
+		<Description>Some usage samples of the SWAN library</Description>
+		<Copyright>Copyright (c) 2016-2022 - Unosquare</Copyright>
+		<AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
+		<TargetFramework>net6.0</TargetFramework>
+		<AssemblyName>Swan.Samples</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<PackageId>Unosquare.Swan.Samples</PackageId>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
-      <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Swan.Data\Swan.Data.csproj" />
-        <ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
-        <ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Swan.Data\Swan.Data.csproj" />
+		<ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
+		<ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />
+	</ItemGroup>
 
 </Project>

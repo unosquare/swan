@@ -1,9 +1,9 @@
 ﻿namespace Swan.Test;
 
+using Extensions;
+using Formatters;
+using Mocks;
 using NUnit.Framework;
-using Swan.Extensions;
-using Swan.Formatters;
-using Swan.Test.Mocks;
 
 [TestFixture]
 public class Humanize
@@ -62,7 +62,7 @@ public class Stringify : TestFixtureBase
         var emptyJson = new EmptyJson();
         var objectInfoLines = emptyJson.Stringify().ToLines();
 
-        Assert.IsTrue(objectInfoLines[0]?.Length > 0);
+        Assert.IsTrue(objectInfoLines[0].Length > 0);
     }
 
     [Test]
@@ -216,7 +216,8 @@ public class Truncate
     [TestCase("ThisIs", "ThisIsASwanTest", 6)]
     [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
     [TestCase(null, null, 60)]
-    public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength) => Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
+    public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength) =>
+        Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
 }
 
 [TestFixture]

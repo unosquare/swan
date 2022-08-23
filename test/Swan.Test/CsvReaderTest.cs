@@ -1,13 +1,9 @@
 ﻿namespace Swan.Test;
 
+using Formatters;
+using Mocks;
 using NUnit.Framework;
 using Platform;
-using Swan.Formatters;
-using Swan.Test.Mocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 [TestFixture]
