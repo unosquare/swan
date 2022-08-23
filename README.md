@@ -1,10 +1,6 @@
 [![NuGet](https://img.shields.io/nuget/dt/Unosquare.Swan.svg)](https://www.nuget.org/packages/Unosquare.Swan)
-[![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/swan/)](https://github.com/igrigorik/ga-beacon)
-[![Build Status](https://travis-ci.org/unosquare/swan.svg?branch=master)](https://travis-ci.org/unosquare/swan)
-[![Build status](https://ci.appveyor.com/api/projects/status/063tybvog8mb1sic/branch/master?svg=true)](https://ci.appveyor.com/project/geoperez/swan/branch/master)
 ![Buils status](https://github.com/unosquare/swan/workflows/.NET%20Core%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master)](https://coveralls.io/github/unosquare/swan?branch=master)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=unosquare/swan)](https://dependabot.com)
 
 # <img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"></img> SWAN: Stuff We All Need (Unosquare's collection of C# extension methods and classes)
 
