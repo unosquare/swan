@@ -78,9 +78,10 @@ public class Stringify : TestFixtureBase
 
         var objectInfoLines = arrayList.Stringify().ToLines();
 
-        Assert.AreEqual("[0]: array[2]", objectInfoLines[0]);
-        Assert.AreEqual("    [0]: 1234", objectInfoLines[1]);
-        Assert.AreEqual("    [1]: 4321", objectInfoLines[2]);
+        StringAssert.Contains("(Stringified)", objectInfoLines[0]);
+        Assert.AreEqual("  [0]: ", objectInfoLines[1]);
+        Assert.AreEqual("    [0]: 1234", objectInfoLines[2]);
+        Assert.AreEqual("    [1]: 4321", objectInfoLines[3]);
     }
 
     [Test]

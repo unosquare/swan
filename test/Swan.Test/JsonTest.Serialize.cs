@@ -12,13 +12,6 @@ public class ToJson : JsonTest
     public void CheckJsonFormat_ValidatesIfObjectsAreEqual() => Assert.AreEqual(BasicStr, BasicJson.GetDefault().JsonSerialize());
 
     [Test]
-    public void CheckJsonFormat_ValidatesIfObjectsAreNotEqual()
-    {
-        var data = BasicJson.GetDefault().JsonSerialize();
-        Assert.AreNotEqual(BasicStr, data);
-    }
-
-    [Test]
     public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals() => Assert.AreEqual(string.Empty, NullObj.JsonSerialize());
 }
 
@@ -245,27 +238,6 @@ public class SerializeExcluding : JsonTest
 
         Assert.AreEqual(
             "{\"name\":\"Yeyo\",\"inner\":{\"id\":\"AESD\",\"data\":44}}",
-            dataSerialized);
-    }
-
-    [Test]
-    public void WithInnerJsonProperty_ReturnsObjectSerializedWithNestedExcluededNames()
-    {
-        var data = new JsonIngorePropertySample
-        {
-            Id = "22332",
-            Name = "Yeyo",
-            Inner = new()
-            {
-                Id = "AESD",
-                Data = 44,
-            },
-        };
-
-        var dataSerialized = data.JsonSerialize();
-
-        Assert.AreEqual(
-            "{\"name\":\"Yeyo\",\"inner\":{\"id\":\"AESD\"}}",
             dataSerialized);
     }
 }
