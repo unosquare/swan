@@ -131,7 +131,7 @@ public class SerializeOnly : JsonTest
         var dataSerialized = BasicJson.GetDefault().JsonSerialize();
 
         Assert.AreEqual(
-            BasicJson.GetControlValue(),
+            $"{{{BasicJson.GetControlValue()}}}",
             dataSerialized);
     }
 

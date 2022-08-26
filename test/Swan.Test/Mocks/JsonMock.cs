@@ -87,7 +87,7 @@ public class BasicJson
         };
 
     public static string GetControlValue() =>
-        "{\"StringData\":\"string,\\r\\ndata\\\\\",\"IntData\":1,\"NegativeInt\":-1,\"DecimalData\":10.33,\"BoolData\":true,\"StringNull\":null}";
+        "\"StringData\":\"string,\\r\\ndata\\\\\",\"IntData\":1,\"NegativeInt\":-1,\"DecimalData\":10.33,\"BoolData\":true,\"StringNull\":null";
 }
 
 public class BasicJsonWithNewProperty : BasicJson

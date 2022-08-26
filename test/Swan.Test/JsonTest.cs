@@ -16,7 +16,7 @@ public abstract class JsonTest : TestFixtureBase
         InnerChild = BasicJson.GetDefault(),
     };
 
-    protected static string BasicStr => $"{BasicJson.GetControlValue()}";
+    protected static string BasicStr => $"{{{BasicJson.GetControlValue()}}}";
 
     protected string AdvStr =>
         $"{{\"InnerChild\":{BasicStr},{BasicJson.GetControlValue()}}}";
