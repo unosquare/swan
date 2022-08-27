@@ -23,3 +23,8 @@ jobs:
     - name: 🎠 Test with dotnet
       run: |
         dotnet test --no-restore -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov test/Swan.Test/Swan.Test.csproj -c Release
+    - name: 📌 Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: test/Swan.Test/coverage.info
+        token: ${{ secrets.CODECOV_TOKEN }}
