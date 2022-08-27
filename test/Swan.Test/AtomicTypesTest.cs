@@ -61,8 +61,7 @@ public class AtomicTypeTest
 
         void ToggleValueTask()
         {
-            for (var x = 0; x < 100; x++)
-                atomic.Value = !atomic.Value;
+            atomic.Value = !atomic.Value;
         }
 
         Task.WaitAll(
@@ -70,7 +69,7 @@ public class AtomicTypeTest
             Task.Run(ToggleValueTask),
             Task.Run(ToggleValueTask));
 
-        Assert.IsFalse(atomic.Value);
+        Assert.IsTrue(atomic.Value);
     }
 
     [Test]
