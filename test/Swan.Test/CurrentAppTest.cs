@@ -11,7 +11,4 @@ public class CurrentAppTest
 
     [Test]
     public void GetLocalStorageTest() => Assert.IsNotEmpty(SwanRuntime.LocalStoragePath, $"Retrieving a local storage path: {SwanRuntime.LocalStoragePath}");
-
-    [Test]
-    public void GetEntryAssemblyDirectoryTest() => Assert.IsNotNull(SwanRuntime.EntryAssemblyDirectory);
 }

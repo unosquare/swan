@@ -9,6 +9,9 @@ public class FileLoggerTest
     [Test]
     public async Task WithDefaultValues_FileExist()
     {
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Ignored");
+
         var instance = new FileLogger();
         Logger.RegisterLogger(instance);
         "Test".Info();
@@ -21,6 +24,9 @@ public class FileLoggerTest
     [Test]
     public async Task WithDefaultValues_FileIsNotEmpty()
     {
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Ignored");
+
         var instance = new FileLogger();
         Logger.RegisterLogger(instance);
         "Test".Info();
