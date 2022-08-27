@@ -21,9 +21,9 @@ jobs:
         restore-keys: |
           ${{ secrets.DOCKER_CACHE_KEY }}-nuget-
     - name: 🎠 Test with dotnet
+      continue-on-error: true
       run: |
         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov test/Swan.Test/Swan.Test.csproj -c Release
-        ls test/Swan.Test
     - name: 📌 Codecov
       uses: codecov/codecov-action@v3
       with:
