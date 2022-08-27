@@ -1,0 +1,25 @@
+name: .NET Core Build
+
+on: 
+  pull_request:
+  push:
+    branches: 
+        - master
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
+    - name: 📦 Cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ secrets.DOCKER_CACHE_KEY }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ secrets.DOCKER_CACHE_KEY }}-nuget-
+    - name: 🎠 Test with dotnet
+      run: |
+        dotnet test --no-restore -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov test/Swan.Test/Swan.Test.csproj -c Release
