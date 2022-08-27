@@ -126,6 +126,9 @@ public static class SwanRuntime
     {
         get
         {
+            if (string.IsNullOrWhiteSpace(EntryAssembly.Location))
+                return Directory.GetCurrentDirectory();
+
             var uri = new UriBuilder(EntryAssembly.Location);
             var path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path) ?? string.Empty;
