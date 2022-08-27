@@ -126,14 +126,7 @@ public static class SwanRuntime
     {
         get
         {
-            try 
-            {
-                var uri = new UriBuilder(EntryAssembly.Location);
-                var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path) ?? string.Empty;
-            } catch {
-                return Directory.GetCurrentDirectory();
-            }
+            return AppDomain.CurrentDomain.BaseDirectory;
         }
     }
 
