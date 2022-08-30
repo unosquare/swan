@@ -12,6 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Swan.Data\Swan.Data.csproj" />
 		<ProjectReference Include="..\..\src\Swan.Threading\Swan.Threading.csproj" />
 		<ProjectReference Include="..\..\src\Swan.Logging\Swan.Logging.csproj" />
 	</ItemGroup>
