@@ -82,10 +82,10 @@ public class AsyncEnumerableExtensionsTest
         IAsyncEnumerable<int> items = null;
 
         //Act
-        var response = await items.FirstOrDefaultAsync(ct);
+        var response = await items.ToListAsync(ct);
 
         //Assert
-        Assert.IsTrue(response == 0);
+        Assert.IsTrue(response.Count == 0);
     }
 
     [Test]
@@ -96,9 +96,9 @@ public class AsyncEnumerableExtensionsTest
         IAsyncEnumerable<int> items = AsyncEnumerable.Empty<int>();
 
         //Act
-        var response = await items.FirstOrDefaultAsync(ct);
+        var response = await items.ToListAsync(ct);
 
         //Assert
-        Assert.IsTrue(response == 0);
+        Assert.IsTrue(response.Count == 0);
     }
 }
