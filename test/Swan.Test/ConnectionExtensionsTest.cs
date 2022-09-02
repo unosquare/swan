@@ -81,10 +81,10 @@ public class ConnectionExtensionsTest
 
 
     [Test]
-    public async Task CreateProjectTableAndInsertOneRowAsync()
+    public async Task CreateProjectsTableAndInsertOneRowAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var result = await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
         var table = conn.TableAsync<Project>("Projects");
         var project = await table.Result.InsertOneAsync(new()
@@ -98,14 +98,14 @@ public class ConnectionExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        Assert.AreEqual(project.Name, "Project ONE");
+        Assert.AreEqual(project?.Name, "Project ONE");
     }
     
     [Test]
-    public void CreateProjectTableAndInsertOneRow()
+    public void CreateProjectsTableAndInsertOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var result = conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
         var project = table.InsertOne(new()
@@ -119,16 +119,118 @@ public class ConnectionExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        Assert.AreEqual(project.Name, "Project ONE");
+        Assert.AreEqual(project?.Name, "Project ONE");
     }
 
     [Test]
-    public void OpenAConnectionAndGetItsProvidersCreateListTablesCommand()
+    public void OpenConnectionAndGetItsProvidersCreateListTablesCommand()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var provider = conn.Provider();
         var command = provider.CreateListTablesCommand(conn).CommandText;
 
         Assert.AreEqual(command, "SELECT name AS [Name], '' AS [Schema] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type= 'table' ORDER BY name");
+    }
+
+    [Test]
+    public void CreateTablesAndGetTableNames()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<Project>("ProjectsTableOne").ExecuteDdlCommand();
+        conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteDdlCommand();
+        conn.TableBuilder<Project>("ProjectsTableThree").ExecuteDdlCommand();
+
+        var tableNames = conn.GetTableNames();
+       
+        Assert.IsTrue(tableNames.Any());
+        Assert.IsTrue(tableNames.Count == 3);
+    }
+
+    [Test]
+    public async Task CreateTablesAndGetTableNamesAsync()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        await conn.TableBuilder<Project>("ProjectsTableOne").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsTableThree").ExecuteDdlCommandAsync();
+
+        var tableNames = conn.GetTableNamesAsync();
+
+        Assert.IsTrue(tableNames.Result.Any());
+        Assert.IsTrue(tableNames.Result.Count == 3);
+    }
+
+    [Test]
+    public async Task CreateProjectsTableAndInsertsQueryAsync()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+
+        var execution = await conn.
+            ExecuteNonQueryAsync($"Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
+            " values " +
+            $" (1,'{DateTime.Now}','{true}','Project ONE','My Scope', '{ProjectTypes.Exciting}','{DateTime.Now.AddMonths(-1)}');");
+
+        Assert.IsTrue(execution == 1);
+    }
+
+    [Test]
+    public void CreateProjectsTableAndInsertsQuery()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+
+        var execution = conn.
+            ExecuteNonQuery($"Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
+            " values " +
+            $" (1,'{DateTime.Now}','{true}','Project ONE','My Scope', '{ProjectTypes.Exciting}','{DateTime.Now.AddMonths(-1)}');");
+
+        Assert.IsTrue(execution == 1);
+    }
+
+    [Test]
+    public async Task CreateProjectsTableAndInsertOneRowAndExecuteScalarAsync()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+
+        var table = conn.TableAsync<Project>("Projects");
+        var project = await table.Result.InsertOneAsync(new()
+        {
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project ONE",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Exciting,
+            StartDate = DateTime.Now.AddMonths(-1)
+        });
+
+        var scalar = await conn.ExecuteScalarAsync("select Name, ProjectScope, ProjectType from Projects");
+
+        Assert.AreEqual(scalar, "Project ONE");
+    }
+
+    [Test]
+    public void CreateProjectsTableAndInsertOneRowAndExecuteScalar()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+
+        var table = conn.Table<Project>("Projects");
+        var project = table.InsertOne(new()
+        {
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project ONE",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Exciting,
+            StartDate = DateTime.Now.AddMonths(-1)
+        });
+
+        var scalar = conn.ExecuteScalar("select Name, ProjectScope, ProjectType from Projects");
+
+        Assert.AreEqual(scalar, "Project ONE");
     }
 }
