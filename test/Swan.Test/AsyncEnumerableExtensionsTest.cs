@@ -59,6 +59,25 @@ public class AsyncEnumerableExtensionsTest
         Assert.IsTrue(response == 0);
     }
 
+
+    [Test]
+    public async Task FirstOrDefaultWithCancelationTolkenTrue()
+    {
+        //Arrange
+        CancellationTokenSource cts = new CancellationTokenSource();
+        var ct = cts.Token;
+       
+        IAsyncEnumerable<int> items;
+
+        //Act
+        items = FetchItems();
+        var response = items.FirstOrDefaultAsync(ct);
+        cts.Cancel();
+
+        //Assert
+        Assert.IsTrue(ct.IsCancellationRequested);
+    }
+
     [Test]
     public async Task GetAllItemsCountEqualsTen()
     {
@@ -100,5 +119,23 @@ public class AsyncEnumerableExtensionsTest
 
         //Assert
         Assert.IsTrue(response.Count == 0);
+    }
+
+    [Test]
+    public async Task ToListAsyncWithCancelationTolkenTrue()
+    {
+        //Arrange
+        CancellationTokenSource cts = new CancellationTokenSource();
+        var ct = cts.Token;
+
+        IAsyncEnumerable<int> items;
+
+        //Act
+        items = FetchItems();
+        var response = items.ToListAsync(ct);
+        cts.Cancel();
+
+        //Assert
+        Assert.IsTrue(ct.IsCancellationRequested);
     }
 }
