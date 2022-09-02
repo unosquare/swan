@@ -86,8 +86,9 @@ public class ConnectionExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
-        var table = conn.TableAsync<Project>("Projects");
-        var project = await table.Result.InsertOneAsync(new()
+        var table = await conn.TableAsync<Project>("Projects");
+
+        var project = await table.InsertOneAsync(new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -229,8 +230,50 @@ public class ConnectionExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        var scalar = conn.ExecuteScalar("select Name, ProjectScope, ProjectType from Projects");
+        var scalar = conn.ExecuteScalar("select Name from Projects");
 
         Assert.AreEqual(scalar, "Project ONE");
+    }
+
+    [Test]
+    public void CreateProjectsTableAndGetItsKeyColumnName()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+
+        var table = conn.Table("Projects");
+        var keys = table.KeyColumns;
+
+        Assert.AreEqual(keys?.FirstOrDefault()?.Name, "ProjectId");
+    }
+
+    [Test]
+    public async Task CreateProjectsTableAndGetItsKeyColumnNameAsync()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+
+        var table = await conn.TableAsync("Projects");
+        var keys = table.KeyColumns;
+
+        Assert.AreEqual(keys?.FirstOrDefault()?.Name, "ProjectId");
+    }
+
+    [Test]
+    public async Task WhenConnectionIsNullThrowsException()
+    {
+        SqliteConnection conn = null;
+       
+        Assert.Throws<ArgumentNullException>(() => conn.Provider());
+        Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteDdlCommand());
+        Assert.Throws<ArgumentNullException>(() => conn.Table("Projects"));
+        Assert.Throws<ArgumentNullException>(() => conn.Table<Project>("Projects")); 
+        Assert.Throws<ArgumentNullException>(() => conn.GetTableNames());
+        Assert.ThrowsAsync<ArgumentNullException>(() => conn.GetTableNamesAsync());
+        Assert.Throws<ArgumentNullException>(() => conn.EnsureConnected());
+        Assert.Throws<ArgumentNullException>(() => conn.ExecuteNonQuery(""));
+        Assert.ThrowsAsync<ArgumentNullException>(() => conn.ExecuteNonQueryAsync(""));
+        Assert.Throws<ArgumentNullException>(() => conn.ExecuteScalar(""));
+        Assert.ThrowsAsync<ArgumentNullException>(() => conn.ExecuteScalarAsync(""));
     }
 }
