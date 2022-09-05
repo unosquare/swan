@@ -263,7 +263,7 @@ public class ConnectionExtensionsTest
     public async Task WhenConnectionIsNullThrowsException()
     {
         SqliteConnection conn = null;
-       
+
         Assert.Throws<ArgumentNullException>(() => conn.Provider());
         Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteDdlCommand());
         Assert.Throws<ArgumentNullException>(() => conn.Table("Projects"));
