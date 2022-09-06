@@ -31,10 +31,10 @@ public class QueryExtensionsTest
         command.CommandText = "Select * from Projects;";
         
         var result = command.Query<Project>().ToList();
-        var result2 = command.Query().ToList();
+        //var result2 = command.Query().ToList();
 
         Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        //Assert.AreEqual(result2[0].Name, "Project ONE");
     }
 
     [Test]
@@ -58,10 +58,10 @@ public class QueryExtensionsTest
         System.Data.Common.DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
         var result = command.FirstOrDefault<Project>();
-        var result2 = command.FirstOrDefault();
+        //var result2 = command.FirstOrDefault();
 
         Assert.AreEqual(result.Name, "Project ONE");
-        Assert.AreEqual(result2.Name, "Project ONE");
+        //Assert.AreEqual(result2.Name, "Project ONE");
     }
 
     [Test]
@@ -83,11 +83,11 @@ public class QueryExtensionsTest
         });
 
         var result = conn.Query<Project>("Select * from Projects;").ToList();
-        var result2 = conn.Query("Select * from Projects;").ToList();
+        //var result2 = conn.Query("Select * from Projects;").ToList();
 
 
         Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        //Assert.AreEqual(result2[0].Name, "Project ONE");
     }
 
     [Test]
@@ -109,10 +109,10 @@ public class QueryExtensionsTest
         });
 
         var result = conn.FirstOrDefault<Project>("Select * from Projects;");
-        var result2 = conn.FirstOrDefault("Select * from Projects;");
+        //var result2 = conn.FirstOrDefault("Select * from Projects;");
         
         Assert.AreEqual(result?.Name, "Project ONE");
-        Assert.AreEqual(result2?.Name, "Project ONE");
+        //Assert.AreEqual(result2?.Name, "Project ONE");
     }
 
     [Test]
@@ -139,9 +139,9 @@ public class QueryExtensionsTest
         table.Rows.Add(row);
 
         var result = table.Query().ToList();
-        var result2 = table.Query<Project>().ToList();
+        //var result2 = table.Query<Project>().ToList();
 
         Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        //Assert.AreEqual(result2[0].Name, "Project ONE");
     }
 }

@@ -9,7 +9,7 @@ using static Swan.Test.Mocks.ProjectRecord;
 public class CodeGenExtensionTest
 {
     [Test]
-    public void GenPoco()
+    public void CreateTableAndGetItsPocoCode()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -18,5 +18,34 @@ public class CodeGenExtensionTest
         string pocoCode = table.GeneratePocoCode();
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\")]"));
+
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[0].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[1].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[2].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[3].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[4].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[5].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[6].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[7].Name})"));
+    }
+
+    [Test]
+    public void TryGetPocoCodeWhenTableIsNull()
+    {
+        Data.Context.ITableContext table = null;
+
+        Assert.Throws<ArgumentNullException>(() => table.GeneratePocoCode());
+    }
+
+    [Test]
+    public void TryGetPocoCodeWhenTableHasNoColumns()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<ProjectNoColumns>("ProjectsNoColumns").ExecuteDdlCommand();
+
+        var table = conn.Table("ProjectsNoColumns");
+        table.RemoveColumn("ProjectId");
+
+        Assert.Throws<InvalidOperationException>(() => table.GeneratePocoCode());
     }
 }

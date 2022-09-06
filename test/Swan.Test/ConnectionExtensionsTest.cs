@@ -48,7 +48,7 @@ public class ConnectionExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        Assert.AreEqual(project?.Name, "Project ONE");
+        Assert.AreEqual(project.Name, "Project ONE");
     }
 
     [Test]
@@ -172,7 +172,7 @@ public class ConnectionExtensionsTest
         var table = conn.Table("Projects");
         var keys = table.KeyColumns;
 
-        Assert.AreEqual(keys?.FirstOrDefault()?.Name, "ProjectId");
+        Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
     }
 
     [Test]
@@ -184,7 +184,7 @@ public class ConnectionExtensionsTest
         var table = await conn.TableAsync("Projects");
         var keys = table.KeyColumns;
 
-        Assert.AreEqual(keys?.FirstOrDefault()?.Name, "ProjectId");
+        Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
     }
 
     [Test]

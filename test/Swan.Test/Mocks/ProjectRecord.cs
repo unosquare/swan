@@ -69,6 +69,23 @@
             public string? ProjectScope { get; set; }
         }
 
+        [Table("ProjectNoColumns", Schema = "dbo")]
+        public record ProjectNoColumns
+        {
+            /// <summary>
+            /// Creates a new instance of the <see cref="Project" /> class.
+            /// </summary>
+            public ProjectNoColumns() { /* placeholder */ }
+
+            /// <summary>
+            /// Gets or sets a value for Project Id.
+            /// </summary>
+            [Key]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            [Column(nameof(ProjectId), Order = 0)]
+            public int ProjectId { get; set; }
+        }
+
         public enum ProjectTypes
         {
             Boring,
