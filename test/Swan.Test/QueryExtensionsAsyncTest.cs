@@ -3,14 +3,13 @@
 using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using Swan.Data.Extensions;
-using System.Data;
 using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
-public class QueryExtensionsTest
+public class QueryExtensionsAsyncTest
 {
     [Test]
-    public void CreateDbCommandToExecuteQuery()
+    public void CreateDbCommandToExecuteQueryAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -29,16 +28,16 @@ public class QueryExtensionsTest
 
         System.Data.Common.DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
-        
-        var result = command.Query<Project>().ToList();
-        var result2 = command.Query().ToList();
 
-        Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        var result = command.QueryAsync<Project>().ToListAsync();
+        var result2 = command.QueryAsync().ToListAsync();
+
+        Assert.AreEqual(result.Result[0].Name, "Project ONE");
+        Assert.AreEqual(result2.Result[0].Name, "Project ONE");
     }
 
     [Test]
-    public void CreateDbCommandToExecuteFirstOrDefault()
+    public void CreateDbCommandToExecuteFirstOrDefaultAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -57,15 +56,15 @@ public class QueryExtensionsTest
 
         System.Data.Common.DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
-        var result = command.FirstOrDefault<Project>();
-        var result2 = command.FirstOrDefault();
+        var result = command.FirstOrDefaultAsync<Project>();
+        var result2 = command.FirstOrDefaultAsync();
 
-        Assert.AreEqual(result.Name, "Project ONE");
-        Assert.AreEqual(result2.Name, "Project ONE");
+        Assert.AreEqual(result.Result.Name, "Project ONE");
+        Assert.AreEqual(result2.Result.Name, "Project ONE");
     }
 
     [Test]
-    public void CreateDbConnectionToExecuteQuery()
+    public void CreateDbConnectionToExecuteQueryAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -82,16 +81,15 @@ public class QueryExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        var result = conn.Query<Project>("Select * from Projects;").ToList();
-        var result2 = conn.Query("Select * from Projects;").ToList();
+        var result = conn.QueryAsync<Project>("Select * from Projects;").ToListAsync();
+        var result2 = conn.QueryAsync("Select * from Projects;").ToListAsync();
 
-
-        Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        Assert.AreEqual(result.Result[0].Name, "Project ONE");
+        Assert.AreEqual(result2.Result[0].Name, "Project ONE");
     }
 
     [Test]
-    public void CreateDbConnectionToExecuteFirstOrDefault()
+    public void CreateDbConnectionToExecuteFirstOrDefaultAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -108,40 +106,10 @@ public class QueryExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        var result = conn.FirstOrDefault<Project>("Select * from Projects;");
-        var result2 = conn.FirstOrDefault("Select * from Projects;");
-        
-        Assert.AreEqual(result?.Name, "Project ONE");
-        Assert.AreEqual(result2?.Name, "Project ONE");
-    }
+        var result = conn.FirstOrDefaultAsync<Project>("Select * from Projects;");
+        var result2 = conn.FirstOrDefaultAsync("Select * from Projects;");
 
-    [Test]
-    public void CreateDataTableToExecuteQuery()
-    {
-        DataTable table = new DataTable();
-
-        table.Columns.Add("CompanyId");
-        table.Columns.Add("EndDate");
-        table.Columns.Add("IsActive");
-        table.Columns.Add("Name");
-        table.Columns.Add("ProjectScope");
-        table.Columns.Add("ProjectType");
-        table.Columns.Add("StartDate");
-
-        DataRow row = table.NewRow();
-        row["CompanyId"] = 1;
-        row["EndDate"] = DateTime.Now;
-        row["IsActive"] = true;
-        row["Name"] = "Project ONE";
-        row["ProjectScope"] = "My Scope";
-        row["ProjectType"] = ProjectTypes.Exciting;
-        row["StartDate"] = DateTime.Now.AddMonths(-1);
-        table.Rows.Add(row);
-
-        var result = table.Query().ToList();
-        var result2 = table.Query<Project>().ToList();
-
-        Assert.AreEqual(result[0].Name, "Project ONE");
-        Assert.AreEqual(result2[0].Name, "Project ONE");
+        Assert.AreEqual(result.Result.Name, "Project ONE");
+        Assert.AreEqual(result2.Result.Name, "Project ONE");
     }
 }
