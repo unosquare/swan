@@ -156,7 +156,7 @@ public class QueryExtensionsTest
     }
 
     [Test]
-    public void ExecuteQueryWhenConnectionIsNull()
+    public void ExecuteQueryWhenCommandConnectionIsNull()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         DbCommand command = conn.CreateCommand();
@@ -165,6 +165,22 @@ public class QueryExtensionsTest
 
         Assert.Throws<ArgumentException>(() => command.Query<Project>().ToList());
         Assert.Throws<ArgumentException>(() => command.Query().ToList());
+    }
+
+    [Test]
+    public void ExecuteQueryWhenConnectionIsNull()
+    {
+        SqliteConnection conn = null;
+
+        Assert.Throws<ArgumentNullException>(() => conn.Query<Project>("Select * from Projects;"));
+    }
+
+    [Test]
+    public void ExecuteQueryWhenSqlTextIsNullOrWhiteSpace()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        Assert.Throws<ArgumentNullException>(() => conn.Query<Project>(""));
     }
 
     [Test]

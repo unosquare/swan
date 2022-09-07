@@ -115,7 +115,7 @@ public class QueryExtensionsAsyncTest
     }
 
     [Test]
-    public void ExecuteQueryWhenCommandIsNull()
+    public void ExecuteQueryAsyncWhenCommandIsNull()
     {
         DbCommand command = null;
 
@@ -124,7 +124,7 @@ public class QueryExtensionsAsyncTest
     }
 
     [Test]
-    public void ExecuteQueryWhenConnectionIsNull()
+    public void ExecuteQueryAsyncWhenConnectionCommandIsNull()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         DbCommand command = conn.CreateCommand();
@@ -133,5 +133,21 @@ public class QueryExtensionsAsyncTest
 
         Assert.ThrowsAsync<ArgumentException>(() => command.QueryAsync<Project>().ToListAsync());
         Assert.ThrowsAsync<ArgumentException>(() => command.QueryAsync().ToListAsync());
+    }
+
+    [Test]
+    public void ExecuteQueryAsyncWhenConnectionIsNull()
+    {
+        SqliteConnection conn = null;
+
+        Assert.ThrowsAsync<ArgumentNullException>(() => conn.QueryAsync<Project>("Select * from Projects;").ToListAsync());
+    }
+
+    [Test]
+    public void ExecuteQueryAsyncWhenSqlTextIsNullOrWhiteSpace()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        Assert.ThrowsAsync<ArgumentNullException>(() => conn.QueryAsync<Project>("").ToListAsync());
     }
 }
