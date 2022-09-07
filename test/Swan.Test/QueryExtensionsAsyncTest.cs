@@ -3,6 +3,7 @@
 using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using Swan.Data.Extensions;
+using System.Data.Common;
 using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
@@ -26,7 +27,7 @@ public class QueryExtensionsAsyncTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        System.Data.Common.DbCommand command = conn.CreateCommand();
+        DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
 
         var result = command.QueryAsync<Project>().ToListAsync();
@@ -54,7 +55,7 @@ public class QueryExtensionsAsyncTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        System.Data.Common.DbCommand command = conn.CreateCommand();
+        DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
         var result = command.FirstOrDefaultAsync<Project>();
         var result2 = command.FirstOrDefaultAsync();
@@ -111,5 +112,26 @@ public class QueryExtensionsAsyncTest
 
         Assert.AreEqual(result.Result.Name, "Project ONE");
         Assert.AreEqual(result2.Result.Name, "Project ONE");
+    }
+
+    [Test]
+    public void ExecuteQueryWhenCommandIsNull()
+    {
+        DbCommand command = null;
+
+        Assert.ThrowsAsync<ArgumentNullException>(() => command.QueryAsync<Project>().ToListAsync());
+        Assert.ThrowsAsync<ArgumentNullException>(() => command.QueryAsync().ToListAsync());
+    }
+
+    [Test]
+    public void ExecuteQueryWhenConnectionIsNull()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        DbCommand command = conn.CreateCommand();
+
+        command.Connection = null;
+
+        Assert.ThrowsAsync<ArgumentException>(() => command.QueryAsync<Project>().ToListAsync());
+        Assert.ThrowsAsync<ArgumentException>(() => command.QueryAsync().ToListAsync());
     }
 }

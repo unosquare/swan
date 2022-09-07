@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using Swan.Data.Extensions;
 using System.Data;
+using System.Data.Common;
 using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
@@ -27,9 +28,9 @@ public class QueryExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        System.Data.Common.DbCommand command = conn.CreateCommand();
+        DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
-        
+
         var result = command.Query<Project>().ToList();
         var result2 = command.Query().ToList();
 
@@ -55,7 +56,7 @@ public class QueryExtensionsTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        System.Data.Common.DbCommand command = conn.CreateCommand();
+        DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
         var result = command.FirstOrDefault<Project>();
         var result2 = command.FirstOrDefault();
@@ -110,7 +111,7 @@ public class QueryExtensionsTest
 
         var result = conn.FirstOrDefault<Project>("Select * from Projects;");
         var result2 = conn.FirstOrDefault("Select * from Projects;");
-        
+
         Assert.AreEqual(result?.Name, "Project ONE");
         Assert.AreEqual(result2?.Name, "Project ONE");
     }
@@ -143,5 +144,35 @@ public class QueryExtensionsTest
 
         Assert.AreEqual(result[0].Name, "Project ONE");
         Assert.AreEqual(result2[0].Name, "Project ONE");
+    }
+
+    [Test]
+    public void ExecuteQueryWhenCommandIsNull()
+    {
+        DbCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Query<Project>().ToList());
+        Assert.Throws<ArgumentNullException>(() => command.Query().ToList());
+    }
+
+    [Test]
+    public void ExecuteQueryWhenConnectionIsNull()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        DbCommand command = conn.CreateCommand();
+
+        command.Connection = null;
+
+        Assert.Throws<ArgumentException>(() => command.Query<Project>().ToList());
+        Assert.Throws<ArgumentException>(() => command.Query().ToList());
+    }
+
+    [Test]
+    public void ExecuteQueryWhenTableIsNull()
+    {
+        DataTable table = null;
+
+        Assert.Throws<ArgumentNullException>(() => table.Query<Project>().ToList());
+        Assert.Throws<ArgumentNullException>(() => table.Query().ToList());
     }
 }
