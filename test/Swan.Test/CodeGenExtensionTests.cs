@@ -30,6 +30,18 @@ public class CodeGenExtensionTest
     }
 
     [Test]
+    public void CreateTableWithSchemaAndEntityNameAndGetItsPocoCode()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.TableBuilder<Project>("Projects", "Main").ExecuteDdlCommand();
+
+        var table = conn.Table<Project>("Projects", "Main");
+        string pocoCode = table.GeneratePocoCode("Project");
+
+        Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\", Schema = \"Main\")]"));
+    }
+
+    [Test]
     public void TryGetPocoCodeWhenTableIsNull()
     {
         Data.Context.ITableContext table = null;
