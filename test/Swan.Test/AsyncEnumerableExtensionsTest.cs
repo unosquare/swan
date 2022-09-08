@@ -9,15 +9,6 @@ using static Swan.Test.Mocks.ProjectRecord;
 
 public class AsyncEnumerableExtensionsTest
 {
-    //static async IAsyncEnumerable<int> FetchItems()
-    //{
-    //    for (int i = 1; i <= 10; i++)
-    //    {
-    //        await Task.Delay(1000);
-    //        yield return i;
-    //    }
-    //}
-
     private async IAsyncEnumerable<Project> FetchItems()
     {
         CancellationToken ct = new CancellationToken();
