@@ -3,6 +3,8 @@
 using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using Swan.Data.Extensions;
+using System.Data;
+using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
 public class CommandExtensionsTest
@@ -148,5 +150,52 @@ public class CommandExtensionsTest
         var command = conn.CreateCommand();
 
         Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", System.Data.DbType.Int32));
+    }
+
+    [Test]
+    public void DefineParameterCreatedOk()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+
+        var created = command.DefineParameter("IntParameter", System.Data.DbType.Int32);
+
+        Assert.IsNotNull(created);
+    }
+
+    [Test]
+    public void DefineParameterWithClrTypeWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", typeof(Int32)));
+    }
+
+    [Test]
+    public void DefineParameterClrTypeWhenConnectionIsNullThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+        command.Connection = null;
+
+        Assert.Throws<ArgumentException>(() => command.DefineParameter("IntParameter", typeof(Int32)));
+    }
+
+    [Test]
+    public void DefineParameterClrTypeWhenNameIsNullOrWhiteSpaceThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", typeof(Int32)));
+    }
+
+    [Test]
+    public void DefineParameterWhenClrTypeIsNullThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", null));
     }
 }
