@@ -229,7 +229,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
         var set = command.SetParameter("IntParameter", typeof(Int32));
-        
+
         Assert.IsNotNull(set.Parameters);
     }
 
@@ -296,7 +296,7 @@ public class CommandExtensionsTest
         command.SetParameter("IntParameter", 1, DbType.Int32, 1);
         var secondValue = command.Parameters[0].Value;
 
-        Assert.AreNotEqual(firstValue, secondValue);     
+        Assert.AreNotEqual(firstValue, secondValue);
     }
 
     [Test]
@@ -324,7 +324,7 @@ public class CommandExtensionsTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
-        
+
         Project project = new Project()
         {
             CompanyId = 1,
@@ -339,5 +339,171 @@ public class CommandExtensionsTest
         var cmd = command.SetParameters(project);
 
         Assert.AreEqual(8, cmd.Parameters.Count);
+    }
+
+    [Test]
+    public void WithProperties()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.WithProperties());
+    }
+
+    [Test]
+    public void WithPropertiesWhenCommandIsNullThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var tran = conn.BeginTransaction();
+        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
+        var command = conn.CreateCommand();
+
+        var cmdWithPrioperties = command.WithProperties("Select 1;", CommandType.Text, tran, timeSpan);
+
+        Assert.AreEqual("Select 1;", cmdWithPrioperties.CommandText);
+        Assert.AreEqual(timeSpan.Seconds, cmdWithPrioperties.CommandTimeout);
+        Assert.AreEqual(CommandType.Text, cmdWithPrioperties.CommandType);
+    }
+
+    [Test]
+    public void AppendTextsWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.AppendText("Where 1 = 1"));
+    }
+
+
+    [Test]
+    public void AppendTextsWhenCommandTextIsEmptyThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var command = conn.CreateCommand();
+
+        var commandPlusText = command.AppendText("Select 1");
+
+        Assert.AreEqual("Select 1", commandPlusText.CommandText);
+    }
+
+    [Test]
+    public void AppendTextsWhenCommandTextIsNotEmptyThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var command = conn.CreateCommand();
+        command.CommandText = "Select 1";
+
+        var commandPlusText = command.AppendText("Where 1 = 1;");
+
+        Assert.AreEqual("Select 1 Where 1 = 1;", commandPlusText.CommandText);
+    }
+
+    [Test]
+    public void WithTextsWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.WithText("Select 1"));
+    }
+
+    [Test]
+    public void WithTextCommandTextIsNullSetsCommandTextToEmpty()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var command = conn.CreateCommand();
+
+        command.WithText(null);
+
+        Assert.AreEqual(string.Empty,command.CommandText);
+    }
+
+    [Test]
+    public void WithTextSetsCommandText()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var command = conn.CreateCommand();
+
+        command.WithText("Select 1");
+
+        Assert.AreEqual("Select 1", command.CommandText);
+    }
+
+    [Test]
+    public void WithTransactionWhenCommandIsNullThrowsException()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var tran = conn.BeginTransaction();
+
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.WithTransaction(tran));
+    }
+
+    [Test]
+    public void WithTransactionSetsCommandTransaction()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
+        var command = conn.CreateCommand();
+        var tran = conn.BeginTransaction();
+        command.WithTransaction(tran);
+
+        Assert.IsNotNull(command.Transaction);
+    }
+
+    [Test]
+    public void WithTimeOutWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
+
+        Assert.Throws<ArgumentNullException>(() => command.WithTimeout(timeSpan));
+    }
+
+    [Test]
+    public void WithTimeOutSetsCommandTimeOut()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand(); 
+        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
+        
+        command.WithTimeout(timeSpan);
+
+        Assert.AreEqual(30,command.CommandTimeout);
+    }
+
+    [Test]
+    public void WithTimeOutSecondsWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.WithTimeout(30));
+    }
+
+    [Test]
+    public void WithTimeOutSecondsSetsCommandTimeOut()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+
+        command.WithTimeout(30);
+
+        Assert.AreEqual(30, command.CommandTimeout);
+    }
+
+    [Test]
+    public void WithCommandTypeWhenCommandIsNullThrowsException()
+    {
+        SqliteCommand command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.WithCommandType(CommandType.Text));
+    }
+
+    [Test]
+    public void WithCommandTypeSetsCommandType()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.CreateCommand();
+
+        command.WithCommandType(CommandType.Text);
+
+        Assert.AreEqual(CommandType.Text, command.CommandType);
     }
 }
