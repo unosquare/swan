@@ -951,18 +951,3 @@ Atomic operations are indivisible which means that they cannot interrupted partw
 [AtomicLong API Doc](https://unosquare.github.io/swan/api/Swan.Threading.AtomicLong.html)
 
 [AtomicDouble API Doc](https://unosquare.github.io/swan/api/Swan.Threading.AtomicDouble.html)
-
-## Running Unit Tests
-
-If you want to run the .NET Unit test project, you may need to start some services. These services are Javascript files and you need [NodeJS](https://nodejs.org/en/download/) to execute them. I know why Javascript files for a .NET project, but it's the easy way to start up some network services, anyway PR with .NET Core services are welcome.
-
-Before running them, please execute `npm install`. This command will install all the required dependencies to start the network services.
-
-The following files, located in the root folder, should be run in any order before start running unit tests:
-
-* `./mail.js` - This script will mount a SMTP server, this service is required to run `SmtpClient` tests.
-* `./web.js` -  This script will provide a web server responding JSON files for `JsonClient` tests.
-* `./tcp.js` - This script will open a basic TCP Socket for `TcpConnection` tests.
-* `./ntp.js` - This script will mount a NTP server for general `Network` methods.
-
-You can also check the CI files ([Travis](https://github.com/unosquare/swan/blob/master/.travis.yml) and [AppVeyor](https://github.com/unosquare/swan/blob/master/appveyor.yml) for details how to run them.
