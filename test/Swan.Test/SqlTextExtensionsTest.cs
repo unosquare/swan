@@ -203,5 +203,93 @@ public class SqlTextExtensionsTest
 
         Assert.AreEqual("FROM [Projects]", command.CommandText);
     }
+
+    [Test]
+    public void InsertWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.InsertInto());
+    }
+
+    [Test]
+    public void TableWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Table("TableName"));
+    }
+
+    [Test]
+    public void WhereWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Where(""));
+    }
+
+    [Test]
+    public void IsBetweenWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.IsBetween());
+    }
+
+    [Test]
+    public void OrWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Or());
+    }
+
+    [Test]
+    public void AndWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.And());
+    }
+
+    [Test]
+    public void ParameterWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Parameter(""));
+    }
+
+    [Test]
+    public void ParametersWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Parameters(new string[] { "Parameter1", "Parameter2" }));
+    }
+
+    [Test]
+    public void FieldsAndParametersWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.FieldsAndParameters(new string[] { "Parameter1", "Parameter2" }));
+    }
+
+    [Test]
+    public void OrderByWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.OrderBy(new string[] { "Parameter1", "Parameter2" }));
+    }
+
+    [Test]
+    public void LimitWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Limit());
+    }
 }
 
