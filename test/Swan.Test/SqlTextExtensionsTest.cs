@@ -11,8 +11,6 @@ using static Swan.Test.Mocks.ProjectRecord;
 
 public class SqlTextExtensionsTest
 {
-   
-
     [Test]
     public void SelectFieldsWhenCommandSourceIsNullThrowsException()
     {
@@ -86,5 +84,124 @@ public class SqlTextExtensionsTest
             command.CommandText);
     }
 
+    [Test]
+    public void FieldWhenCommandSourceIsNullThrowsException()
+    {
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Field(""));
+    }
+
+    [Test]
+    public void FieldsWhenItemIsEmptyReturnsEmptyCommandText()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.BeginCommandText().Field("").EndCommandText();
+
+        Assert.AreEqual("", command.CommandText);
+    }
+
+    [Test]
+    public void FieldsWhenIsNotEmptyAppendsItemToCommandText()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        var command = conn.BeginCommandText().Field("Field1").EndCommandText();
+
+        Assert.AreEqual("[Field1]", command.CommandText);
+    }
+
+    [Test]
+    public void FieldsWhenCommandSourceIsNullThrowsException()
+    {
+        var fields = new string[] { };
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.Fields(fields));
+    }
+
+    [Test]
+    public void FieldsWhenFieldsIsEmptyReturnsAsterisks()
+    {
+        var fields = new string[] { };
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        var command = conn.BeginCommandText().Fields(fields).EndCommandText();
+
+        Assert.AreEqual("*", command.CommandText);
+    }
+
+    [Test]
+    public void FieldsWhenFieldsIsNotEmptyReturnsThemFormatted()
+    {
+        var fields = new string[] {"Field1", "Field2", "Field3" };
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        var command = conn.BeginCommandText().Fields(fields).EndCommandText();
+
+        Assert.AreEqual("[Field1], [Field2], [Field3]", command.CommandText);
+    }
+
+    [Test]
+    public void FromWhenCommandSourceIsNullThrowsException()
+    {
+        var fields = new string[] { };
+        CommandSource command = null;
+
+        Assert.Throws<ArgumentNullException>(() => command.From());
+    }
+
+    [Test]
+    public void FromWhenNoTableOrSchemaIsGivenReturnJustTheWordFrom()
+    {
+        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        var command = conn.BeginCommandText().From().EndCommandText();
+
+        Assert.AreEqual("FROM", command.CommandText);
+    }
+
+    [Test]
+    public void FromWhenTableNameGivenReturnFromTableFormat()
+    {
+        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        var command = conn.BeginCommandText().From("TableName").EndCommandText();
+
+        Assert.AreEqual("FROM [TableName]", command.CommandText);
+    }
+
+    [Test]
+    public void FromWhenTableNameGivenReturnFromSchemaTableFormat()
+    {
+        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        var command = conn.BeginCommandText().From("TableName","SchemaName").EndCommandText();
+
+        Assert.AreEqual("FROM [SchemaName].[TableName]", command.CommandText);
+    }
+
+    [Test]
+    public void FromTableWhenTableIsNullThrowsException()
+    {
+        IDbTableSchema table = null;
+        var conn = new SqliteConnection("Data Source=:memory:");
+
+        Assert.Throws<ArgumentNullException>(() => conn.BeginCommandText().From(table).EndCommandText());
+    }
+
+    [Test]
+    public void ProvidingATableReturnsFromFormat()
+    {
+        var conn = new SqliteConnection("Data Source=:memory:");
+        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.Table<Project>("Projects");
+
+        var command = conn.BeginCommandText().From(table).EndCommandText();
+
+        Assert.AreEqual("FROM [Projects]", command.CommandText);
+    }
 }
 
