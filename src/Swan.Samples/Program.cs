@@ -152,7 +152,7 @@ public static partial class Program
         var circularJson = TextSerializer.Serialize(container, TextSerializerOptions.HumanReadable);
 
         // return;
-        bool boolValue = true;
+        var boolValue = true;
         var atomic = new AtomicBoolean();
         boolValue = atomic;
 
@@ -226,7 +226,7 @@ public static partial class Program
     {
 
         // Sketchpad();
-        //await DataPlayground.AsyncQuerying();
+        // Await DataPlayground.AsyncQuerying();
         //return;
 
         await DataPlayground.BasicExample();

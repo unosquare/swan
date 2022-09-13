@@ -1,9 +1,6 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
-using static Swan.Test.Mocks.ProjectRecord;
+using Mocks;
 
 [TestFixture]
 public class CodeGenExtensionTest
@@ -15,7 +12,7 @@ public class CodeGenExtensionTest
         conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-        string pocoCode = table.GeneratePocoCode();
+        var pocoCode = table.GeneratePocoCode();
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\")]"));
 
@@ -36,7 +33,7 @@ public class CodeGenExtensionTest
         conn.TableBuilder<Project>("Projects", "Main").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects", "Main");
-        string pocoCode = table.GeneratePocoCode("Project");
+        var pocoCode = table.GeneratePocoCode("Project");
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\", Schema = \"Main\")]"));
     }

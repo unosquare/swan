@@ -1,22 +1,17 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
-using static Swan.Test.Mocks.ProjectRecord;
+using Mocks;
 
 [TestFixture]
 
 public class AsyncEnumerableExtensionsTest
 {
-    private async IAsyncEnumerable<Project> FetchItems()
+    private static async IAsyncEnumerable<Project> FetchItems()
     {
-        CancellationToken ct = new CancellationToken();
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var table = conn.Table<Project>("Projects");
-        var project = table.InsertOne(new()
+        await conn.Table<Project>("Projects").InsertOneAsync(new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -28,14 +23,13 @@ public class AsyncEnumerableExtensionsTest
         });
 
         var result = conn.QueryAsync<Project>("Select * from Projects;");
-        
+
         await foreach (var item in result)
             yield return item;
     }
 
-    private async IAsyncEnumerable<Project> FetchItemsEmpty()
+    private static async IAsyncEnumerable<Project> FetchItemsEmpty()
     {
-        CancellationToken ct = new CancellationToken();
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
@@ -45,93 +39,91 @@ public class AsyncEnumerableExtensionsTest
             yield return item;
     }
 
-
-
     [Test]
     public async Task GetAllItemsTakeFirst()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
-        IAsyncEnumerable<Project> items;
+        // Arrange
+        var ct = new CancellationToken();
 
-        //Act
-        items = FetchItems();
+        // Act
+        var items =
+            FetchItems();
         var response = await items.FirstOrDefaultAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response != null);
     }
 
     [Test]
     public async Task FirstOrDefaultItemsIsNull()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
+        // Arrange
+        var ct = new CancellationToken();
         IAsyncEnumerable<int> items = null;
 
-        //Act
+        // Act
         var response = await items.FirstOrDefaultAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response == 0);
     }
-    
+
     [Test]
     public async Task FirstOrDefaultItemsIsEmpty()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
-        IAsyncEnumerable<Project> items;
+        // Arrange
+        var ct = new CancellationToken();
 
-        //Act
-        items = FetchItemsEmpty();
+        var items =
+            // Act
+            FetchItemsEmpty();
         var response = await items.FirstOrDefaultAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response is null);
     }
 
     [Test]
     public async Task GetAllItemsCountEqualsTen()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
-        IAsyncEnumerable<Project> items;
+        // Arrange
+        var ct = new CancellationToken();
 
-        //Act
-        items = FetchItems();
+        var items =
+            // Act
+            FetchItems();
         var response = await items.ToListAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response.Count == 1);
     }
 
     [Test]
     public async Task ToListAsyncItemsIsNull()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
+        // Arrange
+        var ct = new CancellationToken();
         IAsyncEnumerable<int> items = null;
 
-        //Act
+        // Act
         var response = await items.ToListAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response.Count == 0);
     }
 
     [Test]
     public async Task ToListAsyncItemsIsEmpty()
     {
-        //Arrange
-        CancellationToken ct = new CancellationToken();
-        IAsyncEnumerable<Project> items;
+        // Arrange
+        var ct = new CancellationToken();
 
-        //Act
-        items = FetchItemsEmpty();
+        var items =
+            // Act
+            FetchItemsEmpty();
         var response = await items.ToListAsync(ct);
 
-        //Assert
+        // Assert
         Assert.IsTrue(response.Count == 0);
     }
 }

@@ -2,7 +2,6 @@
 
 using Formatters;
 using Mocks;
-using NUnit.Framework;
 using System.Dynamic;
 using System.Text;
 

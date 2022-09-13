@@ -1,10 +1,7 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
+using Mocks;
 using System.Data;
-using Swan.Data.Extensions;
-using static Swan.Test.Mocks.ProjectRecord;
-using Microsoft.Data.Sqlite;
 
 [TestFixture]
 public class DataParserExtensionsTest
@@ -14,11 +11,10 @@ public class DataParserExtensionsTest
     {
         IDataRecord record = null;
         DataRow row = null;
-        Assert.Throws<ArgumentNullException>(() => record.ParseObject<Project>(null));
+        Assert.Throws<ArgumentNullException>(() => record.ParseObject<Project>());
         Assert.Throws<ArgumentNullException>(() => record.ParseExpando());
         Assert.Throws<ArgumentNullException>(() => row.ParseExpando());
         Assert.Throws<ArgumentNullException>(() => row.ParseObject(null));
-
     }
 
     [Test]
@@ -44,7 +40,7 @@ public class DataParserExtensionsTest
 
         var reader = command.ExecuteReader();
 
-        Project result = new Project();
+        var result = new Project();
 
         reader.Read();
         Assert.Throws<ArgumentNullException>(() => reader.ParseObject(null));
@@ -73,7 +69,7 @@ public class DataParserExtensionsTest
 
         var reader = command.ExecuteReader();
 
-        Project result = new Project();
+        var result = new Project();
 
         while (reader.Read())
         {
@@ -115,7 +111,7 @@ public class DataParserExtensionsTest
     [Test]
     public void ParseObjectWhenNullValueInColumnReturnItsTypeDefault()
     {
-        DataTable table = new DataTable();
+        var table = new DataTable();
 
         table.Columns.Add("ProjectId");
         table.Columns.Add("CompanyId");
@@ -126,7 +122,7 @@ public class DataParserExtensionsTest
         table.Columns.Add("ProjectType");
         table.Columns.Add("StartDate");
 
-        DataRow row = table.NewRow();
+        var row = table.NewRow();
         row["ProjectId"] = 1;
         row["CompanyId"] = null;
         row["EndDate"] = DateTime.Now;
@@ -143,7 +139,7 @@ public class DataParserExtensionsTest
     [Test]
     public void ExpandoDataRowWhenNullValueInColumnReturnItsTypeDefault()
     {
-        DataTable table = new DataTable();
+        var table = new DataTable();
 
         table.Columns.Add("ProjectId");
         table.Columns.Add("CompanyId");
@@ -154,7 +150,7 @@ public class DataParserExtensionsTest
         table.Columns.Add("ProjectType");
         table.Columns.Add("StartDate");
 
-        DataRow row = table.NewRow();
+        var row = table.NewRow();
         row["ProjectId"] = 1;
         row["CompanyId"] = null;
         row["EndDate"] = DateTime.Now;

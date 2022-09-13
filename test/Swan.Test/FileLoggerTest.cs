@@ -1,7 +1,6 @@
 ﻿namespace Swan.Test;
 
 using Logging;
-using NUnit.Framework;
 
 [TestFixture]
 public class FileLoggerTest

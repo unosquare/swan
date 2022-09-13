@@ -9,6 +9,9 @@
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,14 +21,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
 		<packagereference Include="NUnit3TestAdapter" Version="4.2.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</packagereference>
 		<PackageReference Include="NUnit" Version="3.13.3" />
-		<PackageReference Include="coverlet.msbuild" Version="3.1.0">
+		<PackageReference Include="coverlet.msbuild" Version="3.1.2">
 		<PrivateAssets>all</PrivateAssets>
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>

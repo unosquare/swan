@@ -319,7 +319,7 @@
                     return true;
             }
 
-            if (!TypeManager.TryChangeType(propertyValue, typeof(T), out object? objectValue))
+            if (!TypeManager.TryChangeType(propertyValue, typeof(T), out var objectValue))
                 return false;
 
             if (objectValue is not T convertedValue)

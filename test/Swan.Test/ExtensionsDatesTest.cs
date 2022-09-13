@@ -1,7 +1,6 @@
 ﻿namespace Swan.Test;
 
 using Extensions;
-using NUnit.Framework;
 
 [TestFixture]
 public class ToSortableDate

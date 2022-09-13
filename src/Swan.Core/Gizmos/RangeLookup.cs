@@ -91,7 +91,6 @@ public class RangeLookup<TKey, TValue> : IDictionary<TKey, TValue>
         return true;
     }
 
-
     /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => (_values as IEnumerable).GetEnumerator();
 }

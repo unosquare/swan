@@ -1,11 +1,8 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
+using Mocks;
 using System.Data;
 using System.Data.Common;
-using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
 public class QueryExtensionsTest
@@ -119,7 +116,7 @@ public class QueryExtensionsTest
     [Test]
     public void CreateDataTableToExecuteQuery()
     {
-        DataTable table = new DataTable();
+        var table = new DataTable();
 
         table.Columns.Add("CompanyId");
         table.Columns.Add("EndDate");
@@ -129,7 +126,7 @@ public class QueryExtensionsTest
         table.Columns.Add("ProjectType");
         table.Columns.Add("StartDate");
 
-        DataRow row = table.NewRow();
+        var row = table.NewRow();
         row["CompanyId"] = 1;
         row["EndDate"] = DateTime.Now;
         row["IsActive"] = true;

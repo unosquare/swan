@@ -1,6 +1,5 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
 using Threading;
 
 [TestFixture]

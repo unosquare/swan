@@ -1,7 +1,5 @@
 ﻿namespace Swan.Test;
 
-using NUnit.Framework;
-
 [TestFixture]
 public class GetValueOrDefault : TestFixtureBase
 {

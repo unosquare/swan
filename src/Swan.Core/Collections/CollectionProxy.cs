@@ -9,7 +9,7 @@ using Reflection;
 /// lambda binding that this proxy requires to function properly. Use the actual
 /// collection object whenever possible.
 /// </summary>
-public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInfo, IList<object?>
+public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList<object?>
 {
     private const string InvalidCastMessage = "Unable to cast value to a suitable type.";
     private readonly object _syncRoot = new();
@@ -57,7 +57,7 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
 
     /// <inheritdoc />
     public object SyncRoot =>
-        SourceType.TryReadProperty(Collection, nameof(SyncRoot), out object? value)
+        SourceType.TryReadProperty(Collection, nameof(SyncRoot), out var value)
             ? value ?? _syncRoot
             : _syncRoot;
 
@@ -534,7 +534,7 @@ public sealed partial class CollectionProxy : IList, IDictionary, ICollectionInf
                 continue;
             }
 
-            if (!TypeManager.TryChangeType(value, targetType, out object? changedValue))
+            if (!TypeManager.TryChangeType(value, targetType, out var changedValue))
                 throw new InvalidCastException(InvalidCastMessage);
 
             if (changedValue is not T typedValue)

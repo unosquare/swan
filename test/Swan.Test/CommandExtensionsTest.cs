@@ -1,10 +1,7 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
+using Mocks;
 using System.Data;
-using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
 public class CommandExtensionsTest
@@ -39,7 +36,7 @@ public class CommandExtensionsTest
     }
 
     [Test]
-    public async Task PrepareNullCommandThrowsExceptionAsync()
+    public void PrepareNullCommandThrowsExceptionAsync()
     {
         SqliteCommand command = null;
 
@@ -67,7 +64,7 @@ public class CommandExtensionsTest
     }
 
     [Test]
-    public void TryFindParameterInANullCommandReturnsExeption()
+    public void TryFindParameterInANullCommandReturnsException()
     {
         SqliteCommand command = null;
 
@@ -140,7 +137,7 @@ public class CommandExtensionsTest
     {
         SqliteCommand command = null;
 
-        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", System.Data.DbType.Int32));
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", DbType.Int32));
     }
 
     [Test]
@@ -149,7 +146,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", System.Data.DbType.Int32));
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", DbType.Int32));
     }
 
     [Test]
@@ -158,7 +155,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        var created = command.DefineParameter("IntParameter", System.Data.DbType.Int32);
+        var created = command.DefineParameter("IntParameter", DbType.Int32);
 
         Assert.IsNotNull(created);
     }
@@ -168,7 +165,7 @@ public class CommandExtensionsTest
     {
         SqliteCommand command = null;
 
-        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", typeof(Int32)));
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", typeof(int)));
     }
 
     [Test]
@@ -178,7 +175,7 @@ public class CommandExtensionsTest
         var command = conn.CreateCommand();
         command.Connection = null;
 
-        Assert.Throws<ArgumentException>(() => command.DefineParameter("IntParameter", typeof(Int32)));
+        Assert.Throws<ArgumentException>(() => command.DefineParameter("IntParameter", typeof(int)));
     }
 
     [Test]
@@ -187,7 +184,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", typeof(Int32)));
+        Assert.Throws<ArgumentNullException>(() => command.DefineParameter("", typeof(int)));
     }
 
     [Test]
@@ -228,7 +225,7 @@ public class CommandExtensionsTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
-        var set = command.SetParameter("IntParameter", typeof(Int32));
+        var set = command.SetParameter("IntParameter", typeof(int));
 
         Assert.IsNotNull(set.Parameters);
     }
@@ -238,7 +235,7 @@ public class CommandExtensionsTest
     {
         SqliteCommand command = null;
 
-        Assert.Throws<ArgumentNullException>(() => command.SetParameter("IntParameter", 0, typeof(Int32), 1));
+        Assert.Throws<ArgumentNullException>(() => command.SetParameter("IntParameter", 0, typeof(int), 1));
     }
 
     [Test]
@@ -247,20 +244,20 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        Assert.Throws<ArgumentNullException>(() => command.SetParameter("", 0, typeof(Int32), 1));
+        Assert.Throws<ArgumentNullException>(() => command.SetParameter("", 0, typeof(int), 1));
     }
 
     [Test]
-    public void SetParameterWhenAllreadyExistsUpdateValue()
+    public void SetParameterWhenAlreadyExistsUpdateValue()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
 
-        command.SetParameter("IntParameter", 0, typeof(Int32), 1);
+        command.SetParameter("IntParameter", 0, typeof(int), 1);
         var firstValue = command.Parameters[0].Value;
 
-        command.SetParameter("IntParameter", 1, typeof(Int32), 1);
+        command.SetParameter("IntParameter", 1, typeof(int), 1);
         var secondValue = command.Parameters[0].Value;
 
         Assert.AreNotEqual(firstValue, secondValue);
@@ -284,7 +281,7 @@ public class CommandExtensionsTest
     }
 
     [Test]
-    public void SetParameterWithDbTypeWhenAllreadyExistsUpdateValue()
+    public void SetParameterWithDbTypeWhenAlreadyExistsUpdateValue()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
@@ -303,7 +300,7 @@ public class CommandExtensionsTest
     public void SetParametersWhenCommandIsNullThrowsException()
     {
         SqliteCommand command = null;
-        Project project = new Project();
+        var project = new Project();
 
         Assert.Throws<ArgumentNullException>(() => command.SetParameters(project));
     }
@@ -314,7 +311,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
         command.Connection = null;
-        Project project = new Project();
+        var project = new Project();
 
         Assert.Throws<ArgumentException>(() => command.SetParameters(project));
     }
@@ -325,7 +322,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        Project project = new Project()
+        var cmd = command.SetParameters(new Project()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -334,9 +331,7 @@ public class CommandExtensionsTest
             ProjectScope = "My Scope",
             ProjectType = ProjectTypes.Exciting,
             StartDate = DateTime.Now.AddMonths(-1)
-        };
-
-        var cmd = command.SetParameters(project);
+        });
 
         Assert.AreEqual(8, cmd.Parameters.Count);
     }
@@ -354,7 +349,7 @@ public class CommandExtensionsTest
     {
         var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
         var tran = conn.BeginTransaction();
-        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
+        var timeSpan = new TimeSpan(0, 0, 30);
         var command = conn.CreateCommand();
 
         var cmdWithPrioperties = command.WithProperties("Select 1;", CommandType.Text, tran, timeSpan);
@@ -412,7 +407,7 @@ public class CommandExtensionsTest
 
         command.WithText(null);
 
-        Assert.AreEqual(string.Empty,command.CommandText);
+        Assert.AreEqual(string.Empty, command.CommandText);
     }
 
     [Test]
@@ -452,7 +447,7 @@ public class CommandExtensionsTest
     public void WithTimeOutWhenCommandIsNullThrowsException()
     {
         SqliteCommand command = null;
-        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
+        var timeSpan = new TimeSpan(0, 0, 30);
 
         Assert.Throws<ArgumentNullException>(() => command.WithTimeout(timeSpan));
     }
@@ -461,12 +456,12 @@ public class CommandExtensionsTest
     public void WithTimeOutSetsCommandTimeOut()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var command = conn.CreateCommand(); 
-        TimeSpan timeSpan = new TimeSpan(0, 0, 30);
-        
+        var command = conn.CreateCommand();
+        var timeSpan = new TimeSpan(0, 0, 30);
+
         command.WithTimeout(timeSpan);
 
-        Assert.AreEqual(30,command.CommandTimeout);
+        Assert.AreEqual(30, command.CommandTimeout);
     }
 
     [Test]

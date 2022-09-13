@@ -2,7 +2,6 @@
 
 using Mapping;
 using Mocks;
-using NUnit.Framework;
 
 [TestFixture]
 public class CopyPropertiesTo

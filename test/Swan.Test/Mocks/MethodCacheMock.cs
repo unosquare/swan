@@ -2,5 +2,5 @@
 
 internal class MethodCacheMock
 {
-    public static Task<T> GetMethodTest<T>(string value) => Task.FromResult(default(T));
+    public static Task<T?> GetMethodTest<T>(string value) => Task.FromResult(default(T));
 }

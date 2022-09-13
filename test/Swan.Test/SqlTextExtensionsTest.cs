@@ -1,11 +1,6 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data;
-using Swan.Data.Extensions;
-using Swan.Data.Schema;
-using static Swan.Test.Mocks.ProjectRecord;
+using Mocks;
 
 [TestFixture]
 
@@ -14,7 +9,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void AppendWordJustTheSELECTWordWhenFieldsIsEmpty()
     {
-        var fields = new string[] { };
+        var fields = Array.Empty<string>();
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.BeginCommandText().Select(fields).EndCommandText();
 
@@ -24,7 +19,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void AppendWordSelectAndSeparateFieldsInCommandText()
     {
-        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var fields = new[] {"Field1", "Field2", "Field3"};
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.BeginCommandText().Select(fields).EndCommandText();
 
@@ -40,12 +35,13 @@ public class SqlTextExtensionsTest
 
         var command = conn.BeginCommandText().Select(table).EndCommandText();
 
-        Assert.AreEqual("SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] FROM [Projects]",
+        Assert.AreEqual(
+            "SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] FROM [Projects]",
             command.CommandText);
     }
 
     [Test]
-    public void ProvidingATableColumnsCreatesASelectFieldsWithOutFromTableFormatCommanText()
+    public void ProvidingATableColumnsCreatesASelectFieldsWithOutFromTableFormatCommandText()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -53,7 +49,8 @@ public class SqlTextExtensionsTest
 
         var command = conn.BeginCommandText().Select(table.Columns).EndCommandText();
 
-        Assert.AreEqual("SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope]",
+        Assert.AreEqual(
+            "SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope]",
             command.CommandText);
     }
 
@@ -91,7 +88,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FieldsWhenFieldsIsNotEmptyReturnsThemFormatted()
     {
-        var fields = new string[] {"Field1", "Field2", "Field3" };
+        var fields = new[] {"Field1", "Field2", "Field3"};
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().Fields(fields).EndCommandText();
@@ -102,7 +99,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenNoTableOrSchemaIsGivenReturnJustTheWordFrom()
     {
-        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var fields = new[] {"Field1", "Field2", "Field3"};
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().From().EndCommandText();
@@ -113,7 +110,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenTableNameGivenReturnFromTableFormat()
     {
-        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var fields = new[] {"Field1", "Field2", "Field3"};
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().From("TableName").EndCommandText();
@@ -124,10 +121,10 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenTableNameGivenReturnFromSchemaTableFormat()
     {
-        var fields = new string[] { "Field1", "Field2", "Field3" };
+        var fields = new[] {"Field1", "Field2", "Field3"};
         var conn = new SqliteConnection("Data Source=:memory:");
 
-        var command = conn.BeginCommandText().From("TableName","SchemaName").EndCommandText();
+        var command = conn.BeginCommandText().From("TableName", "SchemaName").EndCommandText();
 
         Assert.AreEqual("FROM [SchemaName].[TableName]", command.CommandText);
     }
@@ -238,7 +235,7 @@ public class SqlTextExtensionsTest
     public void WhenParameterCountIsZero()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var parameters = new string[] {};
+        var parameters = new string[] { };
 
         var command = conn.BeginCommandText().Parameters(parameters).EndCommandText();
 
@@ -249,7 +246,7 @@ public class SqlTextExtensionsTest
     public void WhenParameterCountIsBiggerThanZero()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var parameters = new string[] { "Parameter1", "Parameter2" };
+        var parameters = new[] {"Parameter1", "Parameter2"};
 
         var command = conn.BeginCommandText().Parameters(parameters).EndCommandText();
 
@@ -271,7 +268,7 @@ public class SqlTextExtensionsTest
     public void WhenFieldsAndParameterCountIsBiggerThanZero()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var fieldsAndParameters = new string[] { "Parameter1", "Parameter2" };
+        var fieldsAndParameters = new[] {"Parameter1", "Parameter2"};
 
         var command = conn.BeginCommandText().FieldsAndParameters(fieldsAndParameters).EndCommandText();
 
@@ -292,7 +289,7 @@ public class SqlTextExtensionsTest
     public void WhenOderByParameterAreGiven()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var parameters = new string[] { "Parameter1", "Parameter2" };
+        var parameters = new[] {"Parameter1", "Parameter2"};
 
         var command = conn.BeginCommandText().OrderBy(parameters).EndCommandText();
 
@@ -314,7 +311,7 @@ public class SqlTextExtensionsTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
 
-        var command = conn.BeginCommandText().Limit(1,1).EndCommandText();
+        var command = conn.BeginCommandText().Limit(1, 1).EndCommandText();
 
         Assert.AreEqual(" LIMIT 1 OFFSET 1", command.CommandText);
     }
@@ -324,13 +321,13 @@ public class SqlTextExtensionsTest
     {
         CommandSource command = null;
         IDbTableSchema table = null;
-        IReadOnlyList<IDbColumnSchema> Columns = null;
+        IReadOnlyList<IDbColumnSchema> columns = null;
         var conn = new SqliteConnection("Data Source=:memory:");
-        var fields = new string[] { };
+        var fields = Array.Empty<string>();
 
         Assert.Throws<ArgumentNullException>(() => command.Select(fields));
         Assert.Throws<ArgumentNullException>(() => conn.BeginCommandText().Select(table).EndCommandText());
-        Assert.Throws<ArgumentNullException>(() => conn.BeginCommandText().Select(Columns).EndCommandText());
+        Assert.Throws<ArgumentNullException>(() => conn.BeginCommandText().Select(columns).EndCommandText());
         Assert.Throws<ArgumentNullException>(() => command.Field(""));
         Assert.Throws<ArgumentNullException>(() => command.Fields(fields));
         Assert.Throws<ArgumentNullException>(() => command.From());
@@ -342,10 +339,9 @@ public class SqlTextExtensionsTest
         Assert.Throws<ArgumentNullException>(() => command.Or());
         Assert.Throws<ArgumentNullException>(() => command.And());
         Assert.Throws<ArgumentNullException>(() => command.Parameter(""));
-        Assert.Throws<ArgumentNullException>(() => command.Parameters(new string[] { "Parameter1", "Parameter2" }));
-        Assert.Throws<ArgumentNullException>(() => command.FieldsAndParameters(new string[] { "Parameter1", "Parameter2" }));
-        Assert.Throws<ArgumentNullException>(() => command.OrderBy(new string[] { "Parameter1", "Parameter2" }));
+        Assert.Throws<ArgumentNullException>(() => command.Parameters("Parameter1", "Parameter2"));
+        Assert.Throws<ArgumentNullException>(() => command.FieldsAndParameters(new[] {"Parameter1", "Parameter2"}));
+        Assert.Throws<ArgumentNullException>(() => command.OrderBy("Parameter1", "Parameter2"));
         Assert.Throws<ArgumentNullException>(() => command.Limit());
     }
 }
-

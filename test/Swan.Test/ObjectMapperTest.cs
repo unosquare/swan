@@ -2,23 +2,20 @@
 
 using Mapping;
 using Mocks;
-using NUnit.Framework;
 
 public abstract class ObjectMapperTest : TestFixtureBase
 {
-    protected User SourceUser => new()
+    protected User SourceUser { get; } = new()
     {
         Email = "geovanni.perez@unosquare.com",
         Name = "Geo",
-        Role = new() { Name = "Admin" },
+        Role = new() {Name = "Admin"},
         StartDate = new(2000, 2, 5),
     };
 
-    protected Dictionary<string, object?> SourceDict => new()
+    protected Dictionary<string, object?> SourceDict { get; } = new()
     {
-        { "Name", "Armando" },
-        { "Email", "armando.cifuentes@unosquare.com" },
-        { "Role", "Intern tester" },
+        {"Name", "Armando"}, {"Email", "armando.cifuentes@unosquare.com"}, {"Role", "Intern tester"},
     };
 }
 
@@ -52,10 +49,12 @@ public class CreateMap : ObjectMapperTest
     }
 
     [Test]
-    public void MapWithoutSource_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Default.Apply<UserDto>(null));
+    public void MapWithoutSource_ThrowsArgumentNullException() =>
+        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Default.Apply<UserDto>(null));
 
     [Test]
-    public void WithAutoresolveFalse_ThrowsInvalidOperationException() => Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Apply<UserDto>(SourceUser, false));
+    public void WithAutoresolveFalse_ThrowsInvalidOperationException() =>
+        Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Apply<UserDto>(SourceUser, false));
 }
 
 [TestFixture]
@@ -138,10 +137,12 @@ public class AutoMap : ObjectMapperTest
 public class Copy : ObjectMapperTest
 {
     [Test]
-    public void SourceNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
+    public void SourceNull_ThrowsArgumentNullException() =>
+        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
 
     [Test]
-    public void TargetNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(new UserDto(), null));
+    public void TargetNull_ThrowsArgumentNullException() =>
+        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(new UserDto(), null));
 
     [Test]
     public void SourceDictionaryNull_ThrowsArgumentNullException()
@@ -152,15 +153,16 @@ public class Copy : ObjectMapperTest
     }
 
     [Test]
-    public void TargetDictionaryNull_ThrowsArgumentNullException() => Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(SourceDict, null));
+    public void TargetDictionaryNull_ThrowsArgumentNullException() =>
+        Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(SourceDict, null));
 
     [Test]
     public void SourceAndTargetNotNull_ReturnsCopy()
     {
         var target = new UserDto();
 
-        var propertiesToCopy = new[] { "Name", "Email" };
-        var ignoreProperties = new[] { "Role" };
+        var propertiesToCopy = new[] {"Name", "Email"};
+        var ignoreProperties = new[] {"Role"};
 
         ObjectMapper.Copy(SourceDict, target, propertiesToCopy, ignoreProperties);
 

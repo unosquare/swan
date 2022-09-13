@@ -13,7 +13,7 @@ public class AppWorkerMock : TimerWorkerBase
     public bool ExitBecauseCancellation { get; private set; } = true;
     public int Count { get; private set; }
 
-    public Action OnExit { get; set; }
+    public Action? OnExit { get; set; }
 
     public override Task<WorkerState> StopAsync()
     {

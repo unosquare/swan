@@ -66,7 +66,7 @@ internal static class DataPlayground
 
         // We'll use a transaction in this example. We won't actually insert anything.
         // since we will be rolling back the transaction.
-        using var tran = await connection.BeginTransactionAsync();
+        await using var tran = await connection.BeginTransactionAsync();
 
         // Create a dummy record
         var dummyProject = new Project()
@@ -76,7 +76,7 @@ internal static class DataPlayground
             ProjectScope = "DummyScope"
         };
 
-        var items = new Project[]
+        var items = new[]
         {
             dummyProject with { Name = "Dummy 1", ProjectType = ProjectTypes.Boring },
             dummyProject with { Name = "Dummy 2", ProjectType = ProjectTypes.Exciting },

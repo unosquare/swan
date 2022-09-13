@@ -1,64 +1,9 @@
 ﻿namespace Swan.Test;
 
 using Collections;
-using NUnit.Framework;
 using Reflection;
+using Swan.Test.Mocks;
 using System.Collections;
-using System.Collections.ObjectModel;
-
-public static class CollectionSamples
-{
-    private static readonly Dictionary<string, int> BaseCollection = new()
-    {
-        ["item 1"] = 1,
-        ["item 2"] = 2,
-        ["item 3"] = 3,
-        ["item 4"] = 4,
-        ["item 5"] = 5,
-        ["item 6"] = 6,
-        ["item 7"] = 7,
-        ["item 8"] = 8,
-    };
-
-    public static IEnumerable ReadOnlyDictionary => new ReadOnlyDictionary<string, int>(BaseCollection);
-
-    public static IEnumerable GenericDictionary => BaseCollection.ToDictionary(c => c.Key, c => c.Value);
-
-    public static IEnumerable Dictionary => new Hashtable(BaseCollection);
-
-    public static IEnumerable ReadOnlyList => new ArraySegment<int>(BaseCollection.Values.ToArray());
-
-    public static IEnumerable GenericList => BaseCollection.Values.Select(c => c).ToList();
-
-    public static IEnumerable List => new ArrayList(BaseCollection.Values.ToArray());
-
-    public static IEnumerable ReadOnlyCollection => new ReadOnlyCollection<int>(BaseCollection.Values.ToList());
-
-    public static IEnumerable GenericCollection => new HashSet<int>(BaseCollection.Values.ToArray());
-
-    public static IEnumerable Collection
-    {
-        get
-        {
-            var q = new Queue();
-            foreach (var item in BaseCollection.Values)
-                q.Enqueue(item);
-
-            return q;
-        }
-    }
-
-    public static IEnumerable GenericEnumerable => BaseCollection.Values.Select(c => c);
-
-    public static IEnumerable Enumerable => new SimpleEnumerable();
-
-    public static IEnumerable Array => "Hello World!".ToArray();
-
-    private class SimpleEnumerable : IEnumerable
-    {
-        public IEnumerator GetEnumerator() => BaseCollection.Values.GetEnumerator();
-    }
-}
 
 [TestFixture]
 public class CollectionProxyTest : TestFixtureBase
@@ -79,7 +24,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionKind.List] = CollectionSamples.Array,
         };
 
-        foreach ((CollectionKind kind, var collection) in testCases)
+        foreach (var (kind, collection) in testCases)
         {
             var proxy = collection.AsProxy();
             Assert.AreEqual(kind, proxy.CollectionKind);
@@ -115,7 +60,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = false,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsReadOnly;
@@ -142,7 +87,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsFixedSize;
@@ -169,7 +114,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = true,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.Count;
@@ -196,7 +141,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = false,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var result = proxy.IsSynchronized;
@@ -223,7 +168,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -257,7 +202,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = true,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
             Assert.IsTrue(proxy[7] is int or char);
@@ -317,7 +262,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = typeof(IList),
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             Assert.IsTrue(proxy.CollectionType.NativeType == expected);
@@ -343,7 +288,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 'H',
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             if (collection is Hashtable)
@@ -367,13 +312,10 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.ReadOnlyCollection] = 8,
             [CollectionSamples.GenericCollection] = 8,
             [CollectionSamples.Collection] = 8,
-            //[CollectionSamples.GenericEnumerable] = 8,
-            //[CollectionSamples.Enumerable] = 8,
-            //[CollectionSamples.Array] = '!',
 
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             if (collection is Hashtable)
@@ -402,7 +344,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = '!',
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
             var target = new object[proxy.Count];
@@ -428,12 +370,9 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.ReadOnlyCollection] = 8,
             [CollectionSamples.GenericCollection] = 8,
             [CollectionSamples.Collection] = 8,
-            //[CollectionSamples.GenericEnumerable] = 8,
-            //[CollectionSamples.Enumerable] = 8,
-            //[CollectionSamples.Array] = '!',
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
             var list = proxy.ToList<string>();
@@ -469,7 +408,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -519,7 +458,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -568,7 +507,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, var expected) in testCases)
+        foreach (var (collection, expected) in testCases)
         {
             var proxy = collection.AsProxy();
             var originalItem = proxy.LastOrDefault();
@@ -607,7 +546,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -656,7 +595,7 @@ public class CollectionProxyTest : TestFixtureBase
             [CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -692,7 +631,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -728,7 +667,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 
@@ -765,7 +704,7 @@ public class CollectionProxyTest : TestFixtureBase
             //[CollectionSamples.Array] = 0,
         };
 
-        foreach ((IEnumerable collection, _) in testCases)
+        foreach (var (collection, _) in testCases)
         {
             var proxy = collection.AsProxy();
 

@@ -181,7 +181,7 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
-    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// Adds or updates a parameter in the command's parameter collection without setting a value.
     /// </summary>
     /// <param name="command">The command.</param>
     /// <param name="name">The parameter name to add or update.</param>
@@ -286,7 +286,7 @@ public static partial class CommandExtensions
             throw new ArgumentNullException(name);
 
         var isNullValue = Equals(value, null) || Equals(value, DBNull.Value);
-        object dataValue = isNullValue ? DBNull.Value : value!;
+        var dataValue = isNullValue ? DBNull.Value : value!;
 
         // Let's update the parameter if it already exists.
         if (command.TryFindParameter(name, out var parameter))
@@ -323,7 +323,7 @@ public static partial class CommandExtensions
             throw new ArgumentNullException(name);
 
         var isNullValue = Equals(value, null) || Equals(value, DBNull.Value);
-        object dataValue = isNullValue ? DBNull.Value : value!;
+        var dataValue = isNullValue ? DBNull.Value : value!;
 
         // Update the parameter if it exists.
         if (command.TryFindParameter(name, out var parameter))

@@ -3,7 +3,6 @@
 using Extensions;
 using Formatters;
 using Mocks;
-using NUnit.Framework;
 
 [TestFixture]
 public class Humanize

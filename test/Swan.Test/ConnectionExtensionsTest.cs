@@ -1,9 +1,6 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
-using static Swan.Test.Mocks.ProjectRecord;
+using Mocks;
 
 [TestFixture]
 public class ConnectionExtensionsTest
@@ -29,7 +26,7 @@ public class ConnectionExtensionsTest
 
         Assert.AreEqual(project?.Name, "Project ONE");
     }
-    
+
     [Test]
     public void CreateProjectsTableAndInsertOneRow()
     {
@@ -58,7 +55,8 @@ public class ConnectionExtensionsTest
         var provider = conn.Provider();
         var command = provider.CreateListTablesCommand(conn).CommandText;
 
-        Assert.AreEqual(command, "SELECT name AS [Name], '' AS [Schema] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type= 'table' ORDER BY name");
+        Assert.AreEqual(command,
+            "SELECT name AS [Name], '' AS [Schema] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type= 'table' ORDER BY name");
     }
 
     [Test]
@@ -70,7 +68,7 @@ public class ConnectionExtensionsTest
         conn.TableBuilder<Project>("ProjectsTableThree").ExecuteDdlCommand();
 
         var tableNames = conn.GetTableNames();
-       
+
         Assert.IsTrue(tableNames.Any());
         Assert.IsTrue(tableNames.Count == 3);
     }
@@ -95,8 +93,8 @@ public class ConnectionExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
 
-        var execution = await conn.
-            ExecuteNonQueryAsync($"Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
+        var execution = await conn.ExecuteNonQueryAsync(
+            "Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
             " values " +
             $" (1,'{DateTime.Now}','{true}','Project ONE','My Scope', '{ProjectTypes.Exciting}','{DateTime.Now.AddMonths(-1)}');");
 
@@ -109,8 +107,8 @@ public class ConnectionExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var execution = conn.
-            ExecuteNonQuery($"Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
+        var execution = conn.ExecuteNonQuery(
+            "Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
             " values " +
             $" (1,'{DateTime.Now}','{true}','Project ONE','My Scope', '{ProjectTypes.Exciting}','{DateTime.Now.AddMonths(-1)}');");
 
@@ -188,14 +186,14 @@ public class ConnectionExtensionsTest
     }
 
     [Test]
-    public async Task WhenConnectionIsNullThrowsException()
+    public void WhenConnectionIsNullThrowsException()
     {
         SqliteConnection conn = null;
 
         Assert.Throws<ArgumentNullException>(() => conn.Provider());
         Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteDdlCommand());
         Assert.Throws<ArgumentNullException>(() => conn.Table("Projects"));
-        Assert.Throws<ArgumentNullException>(() => conn.Table<Project>("Projects")); 
+        Assert.Throws<ArgumentNullException>(() => conn.Table<Project>("Projects"));
         Assert.Throws<ArgumentNullException>(() => conn.GetTableNames());
         Assert.ThrowsAsync<ArgumentNullException>(() => conn.GetTableNamesAsync());
         Assert.Throws<ArgumentNullException>(() => conn.EnsureConnected());

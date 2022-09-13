@@ -12,7 +12,7 @@ internal static partial class Library
     public const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
 
     private const string AddWithValueMethodName = "AddWithValue";
-    private static readonly Type[] AddWithValueArgumentTypes = new Type[] { typeof(string), typeof(object) };
+    private static readonly Type[] AddWithValueArgumentTypes = new[] { typeof(string), typeof(object) };
 
     /// <summary>
     /// Attempts to execute the reader with sequential access and single result, in addition to user-provided

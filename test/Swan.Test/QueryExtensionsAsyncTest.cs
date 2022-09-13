@@ -1,10 +1,7 @@
 ﻿namespace Swan.Test;
 
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
-using Swan.Data.Extensions;
+using Mocks;
 using System.Data.Common;
-using static Swan.Test.Mocks.ProjectRecord;
 
 [TestFixture]
 public class QueryExtensionsAsyncTest
@@ -15,17 +12,17 @@ public class QueryExtensionsAsyncTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var table = conn.Table<Project>("Projects");
-        var project = table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        conn.Table<Project>("Projects")
+            .InsertOne(new()
+            {
+                CompanyId = 1,
+                EndDate = DateTime.Now,
+                IsActive = true,
+                Name = "Project ONE",
+                ProjectScope = "My Scope",
+                ProjectType = ProjectTypes.Exciting,
+                StartDate = DateTime.Now.AddMonths(-1)
+            });
 
         DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
@@ -140,7 +137,8 @@ public class QueryExtensionsAsyncTest
     {
         SqliteConnection conn = null;
 
-        Assert.ThrowsAsync<ArgumentNullException>(() => conn.QueryAsync<Project>("Select * from Projects;").ToListAsync());
+        Assert.ThrowsAsync<ArgumentNullException>(() =>
+            conn.QueryAsync<Project>("Select * from Projects;").ToListAsync());
     }
 
     [Test]

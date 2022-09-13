@@ -1,7 +1,6 @@
 ﻿namespace Swan.Test;
 
 using Mocks;
-using NUnit.Framework;
 using Reflection;
 using System.Net;
 using System.Reflection;
@@ -27,7 +26,7 @@ public class ParseCompatible
     public static ParseCompatible Parse(string input, IFormatProvider format)
     {
         if (typeof(double).TypeInfo().TryParse(input, out var innerValue))
-            return new() { Value = (double)innerValue! };
+            return new() { Value = (double)innerValue };
 
         throw new FormatException("Bad double format");
     }
