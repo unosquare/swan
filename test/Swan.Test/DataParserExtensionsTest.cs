@@ -17,6 +17,7 @@ public class DataParserExtensionsTest
         Assert.Throws<ArgumentNullException>(() => record.ParseObject<Project>(null));
         Assert.Throws<ArgumentNullException>(() => record.ParseExpando());
         Assert.Throws<ArgumentNullException>(() => row.ParseExpando());
+        Assert.Throws<ArgumentNullException>(() => row.ParseObject(null));
 
     }
 
@@ -112,7 +113,35 @@ public class DataParserExtensionsTest
     }
 
     [Test]
-    public void ExpandoDataTableWhenNullValueInColumnReturnItsTypeDefault()
+    public void ParseObjectWhenNullValueInColumnReturnItsTypeDefault()
+    {
+        DataTable table = new DataTable();
+
+        table.Columns.Add("ProjectId");
+        table.Columns.Add("CompanyId");
+        table.Columns.Add("EndDate");
+        table.Columns.Add("IsActive");
+        table.Columns.Add("Name");
+        table.Columns.Add("ProjectScope");
+        table.Columns.Add("ProjectType");
+        table.Columns.Add("StartDate");
+
+        DataRow row = table.NewRow();
+        row["ProjectId"] = 1;
+        row["CompanyId"] = null;
+        row["EndDate"] = DateTime.Now;
+        row["IsActive"] = true;
+        row["Name"] = "Project ONE";
+        row["ProjectScope"] = "My Scope";
+        row["ProjectType"] = ProjectTypes.Exciting;
+        row["StartDate"] = DateTime.Now.AddMonths(-1);
+        table.Rows.Add(row);
+
+        Assert.Throws<ArgumentNullException>(() => table.Rows[0].ParseObject(null));
+    }
+
+    [Test]
+    public void ExpandoDataRowWhenNullValueInColumnReturnItsTypeDefault()
     {
         DataTable table = new DataTable();
 
