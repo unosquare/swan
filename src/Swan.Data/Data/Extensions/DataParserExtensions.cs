@@ -36,6 +36,7 @@ public static class DataParserExtensions
                 property is null || !property.CanWrite || !property.HasPublicSetter)
                 continue;
 
+            
             if (record.IsDBNull(columnIndex))
             {
                 property.Write(result, property.PropertyType.DefaultValue);
