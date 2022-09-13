@@ -22,28 +22,28 @@ public class DbProvider
     /// <summary>
     /// Gets the prefix used to quote identifiers.
     /// </summary>
-    public virtual string QuotePrefix { get; } = "[";
+    public virtual string QuotePrefix => "[";
 
     /// <summary>
     /// Gets the suffix used to quote identifiers.
     /// </summary>
-    public virtual string QuoteSuffix { get; } = "]";
+    public virtual string QuoteSuffix => "]";
 
     /// <summary>
     /// Gets the separator that goes between the schema and the table.
     /// </summary>
-    public virtual string SchemaSeparator { get; } = ".";
+    public virtual string SchemaSeparator => ".";
 
     /// <summary>
     /// Gets the prefix used to name parameters on commands.
     /// </summary>
-    public virtual string ParameterPrefix { get; } = "@";
+    public virtual string ParameterPrefix => "@";
 
     /// <summary>
     /// Gets the default schema name. For example in SQL Server, it will return dbo.
     /// Will return an empty string if no default schema is known.
     /// </summary>
-    public virtual string DefaultSchemaName { get; } = string.Empty;
+    public virtual string DefaultSchemaName => string.Empty;
 
     /// <summary>
     /// Gets a default configuration for command timout when
@@ -87,10 +87,10 @@ public class DbProvider
             : $"{QuotePrefix}{tableName}{QuoteSuffix}";
 
     /// <summary>
-    /// Adds quotes arounf a field or column name.
+    /// Adds quotes around a field or column name.
     /// </summary>
     /// <param name="fieldName">The name of the field.</param>
-    /// <returns>A quited field name.</returns>
+    /// <returns>A quoted field name.</returns>
     public virtual string QuoteField(string fieldName) =>
         $"{QuotePrefix}{fieldName}{QuoteSuffix}";
 
@@ -155,7 +155,7 @@ public class DbProvider
 
     /// <summary>
     /// Gets a command that provides a list of table identifiers in the current database.
-    /// The recods must contain 2 columns, Name and Schema
+    /// The records must contain 2 columns, Name and Schema
     /// </summary>
     /// <returns>The command to be executed.</returns>
     public virtual DbCommand CreateListTablesCommand(DbConnection connection) =>
@@ -169,18 +169,7 @@ public class DbProvider
     /// <returns>The command.</returns>
     public virtual DbCommand CreateTableDdlCommand(DbConnection connection, IDbTableSchema table)
     {
-        if (table is null)
-            throw new ArgumentNullException(nameof(table));
-
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
-        if (!table.Columns.Any())
-            throw new InvalidOperationException("Cannot generate DDL code with no columns.");
-
-        var schemaName = string.IsNullOrWhiteSpace(table.Schema) ? DefaultSchemaName : table.Schema;
-        var quotedTableName = QuoteTable(table.TableName, schemaName);
-        var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
+        var (quotedTableName, orderedFields) = GetQuotedTableNameAndColumns(connection, table);
         var builder = new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n")
             .Append(string.Join(",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").ToArray()))
             .AppendLine("\r\n);");
@@ -211,4 +200,22 @@ public class DbProvider
     /// <returns>The SQL text that can be appended to the SQL statement.</returns>
     public virtual string GetLimitClause(int skip, int take) =>
         $"LIMIT {take} OFFSET {skip}";
+    
+    protected (string quotedTableName, IOrderedEnumerable<IDbColumnSchema> orderedFields) GetQuotedTableNameAndColumns(DbConnection connection,
+        IDbTableSchema table)
+    {
+        if (table is null)
+            throw new ArgumentNullException(nameof(table));
+
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (!table.Columns.Any())
+            throw new InvalidOperationException("Cannot generate DDL code with no provided columns.");
+
+        var schemaName = string.IsNullOrWhiteSpace(table.Schema) ? DefaultSchemaName : table.Schema;
+        var quotedTableName = QuoteTable(table.TableName, schemaName);
+        var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
+        return (quotedTableName, orderedFields);
+    }
 }

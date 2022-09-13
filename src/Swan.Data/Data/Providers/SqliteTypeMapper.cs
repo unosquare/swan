@@ -3,7 +3,6 @@
 internal class SqliteTypeMapper : DbTypeMapper
 {
     public SqliteTypeMapper()
-        : base()
     {
         ProviderTypeMap[typeof(double)] = "DOUBLE";
         ProviderTypeMap[typeof(bool)] = "BOOLEAN";

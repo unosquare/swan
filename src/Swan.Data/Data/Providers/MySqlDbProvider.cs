@@ -4,9 +4,9 @@ internal class MySqlDbProvider : DbProvider
 {
     public override IDbTypeMapper TypeMapper { get; } = new MySqlTypeMapper();
 
-    public override string QuotePrefix { get; } = "`";
+    public override string QuotePrefix => "`";
 
-    public override string QuoteSuffix { get; } = "`";
+    public override string QuoteSuffix => "`";
 
     public override DbCommand CreateListTablesCommand(DbConnection connection)
     {
@@ -14,8 +14,10 @@ internal class MySqlDbProvider : DbProvider
             throw new ArgumentNullException(nameof(connection));
 
         var database = connection.Database;
+
         return connection
-            .BeginCommandText($"SELECT `table_name` AS `Name`, '' AS `Schema` FROM `information_schema`.`tables` WHERE `table_schema` = {QuoteParameter(nameof(database))}")
+            .BeginCommandText(
+                $"SELECT `table_name` AS `Name`, '' AS `Schema` FROM `information_schema`.`tables` WHERE `table_schema` = {QuoteParameter(nameof(database))}")
             .EndCommandText()
             .SetParameter(nameof(database), database);
     }
@@ -23,12 +25,12 @@ internal class MySqlDbProvider : DbProvider
     public override string? GetColumnDdlString(IDbColumnSchema column) => column is null
         ? throw new ArgumentNullException(nameof(column))
         : !TypeMapper.TryGetProviderTypeFor(column.DataType, out var providerType)
-        ? default
-        : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
-        ? $"{QuoteField(column.Name),16} {providerType} NOT NULL AUTO_INCREMENT"
-        : base.GetColumnDdlString(column);
+            ? default
+            : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
+                ? $"{QuoteField(column.Name),16} {providerType} NOT NULL AUTO_INCREMENT"
+                : base.GetColumnDdlString(column);
 
-    public override bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
+    public override bool TryGetSelectLastInserted(IDbTableSchema table, out string? commandText)
     {
         commandText = null;
         if (table.IdentityKeyColumn is null || table.KeyColumns.Count != 1)

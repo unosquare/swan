@@ -20,15 +20,7 @@ public static class ValueTypeExtensions
         where TMin : struct, IConvertible
         where TMax : struct, IConvertible
     {
-        if (min is not T minValue)
-            minValue = (T)Convert.ChangeType(min, typeof(T), CultureInfo.InvariantCulture);
-
-        if (max is not T maxValue)
-            maxValue = (T)Convert.ChangeType(max, typeof(T), CultureInfo.InvariantCulture);
-
-        if (minValue.CompareTo(maxValue) > 0)
-            throw new ArgumentOutOfRangeException(nameof(min), minValue,
-                "Minimum value has to be less than or equal to maximum value.");
+        var (minValue, maxValue) = AdjustValues<T, TMin, TMax>(min, max);
 
         if (@this.CompareTo(minValue) < 0)
             return minValue;
@@ -55,15 +47,7 @@ public static class ValueTypeExtensions
         where TMin : struct, IConvertible
         where TMax : struct, IConvertible
     {
-        if (min is not T minValue)
-            minValue = (T)Convert.ChangeType(min, typeof(T), CultureInfo.InvariantCulture);
-
-        if (max is not T maxValue)
-            maxValue = (T)Convert.ChangeType(max, typeof(T), CultureInfo.InvariantCulture);
-
-        if (minValue.CompareTo(maxValue) > 0)
-            throw new ArgumentOutOfRangeException(nameof(min), minValue,
-                "Minimum value has to be less than or equal to maximum value.");
+        var (minValue, maxValue) = AdjustValues<T, TMin, TMax>(min, max);
 
         return @this.CompareTo(minValue) >= 0 && @this.CompareTo(maxValue) <= 0;
     }
@@ -102,5 +86,20 @@ public static class ValueTypeExtensions
             limitValue = (T)Convert.ChangeType(limit, typeof(T), CultureInfo.InvariantCulture);
 
         return @this.CompareTo(limitValue) > 0 ? limitValue : @this;
+    }
+
+    private static (T minValue, T maxValue) AdjustValues<T, TMin, TMax>(TMin min, TMax max)
+        where T : struct, IComparable, IConvertible where TMin : struct, IConvertible where TMax : struct, IConvertible
+    {
+        if (min is not T minValue)
+            minValue = (T)Convert.ChangeType(min, typeof(T), CultureInfo.InvariantCulture);
+
+        if (max is not T maxValue)
+            maxValue = (T)Convert.ChangeType(max, typeof(T), CultureInfo.InvariantCulture);
+
+        return minValue.CompareTo(maxValue) <= 0
+            ? (minValue, maxValue)
+            : throw new ArgumentOutOfRangeException(nameof(min), minValue,
+                "Minimum value has to be less than or equal to maximum value.");
     }
 }
