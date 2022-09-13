@@ -32,7 +32,7 @@ public class QueryExtensionsTest
         command.CommandText = "Select * from Projects;";
 
         var result = command.Query<Project>().ToList();
-        var result2 = command.Query().ToList();
+        var result2 = command.Query().ToList();        
 
         Assert.AreEqual(result[0].Name, "Project ONE");
         Assert.AreEqual(result2[0].Name, "Project ONE");

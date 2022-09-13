@@ -66,7 +66,7 @@
             /// </summary>
             [MaxLength(2147483647)]
             [Column(nameof(ProjectScope), Order = 7)]
-            public string? ProjectScope { get; set; }
+            public string ProjectScope { get; set; }
         }
 
         [Table("ProjectNoColumns", Schema = "dbo")]
