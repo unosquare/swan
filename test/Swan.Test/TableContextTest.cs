@@ -23,13 +23,13 @@ public class TableContextTest
         var deleteCommand = context.BuildDeleteCommand(tran);
         var selectCommand = context.BuildSelectCommand(tran);
 
-        Assert.AreEqual(insertCommand.CommandText,
-            "INSERT INTO [Projects] ( [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] ) VALUES ( $Name, $ProjectType, $CompanyId, $IsActive, $StartDate, $EndDate, $ProjectScope )");
-        Assert.AreEqual(updateCommand.CommandText,
-            "UPDATE [Projects] SET [Name] = $Name, [ProjectType] = $ProjectType, [CompanyId] = $CompanyId, [IsActive] = $IsActive, [StartDate] = $StartDate, [EndDate] = $EndDate, [ProjectScope] = $ProjectScope WHERE [ProjectId] = $ProjectId");
-        Assert.AreEqual(deleteCommand.CommandText,
-            "DELETE FROM [Projects] WHERE [ProjectId] = $ProjectId");
-        Assert.AreEqual(selectCommand.CommandText,
-            "SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] FROM [Projects] WHERE [ProjectId] = $ProjectId");
+        Assert.AreEqual("INSERT INTO [Projects] ( [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] ) VALUES ( $Name, $ProjectType, $CompanyId, $IsActive, $StartDate, $EndDate, $ProjectScope )",
+            insertCommand.CommandText);
+        Assert.AreEqual("UPDATE [Projects] SET [Name] = $Name, [ProjectType] = $ProjectType, [CompanyId] = $CompanyId, [IsActive] = $IsActive, [StartDate] = $StartDate, [EndDate] = $EndDate, [ProjectScope] = $ProjectScope WHERE [ProjectId] = $ProjectId",
+            updateCommand.CommandText);
+        Assert.AreEqual("DELETE FROM [Projects] WHERE [ProjectId] = $ProjectId",
+            deleteCommand.CommandText);
+        Assert.AreEqual("SELECT [ProjectId], [Name], [ProjectType], [CompanyId], [IsActive], [StartDate], [EndDate], [ProjectScope] FROM [Projects] WHERE [ProjectId] = $ProjectId",
+            selectCommand.CommandText);
     }
 }

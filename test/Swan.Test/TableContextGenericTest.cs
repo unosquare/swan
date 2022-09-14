@@ -28,7 +28,7 @@ public class TableContextGenericTest
 
         var result = table.FirstOrDefault();
 
-        Assert.AreEqual(result.Name, "Project ONE");
+        Assert.AreEqual("Project ONE",result?.Name);
     }
 
     [Test]
@@ -52,7 +52,7 @@ public class TableContextGenericTest
 
         var result = await table.FirstOrDefaultAsync();
 
-        Assert.AreEqual(result.Name, "Project ONE");
+        Assert.AreEqual("Project ONE",result?.Name);
     }
 
     [Test]
@@ -104,7 +104,7 @@ public class TableContextGenericTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        Assert.AreEqual(project.Name, "Project ONE");
+        Assert.AreEqual("Project ONE", project?.Name);
     }
 
     [Test]
@@ -126,7 +126,7 @@ public class TableContextGenericTest
             StartDate = DateTime.Now.AddMonths(-1)
         });
 
-        Assert.AreEqual(project.Name, "Project ONE");
+        Assert.AreEqual("Project ONE", project?.Name);
     }
 
     [Test]
@@ -163,7 +163,7 @@ public class TableContextGenericTest
 
         var projectsInserted = table.InsertMany(projects);
 
-        Assert.AreEqual(projectsInserted, 2);
+        Assert.AreEqual(2, projectsInserted);
     }
 
     [Test]
@@ -200,7 +200,7 @@ public class TableContextGenericTest
 
         var projectsInserted = table.InsertMany(projects);
 
-        Assert.AreEqual(projectsInserted, 2);
+        Assert.AreEqual(2, projectsInserted);
     }
 
     [Test]
@@ -236,7 +236,7 @@ public class TableContextGenericTest
 
         var projecstUpdated = table.UpdateOne(project);
 
-        Assert.AreEqual(projecstUpdated, 1);
+        Assert.AreEqual(1, projecstUpdated);
     }
 
     [Test]
@@ -272,7 +272,7 @@ public class TableContextGenericTest
 
         var projectUpdated = await table.UpdateOneAsync(project);
 
-        Assert.AreEqual(projectUpdated, 1);
+        Assert.AreEqual(1, projectUpdated);
     }
 
     [Test]
@@ -337,9 +337,9 @@ public class TableContextGenericTest
         var updatedCount = table.UpdateMany(projectsUpdated);
         var updatedTable = table.Query().ToList();
 
-        Assert.AreEqual(updatedCount, 2);
-        Assert.AreEqual(updatedTable[0].Name, "Project ONE Updated");
-        Assert.AreEqual(updatedTable[1].Name, "Project TWO Updated");
+        Assert.AreEqual(2, updatedCount);
+        Assert.AreEqual("Project ONE Updated", updatedTable[0].Name);
+        Assert.AreEqual("Project TWO Updated", updatedTable[1].Name);
     }
 
     [Test]
@@ -404,9 +404,9 @@ public class TableContextGenericTest
         var updatedCount = await table.UpdateManyAsync(projectsUpdated);
         var updatedTable = await table.QueryAsync().ToListAsync();
 
-        Assert.AreEqual(updatedCount, 2);
-        Assert.AreEqual(updatedTable[0].Name, "Project ONE Updated");
-        Assert.AreEqual(updatedTable[1].Name, "Project TWO Updated");
+        Assert.AreEqual(2, updatedCount);
+        Assert.AreEqual("Project ONE Updated", updatedTable[0]?.Name);
+        Assert.AreEqual("Project TWO Updated", updatedTable[1]?.Name);
     }
 
     [Test]
@@ -434,9 +434,9 @@ public class TableContextGenericTest
         };
 
         table.DeleteOne(project);
-        var count = table.Query().ToList().Count();
+        var count = table.Query().ToList().Count;
 
-        Assert.AreEqual(count, 0);
+        Assert.AreEqual(0, count);
     }
 
     [Test]
@@ -464,9 +464,9 @@ public class TableContextGenericTest
         };
 
         await table.DeleteOneAsync(project);
-        var count = table.Query().ToList().Count();
+        var count = table.Query().ToList().Count;
 
-        Assert.AreEqual(count, 0);
+        Assert.AreEqual(0, count);
     }
 
     [Test]
@@ -515,9 +515,9 @@ public class TableContextGenericTest
 
         table.InsertMany(projects);
         table.DeleteMany(projectsToDelete);
-        var count = table.Query().ToList().Count();
+        var count = table.Query().ToList().Count;
 
-        Assert.AreEqual(count, 0);
+        Assert.AreEqual(0, count);
     }
 
     [Test]
@@ -566,8 +566,8 @@ public class TableContextGenericTest
 
         await table.InsertManyAsync(projects);
         await table.DeleteManyAsync(projectsToDelete);
-        var count = table.Query().ToList().Count();
+        var count = table.Query().ToList().Count;
 
-        Assert.AreEqual(count, 0);
+        Assert.AreEqual(0, count);
     }
 }
