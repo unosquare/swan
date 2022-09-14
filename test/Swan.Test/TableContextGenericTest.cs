@@ -198,7 +198,7 @@ public class TableContextGenericTest
             }
         };
 
-        var projectsInserted = table.InsertMany(projects);
+        var projectsInserted = await table.InsertManyAsync(projects);
 
         Assert.AreEqual(2, projectsInserted);
     }
