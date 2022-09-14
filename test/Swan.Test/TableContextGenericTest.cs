@@ -1,13 +1,14 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
+using Swan.Data.Context;
 using Swan.Test.Mocks;
 
 [TestFixture]
 public class TableContextGenericTest
 {
     [Test]
-    public void FirstOrDefaultFromTableAndCheckItsResult()
+    public void FirstOrDefaultFromTableReturnsOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -31,7 +32,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task FirstOrDefaultAsyncFromTableAndCheckItsResult()
+    public async Task FirstOrDefaultAsyncFromTableReturnsOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -85,7 +86,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void InsertOne()
+    public void InsertOneRowReturnsSameRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -107,7 +108,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task InsertOneAsync()
+    public async Task InsertOneAsyncRowReturnsSameRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -129,7 +130,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void InsertMany()
+    public void InsertManyReturnsCountOfRowsInserted()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -166,7 +167,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task InsertManyAsync()
+    public async Task InsertManyAsyncReturnsCountOfRowsInserted()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -203,7 +204,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void UpdateOne()
+    public void UpdateOneRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -233,13 +234,13 @@ public class TableContextGenericTest
             StartDate = DateTime.Now.AddMonths(-1)
         };
 
-        var projectUpdated = table.UpdateOne(project);
+        var projecstUpdated = table.UpdateOne(project);
 
-        Assert.AreEqual(project.Name, "Project Updated");
+        Assert.AreEqual(projecstUpdated, 1);
     }
 
     [Test]
-    public async Task UpdateOneAsync()
+    public async Task UpdateOneAsyncRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -275,7 +276,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void  UpdateMany()
+    public void UpdateManyRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -342,7 +343,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task UpdateManyAsync()
+    public async Task UpdateManyAsyncRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -409,7 +410,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void DeleteOne()
+    public void DeleteOneChecksIfIsDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -439,7 +440,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task DeleteOneAsync()
+    public async Task DeleteOneAsyncChecksIfIsDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -469,7 +470,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public void DeleteMany()
+    public void DeleteManyChecksIfAreDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -520,7 +521,7 @@ public class TableContextGenericTest
     }
 
     [Test]
-    public async Task DeleteManyAsync()
+    public async Task DeleteManyAsyncChecksIfAreDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
@@ -569,5 +570,4 @@ public class TableContextGenericTest
 
         Assert.AreEqual(count, 0);
     }
-
 }
