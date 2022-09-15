@@ -7,7 +7,7 @@ public static partial class QueryExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time. The command is automatically disposed
     /// after the iteration completes.
     /// </summary>
@@ -67,7 +67,7 @@ public static partial class QueryExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time. The command is automatically disposed
     /// after the iteration completes.
     /// </summary>
@@ -125,13 +125,13 @@ public static partial class QueryExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying connection as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// </summary>
     /// <typeparam name="T">The type of elements to return.</typeparam>
     /// <param name="connection">The source connection.</param>
     /// <param name="sql">The SQL text to execute against the connection.</param>
-    /// <param name="deserialize">A desdearialization function that outputs object of the given type.</param>
+    /// <param name="deserialize">A deserialization function that outputs object of the given type.</param>
     /// <param name="param">Typically, an object of anonymous type with properties matching parameter names.</param>
     /// <param name="behavior">Optional command behavior.</param>
     /// <param name="transaction">Optional associated transaction.</param>
@@ -169,7 +169,7 @@ public static partial class QueryExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying connection as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// </summary>
     /// <param name="connection">The source connection.</param>

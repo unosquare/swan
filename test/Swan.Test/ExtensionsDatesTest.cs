@@ -97,7 +97,7 @@ public class CompareDates
     {
         var result = new DateTime(1969, 8, 15).GetDateTimeSpan(_date);
 
-        Assert.AreEqual(result.Years, 32);
+        Assert.AreEqual(32, result.Years);
         Assert.AreEqual(result.Months, 10);
         Assert.AreEqual(result.Days, 18);
         Assert.AreEqual(result.Minutes, 0);

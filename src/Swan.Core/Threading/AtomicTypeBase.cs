@@ -19,10 +19,7 @@
         /// Initializes a new instance of the <see cref="AtomicTypeBase{T}"/> class.
         /// </summary>
         /// <param name="initialValue">The initial value.</param>
-        protected AtomicTypeBase(long initialValue)
-        {
-            BackingValue = initialValue;
-        }
+        protected AtomicTypeBase(long initialValue) => BackingValue = initialValue;
 
         /// <summary>
         /// Gets or sets the value.
@@ -138,16 +135,14 @@
         /// <param name="other">The other instance.</param>
         /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
         /// <exception cref="ArgumentException">When types are incompatible.</exception>
-        public int CompareTo(object? other)
-        {
-            return other switch
+        public int CompareTo(object? other) =>
+            other switch
             {
                 null => 1,
                 AtomicTypeBase<T> atomic => BackingValue.CompareTo(atomic.BackingValue),
                 T variable => Value.CompareTo(variable),
                 _ => throw new ArgumentException("Incompatible comparison types"),
             };
-        }
 
         /// <summary>
         /// Compares the value to the other instance.
@@ -170,15 +165,13 @@
         /// <returns>
         ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Equals(object? obj)
-        {
-            return obj switch
+        public override bool Equals(object? obj) =>
+            obj switch
             {
                 AtomicTypeBase<T> atomic => Equals(atomic),
                 T variable => Equals(variable),
                 _ => false,
             };
-        }
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -196,10 +189,7 @@
         public bool Equals(T other) => Equals(Value, other);
 
         /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"{Value}";
-        }
+        public override string ToString() => $"{Value}";
 
         /// <summary>
         /// Converts from a long value to the target type.

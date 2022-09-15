@@ -41,12 +41,6 @@ public static class SyncLockerFactory
     #region Factory Methods
 
     /// <summary>
-    /// Creates a reader-writer lock backed by a standard ReaderWriterLock.
-    /// </summary>
-    /// <returns>The synchronized locker.</returns>
-    public static ISyncLocker Create() => new SyncLocker();
-
-    /// <summary>
     /// Creates a reader-writer lock backed by a ReaderWriterLockSlim.
     /// </summary>
     /// <returns>The synchronized locker.</returns>
@@ -57,7 +51,7 @@ public static class SyncLockerFactory
     /// </summary>
     /// <param name="useSlim">if set to <c>true</c> it uses the Slim version of a reader-writer lock.</param>
     /// <returns>The Sync Locker.</returns>
-    public static ISyncLocker Create(bool useSlim) => useSlim ? CreateSlim() : Create();
+    public static ISyncLocker Create(bool useSlim = false) => useSlim ? CreateSlim() : new SyncLocker();
 
     #endregion
 

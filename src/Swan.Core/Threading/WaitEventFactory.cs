@@ -56,11 +56,13 @@
         #region Factory Methods
 
         /// <summary>
-        /// Creates a Wait Event backed by a standard ManualResetEvent.
+        /// Creates a Wait Event backed by a ManualResetEvent in either standard or slim variations.
         /// </summary>
         /// <param name="isCompleted">if initially set to completed. Generally true.</param>
+        /// <param name="useSlim">if set to <c>true</c> creates a slim version of the wait event.</param>
         /// <returns>The Wait Event.</returns>
-        public static IWaitEvent Create(bool isCompleted) => new WaitEvent(isCompleted);
+        public static IWaitEvent Create(bool isCompleted, bool useSlim = false) =>
+            useSlim ? CreateSlim(isCompleted) : new WaitEvent(isCompleted);
 
         /// <summary>
         /// Creates a Wait Event backed by a ManualResetEventSlim.
@@ -69,14 +71,6 @@
         /// <returns>The Wait Event.</returns>
         public static IWaitEvent CreateSlim(bool isCompleted) => new WaitEventSlim(isCompleted);
 
-        /// <summary>
-        /// Creates a Wait Event backed by a ManualResetEvent in either standard or slim variations.
-        /// </summary>
-        /// <param name="isCompleted">if initially set to completed. Generally true.</param>
-        /// <param name="useSlim">if set to <c>true</c> creates a slim version of the wait event.</param>
-        /// <returns>The Wait Event.</returns>
-        public static IWaitEvent Create(bool isCompleted, bool useSlim) => useSlim ? CreateSlim(isCompleted) : Create(isCompleted);
-
         #endregion
 
         #region Backing Classes
@@ -84,7 +78,7 @@
         /// <summary>
         /// Defines a WaitEvent backed by a ManualResetEvent.
         /// </summary>
-        private class WaitEvent : IWaitEvent
+        private sealed class WaitEvent : IWaitEvent
         {
             private ManualResetEvent? _event;
 
@@ -92,10 +86,7 @@
             /// Initializes a new instance of the <see cref="WaitEvent"/> class.
             /// </summary>
             /// <param name="isCompleted">if set to <c>true</c> [is completed].</param>
-            public WaitEvent(bool isCompleted)
-            {
-                _event = new(isCompleted);
-            }
+            public WaitEvent(bool isCompleted) => _event = new(isCompleted);
 
             /// <inheritdoc />
             public bool IsDisposed { get; private set; }
@@ -148,7 +139,7 @@
         /// <summary>
         /// Defines a WaitEvent backed by a ManualResetEventSlim.
         /// </summary>
-        private class WaitEventSlim : IWaitEvent
+        private sealed class WaitEventSlim : IWaitEvent
         {
             private ManualResetEventSlim? _event;
 
@@ -156,10 +147,7 @@
             /// Initializes a new instance of the <see cref="WaitEventSlim"/> class.
             /// </summary>
             /// <param name="isCompleted">if set to <c>true</c> [is completed].</param>
-            public WaitEventSlim(bool isCompleted)
-            {
-                _event = new(isCompleted);
-            }
+            public WaitEventSlim(bool isCompleted) => _event = new(isCompleted);
 
             /// <inheritdoc />
             public bool IsDisposed { get; private set; }

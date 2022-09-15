@@ -213,7 +213,7 @@
                     return;
             }
 
-            if (_cycleDoneEvent.IsSet == false)
+            if (!_cycleDoneEvent.IsSet)
                 return;
 
             _cycleDoneEvent.Reset();

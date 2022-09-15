@@ -58,10 +58,7 @@ public class AtomicTypeTest
     {
         AtomicTypeBase<bool> atomic = new AtomicBoolean();
 
-        void ToggleValueTask()
-        {
-            atomic.Value = !atomic.Value;
-        }
+        void ToggleValueTask() => atomic.Value = !atomic.Value;
 
         Task.WaitAll(
             Task.Run(ToggleValueTask),

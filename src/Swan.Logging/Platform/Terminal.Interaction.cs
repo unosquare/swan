@@ -86,7 +86,7 @@ public static partial class Terminal
     /// <returns>The read line.</returns>
     public static string? ReadLine()
     {
-        if (IsConsolePresent == false) return default;
+        if (!IsConsolePresent) return default;
 
         lock (SyncLock)
         {
