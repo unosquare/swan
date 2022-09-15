@@ -1,7 +1,6 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Data.Context;
 using Swan.Test.Mocks;
 
 [TestFixture]
@@ -200,7 +199,7 @@ public class TableContextGenericTest
 
         var projectsInserted = await table.InsertManyAsync(projects);
 
-        Assert.AreEqual(2, projectsInserted);
+        Assert.AreEqual(projects.Count, projectsInserted);
     }
 
     [Test]
@@ -337,7 +336,7 @@ public class TableContextGenericTest
         var updatedCount = table.UpdateMany(projectsUpdated);
         var updatedTable = table.Query().ToList();
 
-        Assert.AreEqual(2, updatedCount);
+        Assert.AreEqual(projectsUpdated.Count, updatedCount);
         Assert.AreEqual("Project ONE Updated", updatedTable[0].Name);
         Assert.AreEqual("Project TWO Updated", updatedTable[1].Name);
     }
@@ -404,7 +403,7 @@ public class TableContextGenericTest
         var updatedCount = await table.UpdateManyAsync(projectsUpdated);
         var updatedTable = await table.QueryAsync().ToListAsync();
 
-        Assert.AreEqual(2, updatedCount);
+        Assert.AreEqual(projectsUpdated.Count, updatedCount);
         Assert.AreEqual("Project ONE Updated", updatedTable[0]?.Name);
         Assert.AreEqual("Project TWO Updated", updatedTable[1]?.Name);
     }
@@ -514,10 +513,10 @@ public class TableContextGenericTest
         };
 
         table.InsertMany(projects);
-        table.DeleteMany(projectsToDelete);
-        var count = table.Query().ToList().Count;
+        var deleted = table.DeleteMany(projectsToDelete);
+        var remaining = table.Query().ToList().Count;
 
-        Assert.AreEqual(0, count);
+        Assert.AreEqual(projects.Count - deleted, remaining);
     }
 
     [Test]
@@ -565,9 +564,9 @@ public class TableContextGenericTest
         };
 
         await table.InsertManyAsync(projects);
-        await table.DeleteManyAsync(projectsToDelete);
-        var count = table.Query().ToList().Count;
+        var deleted = await table.DeleteManyAsync(projectsToDelete);
+        var remaining = table.Query().ToList().Count;
 
-        Assert.AreEqual(0, count);
+        Assert.AreEqual(projects.Count - deleted, remaining);
     }
 }
