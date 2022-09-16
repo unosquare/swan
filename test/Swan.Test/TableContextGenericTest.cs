@@ -6,6 +6,96 @@ using Swan.Test.Mocks;
 [TestFixture]
 public class TableContextGenericTest
 {
+    private static Project project = new()
+    {
+        CompanyId = 1,
+        EndDate = DateTime.Now,
+        IsActive = true,
+        Name = "Project ONE",
+        ProjectScope = "My Scope",
+        ProjectType = ProjectTypes.Exciting,
+        StartDate = DateTime.Now.AddMonths(-1)
+    };
+
+    private static Project projectUpdated = new()
+    {
+        ProjectId = 1,
+        CompanyId = 1,
+        EndDate = DateTime.Now,
+        IsActive = true,
+        Name = "Project Updated",
+        ProjectScope = "My Scope",
+        ProjectType = ProjectTypes.Exciting,
+        StartDate = DateTime.Now.AddMonths(-1)
+    };
+
+    private static List<Project> projects = new()
+    {
+        new Project()
+        {
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project ONE",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Exciting,
+            StartDate = DateTime.Now.AddMonths(-1)
+        },
+        new Project()
+        {
+            CompanyId = 2,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project TWO",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Boring,
+            StartDate = DateTime.Now.AddMonths(-1)
+        }
+    };
+
+    private static List<Project> projectsUpdated = new()
+    {
+        new Project()
+        {
+            ProjectId = 1,
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project ONE Updated",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Exciting,
+            StartDate = DateTime.Now.AddMonths(-1)
+        },
+        new Project()
+        {
+            ProjectId = 2,
+            CompanyId = 2,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project TWO Updated",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Boring,
+            StartDate = DateTime.Now.AddMonths(-1)
+        }
+    };
+
+    private static Project projectToDelete = new()
+    {
+        ProjectId = 1
+    };
+
+    private static List<Project> projectsToDelete = new()
+    {
+        new Project()
+        {
+            ProjectId = 1
+        },
+        new Project()
+        {
+            ProjectId = 2
+        }
+    };
+
     [Test]
     public void FirstOrDefaultFromTableReturnsOneRow()
     {
@@ -14,20 +104,11 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        table.InsertOne(project);
 
         var result = table.FirstOrDefault();
 
-        Assert.AreEqual("Project ONE",result?.Name);
+        Assert.AreEqual(project.Name,result?.Name);
     }
 
     [Test]
@@ -36,52 +117,43 @@ public class TableContextGenericTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var table = conn.Table<Project>("Projects");
+        var table = await conn.TableAsync<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        await table.InsertOneAsync(project);
 
         var result = await table.FirstOrDefaultAsync();
 
-        Assert.AreEqual("Project ONE",result?.Name);
+        Assert.AreEqual(project.Name,result?.Name);
     }
 
     [Test]
     public void InsertOneAndInsertOneAsyncWhenItemIsNullThrowsException()
     {
-        List<Project> projectList = null;
-        Project project = null;
+        List<Project> nullProjectList = null;
+        Project nullProject = null;
 
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
 
-        Assert.Throws<ArgumentNullException>(() => table.InsertOne(project));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.InsertOneAsync(project));
+        Assert.Throws<ArgumentNullException>(() => table.InsertOne(nullProject));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.InsertOneAsync(nullProject));
 
-        Assert.Throws<ArgumentNullException>(() => table.InsertMany(projectList));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.InsertManyAsync(projectList));
+        Assert.Throws<ArgumentNullException>(() => table.InsertMany(nullProjectList));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.InsertManyAsync(nullProjectList));
 
-        Assert.Throws<ArgumentNullException>(() => table.UpdateOne(project));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.UpdateOneAsync(project));
+        Assert.Throws<ArgumentNullException>(() => table.UpdateOne(nullProject));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.UpdateOneAsync(nullProject));
 
-        Assert.Throws<ArgumentNullException>(() => table.UpdateMany(projectList));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.UpdateManyAsync(projectList));
+        Assert.Throws<ArgumentNullException>(() => table.UpdateMany(nullProjectList));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.UpdateManyAsync(nullProjectList));
 
-        Assert.Throws<ArgumentNullException>(() => table.DeleteOne(project));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.DeleteOneAsync(project));
+        Assert.Throws<ArgumentNullException>(() => table.DeleteOne(nullProject));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.DeleteOneAsync(nullProject));
 
-        Assert.Throws<ArgumentNullException>(() => table.DeleteMany(projectList));
-        Assert.ThrowsAsync<ArgumentNullException>(() => table.DeleteManyAsync(projectList));
+        Assert.Throws<ArgumentNullException>(() => table.DeleteMany(nullProjectList));
+        Assert.ThrowsAsync<ArgumentNullException>(() => table.DeleteManyAsync(nullProjectList));
     }
 
     [Test]
@@ -92,18 +164,9 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        var project = table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        var result = table.InsertOne(project);
 
-        Assert.AreEqual("Project ONE", project?.Name);
+        Assert.AreEqual(project.Name, result?.Name);
     }
 
     [Test]
@@ -112,20 +175,11 @@ public class TableContextGenericTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var table = conn.Table<Project>("Projects");
+        var table = await conn.TableAsync<Project>("Projects");
 
-        var project = await table.InsertOneAsync(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        var result = await table.InsertOneAsync(project);
 
-        Assert.AreEqual("Project ONE", project?.Name);
+        Assert.AreEqual(project.Name, result?.Name);
     }
 
     [Test]
@@ -136,33 +190,9 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
         var projectsInserted = table.InsertMany(projects);
 
-        Assert.AreEqual(2, projectsInserted);
+        Assert.AreEqual(projects.Count, projectsInserted);
     }
 
     [Test]
@@ -172,30 +202,6 @@ public class TableContextGenericTest
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
 
         var projectsInserted = await table.InsertManyAsync(projects);
 
@@ -210,30 +216,9 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        table.InsertOne(project);
 
-        Project project = new Project()
-        {
-            ProjectId = 1,
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project Updated",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        };
-
-        var projecstUpdated = table.UpdateOne(project);
+        var projecstUpdated = table.UpdateOne(projectUpdated);
 
         Assert.AreEqual(1, projecstUpdated);
     }
@@ -246,32 +231,11 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        table.InsertOne(project);
 
-        Project project = new Project()
-        {
-            ProjectId = 1,
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project Updated",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        };
+        var projecstUpdated = await table.UpdateOneAsync(projectUpdated);
 
-        var projectUpdated = await table.UpdateOneAsync(project);
-
-        Assert.AreEqual(1, projectUpdated);
+        Assert.AreEqual(1, projecstUpdated);
     }
 
     [Test]
@@ -281,56 +245,6 @@ public class TableContextGenericTest
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
-        List<Project> projectsUpdated = new List<Project>
-        {
-            new Project()
-            {
-                ProjectId = 1,
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE Updated",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            { 
-                ProjectId = 2,
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO Updated",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
 
         table.InsertMany(projects);
         var updatedCount = table.UpdateMany(projectsUpdated);
@@ -349,56 +263,6 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
-        List<Project> projectsUpdated = new List<Project>
-        {
-            new Project()
-            {
-                ProjectId = 1,
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE Updated",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                ProjectId = 2,
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO Updated",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
         table.InsertMany(projects);
         var updatedCount = await table.UpdateManyAsync(projectsUpdated);
         var updatedTable = await table.QueryAsync().ToListAsync();
@@ -416,23 +280,9 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        table.InsertOne(project);
 
-        Project project = new Project()
-        {
-            ProjectId = 1
-        };
-
-        table.DeleteOne(project);
+        table.DeleteOne(projectToDelete);
         var count = table.Query().ToList().Count;
 
         Assert.AreEqual(0, count);
@@ -446,23 +296,9 @@ public class TableContextGenericTest
 
         var table = conn.Table<Project>("Projects");
 
-        table.InsertOne(new()
-        {
-            CompanyId = 1,
-            EndDate = DateTime.Now,
-            IsActive = true,
-            Name = "Project ONE",
-            ProjectScope = "My Scope",
-            ProjectType = ProjectTypes.Exciting,
-            StartDate = DateTime.Now.AddMonths(-1)
-        });
+        table.InsertOne(project);
 
-        Project project = new Project()
-        {
-            ProjectId = 1
-        };
-
-        await table.DeleteOneAsync(project);
+        await table.DeleteOneAsync(projectToDelete);
         var count = table.Query().ToList().Count;
 
         Assert.AreEqual(0, count);
@@ -475,42 +311,6 @@ public class TableContextGenericTest
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
-        List<Project> projectsToDelete = new List<Project>
-        {
-            new Project()
-            {
-                ProjectId = 1
-            },
-            new Project()
-            {
-                ProjectId = 2
-            }
-        };
 
         table.InsertMany(projects);
         var deleted = table.DeleteMany(projectsToDelete);
@@ -526,42 +326,6 @@ public class TableContextGenericTest
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-
-        List<Project> projects = new List<Project>
-        {
-            new Project()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            },
-            new Project()
-            {
-                CompanyId = 2,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project TWO",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Boring,
-                StartDate = DateTime.Now.AddMonths(-1)
-            }
-        };
-
-        List<Project> projectsToDelete = new List<Project>
-        {
-            new Project()
-            {
-                ProjectId = 1
-            },
-            new Project()
-            {
-                ProjectId = 2
-            }
-        };
 
         await table.InsertManyAsync(projects);
         var deleted = await table.DeleteManyAsync(projectsToDelete);
