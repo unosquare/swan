@@ -251,8 +251,8 @@ public class TableContextGenericTest
         var updatedTable = table.Query().ToList();
 
         Assert.AreEqual(projectsUpdated.Count, updatedCount);
-        Assert.AreEqual("Project ONE Updated", updatedTable[0].Name);
-        Assert.AreEqual("Project TWO Updated", updatedTable[1].Name);
+        Assert.AreEqual(projectsUpdated[0].Name, updatedTable[0].Name);
+        Assert.AreEqual(projectsUpdated[1].Name, updatedTable[1].Name);
     }
 
     [Test]
@@ -268,8 +268,8 @@ public class TableContextGenericTest
         var updatedTable = await table.QueryAsync().ToListAsync();
 
         Assert.AreEqual(projectsUpdated.Count, updatedCount);
-        Assert.AreEqual("Project ONE Updated", updatedTable[0]?.Name);
-        Assert.AreEqual("Project TWO Updated", updatedTable[1]?.Name);
+        Assert.AreEqual(projectsUpdated[0].Name, updatedTable[0]?.Name);
+        Assert.AreEqual(projectsUpdated[1].Name, updatedTable[1]?.Name);
     }
 
     [Test]
