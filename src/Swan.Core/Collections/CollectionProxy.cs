@@ -429,37 +429,7 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
         else
             CopyToEnumerable(array, elementType, index);
     }
-
-    private void CopyToEnumerable(Array array, ITypeInfo elementType, int arrayIndex)
-    {
-        var enumerator = GetEnumerator();
-
-        while (enumerator.MoveNext())
-        {
-            if (!TypeManager.TryChangeType(enumerator.Current, elementType, out var item))
-                throw new ArgumentException(InvalidCastMessage, nameof(array));
-
-            array.SetValue(item, arrayIndex);
-            arrayIndex++;
-            if (arrayIndex >= array.Length)
-                break;
-        }
-    }
-
-    private void CopyToDictionary(Array array, ITypeInfo elementType, int arrayIndex)
-    {
-        foreach (var value in Values)
-        {
-            if (!TypeManager.TryChangeType(value, elementType, out var item))
-                throw new ArgumentException(InvalidCastMessage, nameof(array));
-
-            array.SetValue(item, arrayIndex);
-            arrayIndex++;
-            if (arrayIndex >= array.Length)
-                break;
-        }
-    }
-
+    
     /// <iinheritdoc />
     public void CopyTo(object?[] array, int arrayIndex) => CopyTo(array as Array, arrayIndex);
 
@@ -637,6 +607,36 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
         }
 
         return true;
+    }
+    
+    private void CopyToEnumerable(Array array, ITypeInfo elementType, int arrayIndex)
+    {
+        var enumerator = GetEnumerator();
+
+        while (enumerator.MoveNext())
+        {
+            if (!TypeManager.TryChangeType(enumerator.Current, elementType, out var item))
+                throw new ArgumentException(InvalidCastMessage, nameof(array));
+
+            array.SetValue(item, arrayIndex);
+            arrayIndex++;
+            if (arrayIndex >= array.Length)
+                break;
+        }
+    }
+
+    private void CopyToDictionary(Array array, ITypeInfo elementType, int arrayIndex)
+    {
+        foreach (var value in Values)
+        {
+            if (!TypeManager.TryChangeType(value, elementType, out var item))
+                throw new ArgumentException(InvalidCastMessage, nameof(array));
+
+            array.SetValue(item, arrayIndex);
+            arrayIndex++;
+            if (arrayIndex >= array.Length)
+                break;
+        }
     }
 
     private bool TryCopyToDictionary(CollectionProxy target)

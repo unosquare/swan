@@ -169,6 +169,13 @@ public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparab
             T variable => Equals(variable),
             _ => false,
         };
+    
+    /// <inheritdoc />
+    public bool Equals(AtomicTypeBase<T>? other) =>
+        BackingValue == (other?.BackingValue ?? default);
+
+    /// <inheritdoc />
+    public bool Equals(T other) => Equals(Value, other);
 
     /// <summary>
     /// Returns a hash code for this instance.
@@ -177,13 +184,6 @@ public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparab
     /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
     /// </returns>
     public override int GetHashCode() => BackingValue.GetHashCode();
-
-    /// <inheritdoc />
-    public bool Equals(AtomicTypeBase<T>? other) =>
-        BackingValue == (other?.BackingValue ?? default);
-
-    /// <inheritdoc />
-    public bool Equals(T other) => Equals(Value, other);
 
     /// <inheritdoc />
     public override string ToString() => $"{Value}";

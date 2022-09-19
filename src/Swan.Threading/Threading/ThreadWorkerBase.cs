@@ -201,39 +201,6 @@ public abstract class ThreadWorkerBase : WorkerBase
     }
 
     /// <summary>
-    /// Queues a transition in worker state for processing. Returns a task that can be awaited
-    /// when the operation completes.
-    /// </summary>
-    /// <param name="request">The request.</param>
-    /// <returns>The awaitable task.</returns>
-    private Task<WorkerState> QueueStateChange(StateChangeRequest request)
-    {
-        lock (_syncLock)
-        {
-            if (StateChangeTask != null)
-                return StateChangeTask;
-
-            var waitingTask = new Task<WorkerState>(() =>
-            {
-                StateChangedEvent.Wait();
-                lock (_syncLock)
-                {
-                    StateChangeTask = null;
-                    return WorkerState;
-                }
-            });
-
-            StateChangeTask = waitingTask;
-            StateChangedEvent.Reset();
-            StateChangeRequests[request] = true;
-            waitingTask.Start();
-            CycleCancellation.Cancel();
-
-            return waitingTask;
-        }
-    }
-
-    /// <summary>
     /// Processes the state change request by checking pending events and scheduling
     /// cycle execution accordingly. The <see cref="WorkerState"/> is also updated.
     /// </summary>

@@ -298,8 +298,8 @@ public static partial class Program
 
     private static void TestCsvFormatters()
     {
-        var test01FilePath = Path.GetTempFileName();
-        var test02FilePath = Path.GetTempFileName();
+        var test01FilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        var test02FilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
         var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
         $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));

@@ -232,4 +232,37 @@ public abstract class WorkerBase : IWorker, IDisposable
 
         return elapsedMillis >= periodMillis ? 0 : Convert.ToInt32(Math.Floor(delayMillis));
     }
+    
+    /// <summary>
+    /// Queues a transition in worker state for processing. Returns a task that can be awaited
+    /// when the operation completes.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>The awaitable task.</returns>
+    protected Task<WorkerState> QueueStateChange(StateChangeRequest request)
+    {
+        lock (_syncLock)
+        {
+            if (StateChangeTask != null)
+                return StateChangeTask;
+
+            var waitingTask = new Task<WorkerState>(() =>
+            {
+                StateChangedEvent.Wait();
+                lock (_syncLock)
+                {
+                    StateChangeTask = null;
+                    return WorkerState;
+                }
+            });
+
+            StateChangeTask = waitingTask;
+            StateChangedEvent.Reset();
+            StateChangeRequests[request] = true;
+            waitingTask.Start();
+            CycleCancellation.Cancel();
+
+            return waitingTask;
+        }
+    }
 }
