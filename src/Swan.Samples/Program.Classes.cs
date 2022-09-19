@@ -1,5 +1,6 @@
 ﻿namespace Swan.Samples;
 
+using System.Text;
 public static partial class Program
 {
     internal class SampleCopyTarget

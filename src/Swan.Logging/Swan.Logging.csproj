@@ -9,6 +9,7 @@
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
 	<PropertyGroup>
