@@ -1,7 +1,5 @@
 ﻿namespace Swan.Logging;
 
-using System;
-
 /// <summary>
 /// Interface for a logger implementation.
 /// </summary>

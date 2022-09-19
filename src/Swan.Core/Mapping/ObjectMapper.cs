@@ -88,9 +88,11 @@ public class ObjectMapper
             propertiesToCopy,
             ignoreProperties);
     }
+    /// <inheritdoc/>
 
     public bool HasMap(Type sourceType, Type targetType) =>
         TargetMaps.TryGetValue(targetType, out var sourceMaps) && sourceMaps.ContainsKey(sourceType);
+    /// <inheritdoc/>
 
     public bool TryGetMap(Type sourceType, Type targetType, out IObjectMap map)
     {

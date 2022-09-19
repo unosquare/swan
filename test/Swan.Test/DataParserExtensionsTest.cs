@@ -9,8 +9,8 @@ public class DataParserExtensionsTest
     [Test]
     public void WhenRecordIsNullThrowsException()
     {
-        IDataRecord record = null;
-        DataRow row = null;
+        IDataRecord? record = null;
+        DataRow? row = null;
         Assert.Throws<ArgumentNullException>(() => record.ParseObject<Project>());
         Assert.Throws<ArgumentNullException>(() => record.ParseExpando());
         Assert.Throws<ArgumentNullException>(() => row.ParseExpando());

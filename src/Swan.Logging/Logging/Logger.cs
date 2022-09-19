@@ -4,12 +4,8 @@ using Extensions;
 using Formatters;
 using Platform;
 using Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Entry-point for logging. Use this static class to register/unregister
@@ -632,9 +628,7 @@ public static class Logger
         var indentStr = new string(' ', spaces);
 
         foreach (var line in lines)
-        {
             builder.AppendLine($"{indentStr}{line}");
-        }
 
         return builder.ToString().TrimEnd();
     }

@@ -1,7 +1,7 @@
 ﻿namespace Swan.Formatters;
 
-using Threading;
 using System.IO;
+using Threading;
 
 /// <summary>
 /// Represents a writer that writes sets of strings in CSV format into a stream.

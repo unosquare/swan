@@ -1,7 +1,5 @@
 ﻿namespace Swan.Logging;
 
-using System;
-
 /// <summary>
 /// Event arguments representing the message that is logged
 /// on to the terminal. Use the properties to forward the data to

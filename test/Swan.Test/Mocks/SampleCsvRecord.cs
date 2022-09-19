@@ -28,8 +28,8 @@ public class SampleCsvRecord
 
     public int Id { get; set; }
     public int? AlternateId { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
 
     public bool IsValidated { get; set; }
     public bool? ValidationResult { get; set; }

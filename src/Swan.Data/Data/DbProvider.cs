@@ -200,7 +200,8 @@ public class DbProvider
     /// <returns>The SQL text that can be appended to the SQL statement.</returns>
     public virtual string GetLimitClause(int skip, int take) =>
         $"LIMIT {take} OFFSET {skip}";
-    
+    /// <inheritdoc/>
+
     protected (string quotedTableName, IOrderedEnumerable<IDbColumnSchema> orderedFields) GetQuotedTableNameAndColumns(DbConnection connection,
         IDbTableSchema table)
     {

@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides utility methods visibly to this library only.
 /// </summary>
-internal static partial class Library
+internal static class Library
 {
     private const CommandBehavior OptimizedBahavior = CommandBehavior.SequentialAccess | CommandBehavior.SingleResult;
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
@@ -16,7 +16,7 @@ internal static partial class Library
 
     /// <summary>
     /// Attempts to execute the reader with sequential access and single result, in addition to user-provided
-    /// required falgs. If execution fails, it then tries to execute the reader without optimization flags.
+    /// required flags. If execution fails, it then tries to execute the reader without optimization flags.
     /// </summary>
     /// <param name="command">The command to execute the reader.</param>
     /// <param name="requiredFlags">The required behavior flags.</param>
@@ -37,7 +37,7 @@ internal static partial class Library
 
     /// <summary>
     /// Attempts to execute the reader with sequential access and single result, in addition to user-provided
-    /// required falgs. If execution fails, it then tries to execute the reader without optimization flags.
+    /// required flags. If execution fails, it then tries to execute the reader without optimization flags.
     /// </summary>
     /// <param name="command">The command to execute the reader.</param>
     /// <param name="requiredFlags">The required behavior flags.</param>
@@ -68,8 +68,9 @@ internal static partial class Library
     {
         if (string.IsNullOrWhiteSpace(fieldName))
             fieldName = $"Field_{fieldIndex.ToString(CultureInfo.InvariantCulture)}";
-        
+
         var builder = new StringBuilder(fieldName.Length);
+
         foreach (var c in fieldName)
         {
             if (!char.IsLetterOrDigit(c) && c != '_')
@@ -84,7 +85,7 @@ internal static partial class Library
     }
 
     /// <summary>
-    /// Attempts to rertieve the AddWithValue method on a type derived from
+    /// Attempts to retrieve the AddWithValue method on a type derived from
     /// <see cref="IDataParameterCollection"/> and compiles a generic lambda
     /// expression to call it regardless of the concrete type being used in
     /// the provider.

@@ -114,7 +114,7 @@ public class QueryExtensionsAsyncTest
     [Test]
     public void ExecuteQueryAsyncWhenCommandIsNull()
     {
-        DbCommand command = null;
+        DbCommand? command = null;
 
         Assert.ThrowsAsync<ArgumentNullException>(() => command.QueryAsync<Project>().ToListAsync());
         Assert.ThrowsAsync<ArgumentNullException>(() => command.QueryAsync().ToListAsync());
@@ -135,7 +135,7 @@ public class QueryExtensionsAsyncTest
     [Test]
     public void ExecuteQueryAsyncWhenConnectionIsNull()
     {
-        SqliteConnection conn = null;
+        SqliteConnection? conn = null;
 
         Assert.ThrowsAsync<ArgumentNullException>(() =>
             conn.QueryAsync<Project>("Select * from Projects;").ToListAsync());

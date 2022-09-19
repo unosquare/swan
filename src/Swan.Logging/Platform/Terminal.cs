@@ -1,11 +1,11 @@
 ﻿namespace Swan.Platform;
 
 using Extensions;
-using Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
+using Threading;
 
 /// <summary>
 /// A console terminal helper to create nicer output and receive input from the user. 

@@ -17,10 +17,7 @@ public class AsyncLazy<T>
     /// Creates a new instance of the <see cref="AsyncLazy{T}"/> class.
     /// </summary>
     /// <param name="factory">The factory method that produces the typed object.</param>
-    public AsyncLazy(Func<Task<T>> factory)
-    {
-        TaskFactory = factory;
-    }
+    public AsyncLazy(Func<Task<T>> factory) => TaskFactory = factory;
 
     /// <summary>
     /// Gets a value indicating whether the value has been created.

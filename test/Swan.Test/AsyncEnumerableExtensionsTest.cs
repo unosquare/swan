@@ -59,7 +59,7 @@ public class AsyncEnumerableExtensionsTest
     {
         // Arrange
         var ct = new CancellationToken();
-        IAsyncEnumerable<int> items = null;
+        IAsyncEnumerable<int>? items = null;
 
         // Act
         var response = await items.FirstOrDefaultAsync(ct);
@@ -103,7 +103,7 @@ public class AsyncEnumerableExtensionsTest
     {
         // Arrange
         var ct = new CancellationToken();
-        IAsyncEnumerable<int> items = null;
+        IAsyncEnumerable<int>? items = null;
 
         // Act
         var response = await items.ToListAsync(ct);

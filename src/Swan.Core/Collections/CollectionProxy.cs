@@ -95,17 +95,20 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     /// <inheritdoc />
     public object? this[object key]
     {
-        get =>
-            !TypeManager.TryChangeType(key, KeysType, out var keyItem)
-                ? throw new ArgumentException(InvalidCastMessage, nameof(key))
-                : keyItem is null
-                    ? throw new ArgumentNullException(nameof(key))
-                    : KeysType.NativeType == typeof(int)
-                        ? this[(int)keyItem]
-                        : Delegates.IndexerObjGetter is not null
-                            ? Delegates.IndexerObjGetter(keyItem)
-                            : throw new NotSupportedException(
-                                $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
+        get
+        {
+            if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
+                throw new ArgumentException(InvalidCastMessage, nameof(key));
+
+            return keyItem is null
+                ? throw new ArgumentNullException(nameof(key))
+                : KeysType.NativeType == typeof(int)
+                    ? this[(int)keyItem]
+                    : Delegates.IndexerObjGetter is not null
+                        ? Delegates.IndexerObjGetter(keyItem)
+                        : throw new NotSupportedException(
+                            $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
+        }
         set
         {
             if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
@@ -199,9 +202,6 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     {
         proxy = default;
 
-        if (target is null)
-            return false;
-
         if (target is not IEnumerable enumerableTarget)
             return false;
 
@@ -225,12 +225,10 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
         (Collection as IEnumerable)?.GetEnumerator() ?? throw new InvalidCastException();
 
     /// <inheritdoc />
-    IDictionaryEnumerator IDictionary.GetEnumerator()
-    {
-        return Collection is IDictionary dictionary
+    IDictionaryEnumerator IDictionary.GetEnumerator() =>
+        Collection is IDictionary dictionary
             ? dictionary.GetEnumerator()
             : new CollectionEnumerator(this);
-    }
 
     /// <inheritdoc />
     public int Add(object? value)
@@ -291,15 +289,18 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     /// </summary>
     /// <param name="value"></param>
     /// <returns>True if the value is found. False otherwise.</returns>
-    public bool Contains(object? value) =>
-        !TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var searchValue)
-            ? throw new ArgumentException(InvalidCastMessage, nameof(value))
-            : !IsDictionary
-                ? Delegates.Contains?.Invoke(searchValue) ??
-                  Values.Cast<object?>().Contains(searchValue)
-                : Delegates.ContainsKey?.Invoke(searchValue) ?? (
-                  Delegates.Contains?.Invoke(searchValue) ??
-                  Keys.Cast<object?>().Contains(searchValue));
+    public bool Contains(object? value)
+    {
+        if (!TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var searchValue))
+            throw new ArgumentException(InvalidCastMessage, nameof(value));
+
+        return !IsDictionary
+            ? Delegates.Contains?.Invoke(searchValue) ??
+              Values.Cast<object?>().Contains(searchValue)
+            : Delegates.ContainsKey?.Invoke(searchValue) ?? (
+                Delegates.Contains?.Invoke(searchValue) ??
+                Keys.Cast<object?>().Contains(searchValue));
+    }
 
     /// <summary>
     /// For dictionaries, it returns the same as <see cref="Contains(object?)"/>.

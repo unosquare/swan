@@ -5,10 +5,10 @@ namespace Swan.Data.Extensions;
 /// <summary>
 /// Provides extension methods for <see cref="DbCommand"/> objects.
 /// </summary>
-public static partial class CommandExtensions
+public static class CommandExtensions
 {
     /// <summary>
-    /// Tries to preprare a command on the server side.
+    /// Tries to prepare a command on the server side.
     /// Useful when executing the command multiple times by varying argument values.
     /// </summary>
     /// <typeparam name="T">The compatible command type.</typeparam>
@@ -40,7 +40,7 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
-    /// Tries to preprare a command on the server side.
+    /// Tries to prepare a command on the server side.
     /// Useful when executing a command multiple times by varying argument values.
     /// </summary>
     /// <typeparam name="T">The compatible command type.</typeparam>
@@ -50,7 +50,7 @@ public static partial class CommandExtensions
         where T : DbCommand => command.TryPrepare(out _);
 
     /// <summary>
-    /// Tries to preprare a command on the server side.
+    /// Tries to prepare a command on the server side.
     /// Useful when executing a command multiple times by varying argument values.
     /// </summary>
     /// <param name="command">The command object.</param>
@@ -81,7 +81,7 @@ public static partial class CommandExtensions
     /// <param name="command">The command to search.</param>
     /// <param name="name">The name to find.</param>
     /// <param name="parameter">The parameter output (if found).</param>
-    /// <returns>True if the paramater was found. False otherwise.</returns>
+    /// <returns>True if the parameter was found. False otherwise.</returns>
     public static bool TryFindParameter<T>(this T command, string name, [MaybeNullWhen(false)] out IDbDataParameter parameter)
         where T : DbCommand
     {
@@ -134,7 +134,7 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
-    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// Adds or updates a parameter in the command's parameter collection without setting a value.
     /// </summary>
     /// <param name="command">The command.</param>
     /// <param name="name">The parameter name to add or update.</param>
@@ -215,20 +215,18 @@ public static partial class CommandExtensions
     }
 
     /// <summary>
-    /// Adds or updates a parameter in the command's paramater collection without setting a value.
+    /// Adds or updates a parameter in the command's parameter collection without setting a value.
     /// </summary>
     /// <param name="command">The command.</param>
     /// <param name="column">The column information used to create or update the parameter definition.</param>
     /// <param name="direction">The optional parameter direction. The default is input.</param>
     /// <returns>The added or updated parameter object.</returns>
     public static IDbDataParameter DefineParameter(this DbCommand command, IDbColumnSchema column,
-        ParameterDirection direction = ParameterDirection.Input)
-    {
-        return column is null
+        ParameterDirection direction = ParameterDirection.Input) =>
+        column is null
             ? throw new ArgumentNullException(nameof(column))
             : command.DefineParameter(column.Name, column.DataType, direction,
                 column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
-    }
 
     /// <summary>
     /// Adds or updates multiple parameters in the command's parameter collection
@@ -260,7 +258,7 @@ public static partial class CommandExtensions
     /// <typeparam name="TValue">The value type.</typeparam>
     /// <param name="command">The command.</param>
     /// <param name="name">The parameter name.</param>
-    /// <param name="value">The perameter value.</param>
+    /// <param name="value">The parameter value.</param>
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>
     public static TCommand SetParameter<TCommand, TValue>(this TCommand command, string name, TValue value, int? size = default)
@@ -272,7 +270,7 @@ public static partial class CommandExtensions
     /// <typeparam name="TCommand">The command type.</typeparam>
     /// <param name="command">The command.</param>
     /// <param name="name">The parameter name.</param>
-    /// <param name="value">The perameter value.</param>
+    /// <param name="value">The parameter value.</param>
     /// <param name="clrType">The CLR type that maps to the <see cref="DbType"/>.</param>
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>
@@ -309,7 +307,7 @@ public static partial class CommandExtensions
     /// <typeparam name="TCommand">The command type.</typeparam>
     /// <param name="command">The command.</param>
     /// <param name="name">The parameter name.</param>
-    /// <param name="value">The perameter value.</param>
+    /// <param name="value">The parameter value.</param>
     /// <param name="dbType">The database type of the parameter.</param>
     /// <param name="size">The parameter size.</param>
     /// <returns>The command with the updated parameter.</returns>

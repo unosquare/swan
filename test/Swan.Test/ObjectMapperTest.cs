@@ -9,7 +9,7 @@ public abstract class ObjectMapperTest : TestFixtureBase
     {
         Email = "geovanni.perez@unosquare.com",
         Name = "Geo",
-        Role = new() {Name = "Admin"},
+        Role = new() { Name = "Admin" },
         StartDate = new(2000, 2, 5),
     };
 
@@ -161,8 +161,8 @@ public class Copy : ObjectMapperTest
     {
         var target = new UserDto();
 
-        var propertiesToCopy = new[] {"Name", "Email"};
-        var ignoreProperties = new[] {"Role"};
+        var propertiesToCopy = new[] { "Name", "Email" };
+        var ignoreProperties = new[] { "Role" };
 
         ObjectMapper.Copy(SourceDict, target, propertiesToCopy, ignoreProperties);
 

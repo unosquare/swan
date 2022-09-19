@@ -2,8 +2,8 @@
 
 public partial class TableContext
 {
-	private static readonly ValueCache<int, IDbTableSchema> SchemaCache = new();
-	private readonly IDbTableSchema TableSchema;
+    private static readonly ValueCache<int, IDbTableSchema> SchemaCache = new();
+    private readonly IDbTableSchema TableSchema;
 
     /// <inheritdoc />
     public IDbColumnSchema? this[string name] => TableSchema[name];

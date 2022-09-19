@@ -93,7 +93,7 @@ public class ReadHeadings : CsvReaderTest
     {
         using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
         using var reader = new CsvDictionaryReader(stream);
-            
+
 
         var headings = reader.Headings.Keys.ToArray();
         Assert.IsNotEmpty(headings);
@@ -129,7 +129,7 @@ public class ReadLine : CsvReaderTest
         using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
         var reader = new CsvReader(stream);
         reader.MoveNext();
-            
+
         Assert.IsNotEmpty(reader.Values);
     }
 
@@ -223,8 +223,8 @@ public class ReadObject : CsvReaderTest
         var reader = new CsvObjectReader<UserDto>(stream);
         reader.AddMapping("Company", dto => dto.Name);
         reader.AddMapping("OpenPositions",
-            dto => dto.StartDate, 
-            s => new(2000 + int.Parse(s), 4,6));
+            dto => dto.StartDate,
+            s => new(2000 + int.Parse(s), 4, 6));
 
         var result = new List<UserDto>(reader);
         Assert.IsTrue(result.Count == 2);

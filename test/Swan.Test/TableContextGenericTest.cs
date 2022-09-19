@@ -108,7 +108,7 @@ public class TableContextGenericTest
 
         var result = table.FirstOrDefault();
 
-        Assert.AreEqual(project.Name,result?.Name);
+        Assert.AreEqual(project.Name, result?.Name);
     }
 
     [Test]
@@ -123,14 +123,14 @@ public class TableContextGenericTest
 
         var result = await table.FirstOrDefaultAsync();
 
-        Assert.AreEqual(project.Name,result?.Name);
+        Assert.AreEqual(project.Name, result?.Name);
     }
 
     [Test]
     public void InsertOneAndInsertOneAsyncWhenItemIsNullThrowsException()
     {
-        List<Project> nullProjectList = null;
-        Project nullProject = null;
+        List<Project>? nullProjectList = null;
+        Project? nullProject = null;
 
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();

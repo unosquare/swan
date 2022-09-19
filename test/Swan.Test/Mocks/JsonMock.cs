@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 public class ErrorJson
 {
-    public string Message { get; set; }
+    public string? Message { get; set; }
 }
 
 public class SamplePerson
@@ -64,7 +64,7 @@ public class SampleFamily
 
 public class BasicJson
 {
-    public string StringData { get; set; }
+    public string? StringData { get; set; }
 
     public int IntData { get; set; }
 
@@ -104,19 +104,19 @@ public class BasicArrayJson
 {
     public int Id { get; set; }
 
-    public string[] Properties { get; set; }
+    public string[]? Properties { get; set; }
 }
 
 public class AdvJson : BasicJson
 {
-    public BasicJson InnerChild { get; set; }
+    public BasicJson? InnerChild { get; set; }
 }
 
 public class AdvArrayJson
 {
     public int Id { get; set; }
 
-    public BasicJson[] Properties { get; set; }
+    public BasicJson[]? Properties { get; set; }
 }
 
 public class DateTimeJson
@@ -127,29 +127,29 @@ public class DateTimeJson
 public class JsonPropertySample
 {
     [JsonPropertyName("data")]
-    public string Data { get; set; }
+    public string? Data { get; set; }
 
     [JsonPropertyName("ignoredData")]
     [JsonIgnore]
-    public string IgnoredData { get; set; }
+    public string? IgnoredData { get; set; }
 }
 
 public class InnerJsonPropertySample
 {
     [JsonPropertyName("data")]
-    public string Data { get; set; }
+    public string? Data { get; set; }
 
     [JsonPropertyName("ignoredData")]
     [JsonIgnore]
-    public string IgnoredData { get; set; }
+    public string? IgnoredData { get; set; }
 
-    public JsonPropertySample Inner { get; set; }
+    public JsonPropertySample? Inner { get; set; }
 }
 
 public class JsonIngoreNestedPropertySample
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("data")]
     public int Data { get; set; }
@@ -159,19 +159,44 @@ public class JsonIngorePropertySample
 {
     [JsonPropertyName("id")]
     [JsonIgnore]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("inner")]
-    public JsonIngoreNestedPropertySample Inner { get; set; }
+    public JsonIngoreNestedPropertySample? Inner { get; set; }
 }
 
-public struct SampleStruct
+public struct SampleStruct : IEquatable<SampleStruct>
 {
     public int Value;
     public string Name;
+
+    public override bool Equals(object obj)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static bool operator ==(SampleStruct left, SampleStruct right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(SampleStruct left, SampleStruct right)
+    {
+        return !(left == right);
+    }
+
+    public bool Equals(SampleStruct other)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class ObjectEnum
@@ -192,12 +217,12 @@ public class ObjectAttr
     public int Id { get; set; }
 
     [Copyable]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Copyable]
     public bool IsActive { get; set; }
 
-    public string Owner { get; set; }
+    public string? Owner { get; set; }
 
     public static ObjectAttr GetDefault() =>
         new()
@@ -211,5 +236,5 @@ public class ObjectAttr
 
 public class ObjectWithArray
 {
-    public string[] Data { get; set; }
+    public string[]? Data { get; set; }
 }

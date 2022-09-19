@@ -105,7 +105,7 @@ internal sealed class DbTableSchema : IDbTableSchema
 
         var columnInstance = provider.ColumnSchemaFactory.Invoke();
         var columnType = columnInstance.GetType().TypeInfo();
-        var columns = schemaTable.Query((r) => DeserializeColumn(r, columnType)).ToList();
+        var columns = schemaTable.Query(r => DeserializeColumn(r, columnType)).ToList();
         return new DbTableSchema(connection.Database, tableName, schema, columns);
     }
 
@@ -133,7 +133,7 @@ internal sealed class DbTableSchema : IDbTableSchema
 
         var columnInstance = provider.ColumnSchemaFactory.Invoke();
         var columnType = columnInstance.GetType().TypeInfo();
-        var columns = schemaTable.Query((r) => DeserializeColumn(r, columnType)).ToList();
+        var columns = schemaTable.Query(r => DeserializeColumn(r, columnType)).ToList();
         return new DbTableSchema(connection.Database, tableName, schema, columns);
     }
 

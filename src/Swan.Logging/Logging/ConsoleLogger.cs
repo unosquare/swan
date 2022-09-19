@@ -1,7 +1,6 @@
 ﻿namespace Swan.Logging;
 
 using Platform;
-using System;
 
 /// <summary>
 /// Represents a Console implementation of <c>ILogger</c>.

@@ -75,7 +75,7 @@ public static partial class Terminal
 
         Write(builder.ToString(), color, writerFlags);
     }
-            
+
 
     /// <summary>
     /// As opposed to WriteLine methods, it prepends a Carriage Return character to the text

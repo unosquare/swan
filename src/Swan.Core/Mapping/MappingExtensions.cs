@@ -1,6 +1,7 @@
 ﻿namespace Swan.Mapping;
 
 using Reflection;
+/// <inheritdoc/>
 
 public static class MappingExtensions
 {

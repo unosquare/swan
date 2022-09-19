@@ -73,7 +73,7 @@ public sealed class CommandSource : IConnected
     {
         if (_connection is null)
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);
-        
+
         if (_commandText is null)
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);
 

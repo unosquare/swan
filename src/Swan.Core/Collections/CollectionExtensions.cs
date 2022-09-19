@@ -47,15 +47,16 @@ public static class CollectionExtensions
         Func<bool> conditionFunction,
         Func<IQueryable<T>, IQueryable<T>> filteringFunction)
     {
-        return sourceCollection is null
-            ? throw new ArgumentNullException(nameof(sourceCollection))
-            : conditionFunction is null
+        if (sourceCollection is null)
+            throw new ArgumentNullException(nameof(sourceCollection));
+
+        return conditionFunction is null
             ? throw new ArgumentNullException(nameof(conditionFunction))
             : filteringFunction is null
-            ? throw new ArgumentNullException(nameof(filteringFunction))
-            : conditionFunction()
-            ? filteringFunction(sourceCollection)
-            : sourceCollection;
+                ? throw new ArgumentNullException(nameof(filteringFunction))
+                : conditionFunction()
+                    ? filteringFunction(sourceCollection)
+                    : sourceCollection;
     }
 
     /// <summary>
@@ -74,15 +75,17 @@ public static class CollectionExtensions
         Func<bool> conditionFunction,
         Func<IEnumerable<T>, IEnumerable<T>> filteringFunction)
     {
-        return sourceCollection is null
-            ? throw new ArgumentNullException(nameof(sourceCollection))
-            : conditionFunction is null
-            ? throw new ArgumentNullException(nameof(conditionFunction))
-            : filteringFunction is null
+        if (sourceCollection is null)
+            throw new ArgumentNullException(nameof(sourceCollection));
+
+        if (conditionFunction is null)
+            throw new ArgumentNullException(nameof(conditionFunction));
+
+        return filteringFunction is null
             ? throw new ArgumentNullException(nameof(filteringFunction))
             : conditionFunction()
-            ? filteringFunction(sourceCollection)
-            : sourceCollection;
+                ? filteringFunction(sourceCollection)
+                : sourceCollection;
     }
 
     /// <summary>

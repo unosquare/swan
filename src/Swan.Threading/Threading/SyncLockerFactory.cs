@@ -1,8 +1,5 @@
 ﻿namespace Swan.Threading;
 
-using System;
-using System.Threading;
-
 /// <summary>
 /// Provides factory methods to create synchronized reader-writer locks
 /// that support a generalized locking and releasing api and syntax.

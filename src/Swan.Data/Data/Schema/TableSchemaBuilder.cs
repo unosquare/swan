@@ -64,7 +64,7 @@ public class TableSchemaBuilder : IConnected
     {
         await Connection.EnsureConnectedAsync(ct);
         await using var command = Provider.CreateTableDdlCommand(Connection, Table);
-        
+
         return await command.ExecuteNonQueryAsync(ct);
     }
 

@@ -16,7 +16,7 @@ public static class AsyncEnumerableExtensions
     {
         if (enumerable is null)
             return default;
-        
+
         await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
             return item;
 

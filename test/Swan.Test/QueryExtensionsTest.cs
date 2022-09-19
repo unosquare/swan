@@ -29,7 +29,7 @@ public class QueryExtensionsTest
         command.CommandText = "Select * from Projects;";
 
         var result = command.Query<Project>().ToList();
-        var result2 = command.Query().ToList();        
+        var result2 = command.Query().ToList();
 
         Assert.AreEqual(result[0].Name, "Project ONE");
         Assert.AreEqual(result2[0].Name, "Project ONE");
@@ -146,7 +146,7 @@ public class QueryExtensionsTest
     [Test]
     public void ExecuteQueryWhenCommandIsNull()
     {
-        DbCommand command = null;
+        DbCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.Query<Project>().ToList());
         Assert.Throws<ArgumentNullException>(() => command.Query().ToList());
@@ -167,7 +167,7 @@ public class QueryExtensionsTest
     [Test]
     public void ExecuteQueryWhenConnectionIsNull()
     {
-        SqliteConnection conn = null;
+        SqliteConnection? conn = null;
 
         Assert.Throws<ArgumentNullException>(() => conn.Query<Project>("Select * from Projects;"));
     }
@@ -183,7 +183,7 @@ public class QueryExtensionsTest
     [Test]
     public void ExecuteQueryWhenTableIsNull()
     {
-        DataTable table = null;
+        DataTable? table = null;
 
         Assert.Throws<ArgumentNullException>(() => table.Query<Project>().ToList());
         Assert.Throws<ArgumentNullException>(() => table.Query().ToList());

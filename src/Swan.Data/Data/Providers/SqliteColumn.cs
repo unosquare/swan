@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CA1812
 namespace Swan.Data.Providers;
 
+[ExcludeFromCodeCoverage]
 internal record SqliteColumn : IDbColumnSchema
 {
     public bool? AllowDBNull { get; set; }

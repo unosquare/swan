@@ -19,7 +19,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void AppendWordSelectAndSeparateFieldsInCommandText()
     {
-        var fields = new[] {"Field1", "Field2", "Field3"};
+        var fields = new[] { "Field1", "Field2", "Field3" };
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.BeginCommandText().Select(fields).EndCommandText();
 
@@ -88,7 +88,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FieldsWhenFieldsIsNotEmptyReturnsThemFormatted()
     {
-        var fields = new[] {"Field1", "Field2", "Field3"};
+        var fields = new[] { "Field1", "Field2", "Field3" };
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().Fields(fields).EndCommandText();
@@ -99,7 +99,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenNoTableOrSchemaIsGivenReturnJustTheWordFrom()
     {
-        var fields = new[] {"Field1", "Field2", "Field3"};
+        var fields = new[] { "Field1", "Field2", "Field3" };
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().From().EndCommandText();
@@ -110,7 +110,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenTableNameGivenReturnFromTableFormat()
     {
-        var fields = new[] {"Field1", "Field2", "Field3"};
+        var fields = new[] { "Field1", "Field2", "Field3" };
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().From("TableName").EndCommandText();
@@ -121,7 +121,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void FromWhenTableNameGivenReturnFromSchemaTableFormat()
     {
-        var fields = new[] {"Field1", "Field2", "Field3"};
+        var fields = new[] { "Field1", "Field2", "Field3" };
         var conn = new SqliteConnection("Data Source=:memory:");
 
         var command = conn.BeginCommandText().From("TableName", "SchemaName").EndCommandText();
@@ -246,7 +246,7 @@ public class SqlTextExtensionsTest
     public void WhenParameterCountIsBiggerThanZero()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var parameters = new[] {"Parameter1", "Parameter2"};
+        var parameters = new[] { "Parameter1", "Parameter2" };
 
         var command = conn.BeginCommandText().Parameters(parameters).EndCommandText();
 
@@ -268,7 +268,7 @@ public class SqlTextExtensionsTest
     public void WhenFieldsAndParameterCountIsBiggerThanZero()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var fieldsAndParameters = new[] {"Parameter1", "Parameter2"};
+        var fieldsAndParameters = new[] { "Parameter1", "Parameter2" };
 
         var command = conn.BeginCommandText().FieldsAndParameters(fieldsAndParameters).EndCommandText();
 
@@ -289,7 +289,7 @@ public class SqlTextExtensionsTest
     public void WhenOderByParameterAreGiven()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        var parameters = new[] {"Parameter1", "Parameter2"};
+        var parameters = new[] { "Parameter1", "Parameter2" };
 
         var command = conn.BeginCommandText().OrderBy(parameters).EndCommandText();
 
@@ -319,9 +319,9 @@ public class SqlTextExtensionsTest
     [Test]
     public void WhenCommandSourceIsNullThrowsException()
     {
-        CommandSource command = null;
-        IDbTableSchema table = null;
-        IReadOnlyList<IDbColumnSchema> columns = null;
+        CommandSource? command = null;
+        IDbTableSchema? table = null;
+        IReadOnlyList<IDbColumnSchema>? columns = null;
         var conn = new SqliteConnection("Data Source=:memory:");
         var fields = Array.Empty<string>();
 
@@ -340,7 +340,7 @@ public class SqlTextExtensionsTest
         Assert.Throws<ArgumentNullException>(() => command.And());
         Assert.Throws<ArgumentNullException>(() => command.Parameter(""));
         Assert.Throws<ArgumentNullException>(() => command.Parameters("Parameter1", "Parameter2"));
-        Assert.Throws<ArgumentNullException>(() => command.FieldsAndParameters(new[] {"Parameter1", "Parameter2"}));
+        Assert.Throws<ArgumentNullException>(() => command.FieldsAndParameters(new[] { "Parameter1", "Parameter2" }));
         Assert.Throws<ArgumentNullException>(() => command.OrderBy("Parameter1", "Parameter2"));
         Assert.Throws<ArgumentNullException>(() => command.Limit());
     }

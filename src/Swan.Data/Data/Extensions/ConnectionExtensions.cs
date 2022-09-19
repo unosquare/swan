@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides extension methods for <see cref="DbConnection"/> objects.
 /// </summary>
-public static partial class ConnectionExtensions
+public static class ConnectionExtensions
 {
     /// <summary>
     /// Retrieves the <see cref="DbProvider"/> associated with the given connection.

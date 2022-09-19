@@ -9,7 +9,7 @@ public class CommandExtensionsTest
     [Test]
     public void PrepareNullCommandReturnsFalse()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
         var prepared = command.TryPrepare();
 
         Assert.IsFalse(prepared);
@@ -38,7 +38,7 @@ public class CommandExtensionsTest
     [Test]
     public void PrepareNullCommandThrowsExceptionAsync()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.ThrowsAsync<ArgumentNullException>(() => command.TryPrepareAsync());
     }
@@ -66,7 +66,7 @@ public class CommandExtensionsTest
     [Test]
     public void TryFindParameterInANullCommandReturnsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.TryFindParameter("Parameter", out var parameter));
     }
@@ -115,7 +115,7 @@ public class CommandExtensionsTest
     [Test]
     public void GetNamedParametersWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.GetNamedParameters().Any());
     }
@@ -135,7 +135,7 @@ public class CommandExtensionsTest
     [Test]
     public void DefineParameterWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", DbType.Int32));
     }
@@ -163,7 +163,7 @@ public class CommandExtensionsTest
     [Test]
     public void DefineParameterWithClrTypeWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.DefineParameter("IntParameter", typeof(int)));
     }
@@ -203,7 +203,7 @@ public class CommandExtensionsTest
         conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
         var table = conn.Table<Project>("Projects");
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.DefineParameters(table.Columns));
     }
@@ -233,7 +233,7 @@ public class CommandExtensionsTest
     [Test]
     public void SetParameterWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.SetParameter("IntParameter", 0, typeof(int), 1));
     }
@@ -266,7 +266,7 @@ public class CommandExtensionsTest
     [Test]
     public void SetParameterWithDbTypeWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.SetParameter("IntParameter", 0, DbType.Int32, 1));
     }
@@ -299,7 +299,7 @@ public class CommandExtensionsTest
     [Test]
     public void SetParametersWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
         var project = new Project();
 
         Assert.Throws<ArgumentNullException>(() => command.SetParameters(project));
@@ -339,7 +339,7 @@ public class CommandExtensionsTest
     [Test]
     public void WithProperties()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.WithProperties());
     }
@@ -352,21 +352,20 @@ public class CommandExtensionsTest
         var timeSpan = new TimeSpan(0, 0, 30);
         var command = conn.CreateCommand();
 
-        var cmdWithPrioperties = command.WithProperties("Select 1;", CommandType.Text, tran, timeSpan);
+        var cmdWithProperties = command.WithProperties("Select 1;", CommandType.Text, tran, timeSpan);
 
-        Assert.AreEqual("Select 1;", cmdWithPrioperties.CommandText);
-        Assert.AreEqual(timeSpan.Seconds, cmdWithPrioperties.CommandTimeout);
-        Assert.AreEqual(CommandType.Text, cmdWithPrioperties.CommandType);
+        Assert.AreEqual("Select 1;", cmdWithProperties.CommandText);
+        Assert.AreEqual(timeSpan.Seconds, cmdWithProperties.CommandTimeout);
+        Assert.AreEqual(CommandType.Text, cmdWithProperties.CommandType);
     }
 
     [Test]
     public void AppendTextsWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.AppendText("Where 1 = 1"));
     }
-
 
     [Test]
     public void AppendTextsWhenCommandTextIsEmptyThrowsException()
@@ -394,7 +393,7 @@ public class CommandExtensionsTest
     [Test]
     public void WithTextsWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.WithText("Select 1"));
     }
@@ -427,7 +426,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:").EnsureConnected();
         var tran = conn.BeginTransaction();
 
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.WithTransaction(tran));
     }
@@ -446,7 +445,7 @@ public class CommandExtensionsTest
     [Test]
     public void WithTimeOutWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
         var timeSpan = new TimeSpan(0, 0, 30);
 
         Assert.Throws<ArgumentNullException>(() => command.WithTimeout(timeSpan));
@@ -467,7 +466,7 @@ public class CommandExtensionsTest
     [Test]
     public void WithTimeOutSecondsWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.WithTimeout(30));
     }
@@ -486,7 +485,7 @@ public class CommandExtensionsTest
     [Test]
     public void WithCommandTypeWhenCommandIsNullThrowsException()
     {
-        SqliteCommand command = null;
+        SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.WithCommandType(CommandType.Text));
     }

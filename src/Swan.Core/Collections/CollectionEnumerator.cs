@@ -4,10 +4,7 @@ internal struct CollectionEnumerator : IDictionaryEnumerator, IEnumerator<object
 {
     private int _currentIndex = -1;
 
-    public CollectionEnumerator(CollectionProxy proxy)
-    {
-        Proxy = proxy;
-    }
+    public CollectionEnumerator(CollectionProxy proxy) => Proxy = proxy;
 
     public DictionaryEntry Entry => _currentIndex >= 0 ? new(Key, Value) : default;
 
@@ -30,10 +27,7 @@ internal struct CollectionEnumerator : IDictionaryEnumerator, IEnumerator<object
         return false;
     }
 
-    public void Reset()
-    {
-        _currentIndex = -1;
-    }
+    public void Reset() => _currentIndex = -1;
 
     void IDisposable.Dispose()
     {

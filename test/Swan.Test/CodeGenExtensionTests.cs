@@ -41,7 +41,7 @@ public class CodeGenExtensionTest
     [Test]
     public void TryGetPocoCodeWhenTableIsNull()
     {
-        Data.Context.ITableContext table = null;
+        Data.Context.ITableContext? table = null;
 
         Assert.Throws<ArgumentNullException>(() => table.GeneratePocoCode());
     }

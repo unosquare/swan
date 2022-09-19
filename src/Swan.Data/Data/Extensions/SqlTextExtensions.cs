@@ -3,7 +3,7 @@
 /// <summary>
 /// Extension methods to build SQL command text using <see cref="CommandSource"/> objects.
 /// </summary>
-public static partial class SqlTextExtensions
+public static class SqlTextExtensions
 {
     /// <summary>
     /// Appends the SELECT keyword to the command text.
@@ -18,7 +18,7 @@ public static partial class SqlTextExtensions
             throw new ArgumentNullException(nameof(@this));
 
         @this.AppendText("SELECT");
-        return fields is {Length: > 0}
+        return fields is { Length: > 0 }
             ? @this.Fields(fields)
             : @this;
     }
@@ -71,7 +71,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items is {Length: > 0}
+        var quotedNames = items is { Length: > 0 }
             ? string.Join(", ", items.Select(f => @this.Provider.QuoteField(f)))
             : "*";
         return @this.AppendText($"{quotedNames}");
@@ -199,7 +199,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items is {Length: > 0}
+        var quotedNames = items is { Length: > 0 }
             ? string.Join(", ", items.Select(f => @this.Provider.QuoteParameter(f)))
             : string.Empty;
 
@@ -220,7 +220,7 @@ public static partial class SqlTextExtensions
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
 
-        var quotedNames = items is {Length: > 0}
+        var quotedNames = items is { Length: > 0 }
             ? string.Join($" {itemSeparator} ", items.Select(f => $"{@this.Provider.QuoteField(f)} {operatorSeparator} {@this.Provider.QuoteParameter(f)}"))
             : string.Empty;
 
@@ -240,7 +240,7 @@ public static partial class SqlTextExtensions
 
         @this.AppendText("ORDER BY");
 
-        return items is {Length: > 0}
+        return items is { Length: > 0 }
             ? @this.Fields(items)
             : @this;
     }
@@ -269,7 +269,7 @@ public static partial class SqlTextExtensions
         builder
             .Append(' ')
             .Append(@this.Provider.GetLimitClause(skip, take));
-        
+
         return @this.AppendText(builder.ToString());
     }
 }

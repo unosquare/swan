@@ -1,8 +1,5 @@
 ﻿namespace Swan.Threading;
 
-using System;
-using System.Threading.Tasks;
-
 /// <summary>
 /// Defines a standard API to control background application workers.
 /// </summary>

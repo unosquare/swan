@@ -331,7 +331,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         Connection.EnsureConnected();
         var result = 0;
         var command = BuildDeleteCommand(transaction);
-        
+
         try
         {
             command.TryPrepare();

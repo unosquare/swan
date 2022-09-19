@@ -1,9 +1,5 @@
 ﻿namespace Swan.Threading;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 /// <summary>
 /// Provides a base implementation for application workers
 /// that perform continuous, long-running tasks. This class

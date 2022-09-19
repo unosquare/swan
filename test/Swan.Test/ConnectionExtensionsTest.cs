@@ -144,8 +144,7 @@ public class ConnectionExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
 
-        var table = conn.Table<Project>("Projects");
-        var project = table.InsertOne(new()
+        conn.Table<Project>("Projects").InsertOne(new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -177,9 +176,9 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndGetItsKeyColumnNameAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsAsync").ExecuteDdlCommandAsync();
 
-        var table = await conn.TableAsync("Projects");
+        var table = await conn.TableAsync("ProjectsAsync");
         var keys = table.KeyColumns;
 
         Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
@@ -188,7 +187,7 @@ public class ConnectionExtensionsTest
     [Test]
     public void WhenConnectionIsNullThrowsException()
     {
-        SqliteConnection conn = null;
+        SqliteConnection? conn = null;
 
         Assert.Throws<ArgumentNullException>(() => conn.Provider());
         Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteDdlCommand());

@@ -1,6 +1,5 @@
 ﻿namespace Swan.Data.Extensions;
 
-
 /// <summary>
 /// Provides extension methods that generate code.
 /// </summary>
@@ -25,6 +24,7 @@ public static class CodeGenExtensions
         [typeof(ushort)] = "ushort",
         [typeof(string)] = "string",
     };
+
     private static readonly CultureInfo ci = CultureInfo.InvariantCulture;
 
     /// <summary>
@@ -34,7 +34,7 @@ public static class CodeGenExtensions
     /// </summary>
     /// <param name="table">The table to extract column schema info from.</param>
     /// <param name="entityName">The optional name of the generated record class.</param>
-    /// <returns>A string contining code that defines a record class.</returns>
+    /// <returns>A string containing code that defines a record class.</returns>
     public static string GeneratePocoCode(this IDbTableSchema table, string? entityName = default)
     {
         if (table is null)
@@ -45,13 +45,14 @@ public static class CodeGenExtensions
 
         var hasSchemaName = !string.IsNullOrWhiteSpace(table.Schema);
         var fullTableName = !hasSchemaName ? table.TableName : $"{table.Schema}.{table.TableName}";
-        
+
         entityName ??= table.TableName;
         return new StringBuilder()
             .Append("/// <summary>\r\n")
             .Append(ci, $"/// Represents a record that maps to the {fullTableName} table.\r\n")
             .Append("/// </summary>\r\n")
-            .Append(ci, $"[Table(\"{table.TableName}\"{(hasSchemaName ? $", Schema = \"{table.Schema}\"" : string.Empty)})]\r\n")
+            .Append(ci,
+                $"[Table(\"{table.TableName}\"{(hasSchemaName ? $", Schema = \"{table.Schema}\"" : string.Empty)})]\r\n")
             .Append(ci, $"public record {entityName}\r\n")
             .Append("{\r\n")
             .Append("    /// <summary>\r\n")
@@ -83,12 +84,12 @@ public static class CodeGenExtensions
             builder.Append(ci, $"    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]\r\n");
 
         builder
-            .Append(ci, $"    [Column(nameof({column.Name}){(column.Ordinal >= 0 ? $", Order = {column.Ordinal}" : string.Empty)})]\r\n")
+            .Append(ci,
+                $"    [Column(nameof({column.Name}){(column.Ordinal >= 0 ? $", Order = {column.Ordinal}" : string.Empty)})]\r\n")
             .Append(ci, $"    public {typeAlias}{(column.AllowsDBNull ? "? " : " ")}{column.Name}")
             .Append("{ get; set; }");
         return builder.ToString();
     }
-        
 
     private static string GetTypeAlias(this Type type)
     {
@@ -97,6 +98,4 @@ public static class CodeGenExtensions
             ? alias
             : baseType.Name;
     }
-
 }
-

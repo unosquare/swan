@@ -1,7 +1,7 @@
 ﻿namespace Swan.Formatters;
 
-using Threading;
 using System.IO;
+using Threading;
 
 /// <summary>
 /// Represents a base class for all CSV readers, which typically read

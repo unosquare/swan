@@ -19,7 +19,7 @@ public class Fish : IAnimal
 }
 
 [AttributeUsage(AttributeTargets.All)]
-public class AttributeMock : Attribute
+public sealed class AttributeMock : Attribute
 {
     public AttributeMock(string name)
     {

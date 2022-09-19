@@ -1,15 +1,13 @@
 ﻿namespace Swan.Samples;
 
-using Microsoft.Data.Sqlite;
-using Swan.Data.Extensions;
+using Data.Extensions;
 using Logging;
+using Microsoft.Data.Sqlite;
 using Platform;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 
 internal static class DataPlayground
 {

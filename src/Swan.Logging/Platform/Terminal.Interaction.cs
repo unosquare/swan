@@ -263,5 +263,5 @@ public static partial class Terminal
 
         return $" {nowText} ";
     }
-            
+
 }

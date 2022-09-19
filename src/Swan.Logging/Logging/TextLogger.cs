@@ -3,7 +3,6 @@
 using Extensions;
 using Formatters;
 using Platform;
-using System;
 
 /// <summary>
 /// Use this class for text-based loggers.

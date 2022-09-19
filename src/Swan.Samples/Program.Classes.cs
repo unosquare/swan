@@ -1,14 +1,12 @@
 ﻿namespace Swan.Samples;
 
-using System.Text;
-
 public static partial class Program
 {
     internal class SampleCopyTarget
     {
         public float Id { get; set; }
         public decimal AlternateId { get; set; }
-        public string Score { get; set; }
+        public string? Score { get; set; }
         public DateTime CreationDate { get; set; }
     }
 
@@ -16,8 +14,8 @@ public static partial class Program
     {
         public int Id { get; set; }
         public int? AlternateId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
 
         public bool IsValidated { get; set; }
         public bool? ValidationResult { get; set; }

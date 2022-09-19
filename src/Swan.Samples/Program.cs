@@ -1,21 +1,16 @@
 ﻿namespace Swan.Samples;
 
-using Microsoft.Data.Sqlite;
 using Collections;
 using Formatters;
 using Logging;
 using Mapping;
+using Microsoft.Data.Sqlite;
 using Platform;
 using Reflection;
-using Threading;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using Threading;
 
 class SubDict : Dictionary<string, object>
 {
@@ -54,7 +49,7 @@ public static partial class Program
     private static void CsvSketchpad()
     {
         var n = new SqliteParameter();
-            
+
         var csvContent = "name, value, ts, DT\r\nMy name is foo,2,00:23:40,2011-02-01\r\n5,6,7,8\r\n";
         var csvStream = new MemoryStream(Encoding.UTF8.GetBytes(csvContent));
         using var csvReader = new CsvObjectReader<MockInfo>(csvStream, Encoding.UTF8);
@@ -129,7 +124,7 @@ public static partial class Program
             .RemoveMapping("Value")
             .AddMapping("Date", "Transformed Date", (s) => $"New date is: {s}");
 
-            
+
         var readerEntries = reader.ToList();
 
         dynamic objectOne = new ExpandoObject();
@@ -162,11 +157,7 @@ public static partial class Program
         var isZero = atomic2 >= simpleInt;
         atomic2.Increment();
 
-        var d = new Dictionary<int, string>
-        {
-            [1] = "Hello\t\r\n\0\t\r\n",
-            [2] = "World"
-        };
+        var d = new Dictionary<int, string> { [1] = "Hello\t\r\n\0\t\r\n", [2] = "World" };
 
         var arrayOfArrays = new double[2][];
         arrayOfArrays[0] = new[] { 1d, 2d, 3d, 4d };
@@ -191,10 +182,7 @@ public static partial class Program
             ["Hello"] = 43,
             ["World"] = "Some text here",
             ["array"] = new[] { 6, 7, 8, 9, 10 },
-            ["object"] = new Dictionary<string, string>
-            {
-                ["x"] = "Y"
-            },
+            ["object"] = new Dictionary<string, string> { ["x"] = "Y" },
             ["dynamicObj"] = expando
         };
 
@@ -267,8 +255,7 @@ public static partial class Program
 
     private static void TestJson()
     {
-        var instance = new SampleCopyTarget
-            { AlternateId = 10, CreationDate = new(2010, 1, 1), Id = 1, Score = "A" };
+        var instance = new SampleCopyTarget { AlternateId = 10, CreationDate = new(2010, 1, 1), Id = 1, Score = "A" };
 
         var payload = instance.JsonSerialize();
 
@@ -308,9 +295,9 @@ public static partial class Program
         {
             {ConsoleKey.A, "Sample A"},
             {ConsoleKey.B, "Sample B"},
-            {ConsoleKey.C, "Sample C" },
-            {ConsoleKey.D, "Sample D" },
-            {ConsoleKey.E, "Sample E" }
+            {ConsoleKey.C, "Sample C"},
+            {ConsoleKey.D, "Sample D"},
+            {ConsoleKey.E, "Sample E"}
         };
 
         Terminal.ReadPrompt("Please provide an option", sampleOptions);
@@ -346,11 +333,7 @@ public static partial class Program
         if (Terminal.ReadKey("Press a key to test menu options. (X) will exit.").Key == ConsoleKey.X) return;
         Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
 
-        var sampleOptions = new Dictionary<ConsoleKey, string>
-        {
-            {ConsoleKey.A, "Sample A"},
-            {ConsoleKey.B, "Sample B"}
-        };
+        var sampleOptions = new Dictionary<ConsoleKey, string> { { ConsoleKey.A, "Sample A" }, { ConsoleKey.B, "Sample B" } };
 
         Terminal.ReadPrompt("Please provide an option", sampleOptions, "Exit this program");
     }
