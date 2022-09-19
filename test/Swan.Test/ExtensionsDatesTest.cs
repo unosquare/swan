@@ -36,7 +36,7 @@ public class ToDateTime
     [TestCase("2017 10 26")]
     [TestCase("2017-10")]
     [TestCase("2017-10-26 15:35")]
-    public void DatesNotParsable_ThrowsException(string date) => Assert.Throws<ArgumentException>(() => date.ToDateTime());
+    public void DatesNotParseable_ThrowsException(string date) => Assert.Throws<ArgumentException>(() => date.ToDateTime());
 }
 
 [TestFixture]
@@ -58,50 +58,5 @@ public class DateRange
         };
 
         CollectionAssert.AreEqual(rangeExpected, rangeActual);
-    }
-}
-
-[TestFixture]
-public class ToUnixEpochDate
-{
-    [Test]
-    public void GivingADate_ConvertItIntoTicks()
-    {
-        var date = new DateTime(2017, 10, 27).ToUniversalTime().Date;
-
-        Assert.AreEqual(1509062400, date.ToUnixTimeSeconds());
-    }
-}
-
-[TestFixture]
-public class CompareDates
-{
-    private readonly DateTime _date = new(2002, 7, 3, 12, 0, 0, 200);
-
-    [Test]
-    public void WithFullDateTimes_ReturnsDateTimeSpan()
-    {
-        var result = _date.GetDateTimeSpan(new(1969, 8, 15, 5, 7, 10, 100));
-
-        Assert.That(result.Years, Is.EqualTo(32));
-        Assert.That(result.Months, Is.EqualTo(10));
-        Assert.That(result.Days, Is.EqualTo(18));
-        Assert.That(result.Hours, Is.EqualTo(6));
-        Assert.That(result.Minutes, Is.EqualTo(52));
-        Assert.That(result.Seconds, Is.EqualTo(50));
-        Assert.That(result.Milliseconds, Is.EqualTo(100));
-    }
-
-    [Test]
-    public void WithPartialDateTimes_ReturnsDateTimeSpan()
-    {
-        var result = new DateTime(1969, 8, 15).GetDateTimeSpan(_date);
-
-        Assert.AreEqual(32, result.Years);
-        Assert.AreEqual(result.Months, 10);
-        Assert.AreEqual(result.Days, 18);
-        Assert.AreEqual(result.Minutes, 0);
-        Assert.AreEqual(result.Seconds, 0);
-        Assert.AreEqual(result.Milliseconds, 200);
     }
 }

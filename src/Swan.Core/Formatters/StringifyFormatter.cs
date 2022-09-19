@@ -115,10 +115,11 @@ public static class StringifyFormatter
 
                     break;
                 }
+            case JsonValueKind.Null:
+                builder.AppendLine("(null)");
+                break;
             default:
-                builder.AppendLine(element.ValueKind == JsonValueKind.Null
-                    ? "(null)"
-                    : $"{element}".Truncate(24, "...")?.RemoveControlChars());
+                builder.AppendLine($"{element}".Truncate(24, "...")?.RemoveControlChars());
                 break;
         }
 

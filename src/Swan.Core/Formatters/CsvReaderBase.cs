@@ -204,17 +204,14 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
         var values = new List<string>(64);
         var currentValue = new StringBuilder(256);
         var currentState = ReadState.WaitingForNewField;
-        string? line;
 
-        while ((line = reader.ReadLine()) is not null)
+        while (reader.ReadLine() is { } line)
         {
             for (var charIndex = 0; charIndex < line.Length; charIndex++)
             {
                 // Get the current and next character
                 var currentChar = line[charIndex];
-                var nextChar = charIndex < line.Length - 1
-                    ? line[charIndex + 1]
-                    : default(char?);
+                var nextChar = GetNextChar(charIndex, line);
 
                 // Perform logic based on state and decide on next state
                 switch (currentState)
@@ -250,7 +247,7 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
                         }
 
                         // Handle double quote escaping
-                        if (currentChar == escapeChar && nextChar.HasValue && nextChar == escapeChar)
+                        if (currentChar == escapeChar && nextChar == escapeChar)
                         {
                             // advance 1 character now. The loop will advance one more.
                             currentValue.Append(currentChar);
@@ -263,14 +260,14 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
 
                     case ReadState.PushingQuoted:
                         // Handle field content delimiter by ending double quotes
-                        if (currentChar == escapeChar && (nextChar.HasValue == false || nextChar != escapeChar))
+                        if (currentChar == escapeChar && (!nextChar.HasValue || nextChar != escapeChar))
                         {
                             currentState = ReadState.PushingNormal;
                             continue;
                         }
 
                         // Handle double quote escaping
-                        if (currentChar == escapeChar && nextChar.HasValue && nextChar == escapeChar)
+                        if (currentChar == escapeChar && nextChar == escapeChar)
                         {
                             // advance 1 character now. The loop will advance one more.
                             currentValue.Append(currentChar);
@@ -309,6 +306,11 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
 
         return values;
     }
+
+    private static char? GetNextChar(int charIndex, string line) =>
+        charIndex < line.Length - 1
+            ? line[charIndex + 1]
+            : default(char?);
 
     /// <summary>
     /// Defines the 3 different read states

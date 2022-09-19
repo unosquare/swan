@@ -12,38 +12,6 @@ using System.Text;
 using System.Text.Json;
 using Threading;
 
-class SubDict : Dictionary<string, object>
-{
-
-}
-
-class MockInfo
-{
-    public string Name { get; set; } = "Frrrrr";
-
-    public int Value { get; set; } = 2332455;
-
-    public TimeSpan Ts { get; set; }
-
-    public DateTime Dt { get; set; }
-
-    public Guid Guid { get; set; }
-}
-
-public enum FirstEnum
-{
-    One,
-    Two,
-    Three
-}
-
-public enum SecondEnum
-{
-    Eleven,
-    Twelve,
-    Thirteen
-}
-
 public static partial class Program
 {
     private static void CsvSketchpad()
@@ -149,7 +117,6 @@ public static partial class Program
         // return;
         var boolValue = true;
         var atomic = new AtomicBoolean();
-        boolValue = atomic;
 
         var simpleInt = 0;
         var atomic2 = new AtomicInteger(-1024);
@@ -201,10 +168,10 @@ public static partial class Program
             ["object"] = new MockInfo { Name = "OTHER" }
         };
 
-        var objDictJson = TextSerializer.Serialize(objDict, TextSerializerOptions.JsonPrettyPrint);
+        TextSerializer.Serialize(objDict, TextSerializerOptions.JsonPrettyPrint);
 
         var optionsJson = TextSerializer.Serialize(TextSerializerOptions.JsonCompactCamel);
-        var options = JsonSerializer.Deserialize<TextSerializerOptions>(optionsJson);
+        var _ = JsonSerializer.Deserialize<TextSerializerOptions>(optionsJson);
     }
 
     /// <summary>
@@ -212,7 +179,6 @@ public static partial class Program
     /// </summary>
     public static async Task Main()
     {
-
         // Sketchpad();
         // Await DataPlayground.AsyncQuerying();
         //return;
@@ -223,7 +189,6 @@ public static partial class Program
         Logger.RegisterLogger<FileLogger>();
 
         TestJson();
-        TestApplicationInfo();
         await TestTerminalOutputs();
         TestExceptionLogging();
 
@@ -244,13 +209,6 @@ public static partial class Program
         {
             ex.Log(typeof(Program), "Exception dump starts");
         }
-    }
-
-    private static void TestApplicationInfo()
-    {
-        Terminal.WriteWelcomeBanner();
-        $"Operating System Type: {Environment.OSVersion}".Info();
-        $"Local Storage Path: {SwanRuntime.LocalStoragePath}".Info();
     }
 
     private static void TestJson()
@@ -340,31 +298,28 @@ public static partial class Program
 
     private static void TestCsvFormatters()
     {
-        var action = new Action(() =>
-        {
-            var test01FilePath = SwanRuntime.GetDesktopFilePath("csv-writer-test-01.csv");
-            var test02FilePath = SwanRuntime.GetDesktopFilePath("csv-writer-test-02.csv");
+        var test01FilePath = Path.GetTempFileName();
+        var test02FilePath = Path.GetTempFileName();
 
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
-            $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
+        var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
+        $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
-            var savedRecordCount = Csv.Save(generatedRecords, test01FilePath);
-            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
-                .Info(nameof(TestCsvFormatters));
+        var savedRecordCount = Csv.Save(generatedRecords, test01FilePath);
+        $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
+            .Info(nameof(TestCsvFormatters));
 
-            var loadedRecords = Csv.Load<SampleCsvRecord>(test01FilePath);
-            $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
-                nameof(TestCsvFormatters));
+        var loadedRecords = Csv.Load<SampleCsvRecord>(test01FilePath);
+        $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
+            nameof(TestCsvFormatters));
 
-            savedRecordCount = Csv.Save(generatedRecords, test02FilePath);
-            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}."
-                .Info(nameof(TestCsvFormatters));
+        savedRecordCount = Csv.Save(generatedRecords, test02FilePath);
+        $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}."
+            .Info(nameof(TestCsvFormatters));
 
-            var sourceObject = loadedRecords[generatedRecords.Count / 2];
-            var targetObject = new SampleCopyTarget();
-            var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
-            $"{nameof(MappingExtensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
-                .Info(nameof(TestCsvFormatters));
-        });
+        var sourceObject = loadedRecords[generatedRecords.Count / 2];
+        var targetObject = new SampleCopyTarget();
+        var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
+        $"{nameof(MappingExtensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
+            .Info(nameof(TestCsvFormatters));
     }
 }

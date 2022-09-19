@@ -36,13 +36,10 @@ public class Serialize : JsonTest
         var dynamicObject = originalObjectJson.JsonDeserialize();
         var dynamicObjectJson = (dynamicObject as object)?.JsonSerialize(true);
 
-        var dictionary = dynamicObject as IDictionary<string, object?>;
-
         Assert.IsTrue(originalObject.Members.First().Value.Id == typedObject?.Members.First().Value.Id);
         Assert.IsTrue(originalObject.Members.First().Value.Id == dynamicObject?.Members.Dad.Id);
         Assert.IsTrue(originalObjectJson == typedObjectJson);
         Assert.IsTrue(originalObjectJson == dynamicObjectJson);
-        // Assert.IsTrue(data.StartsWith("{ \"$circref\":"));
     }
 
     [Test]
@@ -182,7 +179,7 @@ public class SerializeOnly : JsonTest
         var wordDictionary =
             new Dictionary<string, string[][]>
             {
-                {"A", new[] {new string[] { }, DefaultStringList.ToArray() }},
+                {"A", new[] {Array.Empty<string>(), DefaultStringList.ToArray() }},
             };
 
         var dataSerialized = wordDictionary.JsonSerialize();
@@ -222,16 +219,7 @@ public class SerializeExcluding : JsonTest
     [Test]
     public void WithInnerJsonProperty_ReturnsObjectSerializedWithoutExcludingRepeatedProps()
     {
-        var data = new JsonIngorePropertySample
-        {
-            Id = "22332",
-            Name = "Yeyo",
-            Inner = new()
-            {
-                Id = "AESD",
-                Data = 44,
-            },
-        };
+        var data = new JsonIngorePropertySample { Id = "22332", Name = "Yeyo", Inner = new() { Id = "AESD", Data = 44, }, };
 
         var dataSerialized = data.JsonSerialize();
 

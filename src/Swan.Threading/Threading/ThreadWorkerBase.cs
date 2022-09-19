@@ -138,7 +138,7 @@ public abstract class ThreadWorkerBase : WorkerBase
         {
             CycleStopwatch.Restart();
             var interruptToken = CycleCancellation.Token;
-            var period = Period.TotalMilliseconds >= int.MaxValue ? -1 : Convert.ToInt32(Math.Floor(Period.TotalMilliseconds));
+            var period = GetPeriod();
             var delayTask = Task.Delay(period, interruptToken);
             var initialWorkerState = WorkerState;
 
@@ -167,30 +167,37 @@ public abstract class ThreadWorkerBase : WorkerBase
             }
             finally
             {
-                // Update the state
-                WorkerState = initialWorkerState == WorkerState.Paused
-                    ? WorkerState.Paused
-                    : WorkerState.Waiting;
-
-                // Signal the cycle has been completed so new cycles can be executed
-                CycleCompletedEvent.Set();
-
-                if (!interruptToken.IsCancellationRequested)
-                {
-                    var cycleDelay = ComputeCycleDelay(initialWorkerState);
-                    if (cycleDelay == Timeout.Infinite)
-                        delayTask = Task.Delay(Timeout.Infinite, interruptToken);
-
-                    ExecuteCycleDelay(
-                        cycleDelay,
-                        delayTask,
-                        CycleCancellation.Token);
-                }
+                CleanLoop(initialWorkerState, delayTask, interruptToken);
             }
         }
 
         ClearStateChangeRequests();
         WorkerState = WorkerState.Stopped;
+    }
+
+    private int GetPeriod() => Period.TotalMilliseconds >= int.MaxValue ? -1 : Convert.ToInt32(Math.Floor(Period.TotalMilliseconds));
+
+    private void CleanLoop(WorkerState initialWorkerState, Task delayTask, CancellationToken interruptToken)
+    {
+        // Update the state
+        WorkerState = initialWorkerState == WorkerState.Paused
+            ? WorkerState.Paused
+            : WorkerState.Waiting;
+
+        // Signal the cycle has been completed so new cycles can be executed
+        CycleCompletedEvent.Set();
+
+        if (interruptToken.IsCancellationRequested)
+            return;
+
+        var cycleDelay = ComputeCycleDelay(initialWorkerState);
+        if (cycleDelay == Timeout.Infinite)
+            delayTask = Task.Delay(Timeout.Infinite, interruptToken);
+
+        ExecuteCycleDelay(
+            cycleDelay,
+            delayTask,
+            CycleCancellation.Token);
     }
 
     /// <summary>

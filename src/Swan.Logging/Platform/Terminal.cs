@@ -226,17 +226,6 @@ public static partial class Terminal
     public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
 
     /// <summary>
-    /// Writes a standard banner to the standard output
-    /// containing the company name, product name, assembly version and trademark.
-    /// </summary>
-    /// <param name="color">The color.</param>
-    public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
-    {
-        WriteLine($"{SwanRuntime.CompanyName} {SwanRuntime.ProductName} [Version {SwanRuntime.EntryAssemblyVersion}]", color);
-        WriteLine($"{SwanRuntime.ProductTrademark}", color);
-    }
-
-    /// <summary>
     /// Enqueues the output to be written to the console
     /// This is the only method that should enqueue to the output
     /// Please note that if AvailableWriters is None, then no output will be enqueued.

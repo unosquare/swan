@@ -39,23 +39,25 @@ public static class WorkerDelayProvider
     {
         public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
         {
-            if (wantedDelay is 0 or < -1)
-                return;
-
-            // for wanted delays of less than 30ms it is not worth
-            // passing a timeout or a token as it only adds unnecessary
-            // overhead.
-            if (wantedDelay <= 30)
+            switch (wantedDelay)
             {
-                try { delayTask.Wait(token); }
-                catch { /* ignore */ }
-                return;
-            }
+                case 0 or < -1:
+                    return;
+                // for wanted delays of less than 30ms it is not worth
+                // passing a timeout or a token as it only adds unnecessary
+                // overhead.
+                case <= 30:
+                    try { delayTask.Wait(token); }
+                    catch { /* ignore */ }
+                    return;
+                default:
+                    // only wait on the cancellation token
+                    // or until the task completes normally
+                    try { delayTask.Wait(token); }
+                    catch { /* ignore */ }
 
-            // only wait on the cancellation token
-            // or until the task completes normally
-            try { delayTask.Wait(token); }
-            catch { /* ignore */ }
+                    break;
+            }
         }
     }
 
@@ -63,21 +65,23 @@ public static class WorkerDelayProvider
     {
         public void ExecuteCycleDelay(int wantedDelay, Task delayTask, CancellationToken token)
         {
-            if (wantedDelay is 0 or < -1)
-                return;
-
-            // for wanted delays of less than 30ms it is not worth
-            // passing a timeout or a token as it only adds unnecessary
-            // overhead.
-            if (wantedDelay <= 30)
+            switch (wantedDelay)
             {
-                try { delayTask.Wait(token); }
-                catch { /* ignore */ }
-                return;
-            }
+                case 0 or < -1:
+                    return;
+                // for wanted delays of less than 30ms it is not worth
+                // passing a timeout or a token as it only adds unnecessary
+                // overhead.
+                case <= 30:
+                    try { delayTask.Wait(token); }
+                    catch { /* ignore */ }
+                    return;
+                default:
+                    try { delayTask.Wait(wantedDelay, token); }
+                    catch { /* ignore */ }
 
-            try { delayTask.Wait(wantedDelay, token); }
-            catch { /* ignore */ }
+                    break;
+            }
         }
     }
 
@@ -121,6 +125,11 @@ public static class WorkerDelayProvider
                 return;
             }
 
+            LoopCycle(wantedDelay, delayTask, token);
+        }
+
+        private void LoopCycle(int wantedDelay, Task delayTask, CancellationToken token)
+        {
             while (!token.IsCancellationRequested)
             {
                 var remainingWaitTime = wantedDelay - Convert.ToInt32(_elapsedWait.ElapsedMilliseconds);
@@ -135,8 +144,14 @@ public static class WorkerDelayProvider
                 }
                 else
                 {
-                    try { delayTask.Wait(remainingWaitTime); }
-                    catch { /* ignore cancellation of task exception */ }
+                    try
+                    {
+                        delayTask.Wait(remainingWaitTime);
+                    }
+                    catch
+                    {
+                        /* ignore cancellation of task exception */
+                    }
                 }
 
                 if (_elapsedWait.ElapsedMilliseconds >= wantedDelay)

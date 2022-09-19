@@ -195,22 +195,6 @@ public class ToSafeFilename : TestFixtureBase
 }
 
 [TestFixture]
-public class FormatBytes
-{
-    [TestCase("2 KB", 2048)]
-    [TestCase("97.66 KB", 100000)]
-    [TestCase("3.38 MB", 3546346)]
-    [TestCase("4.94 TB", 5432675475323)]
-    public void WithUlongAsParam_ReturnsFormattedBytes(string expected, long input) => Assert.AreEqual(expected, ((ulong)input).FormatByteSize(), $"Testing with {input}");
-
-    [TestCase("3 KB", 3072)]
-    [TestCase("52.2 KB", 53453)]
-    [TestCase("639.32 KB", 654664)]
-    [TestCase("80.72 MB", 84645653)]
-    public void WithLongParam_ReturnsFormattedBytes(string expected, long input) => Assert.AreEqual(expected, input.FormatByteSize(), $"Testing with {input}");
-}
-
-[TestFixture]
 public class Truncate
 {
     [TestCase("ThisIs", "ThisIsASwanTest", 6)]
@@ -226,13 +210,4 @@ public class Contains
     [TestCase(new[] { 'l' })]
     [TestCase(new[] { 'l', 'W' })]
     public void WithValid_ReturnsTrue(params char[]? chars) => Assert.IsTrue("Hello World".Contains(chars));
-}
-
-[TestFixture]
-public class Hex2Int
-{
-    [TestCase(10, 'A')]
-    [TestCase(15, 'F')]
-    [TestCase(3, '3')]
-    public void WithValidChar_ReturnsAsInt(int expected, char input) => Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
 }

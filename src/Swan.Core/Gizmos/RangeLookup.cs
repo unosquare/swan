@@ -4,7 +4,7 @@
 /// Represents a dictionary of discrete keys
 /// that form a continuum to which keys can be mapped.
 /// </summary>
-/// <typeparam name="TKey">The key type. Typycally dates or integers representing years.</typeparam>
+/// <typeparam name="TKey">The key type. Typically dates or integers representing years.</typeparam>
 /// <typeparam name="TValue">The type of values stored within the keys.</typeparam>
 public class RangeLookup<TKey, TValue> : IDictionary<TKey, TValue>
     where TKey : struct, IComparable, IComparable<TKey>

@@ -424,34 +424,39 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
         if (elementType is null)
             throw new ArgumentException("Unable to obtain array element type.", nameof(array));
 
-        var arrayIndex = index;
-
         if (IsDictionary)
-        {
-            foreach (var value in Values)
-            {
-                if (!TypeManager.TryChangeType(value, elementType, out var item))
-                    throw new ArgumentException(InvalidCastMessage, nameof(array));
-
-                array.SetValue(item, arrayIndex);
-                arrayIndex++;
-                if (arrayIndex >= array.Length)
-                    break;
-            }
-        }
+            CopyToDictionary(array, elementType, index);
         else
-        {
-            var enumerator = GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (!TypeManager.TryChangeType(enumerator.Current, elementType, out var item))
-                    throw new ArgumentException(InvalidCastMessage, nameof(array));
+            CopyToEnumerable(array, elementType, index);
+    }
 
-                array.SetValue(item, arrayIndex);
-                arrayIndex++;
-                if (arrayIndex >= array.Length)
-                    break;
-            }
+    private void CopyToEnumerable(Array array, ITypeInfo elementType, int arrayIndex)
+    {
+        var enumerator = GetEnumerator();
+
+        while (enumerator.MoveNext())
+        {
+            if (!TypeManager.TryChangeType(enumerator.Current, elementType, out var item))
+                throw new ArgumentException(InvalidCastMessage, nameof(array));
+
+            array.SetValue(item, arrayIndex);
+            arrayIndex++;
+            if (arrayIndex >= array.Length)
+                break;
+        }
+    }
+
+    private void CopyToDictionary(Array array, ITypeInfo elementType, int arrayIndex)
+    {
+        foreach (var value in Values)
+        {
+            if (!TypeManager.TryChangeType(value, elementType, out var item))
+                throw new ArgumentException(InvalidCastMessage, nameof(array));
+
+            array.SetValue(item, arrayIndex);
+            arrayIndex++;
+            if (arrayIndex >= array.Length)
+                break;
         }
     }
 
@@ -605,36 +610,10 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
             return false;
 
         if (target.IsDictionary)
-        {
-            var success = true;
-            ForEach(kvp =>
-            {
-                if (!TypeManager.TryChangeType(kvp.Key, target.KeysType, out var key) ||
-                    !TypeManager.TryChangeType(kvp.Value, target.ValuesType, out var value) ||
-                    key is null)
-                {
-                    success = false;
-                    return;
-                }
-
-                target.Add(key, value);
-            });
-
-            return success;
-        }
+            return TryCopyToDictionary(target);
 
         if (target.IsFixedSize)
-        {
-            for (var i = 0; i < target.Count; i++)
-            {
-                if (!TypeManager.TryChangeType(this[i], target.ValuesType, out var item))
-                    return false;
-
-                target[i] = item;
-            }
-
-            return true;
-        }
+            return TryCopyToArray(target);
 
         for (var i = 0; i < Count; i++)
         {
@@ -645,6 +624,38 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
         }
 
         return true;
+    }
+
+    private bool TryCopyToArray(CollectionProxy target)
+    {
+        for (var i = 0; i < target.Count; i++)
+        {
+            if (!TypeManager.TryChangeType(this[i], target.ValuesType, out var item))
+                return false;
+
+            target[i] = item;
+        }
+
+        return true;
+    }
+
+    private bool TryCopyToDictionary(CollectionProxy target)
+    {
+        var success = true;
+        ForEach(kvp =>
+        {
+            if (!TypeManager.TryChangeType(kvp.Key, target.KeysType, out var key) ||
+                !TypeManager.TryChangeType(kvp.Value, target.ValuesType, out var value) ||
+                key is null)
+            {
+                success = false;
+                return;
+            }
+
+            target.Add(key, value);
+        });
+
+        return success;
     }
 
     /// <iinheritdoc />

@@ -130,6 +130,7 @@ public static class TextSerializer
         stackTable.AddReference(instance);
 
         BeginObject(options, $"({proxy.FullName})", builder);
+
         foreach (dynamic kvp in dictionary!)
         {
             if (stackDepth >= options.MaxStackDepth && WillIncrementStack(kvp.Value))
@@ -203,6 +204,7 @@ public static class TextSerializer
         stackTable.AddReference(instance);
 
         BeginObject(options, $"({proxy.FullName})", builder);
+
         foreach (var property in proxy.Properties.Values)
         {
             if (!property.CanRead)

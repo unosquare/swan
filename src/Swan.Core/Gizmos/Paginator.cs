@@ -38,11 +38,7 @@ public class Paginator
     /// </summary>
     /// <param name="pageIndex">Zero-based index of the page.</param>
     /// <returns>The start item index.</returns>
-    public int GetFirstItemIndex(int pageIndex)
-    {
-        pageIndex = FixPageIndex(pageIndex);
-        return pageIndex * PageSize;
-    }
+    public int GetFirstItemIndex(int pageIndex) => FixPageIndex(pageIndex) * PageSize;
 
     /// <summary>
     /// Gets the end item index of the given page.
@@ -86,10 +82,11 @@ public class Paginator
     private int ComputePageCount()
     {
         // include this if when you always want at least 1 page 
-        return TotalCount == 0
-            ? 0
-            : TotalCount % PageSize != 0
-            ? (TotalCount / PageSize) + 1
-            : TotalCount / PageSize;
+        if (TotalCount == 0)
+            return 0;
+
+        return TotalCount % PageSize != 0
+                ? (TotalCount / PageSize) + 1
+                : TotalCount / PageSize;
     }
 }

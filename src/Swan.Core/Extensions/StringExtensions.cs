@@ -331,19 +331,4 @@ public static class StringExtensions
     /// <returns>The string with the characters replaced.</returns>
     public static string ReplaceAll(this string value, string replaceValue, params char[] chars) =>
         chars.Aggregate(value, (current, c) => current.Replace(new(c, 1), replaceValue, StringComparison.Ordinal));
-
-    /// <summary>
-    /// Convert hex character to an integer. Return -1 if char is something
-    /// other than a hex char.
-    /// </summary>
-    /// <param name="value">The c.</param>
-    /// <returns>Converted integer.</returns>
-    public static int Hex2Int(this char value) =>
-        value switch
-        {
-            >= '0' and <= '9' => value - '0',
-            >= 'A' and <= 'F' => value - 'A' + 10,
-            >= 'a' and <= 'f' => value - 'a' + 10,
-            _ => -1
-        };
 }

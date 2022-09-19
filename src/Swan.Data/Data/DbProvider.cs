@@ -46,7 +46,7 @@ public class DbProvider
     public virtual string DefaultSchemaName => string.Empty;
 
     /// <summary>
-    /// Gets a default configuration for command timout when
+    /// Gets a default configuration for command timeout when
     /// creating commands via this API. Default is 60 seconds.
     /// </summary>
     public virtual TimeSpan DefaultCommandTimeout { get; private set; } = TimeSpan.FromSeconds(60);
@@ -200,8 +200,8 @@ public class DbProvider
     /// <returns>The SQL text that can be appended to the SQL statement.</returns>
     public virtual string GetLimitClause(int skip, int take) =>
         $"LIMIT {take} OFFSET {skip}";
-    /// <inheritdoc/>
 
+    /// <inheritdoc/>
     protected (string quotedTableName, IOrderedEnumerable<IDbColumnSchema> orderedFields) GetQuotedTableNameAndColumns(DbConnection connection,
         IDbTableSchema table)
     {

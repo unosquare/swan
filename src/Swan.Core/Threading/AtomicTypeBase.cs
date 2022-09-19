@@ -129,11 +129,11 @@ public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparab
     /// <summary>
     /// Compares the value to the other instance.
     /// </summary>
-    /// <param name="other">The other instance.</param>
+    /// <param name="obj">The other instance.</param>
     /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than.</returns>
     /// <exception cref="ArgumentException">When types are incompatible.</exception>
-    public int CompareTo(object? other) =>
-        other switch
+    public int CompareTo(object? obj) =>
+        obj switch
         {
             null => 1,
             AtomicTypeBase<T> atomic => BackingValue.CompareTo(atomic.BackingValue),

@@ -1,9 +1,12 @@
 ﻿namespace Swan.Platform;
 
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// A console terminal helper to create nicer output and receive input from the user
 /// This class is thread-safe :).
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static partial class Terminal
 {
     /// <summary>

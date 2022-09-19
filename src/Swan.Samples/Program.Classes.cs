@@ -1,6 +1,7 @@
 ﻿namespace Swan.Samples;
 
 using System.Text;
+
 public static partial class Program
 {
     internal class SampleCopyTarget
@@ -97,4 +98,36 @@ public static partial class Program
 
         public AggregateException Aggregates { get; }
     }
+}
+
+class SubDict : Dictionary<string, object>
+{
+
+}
+
+class MockInfo
+{
+    public string Name { get; set; } = "Frrrrr";
+
+    public int Value { get; set; } = 2332455;
+
+    public TimeSpan Ts { get; set; }
+
+    public DateTime Dt { get; set; }
+
+    public Guid Guid { get; set; }
+}
+
+public enum FirstEnum
+{
+    One,
+    Two,
+    Three
+}
+
+public enum SecondEnum
+{
+    Eleven,
+    Twelve,
+    Thirteen
 }
