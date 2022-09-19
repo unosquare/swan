@@ -21,8 +21,6 @@ public abstract class JsonTest : TestFixtureBase
     protected string AdvStr =>
         $"{{\"InnerChild\":{BasicStr},{BasicJson.GetControlValue()}}}";
 
-    protected string BasicAStr => "[\"A\",\"B\",\"C\"]";
-
     protected int[] NumericArray => new[] { 1, 2, 3 };
 
     protected string NumericAStr => "[1,2,3]";

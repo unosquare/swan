@@ -18,7 +18,7 @@ public class ToJson : JsonTest
 public class Serialize : JsonTest
 {
     [Test]
-    public void WithStringArray_ReturnsArraySerialized() => Assert.AreEqual(BasicAStr, DefaultStringList.JsonSerialize());
+    public void WithStringArray_ReturnsArraySerialized() => Assert.AreEqual("[\"A\",\"B\",\"C\"]", DefaultStringList.JsonSerialize());
 
     [Test]
     public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
