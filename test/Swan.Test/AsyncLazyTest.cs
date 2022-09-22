@@ -15,7 +15,7 @@ public class AsyncLazyTest
 
     static async void ThreadProc(object state)
     {
-        var large = await  lazyLargeObject.GetValueAsync();
+        var large = await lazyLargeObject.GetValueAsync();
 
         lock (large)
         {

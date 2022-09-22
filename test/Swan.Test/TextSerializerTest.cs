@@ -23,7 +23,7 @@ public class StringSerialize
     [Test]
     public void WithDictionary_ReturnsRepresentation()
     {
-        Dictionary<int, string> dict = new Dictionary<int, string>
+        var dict = new Dictionary<int, string>
         {
             { 1, "One" }, 
             { 2, "Two" },
@@ -38,7 +38,7 @@ public class StringSerialize
     [Test]
     public void WithArray_ReturnsRepresentation()
     {
-        int[] intARray = new int[]
+        var intARray = new int[]
         {
             1,2,3
         };
@@ -51,7 +51,7 @@ public class StringSerialize
     [Test]
     public void WithJson_ReturnsRepresentation()
     {
-        JsonDocument jd = JsonDocument.Parse("{\"CarModel\":\"Vocho\"}");
+        var jd = JsonDocument.Parse("{\"CarModel\":\"Vocho\"}");
         JsonElement je = jd.RootElement;
         
         var serialized = TextSerializer.Serialize(je);
