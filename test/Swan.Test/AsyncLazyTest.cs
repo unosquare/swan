@@ -9,7 +9,7 @@ public class AsyncLazyTest
 {
     static async Task<LargeObject> InitLargeObject()
     { 
-        LargeObject large = new LargeObject(Thread.CurrentThread.ManagedThreadId);
+        var large = new LargeObject(Thread.CurrentThread.ManagedThreadId);
         return large;
     }
 
