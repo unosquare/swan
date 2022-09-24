@@ -229,6 +229,15 @@ public class ReadObject : CsvReaderTest
         var result = new List<UserDto>(reader);
         Assert.IsTrue(result.Count == 2);
     }
+
+    [Test]
+    public void WithHeadingNull_ThrowsException()
+    {
+        using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
+        var reader = new CsvObjectReader<UserDto>(stream);
+        
+        Assert.Throws<ArgumentNullException>(() => reader.AddMapping(null, dto => dto.Name));
+    }
 }
 
 public class Count : CsvReaderTest
