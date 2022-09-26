@@ -7,16 +7,20 @@ using System.Text;
 [TestFixture]
 public class CsvDictionaryReaderTest
 {
-    protected readonly string Data = @"Company,OpenPositions,MainTechnology,Revenue
+    private const string Data = @"Company,OpenPositions,MainTechnology,Revenue
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+    private static readonly MemoryStream stream = new(Encoding.ASCII.GetBytes(Data));
+    private readonly CsvDictionaryReader dictionaryReader = new(stream);
+    private readonly Dictionary<string, string> dict = new()
+    {
+        { "Company", "Company" },
+    };
 
     [Test]
     public void WithNullValues_ThrowsException()
     {
-        using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-        var dictionaryReader = new CsvDictionaryReader(stream);
-
         Assert.Throws<ArgumentNullException>(() => dictionaryReader.AddMappings(null));
         Assert.Throws<ArgumentNullException>(() => dictionaryReader.AddMapping(null, null));
         Assert.Throws<ArgumentNullException>(() => dictionaryReader.AddMapping("Company", null));
@@ -26,19 +30,11 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     [Test]
     public void WithMapDictionary_AddMapings()
     {
-        using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-        var dictionaryReader = new CsvDictionaryReader(stream);
-
-        var dict = new Dictionary<string, string>()
-        {
-            { "Company", "Company" },
-        };
-
-        dict.TryGetValue("Company", out string company);
+        dict.TryGetValue("Company", out var company);
 
         dictionaryReader.AddMappings(dict);
 
-        dictionaryReader.Current.TryGetValue("Company", out string addedMap);
+        dictionaryReader.Current.TryGetValue("Company", out var addedMap);
         
         Assert.AreEqual(company, addedMap);
     }
@@ -46,15 +42,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     [Test]
     public void WithHeadingMame_RemovesMapings()
     {
-        using var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data));
-        var dictionaryReader = new CsvDictionaryReader(stream);
-
-        var dict = new Dictionary<string, string>()
-        {
-            { "Company", "Company" },
-        };
-
-        dict.TryGetValue("Company", out string key);
+        dict.TryGetValue("Company", out var key);
 
         dictionaryReader.AddMappings(dict);
 

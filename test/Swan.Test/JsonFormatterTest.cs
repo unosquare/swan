@@ -12,7 +12,7 @@ public class JsonFormatterTest
     public void WithJson_ReturnsDogObject()
     {
         var deserialized = "{\r\n    \"Name\": \"Merlina\"\r\n}".JsonDeserialize(typeof(Dog)) as Dog;
-        Assert.AreEqual("Merlina",deserialized.Name);
+        Assert.AreEqual("Merlina",deserialized?.Name);
     }
 
     [Test]
@@ -29,13 +29,11 @@ public class JsonFormatterTest
         var dog = new Dog() { Name = "Merlina" };
         byte[] jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
         
-        var json = JsonSerializer.Serialize(dog);
-
         var stream = new MemoryStream(jsonUtf8Bytes);
 
         var deserializedDog = await stream.JsonDeserializeAsync(typeof(Dog)) as Dog;
 
-        Assert.AreEqual(dog.Name, deserializedDog.Name);
+        Assert.AreEqual(dog.Name, deserializedDog?.Name);
     }
 
     [Test]
@@ -44,12 +42,10 @@ public class JsonFormatterTest
         var dog = new Dog() { Name = "Merlina" };
         byte[] jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
 
-        var json = JsonSerializer.Serialize(dog);
-
         var stream = new MemoryStream(jsonUtf8Bytes);
 
         var deserializedDog = await stream.JsonDeserializeAsync<Dog>();
 
-        Assert.AreEqual(dog.Name, deserializedDog.Name);
+        Assert.AreEqual(dog.Name, deserializedDog?.Name);
     }
 }

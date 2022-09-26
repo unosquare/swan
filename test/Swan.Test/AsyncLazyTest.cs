@@ -9,7 +9,7 @@ public class AsyncLazyTest
 {
     static async Task<LargeObject> InitLargeObject()
     { 
-        var large = new LargeObject(Thread.CurrentThread.ManagedThreadId);
+        var large = new LargeObject(Environment.CurrentManagedThreadId);
         return large;
     }
 
@@ -19,18 +19,17 @@ public class AsyncLazyTest
 
         lock (large)
         {
-            large.Data[0] = Thread.CurrentThread.ManagedThreadId;
+            large.Data[0] = Environment.CurrentManagedThreadId;
         }
     }
 
-    static AsyncLazy<LargeObject> lazyLargeObject = null;
+    static AsyncLazy<LargeObject>? lazyLargeObject;
 
     [Test]
     public void WithLargObject_getsValueAsync()
     {
         lazyLargeObject = new AsyncLazy<LargeObject>(InitLargeObject);
 
-        // Create and start 3 threads, each of which uses LargeObject.
         Thread[] threads = new Thread[3];
         for (int i = 0; i < 3; i++)
         {
@@ -38,7 +37,6 @@ public class AsyncLazyTest
             threads[i].Start();
         }
         
-        // Wait for all 3 threads to finish.
         foreach (Thread t in threads)
         {
             t.Join();

@@ -23,7 +23,7 @@ public class JsonFormatterDynamicTest
         var jsonText = "{\r\n    \"Name\": \"Merlina\"\r\n}";
         var jsonObject = jsonText.JsonDeserialize();
 
-        Assert.AreEqual("Merlina", jsonObject.Name);
+        Assert.AreEqual("Merlina", jsonObject?.Name);
     }
 
     [Test]
@@ -47,6 +47,6 @@ public class JsonFormatterDynamicTest
 
         var deserializedDog = await stream.JsonDeserializeAsync();
 
-        Assert.AreEqual(dog.Name, deserializedDog.Name);
+        Assert.AreEqual(dog.Name, deserializedDog?.Name);
     }
 }

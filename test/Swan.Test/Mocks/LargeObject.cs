@@ -2,9 +2,9 @@
 {
     public class LargeObject
     {
-        public int InitializedBy { get { return initBy; } }
+        public int InitializedBy => initBy;
 
-        int initBy = 0;
+        int initBy;
         public LargeObject(int initializedBy)
         {
             initBy = initializedBy;

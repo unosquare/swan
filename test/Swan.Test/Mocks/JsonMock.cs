@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 public class Dog
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }
 
 public class ErrorJson

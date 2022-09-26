@@ -6,7 +6,7 @@ using Swan.Test.Mocks;
 [TestFixture]
 public class CsvWriterGenericTest
 {
-    public Func<dynamic, string> ValueProvider = str => str.ToUpper();
+    private readonly Func<dynamic, string> ValueProvider = str => str.ToUpper();
 
     [Test]
     public void WithNullValuesGiven_ThrowsException()
@@ -64,8 +64,8 @@ public class CsvWriterGenericTest
     [Test]
     public void WithCSVWriter_addsMaping()
     {
-        var stream = new MemoryStream();
-        var writer = new CsvWriter<dynamic>(stream);
+        using var stream = new MemoryStream();
+        using var writer = new CsvWriter<dynamic>(stream);
 
         writer.AddMapping("HeadingName", ValueProvider);
 
@@ -75,8 +75,8 @@ public class CsvWriterGenericTest
     [Test]
     public void WithCSVWriter_addsAndThenClearsMappings()
     {
-        var stream = new MemoryStream();
-        var writer = new CsvWriter<dynamic>(stream);
+        using var stream = new MemoryStream();
+        using var writer = new CsvWriter<dynamic>(stream);
 
         writer.AddMapping("HeadingName", ValueProvider);
         writer.ClearMappings();
@@ -87,8 +87,8 @@ public class CsvWriterGenericTest
     [Test]
     public void WithCSVWriter_addsAndThenRemovesMappingByName()
     {
-        var stream = new MemoryStream();
-        var writer = new CsvWriter<dynamic>(stream);
+        using var stream = new MemoryStream();
+        using var writer = new CsvWriter<dynamic>(stream);
 
         writer.AddMapping("HeadingName", ValueProvider);
         writer.RemoveMapping("HeadingName");
