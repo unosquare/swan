@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using Swan.Formatters;
 using Swan.Test.Mocks;
+using System.Dynamic;
 using System.Text.Json;
 
 [TestFixture]
@@ -27,26 +28,24 @@ public class JsonFormatterDynamicTest
     }
 
     [Test]
-    public async Task WithNullStream_ReturnsObject()
+    public async Task WithNullStream_ReturnsNull()
     {
-        Stream jsonStream = null;
+        var jsonStream = null as Stream;
         var jsonObject = await jsonStream.JsonDeserializeAsync();
 
         Assert.IsNull(jsonObject);
     }
 
     [Test]
-    public async Task WithUTF8JsonStream_ReturnsDinamicObject()
+    public async Task WithUTF8JsonStream_ReturnsDynamicObject()
     {
         var dog = new Dog() { Name = "Merlina" };
-        byte[] jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
-
-        var json = JsonSerializer.Serialize(dog);
+        var jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
 
         var stream = new MemoryStream(jsonUtf8Bytes);
 
         var deserializedDog = await stream.JsonDeserializeAsync();
-
-        Assert.AreEqual(dog.Name, deserializedDog?.Name);
+        
+        Assert.AreEqual(typeof(ExpandoObject), deserializedDog.GetType());
     }
 }

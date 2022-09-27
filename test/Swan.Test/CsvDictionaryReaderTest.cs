@@ -40,7 +40,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     }
 
     [Test]
-    public void WithHeadingMame_RemovesMapings()
+    public void WithHeadingName_RemovesMappings()
     {
         dict.TryGetValue("Company", out var key);
 

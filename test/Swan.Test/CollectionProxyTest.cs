@@ -807,6 +807,9 @@ public class CollectionProxyTest : TestFixtureBase
 
     //    Assert.IsTrue(proxy.SequenceEquals(proxy2));
     //}
+    //This test execution fails in proxy.SequenceEquals(proxy2) method At line 545 of the CollectionProxy.cs class it fails to evaluate otherValues.Count
+
+
 
     [Test]
     public void WhithTargetCollectionIsNull_ReturnsFalse()
@@ -853,10 +856,11 @@ public class CollectionProxyTest : TestFixtureBase
 
     //    Assert.IsTrue(proxy.TryCopyTo(proxy2));
     //}
+    //This test execution fails in proxy.TryCopyTo which internally uses TryCopyToArray method. At line 601 of the CollectionProxy.cs class it fails to evaluate target.Count
 
 
     [Test]
-    public void WithNoRepeatingNumbersArray_ReturnsTrue()
+    public void WithNoRepeatingNumbersLists_ReturnsTrue()
     {
         var list1 = new List<int>() { 1, 2, 3, 4 };
         var list2 = new List<int>() { 5, 6, 7, 8 };

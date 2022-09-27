@@ -62,7 +62,7 @@ public class CsvWriterGenericTest
     }
 
     [Test]
-    public void WithCSVWriter_addsMaping()
+    public void WithCSVWriter_addsMapping()
     {
         using var stream = new MemoryStream();
         using var writer = new CsvWriter<dynamic>(stream);

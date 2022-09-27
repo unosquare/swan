@@ -48,7 +48,7 @@ public class PaginatorTest
     }
 
     [Test]
-    public void WithTotalCounZero_ReturnPageCountEqualsZero()
+    public void WithTotalCountZero_ReturnPageCountEqualsZero()
     {
         var stu = new Paginator(0, 10);
         Assert.AreEqual(0, stu.PageCount);
