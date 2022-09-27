@@ -186,3 +186,24 @@ public class AddRangeWhen : ExtensionsFunctionalTest
         Assert.Throws<ArgumentNullException>(() =>
             List.AddRangeWhen(() => true, null));
 }
+
+[TestFixture]
+public class FindMostCommonValue : ExtensionsFunctionalTest
+{
+    [Test]
+    public void WithNullValue_ThrowsArgumentNullException()
+    {
+        IEnumerable<int> Enumer = null;
+
+        Assert.Throws<ArgumentNullException>(() => Enumer.FindMostCommonValue<int>());
+    }
+
+    [Test]
+    public void WithEnumeableOfInt_ReturnsMostCommonValue()
+    {
+        IEnumerable<int> Enumer = new List<int> { 1, 1, 1, 2, 2, 3, 4, 5, 5, 5, 5, 6, 7, 7 };
+        var mostCommon = Enumer.FindMostCommonValue<int>();
+
+        Assert.AreEqual(5, mostCommon);
+    }
+}

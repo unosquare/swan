@@ -715,4 +715,155 @@ public class CollectionProxyTest : TestFixtureBase
             });
         }
     }
+
+    [Test]
+    public void WithIndexOutOfRange_ThrowsException()
+    {
+        Dictionary<int, string> dict = new()
+        {
+            { 0, "Zero" },
+            { 1, "One" },
+            { 2, "Two"}
+        };
+
+        var proxy = dict.AsProxy();
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => proxy.RemoveAt(5));
+    }
+
+    [Test]
+    public void WithDictionariAsProxy_RemovesGivenKey()
+    {
+        Dictionary<int, string> dict = new()
+        {
+            { 0, "Zero" },
+            { 1, "One" },
+            { 2, "Two"}
+        };
+
+        var proxy = dict.AsProxy();
+
+        proxy.RemoveAt(1);
+
+        foreach (var key in proxy.Keys)
+        {
+            Assert.AreNotEqual(1, key);
+        }
+    }
+
+    [Test]
+    public void WithNullArray_ThrowsException()
+    {
+        var array = new int[] { 1, 2 };
+        int[] array2 = null;
+
+        var proxy = array.AsProxy();
+
+        Assert.Throws<ArgumentNullException>(()=> proxy.CopyTo(array2, 0));
+    }
+
+    [Test]
+    public void WithOutOfRangeIndex_ThrowsException()
+    {
+        var array = new int[] { 1, 2 };
+        var array2 = new int[] { 0, 0 };
+
+        var proxy = array.AsProxy();
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => proxy.CopyTo(array2, 4));
+    }
+
+    [Test]
+    public void WithNullCollectionProxy_ReturnsFalse()
+    {
+        var array = new int[] { 1, 2 };
+        CollectionProxy proxy2 = null;
+
+        var proxy = array.AsProxy();
+
+        Assert.IsFalse(proxy.SequenceEquals(proxy2));
+    }
+
+    [Test]
+    public void WithDiferentCollections_ReturnsFalse()
+    {
+        var list1 = new List<int>() { 1, 2, 3, 4 };
+        var list2 = new List<int>() { 1, 2, 3, 5 };
+
+        var proxy = list1.AsProxy();
+        var proxy2 = list2.AsProxy();
+
+        Assert.IsFalse(proxy.SequenceEquals(proxy2));
+    }
+
+    //[Test]
+    //public void WithEqualCollections_ReturnsTrue()
+    //{
+    //    var list1 = new List<int>() { 1, 2, 3, 4 };
+    //    var list2 = new List<int>() { 1, 2, 3, 4 };
+
+    //    var proxy = list1.AsProxy();
+    //    var proxy2 = list2.AsProxy();
+
+    //    Assert.IsTrue(proxy.SequenceEquals(proxy2));
+    //}
+
+    [Test]
+    public void WhithTargetCollectionIsNull_ReturnsFalse()
+    {
+        var list1 = new List<int>() { 1, 2, 3, 4 };
+
+        var proxy = list1.AsProxy();
+        CollectionProxy proxy2 = null;
+
+        Assert.IsFalse(proxy.TryCopyTo(proxy2));
+    }
+
+    [Test]
+    public void WithNoRepeatingKeysDictionaries_ReturnsTrue()
+    {
+        Dictionary<int, string> dict = new()
+        {
+            { 0, "Zero" },
+            { 1, "One" },
+            { 2, "Two"}
+        };
+
+        Dictionary<int, string> dict2 = new()
+        {
+            { 3, "Three" },
+            { 4, "Four" },
+            { 5, "Five"}
+        };
+
+        var proxy = dict.AsProxy();
+        var proxy2 = dict2.AsProxy();
+
+        Assert.IsTrue(proxy.TryCopyTo(proxy2));
+    }
+
+    //[Test]
+    //public void WithNoRepeatingNumbersArray_ReturnsTrue()
+    //{
+    //    var array = new int[] { 0, 1, 2 };
+    //    var array2 = new int[3];
+
+    //    var proxy = array.AsProxy();
+    //    var proxy2 = array2.AsProxy();
+
+    //    Assert.IsTrue(proxy.TryCopyTo(proxy2));
+    //}
+
+
+    [Test]
+    public void WithNoRepeatingNumbersArray_ReturnsTrue()
+    {
+        var list1 = new List<int>() { 1, 2, 3, 4 };
+        var list2 = new List<int>() { 5, 6, 7, 8 };
+
+        var proxy = list1.AsProxy();
+        var proxy2 = list2.AsProxy();
+
+        Assert.IsTrue(proxy.TryCopyTo(proxy2));
+    }
 }
