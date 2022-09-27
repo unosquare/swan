@@ -3,6 +3,11 @@
 using Mapping;
 using System.Text.Json.Serialization;
 
+public class Dog
+{
+    public string? Name { get; set; }
+}
+
 public class ErrorJson
 {
     public string? Message { get; set; }

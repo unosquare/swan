@@ -87,6 +87,20 @@ public class SaveRecords : CsvWriterTest
     }
 
     [Test]
+    public void TestForNulls_ReturnsException()
+    {
+        Stream nullTempFile = null;
+        List<SampleCsvRecord> nullRecords = null;
+
+        var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+
+        Assert.Throws<ArgumentNullException>(() => Csv.Load(nullTempFile));
+        Assert.Throws<ArgumentNullException>(() => Csv.Load<SampleCsvRecord>(nullTempFile));
+        Assert.Throws<ArgumentNullException>(() => Csv.Save(nullRecords, nullTempFile));
+        Assert.Throws<ArgumentNullException>(() => Csv.Save(generatedRecords, nullTempFile));
+    }
+
+    [Test]
     public void WithObjectList_Valid()
     {
         var tempFile = Path.GetTempFileName();

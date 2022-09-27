@@ -65,7 +65,7 @@ public class AtomicTypeTest
             Task.Run(ToggleValueTask),
             Task.Run(ToggleValueTask));
 
-        Assert.IsFalse(atomic.Value);
+        Assert.IsTrue(atomic.Value);
     }
 
     [Test]

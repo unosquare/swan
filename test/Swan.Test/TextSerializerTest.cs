@@ -2,6 +2,7 @@
 
 using Formatters;
 using Mocks;
+using System.Text.Json;
 
 [TestFixture]
 public class StringSerialize
@@ -18,4 +19,43 @@ public class StringSerialize
     [Test]
     public void WithObject_ReturnsObjectRepresentation() => Assert.AreEqual("{\r\n"+@"    ""Message"": null"+"\r\n}",
         TextSerializer.Serialize(new ErrorJson()));
+
+    [Test]
+    public void WithDictionary_ReturnsRepresentation()
+    {
+        var dict = new Dictionary<int, string>
+        {
+            { 1, "One" }, 
+            { 2, "Two" },
+            { 3, "Three" }
+        };
+
+        var serialized = TextSerializer.Serialize(dict);
+
+        Assert.AreEqual("{\r\n    \"1\": \"One\",\r\n    \"2\": \"Two\",\r\n    \"3\": \"Three\"\r\n}", serialized);
+    }
+
+    [Test]
+    public void WithArray_ReturnsRepresentation()
+    {
+        var intARray = new int[]
+        {
+            1,2,3
+        };
+
+        var serialized = TextSerializer.Serialize(intARray);
+
+        Assert.AreEqual("[1, 2, 3]", serialized);
+    }
+
+    [Test]
+    public void WithJson_ReturnsRepresentation()
+    {
+        var jd = JsonDocument.Parse("{\"CarModel\":\"Vocho\"}");
+        JsonElement je = jd.RootElement;
+        
+        var serialized = TextSerializer.Serialize(je);
+
+        Assert.AreEqual("{\r\n    \"CarModel\": \"Vocho\"\r\n}", serialized);
+    }
 }
