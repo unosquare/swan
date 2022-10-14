@@ -4,7 +4,7 @@
 /// Provides properties and methods common to all CSV readers.
 /// </summary>
 /// <typeparam name="TLine">The type of record the reader outputs.</typeparam>
-public interface ICsvReader<out TLine> : IEnumerable<TLine>, IEnumerator<TLine>
+public interface ICsvReader<out TLine> : IEnumerable<TLine>, IEnumerator<TLine>, IAsyncEnumerable<TLine>, IAsyncEnumerator<TLine>
 {
     /// <summary>
     /// Gets the current transformed record for schema-aware CSV readers and
@@ -48,12 +48,31 @@ public interface ICsvReader<out TLine> : IEnumerable<TLine>, IEnumerator<TLine>
     bool MoveNext(bool trimValues);
 
     /// <summary>
+    /// Asynchronously reads a set of literals parsed from the internal stream reader,
+    /// sets the <see cref="Values"/> property to the result and increments
+    /// the <see cref="Count"/> by one.
+    /// </summary>
+    /// <param name="trimValues">Determines if values should be trimmed.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>True if the read was successful. False otherwise.</returns>
+    ValueTask<bool> MoveNextAsync(bool trimValues, CancellationToken ct = default);
+
+    /// <summary>
     /// Parses a set of literals from the current positions of the underlying
     /// stream just as <see cref="MoveNext"/> but does not increment the <see cref="Count"/>
     /// and does not set <see cref="Values"/> property.
     /// </summary>
     /// <param name="skipCount">The number of records to skip.</param>
     void Skip(int skipCount = 1);
+
+    /// <summary>
+    /// Asynchronously parses a set of literals from the current positions of the underlying
+    /// stream just as <see cref="MoveNextAsync"/> but does not increment the <see cref="Count"/>
+    /// and does not set <see cref="Values"/> property.
+    /// </summary>
+    /// <param name="skipCount">The number of records to skip.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    ValueTask SkipAsync(int skipCount = 1, CancellationToken ct = default);
 
     /// <summary>
     /// Gets the string value of a given field index in the <see cref="Values"/> list.

@@ -40,13 +40,11 @@ public class ObjectMapper
         IEnumerable<string>? propertiesToCopy = null,
         params string[]? ignoreProperties)
     {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
-
-        return CopyInternal(
+        return source == null
+            ? throw new ArgumentNullException(nameof(source))
+            : target == null
+            ? throw new ArgumentNullException(nameof(target))
+            : CopyInternal(
             target,
             GetSourceMap(source),
             propertiesToCopy,
@@ -74,13 +72,11 @@ public class ObjectMapper
         IEnumerable<string>? propertiesToCopy = null,
         params string[] ignoreProperties)
     {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
-
-        return CopyInternal(
+        return source == null
+            ? throw new ArgumentNullException(nameof(source))
+            : target == null
+            ? throw new ArgumentNullException(nameof(target))
+            : CopyInternal(
             target,
             source.ToDictionary(
                 x => x.Key.ToLowerInvariant(),
@@ -94,7 +90,7 @@ public class ObjectMapper
         TargetMaps.TryGetValue(targetType, out var sourceMaps) && sourceMaps.ContainsKey(sourceType);
     /// <inheritdoc/>
 
-    public bool TryGetMap(Type sourceType, Type targetType, out IObjectMap map)
+    public bool TryGetMap(Type sourceType, Type targetType, [MaybeNullWhen(false)] out IObjectMap map)
     {
         if (!TargetMaps.TryGetValue(targetType, out var sourceMaps))
         {
@@ -148,9 +144,9 @@ public class ObjectMapper
             throw new InvalidOperationException(
                 $"This mapper already defines a map between target '{typeof(TTarget)}' and source '{typeof(TSource)}'");
 
-        if (!TargetMaps.TryGetValue(typeof(TTarget), out var sourceMaps))
+        if (!TargetMaps.TryGetValue(typeof(TTarget), out _))
         {
-            sourceMaps = new();
+            var sourceMaps = new ConcurrentDictionary<Type, IObjectMap>();
             TargetMaps.TryAdd(typeof(TTarget), sourceMaps);
         }
 

@@ -136,6 +136,27 @@ public class CsvWriter<T> : CsvWriter
     }
 
     /// <summary>
+    /// Writes an object as a set of CSV strings.
+    /// </summary>
+    /// <param name="item">The object to write.</param>
+    public async ValueTask WriteLineAsync(T item)
+    {
+        if (item is null)
+            throw new ArgumentNullException(nameof(item));
+
+        if (!HasWrittenHeadings)
+        {
+            if (WritesHeadings)
+                await WriteLineAsync(_propertyMap.Keys.ToArray()).ConfigureAwait(false);
+
+            HasWrittenHeadings = true;
+        }
+
+        var values = _propertyMap.Select(kvp => kvp.Value.Invoke(item)).ToArray();
+        await WriteLineAsync(values).ConfigureAwait(false);
+    }
+
+    /// <summary>
     /// Writes multiple objects as a set of CSV strings.
     /// </summary>
     /// <param name="items">The objects to write.</param>
@@ -148,5 +169,25 @@ public class CsvWriter<T> : CsvWriter
             WriteLine(item);
 
         Flush();
+    }
+
+    /// <summary>
+    /// Writes multiple objects as a set of CSV strings.
+    /// </summary>
+    /// <param name="items">The objects to write.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    public async ValueTask WriteLinesAsync(IEnumerable<T> items, CancellationToken ct = default)
+    {
+        if (items is null)
+            throw new ArgumentNullException(nameof(items));
+
+        foreach (var item in items)
+        {
+            await WriteLineAsync(item).ConfigureAwait(false);
+            if (ct.IsCancellationRequested)
+                break;
+        }
+
+        await FlushAsync().ConfigureAwait(false);
     }
 }

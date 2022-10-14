@@ -54,6 +54,36 @@ public static class Csv
     /// to property names.
     /// </summary>
     /// <typeparam name="TRecord">The type of the target object.</typeparam>
+    /// <param name="stream">The stream to read from.</param>
+    /// <param name="encoding">The optional encoding.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>A list of objects parsed from the underlying stream.</returns>
+    public static async Task<IList<TRecord>> LoadAsync<TRecord>(Stream stream, Encoding? encoding = default, CancellationToken ct = default)
+        where TRecord : class, new()
+    {
+        if (stream is null)
+            throw new ArgumentNullException(nameof(stream));
+
+        using var reader = new CsvObjectReader<TRecord>(stream, encoding);
+        reader.WithCancellation(ct);
+        var result = new List<TRecord>(1024);
+
+        await foreach(var item in reader)
+        {
+            if (item is null)
+                continue;
+
+            result.Add(item);
+        }
+        
+        return result;
+    }
+
+    /// <summary>
+    /// Reads all the records from the stream as a list of objects using matching headings
+    /// to property names.
+    /// </summary>
+    /// <typeparam name="TRecord">The type of the target object.</typeparam>
     /// <param name="filePath">The path to the file to read from.</param>
     /// <param name="encoding">The optional encoding.</param>
     /// <returns>A list of objects parsed from the underlying stream.</returns>
@@ -62,6 +92,22 @@ public static class Csv
     {
         using var stream = File.OpenRead(filePath);
         return Load<TRecord>(stream, encoding);
+    }
+
+    /// <summary>
+    /// Reads all the records from the stream as a list of objects using matching headings
+    /// to property names.
+    /// </summary>
+    /// <typeparam name="TRecord">The type of the target object.</typeparam>
+    /// <param name="filePath">The path to the file to read from.</param>
+    /// <param name="encoding">The optional encoding.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>A list of objects parsed from the underlying stream.</returns>
+    public static async Task<IList<TRecord>> LoadAsync<TRecord>(string filePath, Encoding? encoding = default, CancellationToken ct = default)
+        where TRecord : class, new()
+    {
+        using var stream = File.OpenRead(filePath);
+        return await LoadAsync<TRecord>(stream, encoding, ct);
     }
 
     /// <summary>
@@ -83,6 +129,33 @@ public static class Csv
     }
 
     /// <summary>
+    /// Reads all the records from the stream as a list of expando objects.
+    /// </summary>
+    /// <param name="stream">The stream to read from.</param>
+    /// <param name="encoding">The optional encoding.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>A list of objects parsed from the underlying stream.</returns>
+    public static async Task<IList<dynamic>> LoadAsync(Stream stream, Encoding? encoding = default, CancellationToken ct = default)
+    {
+        if (stream is null)
+            throw new ArgumentNullException(nameof(stream));
+
+        using var reader = new CsvDynamicReader(stream, encoding);
+        reader.WithCancellation(ct);
+        var result = new List<dynamic>(1024);
+
+        await foreach (var item in reader)
+        {
+            if (item is null)
+                continue;
+
+            result.Add(item);
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// Reads all the records from the stream as a list of objects using matching headings
     /// to property names.
     /// </summary>
@@ -93,6 +166,20 @@ public static class Csv
     {
         using var stream = File.OpenRead(filePath);
         return Load(stream, encoding);
+    }
+
+    /// <summary>
+    /// Reads all the records from the stream as a list of objects using matching headings
+    /// to property names.
+    /// </summary>
+    /// <param name="filePath">The path to the file to read from.</param>
+    /// <param name="encoding">The optional encoding.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>A list of objects parsed from the underlying stream.</returns>
+    public static async Task<IList<dynamic>> LoadAsync(string filePath, Encoding? encoding = default, CancellationToken ct = default)
+    {
+        using var stream = File.OpenRead(filePath);
+        return await LoadAsync(stream, encoding, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -119,6 +206,32 @@ public static class Csv
     }
 
     /// <summary>
+    /// Saves multiple records to the underlying stream.
+    /// </summary>
+    /// <typeparam name="T">The type of objects to be written.</typeparam>
+    /// <param name="items">A collection of items to be written.</param>
+    /// <param name="stream">The target stream to write items into.</param>
+    /// <param name="encoding">The encoding to be used.</param>
+    /// <param name="writeHeadings">Whether headings should be written out to the file.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>The number of records written to the file, including headings.</returns>
+    public static async Task<long> SaveAsync<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default, bool writeHeadings = true, CancellationToken ct = default)
+    {
+        if (items is null)
+            throw new ArgumentNullException(nameof(items));
+
+        if (stream is null)
+            throw new ArgumentNullException(nameof(stream));
+
+        using var writer = new CsvWriter<T>(stream, encoding, writeHeadings);
+        writer.ConfigureAwait(false);
+
+        await writer.WriteLinesAsync(items, ct).ConfigureAwait(false);
+        await writer.FlushAsync().ConfigureAwait(false);
+        return writer.Count;
+    }
+
+    /// <summary>
     /// Saves multiple records to the specified file.
     /// </summary>
     /// <typeparam name="T">The type of objects to be written.</typeparam>
@@ -134,5 +247,24 @@ public static class Csv
             fileStream.SetLength(0);
 
         return Save(items, fileStream, encoding, fileStream.Length <= 0);
+    }
+
+    /// <summary>
+    /// Saves multiple records to the specified file.
+    /// </summary>
+    /// <typeparam name="T">The type of objects to be written.</typeparam>
+    /// <param name="items">A collection of items to be written.</param>
+    /// <param name="filePath">The path to the file to write to.</param>
+    /// <param name="encoding">The encoding to be used.</param>
+    /// <param name="truncate">Whether the file contents should be overwritten.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>The number of records written to the file, including headings.</returns>
+    public static async Task<long> SaveAsync<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default, bool truncate = true, CancellationToken ct = default)
+    {
+        using var fileStream = File.OpenWrite(filePath);
+        if (truncate)
+            fileStream.SetLength(0);
+
+        return await SaveAsync(items, fileStream, encoding, fileStream.Length <= 0, ct);
     }
 }

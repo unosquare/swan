@@ -112,6 +112,9 @@ public class CsvDynamicReader : CsvReader<CsvDynamicReader, dynamic>
     /// <inheritdoc />
     protected override void OnHeadingsRead(IReadOnlyList<string> headings)
     {
+        if (headings is null)
+            throw new ArgumentNullException(nameof(headings));
+
         foreach (var heading in headings)
             AddMapping(heading, heading);
     }

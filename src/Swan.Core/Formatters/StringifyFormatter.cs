@@ -80,7 +80,7 @@ public static class StringifyFormatter
                     else
                     {
                         if (!idProperty.IsUndefined())
-                            builder.Append($"{idProperty.Name} = {idProperty.Value}");
+                            builder.Append(CultureInfo.InvariantCulture, $"{idProperty.Name} = {idProperty.Value}");
 
                         builder.AppendLine();
 
@@ -90,8 +90,8 @@ public static class StringifyFormatter
                                 continue;
 
                             builder
-                                .Append($"{indentString}{property.Name,-16}: ")
-                                .Append($"{StringifyJson(property.Value, indentSpaces, stackLevel + 1)}")
+                                .Append(CultureInfo.InvariantCulture, $"{indentString}{property.Name,-16}: ")
+                                .Append(CultureInfo.InvariantCulture, $"{StringifyJson(property.Value, indentSpaces, stackLevel + 1)}")
                                 .AppendLine();
                         }
                     }
@@ -106,8 +106,8 @@ public static class StringifyFormatter
                     foreach (var arrayElement in element.EnumerateArray())
                     {
                         builder
-                            .Append($"{indentString}[{index}]: ")
-                            .Append($"{StringifyJson(arrayElement, indentSpaces, stackLevel + 1)}")
+                            .Append(CultureInfo.InvariantCulture, $"{indentString}[{index}]: ")
+                            .Append(CultureInfo.InvariantCulture, $"{StringifyJson(arrayElement, indentSpaces, stackLevel + 1)}")
                             .AppendLine();
 
                         index++;

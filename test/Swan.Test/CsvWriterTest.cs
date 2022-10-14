@@ -182,8 +182,8 @@ public class WriteHeadings : CsvWriterTest
     {
         using var stream = new MemoryStream();
         using var writer = new CsvWriter(stream);
-
-        Assert.Throws<ArgumentNullException>(() => writer.WriteLine(null!));
+        
+        Assert.DoesNotThrow(() => writer.WriteLine(null));
     }
 
     [Test]

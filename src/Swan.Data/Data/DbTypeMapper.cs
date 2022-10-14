@@ -23,6 +23,7 @@ internal class DbTypeMapper : IDbTypeMapper
         [typeof(string)] = DbType.String,
         [typeof(char)] = DbType.StringFixedLength,
         [typeof(Guid)] = DbType.Guid,
+        [typeof(DateOnly)] = DbType.Date,
         [typeof(DateTime)] = DbType.DateTime2,
         [typeof(DateTimeOffset)] = DbType.DateTimeOffset,
         [typeof(byte[])] = DbType.Binary,
@@ -46,6 +47,7 @@ internal class DbTypeMapper : IDbTypeMapper
         [typeof(char)] = "NCHAR(1)",
         [typeof(Guid)] = "UNIQUEIDENTIFIER",
         [typeof(DateTime)] = "DATETIME2",
+        [typeof(DateOnly)] = "DATE",
         [typeof(DateTimeOffset)] = "DATETIMEOFFSET",
         [typeof(byte[])] = "VARBINARY(MAX)",
     };

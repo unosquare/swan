@@ -58,13 +58,8 @@ public abstract class CsvReader<TReader, TLine> : CsvReaderBase<TLine>
     /// </summary>
     /// <param name="heading">The name of the heading.</param>
     /// <returns>Returns a valid field index or -1 for invalid or not found.</returns>
-    public virtual int IndexOf(string heading)
-    {
-        if (!Headings.TryGetValue(heading, out var index))
-            return -1;
-
-        return index;
-    }
+    public virtual int IndexOf(string heading) =>
+        !Headings.TryGetValue(heading, out var index) ? -1 : index;
 
     /// <summary>
     /// Gets the string value of a given field name.

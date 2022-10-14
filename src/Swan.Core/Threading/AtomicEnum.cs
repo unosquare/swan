@@ -28,7 +28,7 @@ public sealed class AtomicEnum<T>
     public T Value
     {
         get => (T)Enum.ToObject(typeof(T), BackingValue);
-        set => BackingValue = Convert.ToInt64(value);
+        set => BackingValue = Convert.ToInt64(value, CultureInfo.InvariantCulture);
     }
 
     private long BackingValue

@@ -97,10 +97,9 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     {
         get
         {
-            if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))
-                throw new ArgumentException(InvalidCastMessage, nameof(key));
-
-            return keyItem is null
+            return !TypeManager.TryChangeType(key, KeysType, out var keyItem)
+                ? throw new ArgumentException(InvalidCastMessage, nameof(key))
+                : keyItem is null
                 ? throw new ArgumentNullException(nameof(key))
                 : KeysType.NativeType == typeof(int)
                     ? this[(int)keyItem]
@@ -202,7 +201,7 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     {
         proxy = default;
 
-        if (target is not IEnumerable enumerableTarget)
+        if (target is null || target is not IEnumerable enumerableTarget)
             return false;
 
         if (target is CollectionProxy outputProxy)
@@ -291,10 +290,9 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     /// <returns>True if the value is found. False otherwise.</returns>
     public bool Contains(object? value)
     {
-        if (!TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var searchValue))
-            throw new ArgumentException(InvalidCastMessage, nameof(value));
-
-        return !IsDictionary
+        return !TypeManager.TryChangeType(value, IsDictionary ? KeysType : ValuesType, out var searchValue)
+            ? throw new ArgumentException(InvalidCastMessage, nameof(value))
+            : !IsDictionary
             ? Delegates.Contains?.Invoke(searchValue) ??
               Values.Cast<object?>().Contains(searchValue)
             : Delegates.ContainsKey?.Invoke(searchValue) ?? (
