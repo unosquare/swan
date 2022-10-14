@@ -7,17 +7,17 @@ namespace Swan.Data;
 /// with functionality that is useful to build SQL commands along with their basic
 /// properties.
 /// </summary>
-public sealed class CommandSource : IConnected
+public sealed class DbCommandSource : IDbConnected
 {
     private StringBuilder? _commandText;
     private DbConnection? _connection;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CommandSource"/> class.
+    /// Creates a new instance of the <see cref="DbCommandSource"/> class.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="initialText">An optional initial command text.</param>
-    internal CommandSource(DbConnection connection, string? initialText = default)
+    internal DbCommandSource(DbConnection connection, string? initialText = default)
     {
         _connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Provider = connection.Provider();
@@ -50,7 +50,7 @@ public sealed class CommandSource : IConnected
     /// </summary>
     /// <param name="text">The text to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public CommandSource AppendText(string? text)
+    public DbCommandSource AppendText(string? text)
     {
         if (_commandText is null)
             throw new InvalidOperationException(Library.NoConnectionErrorMessage);

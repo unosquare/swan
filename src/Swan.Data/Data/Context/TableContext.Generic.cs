@@ -25,7 +25,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     public virtual IEnumerable<T> Query(
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default)
     {
-        var command = new CommandSource(Connection)
+        var command = new DbCommandSource(Connection)
             .Select(this).AppendText(trailingSql).EndCommandText()
             .WithTransaction(transaction)
             .SetParameters(param);
@@ -38,7 +38,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
-        var command = new CommandSource(Connection)
+        var command = new DbCommandSource(Connection)
             .Select(this).AppendText(trailingSql).EndCommandText()
             .WithTransaction(transaction)
             .SetParameters(param);
@@ -52,7 +52,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
     public virtual T? FirstOrDefault(
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default)
     {
-        var command = new CommandSource(Connection)
+        var command = new DbCommandSource(Connection)
             .Select(this).AppendText(trailingSql).EndCommandText()
             .WithTransaction(transaction)
             .SetParameters(param);
@@ -65,7 +65,7 @@ public class TableContext<T> : TableContext, ITableContext<T>
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default,
         CancellationToken ct = default)
     {
-        var command = new CommandSource(Connection)
+        var command = new DbCommandSource(Connection)
             .Select(this).AppendText(trailingSql).EndCommandText()
             .WithTransaction(transaction)
             .SetParameters(param);

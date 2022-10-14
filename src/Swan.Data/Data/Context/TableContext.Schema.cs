@@ -9,6 +9,9 @@ public partial class TableContext
     public IDbColumnSchema? this[string name] => TableSchema[name];
 
     /// <inheritdoc />
+    public IDbColumnSchema? this[int index] => TableSchema[index];
+
+    /// <inheritdoc />
     public DbConnection Connection { get; }
 
     /// <inheritdoc />
@@ -22,6 +25,9 @@ public partial class TableContext
 
     /// <inheritdoc />
     public string TableName => TableSchema.TableName;
+
+    /// <inheritdoc />
+    public int ColumnCount => TableSchema.ColumnCount;
 
     /// <inheritdoc />
     public IReadOnlyList<IDbColumnSchema> Columns => TableSchema.Columns;
@@ -46,6 +52,9 @@ public partial class TableContext
 
     /// <inheritdoc />
     public IDbTableSchema RemoveColumn(string columnName) => TableSchema.RemoveColumn(columnName);
+
+    /// <inheritdoc />
+    public int GetColumnIndex(string columnName) => TableSchema.GetColumnIndex(columnName);
 
     /// <summary>
     /// Retrieves the table schema information from the database. If the schema

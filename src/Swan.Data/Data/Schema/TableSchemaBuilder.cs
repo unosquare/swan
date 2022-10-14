@@ -4,7 +4,7 @@
 /// A connected wrapper to create stand-alone Table DDL commands
 /// based on types.
 /// </summary>
-public class TableSchemaBuilder : IConnected
+public class TableSchemaBuilder : IDbConnected
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TableSchemaBuilder"/> class.
@@ -73,7 +73,7 @@ public class TableSchemaBuilder : IConnected
         if (string.IsNullOrWhiteSpace(columnName))
             throw new ArgumentNullException(nameof(columnName));
 
-        foreach (DbColumnSchema col in Table.Columns)
+        foreach (DbColumnSchema col in Table.Columns.Cast<DbColumnSchema>())
         {
             col.IsKey = false;
             col.IsAutoIncrement = false;
@@ -85,7 +85,7 @@ public class TableSchemaBuilder : IConnected
             {
                 Name = columnName,
                 DataType = typeof(int),
-                Ordinal = Table.Columns.Count
+                Ordinal = Table.ColumnCount
             };
 
             Table.AddColumn(column);
@@ -136,7 +136,7 @@ public class TableSchemaBuilder : IConnected
         {
             column = new()
             {
-                Ordinal = Table.Columns.Count,
+                Ordinal = Table.ColumnCount,
                 Name = columnName,
             };
 

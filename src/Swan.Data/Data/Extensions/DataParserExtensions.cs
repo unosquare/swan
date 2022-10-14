@@ -1,5 +1,8 @@
 ﻿namespace Swan.Data.Extensions;
 
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// Provides default API methods to parse rows or records into objects of different types.
 /// </summary>
@@ -167,6 +170,226 @@ public static class DataParserExtensions
         }
 
         return result;
+    }
+
+    #endregion
+
+    #region IDataRecord Converters
+
+    private class CollectionDataReader : DbDataReader
+    {
+        private const string ReaderNotReadyMessage = "The reader is either closed, past the end of the last record, or has not read any records.";
+        private readonly IEnumerable Collection;
+        private readonly IDbTableSchema Schema;
+
+        private readonly IEnumerator Enumerator;
+
+        private bool isClosed;
+        private bool readState;
+        private ITypeInfo? ItemTypeInfo;
+        private object? CurrentRecord;
+
+
+        public CollectionDataReader(IEnumerable collection, IDbTableSchema schema)
+        {
+            Collection = collection;
+            Enumerator = collection.GetEnumerator();
+            Schema = schema;
+        }
+
+        #region Indexer Properties
+
+        /// <inheritdoc />
+        public override object this[int i] => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty(CurrentRecord!, Schema[i]!.Name, out var value)
+                ? value ?? DBNull.Value
+                : DBNull.Value;
+
+        /// <inheritdoc />
+        public override object this[string name] => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty(CurrentRecord!, name, out var value)
+                ? value ?? DBNull.Value
+                : DBNull.Value;
+
+        #endregion
+
+        #region Properties
+
+        /// <inheritdoc />
+        public override int FieldCount => Schema.ColumnCount;
+
+        /// <inheritdoc />
+        public override int Depth => 0;
+
+        /// <inheritdoc />
+        public override bool HasRows => throw new NotImplementedException();
+
+        /// <inheritdoc />
+        public override bool IsClosed => isClosed;
+
+        /// <inheritdoc />
+        public override int RecordsAffected => -1;
+
+        /// <summary>
+        /// Gets a value indicating whether a record is current and ready to be read.
+        /// </summary>
+        private bool HasCurrentRecord => !isClosed && readState && CurrentRecord is not null;
+
+        #endregion
+
+        #region Table Metadata
+
+        /// <inheritdoc />
+        public override string GetDataTypeName(int i) => Schema[i]!.ProviderDataType;
+
+        /// <inheritdoc />
+        public override string GetName(int i) => Schema[i]!.Name;
+
+        /// <inheritdoc />
+        public override int GetOrdinal(string name) => Schema.GetColumnIndex(name);
+
+        /// <inheritdoc />
+        [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)]
+        public override Type GetFieldType(int i) => Schema[i]!.DataType!;
+
+        #endregion
+
+        #region Special Datum Getters
+
+        /// <inheritdoc />
+        public override bool IsDBNull(int i) => GetValue(i) == DBNull.Value;
+
+        /// <inheritdoc />
+        public override int GetValues(object[] values)
+        {
+            if (values is null)
+                throw new ArgumentNullException(nameof(values));
+
+            var count = 0;
+
+            for (var i = 0; i < Math.Min(values.Length, Schema.ColumnCount); i++)
+            {
+                values[i] = GetValue(i);
+                count++;
+            }
+
+            return count;
+        }
+
+        /// <inheritdoc />
+        public override long GetChars(int i, long fieldoffset, char[]? buffer, int bufferoffset, int length) => throw new NotImplementedException();
+
+        /// <inheritdoc />
+        public override long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length) => throw new NotImplementedException();
+
+        #endregion
+
+        #region Standard Datum Getters
+
+        /// <inheritdoc />
+        public override object GetValue(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty(CurrentRecord!, Schema[i]!.Name, out var value) ? value ?? DBNull.Value : DBNull.Value;
+
+        /// <inheritdoc />
+        public override bool GetBoolean(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<bool>(CurrentRecord!, Schema[i]!.Name, out var value) && value;
+
+        /// <inheritdoc />
+        public override byte GetByte(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<byte>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override char GetChar(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<char>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override DateTime GetDateTime(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<DateTime>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override decimal GetDecimal(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<decimal>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override double GetDouble(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<double>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override float GetFloat(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<float>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override Guid GetGuid(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<Guid>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override short GetInt16(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<short>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override int GetInt32(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<int>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override long GetInt64(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<long>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+
+        /// <inheritdoc />
+        public override string GetString(int i) => !HasCurrentRecord
+            ? throw new InvalidOperationException(ReaderNotReadyMessage)
+            : ItemTypeInfo!.TryReadProperty<string>(CurrentRecord!, Schema[i]!.Name, out var value) ? value! : null!;
+
+        #endregion
+
+        /// <inheritdoc />
+        public override IEnumerator GetEnumerator() => Collection.GetEnumerator();
+
+        /// <inheritdoc />
+        public override bool NextResult() => false;
+
+        /// <inheritdoc />
+        public override bool Read()
+        {
+            if (isClosed)
+                return false;
+
+            if (!Enumerator.MoveNext())
+            {
+                readState = false;
+                isClosed = true;
+            }
+
+            CurrentRecord = Enumerator.Current;
+            if (CurrentRecord is null)
+                return Read();
+
+            ItemTypeInfo ??= CurrentRecord.GetType().TypeInfo();
+
+            return readState = true;
+        }
+
+        /// <inheritdoc />
+        public override void Close()
+        {
+            isClosed = true;
+            base.Close();
+        }
+
+        override 
     }
 
     #endregion

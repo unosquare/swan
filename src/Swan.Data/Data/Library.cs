@@ -9,7 +9,7 @@ internal static class Library
     public delegate IDbDataParameter AddWithValueDelegate(IDataParameterCollection collection, string name, object value);
 
     public const string CommandConnectionErrorMessage = $"The {nameof(DbCommand)}.{nameof(DbCommand.Connection)} cannot be null.";
-    public const string NoConnectionErrorMessage = $"The {nameof(CommandSource)} no longer contains a valid connection.";
+    public const string NoConnectionErrorMessage = $"The {nameof(DbCommandSource)} no longer contains a valid connection.";
 
     private const string AddWithValueMethodName = "AddWithValue";
     private static readonly Type[] AddWithValueArgumentTypes = new[] { typeof(string), typeof(object) };
@@ -21,7 +21,7 @@ internal static class Library
     /// <param name="command">The command to execute the reader.</param>
     /// <param name="requiredFlags">The required behavior flags.</param>
     /// <returns>The data reader resulting from command execution.</returns>
-    public static IDataReader ExecuteOptimizedReader(this DbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
+    public static DbDataReader ExecuteOptimizedReader(this DbCommand command, CommandBehavior requiredFlags = CommandBehavior.Default)
     {
         try
         {

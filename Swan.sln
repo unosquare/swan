@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Core", "src\Swan.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Data", "src\Swan.Data\Swan.Data.csproj", "{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swan.Data.SqlBulkOps", "src\Swan.Data.SqlBulkOps\Swan.Data.SqlBulkOps.csproj", "{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{3552BE82-2D92-4150-A865-518112DE5BCE} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{A61DA1D4-8C1C-4975-8AF3-14544DF6EC79} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
+		{5C2BB420-2A23-4CEC-81F5-72903EDF38B4} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5977823D-9DDF-4C6D-AA39-87491F030AC1}

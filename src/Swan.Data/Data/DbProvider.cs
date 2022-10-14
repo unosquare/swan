@@ -211,7 +211,7 @@ public class DbProvider
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        if (!table.Columns.Any())
+        if (table.ColumnCount <= 0)
             throw new InvalidOperationException("Cannot generate DDL code with no provided columns.");
 
         var schemaName = string.IsNullOrWhiteSpace(table.Schema) ? DefaultSchemaName : table.Schema;

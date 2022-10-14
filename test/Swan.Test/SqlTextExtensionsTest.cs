@@ -319,7 +319,7 @@ public class SqlTextExtensionsTest
     [Test]
     public void WhenCommandSourceIsNullThrowsException()
     {
-        CommandSource? command = null;
+        DbCommandSource? command = null;
         IDbTableSchema? table = null;
         IReadOnlyList<IDbColumnSchema>? columns = null;
         var conn = new SqliteConnection("Data Source=:memory:");

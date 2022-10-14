@@ -8,7 +8,17 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <summary>
     /// Holds the column collection as a dictionary where column names are case-insensitive.
     /// </summary>
-    private readonly Dictionary<string, IDbColumnSchema> _columns = new(128, StringComparer.InvariantCultureIgnoreCase);
+    private readonly Dictionary<string, IDbColumnSchema> _columnsByName = new(128, StringComparer.InvariantCultureIgnoreCase);
+
+    /// <summary>
+    /// Holds the column collection as a List for index addressing.
+    /// </summary>
+    private readonly List<IDbColumnSchema> _columnList = new(128);
+
+    /// <summary>
+    /// Holds column names by index.
+    /// </summary>
+    private readonly Dictionary<string, int> _columnIndexes = new(128, StringComparer.InvariantCultureIgnoreCase);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DbTableSchema"/> class.
@@ -26,11 +36,14 @@ internal sealed class DbTableSchema : IDbTableSchema
             return;
 
         foreach (var column in columns)
-            _columns[column.Name] = column;
+            AddColumn(column);
     }
 
     /// <inheritdoc />
-    public IDbColumnSchema? this[string name] => _columns.TryGetValue(name, out var column) ? column : null;
+    public IDbColumnSchema? this[string name] => _columnsByName.TryGetValue(name, out var column) ? column : null;
+
+    /// <inheritdoc />
+    public IDbColumnSchema? this[int index] => _columnList[index];
 
     /// <inheritdoc />
     public string Database { get; }
@@ -42,22 +55,25 @@ internal sealed class DbTableSchema : IDbTableSchema
     public string TableName { get; }
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> Columns => _columns.Values.ToArray();
+    public IReadOnlyList<IDbColumnSchema> Columns => _columnList;
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> KeyColumns => Columns.Where(c => c.IsKey).ToArray();
+    public IReadOnlyList<IDbColumnSchema> KeyColumns => _columnList.Where(c => c.IsKey).ToArray();
 
     /// <inheritdoc />
-    public IDbColumnSchema? IdentityKeyColumn => Columns.FirstOrDefault(c => c.IsKey && c.IsAutoIncrement);
+    public IDbColumnSchema? IdentityKeyColumn => _columnList.FirstOrDefault(c => c.IsKey && c.IsAutoIncrement);
 
     /// <inheritdoc />
     public bool HasKeyIdentityColumn => IdentityKeyColumn != null;
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> InsertableColumns => Columns.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    public IReadOnlyList<IDbColumnSchema> InsertableColumns => _columnList.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => Columns.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => _columnList.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+
+    /// <inheritdoc />
+    public int ColumnCount => _columnList.Count;
 
     /// <inheritdoc />
     public IDbTableSchema AddColumn(IDbColumnSchema column)
@@ -68,7 +84,13 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (string.IsNullOrWhiteSpace(column.Name))
             throw new ArgumentException("The column name must be specified.", nameof(column));
 
-        _columns[column.Name] = column;
+        if (_columnsByName.ContainsKey(column.Name))
+            throw new ArgumentException("A column with the same name has already been added.", nameof(column));
+
+        _columnsByName[column.Name] = column;
+        _columnList.Add(column);
+        _columnIndexes[column.Name] = _columnList.Count - 1;
+
         return this;
     }
 
@@ -78,9 +100,26 @@ internal sealed class DbTableSchema : IDbTableSchema
         if (string.IsNullOrWhiteSpace(name))
             return this;
 
-        _columns.Remove(name);
+        var removalTarget = this[name];
+        if (removalTarget is not null)
+        {
+            _columnList.Remove(removalTarget);
+            _columnsByName.Remove(name);
+
+            _columnIndexes.Clear();
+            for (var i = 0; i < _columnList.Count; i++)
+                _columnIndexes[_columnList[i].Name] = i;
+        }
+
         return this;
     }
+
+    /// <inheritdoc />
+    public int GetColumnIndex(string columnName) => string.IsNullOrWhiteSpace(columnName)
+            ? throw new ArgumentNullException(nameof(columnName))
+            : !_columnIndexes.TryGetValue(columnName, out var index)
+            ? throw new KeyNotFoundException($"Column with name '{columnName}' could not be found.")
+            : index;
 
     /// <summary>
     /// Loads table schema information from a database connection.

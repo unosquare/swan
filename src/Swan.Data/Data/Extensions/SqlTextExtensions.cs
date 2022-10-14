@@ -1,7 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
 /// <summary>
-/// Extension methods to build SQL command text using <see cref="CommandSource"/> objects.
+/// Extension methods to build SQL command text using <see cref="DbCommandSource"/> objects.
 /// </summary>
 public static class SqlTextExtensions
 {
@@ -12,7 +12,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="fields">The optional set of unquoted field names.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Select(this CommandSource @this, params string[]? fields)
+    public static DbCommandSource Select(this DbCommandSource @this, params string[]? fields)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -30,7 +30,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="table">The table with columns.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Select(this CommandSource @this, IDbTableSchema table) => table is not null
+    public static DbCommandSource Select(this DbCommandSource @this, IDbTableSchema table) => table is not null
         ? @this.Select(table.Columns.Select(c => c.Name).ToArray()).From(table)
         : throw new ArgumentNullException(nameof(table));
 
@@ -41,7 +41,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="columns">The columns.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Select(this CommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
+    public static DbCommandSource Select(this DbCommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
         ? @this.Select(columns.Select(c => c.Name).ToArray())
         : throw new ArgumentNullException(nameof(columns));
 
@@ -51,7 +51,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="item">The field name to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Field(this CommandSource @this, string item) =>
+    public static DbCommandSource Field(this DbCommandSource @this, string item) =>
         @this is null
             ? throw new ArgumentNullException(nameof(@this))
             : !string.IsNullOrWhiteSpace(item)
@@ -66,7 +66,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="items">The filed names to append.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Fields(this CommandSource @this, params string[]? items)
+    public static DbCommandSource Fields(this DbCommandSource @this, params string[]? items)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -85,7 +85,7 @@ public static class SqlTextExtensions
     /// <param name="tableName">The name of the table</param>
     /// <param name="schemaName">The optional schema name.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource From(this CommandSource @this, string? tableName = default, string? schemaName = default)
+    public static DbCommandSource From(this DbCommandSource @this, string? tableName = default, string? schemaName = default)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -103,7 +103,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="table">The table.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource From(this CommandSource @this, IDbTableSchema table) => table is not null
+    public static DbCommandSource From(this DbCommandSource @this, IDbTableSchema table) => table is not null
         ? @this.From(table.TableName, table.Schema)
         : throw new ArgumentNullException(nameof(table));
 
@@ -115,7 +115,7 @@ public static class SqlTextExtensions
     /// <param name="tableName">The name of the table</param>
     /// <param name="schemaName">The optional schema name.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource InsertInto(this CommandSource @this, string? tableName = default, string? schemaName = default)
+    public static DbCommandSource InsertInto(this DbCommandSource @this, string? tableName = default, string? schemaName = default)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -133,7 +133,7 @@ public static class SqlTextExtensions
     /// <param name="tableName"></param>
     /// <param name="schemaName"></param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Table(this CommandSource @this, string tableName, string? schemaName = default) => @this is null
+    public static DbCommandSource Table(this DbCommandSource @this, string tableName, string? schemaName = default) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : @this.AppendText(@this.Provider.QuoteTable(tableName, schemaName));
 
@@ -143,7 +143,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="condition">An optional condition that follows the WHERE keyword.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Where(this CommandSource @this, string? condition = default) => @this is null
+    public static DbCommandSource Where(this DbCommandSource @this, string? condition = default) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : string.IsNullOrWhiteSpace(condition)
         ? @this.AppendText("WHERE")
@@ -154,7 +154,7 @@ public static class SqlTextExtensions
     /// </summary>
     /// <param name="this">The instance.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource IsBetween(this CommandSource @this) => @this is null
+    public static DbCommandSource IsBetween(this DbCommandSource @this) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : @this.AppendText("BETWEEN");
 
@@ -163,7 +163,7 @@ public static class SqlTextExtensions
     /// </summary>
     /// <param name="this">The instance.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Or(this CommandSource @this) => @this is null
+    public static DbCommandSource Or(this DbCommandSource @this) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : @this.AppendText("OR");
 
@@ -172,7 +172,7 @@ public static class SqlTextExtensions
     /// </summary>
     /// <param name="this">The instance.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource And(this CommandSource @this) => @this is null
+    public static DbCommandSource And(this DbCommandSource @this) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : @this.AppendText("AND");
 
@@ -182,7 +182,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="item"></param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Parameter(this CommandSource @this, string item) => @this is null
+    public static DbCommandSource Parameter(this DbCommandSource @this, string item) => @this is null
         ? throw new ArgumentNullException(nameof(@this))
         : !string.IsNullOrWhiteSpace(item)
         ? @this.AppendText(@this.Provider.QuoteParameter(item))
@@ -194,7 +194,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="items">The unquoted list of parameters.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Parameters(this CommandSource @this, params string[]? items)
+    public static DbCommandSource Parameters(this DbCommandSource @this, params string[]? items)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -215,7 +215,7 @@ public static class SqlTextExtensions
     /// <param name="itemSeparator">The optional string that separates the field and parameter. Typically just a comma.</param>
     /// <param name="operatorSeparator">The optional string that separates the field name and parameter name. Typically just a '=' sign.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource FieldsAndParameters(this CommandSource @this, string[] items, string itemSeparator = ",", string operatorSeparator = "=")
+    public static DbCommandSource FieldsAndParameters(this DbCommandSource @this, string[] items, string itemSeparator = ",", string operatorSeparator = "=")
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -233,7 +233,7 @@ public static class SqlTextExtensions
     /// <param name="this">The instance.</param>
     /// <param name="items">The field names to append to the order by clause.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource OrderBy(this CommandSource @this, params string[]? items)
+    public static DbCommandSource OrderBy(this DbCommandSource @this, params string[]? items)
     {
         if (@this is null)
             throw new ArgumentNullException(nameof(@this));
@@ -253,7 +253,7 @@ public static class SqlTextExtensions
     /// <param name="skip">The number of records to skip.</param>
     /// <param name="take">The number of records to take.</param>
     /// <returns>This instance for fluent API support.</returns>
-    public static CommandSource Limit(this CommandSource @this, int skip = default, int take = int.MaxValue)
+    public static DbCommandSource Limit(this DbCommandSource @this, int skip = default, int take = int.MaxValue)
     {
         const int DefaultSkip = 0;
         const int DefaultTake = int.MaxValue;

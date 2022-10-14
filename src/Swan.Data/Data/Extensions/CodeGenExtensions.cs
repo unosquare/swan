@@ -40,7 +40,7 @@ public static class CodeGenExtensions
         if (table is null)
             throw new ArgumentNullException(nameof(table));
 
-        if (table.Columns.Count == 0)
+        if (table.ColumnCount == 0)
             throw new InvalidOperationException("Unable to define properties for empty column set.");
 
         var hasSchemaName = !string.IsNullOrWhiteSpace(table.Schema);

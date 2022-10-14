@@ -1,5 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
+using System.Collections;
+
 /// <summary>
 /// Provides extensions for asynchronous enumerables
 /// </summary>
@@ -49,6 +51,11 @@ public static class AsyncEnumerableExtensions
 
 
         return result;
+    }
+
+    public static IDataReader AsDataReader(this IEnumerable items)
+    {
+
     }
 }
 

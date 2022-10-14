@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a table and schema that is bound to a specific connection.
 /// </summary>
-public interface ITableContext : IDbTableSchema, IConnected
+public interface ITableContext : IDbTableSchema, IDbConnected
 {
     /// <summary>
     /// Gets the associated <see cref="DbProvider"/>.

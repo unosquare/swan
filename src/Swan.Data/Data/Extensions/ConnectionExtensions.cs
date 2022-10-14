@@ -179,14 +179,14 @@ public static class ConnectionExtensions
     }
 
     /// <summary>
-    /// Starts a fluent command definition using a <see cref="CommandSource"/>.
-    /// When done, use the <see cref="CommandSource.EndCommandText"/> method call
+    /// Starts a fluent command definition using a <see cref="DbCommandSource"/>.
+    /// When done, use the <see cref="DbCommandSource.EndCommandText"/> method call
     /// to extract the action <see cref="DbCommand"/>.
     /// </summary>
     /// <param name="connection">The connection.</param>
     /// <param name="initialText">The optional, initial command text to start building upon.</param>
     /// <returns>A fluent command definition.</returns>
-    public static CommandSource BeginCommandText(this DbConnection connection, string? initialText = default) => connection is null
+    public static DbCommandSource BeginCommandText(this DbConnection connection, string? initialText = default) => connection is null
         ? throw new ArgumentNullException(nameof(connection))
         : new(connection, initialText);
 
@@ -205,7 +205,7 @@ public static class ConnectionExtensions
     {
         connection.EnsureConnected();
 
-        var command = new CommandSource(connection, sql).EndCommandText()
+        var command = new DbCommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
             .WithCommandType(commandType)
@@ -239,7 +239,7 @@ public static class ConnectionExtensions
     {
         await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
 
-        var command = new CommandSource(connection, sql).EndCommandText()
+        var command = new DbCommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
             .WithCommandType(commandType)
@@ -271,7 +271,7 @@ public static class ConnectionExtensions
     {
         connection.EnsureConnected();
 
-        var command = new CommandSource(connection, sql).EndCommandText()
+        var command = new DbCommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
             .WithCommandType(commandType)
@@ -305,7 +305,7 @@ public static class ConnectionExtensions
     {
         await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
 
-        var command = new CommandSource(connection, sql).EndCommandText()
+        var command = new DbCommandSource(connection, sql).EndCommandText()
             .SetParameters(param)
             .WithTransaction(transaction)
             .WithCommandType(commandType)

@@ -25,7 +25,7 @@ public partial class TableContext : ITableContext
         var insertColumns = InsertableColumns;
         var columnNames = insertColumns.Select(c => c.Name).ToArray();
 
-        var command = new CommandSource(Connection)
+        var command = new DbCommandSource(Connection)
             .InsertInto(TableName, Schema)
             .AppendText("(")
             .Fields(columnNames)
@@ -53,7 +53,7 @@ public partial class TableContext : ITableContext
             settableFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var commandText = $"UPDATE {Provider.QuoteTable(TableName, Schema)} SET {setPairs} WHERE {keyPairs}";
 
-        return new CommandSource(Connection, commandText)
+        return new DbCommandSource(Connection, commandText)
             .EndCommandText()
             .DefineParameters(UpdateableColumns.Union(KeyColumns))
             .WithTransaction(transaction);
@@ -67,7 +67,7 @@ public partial class TableContext : ITableContext
             keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var commandText = $"DELETE FROM {Provider.QuoteTable(TableName, Schema)} WHERE {keyPairs}";
 
-        return new CommandSource(Connection, commandText)
+        return new DbCommandSource(Connection, commandText)
             .EndCommandText()
             .DefineParameters(KeyColumns)
             .WithTransaction(transaction);
@@ -80,7 +80,7 @@ public partial class TableContext : ITableContext
         var keyPairs = string.Join(" AND ",
             keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
 
-        return new CommandSource(Connection)
+        return new DbCommandSource(Connection)
             .Select(this).Where(keyPairs)
             .EndCommandText()
             .DefineParameters(KeyColumns)

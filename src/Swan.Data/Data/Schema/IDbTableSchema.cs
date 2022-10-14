@@ -13,6 +13,13 @@ public interface IDbTableSchema
     IDbColumnSchema? this[string name] { get; }
 
     /// <summary>
+    /// Gets the column schema data for the given column index.
+    /// </summary>
+    /// <param name="index">The 0-based index of the column.</param>
+    /// <returns>The column schema.</returns>
+    IDbColumnSchema? this[int index] { get; }
+
+    /// <summary>
     /// Gets the database name (catalog) this table belongs to.
     /// </summary>
     string Database { get; }
@@ -27,6 +34,11 @@ public interface IDbTableSchema
     /// Gets the name of the table.
     /// </summary>
     string TableName { get; }
+
+    /// <summary>
+    /// Gets the number of columns.
+    /// </summary>
+    public int ColumnCount { get; }
 
     /// <summary>
     /// Gets the list of columns contained in this table.
@@ -59,6 +71,13 @@ public interface IDbTableSchema
     /// Gets the columns that can be used for update statements.
     /// </summary>
     IReadOnlyList<IDbColumnSchema> UpdateableColumns { get; }
+
+    /// <summary>
+    /// Gets the 0-based index of the column in the order they were added.
+    /// </summary>
+    /// <param name="columnName">The name of the column.</param>
+    /// <returns></returns>
+    int GetColumnIndex(string columnName);
 
     /// <summary>
     /// Adds a column to the table schema.
