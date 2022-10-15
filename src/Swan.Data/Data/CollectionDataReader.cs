@@ -6,14 +6,14 @@ using System.Collections;
 /// Uses an <see cref="IEnumerable"/> set, and an <see cref="IDbTableSchema"/>
 /// to be used as an <see cref="IDataReader"/>.
 /// </summary>
-internal class CollectionDataReader : IDataReader
+public class CollectionDataReader : IDataReader
 {
     private const string ReaderNotReadyMessage = "The reader is either closed, past the end of the last record, or has not read any records.";
     private readonly IDbTableSchema Schema;
     private readonly IEnumerator Enumerator;
     private bool ReadState;
     private ITypeInfo? ItemTypeInfo;
-    private object? CurrentRecord;
+    
 
     public CollectionDataReader(IEnumerator enumerator, IDbTableSchema schema)
     {
@@ -27,11 +27,6 @@ internal class CollectionDataReader : IDataReader
         Schema = schema;
     }
 
-    public CollectionDataReader(IEnumerable collection, IDbTableSchema schema)
-        : this(collection is null ? throw new ArgumentNullException(nameof(collection)) : collection.GetEnumerator(), schema)
-    {
-        // placeholder
-    }
 
     #region Indexer Properties
 
@@ -64,6 +59,11 @@ internal class CollectionDataReader : IDataReader
 
     /// <inheritdoc />
     public int RecordsAffected => -1;
+
+    /// <summary>
+    /// Gets the object currently pointed at by this reader.
+    /// </summary>
+    public object? CurrentRecord { get; protected set; }
 
     /// <summary>
     /// Gets a value indicating whether a record is current and ready to be read.
@@ -276,8 +276,8 @@ internal class CollectionDataReader : IDataReader
 
         if (!Enumerator.MoveNext())
         {
-            ReadState = false;
-            IsClosed = true;
+            Close();
+            return false;
         }
 
         CurrentRecord = Enumerator.Current;
@@ -292,7 +292,11 @@ internal class CollectionDataReader : IDataReader
     /// <inheritdoc />
     public void Close()
     {
+        ReadState = false;
         IsClosed = true;
+        CurrentRecord = null;
+        if (Enumerator is IDisposable disposable)
+            disposable.Dispose();
     }
 
     /// <inheritdoc />

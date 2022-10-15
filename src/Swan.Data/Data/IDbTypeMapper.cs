@@ -26,6 +26,6 @@ public interface IDbTypeMapper
     /// <param name="type">The CLR type.</param>
     /// <param name="providerType">The provider-specific data type.</param>
     /// <returns>True if the type is found, false otherwise.</returns>
-    bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string? providerType);
+    bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string providerType);
 }
 

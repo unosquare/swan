@@ -52,6 +52,8 @@ internal class DbTypeMapper : IDbTypeMapper
         [typeof(byte[])] = "VARBINARY(MAX)",
     };
 
+    private static readonly Lazy<DbTypeMapper> _defaultMapperLazy = new(true);
+
     /// <summary>
     /// Creates a new instance of the <see cref="DbTypeMapper"/> class.
     /// </summary>
@@ -59,6 +61,11 @@ internal class DbTypeMapper : IDbTypeMapper
     {
         // placeholder
     }
+
+    /// <summary>
+    /// Gets an instance of the default type mapper.
+    /// </summary>
+    public static IDbTypeMapper Default => _defaultMapperLazy.Value;
 
     /// <inheritdoc />
     public virtual IReadOnlyList<Type> SupportedTypes => DbTypeMap.Keys.ToArray();
@@ -79,7 +86,7 @@ internal class DbTypeMapper : IDbTypeMapper
     }
 
     /// <inheritdoc />
-    public virtual bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string? providerType)
+    public virtual bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string providerType)
     {
         providerType = default;
         type = type.TypeInfo().BackingType.NativeType;
