@@ -21,5 +21,6 @@ public static class BulkInsertExtensions
 
         using var bulkOperation = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, tran);
 
+        return 0;
     }
 }

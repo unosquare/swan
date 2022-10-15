@@ -15,9 +15,11 @@ internal static class DataPlayground
 
     public static async Task BasicExample()
     {
-        await SqliteStuff();
-        return;
-        var liteName = typeof(SqliteConnection).FullName;
+        if (false)
+            await SqliteStuff();
+        
+        //return;
+        //var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
         await using var connection = new SqlConnection(ConnectionString);
@@ -76,9 +78,9 @@ internal static class DataPlayground
 
         var items = new[]
         {
-            dummyProject with { Name = "Dummy 1", ProjectType = ProjectTypes.Boring },
-            dummyProject with { Name = "Dummy 2", ProjectType = ProjectTypes.Exciting },
-            dummyProject with { Name = "Dummy 3", ProjectType = ProjectTypes.Exciting },
+            dummyProject with { Name = "Dummy 1", ProjectType = ProjectTypes.Boring, ProjectManagementTypeId = 1 },
+            dummyProject with { Name = "Dummy 2", ProjectType = ProjectTypes.Exciting, ProjectManagementTypeId = 2 },
+            dummyProject with { Name = "Dummy 3", ProjectType = ProjectTypes.Exciting, ProjectManagementTypeId = 1 },
         };
 
         foreach (var item in items)
@@ -154,7 +156,14 @@ internal static class DataPlayground
         [MaxLength(2147483647)]
         [Column(nameof(ProjectScope), Order = 7)]
         public string? ProjectScope { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value for Project Management Type Id.
+        /// </summary>
+        [Column(nameof(ProjectManagementTypeId), Order = 8)]
+        public int ProjectManagementTypeId { get; set; }
     }
+
 
     public enum ProjectTypes
     {
