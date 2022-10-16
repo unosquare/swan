@@ -4,7 +4,6 @@ using Data.Extensions;
 using Logging;
 using Microsoft.Data.Sqlite;
 using Platform;
-using Swan.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
@@ -84,7 +83,7 @@ internal static class DataPlayground
             dummyProject with { Name = "Dummy 3", ProjectType = ProjectTypes.Exciting, ProjectManagementTypeId = 1 },
         };
 
-        var reader = new CollectionDataReader(items.GetEnumerator(), projects);
+        var reader = items.GetDataReader();
 
         var schemaTable = reader.GetSchemaTable();
         while (reader.Read())

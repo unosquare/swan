@@ -1,58 +1,12 @@
 ﻿namespace Swan.Data.Extensions;
 
-using Swan.Reflection;
 using System.Collections;
 
 /// <summary>
-/// Provides extensions for asynchronous enumerables
+/// Provides methods to extend usage of collections as standard <see cref="IDataReader"/> objects.
 /// </summary>
-public static class CollectionExtensions
+public static class DbDataReaderExtensions
 {
-    /// <summary>
-    /// Retrieves the first result from a <see cref="IAsyncEnumerable{T}"/>.
-    /// </summary>
-    /// <typeparam name="T">The enumerable type.</typeparam>
-    /// <param name="enumerable">The enumerable object.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>The first item or the default value for the type parameter.</returns>
-    public static async Task<T?> FirstOrDefaultAsync<T>(this IAsyncEnumerable<T> enumerable, CancellationToken ct = default)
-    {
-        if (enumerable is null)
-            return default;
-
-        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
-            return item;
-
-        return default;
-    }
-
-    /// <summary>
-    /// Asynchronously iterates over each element and produces a list of items.
-    /// This materializes the asynchronous enumerable set.
-    /// </summary>
-    /// <typeparam name="T">The element type of the list.</typeparam>
-    /// <param name="enumerable">The enumerable to iterate over.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>A list of elements.</returns>
-    public static async Task<List<T>> ToListAsync<T>(this IAsyncEnumerable<T> enumerable, CancellationToken ct = default)
-    {
-        const int BufferSize = 1024;
-
-        if (enumerable is null)
-            return new(0);
-
-        var result = new List<T>(BufferSize);
-        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
-        {
-            if (item is null)
-                continue;
-
-            result.Add(item);
-        }
-
-        return result;
-    }
-
     /// <summary>
     /// Converts a type to a compatible form of <see cref="IDbTableSchema"/>.
     /// </summary>
@@ -129,7 +83,52 @@ public static class CollectionExtensions
         ? throw new ArgumentNullException(nameof(objectType))
         : objectType.ToTableSchema().ToSchemaTable();
 
-    internal static IDbColumnSchema? ToColumnSchema(this IPropertyProxy objectProperty, int columnIndex) =>
+    /// <summary>
+    /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
+    /// </summary>
+    /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
+    /// <param name="schema">The schema used to produce the record values for the data reader.</param>
+    /// <returns>A data reader.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ICollectionDataReader GetDataReader(this IEnumerable collection, IDbTableSchema schema) => collection is null
+        ? throw new ArgumentNullException(nameof(collection))
+        : new CollectionDataReader(collection.GetEnumerator(), schema);
+
+    /// <summary>
+    /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
+    /// </summary>
+    /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
+    /// <param name="itemType">The type of the items the collection holds. This produces a basic table schema.</param>
+    /// <returns>A data reader.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ICollectionDataReader GetDataReader(this IEnumerable collection, Type itemType) => collection is null
+        ? throw new ArgumentNullException(nameof(collection))
+        : new CollectionDataReader(collection.GetEnumerator(), itemType);
+
+    /// <summary>
+    /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the items the collection holds. This produces a basic table schema.</typeparam>
+    /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
+    /// <returns>A data reader.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ICollectionDataReader<T> GetDataReader<T>(this IEnumerable<T> collection) => collection is null
+        ? throw new ArgumentNullException(nameof(collection))
+        : new CollectionDataReader<T>(collection.GetEnumerator());
+
+    /// <summary>
+    /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the items the collection holds. This produces a basic table schema.</typeparam>
+    /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
+    /// <param name="schema">The schema used to produce the record values for the data reader.</param>
+    /// <returns>A data reader.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ICollectionDataReader<T> GetDataReader<T>(this IEnumerable<T> collection, IDbTableSchema schema) => collection is null
+        ? throw new ArgumentNullException(nameof(collection))
+        : new CollectionDataReader<T>(collection.GetEnumerator(), schema);
+
+    private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy objectProperty, int columnIndex) =>
         !DbTypeMapper.Default.TryGetProviderTypeFor(objectProperty.PropertyType.NativeType, out var providerType)
             ? null
             : objectProperty.PropertyName.Contains('.', StringComparison.Ordinal)
@@ -144,7 +143,7 @@ public static class CollectionExtensions
                 Ordinal = columnIndex,
             } as IDbColumnSchema;
 
-    internal static DataRow AddSchemaRow(this DataTable schemaTable, IDbColumnSchema columnSchema, ITypeInfo? columnSchemaType = default)
+    private static DataRow AddSchemaRow(this DataTable schemaTable, IDbColumnSchema columnSchema, ITypeInfo? columnSchemaType = default)
     {
         if (schemaTable is null)
             throw new ArgumentNullException(nameof(schemaTable));
@@ -165,10 +164,5 @@ public static class CollectionExtensions
         }
 
         return schemaTable.Rows.Add(rowValues);
-    }
-
-    public static IDataReader GetDataReader(this IEnumerable collection, IDbTableSchema schema)
-    {
-
     }
 }

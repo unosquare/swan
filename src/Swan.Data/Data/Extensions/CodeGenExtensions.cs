@@ -24,7 +24,6 @@ public static class CodeGenExtensions
         [typeof(ushort)] = "ushort",
         [typeof(string)] = "string",
     };
-
     private static readonly CultureInfo ci = CultureInfo.InvariantCulture;
 
     /// <summary>
@@ -59,12 +58,17 @@ public static class CodeGenExtensions
             .Append(ci, $"    /// Creates a new instance of the <see cref=\"{entityName}\" /> class.\r\n")
             .Append("    /// </summary>\r\n")
             .Append(ci, $"    public {entityName}() ").Append("{ /* placeholder */ }\r\n\r\n")
-            .Append(string.Join("\r\n\r\n", table.Columns.Select(c => c.GetRecordMember())))
+            .Append(string.Join("\r\n\r\n", table.Columns.Select(c => c.ToPropertyCode())))
             .Append("\r\n}\r\n")
             .ToString();
     }
 
-    private static string GetRecordMember(this IDbColumnSchema column)
+    /// <summary>
+    /// Converts columns schema information to a compatible, annotated propery code.
+    /// </summary>
+    /// <param name="column">The column schema to convert.</param>
+    /// <returns>The string represntation of the compatible property.</returns>
+    private static string ToPropertyCode(this IDbColumnSchema column)
     {
         var builder = new StringBuilder(1024);
         var typeAlias = column.DataType.GetTypeAlias();
@@ -91,6 +95,11 @@ public static class CodeGenExtensions
         return builder.ToString();
     }
 
+    /// <summary>
+    /// Gets a short-hand type alias. For example, for <see cref="Int32"/>, returns int.
+    /// </summary>
+    /// <param name="type">The type alias.</param>
+    /// <returns>The string representation of the type alias.</returns>
     private static string GetTypeAlias(this Type type)
     {
         var baseType = Nullable.GetUnderlyingType(type) ?? type;

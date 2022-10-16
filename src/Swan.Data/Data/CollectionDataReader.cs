@@ -4,10 +4,21 @@ using Swan.Data.Extensions;
 using System.Collections;
 
 /// <summary>
+/// Represents a DataReader that was derived from a collection.
+/// </summary>
+public interface ICollectionDataReader : IDataReader
+{
+    /// <summary>
+    /// Gets the object currently being pointed at by the data reader.
+    /// </summary>
+    object? CurrentRecord { get; }
+}
+
+/// <summary>
 /// Uses an <see cref="IEnumerable"/> set, and an <see cref="IDbTableSchema"/>
 /// to be used as an <see cref="IDataReader"/>.
 /// </summary>
-public class CollectionDataReader : IDataReader
+internal class CollectionDataReader : ICollectionDataReader
 {
     private const string ReaderNotReadyMessage = "The reader is either closed, past the end of the last record, or has not read any records.";
     private readonly IDbTableSchema Schema;
@@ -15,7 +26,12 @@ public class CollectionDataReader : IDataReader
     private bool ReadState;
     private ITypeInfo? ItemTypeInfo;
     
-
+    /// <summary>
+    /// Creates a new instance of the <see cref="CollectionDataReader"/> class.
+    /// </summary>
+    /// <param name="enumerator">The enumerator.</param>
+    /// <param name="schema">The schema for the data reader.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public CollectionDataReader(IEnumerator enumerator, IDbTableSchema schema)
     {
         if (enumerator is null)
@@ -26,6 +42,25 @@ public class CollectionDataReader : IDataReader
 
         Enumerator = enumerator;
         Schema = schema;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CollectionDataReader"/> class.
+    /// </summary>
+    /// <param name="enumerator">The enumerator.</param>
+    /// <param name="itemType">The item type which produces a basic schema for the data reader.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public CollectionDataReader(IEnumerator enumerator, Type itemType)
+    {
+        if (enumerator is null)
+            throw new ArgumentNullException(nameof(enumerator));
+
+        if (itemType is null)
+            throw new ArgumentNullException(nameof(itemType));
+
+        Enumerator = enumerator;
+        Schema = itemType.ToTableSchema();
+        ItemTypeInfo = itemType.TypeInfo();
     }
 
 
@@ -61,10 +96,8 @@ public class CollectionDataReader : IDataReader
     /// <inheritdoc />
     public int RecordsAffected => -1;
 
-    /// <summary>
-    /// Gets the object currently pointed at by this reader.
-    /// </summary>
-    public object? CurrentRecord { get; protected set; }
+    /// <inheritdoc />
+    public virtual object? CurrentRecord { get; protected set; }
 
     /// <summary>
     /// Gets a value indicating whether a record is current and ready to be read.
@@ -257,8 +290,6 @@ public class CollectionDataReader : IDataReader
             return Read();
 
         ItemTypeInfo ??= CurrentRecord.GetType().TypeInfo();
-        Schema ??= ItemTypeInfo.GetSchemaTable();
-
         return ReadState = true;
     }
 
@@ -292,4 +323,37 @@ public class CollectionDataReader : IDataReader
         if (alsoManaged)
             Close();
     }
+}
+
+/// <summary>
+/// Represents a DataReader that was derived from a collection.
+/// </summary>
+public interface ICollectionDataReader<T> : ICollectionDataReader
+{
+    /// <summary>
+    /// Gets the object currently being pointed at by the data reader.
+    /// </summary>
+    T? CurrenRecord { get; }
+}
+
+/// <summary>
+/// Represents a strongly-typed instance of a <see cref="CollectionDataReader"/> class.
+/// </summary>
+/// <typeparam name="T">The type of the collection's items.</typeparam>
+internal class CollectionDataReader<T> : CollectionDataReader, ICollectionDataReader<T>
+{
+    public CollectionDataReader(IEnumerator<T> enumerator, IDbTableSchema schema) :
+        base(enumerator, schema)
+    {
+        // placeholder
+    }
+
+    public CollectionDataReader(IEnumerator<T> enumerator) :
+        base(enumerator, typeof(T))
+    {
+        // placeholder
+    }
+
+    /// <inheritdoc />
+    public T? CurrenRecord => base.CurrentRecord is T value ? value : default;
 }
