@@ -83,7 +83,7 @@ internal static class DataPlayground
             dummyProject with { Name = "Dummy 3", ProjectType = ProjectTypes.Exciting, ProjectManagementTypeId = 1 },
         };
 
-        var reader = items.GetDataReader();
+        var reader = items.ToDataReader();
 
         var schemaTable = reader.GetSchemaTable();
         while (reader.Read())

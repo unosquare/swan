@@ -1,5 +1,7 @@
 ﻿namespace Swan.Data.SqlBulkOps;
 
+using Swan.Data.Extensions;
+
 public static class BulkInsertExtensions
 {
     public static async Task<long> BulkInsertAsync(this ITableContext table,
@@ -7,6 +9,7 @@ public static class BulkInsertExtensions
         DbTransaction? transaction = default,
         bool truncate = false,
         bool keepKeys = true,
+        int timeoutSeconds = 0,
         int batchSize = 1000,
         int notifyAfter = 100,
         Action<ITableContext, long>? rowsCopiedCallback = default,
@@ -28,14 +31,27 @@ public static class BulkInsertExtensions
         var bulkCopyOptions = SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.KeepNulls;
         if (keepKeys) bulkCopyOptions |= SqlBulkCopyOptions.KeepIdentity;
 
-        using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, tran);
-        bulkOperation.BatchSize = batchSize;
+        using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, tran)
+        {
+            BatchSize = batchSize,
+            DestinationTableName = table.Provider.QuoteTable(table.TableName, table.Schema),
+            EnableStreaming = true,
+            BulkCopyTimeout = timeoutSeconds
+        };
 
         if (rowsCopiedCallback is not null)
         {
             bulkOperation.NotifyAfter = notifyAfter;
             bulkOperation.SqlRowsCopied += (s, e) => rowsCopiedCallback?.Invoke(table, e.RowsCopied);
         }
+
+        foreach (var column in table.Columns)
+            bulkOperation.ColumnMappings.Add(column.Name, column.Name);
+
+        using var reader = items.ToDataReader(table);
+        await bulkOperation.WriteToServerAsync(reader, ct).ConfigureAwait(false);
+
+
 
         return 0;
     }
