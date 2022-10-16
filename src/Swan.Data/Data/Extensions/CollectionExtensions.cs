@@ -54,7 +54,35 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Converts a <see cref="IDbTableSchema"/> object into its <see cref="DataTable"/>
+    /// Converts a type to a compatible form of <see cref="IDbTableSchema"/>.
+    /// </summary>
+    /// <param name="objectType">The type to produce the schema from.</param>
+    /// <returns>A table schema.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static IDbTableSchema ToTableSchema(this Type objectType)
+    {
+        if (objectType is null)
+            throw new ArgumentNullException(nameof(objectType));
+
+        var typeInfo = objectType.TypeInfo();
+        var columns = new List<IDbColumnSchema>(128);
+
+        var columnIndex = 0;
+        foreach (var property in typeInfo.Properties())
+        {
+            var columnSchema = property.ToColumnSchema(columnIndex);
+            if (columnSchema is null)
+                continue;
+
+            columns.Add(columnSchema);
+            columnIndex++;
+        }
+
+        return new DbTableSchema("database", objectType.Name, string.Empty, columns);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="IDbTableSchema"/> object into its <see cref="DataTable"/> representation.
     /// </summary>
     /// <param name="tableSchema">The table schema to convert.</param>
     /// <returns>A DataTable that represents the schema.</returns>
@@ -82,7 +110,7 @@ public static class CollectionExtensions
                         continue;
 
                     dataTable.Columns.Add(col.PropertyName, col.PropertyType.NativeType);
-                }  
+                }
             }
 
             dataTable.AddSchemaRow(column, columnSchemaType);
@@ -90,6 +118,31 @@ public static class CollectionExtensions
 
         return dataTable;
     }
+
+    /// <summary>
+    /// Converst a type's properties into a DataTable representing it's basic schema.
+    /// </summary>
+    /// <param name="objectType">The type to extract the schema from.</param>
+    /// <returns>A <see cref="DataTable"/> containing the types schema.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static DataTable ToSchemaTable(this Type objectType) => objectType is null
+        ? throw new ArgumentNullException(nameof(objectType))
+        : objectType.ToTableSchema().ToSchemaTable();
+
+    internal static IDbColumnSchema? ToColumnSchema(this IPropertyProxy objectProperty, int columnIndex) =>
+        !DbTypeMapper.Default.TryGetProviderTypeFor(objectProperty.PropertyType.NativeType, out var providerType)
+            ? null
+            : objectProperty.PropertyName.Contains('.', StringComparison.Ordinal)
+            ? null
+            : new DbColumnSchema
+            {
+                DataType = objectProperty.PropertyType.NativeType,
+                AllowsDBNull = objectProperty.PropertyType.IsNullable,
+                Name = objectProperty.PropertyName,
+                IsReadOnly = !objectProperty.CanWrite,
+                ProviderDataType = providerType,
+                Ordinal = columnIndex,
+            } as IDbColumnSchema;
 
     internal static DataRow AddSchemaRow(this DataTable schemaTable, IDbColumnSchema columnSchema, ITypeInfo? columnSchemaType = default)
     {
@@ -112,57 +165,6 @@ public static class CollectionExtensions
         }
 
         return schemaTable.Rows.Add(rowValues);
-    }
-
-    public static DataTable GetSchemaTable(this ITypeInfo objectType, string? tableName = default)
-    {
-        var table = new DataTable
-        {
-            TableName = tableName ?? objectType.NativeType.Name
-        };
-
-        var schemaTypeInfo = typeof(IDbColumnSchema).TypeInfo();
-        var schemaTypeProps = schemaTypeInfo.Properties();
-
-        foreach (var schemaColumn in schemaTypeProps)
-            table.Columns.Add(schemaColumn.PropertyName, schemaColumn.PropertyType.NativeType);
-
-        var objectProperties = objectType.Properties();
-
-        var columnIndex = 0;
-        foreach (var objectProperty in objectProperties)
-        {
-            if (!DbTypeMapper.Default.TryGetProviderTypeFor(objectProperty.PropertyType.NativeType, out var providerType))
-                continue;
-
-            if (objectProperty.PropertyName.Contains('.', StringComparison.Ordinal))
-                continue;
-
-            var columnSchema = new DbColumnSchema
-            {
-                DataType = objectProperty.PropertyType.NativeType,
-                AllowsDBNull = objectProperty.PropertyType.IsNullable,
-                Name = objectProperty.PropertyName,
-                IsReadOnly = !objectProperty.CanWrite,
-                Ordinal = columnIndex,
-                ProviderDataType = providerType
-            };
-            columnIndex++;
-
-            var fieldValues = new object?[schemaTypeProps.Count];
-            var fieldIndex = 0;
-            foreach (var propery in schemaTypeProps)
-            {
-                if (propery.TryRead(column, out var value))
-                    fieldValues[fieldIndex] = value;
-
-                fieldIndex++;
-            }
-
-            table.Rows.Add(fieldValues);
-        }
-
-        return table;
     }
 
     public static IDataReader GetDataReader(this IEnumerable collection, IDbTableSchema schema)

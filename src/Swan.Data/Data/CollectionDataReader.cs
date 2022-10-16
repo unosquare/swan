@@ -1,5 +1,6 @@
 ﻿namespace Swan.Data;
 
+using Swan.Data.Extensions;
 using System.Collections;
 
 /// <summary>
@@ -88,37 +89,8 @@ public class CollectionDataReader : IDataReader
     public Type GetFieldType(int i) => Schema[i]!.DataType!;
 
     /// <inheritdoc />
-    public DataTable? GetSchemaTable()
-    {
-        var table = new DataTable
-        {
-            TableName = Schema.TableName
-        };
-
-        var typeInfo = typeof(IDbColumnSchema).TypeInfo();
-        var properties = typeInfo.Properties();
-
-        foreach (var property in properties)
-            table.Columns.Add(property.PropertyName, property.PropertyType.NativeType);
-
-        foreach (var column in Schema.Columns)
-        {
-            var fieldValues = new object?[properties.Count];
-            var fieldIndex = 0;
-            foreach (var propery in properties)
-            {
-                if (propery.TryRead(column, out var value))
-                    fieldValues[fieldIndex] = value;
-
-                fieldIndex++;
-            }
-
-            table.Rows.Add(fieldValues);
-        }
-
-        return table;
-    }
-
+    public DataTable? GetSchemaTable() => Schema.ToSchemaTable();
+    
     #endregion
 
     #region Special Datum Getters
@@ -285,6 +257,7 @@ public class CollectionDataReader : IDataReader
             return Read();
 
         ItemTypeInfo ??= CurrentRecord.GetType().TypeInfo();
+        Schema ??= ItemTypeInfo.GetSchemaTable();
 
         return ReadState = true;
     }
