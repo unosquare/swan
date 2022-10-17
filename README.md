@@ -1,4 +1,3 @@
-[![NuGet](https://img.shields.io/nuget/dt/Unosquare.Swan.svg)](https://www.nuget.org/packages/Unosquare.Swan)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=unosquare_swan&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=unosquare_swan)
 
 # <img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"></img> SWAN: Stuff We All Need (Unosquare's collection of C# extension methods and classes)
