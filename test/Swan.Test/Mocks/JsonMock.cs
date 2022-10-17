@@ -151,7 +151,7 @@ public class InnerJsonPropertySample
     public JsonPropertySample? Inner { get; set; }
 }
 
-public class JsonIngoreNestedPropertySample
+public class JsonIgnoreNestedPropertySample
 {
     [JsonPropertyName("id")]
     public string? Id { get; set; }
@@ -160,7 +160,7 @@ public class JsonIngoreNestedPropertySample
     public int Data { get; set; }
 }
 
-public class JsonIngorePropertySample
+public class JsonIgnorePropertySample
 {
     [JsonPropertyName("id")]
     [JsonIgnore]
@@ -170,7 +170,7 @@ public class JsonIngorePropertySample
     public string? Name { get; set; }
 
     [JsonPropertyName("inner")]
-    public JsonIngoreNestedPropertySample? Inner { get; set; }
+    public JsonIgnoreNestedPropertySample? Inner { get; set; }
 }
 
 public struct SampleStruct : IEquatable<SampleStruct>
@@ -178,30 +178,15 @@ public struct SampleStruct : IEquatable<SampleStruct>
     public int Value;
     public string Name;
 
-    public override bool Equals(object obj)
-    {
-        throw new NotImplementedException();
-    }
+    public override bool Equals(object obj) => throw new NotImplementedException();
 
-    public override int GetHashCode()
-    {
-        throw new NotImplementedException();
-    }
+    public override int GetHashCode() => throw new NotImplementedException();
 
-    public static bool operator ==(SampleStruct left, SampleStruct right)
-    {
-        return left.Equals(right);
-    }
+    public static bool operator ==(SampleStruct left, SampleStruct right) => left.Equals(right);
 
-    public static bool operator !=(SampleStruct left, SampleStruct right)
-    {
-        return !(left == right);
-    }
+    public static bool operator !=(SampleStruct left, SampleStruct right) => !(left == right);
 
-    public bool Equals(SampleStruct other)
-    {
-        throw new NotImplementedException();
-    }
+    public bool Equals(SampleStruct other) => throw new NotImplementedException();
 }
 
 public class ObjectEnum

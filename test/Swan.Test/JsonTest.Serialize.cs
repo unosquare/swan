@@ -219,7 +219,7 @@ public class SerializeExcluding : JsonTest
     [Test]
     public void WithInnerJsonProperty_ReturnsObjectSerializedWithoutExcludingRepeatedProps()
     {
-        var data = new JsonIngorePropertySample { Id = "22332", Name = "Yeyo", Inner = new() { Id = "AESD", Data = 44, }, };
+        var data = new JsonIgnorePropertySample { Id = "22332", Name = "Yeyo", Inner = new() { Id = "AESD", Data = 44, }, };
 
         var dataSerialized = data.JsonSerialize();
 
