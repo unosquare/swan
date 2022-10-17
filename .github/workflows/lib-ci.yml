@@ -54,16 +54,16 @@ jobs:
         csproj: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj'
     - name: 🏗 Build and pack nuget
       run: |
-        dotnet pack '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release 
+        dotnet pack '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release
+    - name: 📌 Commit
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: '[skip ci]'
     - name: 🍱 Publish nuget
       uses: unosquare/publish-nuget-package@master
       with:
         access-token: ${{ secrets.github-token }}
         path: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release'
-    - name: 📌 Commit
-      uses: EndBug/add-and-commit@v9
-      with:
-        message: '[skip ci]'
     - name: 🌿 Clean up stale packages
       uses: actions/delete-package-versions@v3
       with: 

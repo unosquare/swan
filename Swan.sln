@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2B307C2C-8FC4-492F-80D7-D56F818C8482}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\ci-all.yml = .github\workflows\ci-all.yml
 		docfx.json = docfx.json
 		.github\workflows\lib-ci.yml = .github\workflows\lib-ci.yml
