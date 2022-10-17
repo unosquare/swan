@@ -44,6 +44,11 @@ public sealed class DbCommandSource : IDbConnected
         : _commandText.ToString();
 
     /// <summary>
+    /// Gets a value indicating whether the current command text is empty.
+    /// </summary>
+    public bool IsEmpty => (_commandText?.Length ?? 0) > 0;
+
+    /// <summary>
     /// Appends the specified text to the command. Automatically pre-appends
     /// a space if the current text does not end with a whitespace character.
     /// Nothing is appended if the text provided is null or whitespace.

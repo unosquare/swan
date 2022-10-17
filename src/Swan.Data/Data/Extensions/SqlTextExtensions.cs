@@ -272,4 +272,26 @@ public static class SqlTextExtensions
 
         return @this.AppendText(builder.ToString());
     }
+
+    /// <summary>
+    /// Appends a FROM keyword to the command text, and optionally appends
+    /// a table identifier to the command text.
+    /// </summary>
+    /// <param name="this">The instance.</param>
+    /// <param name="tableName">The name of the table</param>
+    /// <param name="schemaName">The optional schema name.</param>
+    /// <returns>This instance for fluent API support.</returns>
+    public static DbCommandSource Truncate(this DbCommandSource @this, string? tableName = default, string? schemaName = default)
+    {
+        if (@this is null)
+            throw new ArgumentNullException(nameof(@this));
+
+        if (!@this.IsEmpty)
+            throw new InvalidOperationException("Cannot add TRUNCATE command to non-empty command builder.");
+
+        @this.AppendText("TRUNCATE");
+        return !string.IsNullOrEmpty(tableName)
+            ? @this.Table(tableName, schemaName)
+            : @this;
+    }
 }

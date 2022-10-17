@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Swan.Data.SqlBulkOps\Swan.Data.SqlBulkOps.csproj" />
 		<ProjectReference Include="..\Swan.Data\Swan.Data.csproj" />
 		<ProjectReference Include="..\Swan.Logging\Swan.Logging.csproj" />
 		<ProjectReference Include="..\Swan.Threading\Swan.Threading.csproj" />

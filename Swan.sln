@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2B307C2C-8
 		.github\workflows\lib-publish-nuget-org.yml = .github\workflows\lib-publish-nuget-org.yml
 		LICENSE = LICENSE
 		.github\workflows\publish-core.yml = .github\workflows\publish-core.yml
+		.github\workflows\publish-data.sqlbulkops.yml = .github\workflows\publish-data.sqlbulkops.yml
+		.github\workflows\publish-data.yml = .github\workflows\publish-data.yml
 		.github\workflows\publish-logging.yml = .github\workflows\publish-logging.yml
 		README.md = README.md
 	EndProjectSection
@@ -32,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Core", "src\Swan.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Data", "src\Swan.Data\Swan.Data.csproj", "{DC9406F8-E9A4-44C9-BCD3-1816DD4C012D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swan.Data.SqlBulkOps", "src\Swan.Data.SqlBulkOps\Swan.Data.SqlBulkOps.csproj", "{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swan.Data.SqlBulkOps", "src\Swan.Data.SqlBulkOps\Swan.Data.SqlBulkOps.csproj", "{5C2BB420-2A23-4CEC-81F5-72903EDF38B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

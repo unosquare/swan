@@ -4,6 +4,7 @@ using Data.Extensions;
 using Logging;
 using Microsoft.Data.Sqlite;
 using Platform;
+using Swan.Data.SqlBulkOps;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
@@ -17,7 +18,7 @@ internal static class DataPlayground
     {
         if (false)
             await SqliteStuff();
-        
+
         //return;
         //var liteName = typeof(SqliteConnection).FullName;
 
@@ -35,7 +36,10 @@ internal static class DataPlayground
 
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
-        await connection.TestSampleInsertButBetter();
+        if (false)
+            await connection.TestSampleInsertButBetter();
+
+        await connection.TestSqlBulkInsert();
     }
 
     private static async Task SqliteStuff()
@@ -56,6 +60,42 @@ internal static class DataPlayground
         });
 
         Console.WriteLine(project);
+    }
+
+    private static async Task TestSqlBulkInsert(this DbConnection connection)
+    {
+        // Now, instead of doing all that stuff manually, if we play with
+        // typical game rules, we can do stuff in a much simpler way :)
+        var projects = connection.Table<Project>("Projects");
+
+        // We'll use a transaction in this example. We won't actually insert anything.
+        // since we will be rolling back the transaction.
+        await using var tran = await connection.BeginTransactionAsync();
+
+        var dummyProject = new Project()
+        {
+            Name = "Dummy",
+            CompanyId = 61,
+            ProjectScope = "DummyScope",
+            ProjectManagementTypeId = 2,
+            ProjectType = ProjectTypes.Exciting
+        };
+
+        const int ItemCount = 10006;
+
+        var items = new List<Project>(ItemCount);
+        for (var i = 0; i < ItemCount; i++)
+        {
+            items.Add(dummyProject with { Name = $"Dummy {(i + 1)}" });
+        }
+
+        var totalRows = await projects.BulkInsertAsync<Project>(items, tran, keepKeys: false,
+            rowsCopiedCallback: (t, c) => $"BULK INSERT (Notify): {c}".Info()).ConfigureAwait(false);
+
+        $"BULK INSERT (Completed): {totalRows}".Info();
+
+        await tran.RollbackAsync();
+
     }
 
     private static async Task TestSampleInsertButBetter(this DbConnection connection)
