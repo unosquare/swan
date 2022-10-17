@@ -1,4 +1,4 @@
-name: Publish Swan.Data to Nuget.org
+name: Publish Swan.Data.SqlBulkOps to Nuget.org
 on: workflow_dispatch
 
 jobs:

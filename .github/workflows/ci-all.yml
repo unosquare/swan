@@ -33,4 +33,11 @@ jobs:
       project-name: 'Swan.Data'
     secrets:
       github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}
-      
+  swan-data.sqlbulkops:
+    needs: swan-data
+    uses: unosquare/swan/.github/workflows/lib-ci.yml@master
+    with:
+      source-path: 'src/'
+      project-name: 'Swan.Data.SqlBulkOps'
+    secrets:
+      github-token: ${{ secrets.MAD_PACKAGE_MGMNT }}

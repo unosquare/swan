@@ -65,6 +65,9 @@ public class RangeLookup<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc />
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
     {
+        if (array is null)
+            throw new ArgumentNullException(nameof(array));
+
         var index = 0;
         foreach (var kvp in _values)
         {

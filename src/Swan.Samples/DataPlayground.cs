@@ -89,7 +89,7 @@ internal static class DataPlayground
             items.Add(dummyProject with { Name = $"Dummy {(i + 1)}" });
         }
 
-        var totalRows = await projects.BulkInsertAsync<Project>(items, tran, keepKeys: false,
+        var totalRows = await projects.BulkInsertAsync<Project>(items, tran, keepIdentity: false,
             rowsCopiedCallback: (t, c) => $"BULK INSERT (Notify): {c}".Info()).ConfigureAwait(false);
 
         $"BULK INSERT (Completed): {totalRows}".Info();
