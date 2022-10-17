@@ -11,18 +11,4 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
 
 ## 💾 Installation:
 
-Swan Standard Installation:
-
-[![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.svg)](https://badge.fury.io/nu/Unosquare.Swan)
-
-```
-PM> Install-Package Unosquare.Swan
-```
-
-Swan Lite Installation:
-
-[![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.Lite.svg)](https://badge.fury.io/nu/Unosquare.Swan.Lite)
-
-```
-PM> Install-Package Unosquare.Swan.Lite
-```
+Check the Nugets page for the latest version of SWAN: https://github.com/orgs/unosquare/packages?repo_name=swan
