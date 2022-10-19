@@ -58,7 +58,7 @@ jobs:
     - name: 📌 Commit
       uses: EndBug/add-and-commit@v9
       with:
-        pull: true
+        fetch: false
         message: '[skip ci]'
     - name: 🍱 Publish nuget
       uses: unosquare/publish-nuget-package@master
