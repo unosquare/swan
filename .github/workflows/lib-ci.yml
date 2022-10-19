@@ -37,16 +37,16 @@ jobs:
   lib-ci:
     runs-on: ubuntu-latest
     steps:
-    - name: 🧑‍💻 Checkout codebase
-      uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.github-token }}
     - name: 🥓 Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
           5.0.x
           6.0.x
+    - name: 🧑‍💻 Checkout codebase
+      uses: actions/checkout@v3.0.2
+      with:
+        token: ${{ secrets.github-token }}
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
       with:
@@ -58,8 +58,6 @@ jobs:
     - name: 📌 Commit
       uses: EndBug/add-and-commit@v9
       with:
-        fetch: false
-        pull: '--rebase'
         message: '[skip ci]'
     - name: 🍱 Publish nuget
       uses: unosquare/publish-nuget-package@master
