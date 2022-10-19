@@ -202,7 +202,8 @@ public class DbProvider
         $"LIMIT {take} OFFSET {skip}";
 
     /// <inheritdoc/>
-    protected (string quotedTableName, IOrderedEnumerable<IDbColumnSchema> orderedFields) GetQuotedTableNameAndColumns(DbConnection connection,
+    protected (string quotedTableName, IOrderedEnumerable<IDbColumnSchema> orderedFields) GetQuotedTableNameAndColumns(
+        DbConnection connection,
         IDbTableSchema table)
     {
         if (table is null)

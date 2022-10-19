@@ -1,8 +1,5 @@
 ﻿namespace Swan.Data;
 
-using Swan.Data.Extensions;
-using System.Collections;
-
 /// <summary>
 /// Represents a DataReader that was derived from a collection.
 /// </summary>
@@ -12,6 +9,17 @@ public interface ICollectionDataReader : IDataReader
     /// Gets the object currently being pointed at by the data reader.
     /// </summary>
     object? CurrentRecord { get; }
+}
+
+/// <summary>
+/// Represents a DataReader that was derived from a typed collection.
+/// </summary>
+public interface ICollectionDataReader<T> : ICollectionDataReader
+{
+    /// <summary>
+    /// Gets the object currently being pointed at by the data reader.
+    /// </summary>
+    T? CurrenRecord { get; }
 }
 
 /// <summary>
@@ -115,7 +123,7 @@ internal class CollectionDataReader : ICollectionDataReader
     public string GetName(int i) => Schema[i]!.Name;
 
     /// <inheritdoc />
-    public int GetOrdinal(string name) => Schema.GetColumnIndex(name);
+    public int GetOrdinal(string name) => Schema.GetColumnOrdinal(name);
 
     /// <inheritdoc />
     [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)]
@@ -323,17 +331,6 @@ internal class CollectionDataReader : ICollectionDataReader
         if (alsoManaged)
             Close();
     }
-}
-
-/// <summary>
-/// Represents a DataReader that was derived from a collection.
-/// </summary>
-public interface ICollectionDataReader<T> : ICollectionDataReader
-{
-    /// <summary>
-    /// Gets the object currently being pointed at by the data reader.
-    /// </summary>
-    T? CurrenRecord { get; }
 }
 
 /// <summary>

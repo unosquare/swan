@@ -538,6 +538,214 @@ public static class CommandExtensions
         command.CommandType = commandType;
         return command;
     }
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// The associated command is automatically disposed after iterating over the elements.
+    /// </summary>
+    /// <typeparam name="T">The type of elements to return.</typeparam>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<T> Query<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.Default)
+    {
+        if (command == null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (command.Connection is null)
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
+
+        command.Connection.EnsureConnected();
+        deserialize ??= (r) => r.ParseObject<T>();
+        var reader = command.ExecuteOptimizedReader(behavior);
+
+        try
+        {
+            if (reader.FieldCount == 0)
+                yield break;
+
+            while (reader.Read())
+            {
+                yield return deserialize(reader);
+            }
+
+            // skip the following result sets.
+            while (reader.NextResult()) { }
+            reader.Dispose();
+            reader = null;
+        }
+        finally
+        {
+            if (reader != null)
+            {
+                if (!reader.IsClosed)
+                {
+                    try { command.Cancel(); }
+                    catch { /* ignore */ }
+                }
+                reader.Dispose();
+            }
+
+            command.Parameters?.Clear();
+            command.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a foward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time.
+    /// The associated command is automatically disposed after iterating over the elements.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static IEnumerable<dynamic> Query(this DbCommand command, CommandBehavior behavior = CommandBehavior.Default) =>
+        command.Query((r) => r.ParseExpando(), behavior);
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a forward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time. The command is automatically disposed
+    /// after the iteration completes.
+    /// </summary>
+    /// <typeparam name="T">The type of elements to return.</typeparam>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static async IAsyncEnumerable<T> QueryAsync<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.Default,
+        [EnumeratorCancellation] CancellationToken ct = default)
+    {
+        if (command is null)
+            throw new ArgumentNullException(nameof(command));
+
+        if (command.Connection is null)
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
+
+        await command.Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
+        deserialize ??= (r) => r.ParseObject<T>();
+        var reader = await command.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
+
+        try
+        {
+            if (reader.FieldCount <= 0)
+                yield break;
+
+            while (await reader.ReadAsync(ct).ConfigureAwait(false))
+                yield return deserialize(reader);
+
+            // Skip the following result sets.
+            while (await reader.NextResultAsync(ct).ConfigureAwait(false)) { }
+
+            // Gracefully dispose the reader.
+            await reader.DisposeAsync().ConfigureAwait(false);
+            reader = null;
+        }
+        finally
+        {
+            if (reader is not null)
+            {
+                if (!reader.IsClosed)
+                {
+                    try { command.Cancel(); }
+                    catch { /* ignore */ }
+                }
+
+                await reader.DisposeAsync().ConfigureAwait(false);
+            }
+
+            command.Parameters?.Clear();
+            await command.DisposeAsync().ConfigureAwait(false);
+        }
+    }
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// and provides a forward-only enumerable set which can then be processed by
+    /// iterating over records, one at a time. The command is automatically disposed
+    /// after the iteration completes.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>An enumerable, forward-only data source.</returns>
+    public static async IAsyncEnumerable<dynamic> QueryAsync(this DbCommand command,
+        CommandBehavior behavior = CommandBehavior.Default,
+        [EnumeratorCancellation] CancellationToken ct = default)
+    {
+        var enumerable = command.QueryAsync((r) => r.ParseExpando(), behavior, ct);
+        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
+            yield return item;
+    }
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// containing a single row of data.
+    /// The associated command is automatically disposed after returning the first element.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization function used to produce the typed items based on the records.</param>
+    /// <returns>The parse object.</returns>
+    public static T? FirstOrDefault<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.SingleRow) =>
+        command.Query(deserialize, behavior).FirstOrDefault();
+
+    /// <summary>
+    /// Executes a data reader in the underlying stream as a single result set
+    /// containing a single row of data.
+    /// The associated command is automatically disposed after returning the first element.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <returns>The parse object.</returns>
+    public static dynamic? FirstOrDefault(this DbCommand command, CommandBehavior behavior = CommandBehavior.SingleRow) =>
+        command.Query(behavior).FirstOrDefault();
+
+    /// <summary>
+    /// Retrieves the first result from a query command and parses it as an
+    /// object of the given type.
+    /// </summary>
+    /// <typeparam name="T">The type of element to return.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="deserialize">The deserialization callback.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The element to return or null of not found.</returns>
+    public static async Task<T?> FirstOrDefaultAsync<T>(this DbCommand command,
+        Func<IDataRecord, T>? deserialize = default,
+        CommandBehavior behavior = CommandBehavior.SingleRow,
+        CancellationToken ct = default)
+    {
+        var enumerable = command.QueryAsync(deserialize, behavior, ct);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieves the first result from a query command and parses it as a
+    /// <see cref="ExpandoObject"/>.
+    /// </summary>
+    /// <param name="command">The command.</param>
+    /// <param name="behavior">The command behavior.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The element to return or null of not found.</returns>
+    public static async Task<dynamic?> FirstOrDefaultAsync(this DbCommand command,
+        CommandBehavior behavior = CommandBehavior.SingleRow,
+        CancellationToken ct = default)
+    {
+        var enumerable = command.QueryAsync(behavior, ct);
+        return await enumerable.FirstOrDefaultAsync(ct).ConfigureAwait(false);
+    }
 }
 
 #pragma warning restore CA1031 // Do not catch general exception types

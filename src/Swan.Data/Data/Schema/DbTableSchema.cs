@@ -1,9 +1,11 @@
 ﻿namespace Swan.Data.Schema;
 
+using System.Data.Common;
+
 /// <summary>
 /// Represents table structure information from the backing data store.
 /// </summary>
-internal sealed class DbTableSchema : IDbTableSchema
+internal class DbTableSchema : IDbTableSchema
 {
     /// <summary>
     /// Holds the column collection as a dictionary where column names are case-insensitive.
@@ -18,7 +20,7 @@ internal sealed class DbTableSchema : IDbTableSchema
     /// <summary>
     /// Holds column names by index.
     /// </summary>
-    private readonly Dictionary<string, int> _columnIndexes = new(128, StringComparer.InvariantCultureIgnoreCase);
+    private readonly Dictionary<string, int> _columnOrdinals = new(128, StringComparer.InvariantCultureIgnoreCase);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DbTableSchema"/> class.
@@ -36,6 +38,24 @@ internal sealed class DbTableSchema : IDbTableSchema
             return;
 
         foreach (var column in columns)
+            AddColumn(column);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="DbTableSchema"/> class.
+    /// </summary>
+    /// <param name="other">The table schema object to copy.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public DbTableSchema(IDbTableSchema other)
+    {
+        if (other is null)
+            throw new ArgumentNullException(nameof(other));
+
+        Database = other.Database;
+        TableName = other.TableName;
+        Schema = other.Schema;
+
+        foreach (var column in other.Columns)
             AddColumn(column);
     }
 
@@ -89,35 +109,44 @@ internal sealed class DbTableSchema : IDbTableSchema
 
         _columnsByName[column.Name] = column;
         _columnList.Add(column);
-        _columnIndexes[column.Name] = _columnList.Count - 1;
+
+        var ordinal = _columnList.Count - 1;
+        _columnOrdinals[column.Name] = ordinal;
+        if (column.Ordinal != ordinal)
+            _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.Ordinal), ordinal);
 
         return this;
     }
 
     /// <inheritdoc />
-    public IDbTableSchema RemoveColumn(string name)
+    public IDbTableSchema RemoveColumn(string columnName)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(columnName))
             return this;
 
-        var removalTarget = this[name];
+        var removalTarget = this[columnName];
         if (removalTarget is not null)
         {
             _columnList.Remove(removalTarget);
-            _columnsByName.Remove(name);
+            _columnsByName.Remove(columnName);
+            _columnOrdinals.Clear();
 
-            _columnIndexes.Clear();
-            for (var i = 0; i < _columnList.Count; i++)
-                _columnIndexes[_columnList[i].Name] = i;
+            for (var ordinal = 0; ordinal < _columnList.Count; ordinal++)
+            {
+                var column = _columnList[ordinal];
+                _columnOrdinals[column.Name] = ordinal;
+                if (column.Ordinal != ordinal)
+                    _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.Ordinal), ordinal);
+            }
         }
 
         return this;
     }
 
     /// <inheritdoc />
-    public int GetColumnIndex(string columnName) => string.IsNullOrWhiteSpace(columnName)
+    public int GetColumnOrdinal(string columnName) => string.IsNullOrWhiteSpace(columnName)
             ? throw new ArgumentNullException(nameof(columnName))
-            : !_columnIndexes.TryGetValue(columnName, out var index)
+            : !_columnOrdinals.TryGetValue(columnName, out var index)
             ? throw new KeyNotFoundException($"Column with name '{columnName}' could not be found.")
             : index;
 

@@ -4,7 +4,7 @@
 /// A table context that maps between a given type and a data store.
 /// </summary>
 /// <typeparam name="T">The type this table context maps to.</typeparam>
-public class TableContext<T> : TableContext, ITableContext<T>
+internal class TableContext<T> : TableContext, ITableContext<T>
     where T : class
 {
     /// <summary>

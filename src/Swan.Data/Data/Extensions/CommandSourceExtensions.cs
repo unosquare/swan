@@ -3,7 +3,7 @@
 /// <summary>
 /// Extension methods to build SQL command text using <see cref="DbCommandSource"/> objects.
 /// </summary>
-public static class SqlTextExtensions
+public static class CommandSourceExtensions
 {
     /// <summary>
     /// Appends the SELECT keyword to the command text.
@@ -274,8 +274,8 @@ public static class SqlTextExtensions
     }
 
     /// <summary>
-    /// Appends a FROM keyword to the command text, and optionally appends
-    /// a table identifier to the command text.
+    /// Appends a TRUNCATE TABLE command to the command text, and appends
+    /// its table identifier.
     /// </summary>
     /// <param name="this">The instance.</param>
     /// <param name="tableName">The name of the table</param>
@@ -289,7 +289,7 @@ public static class SqlTextExtensions
         if (!@this.IsEmpty)
             throw new InvalidOperationException("Cannot add TRUNCATE command to non-empty command builder.");
 
-        @this.AppendText("TRUNCATE");
+        @this.AppendText("TRUNCATE TABLE");
         return !string.IsNullOrEmpty(tableName)
             ? @this.Table(tableName, schemaName)
             : @this;

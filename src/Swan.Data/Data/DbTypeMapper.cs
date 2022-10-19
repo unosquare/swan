@@ -6,6 +6,8 @@
 /// </summary>
 internal class DbTypeMapper : IDbTypeMapper
 {
+    private static readonly Lazy<DbTypeMapper> _defaultMapperLazy = new(true);
+
     protected readonly Dictionary<Type, DbType> DbTypeMap = new(64)
     {
         [typeof(byte)] = DbType.Byte,
@@ -51,8 +53,6 @@ internal class DbTypeMapper : IDbTypeMapper
         [typeof(DateTimeOffset)] = "DATETIMEOFFSET",
         [typeof(byte[])] = "VARBINARY(MAX)",
     };
-
-    private static readonly Lazy<DbTypeMapper> _defaultMapperLazy = new(true);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DbTypeMapper"/> class.

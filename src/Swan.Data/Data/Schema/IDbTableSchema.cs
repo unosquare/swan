@@ -73,11 +73,11 @@ public interface IDbTableSchema
     IReadOnlyList<IDbColumnSchema> UpdateableColumns { get; }
 
     /// <summary>
-    /// Gets the 0-based index of the column in the order they were added.
+    /// Gets the 0-based ordinal of the column in the order they were added.
     /// </summary>
     /// <param name="columnName">The name of the column.</param>
     /// <returns></returns>
-    int GetColumnIndex(string columnName);
+    int GetColumnOrdinal(string columnName);
 
     /// <summary>
     /// Adds a column to the table schema.

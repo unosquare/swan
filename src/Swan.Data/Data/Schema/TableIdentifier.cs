@@ -12,4 +12,3 @@ public sealed record TableIdentifier(string Name, string Schema)
     /// </summary>
     public TableIdentifier() : this(string.Empty, string.Empty) { }
 }
-

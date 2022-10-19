@@ -25,7 +25,7 @@ internal static class DataPlayground
         // Create a connection as usual.
         await using var connection = new SqlConnection(ConnectionString);
 
-        var text = connection.TableBuilder<Project>("Projects").CreateDdlCommand().CommandText;
+        var text = connection.TableBuilder<Project>("Projects").BuildDdlCommand().CommandText;
 
         var names = await connection.GetTableNamesAsync();
 

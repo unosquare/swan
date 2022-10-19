@@ -4,7 +4,7 @@
 /// Represents table structure information bound to a particular connection
 /// and from which you can issue table specific CRUD commands.
 /// </summary>
-public partial class TableContext : ITableContext
+internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilder
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TableContext"/> class.
@@ -13,8 +13,8 @@ public partial class TableContext : ITableContext
     /// <param name="schema">The table schema information.</param>
     /// <exception cref="ArgumentNullException"></exception>
     public TableContext(DbConnection connection, IDbTableSchema schema)
+        : base(schema)
     {
-        TableSchema = schema ?? throw new ArgumentNullException(nameof(schema));
         Connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Provider = connection.Provider();
     }
@@ -85,5 +85,25 @@ public partial class TableContext : ITableContext
             .EndCommandText()
             .DefineParameters(KeyColumns)
             .WithTransaction(transaction);
+    }
+
+    /// <inheritdoc />
+    public DbCommand BuildDdlCommand(DbTransaction? transaction = null) =>
+        Provider.CreateTableDdlCommand(Connection, this);
+
+    /// <inheritdoc />
+    public int ExecuteDdlCommand(DbTransaction? transaction = null)
+    {
+        Connection.EnsureConnected();
+        using var command = BuildDdlCommand(transaction);
+        return command.ExecuteNonQuery();
+    }
+
+    /// <inheritdoc />
+    public async Task<int> ExecuteDdlCommandAsync(DbTransaction? transaction = null, CancellationToken ct = default)
+    {
+        await Connection.EnsureConnectedAsync(ct);
+        await using var command = BuildDdlCommand(transaction);
+        return await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
     }
 }
