@@ -78,17 +78,4 @@ public interface IDbTableSchema
     /// <param name="columnName">The name of the column.</param>
     /// <returns></returns>
     int GetColumnOrdinal(string columnName);
-
-    /// <summary>
-    /// Adds a column to the table schema.
-    /// Column name is mandatory.
-    /// </summary>
-    /// <param name="column">The column to add.</param>
-    IDbTableSchema AddColumn(IDbColumnSchema column);
-
-    /// <summary>
-    /// Removes a column from the table schema by its column name.
-    /// </summary>
-    /// <param name="columnName">The name of the column to remove.</param>
-    IDbTableSchema RemoveColumn(string columnName);
 }

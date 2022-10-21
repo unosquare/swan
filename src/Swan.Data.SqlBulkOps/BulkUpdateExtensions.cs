@@ -4,19 +4,18 @@
 /// Provides bulk updates methods for <see cref="ITableContext"/> with a connected <see cref="SqlConnection"/>.
 /// </summary>
 /// 
-/*
 public static class BulkUpdateExtensions
 {
     public static async Task<long> BulkUpdateAsync(this ITableContext table,
-    IEnumerable items,
-    DbTransaction? transaction = default,
-    bool truncate = false,
-    bool keepIndentity = true,
-    int timeoutSeconds = 0,
-    int batchSize = 0,
-    int notifyAfter = 0,
-    Action<ITableContext, long>? rowsCopiedCallback = default,
-    CancellationToken ct = default)
+        IEnumerable items,
+        DbTransaction? transaction = default,
+        bool truncate = false,
+        bool keepIndentity = true,
+        int timeoutSeconds = 0,
+        int batchSize = 0,
+        int notifyAfter = 0,
+        Action<ITableContext, long>? rowsCopiedCallback = default,
+        CancellationToken ct = default)
     {
         if (table is null)
             throw new ArgumentNullException(nameof(table));
@@ -46,4 +45,3 @@ public static class BulkUpdateExtensions
         return 0;
     }
 }
-*/

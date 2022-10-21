@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents minimal information about a field in a supported database provider.
 /// </summary>
-public interface IDbColumnSchema
+public interface IDbColumnSchema : ICloneable
 {
     /// <summary>
     /// Gets the column name.

@@ -1,7 +1,5 @@
 ﻿namespace Swan.Data.Schema;
 
-using System.Data.Common;
-
 /// <summary>
 /// Represents table structure information from the backing data store.
 /// </summary>
@@ -107,13 +105,16 @@ internal class DbTableSchema : IDbTableSchema
         if (_columnsByName.ContainsKey(column.Name))
             throw new ArgumentException("A column with the same name has already been added.", nameof(column));
 
-        _columnsByName[column.Name] = column;
-        _columnList.Add(column);
+        if (column.Clone() is not IDbColumnSchema columnCopy)
+            throw new ArgumentException($"The {nameof(ICloneable.Clone)} method did not return a {nameof(IDbColumnSchema)}", nameof(column));
+
+        _columnsByName[columnCopy.Name] = columnCopy;
+        _columnList.Add(columnCopy);
 
         var ordinal = _columnList.Count - 1;
-        _columnOrdinals[column.Name] = ordinal;
-        if (column.Ordinal != ordinal)
-            _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.Ordinal), ordinal);
+        _columnOrdinals[columnCopy.Name] = ordinal;
+        if (columnCopy.Ordinal != ordinal)
+            _ = columnCopy.GetType().TypeInfo().TryWriteProperty(columnCopy, nameof(IDbColumnSchema.Ordinal), ordinal);
 
         return this;
     }

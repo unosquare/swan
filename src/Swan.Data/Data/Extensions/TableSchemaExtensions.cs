@@ -92,6 +92,15 @@ public static class TableSchemaExtensions
         return dataTable;
     }
 
+    /// <summary>
+    /// Create a <see cref="ITableBuilder"/> based on a <see cref="ITableContext"/> object.
+    /// </summary>
+    /// <param name="table">The table context to read the schema information from..</param>
+    /// <returns>The table builder object.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ITableBuilder ToTableBuilder(this ITableContext table) => 
+        table is null ? throw new ArgumentNullException(nameof(table)) : (ITableBuilder)new TableContext(table.Connection, table);
+
     private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, int columnIndex, IDbTypeMapper typeMapper)
     {
         if (!typeMapper.TryGetProviderTypeFor(p.PropertyType.NativeType, out var providerType) ||

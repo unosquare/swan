@@ -52,7 +52,7 @@ public class CodeGenExtensionTest
         var conn = new SqliteConnection("Data Source=:memory:");
         conn.TableBuilder<ProjectNoColumns>("ProjectsNoColumns").ExecuteDdlCommand();
 
-        var table = conn.Table("ProjectsNoColumns");
+        var table = conn.Table("ProjectsNoColumns").ToTableBuilder();
         table.RemoveColumn("ProjectId");
 
         Assert.Throws<InvalidOperationException>(() => table.GeneratePocoCode());

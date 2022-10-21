@@ -2,6 +2,11 @@
 
 internal sealed record DbColumnSchema : IDbColumnSchema
 {
+    public DbColumnSchema()
+    {
+        // placeholder
+    }
+
     public string Name { get; set; } = string.Empty;
 
     public int Ordinal { get; set; }
@@ -25,4 +30,6 @@ internal sealed record DbColumnSchema : IDbColumnSchema
     public int MaxLength { get; set; }
 
     public string? IndexName { get; set; }
+
+    object ICloneable.Clone() => this with { };
 }

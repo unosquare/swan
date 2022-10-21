@@ -85,6 +85,8 @@ internal record SqlServerColumn : IDbColumnSchema
     bool IDbColumnSchema.IsReadOnly => IsReadOnly.GetValueOrDefault();
 
     string? IDbColumnSchema.IndexName => default;
+
+    object ICloneable.Clone() => this with { };
 }
 
 #pragma warning restore CA1812

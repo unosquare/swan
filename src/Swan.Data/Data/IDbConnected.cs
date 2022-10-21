@@ -9,4 +9,9 @@ public interface IDbConnected
     /// Gets the live connection associated with this object.
     /// </summary>
     DbConnection Connection { get; }
+
+    /// <summary>
+    /// Gets the associated <see cref="DbProvider"/>.
+    /// </summary>
+    DbProvider Provider { get; }
 }

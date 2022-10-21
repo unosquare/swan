@@ -54,7 +54,7 @@ public static class ConnectionExtensions
     }
 
     /// <summary>
-    /// Provides a way to generate a table context along with a table schema based on a specific type.
+    /// Provides a way to generate a table builder along with a table schema based on a specific type.
     /// You would typically use this to build a table based on a type and then issue the corresponding DDL
     /// command to the database in order to create a table to store objects of the given type.
     /// </summary>
@@ -99,8 +99,33 @@ public static class ConnectionExtensions
         if (string.IsNullOrWhiteSpace(tableName))
             throw new ArgumentNullException(nameof(tableName));
 
+        
         var typeSchema = typeof(T).ToTableSchema(connection, tableName, schemaName);
         return new TableContext<T>(connection, typeSchema);
+    }
+
+    /// <summary>
+    /// Provides a way to create table builder for the given connection.
+    /// Optionally, initial columns can be provided. Typicially this method would be
+    /// used to copy the columns of an existing <see cref="ITableContext"/>.
+    /// </summary>
+    /// <param name="connection">The associated connection.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <param name="schemaName">The name of the schema.</param>
+    /// <param name="columns">The optional columns.</param>
+    /// <returns>The table builder instance.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ITableBuilder TableBuilder(this DbConnection connection, string tableName, string? schemaName = default, IEnumerable<IDbColumnSchema>? columns = default)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection));
+
+        if (string.IsNullOrWhiteSpace(tableName))
+            throw new ArgumentNullException(nameof(tableName));
+
+        var tableSchemaName = schemaName ?? connection.EnsureConnected().Provider().DefaultSchemaName;
+        var schema = new DbTableSchema(connection.Database, tableName, tableSchemaName, columns);
+        return new TableContext(connection, schema);
     }
 
     /// <summary>

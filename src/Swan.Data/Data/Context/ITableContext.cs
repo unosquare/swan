@@ -6,11 +6,6 @@
 public interface ITableContext : IDbTableSchema, IDbConnected
 {
     /// <summary>
-    /// Gets the associated <see cref="DbProvider"/>.
-    /// </summary>
-    DbProvider Provider { get; }
-
-    /// <summary>
     /// Builds a command and its parameters that can be used to insert
     /// a row of data into this table.
     /// </summary>

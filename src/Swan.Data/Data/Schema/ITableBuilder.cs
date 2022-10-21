@@ -1,4 +1,4 @@
-﻿namespace Swan.Data.Context;
+﻿namespace Swan.Data.Schema;
 
 /// <summary>
 /// Provides a table builder with a backing schema typically used to issue Table DDL commands.
@@ -27,4 +27,17 @@ public interface ITableBuilder : IDbTableSchema, IDbConnected
     /// <param name="ct">The cancellation token.</param>
     /// <returns>The number of affected records.</returns>
     Task<int> ExecuteDdlCommandAsync(DbTransaction? transaction = default, CancellationToken ct = default);
+
+    /// <summary>
+    /// Adds a column to the table schema.
+    /// Column name is mandatory.
+    /// </summary>
+    /// <param name="column">The column to add.</param>
+    IDbTableSchema AddColumn(IDbColumnSchema column);
+
+    /// <summary>
+    /// Removes a column from the table schema by its column name.
+    /// </summary>
+    /// <param name="columnName">The name of the column to remove.</param>
+    IDbTableSchema RemoveColumn(string columnName);
 }

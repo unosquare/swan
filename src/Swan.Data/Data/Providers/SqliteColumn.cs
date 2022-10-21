@@ -4,6 +4,11 @@ namespace Swan.Data.Providers;
 [ExcludeFromCodeCoverage]
 internal record SqliteColumn : IDbColumnSchema
 {
+    public SqliteColumn()
+    {
+        // placeholder
+    }
+
     public bool? AllowDBNull { get; set; }
 
     public string? BaseCatalogName { get; set; }
@@ -62,6 +67,8 @@ internal record SqliteColumn : IDbColumnSchema
     int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
 
     string? IDbColumnSchema.IndexName => default;
+
+    object ICloneable.Clone() => this with { };
 }
 
 #pragma warning restore CA1812
