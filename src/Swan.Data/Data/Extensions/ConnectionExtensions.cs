@@ -99,7 +99,6 @@ public static class ConnectionExtensions
         if (string.IsNullOrWhiteSpace(tableName))
             throw new ArgumentNullException(nameof(tableName));
 
-        
         var typeSchema = typeof(T).ToTableSchema(connection, tableName, schemaName);
         return new TableContext<T>(connection, typeSchema);
     }

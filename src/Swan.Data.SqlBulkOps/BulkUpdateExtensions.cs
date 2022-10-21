@@ -97,7 +97,7 @@ public static class BulkUpdateExtensions
 
             // now run the updates
             var updateCommandText = HelperExtensions.BuildBulkUpdateCommandText(tempTable, table, table.Provider);
-            rowsUpdatedCount = await connection.ExecuteNonQueryAsync(updateCommandText, ct: ct).ConfigureAwait(false);
+            rowsUpdatedCount = await connection.ExecuteNonQueryAsync(updateCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
 
             // delete the temporary table
             var dropCommandText = $"DROP TABLE {tempTable.Provider.QuoteTable(tempTable)}";

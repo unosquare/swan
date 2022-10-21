@@ -2,13 +2,11 @@
 
 using Swan.Data.Schema;
 using Swan.Reflection;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
 internal static class HelperExtensions
 {
-    private static readonly ColumnNameCoprarer DefaultColumnNameComparer = new();
     private static readonly CultureInfo Invariant = CultureInfo.InvariantCulture;
 
     public static bool TryGetRowsCopied(this SqlBulkCopy bulkOperation, out int rowsCopied)
@@ -62,13 +60,5 @@ internal static class HelperExtensions
         }
 
         return updateCommandText.ToString();
-    }
-
-
-    private class ColumnNameCoprarer : IEqualityComparer<IDbColumnSchema>
-    {
-        public bool Equals(IDbColumnSchema? x, IDbColumnSchema? y) => (x?.Name ?? string.Empty).Equals(y?.Name ?? string.Empty, StringComparison.OrdinalIgnoreCase);
-        
-        public int GetHashCode([DisallowNull] IDbColumnSchema obj) => (obj?.Name ?? string.Empty).GetHashCode(StringComparison.OrdinalIgnoreCase);
     }
 }

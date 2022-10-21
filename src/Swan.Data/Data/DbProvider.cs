@@ -224,8 +224,7 @@ public class DbProvider
         if (table.ColumnCount <= 0)
             throw new InvalidOperationException("Cannot generate DDL code with no provided columns.");
 
-        var schemaName = string.IsNullOrWhiteSpace(table.Schema) ? DefaultSchemaName : table.Schema;
-        var quotedTableName = QuoteTable(table.TableName, schemaName);
+        var quotedTableName = QuoteTable(table.TableName, table.Schema);
         var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.Name);
         return (quotedTableName, orderedFields);
     }
