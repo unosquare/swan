@@ -46,6 +46,7 @@ jobs:
     - name: 🧑‍💻 Checkout codebase
       uses: actions/checkout@v3.0.2
       with:
+        ref: ''
         token: ${{ secrets.github-token }}
     - name: 🐝 Bump version
       uses: unosquare/bump-nuget-version@master 
