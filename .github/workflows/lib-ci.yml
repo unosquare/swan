@@ -57,7 +57,7 @@ jobs:
       run: |
         dotnet pack '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj' --configuration Release
     - name: 📌 Commit
-      uses: EndBug/add-and-commit@v7
+      uses: EndBug/add-and-commit@v9
       with:
         message: '[skip ci]'
     - name: 🍱 Publish nuget
