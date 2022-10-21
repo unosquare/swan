@@ -40,6 +40,7 @@ internal static class DataPlayground
             await connection.TestSampleInsertButBetter();
 
         await connection.TestSqlBulkInsert();
+        await connection.TestSqlBulkUpdate();
     }
 
     private static async Task SqliteStuff()
@@ -61,6 +62,34 @@ internal static class DataPlayground
 
         Console.WriteLine(project);
     }
+
+
+    private static async Task TestSqlBulkUpdate(this DbConnection connection)
+    {
+        // Now, instead of doing all that stuff manually, if we play with
+        // typical game rules, we can do stuff in a much simpler way :)
+        var projectsTable = connection.Table<Project>("Projects");
+
+        // We'll use a transaction in this example. We won't actually insert anything.
+        // since we will be rolling back the transaction.
+        await using var tran = await connection.BeginTransactionAsync();
+
+        var projects = await connection.Table<Project>("Projects").QueryAsync(transaction: tran).ToListAsync();
+
+        for (var i = 0; i < projects.Count; i++)
+        {
+            projects[i] = projects[i] with { ProjectScope = "DUMMY SCOPE" };
+        }
+
+        var totalRows = await projectsTable.BulkUpdateAsync(projects, tran,
+            notifyCallback: (t, c) => $"BULK UPDATE (Notify): {c}".Info()).ConfigureAwait(false);
+
+        $"BULK UPDATE (Completed): {totalRows}".Info();
+
+        await tran.RollbackAsync();
+
+    }
+
 
     private static async Task TestSqlBulkInsert(this DbConnection connection)
     {
@@ -89,8 +118,8 @@ internal static class DataPlayground
             items.Add(dummyProject with { Name = $"Dummy {(i + 1)}" });
         }
 
-        var totalRows = await projects.BulkInsertAsync<Project>(items, tran, keepIdentity: false,
-            rowsCopiedCallback: (t, c) => $"BULK INSERT (Notify): {c}".Info()).ConfigureAwait(false);
+        var totalRows = await projects.BulkInsertAsync(items, tran, keepIdentity: false,
+            notifyCallback: (t, c) => $"BULK INSERT (Notify): {c}".Info()).ConfigureAwait(false);
 
         $"BULK INSERT (Completed): {totalRows}".Info();
 

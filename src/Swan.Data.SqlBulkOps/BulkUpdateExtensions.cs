@@ -6,15 +6,25 @@
 /// 
 public static class BulkUpdateExtensions
 {
+    /// <summary>
+    /// Performs a bulk update operation on the provided table.
+    /// </summary>
+    /// <param name="table">The table context.</param>
+    /// <param name="items">The collection to update. Items must have key column values set.</param>
+    /// <param name="transaction">An optional external transaction. If not provided, the transaction commit and rollback will be handled internally.</param>
+    /// <param name="timeoutSeconds">Seconds before the operation times out. 0 for indefinite wait time.</param>
+    /// <param name="batchSize">The number of rows to be processed at a time. Value will be clamped between 10 and 10000.</param>
+    /// <param name="notifyAfter">Notification callback every number of rows. Value will be clamped between 10 and 1000.</param>
+    /// <param name="notifyCallback">The action callback triggered upon a notification event.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>The total number of rows that were updated.</returns>
     public static async Task<long> BulkUpdateAsync(this ITableContext table,
         IEnumerable items,
         DbTransaction? transaction = default,
-        bool truncate = false,
-        bool keepIndentity = true,
-        int timeoutSeconds = 0,
-        int batchSize = 0,
-        int notifyAfter = 0,
-        Action<ITableContext, long>? rowsCopiedCallback = default,
+        int timeoutSeconds = Constants.InfiniteTimeoutSeconds,
+        int batchSize = Constants.DefaultBatchSize,
+        int notifyAfter = Constants.DefaultNotifyAfter,
+        Action<ITableContext, long>? notifyCallback = default,
         CancellationToken ct = default)
     {
         if (table is null)
@@ -42,6 +52,79 @@ public static class BulkUpdateExtensions
             SqlBulkCopyOptions.KeepNulls |
             SqlBulkCopyOptions.KeepIdentity;
 
-        return 0;
+        // configure the bulk copy operation
+        using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, sqlTransaction)
+        {
+            BatchSize = batchSize.Clamp(Constants.MinBatchSize, Constants.MaxBatchSize),
+            DestinationTableName = table.Provider.QuoteTable(table.TableName, table.Schema),
+            EnableStreaming = true,
+            BulkCopyTimeout = timeoutSeconds.ClampMin(Constants.InfiniteTimeoutSeconds),
+            NotifyAfter = notifyCallback is not null
+                ? notifyAfter.Clamp(Constants.MinNotifyAfter, Constants.MaxNotifyAfter)
+                : Constants.DefaultNotifyAfter
+        };
+
+        // Prepare and wire up the rows copied event for notification and row count updates.
+        long rowsCopiedCount = default;
+        int rowsUpdatedCount = default;
+
+        // local event handler
+        void onRowsCopied(object s, SqlRowsCopiedEventArgs e)
+        {
+            Interlocked.Exchange(ref rowsCopiedCount, e.RowsCopied);
+            notifyCallback?.Invoke(table, e.RowsCopied);
+        }
+
+        bulkOperation.SqlRowsCopied += onRowsCopied;
+
+        // Execute the bulk update operation.
+        try
+        {
+            // Create the temporary table
+            var tempTableName = $"#{table.TableName}_{DateTime.UtcNow.Ticks}";
+            var tempTable = connection.TableBuilder(tempTableName, string.Empty, table.Columns);
+            await tempTable.ExecuteDdlCommandAsync(sqlTransaction, ct).ConfigureAwait(false);
+
+            // Build the column mappings
+            foreach (var column in tempTable.Columns)
+                bulkOperation.ColumnMappings.Add(column.Name, column.Name);
+
+            // Use the collection as a data reader
+            using var reader = items.ToDataReader(tempTable);
+
+            // bulk insert into temp table using the streaming operation.
+            await bulkOperation.WriteToServerAsync(reader, ct).ConfigureAwait(false);
+
+            // now run the updates
+            var updateCommandText = HelperExtensions.BuildBulkUpdateCommandText(tempTable, table, table.Provider);
+            rowsUpdatedCount = await connection.ExecuteNonQueryAsync(updateCommandText, ct: ct).ConfigureAwait(false);
+
+            // delete the temporary table
+            var dropCommandText = $"DROP TABLE {tempTable.Provider.QuoteTable(tempTable)}";
+            _ = await connection.ExecuteNonQueryAsync(dropCommandText, ct: ct).ConfigureAwait(false);
+
+            // commit the transaction if successful
+            if (isLocalTransaction)
+                await sqlTransaction.CommitAsync(ct).ConfigureAwait(false);
+        }
+        catch
+        {
+            // Rollback the local transaction
+            if (isLocalTransaction)
+                await sqlTransaction.RollbackAsync(ct).ConfigureAwait(false);
+
+            throw;
+        }
+        finally
+        {
+            // dispose the local transaction
+            if (isLocalTransaction)
+                await sqlTransaction.DisposeAsync().ConfigureAwait(false);
+        }
+
+        if (bulkOperation.TryGetRowsCopied(out var actualRowsCopied) && actualRowsCopied != Interlocked.Read(ref rowsCopiedCount))
+            onRowsCopied(bulkOperation, new(actualRowsCopied));
+
+        return rowsUpdatedCount;
     }
 }

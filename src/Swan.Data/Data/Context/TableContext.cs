@@ -89,7 +89,7 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
 
     /// <inheritdoc />
     public DbCommand BuildDdlCommand(DbTransaction? transaction = null) =>
-        Provider.CreateTableDdlCommand(Connection, this);
+        Provider.CreateTableDdlCommand(Connection, this).WithTransaction(transaction);
 
     /// <inheritdoc />
     public int ExecuteDdlCommand(DbTransaction? transaction = null)

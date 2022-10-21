@@ -87,6 +87,15 @@ public class DbProvider
             : $"{QuotePrefix}{tableName}{QuoteSuffix}";
 
     /// <summary>
+    /// Adds quotes around a table name along with an optional schema name.
+    /// </summary>
+    /// <param name="table">The table schema.</param>
+    /// <returns>A quoted table name.</returns>
+    public virtual string QuoteTable(IDbTableSchema table) => table is not null
+        ? QuoteTable(table.TableName, table.Schema)
+        : throw new ArgumentNullException(nameof(table));
+
+    /// <summary>
     /// Adds quotes around a field or column name.
     /// </summary>
     /// <param name="fieldName">The name of the field.</param>
