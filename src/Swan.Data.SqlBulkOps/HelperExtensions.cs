@@ -30,9 +30,12 @@ internal static class HelperExtensions
     {
         var updateCommandText = new StringBuilder(4096);
 
-        var columnNames = targetTable.UpdateableColumns.Select(c => c.Name).ToArray();
-        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
+        // Get intersection of updateable columns
+        var columnNames = targetTable.UpdateableColumns.Select(c => c.Name)
+            .Intersect(tempTable.UpdateableColumns.Select(c => c.Name), StringComparer.OrdinalIgnoreCase)
+            .ToArray();
 
+        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
         var sourceTableName = provider.QuoteTable(tempTable);
         var targetTableName = provider.QuoteTable(targetTable);
         var sourceAlias = provider.QuoteTable("s");
