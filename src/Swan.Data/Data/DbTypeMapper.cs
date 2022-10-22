@@ -123,12 +123,12 @@ internal class DbTypeMapper : IDbTypeMapper
 
         if (needsArguments)
         {
-            if (hasLength)
-                providerType = $"{columnType.BasicType}({(column.MaxLength == int.MaxValue ? "MAX" : column.MaxLength)})";
+            if (hasPrecision && hasScale)
+                providerType = $"{columnType.BasicType}({column.Precision}, {column.Scale})";
             else if (hasPrecision && !hasScale)
                 providerType = $"{columnType.BasicType}({column.Precision})";
-            else if (hasPrecision && hasScale)
-                providerType = $"{columnType.BasicType}({column.Precision}, {column.Scale})";
+            else if (hasLength)
+                providerType = $"{columnType.BasicType}({(column.MaxLength == int.MaxValue ? "MAX" : column.MaxLength)})";
         }
 
         return true;

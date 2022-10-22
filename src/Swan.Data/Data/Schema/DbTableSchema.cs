@@ -188,7 +188,7 @@ internal class DbTableSchema : IDbTableSchema
     /// <returns>A populated table schema.</returns>
     public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
     {
-        connection.EnsureConnected();
+        await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
         await using var schemaCommand = connection.BeginCommandText()

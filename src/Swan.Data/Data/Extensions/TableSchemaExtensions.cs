@@ -99,7 +99,7 @@ public static class TableSchemaExtensions
     /// <returns>The table builder object.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     public static ITableBuilder ToTableBuilder(this ITableContext table) => 
-        table is null ? throw new ArgumentNullException(nameof(table)) : (ITableBuilder)new TableContext(table.Connection, table);
+        table is null ? throw new ArgumentNullException(nameof(table)) : new TableContext(table.Connection, table);
 
     private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, int columnIndex, IDbTypeMapper typeMapper)
     {

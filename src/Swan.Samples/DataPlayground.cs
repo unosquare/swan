@@ -240,6 +240,8 @@ internal static class DataPlayground
         /// </summary>
         [Column(nameof(ProjectManagementTypeId), Order = 8)]
         public int ProjectManagementTypeId { get; set; }
+
+        public decimal? RateAmount { get; set; }
     }
 
 
