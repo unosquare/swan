@@ -45,13 +45,13 @@ internal class DbTypeMapper : IDbTypeMapper
         [typeof(double)] = "FLOAT",
         [typeof(decimal)] = "DECIMAL(19,4)",
         [typeof(bool)] = "BIT",
-        [typeof(string)] = "NVARCHAR(MAX)",
+        [typeof(string)] = "NVARCHAR(512)",
         [typeof(char)] = "NCHAR(1)",
         [typeof(Guid)] = "UNIQUEIDENTIFIER",
         [typeof(DateTime)] = "DATETIME2",
         [typeof(DateOnly)] = "DATE",
         [typeof(DateTimeOffset)] = "DATETIMEOFFSET",
-        [typeof(byte[])] = "VARBINARY(MAX)",
+        [typeof(byte[])] = "VARBINARY(4000)",
     };
 
     /// <summary>
@@ -98,5 +98,100 @@ internal class DbTypeMapper : IDbTypeMapper
         }
 
         return false;
+    }
+
+    /// <inheritdoc />
+    public bool TryGetProviderTypeFor(IDbColumnSchema column, [MaybeNullWhen(false)] out string providerType)
+    {
+        if (column is null)
+            throw new ArgumentNullException(nameof(column));
+
+        if (!TryGetProviderTypeFor(column.DataType, out var providerMappedType) ||
+            string.IsNullOrWhiteSpace(column.ProviderDataType))
+        {
+            providerType = default;
+            return false;
+        }
+
+        var dataType = new ProviderType(providerMappedType);
+        var columnType = new ProviderType(column.ProviderDataType);
+        var hasLength = column.MaxLength > 0;
+        var hasPrecision = column.Precision > 0;
+        var hasScale = column.Scale > 0;
+        var needsArguments = dataType.HasArguments && (hasLength || hasPrecision || hasScale);
+        providerType = columnType.BasicType;
+
+        if (needsArguments)
+        {
+            if (hasLength)
+                providerType = $"{columnType.BasicType}({(column.MaxLength == int.MaxValue ? "MAX" : column.MaxLength)})";
+            else if (hasPrecision && !hasScale)
+                providerType = $"{columnType.BasicType}({column.Precision})";
+            else if (hasPrecision && hasScale)
+                providerType = $"{columnType.BasicType}({column.Precision}, {column.Scale})";
+        }
+
+        return true;
+    }
+
+    private record ProviderType
+    {
+        public ProviderType(ReadOnlySpan<char> providerType)
+        {
+            const char OpenArgs = '(';
+            const char CloseArgs = ')';
+            const char Separator = ',';
+
+            var startIndex = providerType.IndexOf(OpenArgs);
+            var endIndex = providerType.LastIndexOf(CloseArgs);
+
+            var basicType = startIndex >= 0
+                ? providerType.Slice(0, startIndex)
+                : providerType;
+
+            var builder = new StringBuilder(basicType.Length);
+            foreach (var c in basicType)
+            {
+                if (char.IsLetterOrDigit(c))
+                    builder.Append(char.ToUpperInvariant(c));
+            }
+
+            BasicType = builder.ToString();
+            var argumentsTextLength = (endIndex - startIndex) - 1;
+
+            if (argumentsTextLength <= 0)
+            {
+                Arguments = Array.Empty<string>();
+                return;
+            }
+
+            startIndex++;
+            var argumentsText = providerType.Slice(startIndex, argumentsTextLength);
+            var argBuilder = new StringBuilder(argumentsText.Length + 1);
+            var parsedArgs = new List<string>(4);
+
+            foreach (var c in argumentsText)
+            {
+                if (c == Separator)
+                {
+                    parsedArgs.Add(argBuilder.ToString());
+                    argBuilder.Clear();
+                    continue;
+                }
+
+                argBuilder.Append(c);
+            }
+
+            if (argBuilder.Length > 0)
+                parsedArgs.Add(argBuilder.ToString());
+
+            Arguments = parsedArgs.ToArray();
+        }
+
+        public string BasicType { get; }
+
+        public IReadOnlyList<string> Arguments { get; }
+
+        public bool HasArguments => Arguments.Count > 0;
     }
 }

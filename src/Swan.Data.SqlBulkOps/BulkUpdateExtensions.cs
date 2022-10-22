@@ -52,11 +52,14 @@ public static class BulkUpdateExtensions
             SqlBulkCopyOptions.KeepNulls |
             SqlBulkCopyOptions.KeepIdentity;
 
+        // Generate a temporary table name
+        var tempTableName = $"#{table.TableName}_{DateTime.UtcNow.Ticks}";
+
         // configure the bulk copy operation
         using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, sqlTransaction)
         {
             BatchSize = batchSize.Clamp(Constants.MinBatchSize, Constants.MaxBatchSize),
-            DestinationTableName = table.Provider.QuoteTable(table.TableName, table.Schema),
+            DestinationTableName = table.Provider.QuoteTable(tempTableName, string.Empty),
             EnableStreaming = true,
             BulkCopyTimeout = timeoutSeconds.ClampMin(Constants.InfiniteTimeoutSeconds),
             NotifyAfter = notifyCallback is not null
@@ -81,7 +84,6 @@ public static class BulkUpdateExtensions
         try
         {
             // Create the temporary table
-            var tempTableName = $"#{table.TableName}_{DateTime.UtcNow.Ticks}";
             var tempTable = connection.TableBuilder(tempTableName, string.Empty, table.Columns);
             await tempTable.ExecuteDdlCommandAsync(sqlTransaction, ct).ConfigureAwait(false);
 
@@ -101,7 +103,7 @@ public static class BulkUpdateExtensions
 
             // delete the temporary table
             var dropCommandText = $"DROP TABLE {tempTable.Provider.QuoteTable(tempTable)}";
-            _ = await connection.ExecuteNonQueryAsync(dropCommandText, ct: ct).ConfigureAwait(false);
+            _ = await connection.ExecuteNonQueryAsync(dropCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
 
             // commit the transaction if successful
             if (isLocalTransaction)

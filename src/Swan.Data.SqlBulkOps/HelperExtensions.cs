@@ -30,9 +30,8 @@ internal static class HelperExtensions
     {
         var updateCommandText = new StringBuilder(4096);
 
-        var columns = tempTable.Columns;
-        var columnNames = columns.Select(c => c.Name).ToArray();
-        var keyColumnNames = columns.Where(c => c.IsKey).Select(c => c.Name).ToArray();
+        var columnNames = targetTable.UpdateableColumns.Select(c => c.Name).ToArray();
+        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
 
         var sourceTableName = provider.QuoteTable(tempTable);
         var targetTableName = provider.QuoteTable(targetTable);

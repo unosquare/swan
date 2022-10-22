@@ -29,7 +29,5 @@ internal sealed record DbColumnSchema : IDbColumnSchema
 
     public int MaxLength { get; set; }
 
-    public string? IndexName { get; set; }
-
     object ICloneable.Clone() => this with { };
 }

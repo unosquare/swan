@@ -66,8 +66,6 @@ internal record SqliteColumn : IDbColumnSchema
 
     int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
 
-    string? IDbColumnSchema.IndexName => default;
-
     object ICloneable.Clone() => this with { };
 }
 

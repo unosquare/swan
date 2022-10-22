@@ -134,33 +134,11 @@ public class DbProvider
     /// </summary>
     /// <param name="column">The column schema.</param>
     /// <returns>The DDL string that represents the column.</returns>
-    public virtual string? GetColumnDdlString(IDbColumnSchema column)
-    {
-        if (column is null)
-            throw new ArgumentNullException(nameof(column));
-
-        if (!string.IsNullOrWhiteSpace(column.ProviderDataType))
-            return $"{QuoteField(column.Name),16} {column.ProviderDataType}{(!column.AllowsDBNull ? " NOT" : string.Empty)} NULL";
-
-        if (!TypeMapper.TryGetProviderTypeFor(column.DataType, out var providerType))
-            return default;
-
-        var hasLength = column.MaxLength > 0;
-        var hasPrecision = column.Precision > 0;
-        var hasScale = column.Scale > 0;
-        var trimmedType = providerType!.Contains('(', StringComparison.Ordinal)
-            ? providerType[..providerType.IndexOf('(', StringComparison.Ordinal)]
-            : providerType;
-
-        if (hasLength)
-            providerType = $"{trimmedType}({column.MaxLength})";
-        else if (hasPrecision && !hasScale)
-            providerType = $"{trimmedType}({column.Precision})";
-        else if (hasPrecision && hasScale)
-            providerType = $"{trimmedType}({column.Precision}, {column.Scale})";
-
-        return $"{QuoteField(column.Name),16} {providerType}{(!column.AllowsDBNull ? " NOT" : string.Empty)} NULL";
-    }
+    public virtual string? GetColumnDdlString(IDbColumnSchema column) => column is null
+        ? throw new ArgumentNullException(nameof(column))
+        : TypeMapper.TryGetProviderTypeFor(column, out var providerType)
+        ? $"{QuoteField(column.Name),16} {providerType}{(!column.AllowsDBNull ? " NOT" : string.Empty)} NULL"
+        : default;
 
     /// <summary>
     /// Gets a command that provides a list of table identifiers in the current database.
@@ -180,7 +158,8 @@ public class DbProvider
     {
         var (quotedTableName, orderedFields) = GetQuotedTableNameAndColumns(connection, table);
         var builder = new StringBuilder($"CREATE TABLE IF NOT EXISTS {quotedTableName} (\r\n")
-            .Append(string.Join(",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").ToArray()))
+            .Append(string.Join(",\r\n", orderedFields.Select(c => $"    {GetColumnDdlString(c)}").
+                Where(c => !string.IsNullOrWhiteSpace(c)).ToArray()))
             .AppendLine("\r\n);");
 
         return connection

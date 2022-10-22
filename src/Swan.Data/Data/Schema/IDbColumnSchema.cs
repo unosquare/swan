@@ -63,11 +63,6 @@ public interface IDbColumnSchema : ICloneable
     int MaxLength { get; }
 
     /// <summary>
-    /// Gets the name of the index this column belongs to.
-    /// </summary>
-    string? IndexName { get; }
-
-    /// <summary>
     /// Gets a value indicating whether this column is an identity primary key.
     /// </summary>
     bool IsIdentity => !AllowsDBNull && IsKey && IsAutoIncrement && DataType.TypeInfo().IsNumeric;

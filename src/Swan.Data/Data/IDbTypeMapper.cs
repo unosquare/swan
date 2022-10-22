@@ -27,5 +27,14 @@ public interface IDbTypeMapper
     /// <param name="providerType">The provider-specific data type.</param>
     /// <returns>True if the type is found, false otherwise.</returns>
     bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string providerType);
+
+    /// <summary>
+    /// Tries to obtain a provider-specific column type expressed as a DDL string.
+    /// This method takes into account precision, scale, or maximum length.
+    /// </summary>
+    /// <param name="column">The CLR type.</param>
+    /// <param name="providerType">The provider-specific data type.</param>
+    /// <returns>True if the type is found, false otherwise.</returns>
+    bool TryGetProviderTypeFor(IDbColumnSchema column, [MaybeNullWhen(false)] out string providerType);
 }
 

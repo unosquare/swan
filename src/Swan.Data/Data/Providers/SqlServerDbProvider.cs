@@ -29,11 +29,11 @@ internal class SqlServerDbProvider : DbProvider
 
     public override string? GetColumnDdlString(IDbColumnSchema column) => column is null
         ? throw new ArgumentNullException(nameof(column))
-        : !TypeMapper.TryGetProviderTypeFor(column.DataType, out var providerType)
-        ? default
-        : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
-        ? $"{QuoteField(column.Name),16} {providerType} IDENTITY NOT NULL PRIMARY KEY"
-        : base.GetColumnDdlString(column);
+        : !TypeMapper.TryGetProviderTypeFor(column, out var providerType)
+            ? default
+            : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
+                ? $"{QuoteField(column.Name),16} {providerType} IDENTITY NOT NULL PRIMARY KEY"
+                : base.GetColumnDdlString(column);
 
     public override bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
     {
