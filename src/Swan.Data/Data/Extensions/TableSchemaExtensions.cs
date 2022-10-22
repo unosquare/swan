@@ -110,7 +110,11 @@ public static class TableSchemaExtensions
         var dataType = p.PropertyType.BackingType.NativeType;
         var length = dataType == typeof(string)
             ? 512 : dataType == typeof(byte[])
-            ? 4000 : 0;
+            ? 4000 : dataType == typeof(ulong)
+            ? 20 : 0;
+
+        var precision = dataType == typeof(decimal) ? 19 : 0;
+        var scale = dataType == typeof(decimal) ? 4 : 0;
 
         return new DbColumnSchema
         {
@@ -121,9 +125,9 @@ public static class TableSchemaExtensions
             ProviderDataType = providerType,
             Ordinal = columnIndex,
             MaxLength = length,
-            // TODO: Scale and precision not yet resolved.
-            Scale = 0,
-            Precision = 0
+            // TODO: Scale and precision not yet fully resolved.
+            Scale = (byte)scale,
+            Precision = (byte)precision
         };
     }
 
