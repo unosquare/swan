@@ -101,6 +101,17 @@ public static class TableSchemaExtensions
     public static ITableBuilder ToTableBuilder(this ITableContext table) => 
         table is null ? throw new ArgumentNullException(nameof(table)) : new TableContext(table.Connection, table);
 
+    /// <summary>
+    /// Quotes the specified table.
+    /// </summary>
+    /// <typeparam name="T">The table type.</typeparam>
+    /// <param name="table">The table.</param>
+    /// <returns>A string representing a quoted table name.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static string QuoteTable<T>(this T table)
+        where T : IDbTableSchema, IDbConnected =>
+        table is null ? throw new ArgumentNullException(nameof(table)) : table.Provider.QuoteTable(table);
+
     private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, int columnIndex, IDbTypeMapper typeMapper)
     {
         if (!typeMapper.TryGetProviderTypeFor(p.PropertyType.NativeType, out var providerType) ||

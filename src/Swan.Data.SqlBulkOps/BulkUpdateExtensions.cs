@@ -102,7 +102,7 @@ public static class BulkUpdateExtensions
             rowsUpdatedCount = await connection.ExecuteNonQueryAsync(updateCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
 
             // delete the temporary table
-            var dropCommandText = $"DROP TABLE {tempTable.Provider.QuoteTable(tempTable)}";
+            var dropCommandText = $"DROP TABLE {tempTable.QuoteTable()}";
             _ = await connection.ExecuteNonQueryAsync(dropCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
 
             // commit the transaction if successful
