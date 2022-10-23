@@ -54,9 +54,10 @@ public static class BulkInsertExtensions
             SqlBulkCopyOptions.TableLock |
             SqlBulkCopyOptions.KeepNulls |
             SqlBulkCopyOptions.CheckConstraints |
-            SqlBulkCopyOptions.FireTriggers;
-
-        if (keepIdentity) bulkCopyOptions |= SqlBulkCopyOptions.KeepIdentity;
+            SqlBulkCopyOptions.FireTriggers |
+            (keepIdentity
+                ? SqlBulkCopyOptions.KeepIdentity
+                : SqlBulkCopyOptions.Default);
 
         // configure the bulk copy operation
         using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, sqlTransaction)
