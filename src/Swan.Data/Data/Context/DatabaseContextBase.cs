@@ -17,7 +17,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// </summary>
     private static readonly MethodInfo TableMethod = typeof(ConnectionExtensions)
         .GetMethods(BindingFlags.Public | BindingFlags.Static)
-        .Single(c => c.IsGenericMethod && c.Name.Equals(nameof(ConnectionExtensions.Table), StringComparison.Ordinal));;
+        .Single(c => c.IsGenericMethod && c.Name.Equals(nameof(ConnectionExtensions.Table), StringComparison.Ordinal));
 
     /// <summary>
     /// Holds a dictionary of record types ans their associated property proxies.
