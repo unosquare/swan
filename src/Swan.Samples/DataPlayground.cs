@@ -4,6 +4,7 @@ using Data.Extensions;
 using Logging;
 using Microsoft.Data.Sqlite;
 using Platform;
+using Swan.Data.Context;
 using Swan.Data.SqlBulkOps;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +35,9 @@ internal static class DataPlayground
         // You can configure the default timeout for commands created using the SWAN API.
         connection.Provider().WithDefaultCommandTimeout(TimeSpan.FromSeconds(10));
 
+        using var context = new SampleContext(connection);
+        var items = context.Projects.Query().ToList();
+
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
         if (false)
@@ -63,7 +67,6 @@ internal static class DataPlayground
 
         Console.WriteLine(project);
     }
-
 
     private static async Task TestSqlBulkUpdate(this DbConnection connection)
     {
@@ -105,7 +108,6 @@ internal static class DataPlayground
         await tran.RollbackAsync();
 
     }
-
 
     private static async Task TestSqlBulkInsert(this DbConnection connection)
     {
@@ -260,6 +262,15 @@ internal static class DataPlayground
         public decimal? RateAmount { get; set; }
     }
 
+
+    public class SampleContext : DatabaseContextBase
+    {
+        public SampleContext(DbConnection connection) : base(connection)
+        {
+        }
+
+        public ITableContext<Project> Projects { get; private set; }
+    }
 
     public enum ProjectTypes
     {
