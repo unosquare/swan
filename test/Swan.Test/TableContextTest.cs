@@ -11,7 +11,7 @@ public class TableContextTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var builder = conn.EnsureConnected().TableBuilder<Project>("Projects");
-        builder.ExecuteDdlCommand();
+        builder.ExecuteTableCommand();
 
         var table = conn.Table<Project>("Projects");
         var tran = conn.BeginTransaction();

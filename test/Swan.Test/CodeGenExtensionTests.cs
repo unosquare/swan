@@ -9,9 +9,7 @@ public class CodeGenExtensionTest
     public void CreateTableAndGetItsPocoCode()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
         var pocoCode = table.GeneratePocoCode();
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\")]"));
@@ -30,9 +28,7 @@ public class CodeGenExtensionTest
     public void CreateTableWithSchemaAndEntityNameAndGetItsPocoCode()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("Projects", "Main").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects", "Main");
+        var table = conn.TableBuilder<Project>("Projects", "Main").ExecuteTableCommand();
         var pocoCode = table.GeneratePocoCode("Project");
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\", Schema = \"Main\")]"));
@@ -50,9 +46,7 @@ public class CodeGenExtensionTest
     public void TryGetPocoCodeWhenTableHasNoColumns()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<ProjectNoColumns>("ProjectsNoColumns").ExecuteDdlCommand();
-
-        var table = conn.Table("ProjectsNoColumns").ToTableBuilder();
+        var table = conn.TableBuilder<ProjectNoColumns>("ProjectsNoColumns");
         table.RemoveColumn("ProjectId");
 
         Assert.Throws<InvalidOperationException>(() => table.GeneratePocoCode());

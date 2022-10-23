@@ -9,7 +9,7 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndInsertOneRowAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("Projects").ExecuteTableCommandAsync();
 
         var table = await conn.TableAsync<Project>("Projects");
 
@@ -31,9 +31,7 @@ public class ConnectionExtensionsTest
     public void CreateProjectsTableAndInsertOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -63,9 +61,9 @@ public class ConnectionExtensionsTest
     public void CreateTablesAndGetTableNames()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("ProjectsTableOne").ExecuteDdlCommand();
-        conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteDdlCommand();
-        conn.TableBuilder<Project>("ProjectsTableThree").ExecuteDdlCommand();
+        _ = conn.TableBuilder<Project>("ProjectsTableOne").ExecuteTableCommand();
+        _ = conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteTableCommand();
+        _ = conn.TableBuilder<Project>("ProjectsTableThree").ExecuteTableCommand();
 
         var tableNames = conn.GetTableNames();
 
@@ -77,9 +75,9 @@ public class ConnectionExtensionsTest
     public async Task CreateTablesAndGetTableNamesAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("ProjectsTableOne").ExecuteDdlCommandAsync();
-        await conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteDdlCommandAsync();
-        await conn.TableBuilder<Project>("ProjectsTableThree").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsTableOne").ExecuteTableCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsTableTwo").ExecuteTableCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsTableThree").ExecuteTableCommandAsync();
 
         var tableNames = conn.GetTableNamesAsync();
 
@@ -91,7 +89,7 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndInsertsQueryAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("Projects").ExecuteTableCommandAsync();
 
         var execution = await conn.ExecuteNonQueryAsync(
             "Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
@@ -105,7 +103,7 @@ public class ConnectionExtensionsTest
     public void CreateProjectsTableAndInsertsQuery()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         var execution = conn.ExecuteNonQuery(
             "Insert into Projects (CompanyId, EndDate, IsActive, Name, ProjectScope, ProjectType, StartDate)" +
@@ -119,7 +117,7 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndInsertOneRowAndExecuteScalarAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("Projects").ExecuteTableCommandAsync();
 
         var table = conn.TableAsync<Project>("Projects");
         var project = await table.Result.InsertOneAsync(new()
@@ -142,9 +140,9 @@ public class ConnectionExtensionsTest
     public void CreateProjectsTableAndInsertOneRowAndExecuteScalar()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        conn.Table<Project>("Projects").InsertOne(new()
+        table.InsertOne(new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -163,10 +161,8 @@ public class ConnectionExtensionsTest
     [Test]
     public void CreateProjectsTableAndGetItsKeyColumnName()
     {
-        var conn = new SqliteConnection("Data Source=:memory:");
-        conn.TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table("Projects");
+        using var conn = new SqliteConnection("Data Source=:memory:");
+        var table = conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
         var keys = table.KeyColumns;
 
         Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
@@ -176,7 +172,7 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndGetItsKeyColumnNameAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("ProjectsAsync").ExecuteDdlCommandAsync();
+        await conn.TableBuilder<Project>("ProjectsAsync").ExecuteTableCommandAsync();
 
         var table = await conn.TableAsync("ProjectsAsync");
         var keys = table.KeyColumns;
@@ -190,7 +186,7 @@ public class ConnectionExtensionsTest
         SqliteConnection? conn = null;
 
         Assert.Throws<ArgumentNullException>(() => conn.Provider());
-        Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteDdlCommand());
+        Assert.Throws<ArgumentNullException>(() => conn.TableBuilder<Project>("Projects").ExecuteTableCommand());
         Assert.Throws<ArgumentNullException>(() => conn.Table("Projects"));
         Assert.Throws<ArgumentNullException>(() => conn.Table<Project>("Projects"));
         Assert.Throws<ArgumentNullException>(() => conn.GetTableNames());

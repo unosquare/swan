@@ -10,19 +10,18 @@ public class QueryExtensionsAsyncTest
     public void CreateDbCommandToExecuteQueryAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        conn.Table<Project>("Projects")
-            .InsertOne(new()
-            {
-                CompanyId = 1,
-                EndDate = DateTime.Now,
-                IsActive = true,
-                Name = "Project ONE",
-                ProjectScope = "My Scope",
-                ProjectType = ProjectTypes.Exciting,
-                StartDate = DateTime.Now.AddMonths(-1)
-            });
+        table.InsertOne(new()
+        {
+            CompanyId = 1,
+            EndDate = DateTime.Now,
+            IsActive = true,
+            Name = "Project ONE",
+            ProjectScope = "My Scope",
+            ProjectType = ProjectTypes.Exciting,
+            StartDate = DateTime.Now.AddMonths(-1)
+        });
 
         DbCommand command = conn.CreateCommand();
         command.CommandText = "Select * from Projects;";
@@ -38,9 +37,7 @@ public class QueryExtensionsAsyncTest
     public void CreateDbCommandToExecuteFirstOrDefaultAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -65,9 +62,7 @@ public class QueryExtensionsAsyncTest
     public void CreateDbConnectionToExecuteQueryAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -90,9 +85,8 @@ public class QueryExtensionsAsyncTest
     public void CreateDbConnectionToExecuteFirstOrDefaultAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        var table = conn.Table<Project>("Projects");
         var project = table.InsertOne(new()
         {
             CompanyId = 1,

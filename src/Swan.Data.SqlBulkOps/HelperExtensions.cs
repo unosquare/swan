@@ -63,4 +63,28 @@ internal static class HelperExtensions
 
         return updateCommandText.ToString();
     }
+
+    public static string BuildBulkDeleteCommandText(IDbTableSchema tempTable, IDbTableSchema targetTable, DbProvider provider)
+    {
+        var deleteCommandText = new StringBuilder(4096);
+        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
+        var sourceTableName = provider.QuoteTable(tempTable);
+        var targetTableName = provider.QuoteTable(targetTable);
+        var sourceAlias = provider.QuoteTable("s");
+        var targetAlias = provider.QuoteTable("t");
+
+        deleteCommandText.AppendLine(Invariant, $"DELETE {targetAlias}");
+        deleteCommandText.AppendLine(Invariant,
+            $"FROM {targetTableName} AS {targetAlias} INNER JOIN {sourceTableName} AS {sourceAlias} ON");
+
+        for (var i = 0; i < keyColumnNames.Length; i++)
+        {
+            var colName = provider.QuoteField(keyColumnNames[i]);
+            var isLast = i >= keyColumnNames.Length - 1;
+            deleteCommandText.AppendLine(Invariant,
+                $"    {targetAlias}.{colName} = {sourceAlias}.{colName}{(isLast ? string.Empty : " AND ")}");
+        }
+
+        return deleteCommandText.ToString();
+    }
 }

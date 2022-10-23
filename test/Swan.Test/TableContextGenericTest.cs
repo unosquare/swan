@@ -100,10 +100,7 @@ public class TableContextGenericTest
     public void FirstOrDefaultFromTableReturnsOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         table.InsertOne(project);
 
         var result = table.FirstOrDefault();
@@ -115,10 +112,7 @@ public class TableContextGenericTest
     public async Task FirstOrDefaultAsyncFromTableReturnsOneRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = await conn.TableAsync<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         await table.InsertOneAsync(project);
 
         var result = await table.FirstOrDefaultAsync();
@@ -133,9 +127,7 @@ public class TableContextGenericTest
         Project? nullProject = null;
 
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         Assert.Throws<ArgumentNullException>(() => table.InsertOne(nullProject));
         Assert.ThrowsAsync<ArgumentNullException>(() => table.InsertOneAsync(nullProject));
@@ -160,10 +152,7 @@ public class TableContextGenericTest
     public void InsertOneRowReturnsSameRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var result = table.InsertOne(project);
 
         Assert.AreEqual(project.Name, result?.Name);
@@ -173,10 +162,7 @@ public class TableContextGenericTest
     public async Task InsertOneAsyncRowReturnsSameRow()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = await conn.TableAsync<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var result = await table.InsertOneAsync(project);
 
         Assert.AreEqual(project.Name, result?.Name);
@@ -186,10 +172,7 @@ public class TableContextGenericTest
     public void InsertManyReturnsCountOfRowsInserted()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var projectsInserted = table.InsertMany(projects);
 
         Assert.AreEqual(projects.Count, projectsInserted);
@@ -199,10 +182,7 @@ public class TableContextGenericTest
     public async Task InsertManyAsyncReturnsCountOfRowsInserted()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var projectsInserted = await table.InsertManyAsync(projects);
 
         Assert.AreEqual(projects.Count, projectsInserted);
@@ -212,10 +192,7 @@ public class TableContextGenericTest
     public void UpdateOneRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         table.InsertOne(project);
 
         var projecstUpdated = table.UpdateOne(projectUpdated);
@@ -227,10 +204,7 @@ public class TableContextGenericTest
     public async Task UpdateOneAsyncRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         table.InsertOne(project);
 
         var projecstUpdated = await table.UpdateOneAsync(projectUpdated);
@@ -242,9 +216,7 @@ public class TableContextGenericTest
     public void UpdateManyRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         table.InsertMany(projects);
         var updatedCount = table.UpdateMany(projectsUpdated);
@@ -259,9 +231,7 @@ public class TableContextGenericTest
     public async Task UpdateManyAsyncRetrunsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         table.InsertMany(projects);
         var updatedCount = await table.UpdateManyAsync(projectsUpdated);
@@ -276,9 +246,7 @@ public class TableContextGenericTest
     public void DeleteOneChecksIfIsDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         table.InsertOne(project);
 
@@ -292,10 +260,7 @@ public class TableContextGenericTest
     public async Task DeleteOneAsyncChecksIfIsDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         table.InsertOne(project);
 
         await table.DeleteOneAsync(projectToDelete);
@@ -308,9 +273,7 @@ public class TableContextGenericTest
     public void DeleteManyChecksIfAreDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         table.InsertMany(projects);
         var deleted = table.DeleteMany(projectsToDelete);
@@ -323,10 +286,7 @@ public class TableContextGenericTest
     public async Task DeleteManyAsyncChecksIfAreDeletedFromTable()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         await table.InsertManyAsync(projects);
         var deleted = await table.DeleteManyAsync(projectsToDelete);
         var remaining = table.Query().ToList().Count;

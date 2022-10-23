@@ -30,8 +30,7 @@ public class SqlTextExtensionsTest
     public void ProvidingATableCreatesASelectFieldsFromTableFormatCommanText()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
         var command = conn.BeginCommandText().Select(table).EndCommandText();
 
@@ -44,9 +43,7 @@ public class SqlTextExtensionsTest
     public void ProvidingATableColumnsCreatesASelectFieldsWithOutFromTableFormatCommandText()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var command = conn.BeginCommandText().Select(table.Columns).EndCommandText();
 
         Assert.AreEqual(
@@ -133,9 +130,7 @@ public class SqlTextExtensionsTest
     public void ProvidingATableReturnsFromFormat()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-        var table = conn.Table<Project>("Projects");
-
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var command = conn.BeginCommandText().From(table).EndCommandText();
 
         Assert.AreEqual("FROM [Projects]", command.CommandText);

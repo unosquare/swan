@@ -3,7 +3,6 @@ global using Swan.Data.Extensions;
 global using Swan.Data.Providers;
 global using Swan.Data.Schema;
 global using Swan.Extensions;
-global using Swan.Gizmos;
 global using Swan.Reflection;
 global using System;
 global using System.Collections;

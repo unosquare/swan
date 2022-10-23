@@ -157,14 +157,16 @@ internal class DbTableSchema : IDbTableSchema
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional schema name.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <returns>A populated table schema.</returns>
-    public static IDbTableSchema Load(DbConnection connection, string tableName, string? schema)
+    public static IDbTableSchema Load(DbConnection connection, string tableName, string? schema, DbTransaction? transaction = default)
     {
         connection.EnsureConnected();
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
         using var schemaCommand = connection.BeginCommandText()
-            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
+            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText()
+            .WithTransaction(transaction);
 
         using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
         using var schemaTable = schemaReader.GetSchemaTable();
@@ -184,17 +186,22 @@ internal class DbTableSchema : IDbTableSchema
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The name of the table.</param>
     /// <param name="schema">The optional schema name.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A populated table schema.</returns>
-    public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, CancellationToken ct = default)
+    public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, DbTransaction? transaction = default, CancellationToken ct = default)
     {
+        const CommandBehavior SchemaBehavior = CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo;
+
         await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
         await using var schemaCommand = connection.BeginCommandText()
-            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText();
+            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText()
+            .WithTransaction(transaction);
 
-        await using var schemaReader = await schemaCommand.ExecuteReaderAsync(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo, ct);
+        
+        await using var schemaReader = await schemaCommand.ExecuteReaderAsync(SchemaBehavior, ct);
         using var schemaTable = await schemaReader.GetSchemaTableAsync(ct);
 
         if (schemaTable is null)

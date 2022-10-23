@@ -1,23 +1,24 @@
 ﻿namespace Swan.Data.SqlBulkOps;
 
 /// <summary>
-/// Provides bulk update methods for <see cref="ITableContext"/> with a connected <see cref="SqlConnection"/>.
+/// Provides bulk delete methods for <see cref="ITableContext"/> with a connected <see cref="SqlConnection"/>.
 /// </summary>
-public static class BulkUpdateExtensions
+public static class BulkDeleteExtensions
 {
     /// <summary>
-    /// Performs a bulk update operation on the provided table.
+    /// Performs a bulk delete operation on the provided table.
+    /// Provided items must have property values set for all the fields that uniquely identify each row.
     /// </summary>
     /// <param name="table">The table context.</param>
-    /// <param name="items">The collection to update. Items must have key column values set.</param>
+    /// <param name="items">The collection to delete. Items must have key column values set.</param>
     /// <param name="transaction">An optional external transaction. If not provided, the transaction commit and rollback will be handled internally.</param>
     /// <param name="timeoutSeconds">Seconds before the operation times out. 0 for indefinite wait time.</param>
     /// <param name="batchSize">The number of rows to be processed at a time. Value will be clamped between 10 and 10000.</param>
     /// <param name="notifyAfter">Notification callback every number of rows. Value will be clamped between 10 and 1000.</param>
     /// <param name="notifyCallback">The action callback triggered upon a notification event.</param>
     /// <param name="ct">The optional cancellation token.</param>
-    /// <returns>The total number of rows that were updated.</returns>
-    public static async Task<long> BulkUpdateAsync(this ITableContext table,
+    /// <returns>The total number of rows that were deleted.</returns>
+    public static async Task<long> BulkDeleteAsync(this ITableContext table,
         IEnumerable items,
         DbTransaction? transaction = default,
         int timeoutSeconds = Constants.InfiniteTimeoutSeconds,
@@ -68,7 +69,7 @@ public static class BulkUpdateExtensions
 
         // Prepare and wire up the rows copied event for notification and row count updates.
         long rowsCopiedCount = default;
-        int rowsUpdatedCount = default;
+        int rowsAffectedCount = default;
 
         // local event handler
         void onRowsCopied(object s, SqlRowsCopiedEventArgs e)
@@ -82,9 +83,9 @@ public static class BulkUpdateExtensions
         // Execute the bulk update operation.
         try
         {
-            // Create the temporary table based on existing table columns
+            // Create the temporary table with key columns exclusively.
             var tempTable = await connection
-                .TableBuilder(tempTableName, "tempdb.dbo", table.Columns)
+                .TableBuilder(tempTableName, string.Empty, table.KeyColumns)
                 .ExecuteTableCommandAsync(sqlTransaction, ct)
                 .ConfigureAwait(false);
 
@@ -99,8 +100,8 @@ public static class BulkUpdateExtensions
             await bulkOperation.WriteToServerAsync(reader, ct).ConfigureAwait(false);
 
             // now run the updates
-            var updateCommandText = HelperExtensions.BuildBulkUpdateCommandText(tempTable, table, table.Provider);
-            rowsUpdatedCount = await connection.ExecuteNonQueryAsync(updateCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
+            var deleteCommandText = HelperExtensions.BuildBulkDeleteCommandText(tempTable, table, table.Provider);
+            rowsAffectedCount = await connection.ExecuteNonQueryAsync(deleteCommandText, transaction: sqlTransaction, ct: ct).ConfigureAwait(false);
 
             // delete the temporary table
             var dropCommandText = $"DROP TABLE {tempTable.QuoteTable()}";
@@ -128,6 +129,6 @@ public static class BulkUpdateExtensions
         if (bulkOperation.TryGetRowsCopied(out var actualRowsCopied) && actualRowsCopied != Interlocked.Read(ref rowsCopiedCount))
             onRowsCopied(bulkOperation, new(actualRowsCopied));
 
-        return rowsUpdatedCount;
+        return rowsAffectedCount;
     }
 }

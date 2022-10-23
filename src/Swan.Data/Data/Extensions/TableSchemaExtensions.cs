@@ -102,6 +102,16 @@ public static class TableSchemaExtensions
         table is null ? throw new ArgumentNullException(nameof(table)) : new TableContext(table.Connection, table);
 
     /// <summary>
+    /// Create a <see cref="ITableBuilder"/> based on a <see cref="ITableContext"/> object.
+    /// </summary>
+    /// <param name="table">The table context to read the schema information from..</param>
+    /// <returns>The table builder object.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ITableBuilder<T> ToTableBuilder<T>(this ITableContext<T> table)
+        where T : class =>
+        table is null ? throw new ArgumentNullException(nameof(table)) : new TableContext<T>(table.Connection, table);
+
+    /// <summary>
     /// Quotes the specified table.
     /// </summary>
     /// <typeparam name="T">The table type.</typeparam>

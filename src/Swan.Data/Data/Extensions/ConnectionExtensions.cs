@@ -90,7 +90,7 @@ public static class ConnectionExtensions
     /// <param name="schemaName">The optional schema name.</param>
     /// <returns>A generated table context.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ITableBuilder TableBuilder<T>(this DbConnection connection, string tableName, string? schemaName = default)
+    public static ITableBuilder<T> TableBuilder<T>(this DbConnection connection, string tableName, string? schemaName = default)
         where T : class
     {
         if (connection is null)
@@ -136,10 +136,12 @@ public static class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>
     /// <param name="schema">The optional schema.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <returns>A connected table context.</returns>
-    public static ITableContext Table(this DbConnection connection, string tableName, string? schema = default) => connection is null
-        ? throw new ArgumentNullException(nameof(connection))
-        : new TableContext(connection, TableContext.CacheLoadTableSchema(connection, tableName, schema));
+    public static ITableContext Table(this DbConnection connection, string tableName, string? schema = default, DbTransaction? transaction = default) =>
+        connection is null
+            ? throw new ArgumentNullException(nameof(connection))
+            : new TableContext(connection, DbTableSchema.Load(connection, tableName, schema, transaction));
 
     /// <summary>
     /// Acquires a connected table context that can be used to inspect the associated
@@ -150,15 +152,16 @@ public static class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>
     /// <param name="schema">The optional schema.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A connected table context.</returns>
     public static async Task<ITableContext> TableAsync(
-        this DbConnection connection, string tableName, string? schema = default, CancellationToken ct = default)
+        this DbConnection connection, string tableName, string? schema = default, DbTransaction? transaction = default, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        var tableSchema = await TableContext.CacheLoadTableSchemaAsync(connection, tableName, schema, ct).ConfigureAwait(false);
+        var tableSchema = await DbTableSchema.LoadAsync(connection, tableName, schema, transaction, ct).ConfigureAwait(false);
         return new TableContext(connection, tableSchema);
     }
 
@@ -171,11 +174,12 @@ public static class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>
     /// <param name="schema">The optional schema.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <returns>A connected table context.</returns>
-    public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default)
+    public static ITableContext<T> Table<T>(this DbConnection connection, string tableName, string? schema = default, DbTransaction? transaction = default)
         where T : class => connection is null
         ? throw new ArgumentNullException(nameof(connection))
-        : new TableContext<T>(connection, TableContext.CacheLoadTableSchema(connection, tableName, schema));
+        : new TableContext<T>(connection, DbTableSchema.Load(connection, tableName, schema, transaction));
 
     /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
@@ -186,16 +190,17 @@ public static class ConnectionExtensions
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>
     /// <param name="schema">The optional schema.</param>
+    /// <param name="transaction">The optional transaction.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A connected table context.</returns>
     public static async Task<ITableContext<T>> TableAsync<T>(
-        this DbConnection connection, string tableName, string? schema = default, CancellationToken ct = default)
+        this DbConnection connection, string tableName, string? schema = default, DbTransaction? transaction = default, CancellationToken ct = default)
         where T : class
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        var tableSchema = await TableContext.CacheLoadTableSchemaAsync(connection, tableName, schema, ct).ConfigureAwait(false);
+        var tableSchema = await DbTableSchema.LoadAsync(connection, tableName, schema, transaction, ct).ConfigureAwait(false);
         return new TableContext<T>(connection, tableSchema);
     }
 

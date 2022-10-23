@@ -200,9 +200,7 @@ public class CommandExtensionsTest
     public void DefineParametersWhenCommandIsNullThrowsException()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         SqliteCommand? command = null;
 
         Assert.Throws<ArgumentNullException>(() => command.DefineParameters(table.Columns));
@@ -212,9 +210,8 @@ public class CommandExtensionsTest
     public void DefineParametersWorksOk()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var command = conn.CreateCommand();
-        var table = conn.Table<Project>("Projects");
         var parameters = command.DefineParameters(table.Columns);
 
         Assert.IsNotNull(parameters);

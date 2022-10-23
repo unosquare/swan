@@ -9,9 +9,9 @@ public class AsyncEnumerableExtensionsTest
     private static async IAsyncEnumerable<Project> FetchItems()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        await conn.Table<Project>("Projects").InsertOneAsync(new()
+        await table.InsertOneAsync(new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -31,9 +31,9 @@ public class AsyncEnumerableExtensionsTest
     private static async IAsyncEnumerable<Project> FetchItemsEmpty()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        var result = conn.QueryAsync<Project>("Select * from Projects;");
+        var result = table.QueryAsync("Select * from Projects;");
 
         await foreach (var item in result)
             yield return item;

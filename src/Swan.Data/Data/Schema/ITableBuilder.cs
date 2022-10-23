@@ -11,33 +11,69 @@ public interface ITableBuilder : IDbTableSchema, IDbConnected
     /// </summary>
     /// <param name="transaction">The optional transaction.</param>
     /// <returns>The command.</returns>
-    DbCommand BuildDdlCommand(DbTransaction? transaction = default);
+    DbCommand BuildTableCommand(DbTransaction? transaction = default);
 
     /// <summary>
     /// Executes the DDL command that creates the table if it does not exist.
     /// </summary>
     /// <param name="transaction">The optional transaction.</param>
-    /// <returns>The number of affected records.</returns>
-    int ExecuteDdlCommand(DbTransaction? transaction = default);
+    /// <returns>The resulting table context from executing the DDL command.</returns>
+    ITableContext ExecuteTableCommand(DbTransaction? transaction = default);
 
     /// <summary>
     /// Executes the DDL command that creates the table if it does not exist.
     /// </summary>
     /// <param name="transaction">The optional transaction.</param>
     /// <param name="ct">The cancellation token.</param>
-    /// <returns>The number of affected records.</returns>
-    Task<int> ExecuteDdlCommandAsync(DbTransaction? transaction = default, CancellationToken ct = default);
+    /// <returns>The resulting table context from executing the DDL command.</returns>
+    Task<ITableContext> ExecuteTableCommandAsync(DbTransaction? transaction = default, CancellationToken ct = default);
 
     /// <summary>
     /// Adds a column to the table schema.
     /// Column name is mandatory.
     /// </summary>
     /// <param name="column">The column to add.</param>
-    IDbTableSchema AddColumn(IDbColumnSchema column);
+    ITableBuilder AddColumn(IDbColumnSchema column);
 
     /// <summary>
     /// Removes a column from the table schema by its column name.
     /// </summary>
     /// <param name="columnName">The name of the column to remove.</param>
-    IDbTableSchema RemoveColumn(string columnName);
+    ITableBuilder RemoveColumn(string columnName);
+}
+
+/// <summary>
+/// Represents a generic table builder.
+/// </summary>
+/// <typeparam name="T">The entity type.</typeparam>
+public interface ITableBuilder<T> : ITableBuilder
+    where T : class
+{
+    /// <summary>
+    /// Executes the DDL command that creates the table if it does not exist.
+    /// </summary>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <returns>The resulting table context from executing the DDL command.</returns>
+    new ITableContext<T> ExecuteTableCommand(DbTransaction? transaction = default);
+
+    /// <summary>
+    /// Executes the DDL command that creates the table if it does not exist.
+    /// </summary>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The resulting table context from executing the DDL command.</returns>
+    new Task<ITableContext<T>> ExecuteTableCommandAsync(DbTransaction? transaction = default, CancellationToken ct = default);
+
+    /// <summary>
+    /// Adds a column to the table schema.
+    /// Column name is mandatory.
+    /// </summary>
+    /// <param name="column">The column to add.</param>
+    new ITableBuilder<T> AddColumn(IDbColumnSchema column);
+
+    /// <summary>
+    /// Removes a column from the table schema by its column name.
+    /// </summary>
+    /// <param name="columnName">The name of the column to remove.</param>
+    new ITableBuilder<T> RemoveColumn(string columnName);
 }

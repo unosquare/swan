@@ -1,5 +1,7 @@
 ﻿namespace Swan.Data.Context;
 
+using System.Data.Common;
+
 /// <summary>
 /// Represents table structure information bound to a particular connection
 /// and from which you can issue table specific CRUD commands.
@@ -40,6 +42,12 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
 
         return command;
     }
+
+    /// <inheritdoc />
+    public DbConnection Connection { get; }
+
+    /// <inheritdoc />
+    public DbProvider Provider { get; }
 
     /// <inheritdoc />
     public virtual DbCommand BuildUpdateCommand(DbTransaction? transaction = default)
@@ -88,22 +96,42 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     }
 
     /// <inheritdoc />
-    public DbCommand BuildDdlCommand(DbTransaction? transaction = null) =>
+    public DbCommand BuildTableCommand(DbTransaction? transaction = null) =>
         Provider.CreateTableDdlCommand(Connection, this).WithTransaction(transaction);
 
     /// <inheritdoc />
-    public int ExecuteDdlCommand(DbTransaction? transaction = null)
+    public ITableContext ExecuteTableCommand(DbTransaction? transaction = null)
     {
         Connection.EnsureConnected();
-        using var command = BuildDdlCommand(transaction);
-        return command.ExecuteNonQuery();
+        using var command = BuildTableCommand(transaction);
+        _ = command.ExecuteNonQuery();
+
+        var schema = Load(Connection, TableName, Schema, transaction);
+        return new TableContext(Connection, schema);
     }
 
     /// <inheritdoc />
-    public async Task<int> ExecuteDdlCommandAsync(DbTransaction? transaction = null, CancellationToken ct = default)
+    public async Task<ITableContext> ExecuteTableCommandAsync(DbTransaction? transaction = null, CancellationToken ct = default)
     {
         await Connection.EnsureConnectedAsync(ct);
-        await using var command = BuildDdlCommand(transaction);
-        return await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+        await using var command = BuildTableCommand(transaction);
+        _ = await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
+
+        var schema = await LoadAsync(Connection, TableName, Schema, transaction, ct).ConfigureAwait(false);
+        return new TableContext(Connection, schema);
+    }
+
+    /// <inheritdoc />
+    ITableBuilder ITableBuilder.AddColumn(IDbColumnSchema column)
+    {
+        AddColumn(column);
+        return this;
+    }
+
+    /// <inheritdoc />
+    ITableBuilder ITableBuilder.RemoveColumn(string columnName)
+    {
+        RemoveColumn(columnName);
+        return this;
     }
 }

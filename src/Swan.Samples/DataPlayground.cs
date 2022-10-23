@@ -25,7 +25,7 @@ internal static class DataPlayground
         // Create a connection as usual.
         await using var connection = new SqlConnection(ConnectionString);
 
-        var text = connection.TableBuilder<Project>("Projects").BuildDdlCommand().CommandText;
+        var text = connection.TableBuilder<Project>("Projects").BuildTableCommand().CommandText;
 
         var names = await connection.GetTableNamesAsync();
 
@@ -41,12 +41,13 @@ internal static class DataPlayground
 
         await connection.TestSqlBulkInsert();
         await connection.TestSqlBulkUpdate();
+        await connection.TestSqlBulkDelete();
     }
 
     private static async Task SqliteStuff()
     {
         var conn = new SqliteConnection("Data Source=mydb.sqlite");
-        var result = await conn.TableBuilder<Project>("Projects").ExecuteDdlCommandAsync();
+        var result = await conn.TableBuilder<Project>("Projects").ExecuteTableCommandAsync();
 
         var table = conn.Table<Project>("Projects");
         var project = table.InsertOne(new()
@@ -66,15 +67,12 @@ internal static class DataPlayground
 
     private static async Task TestSqlBulkUpdate(this DbConnection connection)
     {
-        // Now, instead of doing all that stuff manually, if we play with
-        // typical game rules, we can do stuff in a much simpler way :)
-        var projectsTable = connection.Table<Project>("Projects");
-
         // We'll use a transaction in this example. We won't actually insert anything.
         // since we will be rolling back the transaction.
         await using var tran = await connection.BeginTransactionAsync();
 
-        var projects = await connection.Table<Project>("Projects").QueryAsync(transaction: tran).ToListAsync();
+        var projectsTable = await connection.TableAsync<Project>("Projects", transaction: tran).ConfigureAwait(false);
+        var projects = await projectsTable.QueryAsync(transaction: tran).ToListAsync();
 
         for (var i = 0; i < projects.Count; i++)
         {
@@ -85,6 +83,24 @@ internal static class DataPlayground
             notifyCallback: (t, c) => $"BULK UPDATE (Notify): {c}".Info()).ConfigureAwait(false);
 
         $"BULK UPDATE (Completed): {totalRows}".Info();
+
+        await tran.RollbackAsync();
+
+    }
+
+    private static async Task TestSqlBulkDelete(this DbConnection connection)
+    {
+        // We'll use a transaction in this example. We won't actually insert anything.
+        // since we will be rolling back the transaction.
+        await using var tran = await connection.BeginTransactionAsync();
+
+        var projectsTable = await connection.TableAsync<Project>("Projects", transaction: tran).ConfigureAwait(false);
+        var projects = await projectsTable.QueryAsync(transaction: tran).ToListAsync();
+
+        var totalRows = await projectsTable.BulkDeleteAsync(projects, tran,
+            notifyCallback: (t, c) => $"BULK DELETE (Notify): {c}".Info()).ConfigureAwait(false);
+
+        $"BULK DELETE (Completed): {totalRows}".Info();
 
         await tran.RollbackAsync();
 

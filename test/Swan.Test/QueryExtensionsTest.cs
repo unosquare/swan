@@ -11,9 +11,7 @@ public class QueryExtensionsTest
     public void CreateDbCommandToExecuteQuery()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -39,9 +37,7 @@ public class QueryExtensionsTest
     public void CreateDbCommandToExecuteFirstOrDefault()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -66,9 +62,7 @@ public class QueryExtensionsTest
     public void CreateDbConnectionToExecuteQuery()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,
@@ -92,9 +86,7 @@ public class QueryExtensionsTest
     public void CreateDbConnectionToExecuteFirstOrDefault()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteDdlCommand();
-
-        var table = conn.Table<Project>("Projects");
+        var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
         var project = table.InsertOne(new()
         {
             CompanyId = 1,

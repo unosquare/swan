@@ -4,7 +4,7 @@
 /// A table context that maps between a given type and a data store.
 /// </summary>
 /// <typeparam name="T">The type this table context maps to.</typeparam>
-internal class TableContext<T> : TableContext, ITableContext<T>
+internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T>
     where T : class
 {
     /// <summary>
@@ -382,5 +382,40 @@ internal class TableContext<T> : TableContext, ITableContext<T>
         }
 
         return result;
+    }
+
+    /// <inheritdoc />
+    ITableContext<T> ITableBuilder<T>.ExecuteTableCommand(DbTransaction? transaction)
+    {
+        Connection.EnsureConnected();
+        using var command = BuildTableCommand(transaction);
+        var result = command.ExecuteNonQuery();
+
+        var schema = Load(Connection, TableName, Schema, transaction);
+        return new TableContext<T>(Connection, schema);
+    }
+
+    /// <inheritdoc />
+    async Task<ITableContext<T>> ITableBuilder<T>.ExecuteTableCommandAsync(DbTransaction? transaction, CancellationToken ct)
+    {
+        await Connection.EnsureConnectedAsync(ct);
+        await using var command = BuildTableCommand(transaction);
+
+        var schema = await LoadAsync(Connection, TableName, Schema, transaction, ct).ConfigureAwait(false);
+        return new TableContext<T>(Connection, schema);
+    }
+
+    /// <inheritdoc />
+    ITableBuilder<T> ITableBuilder<T>.AddColumn(IDbColumnSchema column)
+    {
+        AddColumn(column);
+        return this;
+    }
+
+    /// <inheritdoc />
+    ITableBuilder<T> ITableBuilder<T>.RemoveColumn(string columnName)
+    {
+        RemoveColumn(columnName);
+        return this;
     }
 }
