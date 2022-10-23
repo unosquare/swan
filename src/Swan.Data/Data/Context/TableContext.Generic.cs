@@ -23,20 +23,12 @@ internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T
 
     /// <inheritdoc />
     public virtual IEnumerable<T> Query(
-        string? trailingSql = default, object? param = default, DbTransaction? transaction = default)
-    {
-        var command = new DbCommandSource(Connection)
-            .Select(this).AppendText(trailingSql).EndCommandText()
-            .WithTransaction(transaction)
-            .SetParameters(param);
-
-        return command.Query(Deserializer);
-    }
+        string? trailingSql = default, object? param = default, DbTransaction? transaction = default) =>
+        Query(Deserializer, trailingSql, param, transaction).Cast<T>();
 
     /// <inheritdoc />
-    public virtual async IAsyncEnumerable<T> QueryAsync(
-        string? trailingSql = default, object? param = default, DbTransaction? transaction = default,
-        [EnumeratorCancellation] CancellationToken ct = default)
+    public virtual IAsyncEnumerable<T> QueryAsync(
+        string? trailingSql = default, object? param = default, DbTransaction? transaction = default, CancellationToken ct = default)
     {
         var command = new DbCommandSource(Connection)
             .Select(this).AppendText(trailingSql).EndCommandText()
@@ -44,352 +36,75 @@ internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T
             .SetParameters(param);
 
         var enumerable = command.QueryAsync(Deserializer, CommandBehavior.Default, ct);
-        await foreach (var item in enumerable.WithCancellation(ct).ConfigureAwait(false))
-            yield return item;
+        enumerable.ConfigureAwait(false);
+        return enumerable;
     }
 
     /// <inheritdoc />
     public virtual T? FirstOrDefault(
-        string? trailingSql = default, object? param = default, DbTransaction? transaction = default)
-    {
-        var command = new DbCommandSource(Connection)
-            .Select(this).AppendText(trailingSql).EndCommandText()
-            .WithTransaction(transaction)
-            .SetParameters(param);
-
-        return command.FirstOrDefault(Deserializer);
-    }
+        string? trailingSql = default, object? param = default, DbTransaction? transaction = default) =>
+        FirstOrDefault(Deserializer, trailingSql, param, transaction) as T;
 
     /// <inheritdoc />
     public virtual async Task<T?> FirstOrDefaultAsync(
         string? trailingSql = default, object? param = default, DbTransaction? transaction = default,
-        CancellationToken ct = default)
-    {
-        var command = new DbCommandSource(Connection)
-            .Select(this).AppendText(trailingSql).EndCommandText()
-            .WithTransaction(transaction)
-            .SetParameters(param);
-
-        return await command.FirstOrDefaultAsync(deserialize: Deserializer, ct: ct)
-            .ConfigureAwait(false);
-    }
+        CancellationToken ct = default) =>
+        (await FirstOrDefaultAsync(Deserializer, trailingSql, param, transaction, ct).ConfigureAwait(false)) as T;
 
     /// <inheritdoc />
-    public virtual T? InsertOne(T item, DbTransaction? transaction = null)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        Connection.EnsureConnected();
-        using var command = BuildInsertCommand(transaction).SetParameters(item);
-
-        if (!Provider.TryGetSelectLastInserted(this, out var selectBack))
-        {
-            _ = command.ExecuteNonQuery();
-            return default;
-        }
-
-        command.AppendText($";\r\n{selectBack};");
-        return command.FirstOrDefault(Deserializer);
-    }
+    public virtual T? InsertOne(T item, DbTransaction? transaction = null) =>
+        InsertOne(Deserializer, item, transaction) as T;
 
     /// <inheritdoc />
-    public virtual async Task<T?> InsertOneAsync(T item, DbTransaction? transaction = default, CancellationToken ct = default)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var command = BuildInsertCommand(transaction).SetParameters(item);
-
-        try
-        {
-            if (!Provider.TryGetSelectLastInserted(this, out var selectBack))
-            {
-                _ = await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-                return default;
-            }
-
-            command.AppendText($";\r\n{selectBack};");
-            return await command.FirstOrDefaultAsync(Deserializer, CommandBehavior.SingleRow, ct).ConfigureAwait(false);
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-    }
+    public virtual async Task<T?> InsertOneAsync(T item, DbTransaction? transaction = default, CancellationToken ct = default) =>
+        (await InsertOneAsync(Deserializer, item, transaction, ct).ConfigureAwait(false)) as T;
 
     /// <inheritdoc />
-    public virtual int InsertMany(IEnumerable<T> items, DbTransaction? transaction = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        Connection.EnsureConnected();
-        var result = 0;
-        var command = BuildInsertCommand(transaction);
-
-        try
-        {
-            command.TryPrepare();
-
-            foreach (var item in items)
-            {
-                if (item is null)
-                    continue;
-
-                command.SetParameters(item);
-                result += command.ExecuteNonQuery();
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-
-        return result;
-    }
+    public virtual int InsertMany(IEnumerable<T> items, DbTransaction? transaction = default) =>
+        base.InsertMany(items, transaction);
 
     /// <inheritdoc />
-    public virtual async Task<int> InsertManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var result = default(int);
-        var command = BuildInsertCommand(transaction);
-
-        try
-        {
-            await command.TryPrepareAsync(ct).ConfigureAwait(false);
-
-            foreach (var item in items)
-            {
-                if (item is null)
-                    continue;
-
-                command.SetParameters(item);
-                result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-
-        return result;
-    }
+    public virtual Task<int> InsertManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default) =>
+        base.InsertManyAsync(items, transaction, ct);
 
     /// <inheritdoc />
-    public virtual int UpdateOne(T item, DbTransaction? transaction = default)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        Connection.EnsureConnected();
-        var command = BuildUpdateCommand(transaction).SetParameters(item);
-
-        try
-        {
-            return command.ExecuteNonQuery();
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-    }
+    public virtual int UpdateOne(T item, DbTransaction? transaction = default) =>
+        base.UpdateOne(item, transaction);
 
     /// <inheritdoc />
-    public virtual async Task<int> UpdateOneAsync(T item, DbTransaction? transaction = null, CancellationToken ct = default)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var command = BuildUpdateCommand(transaction).SetParameters(item);
-        try
-        {
-            return await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-    }
+    public virtual Task<int> UpdateOneAsync(T item, DbTransaction? transaction = null, CancellationToken ct = default) =>
+        base.UpdateOneAsync(item, transaction, ct);
 
     /// <inheritdoc />
-    public virtual int UpdateMany(IEnumerable<T> items, DbTransaction? transaction = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        Connection.EnsureConnected();
-        var result = 0;
-        var command = BuildUpdateCommand(transaction);
-
-        try
-        {
-            command.TryPrepare();
-            foreach (var item in items)
-            {
-                command.SetParameters(item);
-                result += command.ExecuteNonQuery();
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-
-        return result;
-    }
+    public virtual int UpdateMany(IEnumerable<T> items, DbTransaction? transaction = default) =>
+        base.UpdateMany(items, transaction);
 
     /// <inheritdoc />
-    public virtual async Task<int> UpdateManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var result = default(int);
-        var command = BuildUpdateCommand(transaction);
-
-        try
-        {
-            await command.TryPrepareAsync(ct).ConfigureAwait(false);
-
-            foreach (var item in items)
-            {
-                if (item is null)
-                    continue;
-
-                command.SetParameters(item);
-                result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-
-        return result;
-    }
+    public virtual Task<int> UpdateManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default) =>
+        base.UpdateManyAsync(items, transaction, ct);
 
     /// <inheritdoc />
-    public virtual int DeleteOne(T item, DbTransaction? transaction = default)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        Connection.EnsureConnected();
-        var command = BuildDeleteCommand(transaction).SetParameters(item);
-
-        try
-        {
-            return command.ExecuteNonQuery();
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-    }
+    public virtual int DeleteOne(T item, DbTransaction? transaction = default) =>
+        base.DeleteOne(item, transaction);
 
     /// <inheritdoc />
-    public virtual async Task<int> DeleteOneAsync(T item, DbTransaction? transaction = default, CancellationToken ct = default)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var command = BuildDeleteCommand(transaction).SetParameters(item);
-        try
-        {
-            return await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-    }
+    public virtual Task<int> DeleteOneAsync(T item, DbTransaction? transaction = default, CancellationToken ct = default) =>
+        base.DeleteOneAsync(item, transaction, ct);
 
     /// <inheritdoc />
-    public virtual int DeleteMany(IEnumerable<T> items, DbTransaction? transaction = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        Connection.EnsureConnected();
-        var result = 0;
-        var command = BuildDeleteCommand(transaction);
-
-        try
-        {
-            command.TryPrepare();
-            foreach (var item in items)
-            {
-                if (item is null)
-                    continue;
-
-                command.SetParameters(item);
-                result += command.ExecuteNonQuery();
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            command.Dispose();
-        }
-
-        return result;
-    }
+    public virtual int DeleteMany(IEnumerable<T> items, DbTransaction? transaction = default) =>
+        base.DeleteMany(items, transaction);
 
     /// <inheritdoc />
-    public virtual async Task<int> DeleteManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        await Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        var result = 0;
-        var command = BuildDeleteCommand(transaction);
-
-        try
-        {
-            await command.TryPrepareAsync(ct).ConfigureAwait(false);
-            foreach (var item in items)
-            {
-                if (item is null)
-                    continue;
-
-                command.SetParameters(item);
-                result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
-            }
-        }
-        finally
-        {
-            command.Parameters?.Clear();
-            await command.DisposeAsync().ConfigureAwait(false);
-        }
-
-        return result;
-    }
+    public virtual Task<int> DeleteManyAsync(IEnumerable<T> items, DbTransaction? transaction = default, CancellationToken ct = default) =>
+        base.DeleteManyAsync(items, transaction, ct);
 
     /// <inheritdoc />
     ITableContext<T> ITableBuilder<T>.ExecuteTableCommand(DbTransaction? transaction)
     {
         Connection.EnsureConnected();
         using var command = BuildTableCommand(transaction);
-        var result = command.ExecuteNonQuery();
+        _ = command.ExecuteNonQuery();
 
         var schema = Load(Connection, TableName, Schema, transaction);
         return new TableContext<T>(Connection, schema);
@@ -400,6 +115,7 @@ internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T
     {
         await Connection.EnsureConnectedAsync(ct);
         await using var command = BuildTableCommand(transaction);
+        _ = await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
 
         var schema = await LoadAsync(Connection, TableName, Schema, transaction, ct).ConfigureAwait(false);
         return new TableContext<T>(Connection, schema);

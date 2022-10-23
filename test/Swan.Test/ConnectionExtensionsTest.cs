@@ -172,9 +172,7 @@ public class ConnectionExtensionsTest
     public async Task CreateProjectsTableAndGetItsKeyColumnNameAsync()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
-        await conn.TableBuilder<Project>("ProjectsAsync").ExecuteTableCommandAsync();
-
-        var table = await conn.TableAsync("ProjectsAsync");
+        var table = await conn.TableBuilder<Project>("ProjectsAsync").ExecuteTableCommandAsync();
         var keys = table.KeyColumns;
 
         Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");

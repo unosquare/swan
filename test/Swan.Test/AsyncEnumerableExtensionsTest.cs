@@ -33,7 +33,7 @@ public class AsyncEnumerableExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        var result = table.QueryAsync("Select * from Projects;");
+        var result = table.QueryAsync();
 
         await foreach (var item in result)
             yield return item;
@@ -77,7 +77,7 @@ public class AsyncEnumerableExtensionsTest
         var items =
             // Act
             FetchItemsEmpty();
-        var response = await items.FirstOrDefaultAsync(ct);
+        var response = await items.FirstOrDefaultAsync(ct).ConfigureAwait(false);
 
         // Assert
         Assert.IsTrue(response is null);
