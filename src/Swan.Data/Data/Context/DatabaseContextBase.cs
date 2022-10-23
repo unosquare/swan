@@ -124,7 +124,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// <summary>
     /// Signals the completion of a data operation so that a new one can take place.
     /// </summary>
-    private void CompleteDataOperation() => Semaphore.Release();
+    public void CompleteDataOperation() => Semaphore.Release();
 
     /// <summary>
     /// Initializes a table property in the current <see cref="DatabaseContextBase"/>.
