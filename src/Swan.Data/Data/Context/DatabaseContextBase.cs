@@ -149,7 +149,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
             Connection,
             default(string), // table name
             default(string), // schema name
-            default(CancellationToken),
+            default(DbTransaction),
         };
 
         // Produce a typed version of the generic method.
