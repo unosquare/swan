@@ -38,6 +38,13 @@ internal static class DataPlayground
         using var context = new SampleContext(connection);
         var items = context.Projects.Query().ToList();
 
+        {
+            if (context.TryGetTableContext<Project>(out var tbl))
+            {
+
+            }
+        }
+
         //var conn = new SqliteConnection("Data Source=hello.db");
         // var tableNames = await conn.TableNames();
         if (false)
