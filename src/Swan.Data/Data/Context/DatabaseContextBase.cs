@@ -158,6 +158,9 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         // Try to get a table attribute
         var tableAttribute = tableProperty.Attribute<TableAttribute>();
 
+        // TODO: the table attribute cannot be applied to a property
+        // so the below code is useless. Try to find a way to properly
+        // annotate.
         if (tableAttribute is not null)
         {
             if (!string.IsNullOrWhiteSpace(tableAttribute.Name))
