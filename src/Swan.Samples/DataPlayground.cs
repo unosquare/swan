@@ -122,6 +122,8 @@ internal static class DataPlayground
         // typical game rules, we can do stuff in a much simpler way :)
         var projects = connection.Table<Project>("Projects");
 
+        var currentRowCount = await projects.CountAsync();
+
         // We'll use a transaction in this example. We won't actually insert anything.
         // since we will be rolling back the transaction.
         await using var tran = await connection.BeginTransactionAsync();
@@ -148,7 +150,10 @@ internal static class DataPlayground
 
         $"BULK INSERT (Completed): {totalRows}".Info();
 
-        await tran.RollbackAsync();
+        if (currentRowCount > 0)
+            await tran.RollbackAsync();
+        else
+            await tran.CommitAsync();
 
     }
 

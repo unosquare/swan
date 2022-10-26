@@ -137,7 +137,7 @@ public class DbProvider
     public virtual string? GetColumnDdlString(IDbColumnSchema column) => column is null
         ? throw new ArgumentNullException(nameof(column))
         : TypeMapper.TryGetProviderTypeFor(column, out var providerType)
-        ? $"{QuoteField(column.ColumnName),16} {providerType}{(!column.AllowsDBNull ? " NOT" : string.Empty)} NULL"
+        ? $"{QuoteField(column.ColumnName),16} {providerType}{(!column.AllowDBNull ? " NOT" : string.Empty)} NULL"
         : default;
 
     /// <summary>
@@ -204,7 +204,7 @@ public class DbProvider
             throw new InvalidOperationException("Cannot generate DDL code with no provided columns.");
 
         var quotedTableName = QuoteTable(table.TableName, table.Schema);
-        var orderedFields = table.Columns.OrderBy(c => c.Ordinal).ThenBy(c => c.ColumnName);
+        var orderedFields = table.Columns.OrderBy(c => c.ColumnOrdinal).ThenBy(c => c.ColumnName);
         return (quotedTableName, orderedFields);
     }
 }

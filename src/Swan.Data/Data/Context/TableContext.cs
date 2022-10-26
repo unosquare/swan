@@ -28,6 +28,38 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     public DbProvider Provider { get; }
 
     /// <inheritdoc />
+    public virtual long Count(string? trailingSql = default, object? param = default, DbTransaction? transaction = default)
+    {
+        var command = new DbCommandSource(Connection)
+            .Select().AppendText("COUNT(*)")
+            .From(this).AppendText(trailingSql).EndCommandText()
+            .WithTransaction(transaction)
+            .SetParameters(param);
+
+        var result = command.ExecuteScalar();
+
+        return TypeManager.TryChangeType<long>(result, out var rowCount)
+            ? rowCount
+            : -1;
+    }
+
+    /// <inheritdoc />
+    public virtual async Task<long> CountAsync(string? trailingSql = default, object? param = default, DbTransaction? transaction = default, CancellationToken ct = default)
+    {
+        var command = new DbCommandSource(Connection)
+            .Select().AppendText("COUNT(*)")
+            .From(this).AppendText(trailingSql).EndCommandText()
+            .WithTransaction(transaction)
+            .SetParameters(param);
+
+        var result = await command.ExecuteScalarAsync(ct);
+
+        return TypeManager.TryChangeType<long>(result, out var rowCount)
+            ? rowCount
+            : -1;
+    }
+
+    /// <inheritdoc />
     public virtual DbCommand BuildInsertCommand(DbTransaction? transaction = default)
     {
         var insertColumns = InsertableColumns;

@@ -113,8 +113,8 @@ internal class DbTableSchema : IDbTableSchema
 
         var ordinal = _columnList.Count - 1;
         _columnOrdinals[columnCopy.ColumnName] = ordinal;
-        if (columnCopy.Ordinal != ordinal)
-            _ = columnCopy.GetType().TypeInfo().TryWriteProperty(columnCopy, nameof(IDbColumnSchema.Ordinal), ordinal);
+        if (columnCopy.ColumnOrdinal != ordinal)
+            _ = columnCopy.GetType().TypeInfo().TryWriteProperty(columnCopy, nameof(IDbColumnSchema.ColumnOrdinal), ordinal);
 
         return this;
     }
@@ -136,8 +136,8 @@ internal class DbTableSchema : IDbTableSchema
             {
                 var column = _columnList[ordinal];
                 _columnOrdinals[column.ColumnName] = ordinal;
-                if (column.Ordinal != ordinal)
-                    _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.Ordinal), ordinal);
+                if (column.ColumnOrdinal != ordinal)
+                    _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.ColumnOrdinal), ordinal);
             }
         }
 

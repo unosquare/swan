@@ -27,7 +27,7 @@ internal record SqliteColumn : IDbColumnSchema
 
     public Type? DataType { get; set; }
 
-    public string? DataTypeName { get; set; }
+    public string? ProviderType { get; set; }
 
     public bool? IsAliased { get; set; }
 
@@ -39,32 +39,38 @@ internal record SqliteColumn : IDbColumnSchema
 
     public bool? IsUnique { get; set; }
 
+    public bool? IsLong { get; set; }
+
     public short? NumericPrecision { get; set; }
 
     public short? NumericScale { get; set; }
 
     string IDbColumnSchema.ColumnName => ColumnName ?? string.Empty;
 
-    int IDbColumnSchema.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
+    int IDbColumnSchema.ColumnOrdinal => ColumnOrdinal.GetValueOrDefault();
 
     Type IDbColumnSchema.DataType => DataType ?? typeof(string);
 
-    string IDbColumnSchema.ProviderDataType => DataTypeName ?? string.Empty;
+    string IDbColumnSchema.ProviderType => ProviderType ?? string.Empty;
 
-    bool IDbColumnSchema.AllowsDBNull => AllowDBNull.GetValueOrDefault();
+    bool IDbColumnSchema.AllowDBNull => AllowDBNull.GetValueOrDefault();
 
     bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
     bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault() ||
-        (IsKey.GetValueOrDefault() && (DataTypeName ?? string.Empty).ToUpperInvariant().Equals("INTEGER", StringComparison.Ordinal));
+        (IsKey.GetValueOrDefault() && (ProviderType ?? string.Empty).ToUpperInvariant().Equals("INTEGER", StringComparison.Ordinal));
 
     bool IDbColumnSchema.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
 
-    byte IDbColumnSchema.Precision => Convert.ToByte(NumericPrecision.GetValueOrDefault().ClampMin(0));
+    int IDbColumnSchema.ColumnSize => ColumnSize.GetValueOrDefault();
 
-    byte IDbColumnSchema.Scale => Convert.ToByte(NumericScale.GetValueOrDefault().ClampMin(0));
+    int IDbColumnSchema.NumericPrecision => Convert.ToInt32(NumericPrecision.GetValueOrDefault().ClampMin(0));
 
-    int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
+    int IDbColumnSchema.NumericScale => Convert.ToInt32(NumericScale.GetValueOrDefault().ClampMin(0));
+
+    bool IDbColumnSchema.IsLong => IsLong.GetValueOrDefault();
+
+    bool IDbColumnSchema.IsUnique => IsUnique.GetValueOrDefault();
 
     object ICloneable.Clone() => this with { };
 }

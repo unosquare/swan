@@ -107,28 +107,28 @@ internal class DbTypeMapper : IDbTypeMapper
             throw new ArgumentNullException(nameof(column));
 
         if (!TryGetProviderTypeFor(column.DataType, out var providerMappedType) ||
-            string.IsNullOrWhiteSpace(column.ProviderDataType))
+            string.IsNullOrWhiteSpace(column.ProviderType))
         {
             providerType = default;
             return false;
         }
 
         var dataType = new ProviderType(providerMappedType);
-        var columnType = new ProviderType(column.ProviderDataType);
-        var hasLength = column.MaxLength > 0;
-        var hasPrecision = column.Precision > 0;
-        var hasScale = column.Scale > 0;
+        var columnType = new ProviderType(column.ProviderType);
+        var hasLength = column.ColumnSize > 0 || column.IsLong;
+        var hasPrecision = column.NumericPrecision > 0;
+        var hasScale = column.NumericScale > 0;
         var needsArguments = dataType.HasArguments && (hasLength || hasPrecision || hasScale);
         providerType = columnType.BasicType;
 
         if (needsArguments)
         {
-            if (hasPrecision && hasScale)
-                providerType = $"{columnType.BasicType}({column.Precision}, {column.Scale})";
-            else if (hasPrecision && !hasScale)
-                providerType = $"{columnType.BasicType}({column.Precision})";
+            if (hasPrecision && hasScale && !column.IsLong)
+                providerType = $"{columnType.BasicType}({column.NumericPrecision}, {column.NumericScale})";
+            else if (hasPrecision && !hasScale && !column.IsLong)
+                providerType = $"{columnType.BasicType}({column.NumericPrecision})";
             else if (hasLength)
-                providerType = $"{columnType.BasicType}({(column.MaxLength == int.MaxValue ? "MAX" : column.MaxLength)})";
+                providerType = $"{columnType.BasicType}({(column.ColumnSize == int.MaxValue || column.IsLong ? "MAX" : column.ColumnSize)})";
         }
 
         return true;

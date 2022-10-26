@@ -42,7 +42,7 @@ public static class TableSchemaExtensions
             c.ColumnName.ToUpperInvariant().EndsWith("ID", StringComparison.Ordinal) &&
             c.DataType.TypeInfo().IsNumeric &&
             !c.DataType.TypeInfo().IsNullable)
-            .OrderBy(c => c.Ordinal)
+            .OrderBy(c => c.ColumnOrdinal)
             .ThenBy(c => c.ColumnName)
             .FirstOrDefault();
 
@@ -142,15 +142,15 @@ public static class TableSchemaExtensions
         return new DbColumnSchema
         {
             DataType = dataType,
-            AllowsDBNull = p.PropertyType.IsNullable,
+            AllowDBNull = p.PropertyType.IsNullable,
             ColumnName = p.PropertyName,
             IsReadOnly = !p.CanWrite,
-            ProviderDataType = providerType,
-            Ordinal = columnIndex,
-            MaxLength = length,
+            ProviderType = providerType,
+            ColumnOrdinal = columnIndex,
+            ColumnSize = length,
             // TODO: Scale and precision not yet fully resolved.
-            Scale = (byte)scale,
-            Precision = (byte)precision
+            NumericScale = scale,
+            NumericPrecision = precision
         };
     }
 

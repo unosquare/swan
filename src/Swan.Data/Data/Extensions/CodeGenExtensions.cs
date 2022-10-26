@@ -81,16 +81,16 @@ public static class CodeGenExtensions
         if (column.IsKey)
             builder.Append(ci, $"    [Key]\r\n");
 
-        if (column.MaxLength > 0 && column.Precision <= 0 && column.Scale <= 0 && typeAlias != "bool")
-            builder.Append(ci, $"    [MaxLength({column.MaxLength})]\r\n");
+        if (column.ColumnSize > 0 && column.NumericPrecision <= 0 && column.NumericScale <= 0 && typeAlias != "bool")
+            builder.Append(ci, $"    [MaxLength({column.ColumnSize})]\r\n");
 
         if (column.IsAutoIncrement && column.IsKey)
             builder.Append(ci, $"    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]\r\n");
 
         builder
             .Append(ci,
-                $"    [Column(nameof({column.ColumnName}){(column.Ordinal >= 0 ? $", Order = {column.Ordinal}" : string.Empty)})]\r\n")
-            .Append(ci, $"    public {typeAlias}{(column.AllowsDBNull ? "? " : " ")}{column.ColumnName}")
+                $"    [Column(nameof({column.ColumnName}){(column.ColumnOrdinal >= 0 ? $", Order = {column.ColumnOrdinal}" : string.Empty)})]\r\n")
+            .Append(ci, $"    public {typeAlias}{(column.AllowDBNull ? "? " : " ")}{column.ColumnName}")
             .Append("{ get; set; }");
         return builder.ToString();
     }

@@ -226,7 +226,7 @@ public static class CommandExtensions
         column is null
             ? throw new ArgumentNullException(nameof(column))
             : command.DefineParameter(column.ColumnName, column.DataType, direction,
-                column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
+                column.ColumnSize, column.NumericPrecision, column.NumericScale, column.AllowDBNull);
 
     /// <summary>
     /// Adds or updates multiple parameters in the command's parameter collection

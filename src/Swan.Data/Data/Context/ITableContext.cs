@@ -6,6 +6,25 @@
 public interface ITableContext : IDbTableSchema, IDbConnected
 {
     /// <summary>
+    /// Gets the current number of rows in the table.
+    /// </summary>
+    /// <param name="trailingSql">The SQL statements after the table name.</param>
+    /// <param name="param">The optional parameters.</param>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <returns>The computed table count.</returns>
+    long Count(string? trailingSql = default, object? param = default, DbTransaction? transaction = default);
+
+    /// <summary>
+    /// Gets the current number of rows in the table.
+    /// </summary>
+    /// <param name="trailingSql">The SQL statements after the table name.</param>
+    /// <param name="param">The optional parameters.</param>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>The computed table count.</returns>
+    Task<long> CountAsync(string? trailingSql = default, object? param = default, DbTransaction? transaction = default, CancellationToken ct = default);
+
+    /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
     /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over items, one at a time.

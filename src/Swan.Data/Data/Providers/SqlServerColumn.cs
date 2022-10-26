@@ -24,8 +24,6 @@ internal record SqlServerColumn : IDbColumnSchema
 
     public Type? DataType { get; set; }
 
-    public string? DataTypeName { get; set; }
-
     public int? IsAliased { get; set; }
 
     public bool? IsAutoIncrement { get; set; }
@@ -50,9 +48,9 @@ internal record SqlServerColumn : IDbColumnSchema
 
     public SqlDbType NonVersionedProviderType { get; set; }
 
-    public byte? NumericPrecision { get; set; }
+    public int? NumericPrecision { get; set; }
 
-    public byte? NumericScale { get; set; }
+    public int? NumericScale { get; set; }
 
     public string? ProviderSpecificDataType { get; set; }
 
@@ -60,29 +58,31 @@ internal record SqlServerColumn : IDbColumnSchema
 
     public string? UdtAssemblyQualifiedName { get; set; }
 
-    byte IDbColumnSchema.Precision => NumericPrecision.GetValueOrDefault() == byte.MaxValue ?
-        byte.MinValue : NumericPrecision.GetValueOrDefault();
+    int IDbColumnSchema.NumericPrecision => NumericPrecision.GetValueOrDefault(byte.MaxValue) == byte.MaxValue ? -1 : NumericPrecision ?? -1;
 
-    byte IDbColumnSchema.Scale => NumericScale.GetValueOrDefault() == byte.MaxValue ?
-        byte.MinValue : NumericScale.GetValueOrDefault();
+    int IDbColumnSchema.NumericScale => NumericScale.GetValueOrDefault(byte.MaxValue) == byte.MaxValue ? -1 : NumericScale ?? -1;
 
-    int IDbColumnSchema.MaxLength => ColumnSize.GetValueOrDefault();
+    int IDbColumnSchema.ColumnSize =>  ColumnSize ?? -1;
 
     string IDbColumnSchema.ColumnName => ColumnName ?? string.Empty;
 
-    int IDbColumnSchema.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
+    int IDbColumnSchema.ColumnOrdinal => ColumnOrdinal.GetValueOrDefault(-1);
 
     Type IDbColumnSchema.DataType => DataType ?? typeof(string);
 
-    string IDbColumnSchema.ProviderDataType => DataTypeName ?? string.Empty;
+    string IDbColumnSchema.ProviderType => ProviderType.GetValueOrDefault(SqlDbType.NVarChar).ToStringInvariant();
 
-    bool IDbColumnSchema.AllowsDBNull => AllowDBNull.GetValueOrDefault();
+    bool IDbColumnSchema.AllowDBNull => AllowDBNull.GetValueOrDefault();
 
     bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
     bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault();
 
     bool IDbColumnSchema.IsReadOnly => IsReadOnly.GetValueOrDefault();
+
+    bool IDbColumnSchema.IsLong => IsLong.GetValueOrDefault();
+
+    bool IDbColumnSchema.IsUnique => IsUnique.GetValueOrDefault();
 
     object ICloneable.Clone() => this with { };
 }

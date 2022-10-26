@@ -9,25 +9,29 @@ internal sealed record DbColumnSchema : IDbColumnSchema
 
     public string ColumnName { get; set; } = string.Empty;
 
-    public int Ordinal { get; set; }
-
     public Type DataType { get; set; } = typeof(string);
 
-    public string ProviderDataType { get; set; } = string.Empty;
+    public string ProviderType { get; set; } = string.Empty;
 
-    public bool AllowsDBNull { get; set; }
+    public int ColumnOrdinal { get; set; }
+
+    public int ColumnSize { get; set; }
+
+    public int NumericPrecision { get; set; }
+
+    public int NumericScale { get; set; }
+
+    public bool IsLong { get; set; }
+
+    public bool AllowDBNull { get; set; }
+
+    public bool IsReadOnly { get; set; }
+
+    public bool IsUnique { get; set; }
 
     public bool IsKey { get; set; }
 
     public bool IsAutoIncrement { get; set; }
-
-    public bool IsReadOnly { get; set; }
-
-    public byte Precision { get; set; }
-
-    public byte Scale { get; set; }
-
-    public int MaxLength { get; set; }
 
     object ICloneable.Clone() => this with { };
 }

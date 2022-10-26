@@ -7,7 +7,6 @@ using Swan.Data;
 /// </summary>
 internal sealed class DataRowDbRecord : IDataRecord
 {
-    // TODO: Complete method implementation
     private static readonly CultureInfo Invariant = CultureInfo.InvariantCulture;
     private readonly DataRow Row;
 

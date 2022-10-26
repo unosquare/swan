@@ -110,7 +110,7 @@ internal sealed class CollectionDbReader : ICollectionDbReader
     #region Table Metadata
 
     /// <inheritdoc />
-    public string GetDataTypeName(int i) => Schema[i]!.ProviderDataType;
+    public string GetDataTypeName(int i) => Schema[i]!.ProviderType;
 
     /// <inheritdoc />
     public string GetName(int i) => Schema[i]!.ColumnName;
