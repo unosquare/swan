@@ -31,7 +31,7 @@ public static class CommandSourceExtensions
     /// <param name="table">The table with columns.</param>
     /// <returns>This instance for fluent API support.</returns>
     public static DbCommandSource Select(this DbCommandSource @this, IDbTableSchema table) => table is not null
-        ? @this.Select(table.Columns.Select(c => c.Name).ToArray()).From(table)
+        ? @this.Select(table.Columns.Select(c => c.ColumnName).ToArray()).From(table)
         : throw new ArgumentNullException(nameof(table));
 
     /// <summary>
@@ -42,7 +42,7 @@ public static class CommandSourceExtensions
     /// <param name="columns">The columns.</param>
     /// <returns>This instance for fluent API support.</returns>
     public static DbCommandSource Select(this DbCommandSource @this, IEnumerable<IDbColumnSchema> columns) => columns is not null
-        ? @this.Select(columns.Select(c => c.Name).ToArray())
+        ? @this.Select(columns.Select(c => c.ColumnName).ToArray())
         : throw new ArgumentNullException(nameof(columns));
 
     /// <summary>

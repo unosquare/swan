@@ -85,7 +85,7 @@ public static class BulkInsertExtensions
 
         // Build the column mappings
         foreach (var column in table.Columns)
-            bulkOperation.ColumnMappings.Add(column.Name, column.Name);
+            bulkOperation.ColumnMappings.Add(column.ColumnName, column.ColumnName);
 
         // Execute the bulk insert operation.
         try

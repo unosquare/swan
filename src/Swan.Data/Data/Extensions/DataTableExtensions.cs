@@ -17,10 +17,11 @@ public static class DataTableExtensions
         if (table is null)
             throw new ArgumentNullException(nameof(table));
 
-        deserialize ??= (r) => r.ParseObject<T>();
+        deserialize ??= (r) => r.ToDataRecord().ParseObject<T>();
 
         foreach (DataRow row in table.Rows)
-            yield return deserialize.Invoke(row);
+            if (row is not null)
+                yield return deserialize.Invoke(row);
     }
 
     /// <summary>
@@ -37,6 +38,7 @@ public static class DataTableExtensions
             throw new ArgumentNullException(nameof(table));
 
         foreach (DataRow row in table.Rows)
-            yield return row.ParseExpando();
+            if (row is not null)
+                yield return row.ToDataRecord().ParseExpando();
     }
 }

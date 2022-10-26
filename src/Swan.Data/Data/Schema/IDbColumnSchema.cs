@@ -5,10 +5,12 @@
 /// </summary>
 public interface IDbColumnSchema : ICloneable
 {
+    // TODO make this compatible with DbColumn
+
     /// <summary>
     /// Gets the column name.
     /// </summary>
-    string Name { get; }
+    string ColumnName { get; }
 
     /// <summary>
     /// Gets the column ordinal (column position within the table).

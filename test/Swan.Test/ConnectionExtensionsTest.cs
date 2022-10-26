@@ -165,7 +165,7 @@ public class ConnectionExtensionsTest
         var table = conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
         var keys = table.KeyColumns;
 
-        Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
+        Assert.AreEqual(keys.FirstOrDefault().ColumnName, "ProjectId");
     }
 
     [Test]
@@ -175,7 +175,7 @@ public class ConnectionExtensionsTest
         var table = await conn.TableBuilder<Project>("ProjectsAsync").ExecuteTableCommandAsync();
         var keys = table.KeyColumns;
 
-        Assert.AreEqual(keys.FirstOrDefault().Name, "ProjectId");
+        Assert.AreEqual(keys.FirstOrDefault().ColumnName, "ProjectId");
     }
 
     [Test]

@@ -27,7 +27,7 @@ internal class MySqlDbProvider : DbProvider
         : !TypeMapper.TryGetProviderTypeFor(column, out var providerType)
             ? default
             : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
-                ? $"{QuoteField(column.Name),16} {providerType} NOT NULL AUTO_INCREMENT"
+                ? $"{QuoteField(column.ColumnName),16} {providerType} NOT NULL AUTO_INCREMENT"
                 : base.GetColumnDdlString(column);
 
     public override bool TryGetSelectLastInserted(IDbTableSchema table, out string? commandText)
@@ -36,9 +36,9 @@ internal class MySqlDbProvider : DbProvider
         if (table.IdentityKeyColumn is null || table.KeyColumns.Count != 1)
             return false;
 
-        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.Name)));
+        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.ColumnName)));
         var quotedTable = QuoteTable(table.TableName, table.Schema);
-        var quotedKeyField = QuoteField(table.IdentityKeyColumn.Name);
+        var quotedKeyField = QuoteField(table.IdentityKeyColumn.ColumnName);
 
         commandText = $"SELECT {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = LAST_INSERT_ID() LIMIT 1";
         return true;

@@ -1,9 +1,11 @@
 ﻿namespace Swan.Data.Extensions;
 
+using Swan.Data.Records;
+
 /// <summary>
 /// Provides extensions for <see cref="IEnumerable"/> compatible objects.
 /// </summary>
-public static class EnumerableExtensions
+public static class DataReaderExtensions
 {
     /// <summary>
     /// Retrieves the first result from a <see cref="IAsyncEnumerable{T}"/>.
@@ -59,9 +61,9 @@ public static class EnumerableExtensions
     /// <param name="schema">The schema used to produce the record values for the data reader.</param>
     /// <returns>A data reader.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ICollectionDataReader ToDataReader(this IEnumerable collection, IDbTableSchema schema) => collection is null
+    public static IDataReader ToDataReader(this IEnumerable collection, IDbTableSchema schema) => collection is null
         ? throw new ArgumentNullException(nameof(collection))
-        : new CollectionDataReader(collection.GetEnumerator(), schema);
+        : new CollectionDbReader(collection.GetEnumerator(), schema);
 
     /// <summary>
     /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
@@ -70,9 +72,9 @@ public static class EnumerableExtensions
     /// <param name="itemType">The type of the items the collection holds. This produces a basic table schema.</param>
     /// <returns>A data reader.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ICollectionDataReader ToDataReader(this IEnumerable collection, Type itemType) => collection is null
+    public static IDataReader ToDataReader(this IEnumerable collection, Type itemType) => collection is null
         ? throw new ArgumentNullException(nameof(collection))
-        : new CollectionDataReader(collection.GetEnumerator(), itemType);
+        : new CollectionDbReader(collection.GetEnumerator(), itemType);
 
     /// <summary>
     /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
@@ -81,19 +83,7 @@ public static class EnumerableExtensions
     /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
     /// <returns>A data reader.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ICollectionDataReader<T> ToDataReader<T>(this IEnumerable<T> collection) => collection is null
+    public static IDataReader ToDataReader<T>(this IEnumerable<T> collection) => collection is null
         ? throw new ArgumentNullException(nameof(collection))
-        : new CollectionDataReader<T>(collection.GetEnumerator());
-
-    /// <summary>
-    /// Wraps the enumerator of the given collection as a <see cref="IDataReader"/>.
-    /// </summary>
-    /// <typeparam name="T">The type of the items the collection holds. This produces a basic table schema.</typeparam>
-    /// <param name="collection">The collection to get the <see cref="IEnumerator"/> from.</param>
-    /// <param name="schema">The schema used to produce the record values for the data reader.</param>
-    /// <returns>A data reader.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public static ICollectionDataReader<T> ToDataReader<T>(this IEnumerable<T> collection, IDbTableSchema schema) => collection is null
-        ? throw new ArgumentNullException(nameof(collection))
-        : new CollectionDataReader<T>(collection.GetEnumerator(), schema);
+        : new CollectionDbReader(collection.GetEnumerator(), typeof(T));
 }

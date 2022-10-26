@@ -7,7 +7,7 @@ internal sealed record DbColumnSchema : IDbColumnSchema
         // placeholder
     }
 
-    public string Name { get; set; } = string.Empty;
+    public string ColumnName { get; set; } = string.Empty;
 
     public int Ordinal { get; set; }
 

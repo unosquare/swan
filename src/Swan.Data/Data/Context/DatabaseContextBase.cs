@@ -11,6 +11,8 @@ using System.Reflection;
 /// </summary>
 public abstract class DatabaseContextBase : IDbConnected, IDisposable
 {
+    // TODO: Implement schema caching
+
     /// <summary>
     /// Holds method information for the
     /// <see cref="ConnectionExtensions.Table{T}(DbConnection, string, string?, DbTransaction?)"/> method.
@@ -22,7 +24,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// <summary>
     /// Holds a dictionary of record types ans their associated property proxies.
     /// </summary>
-    private readonly Dictionary<Type, IPropertyProxy> TableContextProxies;
+    private readonly List<IPropertyProxy> TableContextProxies;
     private readonly SemaphoreSlim Semaphore = new(1, 1);
     private bool isDisposed;
 
@@ -34,6 +36,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
+        // Setup connection, provider and database.
         Connection = connection;
         Connection.ConfigureAwait(false);
         Connection.EnsureConnected();
@@ -41,17 +44,16 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         Provider = connection.Provider();
         Database = connection.Database;
 
-        var contextProperties = GetType().TypeInfo().Properties;
-        TableContextProxies = new Dictionary<Type, IPropertyProxy>();
-        foreach ((_, var property) in contextProperties)
+        var tableProperties = GetType().TypeInfo().Properties.Values.ToArray();
+        TableContextProxies = new(tableProperties.Length);
+        foreach (var property in tableProperties)
         {
             if (property.PropertyType.GenericTypeArguments.Count != 1 ||
                 property.PropertyType.NativeType.GetGenericTypeDefinition() != typeof(ITableContext<>) |
                 !property.CanRead || !property.CanWrite)
                 continue;
 
-            var recordType = property.PropertyType.GenericTypeArguments[0];
-            TableContextProxies.Add(recordType.NativeType, property);
+            TableContextProxies.Add(property);
         }
 
         InitializeTableProperties();
@@ -71,10 +73,10 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     private void InitializeTableProperties()
     {
         // Populate the ITableContext<> Properties
-        foreach ((var recordType, var tableProxy) in TableContextProxies)
+        foreach (var tableProperty in TableContextProxies)
         {
             // Write the result to the private setter of the DataContext we created.
-            tableProxy.Write(this, InitializeTableProperty(recordType, tableProxy));
+            tableProperty.Write(this, InitializeTableProperty(tableProperty));
         }
     }
 
@@ -86,11 +88,17 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// <returns>True when the operation succeeds. False otherwise.</returns>
     public virtual bool TryGetTableContext(Type recordType, [MaybeNullWhen(false)] out ITableContext tableContext)
     {
+        if (recordType is null)
+            throw new ArgumentNullException(nameof(recordType));
+
         tableContext = null;
-        if (!TableContextProxies.TryGetValue(recordType, out var propertyProxy))
+        var tableProperty = TableContextProxies
+            .FirstOrDefault(c => c.PropertyType.GenericTypeArguments[0].NativeType == recordType);
+
+        if (tableProperty is null)
             return false;
 
-        tableContext = propertyProxy.Read(this) as ITableContext;
+        tableContext = tableProperty.Read(this) as ITableContext;
         return tableContext is not null;
     }
 
@@ -104,10 +112,9 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         where T : class
     {
         tableContext = null;
-        if (!TableContextProxies.TryGetValue(typeof(T), out var propertyProxy))
-            return false;
+        if (TryGetTableContext(typeof(T), out var table))
+            tableContext = table as ITableContext<T>;
 
-        tableContext = propertyProxy.Read(this) as ITableContext<T>;
         return tableContext is not null;
     }
 
@@ -129,18 +136,16 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// <summary>
     /// Initializes a table property in the current <see cref="DatabaseContextBase"/>.
     /// </summary>
-    /// <param name="recordType">The type argument of the table context.</param>
     /// <param name="tableProperty">The property metadata that holds the table context.</param>
     /// <returns>The table context that will be writtent to the table property.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="NotSupportedException"></exception>
-    protected virtual ITableContext InitializeTableProperty(Type recordType, IPropertyProxy tableProperty)
+    protected virtual ITableContext InitializeTableProperty(IPropertyProxy tableProperty)
     {
-        if (recordType is null)
-            throw new ArgumentNullException(nameof(recordType));
-
         if (tableProperty is null)
             throw new ArgumentNullException(nameof(tableProperty));
+
+        var recordType = tableProperty.PropertyType.GenericTypeArguments[0];
 
         // We will use this array to pass as arguments to the
         // Table<> method.
@@ -152,15 +157,22 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
             default(DbTransaction),
         };
 
+        // validate call parameter count and types
+        var p = TableMethod.GetParameters();
+        if (p.Length != tableCallArgs.Length)
+            throw new InvalidOperationException("Table method call argument count does not match provided argument count.");
+
+        for (var i = 0; i < p.Length; i++)
+        {
+            if (!p[i].ParameterType.IsAssignableFrom(tableCallArgs[i]?.GetType() ?? p[i].ParameterType))
+                throw new InvalidOperationException($"Table method argument {p[i].Name} has an incompatible value.");
+        }
+
         // Produce a typed version of the generic method.
-        var tableMethod = TableMethod.MakeGenericMethod(recordType);
+        var tableMethod = TableMethod.MakeGenericMethod(recordType.NativeType);
 
-        // Try to get a table attribute
-        var tableAttribute = tableProperty.Attribute<TableAttribute>();
-
-        // TODO: the table attribute cannot be applied to a property
-        // so the below code is useless. Try to find a way to properly
-        // annotate.
+        // Try to get a table attribute from type definition.
+        var tableAttribute = recordType.NativeType.Attribute<TableAttribute>();
         if (tableAttribute is not null)
         {
             if (!string.IsNullOrWhiteSpace(tableAttribute.Name))
@@ -170,15 +182,13 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
                 tableCallArgs[2] = tableAttribute.Schema;
         }
 
-        // Update the argument list to contain the target table name.
-        // The target table name must equal the property name.
+        // If not yet set, the target table name must equal the property name.
         tableCallArgs[1] ??= tableProperty.PropertyName;
 
         // Invoke the typed version of the TableAsync<> method.
-        if (tableMethod.Invoke(null, tableCallArgs) is not ITableContext tableContext)
-            throw new NotSupportedException($"The method call did not return an object of type '{nameof(ITableContext)}'.");
-
-        return tableContext;
+        return tableMethod.Invoke(null, tableCallArgs) is not ITableContext tableContext
+            ? throw new NotSupportedException($"The method call did not return an object of type '{nameof(ITableContext)}'.")
+            : tableContext;
     }
 
     /// <summary>

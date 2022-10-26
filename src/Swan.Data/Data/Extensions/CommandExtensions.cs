@@ -159,7 +159,7 @@ public static class CommandExtensions
         {
             needsAdding = true;
             parameter = command.CreateParameter();
-            parameter.ParameterName = name;
+            parameter.ParameterName = command.Connection?.Provider().QuoteParameter(name) ?? name;
         }
 
         parameter.DbType = dbType;
@@ -225,7 +225,7 @@ public static class CommandExtensions
         ParameterDirection direction = ParameterDirection.Input) =>
         column is null
             ? throw new ArgumentNullException(nameof(column))
-            : command.DefineParameter(column.Name, column.DataType, direction,
+            : command.DefineParameter(column.ColumnName, column.DataType, direction,
                 column.MaxLength, column.Precision, column.Scale, column.AllowsDBNull);
 
     /// <summary>
@@ -371,19 +371,23 @@ public static class CommandExtensions
             ? command.CommandText.AsSpan()
             : Array.Empty<char>().AsSpan();
 
-        foreach (var (propertyName, property) in typeInfo.Properties)
+        foreach ((_, var property) in typeInfo.Properties)
         {
-            if (!property.CanRead || !property.HasPublicGetter || !property.PropertyType.IsBasicType ||
-                propertyName.Contains('.', StringComparison.Ordinal))
+            if (!property.CanRead || !property.HasPublicGetter)
                 continue;
 
-            var parameterName = provider.QuoteParameter(propertyName);
+            var columnAttribute = property.Attribute<ColumnAttribute>();
+            var columnName = columnAttribute is not null && !string.IsNullOrWhiteSpace(columnAttribute.Name)
+                ? columnAttribute.Name
+                : property.PropertyName;
+
+            var parameterName = provider.QuoteParameter(columnName);
             var containsParamter = hasCommandText && commandText.IndexOf(parameterName, StringComparison.InvariantCulture) >= 0;
             if (hasCommandText && !containsParamter)
                 continue;
 
             if (property.TryRead(parameters, out var value))
-                command.SetParameter(propertyName, value, property.PropertyType.BackingType.NativeType);
+                command.SetParameter(parameterName, value, property.PropertyType.BackingType.NativeType);
         }
 
         return command;
@@ -561,7 +565,8 @@ public static class CommandExtensions
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         command.Connection.EnsureConnected();
-        deserialize ??= (r) => r.ParseObject<T>();
+        var typeInfo = typeof(T).TypeInfo();
+        deserialize ??= (r) => r.ParseObject<T>(typeInfo);
         var reader = command.ExecuteOptimizedReader(behavior);
 
         try
@@ -632,7 +637,8 @@ public static class CommandExtensions
             throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
 
         await command.Connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
-        deserialize ??= (r) => r.ParseObject<T>();
+        var typeInfo = typeof(T).TypeInfo();
+        deserialize ??= (r) => r.ParseObject<T>(typeInfo);
         var reader = await command.ExecuteOptimizedReaderAsync(behavior, ct).ConfigureAwait(false);
 
         try

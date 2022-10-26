@@ -276,4 +276,25 @@ public static partial class TypeManager
     /// <returns>Returns true inf the conversion succeeds.</returns>
     public static bool TryChangeType(object? sourceValue, Type targetType, [MaybeNullWhen(false)] out object targetValue) =>
         TryChangeType(sourceValue, targetType.TypeInfo(), out targetValue);
+
+    /// <summary>
+    /// Tries to convert a type of the source value to a type of the target value.
+    /// </summary>
+    /// <typeparam name="T">The target type to turn the source value into.</typeparam>
+    /// <param name="sourceValue">The value to be converted.</param>
+    /// <param name="targetValue">The resulting value.</param>
+    /// <returns>Returns true inf the conversion succeeds.</returns>
+    public static bool TryChangeType<T>(object? sourceValue, [MaybeNullWhen(false)] out T targetValue)
+    {
+        targetValue = default;
+        if (TryChangeType(sourceValue, typeof(T).TypeInfo(), out var value) &&
+            value is T typedValue)
+        {
+            targetValue = typedValue;
+            return true;
+        }
+
+        return false;
+    }
+        
 }

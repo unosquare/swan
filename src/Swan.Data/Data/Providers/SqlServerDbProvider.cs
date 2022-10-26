@@ -32,7 +32,7 @@ internal class SqlServerDbProvider : DbProvider
         : !TypeMapper.TryGetProviderTypeFor(column, out var providerType)
             ? default
             : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
-                ? $"{QuoteField(column.Name),16} {providerType} IDENTITY NOT NULL PRIMARY KEY"
+                ? $"{QuoteField(column.ColumnName),16} {providerType} IDENTITY NOT NULL PRIMARY KEY"
                 : base.GetColumnDdlString(column);
 
     public override bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
@@ -41,9 +41,9 @@ internal class SqlServerDbProvider : DbProvider
         if (table.IdentityKeyColumn is null || table.KeyColumns.Count != 1)
             return false;
 
-        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.Name)));
+        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.ColumnName)));
         var quotedTable = QuoteTable(table.TableName, table.Schema);
-        var quotedKeyField = QuoteField(table.IdentityKeyColumn.Name);
+        var quotedKeyField = QuoteField(table.IdentityKeyColumn.ColumnName);
 
         commandText = $"SELECT TOP 1 {quotedFields} FROM {quotedTable} WHERE {quotedKeyField} = SCOPE_IDENTITY()";
         return true;

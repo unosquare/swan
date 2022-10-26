@@ -7,6 +7,8 @@
 internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T>
     where T : class
 {
+    private readonly ITypeInfo TypeInfo = typeof(T).TypeInfo();
+
     /// <summary>
     /// Creates a new instance of the <see cref="TableContext{T}"/> class.
     /// </summary>
@@ -15,11 +17,12 @@ internal class TableContext<T> : TableContext, ITableContext<T>, ITableBuilder<T
     public TableContext(DbConnection connection, IDbTableSchema schema)
         : base(connection, schema)
     {
-        // placeholder
+        // setup the default deserializer
+        Deserializer = (r) => (r.ParseObject(TypeInfo) as T)!;
     }
 
     /// <inheritdoc />
-    public virtual Func<IDataRecord, T> Deserializer { get; set; } = r => r.ParseObject<T>();
+    public virtual Func<IDataRecord, T> Deserializer { get; set; }
 
     /// <inheritdoc />
     public virtual IEnumerable<T> Query(

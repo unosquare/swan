@@ -31,7 +31,7 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     public virtual DbCommand BuildInsertCommand(DbTransaction? transaction = default)
     {
         var insertColumns = InsertableColumns;
-        var columnNames = insertColumns.Select(c => c.Name).ToArray();
+        var columnNames = insertColumns.Select(c => c.ColumnName).ToArray();
 
         var command = new DbCommandSource(Connection)
             .InsertInto(TableName, Schema)
@@ -52,8 +52,8 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     /// <inheritdoc />
     public virtual DbCommand BuildUpdateCommand(DbTransaction? transaction = default)
     {
-        var settableFields = UpdateableColumns.Select(c => c.Name).ToArray();
-        var keyFields = KeyColumns.Select(c => c.Name).ToArray();
+        var settableFields = UpdateableColumns.Select(c => c.ColumnName).ToArray();
+        var keyFields = KeyColumns.Select(c => c.ColumnName).ToArray();
 
         var keyPairs = string.Join(" AND ",
             keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
@@ -70,7 +70,7 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     /// <inheritdoc />
     public virtual DbCommand BuildDeleteCommand(DbTransaction? transaction = default)
     {
-        var keyFields = KeyColumns.Select(c => c.Name).ToArray();
+        var keyFields = KeyColumns.Select(c => c.ColumnName).ToArray();
         var keyPairs = string.Join(" AND ",
             keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
         var commandText = $"DELETE FROM {Provider.QuoteTable(TableName, Schema)} WHERE {keyPairs}";
@@ -84,7 +84,7 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
     /// <inheritdoc />
     public virtual DbCommand BuildSelectCommand(DbTransaction? transaction = default)
     {
-        var keyFields = KeyColumns.Select(c => c.Name).ToArray();
+        var keyFields = KeyColumns.Select(c => c.ColumnName).ToArray();
         var keyPairs = string.Join(" AND ",
             keyFields.Select(c => $"{Provider.QuoteField(c)} = {Provider.QuoteParameter(c)}"));
 

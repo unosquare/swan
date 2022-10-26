@@ -183,7 +183,7 @@ internal static class DataPlayground
         while (reader.Read())
         {
             var parsedItem = reader.ParseObject<Project>();
-            var areEqual = parsedItem == reader.CurrentRecord as Project;
+            var areEqual = parsedItem is Project;
         }
 
         foreach (var item in items)

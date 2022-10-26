@@ -75,7 +75,7 @@ public static class CodeGenExtensions
 
         builder
             .Append("    /// <summary>\r\n")
-            .Append(ci, $"    /// Gets or sets a value for {column.Name.Humanize()}.\r\n")
+            .Append(ci, $"    /// Gets or sets a value for {column.ColumnName.Humanize()}.\r\n")
             .Append("    /// </summary>\r\n");
 
         if (column.IsKey)
@@ -89,8 +89,8 @@ public static class CodeGenExtensions
 
         builder
             .Append(ci,
-                $"    [Column(nameof({column.Name}){(column.Ordinal >= 0 ? $", Order = {column.Ordinal}" : string.Empty)})]\r\n")
-            .Append(ci, $"    public {typeAlias}{(column.AllowsDBNull ? "? " : " ")}{column.Name}")
+                $"    [Column(nameof({column.ColumnName}){(column.Ordinal >= 0 ? $", Order = {column.Ordinal}" : string.Empty)})]\r\n")
+            .Append(ci, $"    public {typeAlias}{(column.AllowsDBNull ? "? " : " ")}{column.ColumnName}")
             .Append("{ get; set; }");
         return builder.ToString();
     }

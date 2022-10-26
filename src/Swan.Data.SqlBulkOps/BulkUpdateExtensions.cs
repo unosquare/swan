@@ -84,13 +84,13 @@ public static class BulkUpdateExtensions
         {
             // Create the temporary table based on existing table columns
             var tempTable = await connection
-                .TableBuilder(tempTableName, "tempdb.dbo", table.Columns)
+                .TableBuilder(tempTableName, string.Empty, table.Columns)
                 .ExecuteTableCommandAsync(sqlTransaction, ct)
                 .ConfigureAwait(false);
 
             // Build the column mappings
             foreach (var column in tempTable.Columns)
-                bulkOperation.ColumnMappings.Add(column.Name, column.Name);
+                bulkOperation.ColumnMappings.Add(column.ColumnName, column.ColumnName);
 
             // Use the collection as a data reader
             using var reader = items.ToDataReader(tempTable);

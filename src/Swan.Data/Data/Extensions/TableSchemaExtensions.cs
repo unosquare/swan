@@ -1,5 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
+using Swan.Data.Schema;
+
 /// <summary>
 /// Provides methods to generate and convert <see cref="IDbTableSchema"/> objects.
 /// </summary>
@@ -36,12 +38,12 @@ public static class TableSchemaExtensions
         }
 
         var identityCandidate = columns.Where(
-            c => !string.IsNullOrWhiteSpace(c.Name) &&
-            c.Name.ToUpperInvariant().EndsWith("ID", StringComparison.Ordinal) &&
+            c => !string.IsNullOrWhiteSpace(c.ColumnName) &&
+            c.ColumnName.ToUpperInvariant().EndsWith("ID", StringComparison.Ordinal) &&
             c.DataType.TypeInfo().IsNumeric &&
             !c.DataType.TypeInfo().IsNullable)
             .OrderBy(c => c.Ordinal)
-            .ThenBy(c => c.Name)
+            .ThenBy(c => c.ColumnName)
             .FirstOrDefault();
 
         if (identityCandidate is not null)
@@ -141,7 +143,7 @@ public static class TableSchemaExtensions
         {
             DataType = dataType,
             AllowsDBNull = p.PropertyType.IsNullable,
-            Name = p.PropertyName,
+            ColumnName = p.PropertyName,
             IsReadOnly = !p.CanWrite,
             ProviderDataType = providerType,
             Ordinal = columnIndex,

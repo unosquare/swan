@@ -31,11 +31,18 @@ internal static class HelperExtensions
         var updateCommandText = new StringBuilder(4096);
 
         // Get intersection of updateable columns
-        var columnNames = targetTable.UpdateableColumns.Select(c => c.Name)
-            .Intersect(tempTable.UpdateableColumns.Select(c => c.Name), StringComparer.OrdinalIgnoreCase)
+        var columnNames = targetTable.UpdateableColumns.Select(c => c.ColumnName)
+            .Intersect(tempTable.UpdateableColumns.Select(c => c.ColumnName), StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
-        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
+        var keyColumnNames = targetTable.KeyColumns.Select(c => c.ColumnName).ToArray();
+
+        if (columnNames.Length <= 0)
+            throw new InvalidOperationException("No columns suitable for an update command were found.");
+
+        if (keyColumnNames.Length <= 0)
+            throw new InvalidOperationException("No key columns suitable for an update command were found.");
+
         var sourceTableName = provider.QuoteTable(tempTable);
         var targetTableName = provider.QuoteTable(targetTable);
         var sourceAlias = provider.QuoteTable("s");
@@ -67,7 +74,7 @@ internal static class HelperExtensions
     public static string BuildBulkDeleteCommandText(IDbTableSchema tempTable, IDbTableSchema targetTable, DbProvider provider)
     {
         var deleteCommandText = new StringBuilder(4096);
-        var keyColumnNames = targetTable.KeyColumns.Select(c => c.Name).ToArray();
+        var keyColumnNames = targetTable.KeyColumns.Select(c => c.ColumnName).ToArray();
         var sourceTableName = provider.QuoteTable(tempTable);
         var targetTableName = provider.QuoteTable(targetTable);
         var sourceAlias = provider.QuoteTable("s");

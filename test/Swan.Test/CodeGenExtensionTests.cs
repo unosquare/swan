@@ -14,14 +14,14 @@ public class CodeGenExtensionTest
 
         Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\")]"));
 
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[0].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[1].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[2].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[3].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[4].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[5].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[6].Name})"));
-        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[7].Name})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[0].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[1].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[2].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[3].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[4].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[5].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[6].ColumnName})"));
+        Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[7].ColumnName})"));
     }
 
     [Test]

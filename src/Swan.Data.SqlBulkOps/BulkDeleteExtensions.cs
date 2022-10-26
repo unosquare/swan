@@ -91,7 +91,7 @@ public static class BulkDeleteExtensions
 
             // Build the column mappings
             foreach (var column in tempTable.Columns)
-                bulkOperation.ColumnMappings.Add(column.Name, column.Name);
+                bulkOperation.ColumnMappings.Add(column.ColumnName, column.ColumnName);
 
             // Use the collection as a data reader
             using var reader = items.ToDataReader(tempTable);

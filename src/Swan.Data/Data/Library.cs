@@ -121,5 +121,70 @@ internal static class Library
             return null;
         }
     }
+
+    public static long GetBytesIntoArray(this IDataRecord record, int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length)
+    {
+        if (record.IsDBNull(i))
+            return 0;
+
+        if (record.GetFieldType(i) != typeof(byte[]))
+            throw new InvalidOperationException("Cannot get bytes because field is not a byte array.");
+
+        var sourceSpan = (record.GetValue(i) as byte[]).AsSpan();
+        var bytesRead = 0L;
+        var targetOffset = bufferoffset;
+        for (var sourceOffset = (int)fieldOffset; sourceOffset < sourceSpan.Length; sourceOffset++)
+        {
+            if (buffer is not null)
+                buffer[bufferoffset] = sourceSpan[sourceOffset];
+
+            targetOffset++;
+            bytesRead++;
+
+            if (bytesRead >= length)
+                break;
+        }
+
+        return bytesRead;
+    }
+
+    public static long GetCharsIntoArray(this IDataRecord record, int i, long fieldOffset, char[]? buffer, int bufferoffset, int length)
+    {
+        if (record.IsDBNull(i))
+            return 0;
+
+        if (record.GetFieldType(i) != typeof(string))
+            throw new InvalidOperationException("Cannot get chars because field is not of string type.");
+
+        var sourceSpan = record.GetString(i).AsSpan();
+        var charsRead = 0L;
+        var targetOffset = bufferoffset;
+
+        for (var sourceOffset = (int)fieldOffset; sourceOffset < sourceSpan.Length; sourceOffset++)
+        {
+            if (buffer is not null)
+                buffer[bufferoffset] = sourceSpan[sourceOffset];
+
+            targetOffset++;
+            charsRead++;
+
+            if (charsRead >= length)
+                break;
+        }
+
+        return charsRead;
+    }
+
+    public static int GetValuesIntoArray(this IDataRecord record, object[] values)
+    {
+        var count = 0;
+        for (var i = 0; i < Math.Min(values.Length, record.FieldCount); i++)
+        {
+            values[i] = record.GetValue(i);
+            count++;
+        }
+
+        return count;
+    }
 }
 

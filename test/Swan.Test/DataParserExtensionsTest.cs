@@ -13,8 +13,7 @@ public class DataParserExtensionsTest
         DataRow? row = null;
         Assert.Throws<ArgumentNullException>(() => record.ParseObject<Project>());
         Assert.Throws<ArgumentNullException>(() => record.ParseExpando());
-        Assert.Throws<ArgumentNullException>(() => row.ParseExpando());
-        Assert.Throws<ArgumentNullException>(() => row.ParseObject(null));
+        Assert.Throws<ArgumentNullException>(() => row.ToDataRecord().ParseObject(null));
     }
 
     [Test]
@@ -129,7 +128,7 @@ public class DataParserExtensionsTest
         row["StartDate"] = DateTime.Now.AddMonths(-1);
         table.Rows.Add(row);
 
-        Assert.Throws<ArgumentNullException>(() => table.Rows[0].ParseObject(null));
+        Assert.Throws<ArgumentNullException>(() => table.Rows[0].ToDataRecord().ParseObject(null));
     }
 
     [Test]
@@ -157,7 +156,7 @@ public class DataParserExtensionsTest
         row["StartDate"] = DateTime.Now.AddMonths(-1);
         table.Rows.Add(row);
 
-        var ex = table.Rows[0].ParseExpando().ToList();
+        var ex = table.Rows[0].ToDataRecord().ParseExpando().ToList();
 
         Assert.IsTrue(ex[1].Key == "CompanyId" && ex[1].Value == null);
     }

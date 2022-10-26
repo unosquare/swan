@@ -43,7 +43,7 @@ internal record SqliteColumn : IDbColumnSchema
 
     public short? NumericScale { get; set; }
 
-    string IDbColumnSchema.Name => ColumnName ?? string.Empty;
+    string IDbColumnSchema.ColumnName => ColumnName ?? string.Empty;
 
     int IDbColumnSchema.Ordinal => ColumnOrdinal.GetValueOrDefault(-1);
 

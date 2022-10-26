@@ -1,46 +1,37 @@
-﻿namespace Swan.Data;
+﻿namespace Swan.Data.Records;
+
+using Swan.Data;
 
 /// <summary>
 /// Represents a DataReader that was derived from a collection.
 /// </summary>
-public interface ICollectionDataReader : IDataReader
+internal interface ICollectionDbReader : IDataReader
 {
     /// <summary>
     /// Gets the object currently being pointed at by the data reader.
     /// </summary>
-    object? CurrentRecord { get; }
-}
-
-/// <summary>
-/// Represents a DataReader that was derived from a typed collection.
-/// </summary>
-public interface ICollectionDataReader<T> : ICollectionDataReader
-{
-    /// <summary>
-    /// Gets the object currently being pointed at by the data reader.
-    /// </summary>
-    T? CurrenRecord { get; }
+    object? Current { get; }
 }
 
 /// <summary>
 /// Uses an <see cref="IEnumerable"/> set, and an <see cref="IDbTableSchema"/>
 /// to be used as an <see cref="IDataReader"/>.
 /// </summary>
-internal class CollectionDataReader : ICollectionDataReader
+internal sealed class CollectionDbReader : ICollectionDbReader
 {
     private const string ReaderNotReadyMessage = "The reader is either closed, past the end of the last record, or has not read any records.";
     private readonly IDbTableSchema Schema;
     private readonly IEnumerator Enumerator;
     private bool ReadState;
     private ITypeInfo? ItemTypeInfo;
-    
+
     /// <summary>
-    /// Creates a new instance of the <see cref="CollectionDataReader"/> class.
+    /// Creates a new instance of the <see cref="CollectionDbReader"/> class.
     /// </summary>
     /// <param name="enumerator">The enumerator.</param>
     /// <param name="schema">The schema for the data reader.</param>
     /// <exception cref="ArgumentNullException"></exception>
-    public CollectionDataReader(IEnumerator enumerator, IDbTableSchema schema)
+    public CollectionDbReader(IEnumerator enumerator, IDbTableSchema schema)
     {
         if (enumerator is null)
             throw new ArgumentNullException(nameof(enumerator));
@@ -53,12 +44,12 @@ internal class CollectionDataReader : ICollectionDataReader
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CollectionDataReader"/> class.
+    /// Creates a new instance of the <see cref="CollectionDbReader"/> class.
     /// </summary>
     /// <param name="enumerator">The enumerator.</param>
     /// <param name="itemType">The item type which produces a basic schema for the data reader.</param>
     /// <exception cref="ArgumentNullException"></exception>
-    public CollectionDataReader(IEnumerator enumerator, Type itemType)
+    public CollectionDbReader(IEnumerator enumerator, Type itemType)
     {
         if (enumerator is null)
             throw new ArgumentNullException(nameof(enumerator));
@@ -68,6 +59,8 @@ internal class CollectionDataReader : ICollectionDataReader
 
         Enumerator = enumerator;
         Schema = itemType.ToTableSchema();
+
+        // TODO: Map Column Attribute to schema.
         ItemTypeInfo = itemType.TypeInfo();
     }
 
@@ -77,14 +70,14 @@ internal class CollectionDataReader : ICollectionDataReader
     /// <inheritdoc />
     public object this[int i] => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty(CurrentRecord!, Schema[i]!.Name, out var value)
+        : ItemTypeInfo!.TryReadProperty(Current!, Schema[i]!.ColumnName, out var value)
             ? value ?? DBNull.Value
             : DBNull.Value;
 
     /// <inheritdoc />
     public object this[string name] => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty(CurrentRecord!, name, out var value)
+        : ItemTypeInfo!.TryReadProperty(Current!, name, out var value)
             ? value ?? DBNull.Value
             : DBNull.Value;
 
@@ -99,18 +92,18 @@ internal class CollectionDataReader : ICollectionDataReader
     public int Depth => 0;
 
     /// <inheritdoc />
-    public bool IsClosed { get; protected set; }
+    public bool IsClosed { get; private set; }
 
     /// <inheritdoc />
     public int RecordsAffected => -1;
 
     /// <inheritdoc />
-    public virtual object? CurrentRecord { get; protected set; }
+    public object? Current { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether a record is current and ready to be read.
     /// </summary>
-    protected virtual bool HasCurrentRecord => !IsClosed && ReadState && CurrentRecord is not null;
+    private bool HasCurrentRecord => !IsClosed && ReadState && Current is not null;
 
     #endregion
 
@@ -120,7 +113,7 @@ internal class CollectionDataReader : ICollectionDataReader
     public string GetDataTypeName(int i) => Schema[i]!.ProviderDataType;
 
     /// <inheritdoc />
-    public string GetName(int i) => Schema[i]!.Name;
+    public string GetName(int i) => Schema[i]!.ColumnName;
 
     /// <inheritdoc />
     public int GetOrdinal(string name) => Schema.GetColumnOrdinal(name);
@@ -131,78 +124,24 @@ internal class CollectionDataReader : ICollectionDataReader
 
     /// <inheritdoc />
     public DataTable? GetSchemaTable() => Schema.ToSchemaTable();
-    
+
     #endregion
 
     #region Special Datum Getters
 
     /// <inheritdoc />
-    public bool IsDBNull(int i) => GetValue(i) == DBNull.Value;
+    public bool IsDBNull(int i) => GetValue(i) is null || Convert.IsDBNull(GetValue(i));
 
     /// <inheritdoc />
-    public int GetValues(object[] values)
-    {
-        if (values is null)
-            throw new ArgumentNullException(nameof(values));
-
-        var count = 0;
-
-        for (var i = 0; i < Math.Min(values.Length, Schema.ColumnCount); i++)
-        {
-            values[i] = GetValue(i);
-            count++;
-        }
-
-        return count;
-    }
+    public int GetValues(object[] values) => this.GetValuesIntoArray(values);
 
     /// <inheritdoc />
-    public long GetChars(int i, long fieldOffset, char[]? buffer, int bufferoffset, int length)
-    {
-        if (IsDBNull(i))
-            return 0;
-
-        if (GetFieldType(i) != typeof(string))
-            throw new InvalidOperationException("Cannot get chars because field is not of string type.");
-
-        var sourceSpan = GetString(i).AsSpan();
-        var charsRead = 0L;
-        var targetOffset = bufferoffset;
-        for (var sourceOffset = (int)fieldOffset; sourceOffset < sourceSpan.Length; sourceOffset++)
-        {
-            if (buffer is not null)
-                buffer[bufferoffset] = sourceSpan[sourceOffset];
-
-            targetOffset++;
-            charsRead++;
-        }
-
-        return charsRead;
-    }
+    public long GetChars(int i, long fieldOffset, char[]? buffer, int bufferoffset, int length) =>
+        this.GetCharsIntoArray(i, fieldOffset, buffer, bufferoffset, length);
 
     /// <inheritdoc />
-    public long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length)
-    {
-        if (IsDBNull(i))
-            return 0;
-
-        if (GetFieldType(i) != typeof(byte[]))
-            throw new InvalidOperationException("Cannot get bytes because field is not a byte array.");
-
-        var sourceSpan = (GetValue(i) as byte[]).AsSpan();
-        var bytesRead = 0L;
-        var targetOffset = bufferoffset;
-        for (var sourceOffset = (int)fieldOffset; sourceOffset < sourceSpan.Length; sourceOffset++)
-        {
-            if (buffer is not null)
-                buffer[bufferoffset] = sourceSpan[sourceOffset];
-
-            targetOffset++;
-            bytesRead++;
-        }
-
-        return bytesRead;
-    }
+    public long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length) =>
+        this.GetBytesIntoArray(i, fieldOffset, buffer, bufferoffset, length);
 
     /// <inheritdoc />
     public IDataReader GetData(int i) => throw new NotSupportedException();
@@ -214,67 +153,67 @@ internal class CollectionDataReader : ICollectionDataReader
     /// <inheritdoc />
     public object GetValue(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty(CurrentRecord!, Schema[i]!.Name, out var value) ? value ?? DBNull.Value : DBNull.Value;
+        : ItemTypeInfo!.TryReadProperty(Current!, Schema[i]!.ColumnName, out var value) ? value ?? DBNull.Value : DBNull.Value;
 
     /// <inheritdoc />
     public bool GetBoolean(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<bool>(CurrentRecord!, Schema[i]!.Name, out var value) && value;
+        : ItemTypeInfo!.TryReadProperty<bool>(Current!, Schema[i]!.ColumnName, out var value) && value;
 
     /// <inheritdoc />
     public byte GetByte(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<byte>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<byte>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public char GetChar(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<char>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<char>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public DateTime GetDateTime(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<DateTime>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<DateTime>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public decimal GetDecimal(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<decimal>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<decimal>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public double GetDouble(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<double>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<double>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public float GetFloat(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<float>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<float>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public Guid GetGuid(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<Guid>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<Guid>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public short GetInt16(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<short>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<short>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public int GetInt32(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<int>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<int>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public long GetInt64(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<long>(CurrentRecord!, Schema[i]!.Name, out var value) ? value : default;
+        : ItemTypeInfo!.TryReadProperty<long>(Current!, Schema[i]!.ColumnName, out var value) ? value : default;
 
     /// <inheritdoc />
     public string GetString(int i) => !HasCurrentRecord
         ? throw new InvalidOperationException(ReaderNotReadyMessage)
-        : ItemTypeInfo!.TryReadProperty<string>(CurrentRecord!, Schema[i]!.Name, out var value) ? value! : null!;
+        : ItemTypeInfo!.TryReadProperty<string>(Current!, Schema[i]!.ColumnName, out var value) ? value! : null!;
 
     #endregion
 
@@ -293,11 +232,11 @@ internal class CollectionDataReader : ICollectionDataReader
             return false;
         }
 
-        CurrentRecord = Enumerator.Current;
-        if (CurrentRecord is null)
+        Current = Enumerator.Current;
+        if (Current is null)
             return Read();
 
-        ItemTypeInfo ??= CurrentRecord.GetType().TypeInfo();
+        ItemTypeInfo ??= Current.GetType().TypeInfo();
         return ReadState = true;
     }
 
@@ -306,7 +245,7 @@ internal class CollectionDataReader : ICollectionDataReader
     {
         ReadState = false;
         IsClosed = true;
-        CurrentRecord = null;
+        Current = null;
         if (Enumerator is IDisposable disposable)
             disposable.Dispose();
     }
@@ -323,7 +262,7 @@ internal class CollectionDataReader : ICollectionDataReader
     /// When called with also managed, it will close the reader.
     /// </summary>
     /// <param name="alsoManaged">When set to true, closes this reader.</param>
-    protected virtual void Dispose(bool alsoManaged)
+    private void Dispose(bool alsoManaged)
     {
         if (IsClosed)
             return;
@@ -331,26 +270,4 @@ internal class CollectionDataReader : ICollectionDataReader
         if (alsoManaged)
             Close();
     }
-}
-
-/// <summary>
-/// Represents a strongly-typed instance of a <see cref="CollectionDataReader"/> class.
-/// </summary>
-/// <typeparam name="T">The type of the collection's items.</typeparam>
-internal class CollectionDataReader<T> : CollectionDataReader, ICollectionDataReader<T>
-{
-    public CollectionDataReader(IEnumerator<T> enumerator, IDbTableSchema schema) :
-        base(enumerator, schema)
-    {
-        // placeholder
-    }
-
-    public CollectionDataReader(IEnumerator<T> enumerator) :
-        base(enumerator, typeof(T))
-    {
-        // placeholder
-    }
-
-    /// <inheritdoc />
-    public T? CurrenRecord => base.CurrentRecord is T value ? value : default;
 }

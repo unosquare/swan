@@ -19,7 +19,7 @@ internal class SqliteDbProvider : DbProvider
         column is null
             ? throw new ArgumentNullException(nameof(column))
             : column.IsIdentity && column.DataType.TypeInfo().IsNumeric
-                ? $"{QuoteField(column.Name),16} INTEGER PRIMARY KEY"
+                ? $"{QuoteField(column.ColumnName),16} INTEGER PRIMARY KEY"
                 : base.GetColumnDdlString(column);
 
     public override bool TryGetSelectLastInserted(IDbTableSchema table, out string? commandText)
@@ -28,7 +28,7 @@ internal class SqliteDbProvider : DbProvider
         if (table.IdentityKeyColumn is null || table.KeyColumns.Count != 1)
             return false;
 
-        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.Name)));
+        var quotedFields = string.Join(", ", table.Columns.Select(c => QuoteField(c.ColumnName)));
         var quotedTable = QuoteTable(table.TableName, table.Schema);
 
         commandText = $"SELECT {quotedFields} FROM {quotedTable} WHERE _rowid_ = last_insert_rowid() LIMIT 1";

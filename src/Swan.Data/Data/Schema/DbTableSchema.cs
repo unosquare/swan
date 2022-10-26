@@ -99,20 +99,20 @@ internal class DbTableSchema : IDbTableSchema
         if (column is null)
             throw new ArgumentNullException(nameof(column));
 
-        if (string.IsNullOrWhiteSpace(column.Name))
+        if (string.IsNullOrWhiteSpace(column.ColumnName))
             throw new ArgumentException("The column name must be specified.", nameof(column));
 
-        if (_columnsByName.ContainsKey(column.Name))
+        if (_columnsByName.ContainsKey(column.ColumnName))
             throw new ArgumentException("A column with the same name has already been added.", nameof(column));
 
         if (column.Clone() is not IDbColumnSchema columnCopy)
             throw new ArgumentException($"The {nameof(ICloneable.Clone)} method did not return a {nameof(IDbColumnSchema)}", nameof(column));
 
-        _columnsByName[columnCopy.Name] = columnCopy;
+        _columnsByName[columnCopy.ColumnName] = columnCopy;
         _columnList.Add(columnCopy);
 
         var ordinal = _columnList.Count - 1;
-        _columnOrdinals[columnCopy.Name] = ordinal;
+        _columnOrdinals[columnCopy.ColumnName] = ordinal;
         if (columnCopy.Ordinal != ordinal)
             _ = columnCopy.GetType().TypeInfo().TryWriteProperty(columnCopy, nameof(IDbColumnSchema.Ordinal), ordinal);
 
@@ -135,7 +135,7 @@ internal class DbTableSchema : IDbTableSchema
             for (var ordinal = 0; ordinal < _columnList.Count; ordinal++)
             {
                 var column = _columnList[ordinal];
-                _columnOrdinals[column.Name] = ordinal;
+                _columnOrdinals[column.ColumnName] = ordinal;
                 if (column.Ordinal != ordinal)
                     _ = column.GetType().TypeInfo().TryWriteProperty(column, nameof(IDbColumnSchema.Ordinal), ordinal);
             }
@@ -214,5 +214,5 @@ internal class DbTableSchema : IDbTableSchema
     }
 
     private static IDbColumnSchema DeserializeColumn(DataRow columnInfo, ITypeInfo columnType) =>
-        (columnInfo.ParseObject(columnType.NativeType, columnType.CreateInstance) as IDbColumnSchema)!;
+        (columnInfo.ToDataRecord().ParseObject(columnType.NativeType, columnType.CreateInstance) as IDbColumnSchema)!;
 }

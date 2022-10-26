@@ -428,7 +428,8 @@ public static class ConnectionExtensions
         if (string.IsNullOrWhiteSpace(sql))
             throw new ArgumentNullException(nameof(sql));
 
-        deserialize ??= (reader) => reader.ParseObject<T>();
+        var typeInfo = typeof(T).TypeInfo();
+        deserialize ??= (r) => r.ParseObject<T>(typeInfo);
 
         var command = connection
             .BeginCommandText(sql)
@@ -487,7 +488,8 @@ public static class ConnectionExtensions
         if (string.IsNullOrWhiteSpace(sql))
             throw new ArgumentNullException(nameof(sql));
 
-        deserialize ??= (reader) => reader.ParseObject<T>();
+        var typeInfo = typeof(T).TypeInfo();
+        deserialize ??= (r) => r.ParseObject<T>(typeInfo);
 
         var command = connection
             .BeginCommandText(sql)
