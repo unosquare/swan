@@ -1,6 +1,7 @@
 ﻿namespace Swan.Data.Extensions;
 
 using Swan.Data.Records;
+using Swan.Reflection;
 
 /// <summary>
 /// Provides extensions methods for <see cref="IDataRecord"/> objects.
@@ -28,33 +29,49 @@ public static class DataRecordExtensions
         typeFactory ??= () => typeInfo.CreateInstance();
         var result = typeFactory.Invoke();
 
-        var columnNames = new Dictionary<string, int>(record.FieldCount, StringComparer.OrdinalIgnoreCase);
-        for (var i = 0; i < record.FieldCount; i++)
-            columnNames[record.GetName(i)] = i;
+        // Create a property map where keys are field indices and values are properties to wrote to.
+        var propertyList = typeInfo.Properties.Values.Where(c => c.CanWrite).ToList();
+        var propertyMap = new SortedDictionary<int, IPropertyProxy>();
 
-        foreach ((var propertyName, var property) in typeInfo.Properties)
+        for (var fieldIndex = 0; fieldIndex < record.FieldCount; fieldIndex++)
         {
-            if (!property.CanWrite)
+            // No more properties to map.
+            if (propertyList.Count <= 0)
+                break;
+
+            // Get the name of the field to map
+            var columnName = record.GetName(fieldIndex);
+            if (string.IsNullOrWhiteSpace(columnName))
                 continue;
 
-            var columnAttribute = property.Attribute<ColumnAttribute>();
-            var columnName = columnAttribute is not null && !string.IsNullOrWhiteSpace(columnAttribute.Name)
-                ? columnAttribute.Name
-                : property.PropertyName;
+            // First, try mapping by column attribute
+            var property = propertyList.FirstOrDefault(c =>
+                columnName.Equals(c.Attribute<ColumnAttribute>()?.Name ?? string.Empty,
+                StringComparison.OrdinalIgnoreCase));
 
-            if (!columnNames.TryGetValue(columnName, out var columnIndex))
+            // If no column attribute, try to find it by name.
+            if (property is null && typeInfo.TryFindProperty(columnName, out var foundProperty) && propertyList.Contains(foundProperty))
+                property = foundProperty;
+
+            // move on if we can't find a property to map to
+            if (property is null)
                 continue;
 
-            if (record.IsDBNull(columnIndex))
-            {
-                _ = property.TryWrite(result, property.PropertyType.DefaultValue);
-                continue;
-            }
+            // add to property map and remove from property list
+            propertyMap[fieldIndex] = property;
+            propertyList.Remove(property);
+        }
 
-            var fieldValue = record.GetValue(columnIndex);
+        // Read fields in sequential access mode and wrote to the mapped properties.
+        foreach ((var fieldIndex, var property) in propertyMap)
+        {
+            var fieldValue = record.IsDBNull(fieldIndex)
+                ? property.PropertyType.DefaultValue
+                : record.GetValue(fieldIndex);
+
             if (!property.TryWrite(result, fieldValue))
                 throw new InvalidCastException(
-                $"Unable to convert value for field '{columnName}' of type '{fieldValue.GetType().Name}' to '{property.PropertyType}'");
+                $"Unable to convert value for field '{record.GetName(fieldIndex)}' of type '{record.GetType().Name}' to '{property.PropertyType}'");
         }
 
         return result;
@@ -81,7 +98,7 @@ public static class DataRecordExtensions
     /// <param name="typeFactory">An optional factory method to create an instance.</param>
     /// <returns>An object instance filled with the values from the reader.</returns>
     public static T ParseObject<T>(this IDataRecord record, Func<T>? typeFactory = default) =>
-        record.ParseObject<T>(typeof(T).TypeInfo(), typeFactory);
+        record.ParseObject(typeof(T).TypeInfo(), typeFactory);
 
     /// <summary>
     /// Reads a dynamically typed object from the underlying record at the current position.

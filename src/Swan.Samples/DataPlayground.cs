@@ -14,13 +14,20 @@ using System.Data.SqlClient;
 internal static class DataPlayground
 {
     private const string ConnectionString = "data source=.;initial catalog=unocorp-timecore;Integrated Security=true;";
+    private const string ConnectionString2 = "data source=.;initial catalog=unocorp-xerosync;Integrated Security=true;";
 
     public static async Task BasicExample()
     {
+        await using var conn = new SqlConnection(ConnectionString2);
+        var orgsTable = await conn.TableAsync<Organisation>("Organisations").ConfigureAwait(false);
+
+        var orgs = await orgsTable.QueryAsync().ToListAsync();
+
+        return;
+
         if (false)
             await SqliteStuff();
 
-        //return;
         //var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
