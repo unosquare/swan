@@ -38,6 +38,15 @@ public interface IDbColumnSchema : ICloneable
 
     /// <summary>
     /// Gets the name of the provider-specific data type.
+    /// Contrary to <see cref="ProviderType"/>, this property holds the
+    /// name of the data type as specified in the database itself.
+    /// </summary>
+    string DataTypeName { get; }
+
+    /// <summary>
+    /// Gets the name of the provider-specific data type.
+    /// This is typically the provider-specific enumeration value
+    /// converted into a string. <seealso cref="DbType"/> and <seealso cref="SqlDbType"/>.
     /// </summary>
     string ProviderType { get; }
 

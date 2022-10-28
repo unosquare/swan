@@ -24,6 +24,8 @@ internal record SqlServerColumn : IDbColumnSchema
 
     public Type? DataType { get; set; }
 
+    public string? DataTypeName { get; set; }
+
     public int? IsAliased { get; set; }
 
     public bool? IsAutoIncrement { get; set; }
@@ -69,6 +71,8 @@ internal record SqlServerColumn : IDbColumnSchema
     int IDbColumnSchema.ColumnOrdinal => ColumnOrdinal.GetValueOrDefault(-1);
 
     Type IDbColumnSchema.DataType => DataType ?? typeof(string);
+
+    string IDbColumnSchema.DataTypeName => DataTypeName ?? string.Empty;
 
     string IDbColumnSchema.ProviderType => ProviderType.GetValueOrDefault(SqlDbType.NVarChar).ToStringInvariant();
 

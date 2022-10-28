@@ -208,7 +208,7 @@ public static class CommandExtensions
             throw new ArgumentNullException(nameof(clrType));
 
         var provider = command.Connection.Provider();
-        if (!provider.TypeMapper.TryGetDbTypeFor(clrType, out var dbType))
+        if (!provider.TypeMapper.TryGetProviderTypeFor(clrType, out var dbType))
             dbType = DbType.String;
 
         return command.DefineParameter(name, dbType.GetValueOrDefault(DbType.String), direction, size, precision, scale, isNullable);

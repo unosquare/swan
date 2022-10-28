@@ -126,8 +126,13 @@ public static class TableSchemaExtensions
 
     private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, int columnIndex, IDbTypeMapper typeMapper)
     {
-        if (!typeMapper.TryGetProviderTypeFor(p.PropertyType.NativeType, out var providerType) ||
-            p.PropertyName.Contains('.', StringComparison.Ordinal) || !p.CanRead || !p.HasPublicGetter)
+        if (!p.CanRead || !p.HasPublicGetter)
+            return default;
+
+        if (!typeMapper.TryGetProviderTypeFor(p.PropertyType.NativeType, out var providerType))
+            return default;
+
+        if (!typeMapper.TryGetDatabaseTypeFor(p.PropertyType.NativeType, out var databaseType))
             return default;
 
         var dataType = p.PropertyType.BackingType.NativeType;
@@ -139,13 +144,21 @@ public static class TableSchemaExtensions
         var precision = dataType == typeof(decimal) ? 19 : 0;
         var scale = dataType == typeof(decimal) ? 4 : 0;
 
+        var columnName = p.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
+            && !string.IsNullOrWhiteSpace(columnAttribute.Name)
+                ? columnAttribute.Name
+                : p.PropertyName.Contains('.', StringComparison.Ordinal)
+                ? p.PropertyName.Split('.', StringSplitOptions.RemoveEmptyEntries)[^1]
+                : p.PropertyName;
+
         return new DbColumnSchema
         {
             DataType = dataType,
             AllowDBNull = p.PropertyType.IsNullable,
-            ColumnName = p.PropertyName,
+            ColumnName = columnName,
             IsReadOnly = !p.CanWrite,
-            ProviderType = providerType,
+            ProviderType = $"{providerType}",
+            DataTypeName = $"{databaseType}",
             ColumnOrdinal = columnIndex,
             ColumnSize = length,
             // TODO: Scale and precision not yet fully resolved.

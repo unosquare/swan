@@ -27,6 +27,8 @@ internal record SqliteColumn : IDbColumnSchema
 
     public Type? DataType { get; set; }
 
+    public string? DataTypeName { get; set; }
+
     public string? ProviderType { get; set; }
 
     public bool? IsAliased { get; set; }
@@ -50,6 +52,8 @@ internal record SqliteColumn : IDbColumnSchema
     int IDbColumnSchema.ColumnOrdinal => ColumnOrdinal.GetValueOrDefault();
 
     Type IDbColumnSchema.DataType => DataType ?? typeof(string);
+
+    string IDbColumnSchema.DataTypeName => DataTypeName ?? string.Empty;
 
     string IDbColumnSchema.ProviderType => ProviderType ?? string.Empty;
 

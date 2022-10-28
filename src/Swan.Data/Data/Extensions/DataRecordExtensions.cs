@@ -8,6 +8,9 @@ using Swan.Reflection;
 /// </summary>
 public static class DataRecordExtensions
 {
+    private static readonly object SyncLock = new();
+    private static readonly Dictionary<ITypeInfo, SortedDictionary<string, IPropertyProxy>> ColumnMapCache = new(128);
+
     /// <summary>
     /// Converts a <see cref="DataRow"/> to an <see cref="IDataRecord"/>.
     /// </summary>
@@ -29,34 +32,29 @@ public static class DataRecordExtensions
         typeFactory ??= () => typeInfo.CreateInstance();
         var result = typeFactory.Invoke();
 
-        // Get field values at once into dictionary
-        var fieldValues = new Dictionary<string, object>(record.FieldCount, StringComparer.OrdinalIgnoreCase);
+        // Write the mapped properties in sequential field index property.
+        var columnMap = GetColumnMap(typeInfo);
         for (var fieldIndex = 0; fieldIndex < record.FieldCount; fieldIndex++)
-            fieldValues[record.GetName(fieldIndex)] = record.GetValue(fieldIndex);
-        
-        foreach ((var propertyName, var property) in typeInfo.Properties)
         {
+            var fieldName = record.GetName(fieldIndex);
+            if (string.IsNullOrWhiteSpace(fieldName))
+                continue;
+
+            if (!columnMap.TryGetValue(fieldName, out var property))
+                continue;
+
             if (!property.CanWrite)
                 continue;
 
-            var fieldName = property.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
-                && !string.IsNullOrWhiteSpace(columnAttribute.Name)
-                    ? columnAttribute.Name
-                    : property.PropertyName;
-
-            if (!fieldValues.TryGetValue(fieldName, out var value))
-                continue;
-
-            var fieldValue = value is null || value == DBNull.Value
-                ? property.PropertyType.DefaultValue : value;
+            var fieldValue = record.IsDBNull(fieldIndex)
+                ? property.PropertyType.DefaultValue
+                : record.GetValue(fieldIndex);
 
             if (!property.TryWrite(result, fieldValue))
             {
                 var errorMessage = $"Unable to convert value for field '{fieldName}' of type '{record.GetType().Name}' to '{property.PropertyType}'";
                 throw new InvalidCastException(errorMessage);
             }
-
-            fieldValues.Remove(fieldName);
         }
 
         return result;
@@ -107,6 +105,39 @@ public static class DataRecordExtensions
         }
 
         return result;
+    }
+
+    private static IReadOnlyDictionary<string, IPropertyProxy> GetColumnMap(ITypeInfo typeInfo)
+    {
+        lock (SyncLock)
+        {
+            if (ColumnMapCache.TryGetValue(typeInfo, out var map))
+                return map;
+
+            map = new SortedDictionary<string, IPropertyProxy>(StringComparer.OrdinalIgnoreCase);
+            foreach ((var propertyName, var property) in typeInfo.Properties)
+            {
+                var fieldName = property.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
+                    && !string.IsNullOrWhiteSpace(columnAttribute.Name)
+                        ? columnAttribute.Name
+                        : propertyName.Contains('.', StringComparison.Ordinal)
+                        ? propertyName.Split('.', StringSplitOptions.RemoveEmptyEntries)[^1]
+                        : property.PropertyName;
+
+                fieldName = fieldName.Trim();
+
+                if (string.IsNullOrWhiteSpace(fieldName))
+                    continue;
+
+                if (map.ContainsKey(fieldName))
+                    continue;
+
+                map[fieldName] = property;
+            }
+
+            ColumnMapCache.Add(typeInfo, map);
+            return map;
+        }
     }
 }
 

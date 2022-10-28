@@ -11,6 +11,8 @@ internal sealed record DbColumnSchema : IDbColumnSchema
 
     public Type DataType { get; set; } = typeof(string);
 
+    public string DataTypeName { get; set; } = string.Empty;
+
     public string ProviderType { get; set; } = string.Empty;
 
     public int ColumnOrdinal { get; set; }

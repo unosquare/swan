@@ -71,7 +71,7 @@ internal class DbTypeMapper : IDbTypeMapper
     public virtual IReadOnlyList<Type> SupportedTypes => DbTypeMap.Keys.ToArray();
 
     /// <inheritdoc />
-    public virtual bool TryGetDbTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)
+    public virtual bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)
     {
         dbType = default;
         type = type.TypeInfo().BackingType.NativeType;
@@ -86,7 +86,7 @@ internal class DbTypeMapper : IDbTypeMapper
     }
 
     /// <inheritdoc />
-    public virtual bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out string providerType)
+    public virtual bool TryGetDatabaseTypeFor(Type type, [MaybeNullWhen(false)] out string providerType)
     {
         providerType = default;
         type = type.TypeInfo().BackingType.NativeType;
@@ -106,7 +106,7 @@ internal class DbTypeMapper : IDbTypeMapper
         if (column is null)
             throw new ArgumentNullException(nameof(column));
 
-        if (!TryGetProviderTypeFor(column.DataType, out var providerMappedType) ||
+        if (!TryGetDatabaseTypeFor(column.DataType, out var providerMappedType) ||
             string.IsNullOrWhiteSpace(column.ProviderType))
         {
             providerType = default;
