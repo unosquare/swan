@@ -123,7 +123,7 @@ public class SqlTextExtensionsTest
 
         var command = conn.BeginCommandText().From("TableName", "SchemaName").EndCommandText();
 
-        Assert.AreEqual("FROM [SchemaName].[TableName]", command.CommandText);
+        Assert.AreEqual("FROM [TableName]", command.CommandText);
     }
 
     [Test]

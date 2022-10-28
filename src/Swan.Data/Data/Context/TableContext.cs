@@ -1,6 +1,5 @@
 ﻿namespace Swan.Data.Context;
 
-using System.Collections.Generic;
 
 /// <summary>
 /// Represents table structure information bound to a particular connection
@@ -274,13 +273,15 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             command.TryPrepare();
+            ITypeInfo? typeInfo = null;
 
             foreach (var item in items)
             {
                 if (item is null)
                     continue;
 
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += command.ExecuteNonQuery();
             }
         }
@@ -306,13 +307,15 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             await command.TryPrepareAsync(ct).ConfigureAwait(false);
+            ITypeInfo? typeInfo = null;
 
             foreach (var item in items)
             {
                 if (item is null)
                     continue;
 
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
             }
         }
@@ -377,9 +380,12 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             command.TryPrepare();
+            ITypeInfo? typeInfo = null;
+
             foreach (var item in items)
             {
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += command.ExecuteNonQuery();
             }
         }
@@ -405,13 +411,15 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             await command.TryPrepareAsync(ct).ConfigureAwait(false);
+            ITypeInfo? typeInfo = null;
 
             foreach (var item in items)
             {
                 if (item is null)
                     continue;
 
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
             }
         }
@@ -476,12 +484,14 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             command.TryPrepare();
+            ITypeInfo? typeInfo = null;
             foreach (var item in items)
             {
                 if (item is null)
                     continue;
 
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += command.ExecuteNonQuery();
             }
         }
@@ -507,12 +517,15 @@ internal partial class TableContext : DbTableSchema, ITableContext, ITableBuilde
         try
         {
             await command.TryPrepareAsync(ct).ConfigureAwait(false);
+            ITypeInfo? typeInfo = null;
+
             foreach (var item in items)
             {
                 if (item is null)
                     continue;
 
-                command.SetParameters(item);
+                typeInfo ??= item.GetType().TypeInfo();
+                command.SetParameters(item, typeInfo);
                 result += await command.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
             }
         }

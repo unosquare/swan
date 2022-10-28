@@ -1,12 +1,14 @@
 ﻿global using Swan.Data.Context;
 global using Swan.Data.Extensions;
 global using Swan.Data.Providers;
+global using Swan.Data.Records;
 global using Swan.Data.Schema;
 global using Swan.Extensions;
 global using Swan.Reflection;
 global using System;
 global using System.Collections;
 global using System.Collections.Generic;
+global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Data;
 global using System.Data.Common;

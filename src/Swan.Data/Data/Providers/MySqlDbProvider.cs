@@ -8,6 +8,8 @@ internal class MySqlDbProvider : DbProvider
 
     public override string QuoteSuffix => "`";
 
+    public override string SchemaSeparator => string.Empty;
+
     public override DbCommand CreateListTablesCommand(DbConnection connection)
     {
         if (connection is null)

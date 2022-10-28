@@ -85,10 +85,14 @@ internal class DbTableSchema : IDbTableSchema
     public bool HasKeyIdentityColumn => IdentityKeyColumn != null;
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> InsertableColumns => _columnList.Where(c => !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    public IReadOnlyList<IDbColumnSchema> InsertableColumns => _columnList
+        .Where(c => !c.IsAutoIncrement && !c.IsReadOnly)
+        .ToArray();
 
     /// <inheritdoc />
-    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => _columnList.Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly).ToArray();
+    public IReadOnlyList<IDbColumnSchema> UpdateableColumns => _columnList
+        .Where(c => !c.IsKey && !c.IsAutoIncrement && !c.IsReadOnly)
+        .ToArray();
 
     /// <inheritdoc />
     public int ColumnCount => _columnList.Count;

@@ -1,7 +1,5 @@
 ﻿namespace Swan.Data.Extensions;
 
-using Swan.Data.Schema;
-
 /// <summary>
 /// Provides methods to generate and convert <see cref="IDbTableSchema"/> objects.
 /// </summary>
@@ -22,38 +20,55 @@ public static class TableSchemaExtensions
             throw new ArgumentNullException(nameof(objectType));
 
         var typeInfo = objectType.TypeInfo();
-        var properties = typeInfo.Properties();
-        var columns = new List<DbColumnSchema>(properties.Count);
+        var columns = new List<IDbColumnSchema>(128);
         var typeMapper = connection?.Provider()?.TypeMapper ?? DbTypeMapper.Default;
 
-        var columnIndex = 0;
-        foreach (var property in properties)
+        foreach ((var columnName, var property) in typeInfo.GetColumnMap())
         {
-            var columnSchema = property.ToColumnSchema(columnIndex, typeMapper);
+            var columnSchema = property.ToColumnSchema(columnName, columns.Count, typeMapper);
             if (columnSchema is not DbColumnSchema dbColumn)
                 continue;
 
+            // Database generated attribute
+            if (property.Attribute<DatabaseGeneratedAttribute>() is DatabaseGeneratedAttribute generatedOption
+                && generatedOption.DatabaseGeneratedOption != DatabaseGeneratedOption.None)
+            {
+                dbColumn.IsAutoIncrement = generatedOption.DatabaseGeneratedOption == DatabaseGeneratedOption.Identity;
+                dbColumn.IsReadOnly = dbColumn.IsAutoIncrement ||
+                    generatedOption.DatabaseGeneratedOption == DatabaseGeneratedOption.Computed;
+            }
+
+            // Key attribute
+            if (property.Attribute<KeyAttribute>() is not null)
+                dbColumn.IsKey = true;
+
             columns.Add(dbColumn);
-            columnIndex++;
         }
 
-        var identityCandidate = columns.Where(
-            c => !string.IsNullOrWhiteSpace(c.ColumnName) &&
-            c.ColumnName.ToUpperInvariant().EndsWith("ID", StringComparison.Ordinal) &&
-            c.DataType.TypeInfo().IsNumeric &&
-            !c.DataType.TypeInfo().IsNullable)
-            .OrderBy(c => c.ColumnOrdinal)
-            .ThenBy(c => c.ColumnName)
-            .FirstOrDefault();
-
-        if (identityCandidate is not null)
+        // Key and AutoIncrement
+        if (TryGuessIdentityKey(columns, out var keyColumn) && keyColumn is DbColumnSchema identityKeyColumn)
         {
-            identityCandidate.IsKey = true;
-            identityCandidate.IsAutoIncrement = true;
+            identityKeyColumn.IsKey = true;
+            identityKeyColumn.IsAutoIncrement = true;
         }
+
+        // Unique property
+        var keyColumns = columns.Where(c => c.IsKey).ToArray();
+        if (keyColumns.Length == 1 && keyColumns[0] is DbColumnSchema singleKeyColumn)
+            singleKeyColumn.IsUnique = true;
+
+        // Populate table name and schema name properties when available
+        var tableAttribute = objectType.Attribute<TableAttribute>();
+        tableName ??= tableAttribute is not null && !string.IsNullOrWhiteSpace(tableAttribute.Name)
+            ? tableAttribute.Name
+            : objectType.Name;
+
+        schemaName ??= tableAttribute is not null && !string.IsNullOrWhiteSpace(tableAttribute.Schema)
+            ? tableAttribute.Schema
+            : string.Empty;
 
         connection?.EnsureConnected();
-        return new DbTableSchema(connection?.Database ?? "db", tableName ?? objectType.Name, schemaName ?? string.Empty, columns);
+        return new DbTableSchema(connection?.Database ?? "db", tableName, schemaName, columns);
     }
 
     /// <summary>
@@ -100,7 +115,7 @@ public static class TableSchemaExtensions
     /// <param name="table">The table context to read the schema information from..</param>
     /// <returns>The table builder object.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ITableBuilder ToTableBuilder(this ITableContext table) => 
+    public static ITableBuilder ToTableBuilder(this ITableContext table) =>
         table is null ? throw new ArgumentNullException(nameof(table)) : new TableContext(table.Connection, table);
 
     /// <summary>
@@ -124,7 +139,52 @@ public static class TableSchemaExtensions
         where T : IDbTableSchema, IDbConnected =>
         table is null ? throw new ArgumentNullException(nameof(table)) : table.Provider.QuoteTable(table);
 
-    private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, int columnIndex, IDbTypeMapper typeMapper)
+    internal static bool TryGuessIdentityKey(IList<IDbColumnSchema> columns, [MaybeNullWhen(false)] out IDbColumnSchema dbColumn)
+    {
+        var candidates = columns.Where(c =>
+            !c.AllowDBNull &&
+            !string.IsNullOrWhiteSpace(c.ColumnName) &&
+            c.ColumnName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) &&
+            c.IsReadOnly &&
+            c.DataType.TypeInfo().IsNumeric &&
+            c.IsAutoIncrement).ToArray();
+
+        if (candidates.Length > 0)
+        {
+            if (candidates.Length == 1)
+            {
+                dbColumn = candidates[0];
+                return true;
+            }
+
+            var keyColumns = candidates.Where(c => c.IsKey).ToArray();
+            if (keyColumns.Length == 1)
+            {
+                dbColumn = keyColumns[0];
+                return true;
+            }
+        }
+
+        candidates = columns.Where(c =>
+            !c.AllowDBNull &&
+            !string.IsNullOrWhiteSpace(c.ColumnName) &&
+            c.ColumnName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) &&
+            c.DataType.TypeInfo().IsNumeric)
+            .OrderBy(c => c.ColumnOrdinal)
+            .ThenBy(c => c.ColumnName)
+            .ToArray();
+
+        if (candidates.Length > 0)
+        {
+            dbColumn = candidates[0];
+            return true;
+        }
+
+        dbColumn = default;
+        return false;
+    }
+
+    private static IDbColumnSchema? ToColumnSchema(this IPropertyProxy p, string columnName, int columnIndex, IDbTypeMapper typeMapper)
     {
         if (!p.CanRead || !p.HasPublicGetter)
             return default;
@@ -141,27 +201,20 @@ public static class TableSchemaExtensions
             ? 4000 : dataType == typeof(ulong)
             ? 20 : 0;
 
+        // TODO: Scale and precision not yet fully resolved.
         var precision = dataType == typeof(decimal) ? 19 : 0;
         var scale = dataType == typeof(decimal) ? 4 : 0;
-
-        var columnName = p.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
-            && !string.IsNullOrWhiteSpace(columnAttribute.Name)
-                ? columnAttribute.Name
-                : p.PropertyName.Contains('.', StringComparison.Ordinal)
-                ? p.PropertyName.Split('.', StringSplitOptions.RemoveEmptyEntries)[^1]
-                : p.PropertyName;
 
         return new DbColumnSchema
         {
             DataType = dataType,
             AllowDBNull = p.PropertyType.IsNullable,
             ColumnName = columnName,
-            IsReadOnly = !p.CanWrite,
+            IsReadOnly = !p.CanWrite || !p.HasPublicSetter,
             ProviderType = $"{providerType}",
             DataTypeName = $"{databaseType}",
             ColumnOrdinal = columnIndex,
             ColumnSize = length,
-            // TODO: Scale and precision not yet fully resolved.
             NumericScale = scale,
             NumericPrecision = precision
         };

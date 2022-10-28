@@ -46,6 +46,13 @@ public class DbProvider
     public virtual string DefaultSchemaName => string.Empty;
 
     /// <summary>
+    /// Gets whether the provider supports schmas within databases. For example, SQL server.
+    /// MySql or Sqlite currently do not. When <see cref="SchemaSeparator"/> is null or whitespace,
+    /// the default implementation returns false.
+    /// </summary>
+    public virtual bool SupportsSchemas => !string.IsNullOrWhiteSpace(SchemaSeparator);
+
+    /// <summary>
     /// Gets a default configuration for command timeout when
     /// creating commands via this API. Default is 60 seconds.
     /// </summary>
@@ -75,7 +82,7 @@ public class DbProvider
     /// <param name="schemaName">The name of the schema.</param>
     /// <returns>A quoted table name.</returns>
     public virtual string QuoteTable(string tableName, string? schemaName = default) =>
-        !string.IsNullOrWhiteSpace(schemaName)
+        !string.IsNullOrWhiteSpace(schemaName) && SupportsSchemas
             ? string.Join(string.Empty,
                 QuotePrefix,
                 schemaName,

@@ -4,6 +4,8 @@ internal class SqliteDbProvider : DbProvider
 {
     public override string ParameterPrefix => "$";
 
+    public override string SchemaSeparator => string.Empty;
+
     public override IDbTypeMapper TypeMapper { get; } = new SqliteTypeMapper();
 
     public override Func<IDbColumnSchema> ColumnSchemaFactory { get; } = () => new SqliteColumn();

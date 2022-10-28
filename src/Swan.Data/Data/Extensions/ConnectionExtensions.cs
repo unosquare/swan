@@ -64,16 +64,13 @@ public static class ConnectionExtensions
     /// <param name="schemaName">The optional schema name.</param>
     /// <returns>A generated table context.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ITableBuilder TableBuilder(this DbConnection connection, Type objectType, string tableName, string? schemaName = default)
+    public static ITableBuilder TableBuilder(this DbConnection connection, Type objectType, string? tableName = default, string? schemaName = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
         if (objectType is null)
             throw new ArgumentNullException(nameof(objectType));
-
-        if (string.IsNullOrWhiteSpace(tableName))
-            throw new ArgumentNullException(nameof(tableName));
 
         var typeSchema = objectType.ToTableSchema(connection, tableName, schemaName);
         return new TableContext(connection, typeSchema);
@@ -86,18 +83,15 @@ public static class ConnectionExtensions
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <typeparam name="T">The type of object.</typeparam>
-    /// <param name="tableName">The table name.</param>
+    /// <param name="tableName">The optional table name.</param>
     /// <param name="schemaName">The optional schema name.</param>
     /// <returns>A generated table context.</returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static ITableBuilder<T> TableBuilder<T>(this DbConnection connection, string tableName, string? schemaName = default)
+    public static ITableBuilder<T> TableBuilder<T>(this DbConnection connection, string? tableName = default, string? schemaName = default)
         where T : class
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
-
-        if (string.IsNullOrWhiteSpace(tableName))
-            throw new ArgumentNullException(nameof(tableName));
 
         var typeSchema = typeof(T).ToTableSchema(connection, tableName, schemaName);
         return new TableContext<T>(connection, typeSchema);

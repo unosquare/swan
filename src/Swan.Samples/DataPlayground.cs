@@ -23,7 +23,7 @@ internal static class DataPlayground
 
         var orgs = await orgsTable.QueryAsync().ToListAsync();
 
-        return;
+        // return;
 
         if (false)
             await SqliteStuff();

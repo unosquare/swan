@@ -345,44 +345,46 @@ public static class CommandExtensions
     /// and adds the to the command's parameter collection. If the command text is set, it looks
     /// for the parameters within the command text before adding them.
     /// </summary>
-    /// <typeparam name="TCommand"></typeparam>
-    /// <param name="command"></param>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="parameters">The parameters contained in an object as properties.</param>
+    /// <param name="typeInfo">The option type of the parameters object.</param>
+    /// <returns>The same command for fluent API support.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    public static TCommand SetParameters<TCommand>(this TCommand command, object? parameters)
+    internal static TCommand SetParameters<TCommand>(this TCommand command, object? parameters, ITypeInfo? typeInfo = default)
         where TCommand : DbCommand
     {
         if (command is null)
             throw new ArgumentNullException(nameof(command));
 
-        if (command.Connection is null)
-            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
-
         if (parameters is null)
             return command;
 
-        var typeInfo = parameters.GetType().TypeInfo();
+        if (command.Connection is null)
+            throw new ArgumentException(Library.CommandConnectionErrorMessage, nameof(command));
+
+        typeInfo ??= parameters.GetType().TypeInfo();
         var provider = command.Connection.Provider();
+        var columnMap = typeInfo.GetColumnMap();
 
         var hasCommandText = !string.IsNullOrWhiteSpace(command.CommandText);
         var commandText = hasCommandText
             ? command.CommandText.AsSpan()
             : Array.Empty<char>().AsSpan();
 
-        foreach ((_, var property) in typeInfo.Properties)
+        foreach ((var columnName, var property) in columnMap)
         {
-            if (!property.CanRead || !property.HasPublicGetter)
+            if (!property.CanRead)
                 continue;
 
-            var columnAttribute = property.Attribute<ColumnAttribute>();
-            var columnName = columnAttribute is not null && !string.IsNullOrWhiteSpace(columnAttribute.Name)
-                ? columnAttribute.Name
-                : property.PropertyName;
+            if (!provider.TypeMapper.TryGetProviderTypeFor(property.PropertyType.NativeType, out _))
+                continue;
 
             var parameterName = provider.QuoteParameter(columnName);
-            var containsParamter = hasCommandText && commandText.IndexOf(parameterName, StringComparison.InvariantCulture) >= 0;
+            var containsParamter = hasCommandText
+                && commandText.Contains(parameterName, StringComparison.InvariantCultureIgnoreCase);
+
             if (hasCommandText && !containsParamter)
                 continue;
 
@@ -392,6 +394,22 @@ public static class CommandExtensions
 
         return command;
     }
+
+    /// <summary>
+    /// Takes the given parameters object, extracts its publicly visible properties and values
+    /// and adds the to the command's parameter collection. If the command text is set, it looks
+    /// for the parameters within the command text before adding them.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type.</typeparam>
+    /// <param name="command">The command.</param>
+    /// <param name="parameters">The parameters contained in an object as properties.</param>
+    /// <returns>The same command for fluent API support.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    public static TCommand SetParameters<TCommand>(this TCommand command, object? parameters)
+        where TCommand : DbCommand => command is null
+            ? throw new ArgumentNullException(nameof(command))
+            : command.SetParameters(parameters, null);
 
     /// <summary>
     /// Sets the command's basic properties. Properties with null values will not be set.

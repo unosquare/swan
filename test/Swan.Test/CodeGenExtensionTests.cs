@@ -12,7 +12,7 @@ public class CodeGenExtensionTest
         var table = conn.TableBuilder<Project>("Projects").ExecuteTableCommand();
         var pocoCode = table.GeneratePocoCode();
 
-        Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\")]"));
+        Assert.IsTrue(pocoCode.Contains($"[Table(\"{table.TableName}\", Schema = \"{table.Schema}\")]"));
 
         Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[0].ColumnName})"));
         Assert.IsTrue(pocoCode.Contains($"Column(nameof({table.Columns[1].ColumnName})"));

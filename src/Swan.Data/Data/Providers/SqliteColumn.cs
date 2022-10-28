@@ -62,7 +62,7 @@ internal record SqliteColumn : IDbColumnSchema
     bool IDbColumnSchema.IsKey => IsKey.GetValueOrDefault();
 
     bool IDbColumnSchema.IsAutoIncrement => IsAutoIncrement.GetValueOrDefault() ||
-        (IsKey.GetValueOrDefault() && (ProviderType ?? string.Empty).ToUpperInvariant().Equals("INTEGER", StringComparison.Ordinal));
+        (IsKey.GetValueOrDefault() && (DataTypeName ?? string.Empty).ToUpperInvariant().Equals("INTEGER", StringComparison.Ordinal));
 
     bool IDbColumnSchema.IsReadOnly => IsAutoIncrement.GetValueOrDefault();
 
