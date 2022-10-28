@@ -29,49 +29,34 @@ public static class DataRecordExtensions
         typeFactory ??= () => typeInfo.CreateInstance();
         var result = typeFactory.Invoke();
 
-        // Create a property map where keys are field indices and values are properties to wrote to.
-        var propertyList = typeInfo.Properties.Values.Where(c => c.CanWrite).ToList();
-        var propertyMap = new SortedDictionary<int, IPropertyProxy>();
-
+        // Get field values at once into dictionary
+        var fieldValues = new Dictionary<string, object>(record.FieldCount, StringComparer.OrdinalIgnoreCase);
         for (var fieldIndex = 0; fieldIndex < record.FieldCount; fieldIndex++)
+            fieldValues[record.GetName(fieldIndex)] = record.GetValue(fieldIndex);
+        
+        foreach ((var propertyName, var property) in typeInfo.Properties)
         {
-            // No more properties to map.
-            if (propertyList.Count <= 0)
-                break;
-
-            // Get the name of the field to map
-            var columnName = record.GetName(fieldIndex);
-            if (string.IsNullOrWhiteSpace(columnName))
+            if (!property.CanWrite)
                 continue;
 
-            // First, try mapping by column attribute
-            var property = propertyList.FirstOrDefault(c =>
-                columnName.Equals(c.Attribute<ColumnAttribute>()?.Name ?? string.Empty,
-                StringComparison.OrdinalIgnoreCase));
+            var fieldName = property.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
+                && !string.IsNullOrWhiteSpace(columnAttribute.Name)
+                    ? columnAttribute.Name
+                    : property.PropertyName;
 
-            // If no column attribute, try to find it by name.
-            if (property is null && typeInfo.TryFindProperty(columnName, out var foundProperty) && propertyList.Contains(foundProperty))
-                property = foundProperty;
-
-            // move on if we can't find a property to map to
-            if (property is null)
+            if (!fieldValues.TryGetValue(fieldName, out var value))
                 continue;
 
-            // add to property map and remove from property list
-            propertyMap[fieldIndex] = property;
-            propertyList.Remove(property);
-        }
-
-        // Read fields in sequential access mode and wrote to the mapped properties.
-        foreach ((var fieldIndex, var property) in propertyMap)
-        {
-            var fieldValue = record.IsDBNull(fieldIndex)
-                ? property.PropertyType.DefaultValue
-                : record.GetValue(fieldIndex);
+            var fieldValue = value is null || value == DBNull.Value
+                ? property.PropertyType.DefaultValue : value;
 
             if (!property.TryWrite(result, fieldValue))
-                throw new InvalidCastException(
-                $"Unable to convert value for field '{record.GetName(fieldIndex)}' of type '{record.GetType().Name}' to '{property.PropertyType}'");
+            {
+                var errorMessage = $"Unable to convert value for field '{fieldName}' of type '{record.GetType().Name}' to '{property.PropertyType}'";
+                throw new InvalidCastException(errorMessage);
+            }
+
+            fieldValues.Remove(fieldName);
         }
 
         return result;
