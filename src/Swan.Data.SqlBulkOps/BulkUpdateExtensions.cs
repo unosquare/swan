@@ -37,7 +37,7 @@ public static class BulkUpdateExtensions
 
         // Read or create a provider-specific transaction.
         if (transaction is not SqlTransaction sqlTransaction)
-            sqlTransaction = await connection.BeginTransactionAsync(ct) is not SqlTransaction createdTran
+            sqlTransaction = await connection.BeginTransactionAsync(IsolationLevel.Snapshot, ct) is not SqlTransaction createdTran
                 ? throw new InvalidOperationException($"Unable to create transaction of type '{nameof(SqlTransaction)}'")
                 : createdTran;
 
