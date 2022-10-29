@@ -41,7 +41,7 @@ public static class BulkInsertExtensions
 
         // Read or create a provider-specific transaction.
         if (transaction is not SqlTransaction sqlTransaction)
-            sqlTransaction = await connection.BeginTransactionAsync(IsolationLevel.Snapshot, ct) is not SqlTransaction createdTran
+            sqlTransaction = await connection.BeginTransactionAsync(IsolationLevel.ReadUncommitted, ct) is not SqlTransaction createdTran
                 ? throw new InvalidOperationException($"Unable to create transaction of type '{nameof(SqlTransaction)}'")
                 : createdTran;
 
@@ -49,15 +49,19 @@ public static class BulkInsertExtensions
         // if it is local, then we need to manage the lifecycle of the transaction.
         var isLocalTransaction = transaction is null or not SqlTransaction;
 
+        var isMemoryOptimized = await table.IsMemoryOptimized(sqlTransaction, ct).ConfigureAwait(false);
+
         // Generate bulk copy options defaults
         var bulkCopyOptions =
-            SqlBulkCopyOptions.TableLock |
             SqlBulkCopyOptions.KeepNulls |
             SqlBulkCopyOptions.CheckConstraints |
             SqlBulkCopyOptions.FireTriggers |
             (keepIdentity
                 ? SqlBulkCopyOptions.KeepIdentity
-                : SqlBulkCopyOptions.Default);
+                : SqlBulkCopyOptions.Default) |
+            (isMemoryOptimized
+                ? SqlBulkCopyOptions.Default
+                : SqlBulkCopyOptions.TableLock); ;
 
         // configure the bulk copy operation
         using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, sqlTransaction)

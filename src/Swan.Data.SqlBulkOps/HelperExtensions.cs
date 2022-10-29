@@ -94,4 +94,28 @@ internal static class HelperExtensions
 
         return deleteCommandText.ToString();
     }
+
+    public static async Task<bool> IsMemoryOptimized(this ITableContext table, SqlTransaction? transaction, CancellationToken ct = default)
+    {
+        await table.Connection.EnsureConnectedAsync(ct);
+
+        var scalarValue = await table.Connection
+            .BeginCommandText("SELECT OBJECTPROPERTY(OBJECT_ID(@TableName),'TableIsMemoryOptimized')")
+            .EndCommandText()
+            .WithTransaction(transaction)
+            .SetParameters(new { TableName = table.QuoteTable() })
+            .ExecuteScalarAsync(ct)
+            .ConfigureAwait(false);
+
+        try
+        {
+            return Convert.ToInt32(scalarValue, CultureInfo.InvariantCulture) == 1;
+        }
+        catch
+        {
+            // ignore
+        }
+
+        return false;
+    }
 }
