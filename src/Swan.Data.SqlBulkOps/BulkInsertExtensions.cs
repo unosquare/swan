@@ -61,7 +61,7 @@ public static class BulkInsertExtensions
                 : SqlBulkCopyOptions.Default) |
             (isMemoryOptimized
                 ? SqlBulkCopyOptions.Default
-                : SqlBulkCopyOptions.TableLock); ;
+                : SqlBulkCopyOptions.TableLock);
 
         // configure the bulk copy operation
         using var bulkOperation = new SqlBulkCopy(connection, bulkCopyOptions, sqlTransaction)
