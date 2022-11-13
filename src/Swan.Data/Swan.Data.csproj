@@ -32,7 +32,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<PackageReference Include="Swan.Core" Version="6.0.2-*" />
+		<PackageReference Include="Swan.Core" Version="7.0.0-*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' != 'Release'">
