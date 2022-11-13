@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>Swan.Threading</AssemblyName>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -17,7 +17,7 @@
 		<AssemblyTitle>Unosquare SWAN</AssemblyTitle>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<RootNamespace>Swan</RootNamespace>
-		<Version>5.0.1</Version>
+		<Version>7.0.0-beta.1</Version>
 		<Authors>Unosquare</Authors>
 		<PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
