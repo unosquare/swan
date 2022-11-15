@@ -14,7 +14,7 @@
 
 	<PropertyGroup>
 		<PackageId>Swan.Logging</PackageId>
-		<Version>7.0.0-beta.3</Version>
+		<Version>7.0.0-beta.4</Version>
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Logging</AssemblyTitle>
