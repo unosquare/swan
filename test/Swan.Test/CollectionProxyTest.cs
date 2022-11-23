@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
 using Collections;
+using Mocks;
 using Reflection;
-using Swan.Test.Mocks;
 using System.Collections;
 
 [TestFixture]
@@ -416,13 +416,13 @@ public class CollectionProxyTest : TestFixtureBase
             {
                 case 0:
                     Assert.Catch(() => proxy.Add("hello"));
-                    Assert.Catch(() => proxy.AddRange(new[] { 2, 3, 4, 5 }));
+                    Assert.Catch(() => proxy.AddRange(new[] {2, 3, 4, 5}));
                     continue;
                 case 1:
                     {
                         Assert.Catch(() => proxy.Add("item 8", 30));
                         proxy.Add("9");
-                        proxy.AddRange(new[] { 2, 3, 4, 5 });
+                        proxy.AddRange(new[] {2, 3, 4, 5});
                         var lastItem = proxy.Last();
                         Assert.IsTrue(lastItem is int or string);
                         break;
@@ -719,12 +719,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void WithIndexOutOfRange_ThrowsException()
     {
-        Dictionary<int, string> dict = new()
-        {
-            { 0, "Zero" },
-            { 1, "One" },
-            { 2, "Two"}
-        };
+        Dictionary<int, string> dict = new() {{0, "Zero"}, {1, "One"}, {2, "Two"}};
 
         var proxy = dict.AsProxy();
 
@@ -734,12 +729,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void WithDictionariAsProxy_RemovesGivenKey()
     {
-        Dictionary<int, string> dict = new()
-        {
-            { 0, "Zero" },
-            { 1, "One" },
-            { 2, "Two"}
-        };
+        Dictionary<int, string> dict = new() {{0, "Zero"}, {1, "One"}, {2, "Two"}};
 
         var proxy = dict.AsProxy();
 
@@ -754,19 +744,19 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void WithNullArray_ThrowsException()
     {
-        var array = new int[] { 1, 2 };
+        var array = new int[] {1, 2};
         int[] array2 = null;
 
         var proxy = array.AsProxy();
 
-        Assert.Throws<ArgumentNullException>(()=> proxy.CopyTo(array2, 0));
+        Assert.Throws<ArgumentNullException>(() => proxy.CopyTo(array2, 0));
     }
 
     [Test]
     public void WithOutOfRangeIndex_ThrowsException()
     {
-        var array = new int[] { 1, 2 };
-        var array2 = new int[] { 0, 0 };
+        var array = new int[] {1, 2};
+        var array2 = new int[] {0, 0};
 
         var proxy = array.AsProxy();
 
@@ -776,7 +766,7 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void WithNullCollectionProxy_ReturnsFalse()
     {
-        var array = new int[] { 1, 2 };
+        var array = new int[] {1, 2};
         CollectionProxy proxy2 = null;
 
         var proxy = array.AsProxy();
@@ -785,10 +775,10 @@ public class CollectionProxyTest : TestFixtureBase
     }
 
     [Test]
-    public void WithDiferentCollections_ReturnsFalse()
+    public void WithDifferentCollections_ReturnsFalse()
     {
-        var list1 = new List<int>() { 1, 2, 3, 4 };
-        var list2 = new List<int>() { 1, 2, 3, 5 };
+        var list1 = new List<int> {1, 2, 3, 4};
+        var list2 = new List<int> {1, 2, 3, 5};
 
         var proxy = list1.AsProxy();
         var proxy2 = list2.AsProxy();
@@ -796,25 +786,10 @@ public class CollectionProxyTest : TestFixtureBase
         Assert.IsFalse(proxy.SequenceEquals(proxy2));
     }
 
-    //[Test]
-    //public void WithEqualCollections_ReturnsTrue()
-    //{
-    //    var list1 = new List<int>() { 1, 2, 3, 4 };
-    //    var list2 = new List<int>() { 1, 2, 3, 4 };
-
-    //    var proxy = list1.AsProxy();
-    //    var proxy2 = list2.AsProxy();
-
-    //    Assert.IsTrue(proxy.SequenceEquals(proxy2));
-    //}
-    //This test execution fails in proxy.SequenceEquals(proxy2) method At line 545 of the CollectionProxy.cs class it fails to evaluate otherValues.Count
-
-
-
     [Test]
-    public void WhithTargetCollectionIsNull_ReturnsFalse()
+    public void WithTargetCollectionIsNull_ReturnsFalse()
     {
-        var list1 = new List<int>() { 1, 2, 3, 4 };
+        var list1 = new List<int> {1, 2, 3, 4};
 
         var proxy = list1.AsProxy();
         CollectionProxy proxy2 = null;
@@ -825,19 +800,9 @@ public class CollectionProxyTest : TestFixtureBase
     [Test]
     public void WithNoRepeatingKeysDictionaries_ReturnsTrue()
     {
-        Dictionary<int, string> dict = new()
-        {
-            { 0, "Zero" },
-            { 1, "One" },
-            { 2, "Two"}
-        };
+        Dictionary<int, string> dict = new() {{0, "Zero"}, {1, "One"}, {2, "Two"}};
 
-        Dictionary<int, string> dict2 = new()
-        {
-            { 3, "Three" },
-            { 4, "Four" },
-            { 5, "Five"}
-        };
+        Dictionary<int, string> dict2 = new() {{3, "Three"}, {4, "Four"}, {5, "Five"}};
 
         var proxy = dict.AsProxy();
         var proxy2 = dict2.AsProxy();
@@ -845,25 +810,11 @@ public class CollectionProxyTest : TestFixtureBase
         Assert.IsTrue(proxy.TryCopyTo(proxy2));
     }
 
-    //[Test]
-    //public void WithNoRepeatingNumbersArray_ReturnsTrue()
-    //{
-    //    var array = new int[] { 0, 1, 2 };
-    //    var array2 = new int[3];
-
-    //    var proxy = array.AsProxy();
-    //    var proxy2 = array2.AsProxy();
-
-    //    Assert.IsTrue(proxy.TryCopyTo(proxy2));
-    //}
-    //This test execution fails in proxy.TryCopyTo which internally uses TryCopyToArray method. At line 601 of the CollectionProxy.cs class it fails to evaluate target.Count
-
-
     [Test]
     public void WithNoRepeatingNumbersLists_ReturnsTrue()
     {
-        var list1 = new List<int>() { 1, 2, 3, 4 };
-        var list2 = new List<int>() { 5, 6, 7, 8 };
+        var list1 = new List<int> {1, 2, 3, 4};
+        var list2 = new List<int> {5, 6, 7, 8};
 
         var proxy = list1.AsProxy();
         var proxy2 = list2.AsProxy();

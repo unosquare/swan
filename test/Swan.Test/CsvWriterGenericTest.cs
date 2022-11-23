@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test;
 
-using Swan.Formatters;
-using Swan.Test.Mocks;
+using Formatters;
+using Mocks;
 
 [TestFixture]
 public class CsvWriterGenericTest

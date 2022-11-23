@@ -1,6 +1,6 @@
 ﻿namespace Swan.Data.Records;
 
-using Swan.Data;
+using Data;
 
 /// <summary>
 /// Provides a <see cref="IDataRecord"/> wrapper for a <see cref="DataRow"/>.
@@ -16,10 +16,7 @@ internal sealed class DataRowDbRecord : IDataRecord
     /// <param name="row">The row to wrap.</param>
     public DataRowDbRecord(DataRow row)
     {
-        if (row is null)
-            throw new ArgumentNullException(nameof(row));
-
-        Row = row;
+        Row = row ?? throw new ArgumentNullException(nameof(row));
     }
 
     /// <inheritdoc />
@@ -93,8 +90,7 @@ internal sealed class DataRowDbRecord : IDataRecord
     public long GetInt64(int i) => Row[i] is long value || TypeManager.TryChangeType(Row[i], out value)
         ? value : Convert.ToInt64(Row[i], Invariant);
 
-    public string GetString(int i) => Row[i] is string value
-        ? value : Convert.ToString(Row[i], Invariant) ?? default!;
+    public string GetString(int i) => Row[i] as string ?? (Convert.ToString(Row[i], Invariant) ?? default!);
 
     public object GetValue(int i) => Row[i];
 

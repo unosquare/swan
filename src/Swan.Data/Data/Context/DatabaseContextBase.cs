@@ -33,11 +33,8 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// </summary>
     protected DatabaseContextBase(DbConnection connection)
     {
-        if (connection is null)
-            throw new ArgumentNullException(nameof(connection));
-
         // Setup connection, provider and database.
-        Connection = connection;
+        Connection = connection ?? throw new ArgumentNullException(nameof(connection));
         Connection.ConfigureAwait(false);
         Connection.EnsureConnected();
 
@@ -123,7 +120,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// Asynchronously waits for any operation in progress.
     /// Always call the <see cref="CompleteDataOperation"/> method at the end of the operation.
     /// </summary>
-    /// <param name="ct">The opetional cancellation token.</param>
+    /// <param name="ct">The optional cancellation token.</param>
     /// <returns>An awaitable task.</returns>
     public async Task BeginDataOperationAsync(CancellationToken ct = default) =>
         await Semaphore.WaitAsync(ct).ConfigureAwait(false);
@@ -137,7 +134,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
     /// Initializes a table property in the current <see cref="DatabaseContextBase"/>.
     /// </summary>
     /// <param name="tableProperty">The property metadata that holds the table context.</param>
-    /// <returns>The table context that will be writtent to the table property.</returns>
+    /// <returns>The table context that will be written to the table property.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="NotSupportedException"></exception>
     protected virtual ITableContext InitializeTableProperty(IPropertyProxy tableProperty)
@@ -186,9 +183,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         tableCallArgs[1] ??= tableProperty.PropertyName;
 
         // Invoke the typed version of the TableAsync<> method.
-        return tableMethod.Invoke(null, tableCallArgs) is not ITableContext tableContext
-            ? throw new NotSupportedException($"The method call did not return an object of type '{nameof(ITableContext)}'.")
-            : tableContext;
+        return tableMethod.Invoke(null, tableCallArgs) as ITableContext ?? throw new NotSupportedException($"The method call did not return an object of type '{nameof(ITableContext)}'.");
     }
 
     /// <summary>

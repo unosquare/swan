@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Formatters;
+using Formatters;
 using System.Text;
 
 [TestFixture]

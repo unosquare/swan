@@ -35,7 +35,7 @@ internal class SqlServerDbProvider : DbProvider
                 ? $"{QuoteField(column.ColumnName),16} {providerType} IDENTITY NOT NULL PRIMARY KEY"
                 : base.GetColumnDdlString(column);
 
-    public override bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
+    public override bool TryGetSelectLastInserted(IDbTableSchema table, out string? commandText)
     {
         commandText = null;
         if (table.IdentityKeyColumn is null || table.KeyColumns.Count != 1)

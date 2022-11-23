@@ -71,7 +71,7 @@ public static class DataRecordExtensions
         if (typeInfo is null)
             throw new ArgumentNullException(nameof(typeInfo));
 
-        typeFactory ??= () => typeInfo.CreateInstance();
+        typeFactory ??= typeInfo.CreateInstance;
         var result = typeFactory.Invoke();
 
         // Write the mapped properties in sequential field index property.

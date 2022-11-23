@@ -1,12 +1,12 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Test.Mocks;
+using Mocks;
 
 [TestFixture]
 public class TableContextGenericTest
 {
-    private static Project project = new()
+    private static readonly Project Project = new()
     {
         CompanyId = 1,
         EndDate = DateTime.Now,
@@ -17,7 +17,7 @@ public class TableContextGenericTest
         StartDate = DateTime.Now.AddMonths(-1)
     };
 
-    private static Project projectUpdated = new()
+    private static readonly Project ProjectUpdated = new()
     {
         ProjectId = 1,
         CompanyId = 1,
@@ -29,9 +29,9 @@ public class TableContextGenericTest
         StartDate = DateTime.Now.AddMonths(-1)
     };
 
-    private static List<Project> projects = new()
+    private static readonly List<Project> Projects = new()
     {
-        new Project()
+        new()
         {
             CompanyId = 1,
             EndDate = DateTime.Now,
@@ -41,7 +41,7 @@ public class TableContextGenericTest
             ProjectType = ProjectTypes.Exciting,
             StartDate = DateTime.Now.AddMonths(-1)
         },
-        new Project()
+        new()
         {
             CompanyId = 2,
             EndDate = DateTime.Now,
@@ -53,9 +53,9 @@ public class TableContextGenericTest
         }
     };
 
-    private static List<Project> projectsUpdated = new()
+    private static readonly List<Project> ProjectsUpdated = new()
     {
-        new Project()
+        new()
         {
             ProjectId = 1,
             CompanyId = 1,
@@ -66,7 +66,7 @@ public class TableContextGenericTest
             ProjectType = ProjectTypes.Exciting,
             StartDate = DateTime.Now.AddMonths(-1)
         },
-        new Project()
+        new()
         {
             ProjectId = 2,
             CompanyId = 2,
@@ -79,18 +79,18 @@ public class TableContextGenericTest
         }
     };
 
-    private static Project projectToDelete = new()
+    private static readonly Project ProjectToDelete = new()
     {
         ProjectId = 1
     };
 
-    private static List<Project> projectsToDelete = new()
+    private static readonly List<Project> ProjectsToDelete = new()
     {
-        new Project()
+        new()
         {
             ProjectId = 1
         },
-        new Project()
+        new()
         {
             ProjectId = 2
         }
@@ -101,11 +101,11 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        table.InsertOne(project);
+        table.InsertOne(Project);
 
         var result = table.FirstOrDefault();
 
-        Assert.AreEqual(project.Name, result?.Name);
+        Assert.AreEqual(Project.Name, result?.Name);
     }
 
     [Test]
@@ -113,11 +113,11 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        await table.InsertOneAsync(project);
+        await table.InsertOneAsync(Project);
 
         var result = await table.FirstOrDefaultAsync();
 
-        Assert.AreEqual(project.Name, result?.Name);
+        Assert.AreEqual(Project.Name, result?.Name);
     }
 
     [Test]
@@ -153,9 +153,9 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        var result = table.InsertOne(project);
+        var result = table.InsertOne(Project);
 
-        Assert.AreEqual(project.Name, result?.Name);
+        Assert.AreEqual(Project.Name, result?.Name);
     }
 
     [Test]
@@ -163,9 +163,9 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        var result = await table.InsertOneAsync(project);
+        var result = await table.InsertOneAsync(Project);
 
-        Assert.AreEqual(project.Name, result?.Name);
+        Assert.AreEqual(Project.Name, result?.Name);
     }
 
     [Test]
@@ -173,9 +173,9 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        var projectsInserted = table.InsertMany(projects);
+        var projectsInserted = table.InsertMany(Projects);
 
-        Assert.AreEqual(projects.Count, projectsInserted);
+        Assert.AreEqual(Projects.Count, projectsInserted);
     }
 
     [Test]
@@ -183,63 +183,63 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        var projectsInserted = await table.InsertManyAsync(projects);
+        var projectsInserted = await table.InsertManyAsync(Projects);
 
-        Assert.AreEqual(projects.Count, projectsInserted);
+        Assert.AreEqual(Projects.Count, projectsInserted);
     }
 
     [Test]
-    public void UpdateOneRetrunsNumberOfRowsAffected()
+    public void UpdateOneReturnsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        table.InsertOne(project);
+        table.InsertOne(Project);
 
-        var projecstUpdated = table.UpdateOne(projectUpdated);
+        var projecstUpdated = table.UpdateOne(ProjectUpdated);
 
         Assert.AreEqual(1, projecstUpdated);
     }
 
     [Test]
-    public async Task UpdateOneAsyncRetrunsNumberOfRowsAffected()
+    public async Task UpdateOneAsyncReturnsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        table.InsertOne(project);
+        table.InsertOne(Project);
 
-        var projecstUpdated = await table.UpdateOneAsync(projectUpdated);
+        var projecstUpdated = await table.UpdateOneAsync(ProjectUpdated);
 
         Assert.AreEqual(1, projecstUpdated);
     }
 
     [Test]
-    public void UpdateManyRetrunsNumberOfRowsAffected()
+    public void UpdateManyReturnsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        table.InsertMany(projects);
-        var updatedCount = table.UpdateMany(projectsUpdated);
+        table.InsertMany(Projects);
+        var updatedCount = table.UpdateMany(ProjectsUpdated);
         var updatedTable = table.Query().ToList();
 
-        Assert.AreEqual(projectsUpdated.Count, updatedCount);
-        Assert.AreEqual(projectsUpdated[0].Name, updatedTable[0].Name);
-        Assert.AreEqual(projectsUpdated[1].Name, updatedTable[1].Name);
+        Assert.AreEqual(ProjectsUpdated.Count, updatedCount);
+        Assert.AreEqual(ProjectsUpdated[0].Name, updatedTable[0].Name);
+        Assert.AreEqual(ProjectsUpdated[1].Name, updatedTable[1].Name);
     }
 
     [Test]
-    public async Task UpdateManyAsyncRetrunsNumberOfRowsAffected()
+    public async Task UpdateManyAsyncReturnsNumberOfRowsAffected()
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        table.InsertMany(projects);
-        var updatedCount = await table.UpdateManyAsync(projectsUpdated);
+        table.InsertMany(Projects);
+        var updatedCount = await table.UpdateManyAsync(ProjectsUpdated);
         var updatedTable = await table.QueryAsync().ToListAsync();
 
-        Assert.AreEqual(projectsUpdated.Count, updatedCount);
-        Assert.AreEqual(projectsUpdated[0].Name, updatedTable[0]?.Name);
-        Assert.AreEqual(projectsUpdated[1].Name, updatedTable[1]?.Name);
+        Assert.AreEqual(ProjectsUpdated.Count, updatedCount);
+        Assert.AreEqual(ProjectsUpdated[0].Name, updatedTable[0]?.Name);
+        Assert.AreEqual(ProjectsUpdated[1].Name, updatedTable[1]?.Name);
     }
 
     [Test]
@@ -248,9 +248,9 @@ public class TableContextGenericTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        table.InsertOne(project);
+        table.InsertOne(Project);
 
-        table.DeleteOne(projectToDelete);
+        table.DeleteOne(ProjectToDelete);
         var count = table.Query().ToList().Count;
 
         Assert.AreEqual(0, count);
@@ -261,9 +261,9 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        table.InsertOne(project);
+        table.InsertOne(Project);
 
-        await table.DeleteOneAsync(projectToDelete);
+        await table.DeleteOneAsync(ProjectToDelete);
         var count = table.Query().ToList().Count;
 
         Assert.AreEqual(0, count);
@@ -275,11 +275,11 @@ public class TableContextGenericTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
 
-        table.InsertMany(projects);
-        var deleted = table.DeleteMany(projectsToDelete);
+        table.InsertMany(Projects);
+        var deleted = table.DeleteMany(ProjectsToDelete);
         var remaining = table.Query().ToList().Count;
 
-        Assert.AreEqual(projects.Count - deleted, remaining);
+        Assert.AreEqual(Projects.Count - deleted, remaining);
     }
 
     [Test]
@@ -287,10 +287,10 @@ public class TableContextGenericTest
     {
         var conn = new SqliteConnection("Data Source=:memory:");
         var table = conn.EnsureConnected().TableBuilder<Project>("Projects").ExecuteTableCommand();
-        await table.InsertManyAsync(projects);
-        var deleted = await table.DeleteManyAsync(projectsToDelete);
+        await table.InsertManyAsync(Projects);
+        var deleted = await table.DeleteManyAsync(ProjectsToDelete);
         var remaining = table.Query().ToList().Count;
 
-        Assert.AreEqual(projects.Count - deleted, remaining);
+        Assert.AreEqual(Projects.Count - deleted, remaining);
     }
 }

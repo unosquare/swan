@@ -1,7 +1,7 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Test.Mocks;
+using Mocks;
 
 [TestFixture]
 public class TableContextTest

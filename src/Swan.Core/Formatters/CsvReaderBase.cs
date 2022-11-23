@@ -149,7 +149,7 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
     }
 
     /// <inheritdoc />
-    public async ValueTask<bool> MoveNextAsync(CancellationToken ct = default) =>
+    public async ValueTask<bool> MoveNextAsync(CancellationToken ct) =>
         await MoveNextAsync(TrimsValues, ct).ConfigureAwait(false);
 
     /// <inheritdoc />
@@ -284,7 +284,7 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
     /// <param name="line">The line that was read as a span.</param>
     /// <returns>True if line read succeeds (even if it is empty). False if we have reached the end of the stream.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool TryReadLine(TextReader reader, [MaybeNullWhen(false)] out ReadOnlySpan<char> line)
+    private static bool TryReadLine(TextReader reader, out ReadOnlySpan<char> line)
     {
         line = default;
         var textLine = reader.ReadLine();
@@ -449,7 +449,7 @@ public abstract class CsvReaderBase<TLine> : ICsvReader<TLine>
 
         while (currentState != ReadState.CommitRecord && !ct.IsCancellationRequested)
         {
-            var textLine = await reader.ReadLineAsync().ConfigureAwait(false);
+            var textLine = await reader.ReadLineAsync(ct).ConfigureAwait(false);
             if (textLine is null)
                 break;
 

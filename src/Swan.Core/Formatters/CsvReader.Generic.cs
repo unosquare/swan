@@ -121,11 +121,8 @@ public abstract class CsvReader<TReader, TLine> : CsvReaderBase<TLine>
         if (_headings.Any())
             return;
 
-        if (Values is null)
-        {
-            if (!MoveNext(TrimsHeadings) || Values is null || Values.Count <= 0)
-                throw new InvalidOperationException("Unable to read headings from the underlying stream.");
-        }
+        if (!MoveNext(TrimsHeadings) || Values is null || Values.Count <= 0)
+            throw new InvalidOperationException("Unable to read headings from the underlying stream.");
 
         SetHeadings(Values.ToArray());
 

@@ -1,15 +1,13 @@
-﻿namespace Swan.Test.Mocks
+﻿namespace Swan.Test.Mocks;
+
+public class LargeObject
 {
-    public class LargeObject
+    public int InitializedBy { get; }
+
+    public LargeObject(int initializedBy)
     {
-        public int InitializedBy => initBy;
-
-        int initBy;
-        public LargeObject(int initializedBy)
-        {
-            initBy = initializedBy;
-        }
-
-        public long[] Data = new long[100000000];
+        InitializedBy = initializedBy;
     }
+
+    public long[] Data = new long[100000000];
 }

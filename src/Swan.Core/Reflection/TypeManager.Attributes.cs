@@ -28,7 +28,7 @@ public static partial class TypeManager
     /// <param name="member">The declaration to be searched.</param>
     /// <typeparam name="T">The attribute type to search for.</typeparam>
     /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-    public static T? Attribute<T>(this IPropertyProxy member) where T : Attribute =>
+    public static T? Attribute<T>(this IPropertyProxy? member) where T : Attribute =>
         member?.PropertyAttributes.FirstAttribute<T>();
 
     /// <summary>
@@ -37,7 +37,7 @@ public static partial class TypeManager
     /// <param name="member">The declaration to be searched.</param>
     /// <param name="attributeType">The attribute type to search for.</param>
     /// <returns>Returns a null if an attribute of the given type is not found.</returns>
-    public static object? Attribute(this IPropertyProxy member, Type attributeType) =>
+    public static object? Attribute(this IPropertyProxy? member, Type attributeType) =>
         member?.PropertyAttributes.FirstAttribute(attributeType);
 
     /// <summary>
@@ -46,7 +46,7 @@ public static partial class TypeManager
     /// <param name="member">The declaration to be searched.</param>
     /// <typeparam name="T">The type of the attribute to search for.</typeparam>
     /// <returns>True if the attribute is found. False otherwise.</returns>
-    public static bool HasAttribute<T>(this IPropertyProxy member) where T : Attribute =>
+    public static bool HasAttribute<T>(this IPropertyProxy? member) where T : Attribute =>
         member?.Attribute<T>() is not null;
 
     /// <summary>
@@ -55,7 +55,7 @@ public static partial class TypeManager
     /// <param name="member">The declaration to be searched.</param>
     /// <param name="attributeType">The type of the attribute to search for.</param>
     /// <returns>True if the attribute is found. False otherwise.</returns>
-    public static bool HasAttribute(this IPropertyProxy member, Type attributeType) =>
+    public static bool HasAttribute(this IPropertyProxy? member, Type attributeType) =>
         member?.Attribute(attributeType) is not null;
 
     #endregion

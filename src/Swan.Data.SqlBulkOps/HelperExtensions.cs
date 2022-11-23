@@ -1,7 +1,7 @@
 ﻿namespace Swan.Data.SqlBulkOps;
 
-using Swan.Data.Schema;
-using Swan.Reflection;
+using Reflection;
+using Schema;
 using System.Globalization;
 using System.Text;
 

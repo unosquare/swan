@@ -1,6 +1,6 @@
 ﻿namespace Swan.Data.Extensions;
 
-using Swan.Data.Records;
+using Records;
 
 /// <summary>
 /// Provides extensions for <see cref="IEnumerable"/> compatible objects.
@@ -43,7 +43,7 @@ public static class DataReaderExtensions
         var result = new List<T>(BufferSize);
         enumerable.WithCancellation(ct).ConfigureAwait(false);
 
-        await foreach (var item in enumerable)
+        await foreach (var item in enumerable.WithCancellation(ct))
         {
             if (item is null)
                 continue;

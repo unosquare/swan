@@ -23,7 +23,7 @@ public static class TableSchemaExtensions
         var columns = new List<IDbColumnSchema>(128);
         var typeMapper = connection?.Provider()?.TypeMapper ?? DbTypeMapper.Default;
 
-        foreach ((var columnName, var property) in typeInfo.GetColumnMap())
+        foreach (var (columnName, property) in typeInfo.GetColumnMap())
         {
             var columnSchema = property.ToColumnSchema(columnName, columns.Count, typeMapper);
             if (columnSchema is not DbColumnSchema dbColumn)

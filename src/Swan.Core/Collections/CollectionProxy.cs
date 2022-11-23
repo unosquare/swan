@@ -95,19 +95,17 @@ public sealed class CollectionProxy : IList, IDictionary, ICollectionInfo, IList
     /// <inheritdoc />
     public object? this[object key]
     {
-        get
-        {
-            return !TypeManager.TryChangeType(key, KeysType, out var keyItem)
+        get =>
+            !TypeManager.TryChangeType(key, KeysType, out var keyItem)
                 ? throw new ArgumentException(InvalidCastMessage, nameof(key))
                 : keyItem is null
-                ? throw new ArgumentNullException(nameof(key))
-                : KeysType.NativeType == typeof(int)
-                    ? this[(int)keyItem]
-                    : Delegates.IndexerObjGetter is not null
-                        ? Delegates.IndexerObjGetter(keyItem)
-                        : throw new NotSupportedException(
-                            $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
-        }
+                    ? throw new ArgumentNullException(nameof(key))
+                    : KeysType.NativeType == typeof(int)
+                        ? this[(int)keyItem]
+                        : Delegates.IndexerObjGetter is not null
+                            ? Delegates.IndexerObjGetter(keyItem)
+                            : throw new NotSupportedException(
+                                $"Collection ({SourceType.ShortName}) does not support getting a value via key object.");
         set
         {
             if (!TypeManager.TryChangeType(key, KeysType, out var keyItem))

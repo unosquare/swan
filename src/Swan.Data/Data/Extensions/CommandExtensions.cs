@@ -352,7 +352,7 @@ public static class CommandExtensions
     /// <returns>The same command for fluent API support.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    internal static TCommand SetParameters<TCommand>(this TCommand command, object? parameters, ITypeInfo? typeInfo = default)
+    internal static TCommand SetParameters<TCommand>(this TCommand command, object? parameters, ITypeInfo? typeInfo)
         where TCommand : DbCommand
     {
         if (command is null)
@@ -373,7 +373,7 @@ public static class CommandExtensions
             ? command.CommandText.AsSpan()
             : Array.Empty<char>().AsSpan();
 
-        foreach ((var columnName, var property) in columnMap)
+        foreach (var (columnName, property) in columnMap)
         {
             if (!property.CanRead)
                 continue;
@@ -382,10 +382,10 @@ public static class CommandExtensions
                 continue;
 
             var parameterName = provider.QuoteParameter(columnName);
-            var containsParamter = hasCommandText
+            var containsParameter = hasCommandText
                 && commandText.Contains(parameterName, StringComparison.InvariantCultureIgnoreCase);
 
-            if (hasCommandText && !containsParamter)
+            if (hasCommandText && !containsParameter)
                 continue;
 
             if (property.TryRead(parameters, out var value))
@@ -493,7 +493,7 @@ public static class CommandExtensions
     }
 
     /// <summary>
-    /// Sets a trasnaction (or null value) to the provided command.
+    /// Sets a transaction (or null value) to the provided command.
     /// </summary>
     /// <typeparam name="TCommand">The compatible command type.</typeparam>
     /// <param name="command">The command object.</param>
@@ -563,7 +563,7 @@ public static class CommandExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// The associated command is automatically disposed after iterating over the elements.
     /// </summary>
@@ -621,7 +621,7 @@ public static class CommandExtensions
 
     /// <summary>
     /// Executes a data reader in the underlying stream as a single result set
-    /// and provides a foward-only enumerable set which can then be processed by
+    /// and provides a forward-only enumerable set which can then be processed by
     /// iterating over records, one at a time.
     /// The associated command is automatically disposed after iterating over the elements.
     /// </summary>

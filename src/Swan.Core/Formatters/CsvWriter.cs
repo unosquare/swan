@@ -81,15 +81,8 @@ public class CsvWriter : IDisposable, IAsyncDisposable
     /// <param name="items">The set of strings to write out. If no items are specified, an empty line is written to the stream.</param>
     public void WriteLine(params string?[] items)
     {
-        try
-        {
-            _writer.Write(SerializeValues(NewLineSequence, EscapeChar, SeparatorChar, items));
-            _count.Increment();
-        }
-        catch
-        {
-            throw;
-        }
+        _writer.Write(SerializeValues(NewLineSequence, EscapeChar, SeparatorChar, items));
+        _count.Increment();
     }
 
     /// <summary>
@@ -99,15 +92,8 @@ public class CsvWriter : IDisposable, IAsyncDisposable
     /// <param name="items">The set of strings to write out. If no items are specified, an empty line is written to the stream.</param>
     public async ValueTask WriteLineAsync(params string?[] items)
     {
-        try
-        {
-            await _writer.WriteAsync(SerializeValues(NewLineSequence, EscapeChar, SeparatorChar, items)).ConfigureAwait(false);
-            _count.Increment();
-        }
-        catch
-        {
-            throw;
-        }
+        await _writer.WriteAsync(SerializeValues(NewLineSequence, EscapeChar, SeparatorChar, items)).ConfigureAwait(false);
+        _count.Increment();
     }
 
     /// <inheritdoc />

@@ -1,6 +1,6 @@
 ﻿namespace Swan.Data.Records;
 
-using Swan.Data;
+using Data;
 
 /// <summary>
 /// Represents a DataReader that was derived from a collection.
@@ -33,14 +33,8 @@ internal sealed class CollectionDbReader : ICollectionDbReader
     /// <exception cref="ArgumentNullException"></exception>
     public CollectionDbReader(IEnumerator enumerator, IDbTableSchema schema)
     {
-        if (enumerator is null)
-            throw new ArgumentNullException(nameof(enumerator));
-
-        if (schema is null)
-            throw new ArgumentNullException(nameof(schema));
-
-        Enumerator = enumerator;
-        Schema = schema;
+        Enumerator = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
+        Schema = schema ?? throw new ArgumentNullException(nameof(schema));
     }
 
     /// <summary>
@@ -51,13 +45,10 @@ internal sealed class CollectionDbReader : ICollectionDbReader
     /// <exception cref="ArgumentNullException"></exception>
     public CollectionDbReader(IEnumerator enumerator, Type itemType)
     {
-        if (enumerator is null)
-            throw new ArgumentNullException(nameof(enumerator));
-
         if (itemType is null)
             throw new ArgumentNullException(nameof(itemType));
 
-        Enumerator = enumerator;
+        Enumerator = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
         Schema = itemType.ToTableSchema();
 
         // TODO: Map Column Attribute to schema.

@@ -71,7 +71,7 @@ internal class DbTypeMapper : IDbTypeMapper
     public virtual IReadOnlyList<Type> SupportedTypes => DbTypeMap.Keys.ToArray();
 
     /// <inheritdoc />
-    public virtual bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType)
+    public virtual bool TryGetProviderTypeFor(Type type, out DbType? dbType)
     {
         dbType = default;
         type = type.TypeInfo().BackingType.NativeType;

@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
+using Formatters;
+using Mocks;
 using System.Dynamic;
 using System.Text.Json;
 
@@ -39,7 +39,7 @@ public class JsonFormatterDynamicTest
     [Test]
     public async Task WithUTF8JsonStream_ReturnsDynamicObject()
     {
-        var dog = new Dog() { Name = "Merlina" };
+        var dog = new Dog { Name = "Merlina" };
         var jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
 
         var stream = new MemoryStream(jsonUtf8Bytes);

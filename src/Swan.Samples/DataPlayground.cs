@@ -4,8 +4,8 @@ using Data.Extensions;
 using Logging;
 using Microsoft.Data.Sqlite;
 using Platform;
-using Swan.Data.Context;
-using Swan.Data.SqlBulkOps;
+using Data.Context;
+using Data.SqlBulkOps;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
@@ -135,7 +135,7 @@ internal static class DataPlayground
         // since we will be rolling back the transaction.
         await using var tran = await connection.BeginTransactionAsync();
 
-        var dummyProject = new Project()
+        var dummyProject = new Project
         {
             Name = "Dummy",
             CompanyId = 61,
@@ -175,7 +175,7 @@ internal static class DataPlayground
         await using var tran = await connection.BeginTransactionAsync();
 
         // Create a dummy record
-        var dummyProject = new Project()
+        var dummyProject = new Project
         {
             Name = "Dummy",
             CompanyId = 61,

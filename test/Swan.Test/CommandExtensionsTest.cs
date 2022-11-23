@@ -319,7 +319,7 @@ public class CommandExtensionsTest
         var conn = new SqliteConnection("Data Source=:memory:");
         var command = conn.CreateCommand();
 
-        var cmd = command.SetParameters(new Project()
+        var cmd = command.SetParameters(new Project
         {
             CompanyId = 1,
             EndDate = DateTime.Now,

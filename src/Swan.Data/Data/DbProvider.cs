@@ -181,7 +181,7 @@ public class DbProvider
     /// <param name="table">The table.</param>
     /// <param name="commandText">The output SELECT command text.</param>
     /// <returns>True if the provider supports producing the SELECT-back statement. False otherwise.</returns>
-    public virtual bool TryGetSelectLastInserted(IDbTableSchema table, [MaybeNullWhen(false)] out string? commandText)
+    public virtual bool TryGetSelectLastInserted(IDbTableSchema table, out string? commandText)
     {
         commandText = null;
         return false;

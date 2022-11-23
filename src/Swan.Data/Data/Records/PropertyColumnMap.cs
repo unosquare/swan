@@ -1,7 +1,7 @@
 ﻿namespace Swan.Data.Records;
 
 /// <summary>
-/// Provides cplumn-to-property maps for efficient object parsing.
+/// Provides column-to-property maps for efficient object parsing.
 /// </summary>
 internal static class PropertyColumnMap
 {
@@ -20,8 +20,8 @@ internal static class PropertyColumnMap
             if (PropertyColumnMaps.TryGetValue(typeInfo, out var map))
                 return map;
 
-            map = new Dictionary<string, IPropertyProxy>(StringComparer.OrdinalIgnoreCase);
-            foreach ((var propertyName, var property) in typeInfo.Properties)
+            map = new(StringComparer.OrdinalIgnoreCase);
+            foreach (var (propertyName, property) in typeInfo.Properties)
             {
                 var fieldName = property.Attribute<ColumnAttribute>() is ColumnAttribute columnAttribute
                     && !string.IsNullOrWhiteSpace(columnAttribute.Name)

@@ -160,7 +160,7 @@ public static partial class Program
         var outText = TextSerializer.Serialize(d);
         var outText2 = TextSerializer.Serialize(mock);
 
-        var objDict = new Dictionary<object, object?>()
+        var objDict = new Dictionary<object, object?>
         {
             ["jsonstuff"] = outDict,
             [TimeSpan.FromMilliseconds(334344)] = sdict,

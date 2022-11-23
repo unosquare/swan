@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Formatters;
-using Swan.Test.Mocks;
+using Formatters;
+using Mocks;
 using System.Text.Json;
 
 [TestFixture]
@@ -12,7 +12,7 @@ public class JsonFormatterTest
     public void WithJson_ReturnsDogObject()
     {
         var deserialized = "{\r\n    \"Name\": \"Merlina\"\r\n}".JsonDeserialize(typeof(Dog)) as Dog;
-        Assert.AreEqual("Merlina",deserialized?.Name);
+        Assert.AreEqual("Merlina", deserialized?.Name);
     }
 
     [Test]
@@ -26,9 +26,9 @@ public class JsonFormatterTest
     [Test]
     public async Task WithUTF8JsonStream_ReturnsObject()
     {
-        var dog = new Dog() { Name = "Merlina" };
+        var dog = new Dog { Name = "Merlina" };
         byte[] jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
-        
+
         var stream = new MemoryStream(jsonUtf8Bytes);
 
         var deserializedDog = await stream.JsonDeserializeAsync(typeof(Dog)) as Dog;
@@ -39,7 +39,7 @@ public class JsonFormatterTest
     [Test]
     public async Task WithUTF8JsonStream_ReturnsDinamicObject()
     {
-        var dog = new Dog() { Name = "Merlina" };
+        var dog = new Dog { Name = "Merlina" };
         byte[] jsonUtf8Bytes = JsonSerializer.SerializeToUtf8Bytes(dog);
 
         var stream = new MemoryStream(jsonUtf8Bytes);

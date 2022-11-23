@@ -8,6 +8,5 @@ global using Swan.Extensions;
 global using System.Collections;
 global using System.Data.Common;
 global using System.Data.SqlClient;
-global using System.Data;
 
 [assembly: CLSCompliant(true)]

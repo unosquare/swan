@@ -17,7 +17,7 @@ public interface IDbTypeMapper
     /// <param name="type">The CLR type.</param>
     /// <param name="dbType">The <see cref="DbType"/>.</param>
     /// <returns>True if the type is found, false otherwise.</returns>
-    bool TryGetProviderTypeFor(Type type, [MaybeNullWhen(false)] out DbType? dbType);
+    bool TryGetProviderTypeFor(Type type, out DbType? dbType);
 
     /// <summary>
     /// Tries to obtain a provider-specific type expressed as a DDL string.

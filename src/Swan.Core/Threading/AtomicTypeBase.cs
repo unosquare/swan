@@ -40,7 +40,7 @@ public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparab
     /// Implicit conversion operator.
     /// </summary>
     /// <param name="atomic">The atomic object containing the value.</param>
-    public static implicit operator T(AtomicTypeBase<T> atomic) => atomic?.Value ?? default;
+    public static implicit operator T(AtomicTypeBase<T>? atomic) => atomic?.Value ?? default;
 
     /// <summary>
     /// Implements the operator ==.

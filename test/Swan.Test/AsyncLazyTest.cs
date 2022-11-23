@@ -1,8 +1,8 @@
 ﻿namespace Swan.Test;
 
 using NUnit.Framework;
-using Swan.Gizmos;
-using Swan.Test.Mocks;
+using Gizmos;
+using Mocks;
 
 [TestFixture]
 public class AsyncLazyTest
@@ -13,13 +13,13 @@ public class AsyncLazyTest
     {   
         Random random = new Random();
         await Task.Delay(100);
-        return new LargeObject(random.Next());
+        return new(random.Next());
     }
 
     [Test]
     public async Task WithLargObject_getsValueAsync()
     {
-        lazyLargeObject = new AsyncLazy<LargeObject>(InitLargeObject);
+        lazyLargeObject = new(InitLargeObject);
 
         var large = await lazyLargeObject.GetValueAsync();
 

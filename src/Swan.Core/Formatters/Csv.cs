@@ -64,18 +64,18 @@ public static class Csv
         if (stream is null)
             throw new ArgumentNullException(nameof(stream));
 
-        using var reader = new CsvObjectReader<TRecord>(stream, encoding);
+        await using var reader = new CsvObjectReader<TRecord>(stream, encoding);
         reader.WithCancellation(ct);
         var result = new List<TRecord>(1024);
 
-        await foreach(var item in reader)
+        await foreach (var item in reader)
         {
             if (item is null)
                 continue;
 
             result.Add(item);
         }
-        
+
         return result;
     }
 
@@ -106,7 +106,7 @@ public static class Csv
     public static async Task<IList<TRecord>> LoadAsync<TRecord>(string filePath, Encoding? encoding = default, CancellationToken ct = default)
         where TRecord : class, new()
     {
-        using var stream = File.OpenRead(filePath);
+        await using var stream = File.OpenRead(filePath);
         return await LoadAsync<TRecord>(stream, encoding, ct);
     }
 
@@ -140,7 +140,7 @@ public static class Csv
         if (stream is null)
             throw new ArgumentNullException(nameof(stream));
 
-        using var reader = new CsvDynamicReader(stream, encoding);
+        await using var reader = new CsvDynamicReader(stream, encoding);
         reader.WithCancellation(ct);
         var result = new List<dynamic>(1024);
 
@@ -178,7 +178,7 @@ public static class Csv
     /// <returns>A list of objects parsed from the underlying stream.</returns>
     public static async Task<IList<dynamic>> LoadAsync(string filePath, Encoding? encoding = default, CancellationToken ct = default)
     {
-        using var stream = File.OpenRead(filePath);
+        await using var stream = File.OpenRead(filePath);
         return await LoadAsync(stream, encoding, ct).ConfigureAwait(false);
     }
 
@@ -206,32 +206,6 @@ public static class Csv
     }
 
     /// <summary>
-    /// Saves multiple records to the underlying stream.
-    /// </summary>
-    /// <typeparam name="T">The type of objects to be written.</typeparam>
-    /// <param name="items">A collection of items to be written.</param>
-    /// <param name="stream">The target stream to write items into.</param>
-    /// <param name="encoding">The encoding to be used.</param>
-    /// <param name="writeHeadings">Whether headings should be written out to the file.</param>
-    /// <param name="ct">The optional cancellation token.</param>
-    /// <returns>The number of records written to the file, including headings.</returns>
-    public static async Task<long> SaveAsync<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default, bool writeHeadings = true, CancellationToken ct = default)
-    {
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
-        if (stream is null)
-            throw new ArgumentNullException(nameof(stream));
-
-        using var writer = new CsvWriter<T>(stream, encoding, writeHeadings);
-        writer.ConfigureAwait(false);
-
-        await writer.WriteLinesAsync(items, ct).ConfigureAwait(false);
-        await writer.FlushAsync().ConfigureAwait(false);
-        return writer.Count;
-    }
-
-    /// <summary>
     /// Saves multiple records to the specified file.
     /// </summary>
     /// <typeparam name="T">The type of objects to be written.</typeparam>
@@ -250,6 +224,32 @@ public static class Csv
     }
 
     /// <summary>
+    /// Saves multiple records to the underlying stream.
+    /// </summary>
+    /// <typeparam name="T">The type of objects to be written.</typeparam>
+    /// <param name="items">A collection of items to be written.</param>
+    /// <param name="stream">The target stream to write items into.</param>
+    /// <param name="encoding">The encoding to be used.</param>
+    /// <param name="writeHeadings">Whether headings should be written out to the file.</param>
+    /// <param name="ct">The optional cancellation token.</param>
+    /// <returns>The number of records written to the file, including headings.</returns>
+    public static async Task<long> SaveAsync<T>(IEnumerable<T> items, Stream stream, Encoding? encoding = default, bool writeHeadings = true, CancellationToken ct = default)
+    {
+        if (items is null)
+            throw new ArgumentNullException(nameof(items));
+
+        if (stream is null)
+            throw new ArgumentNullException(nameof(stream));
+
+        await using var writer = new CsvWriter<T>(stream, encoding, writeHeadings);
+        writer.ConfigureAwait(false);
+
+        await writer.WriteLinesAsync(items, ct).ConfigureAwait(false);
+        await writer.FlushAsync().ConfigureAwait(false);
+        return writer.Count;
+    }
+
+    /// <summary>
     /// Saves multiple records to the specified file.
     /// </summary>
     /// <typeparam name="T">The type of objects to be written.</typeparam>
@@ -261,7 +261,8 @@ public static class Csv
     /// <returns>The number of records written to the file, including headings.</returns>
     public static async Task<long> SaveAsync<T>(IEnumerable<T> items, string filePath, Encoding? encoding = default, bool truncate = true, CancellationToken ct = default)
     {
-        using var fileStream = File.OpenWrite(filePath);
+        await using var fileStream = File.OpenWrite(filePath);
+
         if (truncate)
             fileStream.SetLength(0);
 
