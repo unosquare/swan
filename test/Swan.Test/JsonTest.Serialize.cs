@@ -138,7 +138,7 @@ public class SerializeOnly : JsonTest
     public void WithEmptyString_ReturnsEmptyString() => Assert.AreEqual("\"\"", string.Empty.JsonSerialize());
 
     [Test]
-    public void WithType_SerializingTypeThrows() => Assert.Throws<InvalidOperationException>(() => typeof(string).JsonSerialize());
+    public void WithType_SerializingTypeThrows() => Assert.Throws<NotSupportedException>(() => typeof(string).JsonSerialize());
 
     [Test]
     public void WithEmptyEnumerable_ReturnsEmptyArrayLiteral()
