@@ -1,10 +1,14 @@
 ﻿namespace Swan.Data.Extensions;
 
+using System.Data.Common;
+
 /// <summary>
 /// Provides extension methods for <see cref="DbConnection"/> objects.
 /// </summary>
 public static class ConnectionExtensions
 {
+    private static readonly ConditionalWeakTable<DbConnection, IReadOnlyList<TableIdentifier>> ConnectionTables = new();
+
     /// <summary>
     /// Retrieves the <see cref="DbProvider"/> associated with the given connection.
     /// </summary>
@@ -20,18 +24,22 @@ public static class ConnectionExtensions
     /// Retrieves a list of table names in the database. This may include views and temporary tables.
     /// </summary>
     /// <param name="connection">The connection.</param>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <param name="useCache">Specifies whether or not to use the cached table names when available.</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A list of table names in the database.</returns>
-    public static async Task<IReadOnlyList<TableIdentifier>> GetTableNamesAsync(this DbConnection connection, CancellationToken ct = default)
+    public static async Task<IReadOnlyList<TableIdentifier>> GetTableNamesAsync(this DbConnection connection, DbTransaction? transaction = default, bool useCache = true, CancellationToken ct = default)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        await using var command = connection.Provider().CreateListTablesCommand(connection);
-        var result = new List<TableIdentifier>(128);
-        await foreach (var item in command.QueryAsync<TableIdentifier>(ct: ct).ConfigureAwait(false))
-            result.Add(item);
+        if (useCache && ConnectionTables.TryGetValue(connection, out var tableNames))
+            return tableNames;
 
+        await using var command = connection.Provider().CreateListTablesCommand(connection).WithTransaction(transaction);
+        var result = await command.QueryAsync<TableIdentifier>(ct: ct).ToListAsync(ct).ConfigureAwait(false);
+
+        ConnectionTables.AddOrUpdate(connection, result);
         return result;
     }
 
@@ -39,17 +47,21 @@ public static class ConnectionExtensions
     /// Retrieves a list of table names in the database. This may include views and temporary tables.
     /// </summary>
     /// <param name="connection">The connection.</param>
+    /// <param name="transaction">The optional transaction.</param>
+    /// <param name="useCache">Specifies whether or not to use the cached table names when available.</param>
     /// <returns>A list of table names in the database.</returns>
-    public static IReadOnlyList<TableIdentifier> GetTableNames(this DbConnection connection)
+    public static IReadOnlyList<TableIdentifier> GetTableNames(this DbConnection connection, DbTransaction? transaction = default, bool useCache = true)
     {
         if (connection is null)
             throw new ArgumentNullException(nameof(connection));
 
-        using var command = connection.Provider().CreateListTablesCommand(connection);
-        var result = new List<TableIdentifier>(128);
-        foreach (var item in command.Query<TableIdentifier>())
-            result.Add(item);
+        if (useCache && ConnectionTables.TryGetValue(connection, out var tableNames))
+            return tableNames;
 
+        using var command = connection.Provider().CreateListTablesCommand(connection).WithTransaction(transaction);
+        var result = command.Query<TableIdentifier>().ToList();
+
+        ConnectionTables.AddOrUpdate(connection, result);
         return result;
     }
 
@@ -161,9 +173,7 @@ public static class ConnectionExtensions
 
     /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
-    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
-    /// and reused whenever the table context is re-acquired. Caching keys are
-    /// computed based on the connection string, provider type and table name and schema.
+    /// table schema and issue CRUD commands.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>
@@ -177,9 +187,7 @@ public static class ConnectionExtensions
 
     /// <summary>
     /// Acquires a typed, connected table context that can be used to inspect the associated
-    /// table schema and issue CRUD commands. Once the schema is obtained, it is cached
-    /// and reused whenever the table context is re-acquired. Caching keys are
-    /// computed based on the connection string, provider type and table name and schema.
+    /// table schema and issue CRUD commands.
     /// </summary>
     /// <param name="connection">The associated connection.</param>
     /// <param name="tableName">The associated table name.</param>

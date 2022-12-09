@@ -13,8 +13,16 @@ using System.Data.SqlClient;
 
 internal static class DataPlayground
 {
-    private const string ConnectionString = "data source=.;initial catalog=unocorp-timecore;Integrated Security=true;";
+    private const string ConnectionString1 = "data source=.;initial catalog=unocorp-timecore;Integrated Security=true;";
     private const string ConnectionString2 = "data source=.;initial catalog=unocorp-xerosync;Integrated Security=true;";
+
+    public static async Task TableExample()
+    {
+        using var conn = new SqlConnection(ConnectionString2);
+        var view = conn.Table("ActiveJournalsExtendedView").ToTableBuilder().BuildTableCommand();
+        var view2 = conn.Table("ActiveJournalsExtendedView").ToTableBuilder().BuildTableCommand();
+        var view3 = conn.Table("ActiveJournalsExtendedView").ToTableBuilder().GeneratePocoCode();
+    }
 
     public static async Task BasicExample()
     {
@@ -31,7 +39,7 @@ internal static class DataPlayground
         //var liteName = typeof(SqliteConnection).FullName;
 
         // Create a connection as usual.
-        await using var connection = new SqlConnection(ConnectionString);
+        await using var connection = new SqlConnection(ConnectionString1);
 
         var text = connection.TableBuilder<Project>("Projects").BuildTableCommand().CommandText;
 

@@ -183,7 +183,7 @@ public static partial class Program
         // Await DataPlayground.AsyncQuerying();
         //return;
 
-        await DataPlayground.BasicExample();
+        await DataPlayground.TableExample();
 
         return;
         Logger.RegisterLogger<FileLogger>();

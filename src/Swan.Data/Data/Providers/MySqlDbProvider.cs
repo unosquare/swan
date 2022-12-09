@@ -19,7 +19,7 @@ internal class MySqlDbProvider : DbProvider
 
         return connection
             .BeginCommandText(
-                $"SELECT `table_name` AS `Name`, '' AS `Schema` FROM `information_schema`.`tables` WHERE `table_schema` = {QuoteParameter(nameof(database))}")
+                $"SELECT `table_name` AS `Name`, '' AS `Schema`, IF(`table_type` = 'VIEW', 1, 0) AS `IsView` FROM `information_schema`.`tables` WHERE `table_schema` = {QuoteParameter(nameof(database))}")
             .EndCommandText()
             .SetParameter(nameof(database), database);
     }

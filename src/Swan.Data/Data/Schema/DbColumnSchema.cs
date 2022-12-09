@@ -35,5 +35,13 @@ internal sealed record DbColumnSchema : IDbColumnSchema
 
     public bool IsAutoIncrement { get; set; }
 
+    public string BaseCatalogName { get; set; } = string.Empty;
+
+    public string BaseSchemaName { get; set; } = string.Empty;
+
+    public string BaseTableName { get; set; } = string.Empty;
+
+    public string BaseColumnName { get; set; } = string.Empty;
+
     object ICloneable.Clone() => this with { };
 }

@@ -46,7 +46,7 @@ public abstract class DatabaseContextBase : IDbConnected, IDisposable
         foreach (var property in tableProperties)
         {
             if (property.PropertyType.GenericTypeArguments.Count != 1 ||
-                property.PropertyType.NativeType.GetGenericTypeDefinition() != typeof(ITableContext<>) |
+                property.PropertyType.NativeType.GetGenericTypeDefinition() != typeof(ITableContext<>) ||
                 !property.CanRead || !property.CanWrite)
                 continue;
 

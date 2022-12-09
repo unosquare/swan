@@ -12,7 +12,7 @@ internal class SqlServerDbProvider : DbProvider
         connection is null
             ? throw new ArgumentNullException(nameof(connection))
             : connection
-                .BeginCommandText("SELECT [TABLE_NAME] AS [Name], [TABLE_SCHEMA] AS [Schema] FROM [INFORMATION_SCHEMA].[TABLES]")
+                .BeginCommandText("SELECT [TABLE_NAME] AS [Name], [TABLE_SCHEMA] AS [Schema], IIF([TABLE_TYPE] = 'VIEW', 1, 0) AS [IsView] FROM [INFORMATION_SCHEMA].[TABLES]")
                 .EndCommandText();
 
     public override DbCommand CreateTableDdlCommand(DbConnection connection, IDbTableSchema table)

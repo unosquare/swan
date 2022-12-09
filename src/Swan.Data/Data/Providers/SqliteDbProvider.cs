@@ -14,7 +14,7 @@ internal class SqliteDbProvider : DbProvider
         connection is null
             ? throw new ArgumentNullException(nameof(connection))
             : connection
-                .BeginCommandText("SELECT name AS [Name], '' AS [Schema] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type= 'table' ORDER BY name")
+                .BeginCommandText("SELECT name AS [Name], '' AS [Schema], IIF(type = 'view', 1, 0) AS [IsView] FROM (SELECT * FROM sqlite_schema UNION ALL SELECT * FROM sqlite_temp_schema) WHERE type = 'table' OR type = 'view' ORDER BY name")
                 .EndCommandText();
 
     public override string? GetColumnDdlString(IDbColumnSchema column) =>

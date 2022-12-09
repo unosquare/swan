@@ -1,10 +1,16 @@
 ﻿namespace Swan.Data.Schema;
 
+using Swan.Data.Extensions;
+
 /// <summary>
 /// Represents table structure information from the backing data store.
 /// </summary>
 internal class DbTableSchema : IDbTableSchema
 {
+    private const StringComparison TableNameComparison = StringComparison.OrdinalIgnoreCase;
+    private const CommandBehavior SchemaTableBehavior = CommandBehavior.SchemaOnly | CommandBehavior.SingleResult | CommandBehavior.KeyInfo;
+    private const CommandBehavior SchemaViewBehavior = CommandBehavior.SchemaOnly | CommandBehavior.SingleResult;
+
     /// <summary>
     /// Holds the column collection as a dictionary where column names are case-insensitive.
     /// </summary>
@@ -104,10 +110,10 @@ internal class DbTableSchema : IDbTableSchema
             throw new ArgumentNullException(nameof(column));
 
         if (string.IsNullOrWhiteSpace(column.ColumnName))
-            throw new ArgumentException("The column name must be specified.", nameof(column));
+            throw new ArgumentException("The column name is empty but it must be specified.", nameof(column));
 
         if (_columnsByName.ContainsKey(column.ColumnName))
-            throw new ArgumentException("A column with the same name has already been added.", nameof(column));
+            throw new ArgumentException($"A column with the same name '{column.ColumnName}' has already been added.", nameof(column));
 
         if (column.Clone() is not IDbColumnSchema columnCopy)
             throw new ArgumentException($"The {nameof(ICloneable.Clone)} method did not return a {nameof(IDbColumnSchema)}", nameof(column));
@@ -168,11 +174,21 @@ internal class DbTableSchema : IDbTableSchema
         connection.EnsureConnected();
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
+
+        var tables = connection.GetTableNames(transaction);
+        var targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
+            (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
+
+        if (targetTable is null)
+            throw new ArgumentException($"Could not find table under schema '{schema}' with name '{tableName}'", nameof(tableName));
+
         using var schemaCommand = connection.BeginCommandText()
-            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText()
+            .Select().Fields().From(targetTable.Name, schema).Where("1 = 2").EndCommandText()
             .WithTransaction(transaction);
 
-        using var schemaReader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo);
+        using var schemaReader = schemaCommand
+            .ExecuteReader(targetTable.IsView ? SchemaViewBehavior : SchemaTableBehavior);
+
         using var schemaTable = schemaReader.GetSchemaTable();
 
         if (schemaTable is null)
@@ -195,17 +211,24 @@ internal class DbTableSchema : IDbTableSchema
     /// <returns>A populated table schema.</returns>
     public static async Task<IDbTableSchema> LoadAsync(DbConnection connection, string tableName, string? schema, DbTransaction? transaction = default, CancellationToken ct = default)
     {
-        const CommandBehavior SchemaBehavior = CommandBehavior.SchemaOnly | CommandBehavior.KeyInfo;
-
         await connection.EnsureConnectedAsync(ct).ConfigureAwait(false);
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
+
+        var tables = await connection.GetTableNamesAsync(transaction, ct: ct).ConfigureAwait(false);
+        var targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
+            (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
+
+        if (targetTable is null)
+            throw new ArgumentException($"Could not find table under schema '{schema}' with name '{tableName}'", nameof(tableName));
+
         await using var schemaCommand = connection.BeginCommandText()
-            .Select().Fields().From(tableName, schema).Where("1 = 2").EndCommandText()
+            .Select().Fields().From(targetTable.Name, schema).Where("1 = 2").EndCommandText()
             .WithTransaction(transaction);
 
-        
-        await using var schemaReader = await schemaCommand.ExecuteReaderAsync(SchemaBehavior, ct);
+        await using var schemaReader = await schemaCommand
+            .ExecuteReaderAsync(targetTable.IsView ? SchemaViewBehavior : SchemaTableBehavior, ct);
+
         using var schemaTable = await schemaReader.GetSchemaTableAsync(ct);
 
         if (schemaTable is null)

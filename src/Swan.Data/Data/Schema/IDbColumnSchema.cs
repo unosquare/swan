@@ -90,4 +90,27 @@ public interface IDbColumnSchema : ICloneable
     /// Gets a value indicating whether this column is an identity primary key.
     /// </summary>
     bool IsIdentity => !AllowDBNull && IsKey && IsAutoIncrement && DataType.TypeInfo().IsNumeric;
+
+    /// <summary>
+    /// Gets the name of the catalog in the data store that contains the column.
+    /// Null if the base catalog name cannot be determined.
+    /// The default value for this column is a null value.
+    /// </summary>
+    string BaseCatalogName { get; }
+
+    /// <summary>
+    /// Gets the name of the base schema.
+    /// This value is always Null.
+    /// </summary>
+    string BaseSchemaName { get; }
+
+    /// <summary>
+    /// Gets the name of the base table.
+    /// </summary>
+    string BaseTableName { get; }
+
+    /// <summary>
+    /// Gets the name of the column in the DataTable.
+    /// </summary>
+    string BaseColumnName { get; }
 }
