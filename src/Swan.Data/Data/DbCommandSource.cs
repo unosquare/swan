@@ -46,7 +46,7 @@ public sealed class DbCommandSource : IDbConnected
     /// <summary>
     /// Gets a value indicating whether the current command text is empty.
     /// </summary>
-    public bool IsEmpty => (_commandText?.Length ?? 0) > 0;
+    public bool IsEmpty => (_commandText?.Length ?? 0) <= 0;
 
     /// <summary>
     /// Appends the specified text to the command. Automatically pre-appends
