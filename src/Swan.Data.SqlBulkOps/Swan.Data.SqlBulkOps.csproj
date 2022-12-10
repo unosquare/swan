@@ -14,7 +14,7 @@
 
 	<PropertyGroup>
 		<PackageId>Swan.Data.SqlBulkOps</PackageId>
-		<Version>7.0.0-beta.6</Version>
+		<Version>7.0.0-beta.7</Version>
 		<Authors>mariodivece, geoperez, unosquare</Authors>
 		<Company>Unosquare</Company>
 		<AssemblyTitle>Unosquare SWAN Data</AssemblyTitle>
