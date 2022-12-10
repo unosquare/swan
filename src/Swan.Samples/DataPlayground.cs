@@ -24,6 +24,15 @@ internal static class DataPlayground
         var view3 = conn.Table("ActiveJournalsExtendedView").ToTableBuilder().GeneratePocoCode();
     }
 
+    public static async Task TestBulkOperations()
+    {
+        await using var connection = new SqlConnection(ConnectionString1);
+
+        await connection.TestSqlBulkInsert();
+        await connection.TestSqlBulkUpdate();
+        await connection.TestSqlBulkDelete();
+    }
+
     public static async Task BasicExample()
     {
         await using var conn = new SqlConnection(ConnectionString2);
@@ -65,9 +74,7 @@ internal static class DataPlayground
         if (false)
             await connection.TestSampleInsertButBetter();
 
-        await connection.TestSqlBulkInsert();
-        await connection.TestSqlBulkUpdate();
-        await connection.TestSqlBulkDelete();
+
     }
 
     private static async Task SqliteStuff()
@@ -160,7 +167,8 @@ internal static class DataPlayground
             items.Add(dummyProject with { Name = $"Dummy {(i + 1)}" });
         }
 
-        var totalRows = await projects.BulkInsertAsync(items, tran, keepIdentity: false,
+        var reader = items.ToDataReader();
+        var totalRows = await projects.BulkInsertAsync(reader, tran, keepIdentity: false,
             notifyCallback: (t, c) => $"BULK INSERT (Notify): {c}".Info()).ConfigureAwait(false);
 
         $"BULK INSERT (Completed): {totalRows}".Info();

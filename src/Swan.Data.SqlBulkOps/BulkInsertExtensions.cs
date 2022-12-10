@@ -1,5 +1,7 @@
 ﻿namespace Swan.Data.SqlBulkOps;
 
+using System.Data;
+
 /// <summary>
 /// Provides bulk insert methods for <see cref="ITableContext"/> with a connected <see cref="SqlConnection"/>.
 /// </summary>
@@ -9,7 +11,7 @@ public static class BulkInsertExtensions
     /// Performs a bulk insert operation on the provided table.
     /// </summary>
     /// <param name="table">The table context.</param>
-    /// <param name="items">The collection to insert.</param>
+    /// <param name="dataReader">The data reader to read the data from.</param>
     /// <param name="transaction">An optional external transaction. If not provided, the transaction commit and rollback will be handled internally.</param>
     /// <param name="truncate">If set to true, the target table will be truncated first.</param>
     /// <param name="keepIdentity">If keys for autoincrement values should be kept as directly read from the source.</param>
@@ -18,10 +20,14 @@ public static class BulkInsertExtensions
     /// <param name="notifyAfter">Notification callback every number of rows. Value will be clamped between 10 and 1000.</param>
     /// <param name="notifyCallback">The action callback triggered upon a notification event.</param>
     /// <param name="ct">The optional cancellation token.</param>
-    /// <returns>The total number of rows that were inserted.</returns>
+    /// <returns>
+    /// The total number of rows that were inserted.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">nameof(table)</exception>
+    /// <exception cref="ArgumentException">$"The associated table connection is not of the type '{typeof(SqlConnection).FullName}', nameof(table)</exception>
     public static async Task<long> BulkInsertAsync(this ITableContext table,
-        IEnumerable items,
-        DbTransaction? transaction = default,
+        IDataReader dataReader,
+        IDbTransaction? transaction = default,
         bool truncate = false,
         bool keepIdentity = true,
         int timeoutSeconds = Constants.InfiniteTimeoutSeconds,
@@ -85,14 +91,34 @@ public static class BulkInsertExtensions
 
         bulkOperation.SqlRowsCopied += onRowsCopied;
 
-        // Build the column mappings
+        // Obtain a list of the source columns
+        var sourceColumns = new List<string>();
+        for (var i = 0; i < dataReader.FieldCount; i++)
+        {
+            var columnName = dataReader.GetName(i);
+            if (string.IsNullOrWhiteSpace(columnName))
+                continue;
+
+            sourceColumns.Add(columnName);
+        }
+
+        // Map to the target columns matching names (ignore case)
         foreach (var column in table.Columns)
-            bulkOperation.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+        {
+            var sourceColumn = sourceColumns.FirstOrDefault(c => c.Equals(column.ColumnName, StringComparison.OrdinalIgnoreCase));
+            if (sourceColumn is null)
+                continue;
+
+            bulkOperation.ColumnMappings.Add(sourceColumn, column.ColumnName);
+        }
+
+        if (bulkOperation.ColumnMappings.Count <= 0)
+            throw new ArgumentException("The provided data reader does not contain columns that match to the target.", nameof(dataReader));
 
         // Execute the bulk insert operation.
         try
         {
-            // Execute truncate command if needed.
+            // Execute truncate command if truncate was requested.
             if (truncate)
             {
                 await connection
@@ -104,11 +130,8 @@ public static class BulkInsertExtensions
                     .ConfigureAwait(false);
             }
 
-            // Use the collection as a data reader
-            using var reader = items.ToDataReader(table);
-
             // bulk inseret using the streaming operation.
-            await bulkOperation.WriteToServerAsync(reader, ct).ConfigureAwait(false);
+            await bulkOperation.WriteToServerAsync(dataReader, ct).ConfigureAwait(false);
 
             // commit the transaction if successful
             if (isLocalTransaction)

@@ -175,12 +175,19 @@ internal class DbTableSchema : IDbTableSchema
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
 
-        var tables = connection.GetTableNames(transaction);
-        var targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
-            (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
+        TableIdentifier? targetTable = default;
+        var useCacheOptions = new bool[] { true, false };
+        foreach (var useCache in useCacheOptions)
+        {
+            var tables = connection.GetTableNames(transaction, useCache);
+            targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
+                (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
 
-        if (targetTable is null)
-            throw new ArgumentException($"Could not find table under schema '{schema}' with name '{tableName}'", nameof(tableName));
+            if (targetTable is not null)
+                break;
+        }
+
+        targetTable ??= new(tableName, schema, false);
 
         using var schemaCommand = connection.BeginCommandText()
             .Select().Fields().From(targetTable.Name, schema).Where("1 = 2").EndCommandText()
@@ -215,12 +222,19 @@ internal class DbTableSchema : IDbTableSchema
         var provider = connection.Provider();
         schema ??= provider.DefaultSchemaName;
 
-        var tables = await connection.GetTableNamesAsync(transaction, ct: ct).ConfigureAwait(false);
-        var targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
-            (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
+        TableIdentifier? targetTable = default;
+        var useCacheOptions = new bool[] { true, false };
+        foreach (var useCache in useCacheOptions)
+        {
+            var tables = await connection.GetTableNamesAsync(transaction, useCache, ct).ConfigureAwait(false);
+            targetTable = tables.FirstOrDefault(c => c.Name.Equals(tableName, TableNameComparison) &&
+                (string.IsNullOrWhiteSpace(schema) || c.Schema.Equals(schema, TableNameComparison)));
 
-        if (targetTable is null)
-            throw new ArgumentException($"Could not find table under schema '{schema}' with name '{tableName}'", nameof(tableName));
+            if (targetTable is not null)
+                break;
+        }
+
+        targetTable ??= new(tableName, schema, false);
 
         await using var schemaCommand = connection.BeginCommandText()
             .Select().Fields().From(targetTable.Name, schema).Where("1 = 2").EndCommandText()
