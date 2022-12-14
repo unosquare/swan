@@ -1,4 +1,4 @@
-﻿name: Lib - Build and Push (Nuget.org)
+name: Lib - Build and Push (Nuget.org)
 on: 
   workflow_call:
     secrets:
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🧑‍💻 Checkout codebase
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: 🥓 Setup .NET
       uses: actions/setup-dotnet@v3
       with:
