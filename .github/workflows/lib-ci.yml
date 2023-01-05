@@ -67,7 +67,7 @@ jobs:
         access-token: ${{ secrets.github-token }}
         path: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release'
     - name: 🌿 Clean up stale packages
-      uses: actions/delete-package-versions@v3
+      uses: actions/delete-package-versions@v4
       with: 
         package-name: ${{ inputs.project-name }}
         min-versions-to-keep: ${{ inputs.prerelease-versions-kept }}
