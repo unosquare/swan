@@ -44,6 +44,7 @@ jobs:
           5.0.x
           6.0.x
           7.0.x
+          8.0.x
     - name: 🧑‍💻 Checkout codebase
       uses: actions/checkout@v4
       with:
@@ -70,5 +71,5 @@ jobs:
       uses: actions/delete-package-versions@v4
       with: 
         package-name: ${{ inputs.project-name }}
-        min-versions-to-keep: ${{ inputs.prerelease-versions-kept }}
+        min-versions-to-keep: ${{ fromJSON(inputs.prerelease-versions-kept) }}
         delete-only-pre-release-versions: 'true'
