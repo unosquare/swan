@@ -26,7 +26,7 @@ on:
       prerelease-versions-kept:
         description: 'The number of pre-release versions kept in the GitHub registry.'
         required: false
-        type: number
+        type: string
         default: 10
       version-bump-level:
         description: 'The version component to bump after publishing.'
@@ -71,5 +71,5 @@ jobs:
       uses: actions/delete-package-versions@v4
       with: 
         package-name: ${{ inputs.project-name }}
-        min-versions-to-keep: ${{ fromJSON(inputs.prerelease-versions-kept) }}
+        min-versions-to-keep: ${{ inputs.prerelease-versions-kept }}
         delete-only-pre-release-versions: 'true'
