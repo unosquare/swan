@@ -36,6 +36,7 @@ jobs:
           5.0.x
           6.0.x
           7.0.x
+          8.0.x
     - name: 🏗 Build, Pack and Publish to Nuget.org
       run: |
         dotnet pack ${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/${{ inputs.project-name }}.csproj --configuration Release -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
