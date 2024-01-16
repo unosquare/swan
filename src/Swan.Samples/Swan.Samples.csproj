@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>
 
 	<ItemGroup>
