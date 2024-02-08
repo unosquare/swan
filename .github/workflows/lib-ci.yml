@@ -68,7 +68,7 @@ jobs:
         access-token: ${{ secrets.github-token }}
         path: '${{ inputs.base-path }}${{ inputs.source-path }}${{ inputs.project-name }}/bin/Release'
     - name: 🌿 Clean up stale packages
-      uses: actions/delete-package-versions@v4
+      uses: actions/delete-package-versions@v5
       with: 
         package-name: ${{ inputs.project-name }}
         package-type: 'nuget'
